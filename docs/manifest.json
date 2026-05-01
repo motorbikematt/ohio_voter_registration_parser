@@ -1,0 +1,44 @@
+{
+  "title": "Ohio Voter Registration Analysis",
+  "description": "Voter registration analysis for {county}. Use the County dropdown and Geography filter to focus the charts below.",
+  "dataNote": "Sample data — replace JSON files in docs/data/ with actual output from voter_data_cleaner.py.",
+  "counties": ["Montgomery"],
+  "sections": [
+    {
+      "id": "decade-distribution",
+      "title": "Voter Age Distribution by Birth Decade",
+      "navLabel": "Age Cohorts",
+      "description": "Count of registered voters grouped by birth decade. Produced by the Decade Summary sheet in voter_data_cleaner.py.",
+      "county": "Montgomery",
+      "geography": "county",
+      "dataUrl": "data/montgomery_decade_distribution.json"
+    },
+    {
+      "id": "party-affiliation",
+      "title": "Party Affiliation Breakdown",
+      "navLabel": "Party",
+      "description": "Distribution of registered voters by party affiliation. Includes Democratic, Republican, Nonpartisan, and minor parties.",
+      "county": "Montgomery",
+      "geography": "county",
+      "dataUrl": "data/montgomery_party_affiliation.json"
+    },
+    {
+      "id": "party-by-decade",
+      "title": "Party Affiliation by Birth Decade",
+      "navLabel": "Party x Age",
+      "description": "Side-by-side view of party affiliation within each birth decade cohort.",
+      "county": "Montgomery",
+      "geography": "county",
+      "dataUrl": "data/montgomery_party_by_decade.json"
+    },
+    {
+      "id": "precinct-summary",
+      "title": "Registration by Precinct",
+      "navLabel": "Precincts",
+      "description": "Precinct-level active and inactive voter counts with estimated unregistered adult residents.",
+      "county": "Montgomery",
+      "geography": "precinct",
+      "dataUrl": "data/montgomery_precinct_summary.json"
+    }
+  ]
+}

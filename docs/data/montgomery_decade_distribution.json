@@ -1,0 +1,19 @@
+{
+  "title": "Voter Age Distribution by Birth Decade",
+  "county": "Montgomery",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-04-30",
+  "note": "SAMPLE DATA — replace with Decade Summary output from voter_data_cleaner.py",
+  "chartConfig": {
+    "labels": ["1920s", "1930s", "1940s", "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s"],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [1800, 7400, 24600, 47200, 61500, 57800, 54100, 51200, 38900, 9800],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}
