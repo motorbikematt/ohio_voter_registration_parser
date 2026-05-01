@@ -1,0 +1,31 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Montgomery",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-04-30",
+  "note": "SAMPLE DATA — replace with PARTYAFFIL x Decade cross-tab from voter_data_cleaner.py",
+  "chartConfig": {
+    "labels": ["1930s", "1940s", "1950s", "1960s", "1970s", "1980s", "1990s", "2000s"],
+    "datasets": [
+      {
+        "label": "Democratic",
+        "data": [3200, 9800, 18400, 22100, 21500, 19200, 17800, 6800],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3
+      },
+      {
+        "label": "Republican",
+        "data": [3600, 11200, 22300, 25400, 23600, 22100, 19400, 8400],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3
+      },
+      {
+        "label": "Nonpartisan / Other",
+        "data": [600, 3600, 6500, 14000, 12700, 12800, 14000, 23700],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3
+      }
+    ]
+  }
+}

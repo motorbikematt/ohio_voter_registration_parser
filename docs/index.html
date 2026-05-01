@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ohio Voter Registration Analysis</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+
+      <div class="header-title-row">
+        <div class="header-title-group">
+          <h1 class="site-title">Ohio Voter Registration</h1>
+          <span class="header-county-label" id="header-county-label"></span>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+          <span class="theme-icon">&#127769;</span>
+        </button>
+      </div>
+
+      <div class="header-controls">
+        <div class="control-group">
+          <label for="county-select">County</label>
+          <select id="county-select" aria-label="Select county"></select>
+        </div>
+        <div class="control-group">
+          <label>Geography</label>
+          <div class="geo-filter-group" id="geo-filter-group">
+            <button class="geo-btn active" data-geo="all">All</button>
+            <button class="geo-btn" data-geo="county">County</button>
+            <button class="geo-btn" data-geo="city">City</button>
+            <button class="geo-btn" data-geo="precinct">Precinct</button>
+            <button class="geo-btn" data-geo="congressional">Congress</button>
+          </div>
+        </div>
+      </div>
+
+      <nav class="section-nav" id="section-nav" aria-label="Jump to section">
+        <!-- populated by charts.js -->
+      </nav>
+
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="page-intro" id="page-intro">
+      <p id="page-description">Loading analysis data&hellip;</p>
+      <p class="data-note" id="data-note"></p>
+    </section>
+
+    <div id="charts-container">
+      <!-- populated by charts.js -->
+    </div>
+
+    <footer class="site-footer">
+      <p>Data sourced from Ohio Secretary of State voter registration files &mdash; Montgomery County Board of Elections.
+         Analysis pipeline: <a href="https://github.com/motorbikematt/ohio_voter_registration_parser" target="_blank" rel="noopener">ohio_voter_registration_parser</a>.
+      </p>
+    </footer>
+  </main>
+
+  <script src="charts.js"></script>
+  <script>
+    ChartDashboard.init({
+      manifestUrl:         'manifest.json',
+      countySelectId:      'county-select',
+      geoFilterGroupId:    'geo-filter-group',
+      navId:               'section-nav',
+      containerId:         'charts-container',
+      descriptionId:       'page-description',
+      dataNoteId:          'data-note',
+      headerCountyLabelId: 'header-county-label',
+      themeToggleId:       'theme-toggle'
+    });
+  </script>
+
+</body>
+</html>
