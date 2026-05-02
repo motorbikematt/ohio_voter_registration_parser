@@ -1,3 +1,4 @@
+# ─── Python ───────────────────────────────────────────────
 __pycache__/
 *.pyc
 *.pyo
@@ -5,8 +6,34 @@ __pycache__/
 dist/
 build/
 .DS_Store
-*.xlsx
-*.csv
 .venv/
 venv/
 env/
+
+# ─── Voter data files (never commit raw voter records) ────
+# The source/ directory holds raw and decompressed voter files
+# from the Ohio SOS.  These contain PII, are very large, and
+# are re-downloadable on demand via ohio_voter_pipeline.py.
+source/
+
+# ─── Analysis outputs ─────────────────────────────────────
+# Excel workbooks and CSVs produced by the analysis scripts.
+*.xlsx
+*.csv
+
+# ─── Raw voter file formats ────────────────────────────────
+# The decompressed state voter files are plain .txt.  This rule
+# is intentionally broad — it excludes ALL .txt files, not just
+# voter data — as an extra conservative guard against accidentally
+# uploading large government data files if the source/ rule above
+# is ever bypassed.  Any plain-text documentation in this repo
+# should use .md instead.
+*.txt
+
+# ─── Download tracking ────────────────────────────────────
+# download_manifest.json records local paths and Last-Modified
+# timestamps that are machine-specific — not useful in git.
+download_manifest.json
+
+# ─── Logs ─────────────────────────────────────────────────
+logs/

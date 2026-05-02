@@ -2,53 +2,33 @@
 
 ## Prerequisites
 
-1. **GitHub Account** — Have an account at https://github.com
-2. **Git Installed** — Install from https://git-scm.com/download/win
-3. **GitHub Credentials** — Use either:
-   - Personal Access Token (PAT) — Recommended
-   - SSH Key — For SSH-based auth
+1. **GitHub Account** — [github.com](https://github.com)
+2. **Git Installed** — [git-scm.com/download/win](https://git-scm.com/download/win)
+3. **Personal Access Token (PAT)** — needed for password authentication (see step 4)
 
 ## Steps
 
-### 1. Create GitHub Repository
+### 1. Create a GitHub repository
 
-Go to https://github.com/new and create a new public repository:
+Go to [github.com/new](https://github.com/new):
 - **Name:** `ohio_voter_registration_parser`
-- **Description:** Parse and clean Ohio voter registration data (Ohio Board of Elections) into analysis-ready Excel workbooks with demographic summaries
-- **Public/Private:** Your choice
-- **Do NOT initialize with README** (we already have one)
+- **Description:** Ohio voter registration analysis pipeline — download, clean, analyse, visualise
+- **Visibility:** Your choice
+- **Do NOT** initialise with README (we already have one)
 
-After creating, copy the HTTPS URL: `https://github.com/YOUR_USERNAME/ohio_voter_registration_parser.git`
+Copy the HTTPS URL: `https://github.com/YOUR_USERNAME/ohio_voter_registration_parser.git`
 
-### 2. Open Terminal in This Folder
+### 2. Open a terminal in the project folder
 
-In VSCode:
-- **View → Terminal** or **Ctrl+`**
-- Make sure you're in the folder with the Python files
+In VSCode: **View → Terminal** or `Ctrl+``
 
-Or open Command Prompt/PowerShell and navigate to:
-```
-C:\Users\motorbikematt\AppData\Roaming\Claude\local-agent-mode-sessions\33d1e0e5-9f9d-41cd-aef7-e26adbd88eed\9e83e185-2149-4543-8488-96565b7280f8\local_a7b2990a-65be-45f3-ad17-21e772958e3f\outputs
-```
-
-### 3. Initialize Git & Push
-
-Run these commands in order (replace `YOUR_USERNAME` and `YOUR_TOKEN` as needed):
+### 3. Initialise git and push
 
 ```bash
-# Initialize git repo
 git init
-
-# Add all files
 git add .
-
-# Create initial commit
-git commit -m "Initial commit: voter data cleaner script"
-
-# Add remote (replace URL with your repo URL)
+git commit -m "Initial commit: Ohio voter registration analysis pipeline"
 git remote add origin https://github.com/YOUR_USERNAME/ohio_voter_registration_parser.git
-
-# Push to main branch
 git branch -M main
 git push -u origin main
 ```
@@ -57,40 +37,52 @@ git push -u origin main
 
 When prompted for credentials:
 - **Username:** Your GitHub username
-- **Password:** Use a Personal Access Token (PAT), NOT your password
+- **Password:** A Personal Access Token — NOT your account password
 
 **To create a PAT:**
-1. Go to https://github.com/settings/tokens
-2. Click "Generate new token" → "Generate new token (classic)"
-3. Name it (e.g., "VSCode")
-4. Check: `repo` (full control of private repositories)
-5. Generate & copy the token
-6. Paste when Git prompts for password
+1. Go to [github.com/settings/tokens](https://github.com/settings/tokens)
+2. Generate new token (classic)
+3. Name it (e.g. "VSCode"), check `repo`, generate and copy it
+4. Paste it when Git prompts for password
+
+## What gets pushed
+
+```
+ohio_voter_registration_parser/
+├── ohio_voter_pipeline.py       ← download + orchestration script
+├── voter_data_cleaner_v2.py     ← analysis engine
+├── voter_analysis.ipynb         ← Jupyter notebook
+├── requirements.txt
+├── README.md
+├── RUN_LOCALLY.md
+├── PUSH_TO_GITHUB.md
+├── JUPYTER_QUICKSTART.md
+├── .gitignore
+└── docs/                        ← web dashboard (HTML + JS + sample JSON)
+```
+
+## What stays out of git
+
+The `.gitignore` excludes voter data, logs, outputs, and the virtual environment:
+
+- `source/` — downloaded voter files (re-fetchable via `ohio_voter_pipeline.py`)
+- `*.xlsx`, `*.csv` — analysis outputs
+- `*.txt` — excluded broadly as an extra safeguard against accidentally uploading
+  large government data files; documentation uses `.md` instead
+- `logs/` — run logs
+- `download_manifest.json` — local file paths, machine-specific
+- `.venv/` — virtual environment
 
 ## Verification
 
-After pushing, verify on GitHub:
-1. Go to https://github.com/YOUR_USERNAME/ohio_voter_registration_parser
-2. You should see:
-   - `voter_data_cleaner.py`
-   - `requirements.txt`
-   - `README.md`
-   - `RUN_LOCALLY.md`
-   - `.gitignore`
+After pushing, visit your repo on GitHub and confirm these files are present and
+that `source/`, `*.xlsx`, and `logs/` do **not** appear.
 
 ## Troubleshooting
 
 | Error | Solution |
-|-------|----------|
-| `fatal: not a git repository` | Make sure you ran `git init` first |
-| `fatal: 'origin' does not appear to be a 'git' repository` | Verify the remote URL is correct: `git remote -v` |
-| `Permission denied (publickey)` | You're using SSH — switch to HTTPS or set up SSH key |
-| `Authentication failed` | Token may have expired or permissions incorrect — regenerate PAT |
-
-## Next Steps
-
-Once pushed, you can:
-- Share the repo link with others
-- Collaborate on improvements
-- Track issues & feature requests via GitHub Issues
-- Add CI/CD workflows (GitHub Actions) to auto-test on push
+|---|---|
+| `fatal: not a git repository` | Run `git init` first |
+| `Authentication failed` | Token may have expired — regenerate at github.com/settings/tokens |
+| `Permission denied (publickey)` | You're using SSH — switch to HTTPS or configure an SSH key |
+| Large file rejected | Check that `source/` and any `.txt` files aren't being tracked: `git ls-files --cached source/` |

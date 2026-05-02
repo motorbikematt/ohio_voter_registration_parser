@@ -1,70 +1,64 @@
-# Voter Data Cleaner - Run Locally in VSCode
+# Running the Analysis Locally in VSCode
 
-## Quick Start
+## Prerequisites
 
-### 1. Install Dependencies
-Open terminal in VSCode and run:
-```bash
+- Python 3.11+
+- VSCode with the **Python** and **Jupyter** extensions installed
+
+## One-time setup
+
+```powershell
+# 1. Create and activate the virtual environment
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+
+# 2. Install all dependencies (includes Polars, pandas, Jupyter kernel, etc.)
 pip install -r requirements.txt
 ```
 
-### 2. Run the Script
-```bash
-python voter_data_cleaner.py
+**Tip:** If PowerShell says `pip` is not recognised, the venv isn't activated yet.
+Run `.venv\Scripts\Activate.ps1` first — you should see `(.venv)` in your prompt.
+
+## Download voter files
+
+Before analysing, run the pipeline script to fetch the latest Ohio SOS files:
+
+```powershell
+python ohio_voter_pipeline.py
 ```
 
-## What It Does
+This checks for updated files, downloads the four `.gz` archives, and decompresses
+them into `source/State Voter Files/`. Re-running it when files haven't changed is
+safe and fast — it exits immediately after confirming everything is current.
 
-**Input:** `D:\vibe\election-data\source\2026-04-30\voterfile.csv`
+## Option A: Jupyter notebook (recommended)
 
-**Output:** `D:\vibe\election-data\voter_analysis.xlsx`
+1. Open `voter_analysis.ipynb` in VSCode
+2. Select the `.venv` kernel when prompted (top-right kernel picker)
+3. Run cells top to bottom — Cell 2 is the only one you need to edit (county number)
 
-### Processing
-1. Loads voter CSV (300K+ rows)
-2. Cleans birth years (removes invalid dates)
-3. Creates decade groupings (1900s, 1910s, etc.)
-4. Standardizes party affiliations
-5. Constructs full addresses
+## Option B: Script directly
 
-### Output File Structure
+```powershell
+python voter_data_cleaner_v2.py
+```
 
-**Sheet 1: "Voter Data"**
-- All 300K+ cleaned voter records
-- Columns: name, address, birth year, party, districts, election participation, etc.
-- Ready for filtering and analysis
+This prompts interactively for county or Ohio-wide mode and writes output to the project folder.
 
-**Sheet 2: "Decade Summary"**
-- Two columns: Decade | Voter Count
-- Uses Excel **COUNTIFS formulas** (not hardcoded values)
-- Dynamic: formulas auto-update if you modify the raw data
-- **Perfect for creating histograms** — just select and insert chart
+## Output locations
 
-## Creating the Histogram in Excel
-
-1. Open `voter_analysis.xlsx`
-2. Go to "Decade Summary" sheet
-3. Select columns A & B (Decade + Voter Count)
-4. Insert → Chart → Column Chart
-5. Format as needed (colors, fonts, labels, etc.)
+| Output | Path |
+|---|---|
+| Excel workbook | `county_57_analysis_2026-05-01.xlsx` (county) or `ohio_analysis_2026-05-01.xlsx` |
+| Web dashboard data | `docs/data/` — open `docs/index.html` to view |
+| Logs | `logs/voter_analysis_YYYYMMDD_HHMMSS.log` |
 
 ## Troubleshooting
 
-**"File not found" error:**
-- Verify the input CSV exists at: `D:\vibe\election-data\source\2026-04-30\voterfile.csv`
-- Ensure it has data (not 0 bytes)
-
-**Slow on large files:**
-- Normal for 300K+ rows; pandas/openpyxl handle it efficiently
-- First run may take 30-60 seconds
-
-**Formula errors in Excel:**
-- If you see #REF! errors, check that the sheet names match exactly ("Voter Data" and "Decade Summary")
-- Re-open the file in Excel to recalculate formulas
-
-## Customization
-
-Edit these in the script:
-- `INPUT_CSV` — change source file path
-- `OUTPUT_XLSX` — change output location
-- Birth year range (line 18-19) — adjust valid year constraints
-- Column widths, colors, fonts — modify cell formatting in the workbook creation section
+| Problem | Solution |
+|---|---|
+| `pip` not recognised | Activate the venv first: `.venv\Scripts\Activate.ps1` |
+| `ModuleNotFoundError: No module named 'polars'` | Run `pip install -r requirements.txt` with the venv active |
+| `No SWVF_*.txt files found` | Run `ohio_voter_pipeline.py` first to download and decompress voter files |
+| Kernel not visible in VSCode | Run `python -m ipykernel install --user --name=voter-analysis` then reload VSCode |
+| `ComputeError: invalid utf-8 sequence` | This is handled automatically — the loader uses `latin-1` encoding for Ohio SOS files |
