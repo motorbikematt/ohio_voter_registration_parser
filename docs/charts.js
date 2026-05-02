@@ -5,26 +5,15 @@
  * ----------
  * ChartDashboard.init(config)       Bootstraps the full dashboard from manifest.json.
  * ChartDashboard.renderSingle(opts) Renders one chart into any container on any page.
- *
- * renderSingle usage (embed in a comparison page):
- *   <div id="my-chart"></div>
- *   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
- *   <script src="path/to/charts.js"></script>
- *   <script>
- *     ChartDashboard.renderSingle({
- *       containerId: 'my-chart',
- *       dataUrl:     'data/montgomery_party_affiliation.json'
- *     });
- *   </script>
  */
 const ChartDashboard = (() => {
 
   // ── State ────────────────────────────────────────────────────────────────
   let cfg          = {};
   let manifest     = null;
-  let activeCounty = null;   // null = all counties
+  let activeCounty = null;
   let activeGeo    = 'all';
-  const instances  = {};     // Chart.js instances keyed by section id
+  const instances  = {};
 
   // ── Entry point ──────────────────────────────────────────────────────────
   async function init(config) {
@@ -56,7 +45,6 @@ const ChartDashboard = (() => {
       sel.appendChild(_el('option', { value: c, textContent: c + ' County' }));
     });
 
-    // Default to first county if there is only one
     if (manifest.counties.length === 1) {
       sel.value    = manifest.counties[0];
       activeCounty = manifest.counties[0];
@@ -175,7 +163,7 @@ const ChartDashboard = (() => {
     wrapper.innerHTML = '';
 
     if (data.type === 'table') {
-      _renderTable(wrapper, data);
+      _renderTable(wrapper, data, id);
       return;
     }
 
@@ -217,25 +205,81 @@ const ChartDashboard = (() => {
     });
   }
 
-  function _renderTable(wrapper, data) {
-    const scroll = _el('div', { className: 'table-scroll' });
-    const table  = _el('table', { className: 'data-table' });
+  // ── Sortable table rendering ─────────────────────────────────────────────
+  function _renderTable(wrapper, data, id) {
+    // Sort state: { col: number, dir: 1 (asc) | -1 (desc) }
+    var sortState = { col: null, dir: 1 };
 
-    const thead = document.createElement('thead');
-    const hrow  = document.createElement('tr');
-    data.headers.forEach(function(h) { hrow.appendChild(_el('th', { textContent: h })); });
-    thead.appendChild(hrow);
-    table.appendChild(thead);
+    // Determine which columns are numeric (parse on first non-empty row)
+    var numericCols = {};
+    if (data.rows && data.rows.length > 0) {
+      data.rows[0].forEach(function(cell, ci) {
+        numericCols[ci] = (parseFloat(String(cell).replace(/,/g, '')) !== NaN &&
+                           !isNaN(parseFloat(String(cell).replace(/,/g, ''))));
+      });
+    }
 
-    const tbody = document.createElement('tbody');
-    data.rows.forEach(function(row, i) {
-      const tr = _el('tr', { className: i % 2 === 0 ? 'row-even' : 'row-odd' });
-      row.forEach(function(cell) { tr.appendChild(_el('td', { textContent: cell })); });
-      tbody.appendChild(tr);
-    });
-    table.appendChild(tbody);
-    scroll.appendChild(table);
-    wrapper.appendChild(scroll);
+    function sortedRows() {
+      if (sortState.col === null) return data.rows.slice();
+      var col = sortState.col;
+      var dir = sortState.dir;
+      var isNum = numericCols[col];
+      return data.rows.slice().sort(function(a, b) {
+        var av = String(a[col]).replace(/,/g, '');
+        var bv = String(b[col]).replace(/,/g, '');
+        if (isNum) {
+          av = parseFloat(av) || 0;
+          bv = parseFloat(bv) || 0;
+          return dir * (av - bv);
+        }
+        return dir * av.localeCompare(bv);
+      });
+    }
+
+    function render() {
+      wrapper.innerHTML = '';
+      var scroll = _el('div', { className: 'table-scroll' });
+      var table  = _el('table', { className: 'data-table' });
+
+      // Header
+      var thead = document.createElement('thead');
+      var hrow  = document.createElement('tr');
+      data.headers.forEach(function(h, hi) {
+        var th = _el('th', { textContent: h });
+        th.style.cursor = 'pointer';
+        th.style.userSelect = 'none';
+        var indicator = '';
+        if (sortState.col === hi) {
+          indicator = sortState.dir === 1 ? ' ▲' : ' ▼';
+        }
+        th.textContent = h + indicator;
+        th.addEventListener('click', function() {
+          if (sortState.col === hi) {
+            sortState.dir *= -1;
+          } else {
+            sortState.col = hi;
+            sortState.dir = numericCols[hi] ? -1 : 1; // numbers default desc, text default asc
+          }
+          render();
+        });
+        hrow.appendChild(th);
+      });
+      thead.appendChild(hrow);
+      table.appendChild(thead);
+
+      // Body
+      var tbody = document.createElement('tbody');
+      sortedRows().forEach(function(row, i) {
+        var tr = _el('tr', { className: i % 2 === 0 ? 'row-even' : 'row-odd' });
+        row.forEach(function(cell) { tr.appendChild(_el('td', { textContent: cell })); });
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      scroll.appendChild(table);
+      wrapper.appendChild(scroll);
+    }
+
+    render();
   }
 
   // ── Theme ────────────────────────────────────────────────────────────────
@@ -319,8 +363,13 @@ const ChartDashboard = (() => {
   }
 
   function _geoLabel(geo) {
-    var map = { county: 'County', precinct: 'Precinct', city: 'City',
-                congressional: 'Congressional Dist.', all: 'Statewide' };
+    var map = {
+      county:        'County',
+      precinct:      'Precinct',
+      city:          'City / Township',
+      congressional: 'Congressional Dist.',
+      all:           'Statewide'
+    };
     return map[geo] || geo;
   }
 
@@ -330,18 +379,6 @@ const ChartDashboard = (() => {
   }
 
   // ── Public: embed a single chart on any page ─────────────────────────────
-  /**
-   * ChartDashboard.renderSingle({ containerId, dataUrl })
-   *
-   * Renders one chart JSON into any div on any page.
-   * Host page must load Chart.js before calling this.
-   *
-   * Example:
-   *   ChartDashboard.renderSingle({
-   *     containerId: 'comparison-left',
-   *     dataUrl:     'data/montgomery_party_affiliation.json'
-   *   });
-   */
   async function renderSingle(opts) {
     const wrapper = document.getElementById(opts.containerId);
     if (!wrapper) {
