@@ -944,10 +944,14 @@ def build_district_breakdown(
                .agg(pl.col('_n').sum())
                .pivot(on='PARTY_LABEL', index='_district', values='_n', aggregate_function='sum')
         )
+        # Explicit aggregation instead of pivot — fixed schema regardless of
+        # what VOTER_STATUS values exist in the statewide file.
         status_ct = (
-            agg.group_by(['_district', 'VOTER_STATUS'])
-               .agg(pl.col('_n').sum())
-               .pivot(on='VOTER_STATUS', index='_district', values='_n', aggregate_function='sum')
+            agg.group_by('_district')
+               .agg([
+                   pl.col('VOTER_STATUS').eq('ACTIVE').mul(pl.col('_n')).sum().cast(pl.Int64).alias('ACTIVE'),
+                   pl.col('VOTER_STATUS').eq('CONFIRMATION').mul(pl.col('_n')).sum().cast(pl.Int64).alias('CONFIRMATION'),
+               ])
         )
         g_agg = (
             agg.group_by('_district')
@@ -1019,7 +1023,21 @@ def build_party_crosstabs(df: pl.DataFrame, logger: logging.Logger) -> tuple:
 
     by_congress = crosstab('CONGRESSIONAL_DISTRICT', 'Congressional District')
     by_decade   = crosstab('Decade',                 'Birth Decade')
-    by_status   = crosstab('VOTER_STATUS',           'Voter Status')
+
+    # by_status uses explicit aggregation instead of the generic crosstab pivot
+    # so the column schema is fixed regardless of unexpected VOTER_STATUS values.
+    by_status = (
+        df.group_by('PARTY_LABEL')
+          .agg([
+              pl.col('VOTER_STATUS').eq('ACTIVE').sum().cast(pl.Int64).alias('ACTIVE'),
+              pl.col('VOTER_STATUS').eq('CONFIRMATION').sum().cast(pl.Int64).alias('CONFIRMATION'),
+          ])
+          .with_columns(
+              (pl.col('ACTIVE') + pl.col('CONFIRMATION')).alias('Total')
+          )
+          .sort('Total', descending=True)
+          .rename({'PARTY_LABEL': 'Voter Status'})
+    )
 
     return by_congress, by_decade, by_status
 
@@ -1028,25 +1046,105 @@ def build_precinct_summary(df: pl.DataFrame) -> pl.DataFrame:
     """
     Precinct-level active/inactive counts for the table chart in the web dashboard.
 
-    Est. Unregistered is intentionally set to 'N/A' — this column will be populated
-    in a future step once Census adult-population data by precinct is integrated.
-    The column is included now so the JSON schema matches what index.html expects.
+    Uses explicit .eq() aggregations instead of a pivot so the output schema is
+    fixed regardless of what VOTER_STATUS values exist in the source file (the
+    statewide file may contain RETIRED, DELETED, or other values beyond ACTIVE /
+    CONFIRMATION).  This also includes COUNTY_NUMBER so city-level aggregation
+    and future cross-county merges can group by city name across county lines.
+
+    Est. Unregistered is intentionally set to 'N/A' — this column will be
+    populated in a future step once Census adult-population data by precinct is
+    integrated.  The column is included now so the JSON schema is stable.
     """
     return (
         df.with_columns(
             pl.col('PRECINCT_NAME').fill_null('Unknown').str.strip_chars().alias('PRECINCT_NAME')
         )
-        .group_by(['PRECINCT_NAME', 'VOTER_STATUS'])
-        .agg(pl.len().alias('n'))
-        .pivot(on='VOTER_STATUS', index='PRECINCT_NAME', values='n', aggregate_function='sum')
-        .with_columns([
-            # Ensure both status columns exist even if the county has no CONFIRMATION records
-            pl.col('ACTIVE').fill_null(0)       if 'ACTIVE'       in df.columns else pl.lit(0).alias('ACTIVE'),
-            pl.col('CONFIRMATION').fill_null(0) if 'CONFIRMATION' in df.columns else pl.lit(0).alias('CONFIRMATION'),
+        .group_by(['COUNTY_NUMBER', 'PRECINCT_NAME'])
+        .agg([
+            pl.col('VOTER_STATUS').eq('ACTIVE').sum().cast(pl.Int64).alias('ACTIVE'),
+            pl.col('VOTER_STATUS').eq('CONFIRMATION').sum().cast(pl.Int64).alias('CONFIRMATION'),
         ])
         .with_columns([
             (pl.col('ACTIVE') + pl.col('CONFIRMATION')).alias('Total Registered'),
-            pl.lit('N/A').alias('Est. Unregistered'),   # placeholder — Census data required
+            pl.lit('N/A').alias('Est. Unregistered'),
+        ])
+        .sort('Total Registered', descending=True)
+    )
+
+
+# Precinct-ID suffixes that should be stripped to recover the city/township name.
+# Pattern: optional separator (space or dash), then one or more digits, optionally
+# followed by a dash and a letter — e.g. "3-E", "14", "5-D".  Also matches a
+# lone trailing letter after a separator — e.g. "MIAMI TWP R" → "MIAMI TWP",
+# "W CARROLLTON-G" → "W CARROLLTON".
+# The regex is applied right-to-left (on the reversed string) so we only strip
+# the rightmost token.
+_PRECINCT_SUFFIX_RE = re.compile(
+    r'^[A-Z]?[\-]?\d+[\-]?[A-Z]?\s*|^[A-Z]\s*',
+    re.IGNORECASE,
+)
+
+
+def _extract_city(precinct_name: str) -> str:
+    """
+    Extract the municipality portion from a SWVF precinct name.
+
+    Examples:
+        'DAYTON 3-E'        → 'DAYTON'
+        'HUBER HEIGHTS 5-D' → 'HUBER HEIGHTS'
+        'MIAMI TWP R'       → 'MIAMI TWP'
+        'W CARROLLTON-G'    → 'W CARROLLTON'
+        'TROTWOOD-A'        → 'TROTWOOD'
+
+    Logic: reverse the string, strip the leading precinct-ID token, reverse back,
+    then strip any trailing separator characters.  Falls back to the full name if
+    the result would be empty (e.g. a name that is itself just a letter).
+    """
+    rev     = precinct_name[::-1].strip()
+    cleaned = _PRECINCT_SUFFIX_RE.sub('', rev, count=1)
+    city    = cleaned[::-1].strip(' -')
+    return city if city else precinct_name
+
+
+def build_city_summary(df: pl.DataFrame) -> pl.DataFrame:
+    """
+    Aggregate voter registration to city/township level by extracting the
+    municipality from PRECINCT_NAME.
+
+    COUNTY_NUMBER is preserved in the output so that when multiple counties are
+    processed (Phase 3 statewide), cities that span county lines (e.g. Kettering
+    across Montgomery and Greene) can be identified and merged by downstream logic
+    without any changes to this function.
+
+    Schema:
+        COUNTY_NUMBER   — Ohio SOS county code (string)
+        City            — extracted municipality name
+        ACTIVE          — active registered voters
+        CONFIRMATION    — confirmation-status voters
+        Total Registered
+        Precincts       — number of distinct precincts contributing to this city
+        Est. Unregistered — placeholder; requires Census integration
+    """
+    return (
+        df.with_columns([
+            pl.col('PRECINCT_NAME').fill_null('Unknown').str.strip_chars().alias('PRECINCT_NAME'),
+            pl.col('COUNTY_NUMBER').fill_null('??').str.strip_chars().alias('COUNTY_NUMBER'),
+        ])
+        .with_columns(
+            pl.col('PRECINCT_NAME')
+              .map_elements(_extract_city, return_dtype=pl.Utf8)
+              .alias('City')
+        )
+        .group_by(['COUNTY_NUMBER', 'City'])
+        .agg([
+            pl.col('VOTER_STATUS').eq('ACTIVE').sum().cast(pl.Int64).alias('ACTIVE'),
+            pl.col('VOTER_STATUS').eq('CONFIRMATION').sum().cast(pl.Int64).alias('CONFIRMATION'),
+            pl.col('PRECINCT_NAME').n_unique().alias('Precincts'),
+        ])
+        .with_columns([
+            (pl.col('ACTIVE') + pl.col('CONFIRMATION')).alias('Total Registered'),
+            pl.lit('N/A').alias('Est. Unregistered'),
         ])
         .sort('Total Registered', descending=True)
     )
@@ -1251,6 +1349,30 @@ def export_json(
         'rows':      rows,
     }, DATA_DIR / f'{slug}_precinct_summary.json', logger)
 
+    # ── City/township summary (table) ─────────────────────────────────────────
+    city_df = build_city_summary(df)
+    city_rows = []
+    for row in city_df.iter_rows(named=True):
+        city_rows.append([
+            row.get('COUNTY_NUMBER', ''),
+            row.get('City', ''),
+            f"{row.get('ACTIVE', 0):,}",
+            f"{row.get('CONFIRMATION', 0):,}",
+            f"{row.get('Total Registered', 0):,}",
+            str(row.get('Precincts', '')),
+            row.get('Est. Unregistered', 'N/A'),
+        ])
+    _dump_json({
+        'title':     'Registration by City / Township',
+        'county':    county_name,
+        'geography': 'city',
+        'type':      'table',
+        'updated':   today,
+        'note':      note + ' — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.',
+        'headers':   ['County #', 'City / Township', 'Active', 'Confirmation', 'Total Registered', 'Precincts', 'Est. Unregistered'],
+        'rows':      city_rows,
+    }, DATA_DIR / f'{slug}_city_summary.json', logger)
+
     logger.info('JSON export complete for %s County (%s)', county_name, slug)
     _update_manifest(county_name, slug, today, logger)
 
@@ -1350,12 +1472,27 @@ def _update_manifest(
             'geography':   'precinct',
             'dataUrl':     f'data/{slug}_precinct_summary.json',
         },
+        {
+            'id':          f'{slug}-city-summary',
+            'title':       'Registration by City / Township',
+            'navLabel':    'Cities',
+            'description': 'City and township level totals aggregated from precinct names. Cross-county cities appear as separate rows until Phase 3 statewide merge.',
+            'county':      county_name,
+            'geography':   'city',
+            'dataUrl':     f'data/{slug}_city_summary.json',
+        },
     ]
 
-    # Replace any existing sections for this county (identified by slug in the id)
-    # so re-running an analysis updates rather than duplicates entries.
-    existing_sections = [s for s in manifest.get('sections', [])
-                         if not s.get('id', '').startswith(slug + '-')]
+    # Replace any existing sections for this county — identified by slug prefix in
+    # the id OR by dataUrl pointing to this slug's data files.  The dataUrl check
+    # removes legacy entries that pre-date slug-prefixed IDs so they can't
+    # re-accumulate on subsequent runs.
+    def _is_stale(s):
+        sid  = s.get('id', '')
+        url  = s.get('dataUrl', '')
+        return sid.startswith(slug + '-') or (f'/{slug}_' in url) or (f'data/{slug}_' in url)
+
+    existing_sections = [s for s in manifest.get('sections', []) if not _is_stale(s)]
     manifest['sections'] = existing_sections + new_sections
 
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding='utf-8')
