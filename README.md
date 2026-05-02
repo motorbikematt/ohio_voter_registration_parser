@@ -1,116 +1,91 @@
-# Ohio Voter Registration Parser
+# Ohio Voter Registration Analysis
 
-Parse and clean Ohio voter registration CSV files (from Ohio Board of Elections) into analysis-ready Excel workbooks with decade summaries for demographic insights and histogram generation.
+Download, clean, and analyse Ohio Secretary of State statewide voter files.
+Outputs a formatted Excel workbook and a live web dashboard backed by JSON.
 
-## Features
+## What's in this repo
 
-- **CSV Parsing & Cleaning**: Loads voter registration data and validates/standardizes key fields
-- **Demographic Grouping**: Automatically groups voters by birth decade
-- **Excel Export**: Creates multi-sheet workbooks with:
-  - Full cleaned dataset (300K+ rows)
-  - Decade summary table with dynamic formulas for charting
-- **Excel Formula Integration**: Uses COUNTIFS formulas (not hardcoded values) so charts auto-update when data changes
+| File | Purpose |
+|---|---|
+| `ohio_voter_pipeline.py` | Checks the Ohio SOS site for updated voter files, downloads and decompresses them, then prompts for analysis |
+| `voter_data_cleaner_v2.py` | Analysis engine — loads SWVF files with Polars, cleans data, computes participation metrics, exports Excel + JSON |
+| `voter_analysis.ipynb` | Jupyter notebook for interactive step-by-step analysis in VSCode |
+| `docs/` | Web dashboard (HTML + Chart.js) — reads JSON files from `docs/data/` |
 
-## Installation
+## Requirements
 
-```bash
+- Python 3.11+
+- Dependencies: `pip install -r requirements.txt`
+
+## Quick start
+
+### 1. Set up the environment
+
+```powershell
+# Create virtual environment
+python -m venv .venv
+
+# Activate (PowerShell)
+.venv\Scripts\Activate.ps1
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-**Requirements:**
-- Python 3.7+
-- pandas >= 2.0.0
-- openpyxl >= 3.10.0
+### 2. Download voter files
 
-## Usage
-
-### Basic Run
-
-```bash
-python voter_data_cleaner.py
+```powershell
+python ohio_voter_pipeline.py
 ```
 
-**Input:** `D:\vibe\election-data\source\2026-04-30\voterfile.csv`
+This checks the [Ohio SOS voter file page](https://www6.ohiosos.gov/ords/f?p=VOTERFTP:STWD)
+for updated files, downloads the four SWVF `.gz` archives, and decompresses them
+into `source/State Voter Files/`.
 
-**Output:** `D:\vibe\election-data\voter_analysis.xlsx`
+### 3. Run the analysis
 
-### Customize Paths
+**Option A — Jupyter notebook (recommended for exploration):**
+Open `voter_analysis.ipynb` in VSCode and run cells top to bottom.
 
-Edit the configuration at the top of `voter_data_cleaner.py`:
-
-```python
-INPUT_CSV = r"D:\vibe\election-data\source\2026-04-30\voterfile.csv"
-OUTPUT_XLSX = r"D:\vibe\election-data\voter_analysis.xlsx"
+**Option B — Script directly:**
+```powershell
+python voter_data_cleaner_v2.py
 ```
 
-## Output Format
+### 4. View the dashboard
 
-### Sheet 1: "Voter Data"
-Complete cleaned voter records with columns:
-- Name (LASTN, FIRSTN, MIDDLEN, PREFIXN, SUFFIXN)
-- Address (STNUM, STDIR, STNAME, APT, CITY, ZIP)
-- Demographics (BIRTHYEAR, Decade, PARTYAFFIL)
-- Jurisdictions (Congress, Senate, House, districts, etc.)
-- Election Participation (8-digit date columns: 20251104G, 20250506PS, etc.)
+Open `docs/index.html` in a browser after running the analysis.
+The JSON files in `docs/data/` are updated automatically — no manual steps needed.
 
-Data cleaning applied:
-- Birth year validation (1900–2024)
-- Address standardization (concatenation, whitespace normalization)
-- Party affiliation standardization
-- Invalid records removed
+## Output
 
-### Sheet 2: "Decade Summary"
-Ready-to-chart summary table:
+- **Excel workbook** — `county_NN_analysis_YYYY-MM-DD.xlsx` or `ohio_analysis_YYYY-MM-DD.xlsx`
+  - County-scale: includes raw Voter Data sheet + Decade Summary, Participation, District Breakdown, Party Cross-tabs
+  - Ohio-wide: County Summary replaces raw data (7.9M rows exceeds Excel's row limit)
+- **Web dashboard** — `docs/index.html` with interactive Chart.js charts per county
+- **Logs** — `logs/voter_analysis_YYYYMMDD_HHMMSS.log` (timestamped per run)
 
-| Decade | Voter Count |
-|--------|------------|
-| 1900   | 1,234 |
-| 1910   | 5,678 |
-| 1920   | 12,345 |
-| ... | ... |
+## Data source
 
-**Formulas:** Uses COUNTIFS to dynamically count voters per decade from Sheet 1. If you filter or modify the raw data, counts auto-update.
+Ohio Secretary of State — [Statewide Voter File](https://www6.ohiosos.gov/ords/f?p=VOTERFTP:STWD)
 
-## Creating Histograms in Excel
+Files are updated monthly and split into four archives covering county ranges 1–22, 23–44, 45–66, and 67–88.
+The pipeline script handles download, decompression, and change detection automatically.
 
-1. Open the generated `.xlsx` file
-2. Go to "Decade Summary" sheet
-3. Select columns A & B (Decade + Voter Count)
-4. **Insert → Chart → Column Chart**
-5. Format as desired (colors, fonts, labels, gridlines, etc.)
+## What stays out of git
 
-The dynamic formulas mean your chart automatically reflects any changes to the underlying voter data.
+`source/`, `*.xlsx`, `*.csv`, `*.txt`, and `logs/` are all excluded via `.gitignore`.
+The `.txt` exclusion is intentionally broad — an extra conservative guard against
+accidentally uploading large government data files. Documentation in this repo uses `.md`.
 
-## Data Processing Performance
+## Scaling
 
-- **300K rows**: ~30–60 seconds (first run)
-- **Memory efficient**: pandas/openpyxl handle large datasets
-- **Scalable**: Works with any size voter file
-
-## Troubleshooting
-
-| Issue | Solution |
-|-------|----------|
-| `FileNotFoundError: voterfile.csv` | Verify input file path exists and has data (not 0 bytes) |
-| `#REF!` errors in Excel | Check sheet names match exactly: "Voter Data" and "Decade Summary" |
-| Script runs slowly | Normal for 300K+ rows; pandas is optimized for large files |
-| Empty output workbook | Ensure input CSV has content; check data format matches expectations |
-
-## Technical Details
-
-- **Data Validation**: Birth years outside 1900–2024 range removed
-- **String Normalization**: Addresses cleaned via regex (extra whitespace removed)
-- **Decade Calculation**: `Decade = (BirthYear // 10) * 10`
-- **Formula Recalculation**: Excel automatically recalculates COUNTIFS formulas on open; no manual steps required
+This prototype covers Montgomery County (county 57, ~300K voters).
+The analysis engine is built on [Polars](https://pola.rs/) and handles the full
+Ohio statewide file (~7.9M rows across 4 files) without modification.
+The next planned stage is matching against Census/USPS address data to identify
+unregistered adult residents, followed by GIS visualisation using Census TIGER shapefiles.
 
 ## License
 
-MIT
-
-## Data Source
-
-Ohio Board of Elections (lookup.boe.ohio.gov/vtrapp)
-
-## Author
-
-election-data analysis project
+MIT — Matthew F Reyes, 2026

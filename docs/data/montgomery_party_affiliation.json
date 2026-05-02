@@ -3,14 +3,26 @@
   "county": "Montgomery",
   "geography": "county",
   "type": "doughnut",
-  "updated": "2026-04-30",
-  "note": "SAMPLE DATA — replace with PARTYAFFIL counts from voter_data_cleaner.py",
+  "updated": "2026-05-01",
+  "note": "Analysis run 2026-05-01 \u2014 Ohio Secretary of State SWVF voter file",
   "chartConfig": {
-    "labels": ["Democratic", "Republican", "Nonpartisan / Other", "Libertarian", "Green", "Constitution", "Socialist"],
+    "labels": [
+      "UNC",
+      "REP",
+      "DEM"
+    ],
     "datasets": [
       {
-        "data": [118000, 136000, 89000, 4200, 1800, 900, 300],
-        "backgroundColor": ["#3b82f6", "#ef4444", "#9ca3af", "#f59e0b", "#22c55e", "#a855f7", "#ec4899"],
+        "data": [
+          261625,
+          56465,
+          40245
+        ],
+        "backgroundColor": [
+          "#9ca3af",
+          "#ef4444",
+          "#3b82f6"
+        ],
         "borderWidth": 2,
         "borderColor": "transparent"
       }
