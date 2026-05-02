@@ -130,6 +130,55 @@ _TITLE_BG  = '#D9E1F2'
 # Examples: "PRIMARY-03/07/2000", "GENERAL-11/04/2025", "SPECIAL-08/08/2023"
 ELEC_RE = re.compile(r'^(PRIMARY|GENERAL|SPECIAL)-(\d{2}/\d{2}/\d{4})$')
 
+MANIFEST_PATH = BASE_DIR / 'download_manifest.json'
+
+
+def get_source_date(logger: logging.Logger) -> str:
+    """
+    Extract the effective source-file date from download_manifest.json.
+
+    The pipeline stores per-file ``last_modified`` HTTP header strings.  We
+    parse the most recent one and return it formatted as ``YYYYMMDD``.  If the
+    manifest is absent or unparseable, fall back to today's date so callers
+    always get a usable string.
+    """
+    if not MANIFEST_PATH.exists():
+        logger.warning('download_manifest.json not found — falling back to today\'s date '
+                       'for output filenames (source-file date is unavailable)')
+        return date_t.today().strftime('%Y%m%d')
+
+    try:
+        raw = json.loads(MANIFEST_PATH.read_text(encoding='utf-8'))
+    except (json.JSONDecodeError, OSError) as exc:
+        logger.warning('download_manifest.json could not be read (%s) — '
+                       'falling back to today\'s date', exc)
+        return date_t.today().strftime('%Y%m%d')
+
+    # Collect all last_modified values from per-file entries
+    dates: list[datetime] = []
+    for key, val in raw.items():
+        if not isinstance(val, dict):
+            continue
+        lm = val.get('last_modified')
+        if not lm or lm == 'unknown':
+            continue
+        # HTTP Last-Modified format: "Thu, 24 Apr 2026 18:30:00 GMT"
+        for fmt in ('%a, %d %b %Y %H:%M:%S %Z', '%a, %d %b %Y %H:%M:%S GMT'):
+            try:
+                dates.append(datetime.strptime(lm, fmt))
+                break
+            except ValueError:
+                continue
+
+    if not dates:
+        logger.warning('No parseable last_modified dates in download_manifest.json — '
+                       'falling back to today\'s date')
+        return date_t.today().strftime('%Y%m%d')
+
+    source_dt = max(dates)
+    logger.info('Source-file date from manifest: %s', source_dt.strftime('%Y-%m-%d'))
+    return source_dt.strftime('%Y%m%d')
+
 # Ohio county number → county name.
 # County numbers run 01–88 and are zero-padded strings in the voter file.
 OHIO_COUNTIES: dict[str, str] = {
@@ -378,19 +427,50 @@ def clean_voter_data(df: pl.DataFrame, logger: logging.Logger) -> pl.DataFrame:
     # Drop rows where birth year could not be parsed or is out of plausible range.
     # This removes test records, data-entry errors, and placeholder entries.
     current_year = date_t.today().year
-    df = df.filter(
+    invalid_mask = ~(
         pl.col('BIRTHYEAR').is_not_null() &
         pl.col('BIRTHYEAR').is_between(1900, current_year)
     )
+    invalid_rows = df.filter(invalid_mask)
 
-    dropped = initial_count - len(df)
-    if dropped:
+    if len(invalid_rows) > 0:
+        # Per-row detail so analysts can cross-reference against the SOS source file
+        # to distinguish data-entry errors from parser bugs.
+        for row in invalid_rows.select(
+            'SOS_VOTERID', 'DATE_OF_BIRTH', 'BIRTHYEAR'
+        ).iter_rows(named=True):
+            logger.warning(
+                'Dropping row: SOS_VOTERID=%s  DATE_OF_BIRTH=%s  BIRTHYEAR=%s',
+                row['SOS_VOTERID'], row['DATE_OF_BIRTH'], row['BIRTHYEAR'],
+            )
         logger.warning('Dropped %d rows with invalid birth years (out of range 1900–%d)',
-                       dropped, current_year)
+                       len(invalid_rows), current_year)
+
+    df = df.filter(~invalid_mask)
 
     # Create decade cohort column: 1987 → 1980, 2003 → 2000, etc.
     df = df.with_columns([
         (pl.col('BIRTHYEAR') // 10 * 10).alias('Decade'),
+    ])
+
+    # Create generational cohort column using Pew Research Center delineations.
+    # Boundaries:
+    #   Silent/Greatest : ≤ 1945
+    #   Baby Boomers    : 1946–1964
+    #   Generation X    : 1965–1980
+    #   Millennials     : 1981–1996
+    #   Generation Z    : 1997–2012
+    #   Gen Alpha       : ≥ 2013  (too young to vote but kept for completeness)
+    #   Unknown         : null BIRTHYEAR (already filtered, but defensive)
+    # Source: Pew Research Center (2019) — https://pewrsr.ch/2HFp9rq
+    df = df.with_columns([
+        pl.when(pl.col('BIRTHYEAR') <= 1945).then(pl.lit('Silent/Greatest'))
+          .when(pl.col('BIRTHYEAR') <= 1964).then(pl.lit('Baby Boomers'))
+          .when(pl.col('BIRTHYEAR') <= 1980).then(pl.lit('Gen X'))
+          .when(pl.col('BIRTHYEAR') <= 1996).then(pl.lit('Millennials'))
+          .when(pl.col('BIRTHYEAR') <= 2012).then(pl.lit('Gen Z'))
+          .otherwise(pl.lit('Gen Alpha'))
+          .alias('Generation'),
     ])
 
     # ── Registration date: parse to a native Date type ────────────────────────
@@ -450,11 +530,18 @@ def add_voter_participation(
     pass using SIMD instructions and thread-level parallelism.  Expect ~10–20×
     faster execution compared to the pandas loop on Ohio-scale data.
 
-    Columns added:
+    Columns added (all-elections, backward-compatible names):
       Elections_Eligible — number of elections held after the voter's registration date
       Elections_Voted    — of those, number where the voter participated
       Turnout_Rate       — Elections_Voted / Elections_Eligible  (null if 0 eligible)
-      Voter_Frequency    — categorical label based on Turnout_Rate vs FREQ thresholds
+
+    Columns added (generals-only):
+      General_Eligible      — general elections held after the voter's registration date
+      General_Voted         — of those, generals where the voter participated
+      General_Turnout_Rate  — General_Voted / General_Eligible  (null if 0 eligible)
+
+    Derived:
+      Voter_Frequency    — categorical label based on General_Turnout_Rate vs FREQ thresholds
 
     A voter is "eligible" for an election if their REGDATE_DT is on or before
     that election's date.  A voter "voted" if they were eligible AND their
@@ -467,12 +554,19 @@ def add_voter_participation(
     #   elig  — 1 if voter was registered on/before election date, else 0
     #   voted — 1 if voter was eligible AND has a non-empty participation value
     # All expressions are Int32 so sum_horizontal produces an integer total.
+    #
+    # Two parallel sets are built: all-elections and generals-only.
+    # Voter_Frequency is based on the generals-only rate so that the ≥75%
+    # "Frequent" threshold is reachable (a voter attending every general
+    # since 2000 scores ~100% instead of ~28% when diluted by 89 elections).
     elig_exprs:  list[pl.Expr] = []
     voted_exprs: list[pl.Expr] = []
+    gen_elig_exprs:  list[pl.Expr] = []
+    gen_voted_exprs: list[pl.Expr] = []
     skipped = 0
 
     for col in election_cols:
-        elec_date, _, _ = parse_election_meta(col)
+        elec_date, type_code, _ = parse_election_meta(col)
         if elec_date is None:
             logger.warning('Could not parse election date from column "%s" — skipping', col)
             skipped += 1
@@ -493,8 +587,15 @@ def add_voter_participation(
         elig_exprs.append(elig)
         voted_exprs.append(voted)
 
+        if col.startswith('GENERAL-'):
+            gen_elig_exprs.append(elig)
+            gen_voted_exprs.append(voted)
+
     if skipped:
         logger.warning('Skipped %d election columns with unparseable dates', skipped)
+
+    logger.info('  %d total election expressions, %d generals-only',
+                len(elig_exprs), len(gen_elig_exprs))
 
     # sum_horizontal adds across all expressions row-by-row, fully vectorised.
     # This replaces the 89-iteration Python for-loop from v1.
@@ -502,6 +603,19 @@ def add_voter_participation(
         pl.sum_horizontal(elig_exprs).alias('Elections_Eligible'),
         pl.sum_horizontal(voted_exprs).alias('Elections_Voted'),
     ])
+
+    # Generals-only metrics
+    if gen_elig_exprs:
+        df = df.with_columns([
+            pl.sum_horizontal(gen_elig_exprs).alias('General_Eligible'),
+            pl.sum_horizontal(gen_voted_exprs).alias('General_Voted'),
+        ])
+    else:
+        # Edge case: no GENERAL- columns in the data at all
+        df = df.with_columns([
+            pl.lit(0).cast(pl.Int32).alias('General_Eligible'),
+            pl.lit(0).cast(pl.Int32).alias('General_Voted'),
+        ])
 
     # Turnout rate: voted / eligible.  Divide-by-zero → null (not 0), which
     # correctly propagates to 'No Eligible Elections' in the frequency label.
@@ -511,25 +625,34 @@ def add_voter_participation(
             pl.when(pl.col('Elections_Eligible') == 0)
               .then(None)
               .otherwise(pl.col('Elections_Eligible'))
-        ).round(4).alias('Turnout_Rate')
+        ).round(4).alias('Turnout_Rate'),
+        (
+            pl.col('General_Voted').cast(pl.Float64) /
+            pl.when(pl.col('General_Eligible') == 0)
+              .then(None)
+              .otherwise(pl.col('General_Eligible'))
+        ).round(4).alias('General_Turnout_Rate'),
     ])
 
-    # Frequency label: applied as a series of when/then/otherwise conditions.
-    # Order matters: conditions are evaluated top-to-bottom, first match wins.
+    # Frequency label: based on generals-only turnout rate so the ≥75%
+    # threshold is meaningful.  A voter who participates in every general
+    # election since registration now correctly scores as "Frequent".
     df = df.with_columns([
-        pl.when(pl.col('Elections_Eligible') == 0)
+        pl.when(pl.col('General_Eligible') == 0)
           .then(pl.lit('No Eligible Elections'))
-          .when(pl.col('Turnout_Rate') >= FREQ_HIGH)
+          .when(pl.col('General_Turnout_Rate') >= FREQ_HIGH)
           .then(pl.lit('Frequent (≥75%)'))
-          .when(pl.col('Turnout_Rate') >= FREQ_LOW)
+          .when(pl.col('General_Turnout_Rate') >= FREQ_LOW)
           .then(pl.lit('Moderate (25–74%)'))
           .otherwise(pl.lit('Infrequent (<25%)'))
           .alias('Voter_Frequency')
     ])
 
     eligible_count = df.filter(pl.col('Elections_Eligible') > 0).height
-    logger.info('Participation complete: %s voters had ≥1 eligible election',
-                f'{eligible_count:,}')
+    gen_eligible   = df.filter(pl.col('General_Eligible') > 0).height
+    logger.info('Participation complete: %s voters had ≥1 eligible election '
+                '(%s with ≥1 eligible general)',
+                f'{eligible_count:,}', f'{gen_eligible:,}')
     return df
 
 
@@ -590,6 +713,60 @@ def build_decade_summary(df: pl.DataFrame) -> pl.DataFrame:
           .agg(pl.len().alias('Voter Count'))
           .sort('Decade')
     )
+
+
+# Ordered list used for sorting generation rows chronologically.
+_GEN_ORDER = ['Silent/Greatest', 'Baby Boomers', 'Gen X', 'Millennials', 'Gen Z', 'Gen Alpha']
+
+
+def build_generation_summary(df: pl.DataFrame) -> pl.DataFrame:
+    """
+    Voter counts grouped by generational cohort (Pew Research Center boundaries).
+    Rows are returned in chronological birth-order.
+    """
+    order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                             '_sort': list(range(len(_GEN_ORDER)))})
+    summary = (
+        df.group_by('Generation')
+          .agg(pl.len().alias('Voter Count'))
+    )
+    return (
+        summary.join(order_df, on='Generation', how='left')
+               .sort('_sort')
+               .drop('_sort')
+    )
+
+
+def build_generation_crosstab(df: pl.DataFrame, logger: logging.Logger) -> pl.DataFrame:
+    """
+    Party affiliation × generational cohort cross-tabulation.
+    Mirrors the structure of the decade cross-tab in build_party_crosstabs().
+    """
+    order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                             '_sort': list(range(len(_GEN_ORDER)))})
+    try:
+        raw = (
+            df.group_by(['Generation', 'PARTY_LABEL'])
+              .agg(pl.len().alias('count'))
+              .pivot(on='PARTY_LABEL', index='Generation',
+                     values='count', aggregate_function='sum')
+        )
+        # Ensure all expected party columns exist
+        for party in TOP_PARTIES + ['Other']:
+            if party not in raw.columns:
+                raw = raw.with_columns(pl.lit(0).cast(pl.Int64).alias(party))
+        total = raw.select(pl.col(c) for c in TOP_PARTIES + ['Other']).sum_horizontal()
+        raw = raw.with_columns(total.alias('Total'))
+        result = (
+            raw.join(order_df, on='Generation', how='left')
+               .sort('_sort')
+               .drop('_sort')
+               .rename({'Generation': 'Generational Cohort'})
+        )
+        return result
+    except Exception:
+        logger.warning('build_generation_crosstab: could not build cross-tab', exc_info=True)
+        return pl.DataFrame()
 
 
 def build_election_participation(
@@ -994,6 +1171,63 @@ def export_json(
         },
     }, DATA_DIR / f'{slug}_party_by_decade.json', logger)
 
+    # ── Generation distribution (bar chart) ───────────────────────────────────
+    gen_df = build_generation_summary(df)
+    _dump_json({
+        'title':     'Voter Age Distribution by Generation',
+        'county':    county_name,
+        'geography': 'county',
+        'type':      'bar',
+        'updated':   today,
+        'note':      note + ' — Pew Research Center generational boundaries',
+        'chartConfig': {
+            'labels': gen_df['Generation'].to_list(),
+            'datasets': [{
+                'label':           'Registered Voters',
+                'data':            gen_df['Voter Count'].to_list(),
+                'backgroundColor': CHART_COLORS['bar'],
+                'borderRadius':    4,
+            }],
+        },
+    }, DATA_DIR / f'{slug}_generation_distribution.json', logger)
+
+    # ── Party × Generation (grouped bar chart) ────────────────────────────────
+    gen_cross = (
+        df.group_by(['Generation', 'PARTY_LABEL'])
+          .agg(pl.len().alias('count'))
+          .pivot(on='PARTY_LABEL', index='Generation',
+                 values='count', aggregate_function='sum')
+    )
+    order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                             '_sort': list(range(len(_GEN_ORDER)))})
+    gen_cross = (
+        gen_cross.join(order_df, on='Generation', how='left')
+                 .sort('_sort')
+                 .drop('_sort')
+    )
+    gen_labels = gen_cross['Generation'].to_list()
+    gen_datasets = []
+    for party in TOP_PARTIES + ['Other']:
+        color = CHART_COLORS.get(party, '#888888')
+        gen_datasets.append({
+            'label':           party,
+            'data':            gen_cross[party].fill_null(0).to_list() if party in gen_cross.columns else [],
+            'backgroundColor': color,
+            'borderRadius':    2,
+        })
+    _dump_json({
+        'title':     'Party Affiliation by Generation',
+        'county':    county_name,
+        'geography': 'county',
+        'type':      'bar',
+        'updated':   today,
+        'note':      note + ' — Pew Research Center generational boundaries',
+        'chartConfig': {
+            'labels':   gen_labels,
+            'datasets': gen_datasets,
+        },
+    }, DATA_DIR / f'{slug}_party_by_generation.json', logger)
+
     # ── Precinct summary (table) ──────────────────────────────────────────────
     precinct_df = build_precinct_summary(df)
     # Truncate to top 100 precincts so the table remains usable in the browser
@@ -1088,6 +1322,24 @@ def _update_manifest(
             'county':      county_name,
             'geography':   'county',
             'dataUrl':     f'data/{slug}_party_by_decade.json',
+        },
+        {
+            'id':          f'{slug}-generation-distribution',
+            'title':       'Voter Age Distribution by Generation',
+            'navLabel':    'Generations',
+            'description': 'Count of registered voters grouped by generational cohort (Pew Research Center).',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_generation_distribution.json',
+        },
+        {
+            'id':          f'{slug}-party-by-generation',
+            'title':       'Party Affiliation by Generation',
+            'navLabel':    'Party × Generation',
+            'description': 'Party affiliation within each generational cohort.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_party_by_generation.json',
         },
         {
             'id':          f'{slug}-precinct-summary',
@@ -1227,6 +1479,32 @@ def build_workbook(
         ws.insert_chart('D2', chart)
         logger.info('  ✓ Decade Summary: %d cohorts', len(decade_pd))
 
+        # ── Sheet 2b: Generation Summary ─────────────────────────────────────
+        logger.info('  Writing Generation Summary sheet ...')
+        gen_pd = build_generation_summary(df).to_pandas()
+        gen_pd.to_excel(writer, sheet_name='Generation Summary', index=False)
+        ws  = writer.sheets['Generation Summary']
+        hf  = _hdr_fmt(wb)
+        for i, c in enumerate(gen_pd.columns):
+            ws.write(0, i, c, hf)
+        ws.set_column(0, 0, 22)
+        ws.set_column(1, 1, 15)
+        # Embed bar chart
+        chart = wb.add_chart({'type': 'column'})
+        n     = len(gen_pd)
+        chart.add_series({
+            'name':       'Voter Count',
+            'categories': ['Generation Summary', 1, 0, n, 0],
+            'values':     ['Generation Summary', 1, 1, n, 1],
+            'fill':       {'color': _MED_BLUE},
+        })
+        chart.set_title({'name': f'Voters by Generation — {county_name}'})
+        chart.set_x_axis({'name': 'Generation'})
+        chart.set_y_axis({'name': 'Voter Count', 'num_format': '#,##0'})
+        chart.set_size({'width': 480, 'height': 300})
+        ws.insert_chart('D2', chart)
+        logger.info('  ✓ Generation Summary: %d cohorts', len(gen_pd))
+
         # ── Sheet 3: Participation ────────────────────────────────────────────
         logger.info('  Writing Participation sheet ...')
         hf, tf = _hdr_fmt(wb), _title_fmt(wb)
@@ -1262,13 +1540,17 @@ def build_workbook(
         logger.info('  Writing Party Cross-tabs sheet ...')
         hf, tf = _hdr_fmt(wb), _title_fmt(wb)
         by_congress, by_decade, by_status = build_party_crosstabs(df, logger)
+        by_generation = build_generation_crosstab(df, logger)
         row = 0
         row = _write_section(writer, 'Party Cross-tabs', by_congress.to_pandas(), row,
                              'Party × Congressional District', hf, tf, col_widths={0: 35})
         row = _write_section(writer, 'Party Cross-tabs', by_decade.to_pandas(), row,
                              'Party × Birth Decade', hf, tf, col_widths={0: 16})
-        _write_section(writer, 'Party Cross-tabs', by_status.to_pandas(), row,
-                       'Party × Voter Status', hf, tf, col_widths={0: 25})
+        row = _write_section(writer, 'Party Cross-tabs', by_status.to_pandas(), row,
+                             'Party × Voter Status', hf, tf, col_widths={0: 25})
+        if len(by_generation) > 0:
+            _write_section(writer, 'Party Cross-tabs', by_generation.to_pandas(), row,
+                           'Party × Generation (Pew Research Center)', hf, tf, col_widths={0: 28})
         ws = writer.sheets.get('Party Cross-tabs')
         if ws:
             ws.set_column(1, 30, 12)
@@ -1413,12 +1695,14 @@ if __name__ == '__main__':
     print('  [1]  Full Ohio analysis')
     print('  [2]  Single county')
     choice = input('Choice: ').strip()
-    today  = date_t.today()
+
+    _log = setup_logging('standalone')
+    src_date = get_source_date(_log)
 
     if choice == '2':
         county = input('County number (e.g. 57 for Montgomery): ').strip().zfill(2)
-        out    = BASE_DIR / f'county_{county}_analysis_{today}.xlsx'
+        out    = BASE_DIR / f'county_{county}_analysis_src{src_date}.xlsx'
         run_county_analysis(txt_files, county, out)
     else:
-        out = BASE_DIR / f'ohio_analysis_{today}.xlsx'
+        out = BASE_DIR / f'ohio_analysis_src{src_date}.xlsx'
         run_ohio_analysis(txt_files, out)
