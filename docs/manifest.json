@@ -1,9 +1,10 @@
 {
   "title": "Ohio Voter Registration Analysis",
   "description": "Voter registration analysis for {county}. Use the County dropdown and Geography filter to focus the charts below.",
-  "dataNote": "Data sourced from Ohio Secretary of State statewide voter file. Last updated 2026-05-01.",
+  "dataNote": "Data sourced from Ohio Secretary of State statewide voter file. Last updated 2026-05-02.",
   "counties": [
-    "Montgomery"
+    "Montgomery",
+    "Ohio (Statewide)"
   ],
   "sections": [
     {
@@ -70,6 +71,24 @@
       "dataUrl": "data/montgomery_party_by_decade.json"
     },
     {
+      "id": "montgomery-generation-distribution",
+      "title": "Voter Age Distribution by Generation",
+      "navLabel": "Generations",
+      "description": "Count of registered voters grouped by generational cohort (Pew Research Center).",
+      "county": "Montgomery",
+      "geography": "county",
+      "dataUrl": "data/montgomery_generation_distribution.json"
+    },
+    {
+      "id": "montgomery-party-by-generation",
+      "title": "Party Affiliation by Generation",
+      "navLabel": "Party \u00d7 Generation",
+      "description": "Party affiliation within each generational cohort.",
+      "county": "Montgomery",
+      "geography": "county",
+      "dataUrl": "data/montgomery_party_by_generation.json"
+    },
+    {
       "id": "montgomery-precinct-summary",
       "title": "Registration by Precinct",
       "navLabel": "Precincts",
@@ -77,6 +96,60 @@
       "county": "Montgomery",
       "geography": "precinct",
       "dataUrl": "data/montgomery_precinct_summary.json"
+    },
+    {
+      "id": "ohio_(statewide)-decade-distribution",
+      "title": "Voter Age Distribution by Birth Decade",
+      "navLabel": "Age Cohorts",
+      "description": "Count of registered voters grouped by birth decade.",
+      "county": "Ohio (Statewide)",
+      "geography": "county",
+      "dataUrl": "data/ohio_(statewide)_decade_distribution.json"
+    },
+    {
+      "id": "ohio_(statewide)-party-affiliation",
+      "title": "Party Affiliation Breakdown",
+      "navLabel": "Party",
+      "description": "Distribution of registered voters by party affiliation.",
+      "county": "Ohio (Statewide)",
+      "geography": "county",
+      "dataUrl": "data/ohio_(statewide)_party_affiliation.json"
+    },
+    {
+      "id": "ohio_(statewide)-party-by-decade",
+      "title": "Party Affiliation by Birth Decade",
+      "navLabel": "Party \u00d7 Age",
+      "description": "Party affiliation within each birth decade cohort.",
+      "county": "Ohio (Statewide)",
+      "geography": "county",
+      "dataUrl": "data/ohio_(statewide)_party_by_decade.json"
+    },
+    {
+      "id": "ohio_(statewide)-generation-distribution",
+      "title": "Voter Age Distribution by Generation",
+      "navLabel": "Generations",
+      "description": "Count of registered voters grouped by generational cohort (Pew Research Center).",
+      "county": "Ohio (Statewide)",
+      "geography": "county",
+      "dataUrl": "data/ohio_(statewide)_generation_distribution.json"
+    },
+    {
+      "id": "ohio_(statewide)-party-by-generation",
+      "title": "Party Affiliation by Generation",
+      "navLabel": "Party \u00d7 Generation",
+      "description": "Party affiliation within each generational cohort.",
+      "county": "Ohio (Statewide)",
+      "geography": "county",
+      "dataUrl": "data/ohio_(statewide)_party_by_generation.json"
+    },
+    {
+      "id": "ohio_(statewide)-precinct-summary",
+      "title": "Registration by Precinct",
+      "navLabel": "Precincts",
+      "description": "Precinct-level active and confirmation voter counts.",
+      "county": "Ohio (Statewide)",
+      "geography": "precinct",
+      "dataUrl": "data/ohio_(statewide)_precinct_summary.json"
     }
   ]
 }

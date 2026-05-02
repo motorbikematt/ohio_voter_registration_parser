@@ -235,15 +235,18 @@ def main():
 
 
 def _dispatch(choice: str, txt_files: list[Path]):
+    import voter_data_cleaner_v2 as v2
+
+    _log = v2.setup_logging('pipeline')
+    src_date = v2.get_source_date(_log)
+
     if choice == "1":
-        import voter_data_cleaner_v2 as v2
-        out = BASE_DIR / f"ohio_analysis_{date.today()}.xlsx"
+        out = BASE_DIR / f"ohio_analysis_src{src_date}.xlsx"
         v2.run_ohio_analysis(txt_files, output_path=out)
 
     elif choice == "2":
         county = input("\n  County number (e.g. 57 for Montgomery County): ").strip().zfill(2)
-        import voter_data_cleaner_v2 as v2
-        out = BASE_DIR / f"county_{county}_analysis_{date.today()}.xlsx"
+        out = BASE_DIR / f"county_{county}_analysis_src{src_date}.xlsx"
         v2.run_county_analysis(txt_files, county_number=county, output_path=out)
 
     else:
