@@ -78,21 +78,31 @@ const ChartDashboard = (() => {
       var anchorOffset = anchor ? anchor.el.getBoundingClientRect().top : 0;
       var anchorGeo    = anchor ? anchor.el.dataset.geo : null;
       var anchorIndex  = anchor ? anchor.indexInGeo    : 0;
+      var savedScrollY = window.scrollY;
 
       activeCounty = sel.value;
       _updateHeaderLabel();
       _updatePageDescription();
       _filterSections();
+      _renderVisibleSections();   // load any newly-revealed county's charts
       _rebuildNav();
 
-      if (anchorGeo) {
-        var target = _nthVisibleSectionOfGeo(anchorGeo, anchorIndex);
-        if (target) {
-          var targetTop = target.getBoundingClientRect().top + window.scrollY;
-          // Use instant scroll (no smooth) so the position lock is visually exact.
-          window.scrollTo({ top: targetTop - anchorOffset, behavior: 'auto' });
+      // Scroll-restore is deferred to the next frame so the DOM has reflowed
+      // (sections that were display:none take their real height back) before
+      // we measure the target section's position.
+      requestAnimationFrame(function() {
+        if (anchorGeo) {
+          var target = _nthVisibleSectionOfGeo(anchorGeo, anchorIndex);
+          if (target) {
+            var targetTop = target.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({ top: targetTop - anchorOffset, behavior: 'auto' });
+            return;
+          }
         }
-      }
+        // Fallback: nothing to anchor on. Preserve the absolute scroll
+        // position so the page doesn't jump to top.
+        window.scrollTo({ top: savedScrollY, behavior: 'auto' });
+      });
     });
 
     _updateHeaderLabel();
@@ -161,10 +171,18 @@ const ChartDashboard = (() => {
   }
 
   // ── Section rendering ────────────────────────────────────────────────────
+  // Track which sections have already been rendered so we don't re-fetch and
+  // re-construct charts every time the county dropdown changes.
+  const _renderedSections = new Set();
+
   function _renderAllSections() {
     const container = document.getElementById(cfg.containerId);
     container.innerHTML = '';
 
+    // Build the DOM scaffold for every section up front but DO NOT load chart
+    // data yet — we render lazily after _filterSections() decides which
+    // sections are visible. This avoids the Chart.js 0×0 sizing bug that
+    // happens when a chart is constructed inside a display:none container.
     manifest.sections.forEach(function(section) {
       const wrapper = document.createElement('section');
       wrapper.className      = 'chart-section';
@@ -190,11 +208,37 @@ const ChartDashboard = (() => {
         '</div>';
 
       container.appendChild(wrapper);
-      _loadAndRender(section);
     });
 
-    _filterSections();
+    _filterSections();           // hides everything not in the active county
+    _renderVisibleSections();    // now load+render only what's actually shown
     _rebuildNav();
+  }
+
+  function _renderVisibleSections() {
+    // Render any visible section that hasn't been rendered yet. Called both
+    // on initial load and after a county switch to populate newly-revealed
+    // sections. Using rAF so the DOM has reflowed and the chart-wrapper has
+    // its real width before Chart.js measures it.
+    requestAnimationFrame(function() {
+      manifest.sections.forEach(function(s) {
+        if (_renderedSections.has(s.id)) return;
+        if (!_sectionVisible(s)) return;
+        const el = document.getElementById('section-' + s.id);
+        if (!el || el.style.display === 'none') return;
+        _renderedSections.add(s.id);
+        _loadAndRender(s);
+      });
+      // Re-fit any already-rendered charts that just became visible — the
+      // canvas may have been sized while hidden if the user is switching
+      // back to a county whose charts were rendered earlier.
+      Object.keys(instances).forEach(function(id) {
+        const wrap = document.getElementById('chart-wrapper-' + id);
+        if (wrap && wrap.offsetParent !== null) {
+          try { instances[id].resize(); } catch (e) {}
+        }
+      });
+    });
   }
 
   async function _loadAndRender(section) {
