@@ -65,54 +65,82 @@ const ChartDashboard = (() => {
     sel.value    = activeCounty;
 
     sel.addEventListener('change', function() {
-      // Capture the geography of the section closest to the viewport before switching.
-      var scrollGeo = _nearestVisibleGeo();
+      // Preserve the chart slot the user is looking at across the county switch
+      // so they can compare side-by-side without the page jumping.
+      //
+      // Strategy: identify the visible chart-section nearest the top of the
+      // viewport, record its offset from the viewport top (anchorOffset), swap
+      // counties, then re-scroll so the equivalent section in the new county
+      // sits at the same pixel offset. The "equivalent" section is matched by
+      // (geography, position-among-visible) so the Nth city table in County A
+      // becomes the Nth city table in County B.
+      var anchor       = _topVisibleSection();
+      var anchorOffset = anchor ? anchor.el.getBoundingClientRect().top : 0;
+      var anchorGeo    = anchor ? anchor.el.dataset.geo : null;
+      var anchorIndex  = anchor ? anchor.indexInGeo    : 0;
+
       activeCounty = sel.value;
       _updateHeaderLabel();
       _updatePageDescription();
       _filterSections();
       _rebuildNav();
-      // Scroll to the same geography type in the newly selected county.
-      if (scrollGeo) _scrollToGeo(scrollGeo);
+
+      if (anchorGeo) {
+        var target = _nthVisibleSectionOfGeo(anchorGeo, anchorIndex);
+        if (target) {
+          var targetTop = target.getBoundingClientRect().top + window.scrollY;
+          // Use instant scroll (no smooth) so the position lock is visually exact.
+          window.scrollTo({ top: targetTop - anchorOffset, behavior: 'auto' });
+        }
+      }
     });
 
     _updateHeaderLabel();
   }
 
-  function _nearestVisibleGeo() {
-    // Return the geography of the section whose top edge is closest to (but not
-    // below) the middle of the viewport, so we can restore that position after
-    // a county switch.
-    var mid     = window.scrollY + window.innerHeight / 2;
-    var best    = null;
-    var bestDist = Infinity;
-    document.querySelectorAll('.chart-section').forEach(function(el) {
-      if (el.style.display === 'none') return;
-      var top  = el.getBoundingClientRect().top + window.scrollY;
-      var dist = Math.abs(top - mid);
-      if (dist < bestDist) { bestDist = dist; best = el.dataset.geo; }
-    });
-    return best;
-  }
-
-  function _scrollToGeo(geo) {
-    // Find the first visible section with the given geography and scroll to it.
+  function _topVisibleSection() {
+    // Return the visible chart-section closest to the top of the viewport
+    // (but not above it), plus its zero-based index among visible sections of
+    // the same geography. Used as the scroll anchor for county switching.
     var sections = document.querySelectorAll('.chart-section');
+    var best     = null;
+    var bestTop  = Infinity;
+    var counters = {};
+    var indexInGeo = 0;
     for (var i = 0; i < sections.length; i++) {
       var el = sections[i];
       if (el.style.display === 'none') continue;
-      if (el.dataset.geo === geo) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
+      var geo = el.dataset.geo;
+      counters[geo] = (counters[geo] || 0);
+      var top = el.getBoundingClientRect().top;
+      // Pick the first section whose top is at or below 0 (in-viewport),
+      // or — if none qualify — the section with the smallest |top| value.
+      if (top >= -1 && top < bestTop) {
+        best       = el;
+        bestTop    = top;
+        indexInGeo = counters[geo];
       }
+      counters[geo]++;
     }
-    // Fallback: scroll to the first visible section of any type.
+    return best ? { el: best, indexInGeo: indexInGeo } : null;
+  }
+
+  function _nthVisibleSectionOfGeo(geo, n) {
+    // Return the n-th visible chart-section whose dataset.geo === geo.
+    // Falls back to the last visible one of that geo if n is out of range,
+    // or the first visible section of any geo if there are none.
+    var sections = document.querySelectorAll('.chart-section');
+    var matches = [];
+    for (var i = 0; i < sections.length; i++) {
+      var el = sections[i];
+      if (el.style.display === 'none') continue;
+      if (el.dataset.geo === geo) matches.push(el);
+    }
+    if (matches.length) return matches[Math.min(n, matches.length - 1)];
     for (var j = 0; j < sections.length; j++) {
-      if (sections[j].style.display !== 'none') {
-        sections[j].scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-      }
+      if (sections[j].style.display !== 'none') return sections[j];
     }
+    return null;
   }
 
   function _updateHeaderLabel() {
