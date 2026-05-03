@@ -228,9 +228,13 @@ a:hover { color: var(--accent-hover); }
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   margin-bottom: 1.5rem;
-  overflow: hidden;
-  scroll-margin-top: 130px;  /* clear the sticky header */
+  /* No `overflow: hidden` — would break position:sticky on table headers
+     inside .table-scroll. Rounded corners are kept by giving the inner
+     header/footer their own border-radii where the corners meet. */
+  scroll-margin-top: 130px;  /* clear the sticky header on anchor jumps */
 }
+.chart-section .section-header { border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); }
+.chart-section .section-footer { border-bottom-left-radius: var(--radius); border-bottom-right-radius: var(--radius); }
 
 .section-header {
   padding: 1.1rem 1.5rem .75rem;
@@ -297,17 +301,27 @@ a:hover { color: var(--accent-hover); }
    Data Table
    ============================================================ */
 .table-scroll {
-  overflow-x: auto;
+  /* Fixed maximum height so a 1,200-row Cuyahoga precinct table doesn't
+     create a 30,000px-tall section. Internal scroll keeps the section
+     card a stable size across all counties — chart-to-chart anchoring
+     across counties stays accurate, page-load feels lighter, and the
+     user can still see every row by scrolling within the table. */
+  max-height: 60vh;
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
 
 .data-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;   /* needed so sticky thead's border doesn't disappear when scrolling */
+  border-spacing: 0;
   font-size: .85rem;
 }
 
 .data-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   background: var(--surface-2);
   color: var(--text);
   font-weight: 700;
@@ -315,6 +329,7 @@ a:hover { color: var(--accent-hover); }
   padding: .55rem .85rem;
   border-bottom: 2px solid var(--border);
   white-space: nowrap;
+  box-shadow: inset 0 -2px 0 var(--border);   /* preserve underline when border collapses with sticky */
 }
 
 .data-table td {
@@ -365,4 +380,5 @@ a:hover { color: var(--accent-hover); }
   .chart-wrapper  { padding: 1rem; }
   .section-footer { padding: .5rem 1rem; }
   .chart-wrapper canvas { max-height: 280px; }
+  .table-scroll   { max-height: 50vh; }
 }

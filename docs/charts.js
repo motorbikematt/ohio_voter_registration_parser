@@ -65,24 +65,20 @@ const ChartDashboard = (() => {
     sel.value    = activeCounty;
 
     sel.addEventListener('change', function() {
-      // Preserve the user's exact viewport position across the county switch
-      // so they can compare side-by-side. We anchor on the section the user is
-      // actually looking at (the one whose midpoint is closest to the viewport
-      // midpoint, NOT just the topmost visible header) and preserve that
-      // section's offset from the viewport top.
+      // Preserve the user's chart slot across the county switch so they can
+      // compare chart-to-chart side-by-side. We use the browser's native
+      // scrollIntoView anchor mechanism — that automatically respects the
+      // CSS `scroll-margin-top` on .chart-section (which clears the sticky
+      // header), handles mobile zoom and sub-pixel rounding correctly, and
+      // updates the URL fragment so the dashboard view becomes shareable.
       //
-      // The earlier "top visible section" approach biased upward by one
-      // section's height when the user was reading the bottom of a long
-      // table, because the next-down section's header was technically "more
-      // visible" at the top of the viewport.
-      var anchor = _focalSection();
-      var anchorOffset, anchorGeo, anchorIndex;
-      if (anchor) {
-        anchorOffset = anchor.el.getBoundingClientRect().top;
-        anchorGeo    = anchor.el.dataset.geo;
-        anchorIndex  = anchor.indexInGeo;
-      }
+      // We only anchor on CHART sections, not table sections. Tables are too
+      // tall and their heights vary too much across counties for anchoring
+      // to feel right; when the user is reading a table, we just preserve
+      // absolute scrollY instead.
       var savedScrollY = window.scrollY;
+      var anchor       = _focalChartSection();   // chart section slug, or null
+      var anchorSuffix = anchor ? _slugSuffix(anchor.id, activeCounty) : null;
 
       activeCounty = sel.value;
       _updateHeaderLabel();
@@ -91,76 +87,75 @@ const ChartDashboard = (() => {
       _renderVisibleSections();   // load any newly-revealed county's charts
       _rebuildNav();
 
-      // Scroll-restore deferred to the next frame so the DOM has reflowed
-      // before we measure the target section's position.
+      // Defer scroll-restore until after lazy chart construction has had a
+      // chance to add layout (rAF inside _renderVisibleSections), otherwise
+      // page height grows under our feet and the restore lands too high.
       requestAnimationFrame(function() {
-        if (anchor) {
-          var target = _nthVisibleSectionOfGeo(anchorGeo, anchorIndex);
-          if (target) {
-            var targetTop = target.getBoundingClientRect().top + window.scrollY;
-            window.scrollTo({ top: targetTop - anchorOffset, behavior: 'auto' });
-            return;
+        requestAnimationFrame(function() {
+          if (anchorSuffix) {
+            var newSlug = activeCounty.toLowerCase().replace(/ /g, '_');
+            var target  = document.getElementById('section-' + newSlug + '-' + anchorSuffix);
+            if (target && target.style.display !== 'none') {
+              target.scrollIntoView({ behavior: 'auto', block: 'start' });
+              return;
+            }
           }
-        }
-        // Fallback: preserve absolute scroll position.
-        window.scrollTo({ top: savedScrollY, behavior: 'auto' });
+          // No chart anchor (user was reading a table) or target missing —
+          // hold absolute scroll position so the page doesn't jump.
+          window.scrollTo({ top: savedScrollY, behavior: 'auto' });
+        });
       });
     });
 
     _updateHeaderLabel();
   }
 
-  function _focalSection() {
-    // Return the visible chart-section the user is actually looking at — the
-    // one whose vertical midpoint is closest to the viewport midpoint. This
-    // works correctly when the user is reading the middle or bottom of a long
-    // section (such as a city table), where the prior "topmost section in
-    // viewport" picker would incorrectly anchor on the next-down section's
-    // header and shift the page upward by one section on county switch.
-    //
-    // Returns the chosen section element plus its zero-based index among
-    // visible sections of the same geography, so the equivalent slot in the
-    // newly-selected county can be located after the filter.
-    var viewMid    = window.innerHeight / 2;
-    var sections   = document.querySelectorAll('.chart-section');
-    var best       = null;
-    var bestDist   = Infinity;
-    var counters   = {};
-    var indexInGeo = 0;
+  // Section ids that contain only chart visualisations (eligible for
+  // chart-to-chart anchoring on county switch). Anything not in this list —
+  // currently just precinct and city tables — is treated as a table section
+  // and falls through to absolute-scrollY preservation.
+  var _CHART_GEOGRAPHIES = { 'county': true, 'congressional': true };
+
+  function _focalChartSection() {
+    // Return the visible CHART section (not table) whose vertical midpoint is
+    // closest to the viewport midpoint — i.e. the chart the user is actually
+    // looking at. Returns the section element, or null if no chart section is
+    // currently in view (user is reading a table or scrolled past all charts).
+    var viewMid  = window.innerHeight / 2;
+    var sections = document.querySelectorAll('.chart-section');
+    var best     = null;
+    var bestDist = Infinity;
     for (var i = 0; i < sections.length; i++) {
       var el = sections[i];
       if (el.style.display === 'none') continue;
-      var geo = el.dataset.geo;
-      counters[geo] = (counters[geo] || 0);
-      var rect    = el.getBoundingClientRect();
-      var elMid   = rect.top + rect.height / 2;
-      var dist    = Math.abs(elMid - viewMid);
+      if (!_CHART_GEOGRAPHIES[el.dataset.geo]) continue;
+      var rect  = el.getBoundingClientRect();
+      // Only consider sections at least partially in the viewport.
+      if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
+      var elMid = rect.top + rect.height / 2;
+      var dist  = Math.abs(elMid - viewMid);
       if (dist < bestDist) {
-        best       = el;
-        bestDist   = dist;
-        indexInGeo = counters[geo];
+        best     = el;
+        bestDist = dist;
       }
-      counters[geo]++;
     }
-    return best ? { el: best, indexInGeo: indexInGeo } : null;
+    return best;
   }
 
-  function _nthVisibleSectionOfGeo(geo, n) {
-    // Return the n-th visible chart-section whose dataset.geo === geo.
-    // Falls back to the last visible one of that geo if n is out of range,
-    // or the first visible section of any geo if there are none.
-    var sections = document.querySelectorAll('.chart-section');
-    var matches = [];
-    for (var i = 0; i < sections.length; i++) {
-      var el = sections[i];
-      if (el.style.display === 'none') continue;
-      if (el.dataset.geo === geo) matches.push(el);
+  function _slugSuffix(sectionElementId, county) {
+    // Given an element id like 'section-cuyahoga-party-affiliation' and the
+    // active county name 'Cuyahoga', return 'party-affiliation' — the
+    // county-independent suffix that identifies which CHART KIND this is.
+    // Used to translate the user's focal section into the equivalent section
+    // in the newly-selected county.
+    var prefix = 'section-' + (county || '').toLowerCase().replace(/ /g, '_') + '-';
+    if (sectionElementId.indexOf(prefix) === 0) {
+      return sectionElementId.slice(prefix.length);
     }
-    if (matches.length) return matches[Math.min(n, matches.length - 1)];
-    for (var j = 0; j < sections.length; j++) {
-      if (sections[j].style.display !== 'none') return sections[j];
-    }
-    return null;
+    // Fallback: strip the leading 'section-' and the first slug-token.
+    var trimmed = sectionElementId.replace(/^section-/, '');
+    var dash    = trimmed.indexOf('-');
+    return dash >= 0 ? trimmed.slice(dash + 1) : trimmed;
   }
 
   function _updateHeaderLabel() {
