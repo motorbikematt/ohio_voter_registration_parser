@@ -92,7 +92,7 @@
     "Wood",
     "Wyandot"
   ],
-  "processedCounties": [
+  "counties": [
     "Adams",
     "Allen",
     "Ashland",
@@ -182,7 +182,7 @@
     "Wood",
     "Wyandot"
   ],
-  "counties": [
+  "processedCounties": [
     "Adams",
     "Allen",
     "Ashland",
@@ -274,6 +274,69 @@
   ],
   "sections": [
     {
+      "id": "ohio_(statewide)-decade-distribution",
+      "title": "Voter Age Distribution by Birth Decade",
+      "navLabel": "Age Cohorts",
+      "description": "Count of registered voters grouped by birth decade.",
+      "county": "Ohio (Statewide)",
+      "geography": "county",
+      "dataUrl": "data/ohio_(statewide)_decade_distribution.json"
+    },
+    {
+      "id": "ohio_(statewide)-party-affiliation",
+      "title": "Party Affiliation Breakdown",
+      "navLabel": "Party",
+      "description": "Distribution of registered voters by party affiliation.",
+      "county": "Ohio (Statewide)",
+      "geography": "county",
+      "dataUrl": "data/ohio_(statewide)_party_affiliation.json"
+    },
+    {
+      "id": "ohio_(statewide)-party-by-decade",
+      "title": "Party Affiliation by Birth Decade",
+      "navLabel": "Party x Age",
+      "description": "Party affiliation within each birth decade cohort.",
+      "county": "Ohio (Statewide)",
+      "geography": "county",
+      "dataUrl": "data/ohio_(statewide)_party_by_decade.json"
+    },
+    {
+      "id": "ohio_(statewide)-generation-distribution",
+      "title": "Voter Age Distribution by Generation",
+      "navLabel": "Generations",
+      "description": "Count of registered voters grouped by generational cohort (Pew Research Center).",
+      "county": "Ohio (Statewide)",
+      "geography": "county",
+      "dataUrl": "data/ohio_(statewide)_generation_distribution.json"
+    },
+    {
+      "id": "ohio_(statewide)-party-by-generation",
+      "title": "Party Affiliation by Generation",
+      "navLabel": "Party x Generation",
+      "description": "Party affiliation within each generational cohort.",
+      "county": "Ohio (Statewide)",
+      "geography": "county",
+      "dataUrl": "data/ohio_(statewide)_party_by_generation.json"
+    },
+    {
+      "id": "ohio_(statewide)-precinct-summary",
+      "title": "Registration by Precinct",
+      "navLabel": "Precincts",
+      "description": "Precinct-level active and confirmation voter counts.",
+      "county": "Ohio (Statewide)",
+      "geography": "precinct",
+      "dataUrl": "data/ohio_(statewide)_precinct_summary.json"
+    },
+    {
+      "id": "ohio_(statewide)-city-summary",
+      "title": "Registration by City / Township",
+      "navLabel": "Cities",
+      "description": "City and township level totals aggregated from precinct names.",
+      "county": "Ohio (Statewide)",
+      "geography": "city",
+      "dataUrl": "data/ohio_(statewide)_city_summary.json"
+    },
+    {
       "id": "adams-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -335,6 +398,15 @@
       "county": "Adams",
       "geography": "city",
       "dataUrl": "data/adams_city_summary.json"
+    },
+    {
+      "id": "adams-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Adams",
+      "geography": "county",
+      "dataUrl": "data/adams_unc_shadow.json"
     },
     {
       "id": "allen-decade-distribution",
@@ -400,6 +472,15 @@
       "dataUrl": "data/allen_city_summary.json"
     },
     {
+      "id": "allen-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Allen",
+      "geography": "county",
+      "dataUrl": "data/allen_unc_shadow.json"
+    },
+    {
       "id": "ashland-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -461,6 +542,15 @@
       "county": "Ashland",
       "geography": "city",
       "dataUrl": "data/ashland_city_summary.json"
+    },
+    {
+      "id": "ashland-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Ashland",
+      "geography": "county",
+      "dataUrl": "data/ashland_unc_shadow.json"
     },
     {
       "id": "ashtabula-decade-distribution",
@@ -526,6 +616,15 @@
       "dataUrl": "data/ashtabula_city_summary.json"
     },
     {
+      "id": "ashtabula-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Ashtabula",
+      "geography": "county",
+      "dataUrl": "data/ashtabula_unc_shadow.json"
+    },
+    {
       "id": "athens-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -587,6 +686,15 @@
       "county": "Athens",
       "geography": "city",
       "dataUrl": "data/athens_city_summary.json"
+    },
+    {
+      "id": "athens-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Athens",
+      "geography": "county",
+      "dataUrl": "data/athens_unc_shadow.json"
     },
     {
       "id": "auglaize-decade-distribution",
@@ -652,6 +760,15 @@
       "dataUrl": "data/auglaize_city_summary.json"
     },
     {
+      "id": "auglaize-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Auglaize",
+      "geography": "county",
+      "dataUrl": "data/auglaize_unc_shadow.json"
+    },
+    {
       "id": "belmont-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -713,6 +830,15 @@
       "county": "Belmont",
       "geography": "city",
       "dataUrl": "data/belmont_city_summary.json"
+    },
+    {
+      "id": "belmont-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Belmont",
+      "geography": "county",
+      "dataUrl": "data/belmont_unc_shadow.json"
     },
     {
       "id": "brown-decade-distribution",
@@ -778,6 +904,15 @@
       "dataUrl": "data/brown_city_summary.json"
     },
     {
+      "id": "brown-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Brown",
+      "geography": "county",
+      "dataUrl": "data/brown_unc_shadow.json"
+    },
+    {
       "id": "butler-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -839,6 +974,15 @@
       "county": "Butler",
       "geography": "city",
       "dataUrl": "data/butler_city_summary.json"
+    },
+    {
+      "id": "butler-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Butler",
+      "geography": "county",
+      "dataUrl": "data/butler_unc_shadow.json"
     },
     {
       "id": "carroll-decade-distribution",
@@ -904,6 +1048,15 @@
       "dataUrl": "data/carroll_city_summary.json"
     },
     {
+      "id": "carroll-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Carroll",
+      "geography": "county",
+      "dataUrl": "data/carroll_unc_shadow.json"
+    },
+    {
       "id": "champaign-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -965,6 +1118,15 @@
       "county": "Champaign",
       "geography": "city",
       "dataUrl": "data/champaign_city_summary.json"
+    },
+    {
+      "id": "champaign-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Champaign",
+      "geography": "county",
+      "dataUrl": "data/champaign_unc_shadow.json"
     },
     {
       "id": "clark-decade-distribution",
@@ -1030,6 +1192,15 @@
       "dataUrl": "data/clark_city_summary.json"
     },
     {
+      "id": "clark-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Clark",
+      "geography": "county",
+      "dataUrl": "data/clark_unc_shadow.json"
+    },
+    {
       "id": "clermont-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1091,6 +1262,15 @@
       "county": "Clermont",
       "geography": "city",
       "dataUrl": "data/clermont_city_summary.json"
+    },
+    {
+      "id": "clermont-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Clermont",
+      "geography": "county",
+      "dataUrl": "data/clermont_unc_shadow.json"
     },
     {
       "id": "clinton-decade-distribution",
@@ -1156,6 +1336,15 @@
       "dataUrl": "data/clinton_city_summary.json"
     },
     {
+      "id": "clinton-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Clinton",
+      "geography": "county",
+      "dataUrl": "data/clinton_unc_shadow.json"
+    },
+    {
       "id": "columbiana-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1217,6 +1406,15 @@
       "county": "Columbiana",
       "geography": "city",
       "dataUrl": "data/columbiana_city_summary.json"
+    },
+    {
+      "id": "columbiana-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Columbiana",
+      "geography": "county",
+      "dataUrl": "data/columbiana_unc_shadow.json"
     },
     {
       "id": "coshocton-decade-distribution",
@@ -1282,6 +1480,15 @@
       "dataUrl": "data/coshocton_city_summary.json"
     },
     {
+      "id": "coshocton-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Coshocton",
+      "geography": "county",
+      "dataUrl": "data/coshocton_unc_shadow.json"
+    },
+    {
       "id": "crawford-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1343,6 +1550,15 @@
       "county": "Crawford",
       "geography": "city",
       "dataUrl": "data/crawford_city_summary.json"
+    },
+    {
+      "id": "crawford-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Crawford",
+      "geography": "county",
+      "dataUrl": "data/crawford_unc_shadow.json"
     },
     {
       "id": "cuyahoga-decade-distribution",
@@ -1408,6 +1624,15 @@
       "dataUrl": "data/cuyahoga_city_summary.json"
     },
     {
+      "id": "cuyahoga-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Cuyahoga",
+      "geography": "county",
+      "dataUrl": "data/cuyahoga_unc_shadow.json"
+    },
+    {
       "id": "darke-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1469,6 +1694,15 @@
       "county": "Darke",
       "geography": "city",
       "dataUrl": "data/darke_city_summary.json"
+    },
+    {
+      "id": "darke-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Darke",
+      "geography": "county",
+      "dataUrl": "data/darke_unc_shadow.json"
     },
     {
       "id": "defiance-decade-distribution",
@@ -1534,6 +1768,15 @@
       "dataUrl": "data/defiance_city_summary.json"
     },
     {
+      "id": "defiance-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Defiance",
+      "geography": "county",
+      "dataUrl": "data/defiance_unc_shadow.json"
+    },
+    {
       "id": "delaware-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1595,6 +1838,15 @@
       "county": "Delaware",
       "geography": "city",
       "dataUrl": "data/delaware_city_summary.json"
+    },
+    {
+      "id": "delaware-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Delaware",
+      "geography": "county",
+      "dataUrl": "data/delaware_unc_shadow.json"
     },
     {
       "id": "erie-decade-distribution",
@@ -1660,6 +1912,15 @@
       "dataUrl": "data/erie_city_summary.json"
     },
     {
+      "id": "erie-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Erie",
+      "geography": "county",
+      "dataUrl": "data/erie_unc_shadow.json"
+    },
+    {
       "id": "fairfield-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1721,6 +1982,15 @@
       "county": "Fairfield",
       "geography": "city",
       "dataUrl": "data/fairfield_city_summary.json"
+    },
+    {
+      "id": "fairfield-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Fairfield",
+      "geography": "county",
+      "dataUrl": "data/fairfield_unc_shadow.json"
     },
     {
       "id": "fayette-decade-distribution",
@@ -1786,6 +2056,15 @@
       "dataUrl": "data/fayette_city_summary.json"
     },
     {
+      "id": "fayette-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Fayette",
+      "geography": "county",
+      "dataUrl": "data/fayette_unc_shadow.json"
+    },
+    {
       "id": "franklin-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1847,6 +2126,15 @@
       "county": "Franklin",
       "geography": "city",
       "dataUrl": "data/franklin_city_summary.json"
+    },
+    {
+      "id": "franklin-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Franklin",
+      "geography": "county",
+      "dataUrl": "data/franklin_unc_shadow.json"
     },
     {
       "id": "fulton-decade-distribution",
@@ -1912,6 +2200,15 @@
       "dataUrl": "data/fulton_city_summary.json"
     },
     {
+      "id": "fulton-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Fulton",
+      "geography": "county",
+      "dataUrl": "data/fulton_unc_shadow.json"
+    },
+    {
       "id": "gallia-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1973,6 +2270,15 @@
       "county": "Gallia",
       "geography": "city",
       "dataUrl": "data/gallia_city_summary.json"
+    },
+    {
+      "id": "gallia-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Gallia",
+      "geography": "county",
+      "dataUrl": "data/gallia_unc_shadow.json"
     },
     {
       "id": "geauga-decade-distribution",
@@ -2038,6 +2344,15 @@
       "dataUrl": "data/geauga_city_summary.json"
     },
     {
+      "id": "geauga-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Geauga",
+      "geography": "county",
+      "dataUrl": "data/geauga_unc_shadow.json"
+    },
+    {
       "id": "greene-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2099,6 +2414,15 @@
       "county": "Greene",
       "geography": "city",
       "dataUrl": "data/greene_city_summary.json"
+    },
+    {
+      "id": "greene-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Greene",
+      "geography": "county",
+      "dataUrl": "data/greene_unc_shadow.json"
     },
     {
       "id": "guernsey-decade-distribution",
@@ -2164,6 +2488,15 @@
       "dataUrl": "data/guernsey_city_summary.json"
     },
     {
+      "id": "guernsey-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Guernsey",
+      "geography": "county",
+      "dataUrl": "data/guernsey_unc_shadow.json"
+    },
+    {
       "id": "hamilton-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2225,6 +2558,15 @@
       "county": "Hamilton",
       "geography": "city",
       "dataUrl": "data/hamilton_city_summary.json"
+    },
+    {
+      "id": "hamilton-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Hamilton",
+      "geography": "county",
+      "dataUrl": "data/hamilton_unc_shadow.json"
     },
     {
       "id": "hancock-decade-distribution",
@@ -2290,6 +2632,15 @@
       "dataUrl": "data/hancock_city_summary.json"
     },
     {
+      "id": "hancock-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Hancock",
+      "geography": "county",
+      "dataUrl": "data/hancock_unc_shadow.json"
+    },
+    {
       "id": "hardin-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2351,6 +2702,15 @@
       "county": "Hardin",
       "geography": "city",
       "dataUrl": "data/hardin_city_summary.json"
+    },
+    {
+      "id": "hardin-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Hardin",
+      "geography": "county",
+      "dataUrl": "data/hardin_unc_shadow.json"
     },
     {
       "id": "harrison-decade-distribution",
@@ -2416,6 +2776,15 @@
       "dataUrl": "data/harrison_city_summary.json"
     },
     {
+      "id": "harrison-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Harrison",
+      "geography": "county",
+      "dataUrl": "data/harrison_unc_shadow.json"
+    },
+    {
       "id": "henry-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2477,6 +2846,15 @@
       "county": "Henry",
       "geography": "city",
       "dataUrl": "data/henry_city_summary.json"
+    },
+    {
+      "id": "henry-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Henry",
+      "geography": "county",
+      "dataUrl": "data/henry_unc_shadow.json"
     },
     {
       "id": "highland-decade-distribution",
@@ -2542,6 +2920,15 @@
       "dataUrl": "data/highland_city_summary.json"
     },
     {
+      "id": "highland-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Highland",
+      "geography": "county",
+      "dataUrl": "data/highland_unc_shadow.json"
+    },
+    {
       "id": "hocking-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2603,6 +2990,15 @@
       "county": "Hocking",
       "geography": "city",
       "dataUrl": "data/hocking_city_summary.json"
+    },
+    {
+      "id": "hocking-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Hocking",
+      "geography": "county",
+      "dataUrl": "data/hocking_unc_shadow.json"
     },
     {
       "id": "holmes-decade-distribution",
@@ -2668,6 +3064,15 @@
       "dataUrl": "data/holmes_city_summary.json"
     },
     {
+      "id": "holmes-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Holmes",
+      "geography": "county",
+      "dataUrl": "data/holmes_unc_shadow.json"
+    },
+    {
       "id": "huron-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2729,6 +3134,15 @@
       "county": "Huron",
       "geography": "city",
       "dataUrl": "data/huron_city_summary.json"
+    },
+    {
+      "id": "huron-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Huron",
+      "geography": "county",
+      "dataUrl": "data/huron_unc_shadow.json"
     },
     {
       "id": "jackson-decade-distribution",
@@ -2794,6 +3208,15 @@
       "dataUrl": "data/jackson_city_summary.json"
     },
     {
+      "id": "jackson-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Jackson",
+      "geography": "county",
+      "dataUrl": "data/jackson_unc_shadow.json"
+    },
+    {
       "id": "jefferson-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2855,6 +3278,15 @@
       "county": "Jefferson",
       "geography": "city",
       "dataUrl": "data/jefferson_city_summary.json"
+    },
+    {
+      "id": "jefferson-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Jefferson",
+      "geography": "county",
+      "dataUrl": "data/jefferson_unc_shadow.json"
     },
     {
       "id": "knox-decade-distribution",
@@ -2920,6 +3352,15 @@
       "dataUrl": "data/knox_city_summary.json"
     },
     {
+      "id": "knox-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Knox",
+      "geography": "county",
+      "dataUrl": "data/knox_unc_shadow.json"
+    },
+    {
       "id": "lake-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2981,6 +3422,15 @@
       "county": "Lake",
       "geography": "city",
       "dataUrl": "data/lake_city_summary.json"
+    },
+    {
+      "id": "lake-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Lake",
+      "geography": "county",
+      "dataUrl": "data/lake_unc_shadow.json"
     },
     {
       "id": "lawrence-decade-distribution",
@@ -3046,6 +3496,15 @@
       "dataUrl": "data/lawrence_city_summary.json"
     },
     {
+      "id": "lawrence-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Lawrence",
+      "geography": "county",
+      "dataUrl": "data/lawrence_unc_shadow.json"
+    },
+    {
       "id": "licking-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3107,6 +3566,15 @@
       "county": "Licking",
       "geography": "city",
       "dataUrl": "data/licking_city_summary.json"
+    },
+    {
+      "id": "licking-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Licking",
+      "geography": "county",
+      "dataUrl": "data/licking_unc_shadow.json"
     },
     {
       "id": "logan-decade-distribution",
@@ -3172,6 +3640,15 @@
       "dataUrl": "data/logan_city_summary.json"
     },
     {
+      "id": "logan-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Logan",
+      "geography": "county",
+      "dataUrl": "data/logan_unc_shadow.json"
+    },
+    {
       "id": "lorain-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3233,6 +3710,15 @@
       "county": "Lorain",
       "geography": "city",
       "dataUrl": "data/lorain_city_summary.json"
+    },
+    {
+      "id": "lorain-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Lorain",
+      "geography": "county",
+      "dataUrl": "data/lorain_unc_shadow.json"
     },
     {
       "id": "lucas-decade-distribution",
@@ -3298,6 +3784,15 @@
       "dataUrl": "data/lucas_city_summary.json"
     },
     {
+      "id": "lucas-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Lucas",
+      "geography": "county",
+      "dataUrl": "data/lucas_unc_shadow.json"
+    },
+    {
       "id": "madison-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3359,6 +3854,15 @@
       "county": "Madison",
       "geography": "city",
       "dataUrl": "data/madison_city_summary.json"
+    },
+    {
+      "id": "madison-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Madison",
+      "geography": "county",
+      "dataUrl": "data/madison_unc_shadow.json"
     },
     {
       "id": "mahoning-decade-distribution",
@@ -3424,6 +3928,15 @@
       "dataUrl": "data/mahoning_city_summary.json"
     },
     {
+      "id": "mahoning-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Mahoning",
+      "geography": "county",
+      "dataUrl": "data/mahoning_unc_shadow.json"
+    },
+    {
       "id": "marion-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3485,6 +3998,15 @@
       "county": "Marion",
       "geography": "city",
       "dataUrl": "data/marion_city_summary.json"
+    },
+    {
+      "id": "marion-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Marion",
+      "geography": "county",
+      "dataUrl": "data/marion_unc_shadow.json"
     },
     {
       "id": "medina-decade-distribution",
@@ -3550,6 +4072,15 @@
       "dataUrl": "data/medina_city_summary.json"
     },
     {
+      "id": "medina-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Medina",
+      "geography": "county",
+      "dataUrl": "data/medina_unc_shadow.json"
+    },
+    {
       "id": "meigs-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3611,6 +4142,15 @@
       "county": "Meigs",
       "geography": "city",
       "dataUrl": "data/meigs_city_summary.json"
+    },
+    {
+      "id": "meigs-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Meigs",
+      "geography": "county",
+      "dataUrl": "data/meigs_unc_shadow.json"
     },
     {
       "id": "mercer-decade-distribution",
@@ -3676,6 +4216,15 @@
       "dataUrl": "data/mercer_city_summary.json"
     },
     {
+      "id": "mercer-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Mercer",
+      "geography": "county",
+      "dataUrl": "data/mercer_unc_shadow.json"
+    },
+    {
       "id": "miami-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3737,6 +4286,15 @@
       "county": "Miami",
       "geography": "city",
       "dataUrl": "data/miami_city_summary.json"
+    },
+    {
+      "id": "miami-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Miami",
+      "geography": "county",
+      "dataUrl": "data/miami_unc_shadow.json"
     },
     {
       "id": "monroe-decade-distribution",
@@ -3802,6 +4360,15 @@
       "dataUrl": "data/monroe_city_summary.json"
     },
     {
+      "id": "monroe-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Monroe",
+      "geography": "county",
+      "dataUrl": "data/monroe_unc_shadow.json"
+    },
+    {
       "id": "montgomery-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3863,6 +4430,15 @@
       "county": "Montgomery",
       "geography": "city",
       "dataUrl": "data/montgomery_city_summary.json"
+    },
+    {
+      "id": "montgomery-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Montgomery",
+      "geography": "county",
+      "dataUrl": "data/montgomery_unc_shadow.json"
     },
     {
       "id": "morgan-decade-distribution",
@@ -3928,6 +4504,15 @@
       "dataUrl": "data/morgan_city_summary.json"
     },
     {
+      "id": "morgan-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Morgan",
+      "geography": "county",
+      "dataUrl": "data/morgan_unc_shadow.json"
+    },
+    {
       "id": "morrow-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3989,6 +4574,15 @@
       "county": "Morrow",
       "geography": "city",
       "dataUrl": "data/morrow_city_summary.json"
+    },
+    {
+      "id": "morrow-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Morrow",
+      "geography": "county",
+      "dataUrl": "data/morrow_unc_shadow.json"
     },
     {
       "id": "muskingum-decade-distribution",
@@ -4054,6 +4648,15 @@
       "dataUrl": "data/muskingum_city_summary.json"
     },
     {
+      "id": "muskingum-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Muskingum",
+      "geography": "county",
+      "dataUrl": "data/muskingum_unc_shadow.json"
+    },
+    {
       "id": "noble-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4115,6 +4718,15 @@
       "county": "Noble",
       "geography": "city",
       "dataUrl": "data/noble_city_summary.json"
+    },
+    {
+      "id": "noble-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Noble",
+      "geography": "county",
+      "dataUrl": "data/noble_unc_shadow.json"
     },
     {
       "id": "ottawa-decade-distribution",
@@ -4180,6 +4792,15 @@
       "dataUrl": "data/ottawa_city_summary.json"
     },
     {
+      "id": "ottawa-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Ottawa",
+      "geography": "county",
+      "dataUrl": "data/ottawa_unc_shadow.json"
+    },
+    {
       "id": "paulding-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4241,6 +4862,15 @@
       "county": "Paulding",
       "geography": "city",
       "dataUrl": "data/paulding_city_summary.json"
+    },
+    {
+      "id": "paulding-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Paulding",
+      "geography": "county",
+      "dataUrl": "data/paulding_unc_shadow.json"
     },
     {
       "id": "perry-decade-distribution",
@@ -4306,6 +4936,15 @@
       "dataUrl": "data/perry_city_summary.json"
     },
     {
+      "id": "perry-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Perry",
+      "geography": "county",
+      "dataUrl": "data/perry_unc_shadow.json"
+    },
+    {
       "id": "pickaway-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4367,6 +5006,15 @@
       "county": "Pickaway",
       "geography": "city",
       "dataUrl": "data/pickaway_city_summary.json"
+    },
+    {
+      "id": "pickaway-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Pickaway",
+      "geography": "county",
+      "dataUrl": "data/pickaway_unc_shadow.json"
     },
     {
       "id": "pike-decade-distribution",
@@ -4432,6 +5080,15 @@
       "dataUrl": "data/pike_city_summary.json"
     },
     {
+      "id": "pike-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Pike",
+      "geography": "county",
+      "dataUrl": "data/pike_unc_shadow.json"
+    },
+    {
       "id": "portage-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4493,6 +5150,15 @@
       "county": "Portage",
       "geography": "city",
       "dataUrl": "data/portage_city_summary.json"
+    },
+    {
+      "id": "portage-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Portage",
+      "geography": "county",
+      "dataUrl": "data/portage_unc_shadow.json"
     },
     {
       "id": "preble-decade-distribution",
@@ -4558,6 +5224,15 @@
       "dataUrl": "data/preble_city_summary.json"
     },
     {
+      "id": "preble-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Preble",
+      "geography": "county",
+      "dataUrl": "data/preble_unc_shadow.json"
+    },
+    {
       "id": "putnam-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4619,6 +5294,15 @@
       "county": "Putnam",
       "geography": "city",
       "dataUrl": "data/putnam_city_summary.json"
+    },
+    {
+      "id": "putnam-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Putnam",
+      "geography": "county",
+      "dataUrl": "data/putnam_unc_shadow.json"
     },
     {
       "id": "richland-decade-distribution",
@@ -4684,6 +5368,15 @@
       "dataUrl": "data/richland_city_summary.json"
     },
     {
+      "id": "richland-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Richland",
+      "geography": "county",
+      "dataUrl": "data/richland_unc_shadow.json"
+    },
+    {
       "id": "ross-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4745,6 +5438,15 @@
       "county": "Ross",
       "geography": "city",
       "dataUrl": "data/ross_city_summary.json"
+    },
+    {
+      "id": "ross-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Ross",
+      "geography": "county",
+      "dataUrl": "data/ross_unc_shadow.json"
     },
     {
       "id": "sandusky-decade-distribution",
@@ -4810,6 +5512,15 @@
       "dataUrl": "data/sandusky_city_summary.json"
     },
     {
+      "id": "sandusky-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Sandusky",
+      "geography": "county",
+      "dataUrl": "data/sandusky_unc_shadow.json"
+    },
+    {
       "id": "scioto-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4871,6 +5582,15 @@
       "county": "Scioto",
       "geography": "city",
       "dataUrl": "data/scioto_city_summary.json"
+    },
+    {
+      "id": "scioto-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Scioto",
+      "geography": "county",
+      "dataUrl": "data/scioto_unc_shadow.json"
     },
     {
       "id": "seneca-decade-distribution",
@@ -4936,6 +5656,15 @@
       "dataUrl": "data/seneca_city_summary.json"
     },
     {
+      "id": "seneca-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Seneca",
+      "geography": "county",
+      "dataUrl": "data/seneca_unc_shadow.json"
+    },
+    {
       "id": "shelby-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4997,6 +5726,15 @@
       "county": "Shelby",
       "geography": "city",
       "dataUrl": "data/shelby_city_summary.json"
+    },
+    {
+      "id": "shelby-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Shelby",
+      "geography": "county",
+      "dataUrl": "data/shelby_unc_shadow.json"
     },
     {
       "id": "stark-decade-distribution",
@@ -5062,6 +5800,15 @@
       "dataUrl": "data/stark_city_summary.json"
     },
     {
+      "id": "stark-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Stark",
+      "geography": "county",
+      "dataUrl": "data/stark_unc_shadow.json"
+    },
+    {
       "id": "summit-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5123,6 +5870,15 @@
       "county": "Summit",
       "geography": "city",
       "dataUrl": "data/summit_city_summary.json"
+    },
+    {
+      "id": "summit-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Summit",
+      "geography": "county",
+      "dataUrl": "data/summit_unc_shadow.json"
     },
     {
       "id": "trumbull-decade-distribution",
@@ -5188,6 +5944,15 @@
       "dataUrl": "data/trumbull_city_summary.json"
     },
     {
+      "id": "trumbull-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Trumbull",
+      "geography": "county",
+      "dataUrl": "data/trumbull_unc_shadow.json"
+    },
+    {
       "id": "tuscarawas-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5249,6 +6014,15 @@
       "county": "Tuscarawas",
       "geography": "city",
       "dataUrl": "data/tuscarawas_city_summary.json"
+    },
+    {
+      "id": "tuscarawas-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Tuscarawas",
+      "geography": "county",
+      "dataUrl": "data/tuscarawas_unc_shadow.json"
     },
     {
       "id": "union-decade-distribution",
@@ -5314,6 +6088,15 @@
       "dataUrl": "data/union_city_summary.json"
     },
     {
+      "id": "union-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Union",
+      "geography": "county",
+      "dataUrl": "data/union_unc_shadow.json"
+    },
+    {
       "id": "van_wert-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5375,6 +6158,15 @@
       "county": "Van Wert",
       "geography": "city",
       "dataUrl": "data/van_wert_city_summary.json"
+    },
+    {
+      "id": "van_wert-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Van Wert",
+      "geography": "county",
+      "dataUrl": "data/van_wert_unc_shadow.json"
     },
     {
       "id": "vinton-decade-distribution",
@@ -5440,6 +6232,15 @@
       "dataUrl": "data/vinton_city_summary.json"
     },
     {
+      "id": "vinton-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Vinton",
+      "geography": "county",
+      "dataUrl": "data/vinton_unc_shadow.json"
+    },
+    {
       "id": "warren-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5501,6 +6302,15 @@
       "county": "Warren",
       "geography": "city",
       "dataUrl": "data/warren_city_summary.json"
+    },
+    {
+      "id": "warren-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Warren",
+      "geography": "county",
+      "dataUrl": "data/warren_unc_shadow.json"
     },
     {
       "id": "washington-decade-distribution",
@@ -5566,6 +6376,15 @@
       "dataUrl": "data/washington_city_summary.json"
     },
     {
+      "id": "washington-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Washington",
+      "geography": "county",
+      "dataUrl": "data/washington_unc_shadow.json"
+    },
+    {
       "id": "wayne-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5627,6 +6446,15 @@
       "county": "Wayne",
       "geography": "city",
       "dataUrl": "data/wayne_city_summary.json"
+    },
+    {
+      "id": "wayne-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Wayne",
+      "geography": "county",
+      "dataUrl": "data/wayne_unc_shadow.json"
     },
     {
       "id": "williams-decade-distribution",
@@ -5692,6 +6520,15 @@
       "dataUrl": "data/williams_city_summary.json"
     },
     {
+      "id": "williams-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Williams",
+      "geography": "county",
+      "dataUrl": "data/williams_unc_shadow.json"
+    },
+    {
       "id": "wood-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5755,6 +6592,15 @@
       "dataUrl": "data/wood_city_summary.json"
     },
     {
+      "id": "wood-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Wood",
+      "geography": "county",
+      "dataUrl": "data/wood_unc_shadow.json"
+    },
+    {
       "id": "wyandot-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5816,6 +6662,15 @@
       "county": "Wyandot",
       "geography": "city",
       "dataUrl": "data/wyandot_city_summary.json"
+    },
+    {
+      "id": "wyandot-unc-shadow",
+      "title": "UNC Voter Primary History",
+      "navLabel": "UNC Shadow",
+      "description": "Unaffiliated voters segmented by lifetime primary ballot pattern. Lifetime D/R = voted exclusively in one party's primaries. Mixed = crossed party lines at least once. Shadow partisanship is inferred from behavior, not registration status.",
+      "county": "Wyandot",
+      "geography": "county",
+      "dataUrl": "data/wyandot_unc_shadow.json"
     }
   ]
 }

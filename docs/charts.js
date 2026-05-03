@@ -482,6 +482,30 @@ const ChartDashboard = (() => {
     const colors   = _themeColors();
     const isRadial = data.type === 'pie' || data.type === 'doughnut';
 
+    // Build the tooltip plugin config. For stacked UNC shadow charts the JSON
+    // carries a `totalUnc` denominator so we can show "17.5% of UNC (45,751)"
+    // instead of a raw count. For all other charts fall back to the default.
+    var tooltipPlugin = { mode: 'index', intersect: false };
+    if (data.totalUnc) {
+      var _total = data.totalUnc;
+      tooltipPlugin.callbacks = {
+        label: function(ctx) {
+          var n   = ctx.parsed.y || 0;
+          var pct = _total > 0 ? (n / _total * 100).toFixed(1) : '0.0';
+          return ' ' + ctx.dataset.label + ': ' + n.toLocaleString() + ' (' + pct + '% of UNC)';
+        }
+      };
+    }
+
+    // Strip the placeholder callbacks object written by the Python exporter so
+    // it doesn't clobber the real callback we just built above.
+    var chartOpts = data.chartOptions ? JSON.parse(JSON.stringify(data.chartOptions)) : {};
+    if (chartOpts.plugins && chartOpts.plugins.tooltip) {
+      delete chartOpts.plugins.tooltip.callbacks;
+      if (Object.keys(chartOpts.plugins.tooltip).length === 0) delete chartOpts.plugins.tooltip;
+      if (Object.keys(chartOpts.plugins).length === 0)         delete chartOpts.plugins;
+    }
+
     instances[id] = new Chart(canvas, {
       type: data.type,
       data: data.chartConfig,
@@ -492,7 +516,7 @@ const ChartDashboard = (() => {
           legend: {
             labels: { color: colors.text, font: { family: 'system-ui, sans-serif', size: 13 } }
           },
-          tooltip: { mode: 'index', intersect: false }
+          tooltip: tooltipPlugin
         },
         scales: isRadial ? {} : {
           x: {
@@ -505,7 +529,7 @@ const ChartDashboard = (() => {
             grid:  { color: colors.grid }
           }
         }
-      }, data.chartOptions || {})
+      }, chartOpts)
     });
   }
 
