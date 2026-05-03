@@ -65,19 +65,23 @@ const ChartDashboard = (() => {
     sel.value    = activeCounty;
 
     sel.addEventListener('change', function() {
-      // Preserve the chart slot the user is looking at across the county switch
-      // so they can compare side-by-side without the page jumping.
+      // Preserve the user's exact viewport position across the county switch
+      // so they can compare side-by-side. We anchor on the section the user is
+      // actually looking at (the one whose midpoint is closest to the viewport
+      // midpoint, NOT just the topmost visible header) and preserve that
+      // section's offset from the viewport top.
       //
-      // Strategy: identify the visible chart-section nearest the top of the
-      // viewport, record its offset from the viewport top (anchorOffset), swap
-      // counties, then re-scroll so the equivalent section in the new county
-      // sits at the same pixel offset. The "equivalent" section is matched by
-      // (geography, position-among-visible) so the Nth city table in County A
-      // becomes the Nth city table in County B.
-      var anchor       = _topVisibleSection();
-      var anchorOffset = anchor ? anchor.el.getBoundingClientRect().top : 0;
-      var anchorGeo    = anchor ? anchor.el.dataset.geo : null;
-      var anchorIndex  = anchor ? anchor.indexInGeo    : 0;
+      // The earlier "top visible section" approach biased upward by one
+      // section's height when the user was reading the bottom of a long
+      // table, because the next-down section's header was technically "more
+      // visible" at the top of the viewport.
+      var anchor = _focalSection();
+      var anchorOffset, anchorGeo, anchorIndex;
+      if (anchor) {
+        anchorOffset = anchor.el.getBoundingClientRect().top;
+        anchorGeo    = anchor.el.dataset.geo;
+        anchorIndex  = anchor.indexInGeo;
+      }
       var savedScrollY = window.scrollY;
 
       activeCounty = sel.value;
@@ -87,11 +91,10 @@ const ChartDashboard = (() => {
       _renderVisibleSections();   // load any newly-revealed county's charts
       _rebuildNav();
 
-      // Scroll-restore is deferred to the next frame so the DOM has reflowed
-      // (sections that were display:none take their real height back) before
-      // we measure the target section's position.
+      // Scroll-restore deferred to the next frame so the DOM has reflowed
+      // before we measure the target section's position.
       requestAnimationFrame(function() {
-        if (anchorGeo) {
+        if (anchor) {
           var target = _nthVisibleSectionOfGeo(anchorGeo, anchorIndex);
           if (target) {
             var targetTop = target.getBoundingClientRect().top + window.scrollY;
@@ -99,8 +102,7 @@ const ChartDashboard = (() => {
             return;
           }
         }
-        // Fallback: nothing to anchor on. Preserve the absolute scroll
-        // position so the page doesn't jump to top.
+        // Fallback: preserve absolute scroll position.
         window.scrollTo({ top: savedScrollY, behavior: 'auto' });
       });
     });
@@ -108,26 +110,34 @@ const ChartDashboard = (() => {
     _updateHeaderLabel();
   }
 
-  function _topVisibleSection() {
-    // Return the visible chart-section closest to the top of the viewport
-    // (but not above it), plus its zero-based index among visible sections of
-    // the same geography. Used as the scroll anchor for county switching.
-    var sections = document.querySelectorAll('.chart-section');
-    var best     = null;
-    var bestTop  = Infinity;
-    var counters = {};
+  function _focalSection() {
+    // Return the visible chart-section the user is actually looking at — the
+    // one whose vertical midpoint is closest to the viewport midpoint. This
+    // works correctly when the user is reading the middle or bottom of a long
+    // section (such as a city table), where the prior "topmost section in
+    // viewport" picker would incorrectly anchor on the next-down section's
+    // header and shift the page upward by one section on county switch.
+    //
+    // Returns the chosen section element plus its zero-based index among
+    // visible sections of the same geography, so the equivalent slot in the
+    // newly-selected county can be located after the filter.
+    var viewMid    = window.innerHeight / 2;
+    var sections   = document.querySelectorAll('.chart-section');
+    var best       = null;
+    var bestDist   = Infinity;
+    var counters   = {};
     var indexInGeo = 0;
     for (var i = 0; i < sections.length; i++) {
       var el = sections[i];
       if (el.style.display === 'none') continue;
       var geo = el.dataset.geo;
       counters[geo] = (counters[geo] || 0);
-      var top = el.getBoundingClientRect().top;
-      // Pick the first section whose top is at or below 0 (in-viewport),
-      // or — if none qualify — the section with the smallest |top| value.
-      if (top >= -1 && top < bestTop) {
+      var rect    = el.getBoundingClientRect();
+      var elMid   = rect.top + rect.height / 2;
+      var dist    = Math.abs(elMid - viewMid);
+      if (dist < bestDist) {
         best       = el;
-        bestTop    = top;
+        bestDist   = dist;
         indexInGeo = counters[geo];
       }
       counters[geo]++;
