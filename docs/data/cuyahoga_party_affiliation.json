@@ -1,0 +1,31 @@
+{
+  "title": "Party Affiliation Breakdown",
+  "county": "Cuyahoga",
+  "geography": "county",
+  "type": "doughnut",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "UNC",
+      "DEM",
+      "REP"
+    ],
+    "datasets": [
+      {
+        "data": [
+          640563,
+          137631,
+          84245
+        ],
+        "backgroundColor": [
+          "#9ca3af",
+          "#3b82f6",
+          "#ef4444"
+        ],
+        "borderWidth": 2,
+        "borderColor": "transparent"
+      }
+    ]
+  }
+}

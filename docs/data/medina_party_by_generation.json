@@ -1,0 +1,61 @@
+{
+  "title": "Party Affiliation by Generation",
+  "county": "Medina",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file \u2014 Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          3073,
+          14833,
+          8947,
+          3828,
+          1142
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 2
+      },
+      {
+        "label": "DEM",
+        "data": [
+          1392,
+          5637,
+          2397,
+          1659,
+          503
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 2
+      },
+      {
+        "label": "UNC",
+        "data": [
+          3693,
+          18465,
+          23453,
+          24800,
+          17271
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 2
+      },
+      {
+        "label": "Other",
+        "data": [],
+        "backgroundColor": "#f59e0b",
+        "borderRadius": 2
+      }
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "title": "Party Affiliation Breakdown",
+  "county": "Richland",
+  "geography": "county",
+  "type": "doughnut",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "UNC",
+      "REP",
+      "DEM"
+    ],
+    "datasets": [
+      {
+        "data": [
+          52333,
+          19769,
+          5384
+        ],
+        "backgroundColor": [
+          "#9ca3af",
+          "#ef4444",
+          "#3b82f6"
+        ],
+        "borderWidth": 2,
+        "borderColor": "transparent"
+      }
+    ]
+  }
+}

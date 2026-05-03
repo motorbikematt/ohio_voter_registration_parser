@@ -11,7 +11,7 @@ const ChartDashboard = (() => {
   // ── State ────────────────────────────────────────────────────────────────
   let cfg          = {};
   let manifest     = null;
-  let activeCounty = null;
+  let activeCounty = null;   // null = show all processed counties
   let activeGeo    = 'all';
   const instances  = {};
 
@@ -39,26 +39,80 @@ const ChartDashboard = (() => {
     const sel = document.getElementById(cfg.countySelectId);
     if (!sel) return;
 
+    // Use allCounties (all 88) if present, else fall back to processed list
+    const allCounties       = manifest.allCounties || manifest.counties || [];
+    const processedCounties = new Set(manifest.processedCounties || manifest.counties || []);
+
     sel.innerHTML = '';
-    sel.appendChild(_el('option', { value: 'all', textContent: 'All Counties' }));
-    manifest.counties.forEach(function(c) {
-      sel.appendChild(_el('option', { value: c, textContent: c + ' County' }));
+    sel.appendChild(_el('option', { value: 'all', textContent: 'All Processed Counties' }));
+
+    allCounties.forEach(function(c) {
+      const hasData = processedCounties.has(c);
+      const opt = _el('option', {
+        value:    c,
+        textContent: c + ' County' + (hasData ? '' : ' — no data yet'),
+        disabled: !hasData
+      });
+      if (!hasData) opt.style.color = '#999';
+      sel.appendChild(opt);
     });
 
-    if (manifest.counties.length === 1) {
-      sel.value    = manifest.counties[0];
-      activeCounty = manifest.counties[0];
+    // Default to first processed county if only one exists
+    if (processedCounties.size === 1) {
+      const first = [...processedCounties][0];
+      sel.value    = first;
+      activeCounty = first;
     }
 
     sel.addEventListener('change', function() {
+      // Capture the geography of the section closest to the viewport before switching.
+      var scrollGeo = _nearestVisibleGeo();
       activeCounty = sel.value === 'all' ? null : sel.value;
       _updateHeaderLabel();
       _updatePageDescription();
       _filterSections();
       _rebuildNav();
+      // Scroll to the same geography type in the newly selected county.
+      if (scrollGeo) _scrollToGeo(scrollGeo);
     });
 
     _updateHeaderLabel();
+  }
+
+  function _nearestVisibleGeo() {
+    // Return the geography of the section whose top edge is closest to (but not
+    // below) the middle of the viewport, so we can restore that position after
+    // a county switch.
+    var mid     = window.scrollY + window.innerHeight / 2;
+    var best    = null;
+    var bestDist = Infinity;
+    document.querySelectorAll('.chart-section').forEach(function(el) {
+      if (el.style.display === 'none') return;
+      var top  = el.getBoundingClientRect().top + window.scrollY;
+      var dist = Math.abs(top - mid);
+      if (dist < bestDist) { bestDist = dist; best = el.dataset.geo; }
+    });
+    return best;
+  }
+
+  function _scrollToGeo(geo) {
+    // Find the first visible section with the given geography and scroll to it.
+    var sections = document.querySelectorAll('.chart-section');
+    for (var i = 0; i < sections.length; i++) {
+      var el = sections[i];
+      if (el.style.display === 'none') continue;
+      if (el.dataset.geo === geo) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
+    // Fallback: scroll to the first visible section of any type.
+    for (var j = 0; j < sections.length; j++) {
+      if (sections[j].style.display !== 'none') {
+        sections[j].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
   }
 
   function _updateHeaderLabel() {
@@ -137,7 +191,7 @@ const ChartDashboard = (() => {
   }
 
   function _sectionVisible(s) {
-    const countyMatch = !activeCounty || s.county === activeCounty || s.county === 'all';
+    const countyMatch = !activeCounty || s.county === activeCounty;
     const geoMatch    = activeGeo === 'all' || s.geography === activeGeo;
     return countyMatch && geoMatch;
   }
@@ -207,15 +261,14 @@ const ChartDashboard = (() => {
 
   // ── Sortable table rendering ─────────────────────────────────────────────
   function _renderTable(wrapper, data, id) {
-    // Sort state: { col: number, dir: 1 (asc) | -1 (desc) }
     var sortState = { col: null, dir: 1 };
 
-    // Determine which columns are numeric (parse on first non-empty row)
+    // Determine which columns are numeric
     var numericCols = {};
     if (data.rows && data.rows.length > 0) {
       data.rows[0].forEach(function(cell, ci) {
-        numericCols[ci] = (parseFloat(String(cell).replace(/,/g, '')) !== NaN &&
-                           !isNaN(parseFloat(String(cell).replace(/,/g, ''))));
+        var n = parseFloat(String(cell).replace(/,/g, ''));
+        numericCols[ci] = !isNaN(n);
       });
     }
 
@@ -228,9 +281,7 @@ const ChartDashboard = (() => {
         var av = String(a[col]).replace(/,/g, '');
         var bv = String(b[col]).replace(/,/g, '');
         if (isNum) {
-          av = parseFloat(av) || 0;
-          bv = parseFloat(bv) || 0;
-          return dir * (av - bv);
+          return dir * ((parseFloat(av) || 0) - (parseFloat(bv) || 0));
         }
         return dir * av.localeCompare(bv);
       });
@@ -245,20 +296,17 @@ const ChartDashboard = (() => {
       var thead = document.createElement('thead');
       var hrow  = document.createElement('tr');
       data.headers.forEach(function(h, hi) {
-        var th = _el('th', { textContent: h });
-        th.style.cursor = 'pointer';
+        var indicator = (sortState.col === hi) ? (sortState.dir === 1 ? ' ▲' : ' ▼') : '';
+        var th = _el('th', { textContent: h + indicator });
+        th.style.cursor     = 'pointer';
         th.style.userSelect = 'none';
-        var indicator = '';
-        if (sortState.col === hi) {
-          indicator = sortState.dir === 1 ? ' ▲' : ' ▼';
-        }
-        th.textContent = h + indicator;
         th.addEventListener('click', function() {
           if (sortState.col === hi) {
             sortState.dir *= -1;
           } else {
             sortState.col = hi;
-            sortState.dir = numericCols[hi] ? -1 : 1; // numbers default desc, text default asc
+            // Numbers default descending (largest first); text defaults ascending
+            sortState.dir = numericCols[hi] ? -1 : 1;
           }
           render();
         });
@@ -341,7 +389,7 @@ const ChartDashboard = (() => {
   function _updatePageDescription() {
     const el = document.getElementById(cfg.descriptionId);
     if (!el || !manifest) return;
-    const county = activeCounty ? activeCounty + ' County' : 'all available counties';
+    const county = activeCounty ? activeCounty + ' County' : 'all processed counties';
     el.textContent = manifest.description
       ? manifest.description.replace('{county}', county)
       : 'Voter registration analysis for ' + county + '. Use the controls above to filter.';
@@ -364,11 +412,12 @@ const ChartDashboard = (() => {
 
   function _geoLabel(geo) {
     var map = {
-      county:        'County',
-      precinct:      'Precinct',
-      city:          'City / Township',
-      congressional: 'Congressional Dist.',
-      all:           'Statewide'
+      county:          'County',
+      precinct:        'Precinct',
+      city:            'City / Township',
+      'city-precinct': 'City Precincts',
+      congressional:   'Congressional Dist.',
+      all:             'Statewide'
     };
     return map[geo] || geo;
   }
