@@ -1182,10 +1182,21 @@ def build_precinct_summary(df: pl.DataFrame) -> pl.DataFrame:
 # "W CARROLLTON-G" → "W CARROLLTON".
 # The regex is applied right-to-left (on the reversed string) so we only strip
 # the rightmost token.
-_PRECINCT_SUFFIX_RE = re.compile(
-    r'^[A-Z]?[\-]?\d+[\-]?[A-Z]?\s*|^[A-Z]\s*',
-    re.IGNORECASE,
-)
+# Precinct-ID suffix patterns, applied in order to the END of the precinct name.
+# Each pattern requires a SEPARATOR (whitespace or hyphen) before the ID token so
+# we never strip into the city's own letters. Order matters — most specific first.
+_PRECINCT_SUFFIX_PATTERNS = [
+    # "DAYTON 3-E", "DAYTON 03-D", "CLEVELAND 18-A"   → city + space + digits + sep + letter
+    re.compile(r'[\s\-]+\d+\s*[\-\s]\s*[A-Z]\s*$', re.IGNORECASE),
+    # "TROTWOOD-A", "W CARROLLTON-G"                  → city + dash + single letter
+    re.compile(r'\-\s*[A-Z]\s*$',                  re.IGNORECASE),
+    # "HUBER HEIGHTS 5-D", "CLEVELAND-04-A"           → city + sep + letter + dash + digits + opt letter
+    re.compile(r'[\s\-]+[A-Z]?\-?\d+[A-Z]?\s*$',   re.IGNORECASE),
+    # "MIAMI TWP R", "CLEVELAND A"                    → city + space + single trailing letter
+    re.compile(r'\s+[A-Z]\s*$',                    re.IGNORECASE),
+    # "DAYTON 3", "CLEVELAND 12"                      → city + space + digits only
+    re.compile(r'[\s\-]+\d+\s*$',                  re.IGNORECASE),
+]
 
 
 def _extract_city(precinct_name: str) -> str:
@@ -1198,15 +1209,22 @@ def _extract_city(precinct_name: str) -> str:
         'MIAMI TWP R'       → 'MIAMI TWP'
         'W CARROLLTON-G'    → 'W CARROLLTON'
         'TROTWOOD-A'        → 'TROTWOOD'
+        'CLEVELAND 18-A'    → 'CLEVELAND'
+        'CLEVELAND'         → 'CLEVELAND'   (no precinct ID, returned unchanged)
+        'BEREA'             → 'BEREA'       (no separator before letter; not stripped)
 
-    Logic: reverse the string, strip the leading precinct-ID token, reverse back,
-    then strip any trailing separator characters.  Falls back to the full name if
-    the result would be empty (e.g. a name that is itself just a letter).
+    Strategy: try each precinct-ID suffix pattern in order against the end of the
+    name. Each pattern requires a separator (space or hyphen) before the ID token
+    so the city's own letters are never eaten. If no pattern matches, the name is
+    returned as-is — better to leave a precinct un-aggregated than to corrupt a
+    city name.
     """
-    rev     = precinct_name[::-1].strip()
-    cleaned = _PRECINCT_SUFFIX_RE.sub('', rev, count=1)
-    city    = cleaned[::-1].strip(' -')
-    return city if city else precinct_name
+    name = precinct_name.strip()
+    for pat in _PRECINCT_SUFFIX_PATTERNS:
+        stripped = pat.sub('', name, count=1).strip(' -')
+        if stripped and stripped != name:
+            return stripped
+    return name
 
 
 def build_city_summary(df: pl.DataFrame) -> pl.DataFrame:
@@ -1492,8 +1510,13 @@ def _update_manifest(
 
     The manifest is the index that charts.js uses to populate the county
     dropdown and build the section list.  We add the county to the counties
-    list and upsert its four section entries.  Existing entries for other
+    list AND processedCounties (which the dropdown actually reads), then
+    upsert this county's section entries.  Existing entries for other
     counties are preserved unchanged.
+
+    For statewide runs, prefer _write_manifest_bulk() — calling this in a
+    per-county loop is O(N²) in disk I/O. This function exists for
+    single-county runs and as a fallback.
     """
     manifest_path = DOCS_DIR / 'manifest.json'
     if manifest_path.exists():
@@ -1501,11 +1524,12 @@ def _update_manifest(
     else:
         # Bootstrap a fresh manifest if none exists
         manifest = {
-            'title':       'Ohio Voter Registration Analysis',
-            'description': 'Voter registration analysis for {county}.',
-            'dataNote':    '',
-            'counties':    [],
-            'sections':    [],
+            'title':             'Ohio Voter Registration Analysis',
+            'description':       'Voter registration analysis for {county}.',
+            'dataNote':          '',
+            'counties':          [],
+            'processedCounties': [],
+            'sections':          [],
         }
 
     # Always overwrite dataNote with a real-data message so the "Sample data"
@@ -1515,9 +1539,14 @@ def _update_manifest(
         f'Last updated {today}.'
     )
 
-    # Add county to list if not already present
+    # Add county to both lists. `counties` is legacy (kept for back-compat with
+    # any older code paths). `processedCounties` is what charts.js actually reads
+    # to populate the county dropdown — it MUST be kept in sync.
     if county_name not in manifest.get('counties', []):
         manifest.setdefault('counties', []).append(county_name)
+    if county_name not in manifest.get('processedCounties', []):
+        manifest.setdefault('processedCounties', []).append(county_name)
+        manifest['processedCounties'].sort()
 
     # Define the four sections this county contributes.
     # IDs are namespaced by slug to avoid collisions between counties.
@@ -1600,7 +1629,154 @@ def _update_manifest(
     manifest['sections'] = existing_sections + new_sections
 
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding='utf-8')
-    logger.info('manifest.json updated — counties: %s', manifest['counties'])
+    logger.info(
+        'manifest.json updated — %d counties, %d processed',
+        len(manifest.get('counties', [])),
+        len(manifest.get('processedCounties', [])),
+    )
+
+
+def _write_manifest_bulk(
+    processed_counties: list[str],
+    today:              str,
+    logger:             logging.Logger,
+):
+    """
+    Write docs/manifest.json once for an entire statewide export run.
+
+    Replaces the prior per-county loop that re-read and re-wrote the manifest
+    88 times (O(N²) disk I/O, log spam, and historically prone to leaving
+    `processedCounties` stale because the per-county writer only touched the
+    legacy `counties` field).
+
+    Both `counties` and `processedCounties` are set to the exact list of
+    counties whose JSON files were successfully written this run. Section
+    entries for those counties are upserted; entries for counties NOT in this
+    run are preserved (so a single-county re-run does not wipe the rest).
+    """
+    manifest_path = DOCS_DIR / 'manifest.json'
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+    else:
+        manifest = {
+            'title':             'Ohio Voter Registration Analysis',
+            'description':       'Voter registration analysis for {county}.',
+            'dataNote':          '',
+            'counties':          [],
+            'processedCounties': [],
+            'sections':          [],
+        }
+
+    manifest['dataNote'] = (
+        f'Data sourced from Ohio Secretary of State statewide voter file. '
+        f'Last updated {today}.'
+    )
+
+    # Merge: union the run's counties with anything already on disk, then sort.
+    # This keeps prior runs' work intact if someone re-runs a partial set.
+    existing_counties = set(manifest.get('counties', []))
+    existing_processed = set(manifest.get('processedCounties', []))
+    all_counties  = sorted(existing_counties  | set(processed_counties))
+    all_processed = sorted(existing_processed | set(processed_counties))
+    manifest['counties']          = all_counties
+    manifest['processedCounties'] = all_processed
+
+    # Rebuild section list: drop any section whose slug matches a county in
+    # this run (so rerunning a county replaces its sections cleanly), then
+    # append fresh sections for every county in this run.
+    run_slugs = {c.lower().replace(' ', '_') for c in processed_counties}
+
+    def _belongs_to_run(s):
+        sid = s.get('id', '')
+        url = s.get('dataUrl', '')
+        for slug in run_slugs:
+            if sid.startswith(slug + '-') or (f'/{slug}_' in url) or (f'data/{slug}_' in url):
+                return True
+        return False
+
+    kept_sections = [s for s in manifest.get('sections', []) if not _belongs_to_run(s)]
+    new_sections  = []
+    for county_name in processed_counties:
+        slug = county_name.lower().replace(' ', '_')
+        new_sections.extend(_sections_for_county(county_name, slug))
+    manifest['sections'] = kept_sections + new_sections
+
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding='utf-8')
+    logger.info(
+        'manifest.json written — %d counties, %d processed, %d sections',
+        len(manifest['counties']),
+        len(manifest['processedCounties']),
+        len(manifest['sections']),
+    )
+
+
+def _sections_for_county(county_name: str, slug: str) -> list[dict]:
+    """Return the list of section descriptors charts.js needs for one county."""
+    return [
+        {
+            'id':          f'{slug}-decade-distribution',
+            'title':       'Voter Age Distribution by Birth Decade',
+            'navLabel':    'Age Cohorts',
+            'description': 'Count of registered voters grouped by birth decade.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_decade_distribution.json',
+        },
+        {
+            'id':          f'{slug}-party-affiliation',
+            'title':       'Party Affiliation Breakdown',
+            'navLabel':    'Party',
+            'description': 'Distribution of registered voters by party affiliation.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_party_affiliation.json',
+        },
+        {
+            'id':          f'{slug}-party-by-decade',
+            'title':       'Party Affiliation by Birth Decade',
+            'navLabel':    'Party × Age',
+            'description': 'Party affiliation within each birth decade cohort.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_party_by_decade.json',
+        },
+        {
+            'id':          f'{slug}-generation-distribution',
+            'title':       'Voter Age Distribution by Generation',
+            'navLabel':    'Generations',
+            'description': 'Count of registered voters grouped by generational cohort (Pew Research Center).',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_generation_distribution.json',
+        },
+        {
+            'id':          f'{slug}-party-by-generation',
+            'title':       'Party Affiliation by Generation',
+            'navLabel':    'Party × Generation',
+            'description': 'Party affiliation within each generational cohort.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_party_by_generation.json',
+        },
+        {
+            'id':          f'{slug}-precinct-summary',
+            'title':       'Registration by Precinct',
+            'navLabel':    'Precincts',
+            'description': 'Precinct-level active and confirmation voter counts.',
+            'county':      county_name,
+            'geography':   'precinct',
+            'dataUrl':     f'data/{slug}_precinct_summary.json',
+        },
+        {
+            'id':          f'{slug}-city-summary',
+            'title':       'Registration by City / Township',
+            'navLabel':    'Cities',
+            'description': 'City and township level totals aggregated from precinct names. Cross-county cities appear as separate rows until Phase 3 statewide merge.',
+            'county':      county_name,
+            'geography':   'city',
+            'dataUrl':     f'data/{slug}_city_summary.json',
+        },
+    ]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1903,11 +2079,9 @@ def run_ohio_analysis(
                         logger.error('FAIL %s: %s', cname, exc)
                         failed.append((cname, str(exc)))
 
-        # ── 4. Write manifest once — no race condition ────────────────────────
+        # ── 4. Write manifest once — no race condition, no O(N²) I/O ──────────
         today = date_t.today().isoformat()
-        for county_name in sorted(processed):
-            slug = county_name.lower().replace(' ', '_')
-            _update_manifest(county_name, slug, today, logger)
+        _write_manifest_bulk(sorted(processed), today, logger)
 
         if failed:
             logger.warning('%d county export(s) failed: %s', len(failed), [f[0] for f in failed])
