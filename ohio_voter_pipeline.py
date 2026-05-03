@@ -144,13 +144,13 @@ def prompt_next_step(txt_files: list[Path]) -> str:
         print(f"    {f.name}  {f.stat().st_size/1e9:.2f} GB")
     print(f"  {cache_label}")
     print("="*60)
-    print("\n  Next step:")
-    print("  [1]  Full Ohio → web dashboard JSON only  (fastest; recommended)")
-    print("  [2]  Full Ohio → web dashboard JSON + summary Excel workbook")
-    print("  [3]  Single-county → web dashboard JSON + full Excel workbook")
-    print("  [4]  Exit  (files are ready for manual use)")
+    print("\n  Next step  (all 88 counties — single-county runs disabled):")
+    print("  [1]  Full Ohio → web dashboard JSON only  (default; press Enter)")
+    print("  [2]  Full Ohio → web dashboard JSON + statewide Excel workbook")
+    print("  [3]  Exit  (files are ready for manual use)")
     print()
-    return input("  Choice (1/2/3/4): ").strip()
+    choice = input("  Choice (1/2/3) [1]: ").strip()
+    return choice or "1"
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -249,19 +249,14 @@ def _dispatch(choice: str, txt_files: list[Path]):
     src_date = v2.get_source_date(_log)
 
     if choice == "1":
-        # Web dashboard JSON only — no Excel
+        # Web dashboard JSON for all 88 counties — no Excel
         v2.run_ohio_analysis(txt_files, use_parquet=True)
 
     elif choice == "2":
-        # Web dashboard JSON + summary Excel workbook
+        # Web dashboard JSON for all 88 counties + statewide Excel workbook
         v2.run_ohio_analysis(txt_files, use_parquet=True)
         out = BASE_DIR / f"ohio_analysis_src{src_date}.xlsx"
         v2.run_ohio_excel(txt_files, output_path=out, use_parquet=True)
-
-    elif choice == "3":
-        county = input("\n  County number (e.g. 57 for Montgomery County): ").strip().zfill(2)
-        out = BASE_DIR / f"county_{county}_analysis_src{src_date}.xlsx"
-        v2.run_county_analysis(txt_files, county_number=county, output_path=out, use_parquet=True)
 
     else:
         print("\nExiting. Voter files are in:")
