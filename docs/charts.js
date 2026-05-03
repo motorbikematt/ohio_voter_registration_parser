@@ -39,35 +39,35 @@ const ChartDashboard = (() => {
     const sel = document.getElementById(cfg.countySelectId);
     if (!sel) return;
 
-    // Use allCounties (all 88) if present, else fall back to processed list
-    const allCounties       = manifest.allCounties || manifest.counties || [];
-    const processedCounties = new Set(manifest.processedCounties || manifest.counties || []);
+    // Only processed counties are listed. No "all" option, no greyed placeholders.
+    const processedCounties = Array.from(
+      new Set(manifest.processedCounties || manifest.counties || [])
+    ).sort();
 
     sel.innerHTML = '';
-    sel.appendChild(_el('option', { value: 'all', textContent: 'All Processed Counties' }));
 
-    allCounties.forEach(function(c) {
-      const hasData = processedCounties.has(c);
-      const opt = _el('option', {
-        value:    c,
-        textContent: c + ' County' + (hasData ? '' : ' — no data yet'),
-        disabled: !hasData
-      });
-      if (!hasData) opt.style.color = '#999';
-      sel.appendChild(opt);
+    if (processedCounties.length === 0) {
+      sel.appendChild(_el('option', {
+        value: '',
+        textContent: 'No counties processed yet',
+        disabled: true
+      }));
+      return;
+    }
+
+    processedCounties.forEach(function(c) {
+      sel.appendChild(_el('option', { value: c, textContent: c + ' County' }));
     });
 
-    // Default to first processed county if only one exists
-    if (processedCounties.size === 1) {
-      const first = [...processedCounties][0];
-      sel.value    = first;
-      activeCounty = first;
-    }
+    // Always default to the first processed county; the dashboard never shows
+    // "all counties" at once.
+    activeCounty = processedCounties[0];
+    sel.value    = activeCounty;
 
     sel.addEventListener('change', function() {
       // Capture the geography of the section closest to the viewport before switching.
       var scrollGeo = _nearestVisibleGeo();
-      activeCounty = sel.value === 'all' ? null : sel.value;
+      activeCounty = sel.value;
       _updateHeaderLabel();
       _updatePageDescription();
       _filterSections();
