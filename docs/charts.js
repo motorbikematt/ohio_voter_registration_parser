@@ -108,24 +108,66 @@ const ChartDashboard = (() => {
     });
   }
 
+  function _isSectionReady(el) {
+    // A section is "ready" to be scrolled to when its chart/table content has
+    // actually painted — not just when the header is in the DOM. We detect
+    // this by checking that the chart-wrapper is no longer showing the
+    // 'Loading chart data...' placeholder. This is the key fix: previously
+    // the scroll fired the moment the section header existed (~40px high),
+    // way before the chart painted, and then the chart's height growth
+    // pushed the anchored content downward.
+    if (!el || el.style.display === 'none') return false;
+    var loading = el.querySelector('.chart-loading');
+    if (loading) return false;                            // still showing placeholder
+    var content = el.querySelector('canvas, .data-table, .error');
+    if (!content) return false;                           // no real content yet
+    if (content.tagName === 'CANVAS' && content.offsetHeight < 20) return false;
+    return true;
+  }
+
+  function _headerOffset() {
+    // Live measurement of the sticky header height so we can position the
+    // target section just below it. CSS `scroll-margin-top: 130px` was a
+    // guess; the real header height varies (compact mode shrinks it) and we
+    // want pixel-accurate alignment.
+    var h = document.getElementById('site-header');
+    return h ? h.getBoundingClientRect().height + 8 : 138;   // 8px breathing room
+  }
+
+  function _scrollToElement(el) {
+    // Bypass `html { scroll-behavior: smooth }` — that CSS rule overrides
+    // scrollIntoView's `behavior: 'auto'` on some browsers, causing the page
+    // to glide past the target. We compute the destination ourselves and
+    // call window.scrollTo, which respects behavior: 'auto' explicitly.
+    var rect = el.getBoundingClientRect();
+    var top  = rect.top + window.scrollY - _headerOffset();
+    window.scrollTo({ top: top, left: 0, behavior: 'auto' });
+  }
+
   function _scrollToSuffixWhenReady(suffix) {
-    // Wait for the target section to be present, visible, AND have non-zero
-    // rendered height (charts/tables painted), then scrollIntoView. Uses a
-    // MutationObserver so we never race async chart construction.
+    // Wait for the target section to actually paint its chart or table, then
+    // scroll. Race-free against async fetches and lazy chart construction.
     var newSlug  = (activeCounty || '').toLowerCase().replace(/ /g, '_');
     var targetId = 'section-' + newSlug + '-' + suffix;
-    var deadline = performance.now() + 4000;   // give up after 4 s
+    var deadline = performance.now() + 4000;
+    var scrolled = false;
 
     function tryScroll() {
+      if (scrolled) return true;
       var el = document.getElementById(targetId);
-      if (el && el.style.display !== 'none' && el.offsetHeight > 40) {
-        // Wait one more frame to let any final layout settle, then scroll.
-        requestAnimationFrame(function() {
-          el.scrollIntoView({ behavior: 'auto', block: 'start' });
-        });
-        return true;
-      }
-      return false;
+      if (!_isSectionReady(el)) return false;
+      // One more frame to let the just-painted content's final dimensions
+      // settle, then scroll using our header-aware helper.
+      requestAnimationFrame(function() {
+        var fresh = document.getElementById(targetId);
+        if (!_isSectionReady(fresh)) return;
+        _scrollToElement(fresh);
+        scrolled = true;
+      });
+      // Set scrolled=true synchronously too so concurrent observer/poll
+      // ticks don't queue duplicate scrolls.
+      scrolled = true;
+      return true;
     }
 
     if (tryScroll()) return;
@@ -133,16 +175,17 @@ const ChartDashboard = (() => {
     var observer = new MutationObserver(function() {
       if (tryScroll() || performance.now() > deadline) observer.disconnect();
     });
-    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+    observer.observe(document.body, {
+      childList: true, subtree: true,
+      attributes: true, attributeFilter: ['style', 'class'],
+    });
 
-    // Also poll on a short interval — covers async fetches that finish without
-    // mutating watched nodes (rare, but cheap insurance).
     var interval = setInterval(function() {
       if (tryScroll() || performance.now() > deadline) {
         clearInterval(interval);
         observer.disconnect();
       }
-    }, 80);
+    }, 60);
   }
 
   // ── County dropdown ──────────────────────────────────────────────────────
