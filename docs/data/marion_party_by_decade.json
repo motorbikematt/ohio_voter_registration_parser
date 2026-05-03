@@ -1,0 +1,71 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Marion",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          15,
+          330,
+          1409,
+          2398,
+          1924,
+          1111,
+          730,
+          370,
+          178
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3
+      },
+      {
+        "label": "DEM",
+        "data": [
+          12,
+          140,
+          538,
+          828,
+          384,
+          192,
+          142,
+          93,
+          42
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3
+      },
+      {
+        "label": "UNC",
+        "data": [
+          40,
+          357,
+          1364,
+          2867,
+          4186,
+          4589,
+          5184,
+          5427,
+          3488
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3
+      }
+    ]
+  }
+}

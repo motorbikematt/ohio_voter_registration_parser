@@ -1,0 +1,71 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Erie",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          15,
+          419,
+          1849,
+          2865,
+          2139,
+          1016,
+          584,
+          305,
+          140
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3
+      },
+      {
+        "label": "DEM",
+        "data": [
+          14,
+          269,
+          1202,
+          1783,
+          791,
+          360,
+          260,
+          167,
+          79
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3
+      },
+      {
+        "label": "UNC",
+        "data": [
+          68,
+          686,
+          2416,
+          4838,
+          6005,
+          6022,
+          6486,
+          6644,
+          4627
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3
+      }
+    ]
+  }
+}

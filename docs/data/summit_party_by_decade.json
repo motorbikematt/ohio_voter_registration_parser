@@ -1,0 +1,75 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Summit",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          0,
+          106,
+          2173,
+          8658,
+          15194,
+          13144,
+          7144,
+          4585,
+          2104,
+          1165
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          154,
+          2026,
+          8710,
+          14160,
+          9415,
+          6728,
+          6172,
+          4013,
+          1568
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3
+      },
+      {
+        "label": "UNC",
+        "data": [
+          3,
+          423,
+          4020,
+          12656,
+          26717,
+          38307,
+          40461,
+          47402,
+          55346,
+          36010
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3
+      }
+    ]
+  }
+}

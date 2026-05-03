@@ -1,0 +1,71 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Ashtabula",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          25,
+          447,
+          1928,
+          3436,
+          3061,
+          1776,
+          1092,
+          544,
+          264
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3
+      },
+      {
+        "label": "DEM",
+        "data": [
+          15,
+          271,
+          1224,
+          2024,
+          1038,
+          542,
+          352,
+          184,
+          109
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3
+      },
+      {
+        "label": "UNC",
+        "data": [
+          68,
+          666,
+          2350,
+          4986,
+          6628,
+          6586,
+          6680,
+          7028,
+          5311
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3
+      }
+    ]
+  }
+}

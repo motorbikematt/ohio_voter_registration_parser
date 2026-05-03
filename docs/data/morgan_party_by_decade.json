@@ -1,0 +1,71 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Morgan",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          3,
+          109,
+          428,
+          756,
+          733,
+          435,
+          346,
+          188,
+          81
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          24,
+          115,
+          188,
+          117,
+          58,
+          24,
+          17,
+          7
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3
+      },
+      {
+        "label": "UNC",
+        "data": [
+          6,
+          75,
+          255,
+          525,
+          836,
+          879,
+          868,
+          940,
+          740
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3
+      }
+    ]
+  }
+}

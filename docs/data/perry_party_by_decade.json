@@ -1,0 +1,71 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Perry",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          5,
+          135,
+          731,
+          1508,
+          1583,
+          1093,
+          883,
+          490,
+          201
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3
+      },
+      {
+        "label": "DEM",
+        "data": [
+          3,
+          53,
+          280,
+          438,
+          236,
+          144,
+          86,
+          72,
+          43
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3
+      },
+      {
+        "label": "UNC",
+        "data": [
+          14,
+          157,
+          737,
+          1634,
+          2230,
+          2417,
+          2471,
+          2642,
+          2026
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3
+      }
+    ]
+  }
+}

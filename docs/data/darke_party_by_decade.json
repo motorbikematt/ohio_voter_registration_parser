@@ -1,0 +1,75 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Darke",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          0,
+          19,
+          393,
+          1596,
+          2690,
+          2413,
+          1776,
+          1400,
+          752,
+          397
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          5,
+          76,
+          325,
+          435,
+          182,
+          115,
+          73,
+          56,
+          32
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3
+      },
+      {
+        "label": "UNC",
+        "data": [
+          1,
+          39,
+          415,
+          1257,
+          2263,
+          3160,
+          3112,
+          3464,
+          4003,
+          3414
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3
+      }
+    ]
+  }
+}

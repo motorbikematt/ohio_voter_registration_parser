@@ -134,17 +134,23 @@ def decompress_gz(gz_path: Path, out_dir: Path) -> Path:
 
 def prompt_next_step(txt_files: list[Path]) -> str:
     total_rows_est = sum(f.stat().st_size for f in txt_files) // 140   # rough ~140 bytes/row
+    from pathlib import Path as _Path
+    parquet_dir = BASE_DIR / "source" / "parquet"
+    parquet_ready = parquet_dir.exists() and any(parquet_dir.iterdir())
+    cache_label   = "  ✓ Parquet cache ready (fast load)" if parquet_ready else "  ○ No Parquet cache yet (will build on first run)"
     print(f"\n{'='*60}")
     print(f"  {len(txt_files)} voter file(s) ready  (~{total_rows_est:,.0f} records estimated)")
     for f in txt_files:
         print(f"    {f.name}  {f.stat().st_size/1e9:.2f} GB")
+    print(f"  {cache_label}")
     print("="*60)
     print("\n  Next step:")
-    print("  [1]  Full Ohio analysis  →  summary Excel workbook")
-    print("  [2]  Single-county analysis  →  full Excel workbook")
-    print("  [3]  Exit  (files are ready for manual use)")
+    print("  [1]  Full Ohio → web dashboard JSON only  (fastest; recommended)")
+    print("  [2]  Full Ohio → web dashboard JSON + summary Excel workbook")
+    print("  [3]  Single-county → web dashboard JSON + full Excel workbook")
+    print("  [4]  Exit  (files are ready for manual use)")
     print()
-    return input("  Choice (1/2/3): ").strip()
+    return input("  Choice (1/2/3/4): ").strip()
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -156,26 +162,24 @@ def main():
 
     manifest = load_manifest()
 
-    # 1 ── scrape page for download links
+    # 1 ── scrape page for download links (non-fatal — SOS site may block scrapers)
+    links = {}
     try:
         links = scrape_download_links()
+        if not links:
+            print("  ⚠  No SWVF download links found on SOS page (page layout may have changed).")
+            print(f"     Check manually: {SOS_URL}")
+        else:
+            print(f"  Found {len(links)} download link(s).\n")
     except RuntimeError as e:
-        print(f"\n✗ {e}")
-        sys.exit(1)
+        print(f"  ⚠  Could not reach SOS page: {e}")
+        print("     Skipping download check — will use any files already on disk.\n")
 
-    if not links:
-        print("\n✗ No SWVF download links found on SOS page.")
-        print("  The page layout may have changed. Check manually:")
-        print(f"  {SOS_URL}")
-        sys.exit(1)
-
-    print(f"  Found {len(links)} download link(s).\n")
-
-    # 2 ── compare remote Last-Modified against manifest
-    to_download: dict[str, tuple[str, str]] = {}   # name → (url, remote_date)
+    # 2 ── if we got links, compare remote Last-Modified against manifest
+    to_download: dict[str, tuple[str, str]] = {}
     for name, url in links.items():
-        remote_dt  = head_last_modified(url)
-        cached_dt  = manifest.get(name, {}).get("last_modified")
+        remote_dt = head_last_modified(url)
+        cached_dt = manifest.get(name, {}).get("last_modified")
         if remote_dt == "unknown" or remote_dt != cached_dt:
             label = "NEW" if not cached_dt else f"updated  {cached_dt} → {remote_dt}"
             print(f"  {name}:  {label}")
@@ -183,13 +187,17 @@ def main():
         else:
             print(f"  {name}:  current  ({remote_dt})")
 
-    # 3 ── if nothing to download, jump straight to prompt
+    # 3 ── if nothing to download (or scrape failed), jump straight to prompt
     txt_files = sorted(TXT_DIR.glob("SWVF_*.txt")) if TXT_DIR.exists() else []
     if not to_download:
-        print("\n✓ All files are current — no download needed.")
         if txt_files:
+            print("\n✓ Using files already on disk — no download needed.")
             choice = prompt_next_step(txt_files)
             _dispatch(choice, txt_files)
+        else:
+            print("\n✗ No SWVF_*.txt files found and download unavailable.")
+            print(f"  Place files manually in: {TXT_DIR}")
+            sys.exit(1)
         return
 
     # 4 ── create dirs
@@ -241,13 +249,19 @@ def _dispatch(choice: str, txt_files: list[Path]):
     src_date = v2.get_source_date(_log)
 
     if choice == "1":
-        out = BASE_DIR / f"ohio_analysis_src{src_date}.xlsx"
-        v2.run_ohio_analysis(txt_files, output_path=out)
+        # Web dashboard JSON only — no Excel
+        v2.run_ohio_analysis(txt_files, use_parquet=True)
 
     elif choice == "2":
+        # Web dashboard JSON + summary Excel workbook
+        v2.run_ohio_analysis(txt_files, use_parquet=True)
+        out = BASE_DIR / f"ohio_analysis_src{src_date}.xlsx"
+        v2.run_ohio_excel(txt_files, output_path=out, use_parquet=True)
+
+    elif choice == "3":
         county = input("\n  County number (e.g. 57 for Montgomery County): ").strip().zfill(2)
         out = BASE_DIR / f"county_{county}_analysis_src{src_date}.xlsx"
-        v2.run_county_analysis(txt_files, county_number=county, output_path=out)
+        v2.run_county_analysis(txt_files, county_number=county, output_path=out, use_parquet=True)
 
     else:
         print("\nExiting. Voter files are in:")

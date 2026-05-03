@@ -1,0 +1,61 @@
+{
+  "title": "Party Affiliation by Generation",
+  "county": "Knox",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file \u2014 Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          1192,
+          5669,
+          3285,
+          1706,
+          639
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 2
+      },
+      {
+        "label": "DEM",
+        "data": [
+          293,
+          1180,
+          352,
+          228,
+          140
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 2
+      },
+      {
+        "label": "UNC",
+        "data": [
+          1018,
+          5456,
+          6276,
+          7376,
+          6608
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 2
+      },
+      {
+        "label": "Other",
+        "data": [],
+        "backgroundColor": "#f59e0b",
+        "borderRadius": 2
+      }
+    ]
+  }
+}

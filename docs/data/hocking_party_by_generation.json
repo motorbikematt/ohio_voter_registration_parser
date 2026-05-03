@@ -1,0 +1,61 @@
+{
+  "title": "Party Affiliation by Generation",
+  "county": "Hocking",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file \u2014 Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          387,
+          2062,
+          1212,
+          670,
+          166
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 2
+      },
+      {
+        "label": "DEM",
+        "data": [
+          187,
+          788,
+          264,
+          117,
+          34
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 2
+      },
+      {
+        "label": "UNC",
+        "data": [
+          504,
+          2635,
+          3222,
+          3075,
+          2236
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 2
+      },
+      {
+        "label": "Other",
+        "data": [],
+        "backgroundColor": "#f59e0b",
+        "borderRadius": 2
+      }
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Mahoning",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "1900s",
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          0,
+          0,
+          67,
+          1027,
+          4402,
+          7509,
+          6033,
+          3483,
+          2277,
+          1258,
+          664
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          0,
+          95,
+          1103,
+          4190,
+          7210,
+          3908,
+          2190,
+          1577,
+          1037,
+          517
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3
+      },
+      {
+        "label": "UNC",
+        "data": [
+          1,
+          3,
+          205,
+          1802,
+          5545,
+          12225,
+          15283,
+          16453,
+          18237,
+          20963,
+          13955
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3
+      }
+    ]
+  }
+}

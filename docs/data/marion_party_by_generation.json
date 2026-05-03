@@ -1,0 +1,61 @@
+{
+  "title": "Party Affiliation by Generation",
+  "county": "Marion",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file \u2014 Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          982,
+          4285,
+          2002,
+          927,
+          269
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 2
+      },
+      {
+        "label": "DEM",
+        "data": [
+          385,
+          1374,
+          351,
+          193,
+          68
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 2
+      },
+      {
+        "label": "UNC",
+        "data": [
+          1018,
+          5643,
+          7249,
+          8518,
+          5074
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 2
+      },
+      {
+        "label": "Other",
+        "data": [],
+        "backgroundColor": "#f59e0b",
+        "borderRadius": 2
+      }
+    ]
+  }
+}

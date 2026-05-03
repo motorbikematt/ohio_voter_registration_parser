@@ -1,0 +1,61 @@
+{
+  "title": "Party Affiliation by Generation",
+  "county": "Franklin",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file \u2014 Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          9283,
+          40196,
+          21382,
+          10721,
+          2737
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 2
+      },
+      {
+        "label": "DEM",
+        "data": [
+          8242,
+          40054,
+          25503,
+          26707,
+          7041
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 2
+      },
+      {
+        "label": "UNC",
+        "data": [
+          17534,
+          104842,
+          160290,
+          254863,
+          155897
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 2
+      },
+      {
+        "label": "Other",
+        "data": [],
+        "backgroundColor": "#f59e0b",
+        "borderRadius": 2
+      }
+    ]
+  }
+}

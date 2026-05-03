@@ -1,0 +1,75 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Hamilton",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          0,
+          195,
+          3301,
+          11819,
+          20401,
+          15983,
+          7736,
+          5157,
+          2874,
+          1371
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3
+      },
+      {
+        "label": "DEM",
+        "data": [
+          1,
+          148,
+          1788,
+          8459,
+          14547,
+          9900,
+          7267,
+          7497,
+          5310,
+          1739
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3
+      },
+      {
+        "label": "UNC",
+        "data": [
+          3,
+          637,
+          6066,
+          18327,
+          43195,
+          62324,
+          69034,
+          95476,
+          116260,
+          65189
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3
+      }
+    ]
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Greene",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          2,
+          38,
+          989,
+          4213,
+          7155,
+          6172,
+          3567,
+          2704,
+          1377,
+          668
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          22,
+          349,
+          1631,
+          2422,
+          1504,
+          1008,
+          1022,
+          749,
+          294
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3
+      },
+      {
+        "label": "UNC",
+        "data": [
+          0,
+          106,
+          1159,
+          3841,
+          7938,
+          11015,
+          11928,
+          15064,
+          17818,
+          13129
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3
+      }
+    ]
+  }
+}

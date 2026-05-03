@@ -1,0 +1,75 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Medina",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-02",
+  "note": "Analysis run 2026-05-02 \u2014 Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          0,
+          38,
+          910,
+          4644,
+          8068,
+          7787,
+          5004,
+          3188,
+          1375,
+          809
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          16,
+          436,
+          2135,
+          3355,
+          1893,
+          1430,
+          1375,
+          603,
+          345
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3
+      },
+      {
+        "label": "UNC",
+        "data": [
+          1,
+          117,
+          1411,
+          4651,
+          9194,
+          14039,
+          14624,
+          15715,
+          15289,
+          12641
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3
+      }
+    ]
+  }
+}

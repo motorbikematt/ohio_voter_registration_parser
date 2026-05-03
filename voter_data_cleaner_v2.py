@@ -57,6 +57,7 @@ Participation values: non-empty str  →  'X' (in-person) | 'R' (absentee) | 'D'
 # Imports
 # ─────────────────────────────────────────────────────────────────────────────
 
+import concurrent.futures
 import json
 import logging
 import re
@@ -77,10 +78,11 @@ import xlsxwriter                    # noqa: F401 — imported for engine availa
 
 # Derive BASE_DIR from the location of this script so the repo works
 # regardless of where it is cloned or what OS it runs on.
-BASE_DIR  = Path(__file__).parent
-DOCS_DIR  = BASE_DIR / "docs"
-DATA_DIR  = DOCS_DIR / "data"
-LOGS_DIR  = BASE_DIR / "logs"
+BASE_DIR     = Path(__file__).parent
+DOCS_DIR     = BASE_DIR / "docs"
+DATA_DIR     = DOCS_DIR / "data"
+LOGS_DIR     = BASE_DIR / "logs"
+PARQUET_DIR  = BASE_DIR / "source" / "parquet"
 
 # Voter frequency thresholds (fraction of eligible elections in which voter participated).
 FREQ_HIGH = 0.75   # ≥75% → "Frequent"
@@ -319,6 +321,106 @@ def parse_election_meta(col: str) -> tuple[date_t | None, str | None, str | None
     except ValueError:
         return None, None, None
     return elec_date, type_code, ELECTION_TYPE_LABELS.get(type_code, type_code)
+
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Parquet cache  (one-time conversion; fast loads on every subsequent run)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def build_parquet_cache(
+    txt_files:   list[Path],
+    parquet_dir: Path | None = None,
+    logger:      logging.Logger | None = None,
+) -> Path:
+    """
+    Convert SWVF_*.txt → Hive-partitioned Parquet on first run.
+
+    Layout: source/parquet/COUNTY_NUMBER=01/, COUNTY_NUMBER=02/, ...
+
+    Idempotent: skips conversion if all 88 partitions already exist.
+    Subsequent loads via load_voter_files_parquet() skip CSV entirely —
+    load time drops from ~4 min to under 60 s at Ohio scale.
+    """
+    import pyarrow as pa
+    import pyarrow.dataset as ds
+
+    log  = logger or logging.getLogger('voter_analysis')
+    pdir = parquet_dir or PARQUET_DIR
+    pdir.mkdir(parents=True, exist_ok=True)
+
+    existing = {p.name for p in pdir.iterdir() if p.is_dir()}
+    expected = {f'COUNTY_NUMBER={n:02d}' for n in range(1, 89)}
+    if existing >= expected:
+        log.info('Parquet cache complete (%d partitions) — skipping.', len(existing))
+        return pdir
+
+    log.info('Parquet cache missing %d partition(s). Building from %d txt file(s).',
+             len(expected - existing), len(txt_files))
+
+    with _timer(log, 'read CSV for Parquet conversion'):
+        df = pl.concat([
+            pl.scan_csv(p, separator=',', quote_char='"',
+                        infer_schema=False, encoding='utf8-lossy',
+                        ignore_errors=True)
+            for p in txt_files
+        ]).collect()
+        log.info('  %s rows loaded', f'{len(df):,}')
+
+    with _timer(log, 'write Hive-partitioned Parquet'):
+        ds.write_dataset(
+            df.to_arrow(),
+            base_dir=str(pdir),
+            format='parquet',
+            partitioning=ds.partitioning(
+                pa.schema([pa.field('COUNTY_NUMBER', pa.string())]),
+                flavor='hive',
+            ),
+            file_options=ds.ParquetFileFormat().make_write_options(compression='snappy'),
+            existing_data_behavior='overwrite_or_ignore',
+        )
+        n = sum(1 for p in pdir.iterdir() if p.is_dir())
+        log.info('  %d county partitions written to %s', n, pdir)
+
+    return pdir
+
+
+def load_voter_files_parquet(
+    parquet_dir:   Path | None = None,
+    county_number: str | None  = None,
+    logger:        logging.Logger | None = None,
+) -> pl.DataFrame:
+    """Load from Hive-partitioned Parquet. Requires build_parquet_cache() first."""
+    log  = logger or logging.getLogger('voter_analysis')
+    pdir = parquet_dir or PARQUET_DIR
+
+    if not pdir.exists():
+        raise FileNotFoundError(f'Parquet cache not found at {pdir}. Run build_parquet_cache() first.')
+
+    if county_number:
+        cnum = county_number.strip().zfill(2)
+        part = pdir / f'COUNTY_NUMBER={cnum}'
+        if not part.exists():
+            part = pdir / f'COUNTY_NUMBER={int(cnum)}'
+        if not part.exists():
+            raise FileNotFoundError(f'No Parquet partition for county {cnum}.')
+        log.info('Loading Parquet partition: %s', part.name)
+        df = pl.read_parquet(str(part) + '/**/*.parquet')
+        if 'COUNTY_NUMBER' not in df.columns:
+            df = df.with_columns(pl.lit(cnum).alias('COUNTY_NUMBER'))
+    else:
+        log.info('Loading full Parquet cache: %s', pdir)
+        df = pl.read_parquet(str(pdir) + '/**/*.parquet', hive_partitioning=True)
+
+    # PyArrow may infer COUNTY_NUMBER as integer from the Hive partition key.
+    # Cast to String so all downstream str.strip_chars() calls work correctly.
+    if df['COUNTY_NUMBER'].dtype != pl.String:
+        df = df.with_columns(
+            pl.col('COUNTY_NUMBER').cast(pl.String).str.zfill(2)
+        )
+
+    log.info('Loaded %s rows x %d columns from Parquet', f'{len(df):,}', len(df.columns))
+    return df
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1162,10 +1264,11 @@ def _dump_json(obj: dict, path: Path, logger: logging.Logger):
 
 
 def export_json(
-    county_name:   str,
-    df:            pl.DataFrame,
-    election_cols: list[str],
-    logger:        logging.Logger,
+    county_name:     str,
+    df:              pl.DataFrame,
+    election_cols:   list[str],
+    logger:          logging.Logger,
+    update_manifest: bool = True,
 ):
     """
     Write four JSON files into docs/data/ matching the exact schema expected by
@@ -1374,7 +1477,8 @@ def export_json(
     }, DATA_DIR / f'{slug}_city_summary.json', logger)
 
     logger.info('JSON export complete for %s County (%s)', county_name, slug)
-    _update_manifest(county_name, slug, today, logger)
+    if update_manifest:
+        _update_manifest(county_name, slug, today, logger)
 
 
 def _update_manifest(
@@ -1701,87 +1805,192 @@ def build_workbook(
 # Public entry points  (called by ohio_voter_pipeline.py)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def run_ohio_analysis(txt_files: list[Path], output_path: Path):
+def _export_county_worker(args: tuple) -> tuple:
+    """Picklable worker for ProcessPoolExecutor. Receives (county_num, ipc_bytes, election_cols)."""
+    import io
+    county_num, ipc_bytes, election_cols = args
+    county_name = OHIO_COUNTIES.get(county_num.strip(), f'County {county_num}')
+    logger = logging.getLogger('voter_analysis')
+    if not logger.handlers:
+        logging.basicConfig(level=logging.INFO, format='%(levelname)-8s  [%(process)d] %(message)s')
+    try:
+        county_df = pl.read_ipc(io.BytesIO(ipc_bytes))
+        export_json(county_name, county_df, election_cols, logger, update_manifest=False)
+        return (county_name, None)
+    except Exception as exc:
+        return (county_name, str(exc))
+
+
+def run_ohio_analysis(
+    txt_files:   list[Path],
+    use_parquet: bool = True,
+    max_workers: int  = 0,
+):
     """
-    Full statewide analysis across all 4 SWVF files (~7.9M rows).
+    Export web dashboard JSON for all Ohio counties.
 
-    Output:
-      - Excel workbook with County Summary, Decade, Participation,
-        District Breakdown, and Party Cross-tabs sheets.
-      - JSON files in docs/data/ for each county present in the data
-        (updates the web dashboard automatically).
+    Writes JSON to docs/data/ and updates docs/manifest.json.
+    No Excel output — completely independent of the spreadsheet path.
+    Use run_ohio_excel() separately if you need the workbook.
 
-    NOTE: The raw Voter Data sheet is omitted — 7.9M rows exceeds Excel's
-    ~1M row limit and would take hours to write.  The County Summary sheet
-    provides the top-level view instead.
+    Args:
+        txt_files:   SWVF_*.txt source files.
+        use_parquet: Build/use Hive-partitioned Parquet cache. Default True.
+                     First run converts CSV to Parquet; all subsequent runs
+                     load from Parquet (60 s vs ~4 min for CSV at Ohio scale).
+        max_workers: Parallel worker processes for county JSON export.
+                     0 = auto (min(88, cpu_count)).
     """
     logger = setup_logging('ohio')
     logger.info('=' * 60)
-    logger.info('OHIO STATEWIDE VOTER ANALYSIS')
+    logger.info('OHIO STATEWIDE  —  web dashboard JSON export')
     logger.info('=' * 60)
 
     try:
-        with _timer(logger, 'loading voter files'):
-            df = load_voter_files(txt_files, logger=logger)
+        # ── 1. Load ───────────────────────────────────────────────────────────
+        if use_parquet:
+            build_parquet_cache(txt_files, logger=logger)
+            with _timer(logger, 'loading voter files (Parquet)'):
+                df = load_voter_files_parquet(logger=logger)
+        else:
+            with _timer(logger, 'loading voter files (CSV)'):
+                df = load_voter_files(txt_files, logger=logger)
+
+        # ── 2. Clean + enrich ─────────────────────────────────────────────────
+        with _timer(logger, 'cleaning voter data'):
+            df = clean_voter_data(df, logger)
+
+        election_cols = identify_election_cols(df)
+        logger.info('%d election columns: %s to %s',
+                    len(election_cols), election_cols[0], election_cols[-1])
+
+        with _timer(logger, 'computing participation metrics'):
+            df = add_voter_participation(df, election_cols, logger)
+
+        # ── 3. Parallel county JSON export ────────────────────────────────────
+        import io, os
+        counties_present = sorted(df['COUNTY_NUMBER'].str.strip_chars().unique().to_list())
+        logger.info('Preparing %d county slices ...', len(counties_present))
+
+        tasks = []
+        for county_num in counties_present:
+            county_df = df.filter(pl.col('COUNTY_NUMBER').str.strip_chars() == county_num)
+            buf = io.BytesIO()
+            county_df.write_ipc(buf)
+            tasks.append((county_num, buf.getvalue(), election_cols))
+
+        n_workers = max_workers or min(len(counties_present), os.cpu_count() or 4)
+        logger.info('Launching %d worker process(es) ...', n_workers)
+
+        processed: list[str] = []
+        failed:    list[tuple] = []
+
+        with _timer(logger, f'parallel JSON export ({n_workers} workers)'):
+            with concurrent.futures.ProcessPoolExecutor(max_workers=n_workers) as pool:
+                futures = {pool.submit(_export_county_worker, t): t[0] for t in tasks}
+                for fut in concurrent.futures.as_completed(futures):
+                    county_num = futures[fut]
+                    try:
+                        county_name, err = fut.result()
+                        if err:
+                            logger.error('FAIL %s: %s', county_name, err)
+                            failed.append((county_name, err))
+                        else:
+                            logger.info('  OK  %s', county_name)
+                            processed.append(county_name)
+                    except Exception as exc:
+                        cname = OHIO_COUNTIES.get(county_num.strip(), county_num)
+                        logger.error('FAIL %s: %s', cname, exc)
+                        failed.append((cname, str(exc)))
+
+        # ── 4. Write manifest once — no race condition ────────────────────────
+        today = date_t.today().isoformat()
+        for county_name in sorted(processed):
+            slug = county_name.lower().replace(' ', '_')
+            _update_manifest(county_name, slug, today, logger)
+
+        if failed:
+            logger.warning('%d county export(s) failed: %s', len(failed), [f[0] for f in failed])
+
+        logger.info('=' * 60)
+        logger.info('SUCCESS  (%d counties, %d failed)', len(processed), len(failed))
+        logger.info('=' * 60)
+
+    except Exception:
+        logger.exception('Unhandled error in run_ohio_analysis')
+        raise
+
+
+def run_ohio_excel(
+    txt_files:   list[Path],
+    output_path: Path,
+    use_parquet: bool = True,
+):
+    """
+    Write a summary Excel workbook for all of Ohio.
+
+    Completely independent of run_ohio_analysis() — call only when the
+    Excel deliverable is needed. Does not touch JSON or the dashboard.
+    """
+    logger = setup_logging('ohio_excel')
+    logger.info('=' * 60)
+    logger.info('OHIO STATEWIDE  —  Excel export')
+    logger.info('=' * 60)
+
+    try:
+        if use_parquet and PARQUET_DIR.exists():
+            with _timer(logger, 'loading voter files (Parquet)'):
+                df = load_voter_files_parquet(logger=logger)
+        else:
+            with _timer(logger, 'loading voter files (CSV)'):
+                df = load_voter_files(txt_files, logger=logger)
 
         with _timer(logger, 'cleaning voter data'):
             df = clean_voter_data(df, logger)
 
         election_cols = identify_election_cols(df)
-        logger.info('%d election columns: %s → %s',
-                    len(election_cols), election_cols[0], election_cols[-1])
 
         with _timer(logger, 'computing participation metrics'):
             df = add_voter_participation(df, election_cols, logger)
 
         with _timer(logger, 'writing Excel workbook'):
             build_workbook(df, election_cols, output_path,
-                            county_name='Ohio (Statewide)',
-                            include_raw=False,
-                            logger=logger)
-
-        # Export JSON for each county found in the data
-        counties_present = df['COUNTY_NUMBER'].unique().to_list()
-        logger.info('Exporting JSON for %d counties ...', len(counties_present))
-        for county_num in sorted(counties_present):
-            county_name = OHIO_COUNTIES.get(county_num.strip(), f'County {county_num}')
-            county_df   = df.filter(pl.col('COUNTY_NUMBER').str.strip_chars() == county_num.strip())
-            with _timer(logger, f'JSON export — {county_name}'):
-                export_json(county_name, county_df, election_cols, logger)
-
-        logger.info('=' * 60)
-        logger.info('SUCCESS')
-        logger.info('=' * 60)
+                           county_name='Ohio (Statewide)',
+                           include_raw=False,
+                           logger=logger)
+        logger.info('Workbook saved: %s', output_path)
 
     except Exception:
-        logger.exception('Unhandled error in run_ohio_analysis — see traceback above')
+        logger.exception('Unhandled error in run_ohio_excel')
         raise
 
 
-def run_county_analysis(txt_files: list[Path], county_number: str, output_path: Path):
+def run_county_analysis(
+    txt_files:     list[Path],
+    county_number: str,
+    output_path:   Path,
+    use_parquet:   bool = True,
+):
     """
-    Single-county analysis.  Reads only the matching rows from each SWVF file
-    using chunked lazy filtering, so memory usage is proportional to the county
-    size rather than the full state file.
+    Single-county web dashboard JSON + Excel export.
 
-    Montgomery County (57) has ~300K rows — a comfortable fit for the full
-    Voter Data sheet in Excel and for the web dashboard JSON.
-
-    Output:
-      - Excel workbook with raw Voter Data sheet + all summary sheets.
-      - JSON files in docs/data/ for this county (web dashboard updated).
+    Prefers Parquet cache when available; falls back to CSV scan.
     """
     county_number = county_number.zfill(2)
     county_name   = OHIO_COUNTIES.get(county_number, f'County {county_number}')
     logger        = setup_logging(f'county_{county_number}')
 
     logger.info('=' * 60)
-    logger.info('COUNTY %s (%s) VOTER ANALYSIS', county_number, county_name)
+    logger.info('COUNTY %s (%s)', county_number, county_name)
     logger.info('=' * 60)
 
     try:
-        with _timer(logger, f'loading county {county_number} records'):
-            df = load_voter_files(txt_files, county_number=county_number, logger=logger)
+        if use_parquet and PARQUET_DIR.exists():
+            with _timer(logger, f'loading county {county_number} (Parquet)'):
+                df = load_voter_files_parquet(county_number=county_number, logger=logger)
+        else:
+            with _timer(logger, f'loading county {county_number} (CSV)'):
+                df = load_voter_files(txt_files, county_number=county_number, logger=logger)
 
         if df.is_empty():
             logger.error('No records found for county %s — check county number and file range',
@@ -1839,7 +2048,6 @@ if __name__ == '__main__':
     if choice == '2':
         county = input('County number (e.g. 57 for Montgomery): ').strip().zfill(2)
         out    = BASE_DIR / f'county_{county}_analysis_src{src_date}.xlsx'
-        run_county_analysis(txt_files, county, out)
+        run_county_analysis(txt_files, county, out, use_parquet=True)
     else:
-        out = BASE_DIR / f'ohio_analysis_src{src_date}.xlsx'
-        run_ohio_analysis(txt_files, out)
+        run_ohio_analysis(txt_files, use_parquet=True)
