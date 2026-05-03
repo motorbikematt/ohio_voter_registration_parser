@@ -29,9 +29,120 @@ const ChartDashboard = (() => {
       return;
     }
 
+    // Apply URL state (?county=X&geo=Y#chart-slug) before any rendering so
+    // the dashboard boots directly into the shared view. Anything not in the
+    // URL falls back to defaults: first processed county, geo=all, no hash.
+    _applyUrlState();
     _populateCountyDropdown();
+    _syncGeoButtonsToActiveGeo();
     _renderAllSections();
     _updatePageDescription();
+
+    // Deep-link scroll: if the URL has a hash (e.g. #party-affiliation), wait
+    // for the target section to actually paint, then scroll to it. Race-free
+    // because we observe the DOM rather than guessing timing.
+    var hashSuffix = _readHashSuffix();
+    if (hashSuffix) _scrollToSuffixWhenReady(hashSuffix);
+  }
+
+  // ── URL state ────────────────────────────────────────────────────────────
+  function _readUrlParams() {
+    var params = new URLSearchParams(window.location.search);
+    return {
+      county: params.get('county'),
+      geo:    params.get('geo'),
+    };
+  }
+
+  function _readHashSuffix() {
+    // Hash always represents a chart-slug (e.g. #party-affiliation) — the
+    // county-independent suffix that identifies which slot to anchor on.
+    var h = window.location.hash || '';
+    return h.replace(/^#/, '') || null;
+  }
+
+  function _applyUrlState() {
+    var params = _readUrlParams();
+    var processed = manifest.processedCounties || manifest.counties || [];
+
+    // County: validate against processedCounties, fall back to first.
+    if (params.county && processed.indexOf(params.county) >= 0) {
+      activeCounty = params.county;
+    } else if (processed.length > 0) {
+      activeCounty = processed.slice().sort()[0];
+    }
+
+    // Geo: validate against the known geography vocabulary, fall back to 'all'.
+    var validGeos = ['all', 'county', 'city', 'city-precinct', 'precinct', 'congressional'];
+    if (params.geo && validGeos.indexOf(params.geo) >= 0) {
+      activeGeo = params.geo;
+    }
+  }
+
+  function _writeUrlState(opts) {
+    // Update the URL without reloading. opts may include {county, geo, hash}.
+    // Anything omitted is left untouched. Pass null to clear a value.
+    var url      = new URL(window.location.href);
+    var changed  = false;
+
+    if (opts && 'county' in opts) {
+      if (opts.county) url.searchParams.set('county', opts.county);
+      else             url.searchParams.delete('county');
+      changed = true;
+    }
+    if (opts && 'geo' in opts) {
+      if (opts.geo && opts.geo !== 'all') url.searchParams.set('geo', opts.geo);
+      else                                url.searchParams.delete('geo');
+      changed = true;
+    }
+    if (opts && 'hash' in opts) {
+      url.hash = opts.hash ? opts.hash : '';
+      changed = true;
+    }
+    if (changed) history.replaceState(null, '', url.toString());
+  }
+
+  function _syncGeoButtonsToActiveGeo() {
+    document.querySelectorAll('.geo-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.geo === activeGeo);
+    });
+  }
+
+  function _scrollToSuffixWhenReady(suffix) {
+    // Wait for the target section to be present, visible, AND have non-zero
+    // rendered height (charts/tables painted), then scrollIntoView. Uses a
+    // MutationObserver so we never race async chart construction.
+    var newSlug  = (activeCounty || '').toLowerCase().replace(/ /g, '_');
+    var targetId = 'section-' + newSlug + '-' + suffix;
+    var deadline = performance.now() + 4000;   // give up after 4 s
+
+    function tryScroll() {
+      var el = document.getElementById(targetId);
+      if (el && el.style.display !== 'none' && el.offsetHeight > 40) {
+        // Wait one more frame to let any final layout settle, then scroll.
+        requestAnimationFrame(function() {
+          el.scrollIntoView({ behavior: 'auto', block: 'start' });
+        });
+        return true;
+      }
+      return false;
+    }
+
+    if (tryScroll()) return;
+
+    var observer = new MutationObserver(function() {
+      if (tryScroll() || performance.now() > deadline) observer.disconnect();
+    });
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+
+    // Also poll on a short interval — covers async fetches that finish without
+    // mutating watched nodes (rare, but cheap insurance).
+    var interval = setInterval(function() {
+      if (tryScroll() || performance.now() > deadline) {
+        clearInterval(interval);
+        observer.disconnect();
+      }
+    }, 80);
   }
 
   // ── County dropdown ──────────────────────────────────────────────────────
@@ -59,52 +170,41 @@ const ChartDashboard = (() => {
       sel.appendChild(_el('option', { value: c, textContent: c + ' County' }));
     });
 
-    // Always default to the first processed county; the dashboard never shows
-    // "all counties" at once.
-    activeCounty = processedCounties[0];
-    sel.value    = activeCounty;
+    // activeCounty was already set by _applyUrlState() before this function
+    // ran. Reflect that in the dropdown.
+    sel.value = activeCounty;
 
     sel.addEventListener('change', function() {
-      // Preserve the user's chart slot across the county switch so they can
-      // compare chart-to-chart side-by-side. We use the browser's native
-      // scrollIntoView anchor mechanism — that automatically respects the
-      // CSS `scroll-margin-top` on .chart-section (which clears the sticky
-      // header), handles mobile zoom and sub-pixel rounding correctly, and
-      // updates the URL fragment so the dashboard view becomes shareable.
-      //
-      // We only anchor on CHART sections, not table sections. Tables are too
-      // tall and their heights vary too much across counties for anchoring
-      // to feel right; when the user is reading a table, we just preserve
-      // absolute scrollY instead.
+      // Capture the chart slot the user is looking at BEFORE swapping
+      // counties. The slot is encoded as a county-independent suffix (e.g.
+      // 'party-affiliation') so we can find the equivalent slot in any
+      // county. If no chart is currently in view (user is reading a table or
+      // scrolled past all charts), suffix is null and we hold absolute scroll.
       var savedScrollY = window.scrollY;
-      var anchor       = _focalChartSection();   // chart section slug, or null
+      var anchor       = _focalChartSection();
       var anchorSuffix = anchor ? _slugSuffix(anchor.id, activeCounty) : null;
 
       activeCounty = sel.value;
+      _writeUrlState({ county: activeCounty, hash: anchorSuffix });
       _updateHeaderLabel();
       _updatePageDescription();
       _filterSections();
-      _renderVisibleSections();   // load any newly-revealed county's charts
+      _renderVisibleSections();
       _rebuildNav();
 
-      // Defer scroll-restore until after lazy chart construction has had a
-      // chance to add layout (rAF inside _renderVisibleSections), otherwise
-      // page height grows under our feet and the restore lands too high.
-      requestAnimationFrame(function() {
+      if (anchorSuffix) {
+        // Race-free: wait for the new county's section to actually paint
+        // before scrolling. Fixes the "first switch jumps, second stays"
+        // bug — that was caused by scrolling before async chart fetches had
+        // finished growing the page.
+        _scrollToSuffixWhenReady(anchorSuffix);
+      } else {
+        // User was reading a table — preserve absolute scrollY so the page
+        // doesn't jump.
         requestAnimationFrame(function() {
-          if (anchorSuffix) {
-            var newSlug = activeCounty.toLowerCase().replace(/ /g, '_');
-            var target  = document.getElementById('section-' + newSlug + '-' + anchorSuffix);
-            if (target && target.style.display !== 'none') {
-              target.scrollIntoView({ behavior: 'auto', block: 'start' });
-              return;
-            }
-          }
-          // No chart anchor (user was reading a table) or target missing —
-          // hold absolute scroll position so the page doesn't jump.
           window.scrollTo({ top: savedScrollY, behavior: 'auto' });
         });
-      });
+      }
     });
 
     _updateHeaderLabel();
@@ -170,8 +270,24 @@ const ChartDashboard = (() => {
       document.querySelectorAll('.geo-btn').forEach(function(b) { b.classList.remove('active'); });
       e.target.classList.add('active');
       activeGeo = e.target.dataset.geo;
+
+      // Capture focal chart so geo changes that hide it don't strand the user.
+      var anchor       = _focalChartSection();
+      var anchorSuffix = anchor ? _slugSuffix(anchor.id, activeCounty) : null;
+
+      _writeUrlState({ geo: activeGeo, hash: anchorSuffix });
       _filterSections();
+      _renderVisibleSections();
       _rebuildNav();
+
+      // If the focal chart is still visible after the filter, hold its slot.
+      if (anchorSuffix) {
+        var newSlug = (activeCounty || '').toLowerCase().replace(/ /g, '_');
+        var target  = document.getElementById('section-' + newSlug + '-' + anchorSuffix);
+        if (target && target.style.display !== 'none') {
+          _scrollToSuffixWhenReady(anchorSuffix);
+        }
+      }
     });
   }
 
@@ -281,13 +397,25 @@ const ChartDashboard = (() => {
     manifest.sections
       .filter(_sectionVisible)
       .forEach(function(s) {
+        // Hash uses the county-INDEPENDENT suffix (e.g. #party-affiliation)
+        // so the nav link is meaningful across counties and works as a
+        // shareable URL. The hashchange handler below resolves it against
+        // the currently-active county.
+        var suffix = _slugSuffix('section-' + s.id, s.county);
         nav.appendChild(_el('a', {
-          href:        '#section-' + s.id,
+          href:        '#' + suffix,
           textContent: s.navLabel || s.title,
           className:   'nav-link'
         }));
       });
   }
+
+  // Resolve hash changes (from the section-nav, an external link, or the
+  // back/forward buttons) against the currently-active county.
+  window.addEventListener('hashchange', function() {
+    var suffix = _readHashSuffix();
+    if (suffix) _scrollToSuffixWhenReady(suffix);
+  });
 
   // ── Chart rendering ──────────────────────────────────────────────────────
   function _renderToWrapper(wrapper, data, id) {
