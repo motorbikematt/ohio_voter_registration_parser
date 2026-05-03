@@ -11,7 +11,7 @@ const ChartDashboard = (() => {
   // ── State ────────────────────────────────────────────────────────────────
   let cfg          = {};
   let manifest     = null;
-  let activeCounty = null;   // null = show all processed counties
+  let activeCounty = null;   // populated by _applyUrlState before rendering
   let activeGeo    = 'all';
   const instances  = {};
 
@@ -427,7 +427,9 @@ const ChartDashboard = (() => {
   }
 
   function _sectionVisible(s) {
-    const countyMatch = !activeCounty || s.county === activeCounty;
+    // activeCounty is always populated after _applyUrlState; we don't render
+    // an "all counties" combined view.
+    const countyMatch = s.county === activeCounty;
     const geoMatch    = activeGeo === 'all' || s.geography === activeGeo;
     return countyMatch && geoMatch;
   }

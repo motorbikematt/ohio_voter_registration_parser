@@ -231,7 +231,7 @@ a:hover { color: var(--accent-hover); }
   /* No `overflow: hidden` — would break position:sticky on table headers
      inside .table-scroll. Rounded corners are kept by giving the inner
      header/footer their own border-radii where the corners meet. */
-  scroll-margin-top: 130px;  /* clear the sticky header on anchor jumps */
+  scroll-margin-top: 130px;  /* fallback; charts.js measures live header height */
 }
 .chart-section .section-header { border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); }
 .chart-section .section-footer { border-bottom-left-radius: var(--radius); border-bottom-right-radius: var(--radius); }
@@ -272,7 +272,12 @@ a:hover { color: var(--accent-hover); }
 
 .chart-wrapper {
   padding: 1.25rem 1.5rem;
-  min-height: 80px;
+  /* Slot lock: reserve full chart height before the chart paints so the
+     section card is the same size whether it shows the loading placeholder
+     or a fully-rendered chart. Eliminates the layout shift that was making
+     county switching feel disruptive. 430 = 380 (canvas max) + 50 (padding
+     and breathing room). */
+  min-height: 430px;
 }
 
 .chart-wrapper canvas { max-height: 380px; }
@@ -301,12 +306,14 @@ a:hover { color: var(--accent-hover); }
    Data Table
    ============================================================ */
 .table-scroll {
-  /* Fixed maximum height so a 1,200-row Cuyahoga precinct table doesn't
-     create a 30,000px-tall section. Internal scroll keeps the section
-     card a stable size across all counties — chart-to-chart anchoring
-     across counties stays accurate, page-load feels lighter, and the
-     user can still see every row by scrolling within the table. */
+  /* Slot lock: fixed height (max == min) so the table section is the same
+     size whether it shows the loading placeholder, an 8-row small-county
+     table, or a 1,200-row Cuyahoga precinct table. Internal scroll lets the
+     user reach every row, page geometry stays stable across counties, and
+     chart-to-chart anchoring math stays accurate. */
+  height: 60vh;
   max-height: 60vh;
+  min-height: 60vh;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -377,8 +384,8 @@ a:hover { color: var(--accent-hover); }
   .site-title     { font-size: 1.05rem; }
   #main-content   { padding: 1rem .85rem 2rem; }
   .section-header { padding: .9rem 1rem .65rem; }
-  .chart-wrapper  { padding: 1rem; }
+  .chart-wrapper  { padding: 1rem; min-height: 320px; }
   .section-footer { padding: .5rem 1rem; }
   .chart-wrapper canvas { max-height: 280px; }
-  .table-scroll   { max-height: 50vh; }
+  .table-scroll   { height: 50vh; max-height: 50vh; min-height: 50vh; }
 }
