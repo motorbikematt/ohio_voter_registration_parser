@@ -1289,10 +1289,10 @@ def _dump_json(obj: dict, path: Path, logger: logging.Logger):
 # saturation party colors so the visual distinction between "registered" and
 # "behaviorally inferred" is immediately apparent.
 UNC_SHADOW_COLORS = {
-    'LIFETIME_D':   '#7FA1C3',   # light blue  — reliable Democratic primary voter
-    'LIFETIME_R':   '#D98880',   # light red   — reliable Republican primary voter
-    'MIXED':        '#9B8EC4',   # muted purple — crossed party lines
-    'NO_HISTORY':   '#9ca3af',   # grey        — no primary participation on record
+    'LIFETIME_D':   '#93c5fd',   # light blue  — tint of DEM #3b82f6
+    'LIFETIME_R':   '#f8a5a5',   # light red   — tint of REP #ef4444
+    'MIXED':        '#a78bfa',   # light purple — crossed party lines
+    'NO_HISTORY':   '#9ca3af',   # grey         — no primary participation on record
 }
 
 UNC_SHADOW_LABELS = {
@@ -1563,12 +1563,33 @@ def export_json(
                       UNC_SHADOW_COLORS['MIXED'],      UNC_SHADOW_COLORS['NO_HISTORY']]
         unc_counts = [sc.get('LIFETIME_D', 0), sc.get('LIFETIME_R', 0),
                       sc.get('MIXED', 0),       sc.get('NO_HISTORY', 0)]
-        non_unc    = [(row['PARTY_LABEL'], row['count'])
-                      for row in party_df.iter_rows(named=True)
-                      if row['PARTY_LABEL'] != 'UNC']
-        pa_labels  = [p for p, _ in non_unc] + unc_labels
-        pa_colors  = [CHART_COLORS.get(p, '#6366f1') for p, _ in non_unc] + unc_colors
-        pa_counts  = [c for _, c in non_unc] + unc_counts
+        non_unc_map = {row['PARTY_LABEL']: row['count']
+                       for row in party_df.iter_rows(named=True)
+                       if row['PARTY_LABEL'] != 'UNC'}
+        # Interleave so registered and shadow segments of the same party are adjacent:
+        # REP, UNC–Lifetime R, DEM, UNC–Lifetime D, UNC–Mixed, UNC–No History, Other
+        pa_labels = []
+        pa_colors = []
+        pa_counts = []
+        for reg_party, unc_cls, unc_label, unc_color in [
+            ('REP', 'LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+            ('DEM', 'LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+        ]:
+            if reg_party in non_unc_map:
+                pa_labels.append(reg_party)
+                pa_colors.append(CHART_COLORS.get(reg_party, '#6366f1'))
+                pa_counts.append(non_unc_map[reg_party])
+            pa_labels.append(unc_label)
+            pa_colors.append(unc_color)
+            pa_counts.append(sc.get(unc_cls, 0))
+        pa_labels += ['UNC – Mixed', 'UNC – No History']
+        pa_colors += [UNC_SHADOW_COLORS['MIXED'], UNC_SHADOW_COLORS['NO_HISTORY']]
+        pa_counts += [sc.get('MIXED', 0), sc.get('NO_HISTORY', 0)]
+        for other_party, other_count in non_unc_map.items():
+            if other_party not in ('REP', 'DEM'):
+                pa_labels.append(other_party)
+                pa_colors.append(CHART_COLORS.get(other_party, '#6366f1'))
+                pa_counts.append(other_count)
         pa_note    = note + ' — UNC split by primary ballot history; see methodology note.'
     else:
         pa_labels = party_df['PARTY_LABEL'].to_list()
@@ -1603,8 +1624,9 @@ def export_json(
     )
     decade_labels = [f'{d}s' for d in cross['Decade'].to_list()]
     datasets      = []
-    # REP, DEM, Other — unchanged
-    for party in ['REP', 'DEM', 'Other']:
+    # REP and DEM each get a unique stack so they render as standalone bars.
+    # All UNC segments share stack 'unc' so they pile into one stacked column.
+    for party, stack_id in [('REP', 'rep'), ('DEM', 'dem'), ('Other', 'other')]:
         if party not in cross.columns:
             continue
         datasets.append({
@@ -1612,8 +1634,9 @@ def export_json(
             'data':            [v or 0 for v in cross[party].to_list()],
             'backgroundColor': CHART_COLORS.get(party, '#6366f1'),
             'borderRadius':    3,
+            'stack':           stack_id,
         })
-    # UNC: split by shadow classification if available
+    # UNC: split by shadow classification if available, all sharing stack 'unc'
     if unc_classified is not None and not unc_classified.is_empty():
         unc_decade = (
             unc_classified
@@ -1631,7 +1654,6 @@ def export_json(
             ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
         ]:
             if cls in unc_decade.columns:
-                # Align to decade_vals order, fill missing decades with 0
                 dmap = dict(zip(unc_decade['Decade'].to_list(),
                                 unc_decade[cls].to_list()))
                 vals = [int(dmap.get(d, 0) or 0) for d in decade_vals]
@@ -1642,6 +1664,7 @@ def export_json(
                 'data':            vals,
                 'backgroundColor': color,
                 'borderRadius':    3,
+                'stack':           'unc',
             })
     else:
         if 'UNC' in cross.columns:
@@ -1650,6 +1673,7 @@ def export_json(
                 'data':            [v or 0 for v in cross['UNC'].to_list()],
                 'backgroundColor': CHART_COLORS['UNC'],
                 'borderRadius':    3,
+                'stack':           'unc',
             })
     _dump_json({
         'title':     'Party Affiliation by Birth Decade',
@@ -1700,13 +1724,14 @@ def export_json(
     )
     gen_labels   = gen_cross['Generation'].to_list()
     gen_datasets = []
-    for party in ['REP', 'DEM', 'Other']:
+    for party, stack_id in [('REP', 'rep'), ('DEM', 'dem'), ('Other', 'other')]:
         color = CHART_COLORS.get(party, '#888888')
         gen_datasets.append({
             'label':           party,
             'data':            gen_cross[party].fill_null(0).to_list() if party in gen_cross.columns else [],
             'backgroundColor': color,
             'borderRadius':    2,
+            'stack':           stack_id,
         })
     if unc_classified is not None and not unc_classified.is_empty():
         unc_gen = (
@@ -1736,6 +1761,7 @@ def export_json(
                 'data':            vals,
                 'backgroundColor': color,
                 'borderRadius':    2,
+                'stack':           'unc',
             })
     else:
         color = CHART_COLORS.get('UNC', '#888888')
@@ -1744,6 +1770,7 @@ def export_json(
             'data':            gen_cross['UNC'].fill_null(0).to_list() if 'UNC' in gen_cross.columns else [],
             'backgroundColor': color,
             'borderRadius':    2,
+            'stack':           'unc',
         })
     _dump_json({
         'title':     'Party Affiliation by Generation',
