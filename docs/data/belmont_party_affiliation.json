@@ -4,24 +4,33 @@
   "geography": "county",
   "type": "doughnut",
   "updated": "2026-05-03",
-  "note": "Analysis run 2026-05-03 \u2014 Ohio Secretary of State SWVF voter file",
+  "note": "Analysis run 2026-05-03 \u2014 Ohio Secretary of State SWVF voter file \u2014 UNC split by primary ballot history; see methodology note.",
   "chartConfig": {
     "labels": [
-      "UNC",
       "REP",
-      "DEM"
+      "DEM",
+      "UNC \u2013 Lifetime D",
+      "UNC \u2013 Lifetime R",
+      "UNC \u2013 Mixed",
+      "UNC \u2013 No History"
     ],
     "datasets": [
       {
         "data": [
-          28657,
           10124,
-          3276
+          3276,
+          5319,
+          3028,
+          3230,
+          17080
         ],
         "backgroundColor": [
-          "#9ca3af",
           "#ef4444",
-          "#3b82f6"
+          "#3b82f6",
+          "#7FA1C3",
+          "#D98880",
+          "#9B8EC4",
+          "#9ca3af"
         ],
         "borderWidth": 2,
         "borderColor": "transparent"
