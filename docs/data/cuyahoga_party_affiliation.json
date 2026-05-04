@@ -3,33 +3,33 @@
   "county": "Cuyahoga",
   "geography": "county",
   "type": "doughnut",
-  "updated": "2026-05-03",
-  "note": "Analysis run 2026-05-03 \u2014 Ohio Secretary of State SWVF voter file \u2014 UNC split by primary ballot history; see methodology note.",
+  "updated": "2026-05-04",
+  "note": "Analysis run 2026-05-04 \u2014 Ohio Secretary of State SWVF voter file \u2014 UNC split by primary ballot history; see methodology note.",
   "chartConfig": {
     "labels": [
-      "DEM",
       "REP",
-      "UNC \u2013 Lifetime D",
       "UNC \u2013 Lifetime R",
+      "DEM",
+      "UNC \u2013 Lifetime D",
       "UNC \u2013 Mixed",
       "UNC \u2013 No History"
     ],
     "datasets": [
       {
         "data": [
-          137631,
           84245,
-          154342,
           44299,
+          137631,
+          154342,
           62300,
           379622
         ],
         "backgroundColor": [
-          "#3b82f6",
           "#ef4444",
-          "#7FA1C3",
-          "#D98880",
-          "#9B8EC4",
+          "#f8a5a5",
+          "#3b82f6",
+          "#93c5fd",
+          "#a78bfa",
           "#9ca3af"
         ],
         "borderWidth": 2,

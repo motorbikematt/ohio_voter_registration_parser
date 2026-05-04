@@ -3,8 +3,8 @@
   "county": "Lawrence",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-05-03",
-  "note": "Analysis run 2026-05-03 \u2014 Ohio Secretary of State SWVF voter file",
+  "updated": "2026-05-04",
+  "note": "Analysis run 2026-05-04 \u2014 Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -32,7 +32,8 @@
           329
         ],
         "backgroundColor": "#ef4444",
-        "borderRadius": 3
+        "borderRadius": 3,
+        "stack": "rep"
       },
       {
         "label": "DEM",
@@ -48,7 +49,8 @@
           69
         ],
         "backgroundColor": "#3b82f6",
-        "borderRadius": 3
+        "borderRadius": 3,
+        "stack": "dem"
       },
       {
         "label": "UNC \u2013 Lifetime D",
@@ -63,8 +65,9 @@
           310,
           18
         ],
-        "backgroundColor": "#7FA1C3",
-        "borderRadius": 3
+        "backgroundColor": "#93c5fd",
+        "borderRadius": 3,
+        "stack": "unc"
       },
       {
         "label": "UNC \u2013 Lifetime R",
@@ -79,8 +82,9 @@
           681,
           93
         ],
-        "backgroundColor": "#D98880",
-        "borderRadius": 3
+        "backgroundColor": "#f8a5a5",
+        "borderRadius": 3,
+        "stack": "unc"
       },
       {
         "label": "UNC \u2013 Mixed",
@@ -95,8 +99,9 @@
           77,
           18
         ],
-        "backgroundColor": "#9B8EC4",
-        "borderRadius": 3
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
       },
       {
         "label": "UNC \u2013 No History",
@@ -112,7 +117,8 @@
           3575
         ],
         "backgroundColor": "#9ca3af",
-        "borderRadius": 3
+        "borderRadius": 3,
+        "stack": "unc"
       }
     ]
   }

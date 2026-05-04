@@ -3,8 +3,8 @@
   "county": "Gallia",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-05-03",
-  "note": "Analysis run 2026-05-03 \u2014 Ohio Secretary of State SWVF voter file",
+  "updated": "2026-05-04",
+  "note": "Analysis run 2026-05-04 \u2014 Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -34,7 +34,8 @@
           196
         ],
         "backgroundColor": "#ef4444",
-        "borderRadius": 3
+        "borderRadius": 3,
+        "stack": "rep"
       },
       {
         "label": "DEM",
@@ -51,7 +52,8 @@
           22
         ],
         "backgroundColor": "#3b82f6",
-        "borderRadius": 3
+        "borderRadius": 3,
+        "stack": "dem"
       },
       {
         "label": "UNC \u2013 Lifetime D",
@@ -67,8 +69,9 @@
           115,
           13
         ],
-        "backgroundColor": "#7FA1C3",
-        "borderRadius": 3
+        "backgroundColor": "#93c5fd",
+        "borderRadius": 3,
+        "stack": "unc"
       },
       {
         "label": "UNC \u2013 Lifetime R",
@@ -84,8 +87,9 @@
           294,
           48
         ],
-        "backgroundColor": "#D98880",
-        "borderRadius": 3
+        "backgroundColor": "#f8a5a5",
+        "borderRadius": 3,
+        "stack": "unc"
       },
       {
         "label": "UNC \u2013 Mixed",
@@ -101,8 +105,9 @@
           24,
           14
         ],
-        "backgroundColor": "#9B8EC4",
-        "borderRadius": 3
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
       },
       {
         "label": "UNC \u2013 No History",
@@ -119,7 +124,8 @@
           1584
         ],
         "backgroundColor": "#9ca3af",
-        "borderRadius": 3
+        "borderRadius": 3,
+        "stack": "unc"
       }
     ]
   }

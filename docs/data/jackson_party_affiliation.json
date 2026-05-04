@@ -3,14 +3,14 @@
   "county": "Jackson",
   "geography": "county",
   "type": "doughnut",
-  "updated": "2026-05-03",
-  "note": "Analysis run 2026-05-03 \u2014 Ohio Secretary of State SWVF voter file \u2014 UNC split by primary ballot history; see methodology note.",
+  "updated": "2026-05-04",
+  "note": "Analysis run 2026-05-04 \u2014 Ohio Secretary of State SWVF voter file \u2014 UNC split by primary ballot history; see methodology note.",
   "chartConfig": {
     "labels": [
       "REP",
+      "UNC \u2013 Lifetime R",
       "DEM",
       "UNC \u2013 Lifetime D",
-      "UNC \u2013 Lifetime R",
       "UNC \u2013 Mixed",
       "UNC \u2013 No History"
     ],
@@ -18,18 +18,18 @@
       {
         "data": [
           4147,
+          3589,
           647,
           1666,
-          3589,
           1599,
           8164
         ],
         "backgroundColor": [
           "#ef4444",
+          "#f8a5a5",
           "#3b82f6",
-          "#7FA1C3",
-          "#D98880",
-          "#9B8EC4",
+          "#93c5fd",
+          "#a78bfa",
           "#9ca3af"
         ],
         "borderWidth": 2,
