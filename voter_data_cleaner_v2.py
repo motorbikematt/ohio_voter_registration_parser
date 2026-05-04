@@ -1408,10 +1408,11 @@ def classify_unc_primary_history(
 
 
 def export_unc_shadow_json(
-    county_name:  str,
-    df:           pl.DataFrame,
-    primary_cols: list[str],
-    logger:       logging.Logger,
+    county_name:    str,
+    df:             pl.DataFrame,
+    primary_cols:   list[str],
+    logger:         logging.Logger,
+    unc_classified: 'pl.DataFrame | None' = None,
 ) -> bool:
     """
     Classify UNC voters and write {slug}_unc_shadow.json for the dashboard.
@@ -1434,7 +1435,7 @@ def export_unc_shadow_json(
         logger.info('  UNC shadow: no primary columns — skipping %s', county_name)
         return False
 
-    classified = classify_unc_primary_history(df, primary_cols, logger)
+    classified = unc_classified if unc_classified is not None else classify_unc_primary_history(df, primary_cols, logger)
     if classified.is_empty():
         logger.info('  UNC shadow: no UNC voters — skipping %s', county_name)
         return False
@@ -1497,6 +1498,7 @@ def export_json(
     election_cols:   list[str],
     logger:          logging.Logger,
     update_manifest: bool = True,
+    unc_classified:  'pl.DataFrame | None' = None,
 ):
     """
     Write four JSON files into docs/data/ matching the exact schema expected by
@@ -1543,25 +1545,48 @@ def export_json(
     }, DATA_DIR / f'{slug}_decade_distribution.json', logger)
 
     # ── Party affiliation (doughnut chart) ────────────────────────────────────
+    # When shadow classification is available, replace the single UNC segment
+    # with four behaviorally-derived segments (Lifetime D/R, Mixed, No History).
     party_df = (
         df.group_by('PARTY_LABEL')
           .agg(pl.len().alias('count'))
           .sort('count', descending=True)
     )
-    party_labels = party_df['PARTY_LABEL'].to_list()
-    party_colors = [CHART_COLORS.get(p, '#6366f1') for p in party_labels]
+    if unc_classified is not None and not unc_classified.is_empty():
+        unc_total = int(party_df.filter(pl.col('PARTY_LABEL') == 'UNC')['count'].sum())
+        shadow_counts = (
+            unc_classified.group_by('unc_class').agg(pl.len().alias('n'))
+        )
+        sc = dict(zip(shadow_counts['unc_class'].to_list(), shadow_counts['n'].to_list()))
+        unc_labels = ['UNC – Lifetime D', 'UNC – Lifetime R', 'UNC – Mixed', 'UNC – No History']
+        unc_colors = [UNC_SHADOW_COLORS['LIFETIME_D'], UNC_SHADOW_COLORS['LIFETIME_R'],
+                      UNC_SHADOW_COLORS['MIXED'],      UNC_SHADOW_COLORS['NO_HISTORY']]
+        unc_counts = [sc.get('LIFETIME_D', 0), sc.get('LIFETIME_R', 0),
+                      sc.get('MIXED', 0),       sc.get('NO_HISTORY', 0)]
+        non_unc    = [(row['PARTY_LABEL'], row['count'])
+                      for row in party_df.iter_rows(named=True)
+                      if row['PARTY_LABEL'] != 'UNC']
+        pa_labels  = [p for p, _ in non_unc] + unc_labels
+        pa_colors  = [CHART_COLORS.get(p, '#6366f1') for p, _ in non_unc] + unc_colors
+        pa_counts  = [c for _, c in non_unc] + unc_counts
+        pa_note    = note + ' — UNC split by primary ballot history; see methodology note.'
+    else:
+        pa_labels = party_df['PARTY_LABEL'].to_list()
+        pa_colors = [CHART_COLORS.get(p, '#6366f1') for p in pa_labels]
+        pa_counts = party_df['count'].to_list()
+        pa_note   = note
     _dump_json({
         'title':     'Party Affiliation Breakdown',
         'county':    county_name,
         'geography': 'county',
         'type':      'doughnut',
         'updated':   today,
-        'note':      note,
+        'note':      pa_note,
         'chartConfig': {
-            'labels': party_labels,
+            'labels': pa_labels,
             'datasets': [{
-                'data':            party_df['count'].to_list(),
-                'backgroundColor': party_colors,
+                'data':            pa_counts,
+                'backgroundColor': pa_colors,
                 'borderWidth':     2,
                 'borderColor':     'transparent',
             }],
@@ -1569,7 +1594,7 @@ def export_json(
     }, DATA_DIR / f'{slug}_party_affiliation.json', logger)
 
     # ── Party × Decade (grouped bar chart) ────────────────────────────────────
-    # For each decade, we need the count for each party as a separate dataset.
+    # Build base cross-tab excluding UNC; then append shadow-split UNC datasets.
     cross = (
         df.group_by(['Decade', 'PARTY_LABEL'])
           .agg(pl.len().alias('count'))
@@ -1578,7 +1603,8 @@ def export_json(
     )
     decade_labels = [f'{d}s' for d in cross['Decade'].to_list()]
     datasets      = []
-    for party in TOP_PARTIES + ['Other']:
+    # REP, DEM, Other — unchanged
+    for party in ['REP', 'DEM', 'Other']:
         if party not in cross.columns:
             continue
         datasets.append({
@@ -1587,6 +1613,44 @@ def export_json(
             'backgroundColor': CHART_COLORS.get(party, '#6366f1'),
             'borderRadius':    3,
         })
+    # UNC: split by shadow classification if available
+    if unc_classified is not None and not unc_classified.is_empty():
+        unc_decade = (
+            unc_classified
+            .join(df.select(['SOS_VOTERID', 'Decade']), on='SOS_VOTERID', how='left')
+            .group_by(['Decade', 'unc_class'])
+            .agg(pl.len().alias('n'))
+            .pivot(on='unc_class', index='Decade', values='n', aggregate_function='sum')
+            .sort('Decade')
+        )
+        decade_vals = cross['Decade'].to_list()
+        for cls, label, color in [
+            ('LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+            ('LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+            ('MIXED',      'UNC – Mixed',       UNC_SHADOW_COLORS['MIXED']),
+            ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
+        ]:
+            if cls in unc_decade.columns:
+                # Align to decade_vals order, fill missing decades with 0
+                dmap = dict(zip(unc_decade['Decade'].to_list(),
+                                unc_decade[cls].to_list()))
+                vals = [int(dmap.get(d, 0) or 0) for d in decade_vals]
+            else:
+                vals = [0] * len(decade_vals)
+            datasets.append({
+                'label':           label,
+                'data':            vals,
+                'backgroundColor': color,
+                'borderRadius':    3,
+            })
+    else:
+        if 'UNC' in cross.columns:
+            datasets.append({
+                'label':           'UNC',
+                'data':            [v or 0 for v in cross['UNC'].to_list()],
+                'backgroundColor': CHART_COLORS['UNC'],
+                'borderRadius':    3,
+            })
     _dump_json({
         'title':     'Party Affiliation by Birth Decade',
         'county':    county_name,
@@ -1634,13 +1698,50 @@ def export_json(
                  .sort('_sort')
                  .drop('_sort')
     )
-    gen_labels = gen_cross['Generation'].to_list()
+    gen_labels   = gen_cross['Generation'].to_list()
     gen_datasets = []
-    for party in TOP_PARTIES + ['Other']:
+    for party in ['REP', 'DEM', 'Other']:
         color = CHART_COLORS.get(party, '#888888')
         gen_datasets.append({
             'label':           party,
             'data':            gen_cross[party].fill_null(0).to_list() if party in gen_cross.columns else [],
+            'backgroundColor': color,
+            'borderRadius':    2,
+        })
+    if unc_classified is not None and not unc_classified.is_empty():
+        unc_gen = (
+            unc_classified
+            .join(df.select(['SOS_VOTERID', 'Generation']), on='SOS_VOTERID', how='left')
+            .group_by(['Generation', 'unc_class'])
+            .agg(pl.len().alias('n'))
+            .pivot(on='unc_class', index='Generation', values='n', aggregate_function='sum')
+        )
+        sort_df = pl.DataFrame({'Generation': _GEN_ORDER, '_sort': list(range(len(_GEN_ORDER)))})
+        unc_gen = (
+            unc_gen.join(sort_df, on='Generation', how='left').sort('_sort').drop('_sort')
+        )
+        for cls, label, color in [
+            ('LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+            ('LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+            ('MIXED',      'UNC – Mixed',       UNC_SHADOW_COLORS['MIXED']),
+            ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
+        ]:
+            if cls in unc_gen.columns:
+                gmap  = dict(zip(unc_gen['Generation'].to_list(), unc_gen[cls].to_list()))
+                vals  = [int(gmap.get(g, 0) or 0) for g in gen_labels]
+            else:
+                vals = [0] * len(gen_labels)
+            gen_datasets.append({
+                'label':           label,
+                'data':            vals,
+                'backgroundColor': color,
+                'borderRadius':    2,
+            })
+    else:
+        color = CHART_COLORS.get('UNC', '#888888')
+        gen_datasets.append({
+            'label':           'UNC',
+            'data':            gen_cross['UNC'].fill_null(0).to_list() if 'UNC' in gen_cross.columns else [],
             'backgroundColor': color,
             'borderRadius':    2,
         })
@@ -2228,10 +2329,13 @@ def _export_county_worker(args: tuple) -> tuple:
     if not logger.handlers:
         logging.basicConfig(level=logging.INFO, format='%(levelname)-8s  [%(process)d] %(message)s')
     try:
-        county_df = pl.read_ipc(io.BytesIO(ipc_bytes))
-        export_json(county_name, county_df, election_cols, logger, update_manifest=False)
+        county_df    = pl.read_ipc(io.BytesIO(ipc_bytes))
         primary_cols = identify_primary_cols(election_cols)
-        export_unc_shadow_json(county_name, county_df, primary_cols, logger)
+        unc_classified = classify_unc_primary_history(county_df, primary_cols, logger) if primary_cols else None
+        export_json(county_name, county_df, election_cols, logger,
+                    update_manifest=False, unc_classified=unc_classified)
+        export_unc_shadow_json(county_name, county_df, primary_cols, logger,
+                               unc_classified=unc_classified)
         return (county_name, None)
     except Exception as exc:
         return (county_name, str(exc))
