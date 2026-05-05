@@ -506,6 +506,13 @@ const ChartDashboard = (() => {
       if (Object.keys(chartOpts.plugins).length === 0)         delete chartOpts.plugins;
     }
 
+    // Detect whether any dataset carries a 'stack' key. If so, Chart.js needs
+    // stacked:true on both axes or it ignores the stack IDs entirely and falls
+    // back to a grouped (side-by-side) layout.
+    var hasStack = !isRadial && (data.chartConfig.datasets || []).some(function(ds) {
+      return ds.stack !== undefined && ds.stack !== null;
+    });
+
     instances[id] = new Chart(canvas, {
       type: data.type,
       data: data.chartConfig,
@@ -520,10 +527,12 @@ const ChartDashboard = (() => {
         },
         scales: isRadial ? {} : {
           x: {
+            stacked: hasStack,
             ticks: { color: colors.text, maxRotation: 45 },
             grid:  { color: colors.grid }
           },
           y: {
+            stacked: hasStack,
             beginAtZero: true,
             ticks: { color: colors.text, callback: function(v) { return v.toLocaleString(); } },
             grid:  { color: colors.grid }

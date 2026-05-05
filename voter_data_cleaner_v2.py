@@ -1289,10 +1289,10 @@ def _dump_json(obj: dict, path: Path, logger: logging.Logger):
 # saturation party colors so the visual distinction between "registered" and
 # "behaviorally inferred" is immediately apparent.
 UNC_SHADOW_COLORS = {
-    'LIFETIME_D':   '#93c5fd',   # light blue  — tint of DEM #3b82f6
-    'LIFETIME_R':   '#f8a5a5',   # light red   — tint of REP #ef4444
-    'MIXED':        '#a78bfa',   # light purple — crossed party lines
-    'NO_HISTORY':   '#9ca3af',   # grey         — no primary participation on record
+    'LIFETIME_D':   '#60a5fa',   # blue-400  — lighter tint of DEM #3b82f6 (blue-500)
+    'LIFETIME_R':   '#f87171',   # red-400   — lighter tint of REP #ef4444 (red-500)
+    'MIXED':        '#a78bfa',   # violet-400 — crossed party lines
+    'NO_HISTORY':   '#9ca3af',   # grey-400   — no primary participation on record
 }
 
 UNC_SHADOW_LABELS = {
