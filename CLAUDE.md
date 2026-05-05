@@ -32,6 +32,10 @@ Data processing pipeline to convert historical and current raw voter registratio
 3. Executive summaries with actionable insights for stakeholders  
 4. Unregistered resident identification and matching algorithms
 
+## File Editing Rules
+
+For files >300 lines, edit via Python script (`encoding='utf-8'`). To prevent exact-match assertion failures, target small, unique code blocks (<10 lines) for the `old_string`. Assert `src.count(old_string) == 1` before replacing. Print only the replaced line numbers. Do not output diffs.
+
 ## How to Work With Me
 
 - **Show plans before writing code:** We want to avoid repeating work  
