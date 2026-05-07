@@ -27,8 +27,20 @@
           <label for="county-select">County</label>
           <select id="county-select" aria-label="Select county"></select>
         </div>
-        <div class="control-group">
-          <label>Geography</label>
+
+        <div class="control-group" id="precinct-control" style="display:none">
+          <label for="precinct-select">Precinct</label>
+          <select id="precinct-select" aria-label="Select precinct"></select>
+        </div>
+
+        <div class="control-group scope-control-group">
+          <div class="scope-tabs" id="scope-tabs">
+            <button class="scope-tab active" data-scope="county">County</button>
+            <button class="scope-tab" data-scope="precinct">Precinct</button>
+            <button class="scope-tab" data-scope="city">City</button>
+            <button class="scope-tab disabled" data-scope="ward" title="Coming in Phase 3" disabled>Ward</button>
+            <button class="scope-tab disabled" data-scope="district" title="Coming in Phase 3" disabled>District</button>
+          </div>
           <div class="geo-filter-group" id="geo-filter-group">
             <button class="geo-btn active" data-geo="all">All</button>
             <button class="geo-btn" data-geo="county">County</button>
@@ -75,7 +87,10 @@
       descriptionId:       'page-description',
       dataNoteId:          'data-note',
       headerCountyLabelId: 'header-county-label',
-      themeToggleId:       'theme-toggle'
+      themeToggleId:       'theme-toggle',
+      precinctControlId:   'precinct-control',
+      precinctSelectId:    'precinct-select',
+      scopeTabsId:         'scope-tabs'
     });
   </script>
 

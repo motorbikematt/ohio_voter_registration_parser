@@ -183,6 +183,13 @@ def get_source_date(logger: logging.Logger) -> str:
 
 # Ohio county number → county name.
 # County numbers run 01–88 and are zero-padded strings in the voter file.
+# Ohio SOS official county numbering: 01–88, strictly alphabetical by county name.
+# This is NOT geographic — it is the state's administrative index.
+# Numbers are zero-padded to two digits and used as:
+#   - Hive partition keys in the Parquet cache  (COUNTY_NUMBER=57/)
+#   - SWVF COUNTY_NUMBER field values
+#   - manifest slug lookups and dashboard data file prefixes
+# Source: Ohio Secretary of State Statewide Voter File documentation.
 OHIO_COUNTIES: dict[str, str] = {
     '01': 'Adams',       '02': 'Allen',       '03': 'Ashland',     '04': 'Ashtabula',
     '05': 'Athens',      '06': 'Auglaize',    '07': 'Belmont',     '08': 'Brown',
@@ -536,17 +543,20 @@ def clean_voter_data(df: pl.DataFrame, logger: logging.Logger) -> pl.DataFrame:
     invalid_rows = df.filter(invalid_mask)
 
     if len(invalid_rows) > 0:
-        # Per-row detail so analysts can cross-reference against the SOS source file
-        # to distinguish data-entry errors from parser bugs.
-        for row in invalid_rows.select(
-            'SOS_VOTERID', 'DATE_OF_BIRTH', 'BIRTHYEAR'
-        ).iter_rows(named=True):
-            logger.warning(
-                'Dropping row: SOS_VOTERID=%s  DATE_OF_BIRTH=%s  BIRTHYEAR=%s',
-                row['SOS_VOTERID'], row['DATE_OF_BIRTH'], row['BIRTHYEAR'],
-            )
-        logger.warning('Dropped %d rows with invalid birth years (out of range 1900–%d)',
-                       len(invalid_rows), current_year)
+        # Write bad rows to a CSV error file instead of looping through them in Python.
+        # iter_rows() on tens-of-thousands of invalid records + per-row logger.warning()
+        # calls are extremely slow (blocks on disk I/O each iteration) and caused silent
+        # process death on full-Ohio 7.9M-row runs.  A single Polars write_csv() is
+        # ~1000× faster and produces a file analysts can inspect directly.
+        error_dir = Path(__file__).parent / 'working' / 'errors'
+        error_dir.mkdir(parents=True, exist_ok=True)
+        error_file = error_dir / f'invalid_birthyear_{logger.name}.csv'
+        invalid_rows.select('SOS_VOTERID', 'DATE_OF_BIRTH', 'BIRTHYEAR').write_csv(error_file)
+        logger.warning(
+            'Dropped %d rows with invalid birth years (out of range 1900–%d) — '
+            'details: %s',
+            len(invalid_rows), current_year, error_file,
+        )
 
     df = df.filter(~invalid_mask)
 
@@ -1493,12 +1503,13 @@ def export_unc_shadow_json(
 
 
 def export_json(
-    county_name:     str,
-    df:              pl.DataFrame,
-    election_cols:   list[str],
-    logger:          logging.Logger,
-    update_manifest: bool = True,
-    unc_classified:  'pl.DataFrame | None' = None,
+    county_name:             str,
+    df:                      pl.DataFrame,
+    election_cols:           list[str],
+    logger:                  logging.Logger,
+    update_manifest:         bool = True,
+    unc_classified:          'pl.DataFrame | None' = None,
+    include_precinct_charts: bool = False,
 ):
     """
     Write four JSON files into docs/data/ matching the exact schema expected by
@@ -1787,9 +1798,8 @@ def export_json(
 
     # ── Precinct summary (table) ──────────────────────────────────────────────
     precinct_df = build_precinct_summary(df)
-    # Truncate to top 100 precincts so the table remains usable in the browser
     rows = []
-    for row in precinct_df.head(100).iter_rows(named=True):
+    for row in precinct_df.iter_rows(named=True):
         rows.append([
             row.get('PRECINCT_NAME', ''),
             f"{row.get('ACTIVE', 0):,}",
@@ -1833,8 +1843,180 @@ def export_json(
     }, DATA_DIR / f'{slug}_city_summary.json', logger)
 
     logger.info('JSON export complete for %s County (%s)', county_name, slug)
+
+    # ── Per-precinct chart files (opt-in) ─────────────────────────────────────
+    if include_precinct_charts:
+        export_precinct_charts(county_name, slug, df, election_cols, unc_classified, logger)
+
     if update_manifest:
         _update_manifest(county_name, slug, today, logger)
+
+
+def _precinct_safe_name(precinct_name: str) -> str:
+    """Convert a precinct display name to a filesystem-safe slug."""
+    s = precinct_name.lower()
+    s = re.sub(r'[^a-z0-9]+', '_', s)
+    s = re.sub(r'_+', '_', s)
+    return s.strip('_')
+
+
+def export_precinct_charts(
+    county_name:    str,
+    slug:           str,
+    df:             pl.DataFrame,
+    election_cols:  list[str],
+    unc_classified: 'pl.DataFrame | None',
+    logger:         logging.Logger,
+):
+    """
+    For every unique PRECINCT_NAME in df, write per-precinct party doughnut
+    and UNC shadow stacked-bar JSON files, then write a precinct index JSON.
+
+    Output files (example slug = 'montgomery', precinct 'KETTERING 1-A'):
+      montgomery_precinct_kettering_1_a_party.json
+      montgomery_precinct_kettering_1_a_unc.json
+      montgomery_precinct_index.json
+    """
+    today = date_t.today().isoformat()
+
+    if 'PRECINCT_NAME' not in df.columns:
+        logger.info('  Precinct charts: no PRECINCT_NAME column — skipping %s', county_name)
+        return
+
+    precinct_names = sorted(df['PRECINCT_NAME'].drop_nulls().unique().to_list())
+    if not precinct_names:
+        logger.info('  Precinct charts: no precincts found — skipping %s', county_name)
+        return
+
+    # Build a lookup: SOS_VOTERID → unc_class (for fast per-precinct filtering)
+    unc_map: dict = {}
+    if unc_classified is not None and not unc_classified.is_empty():
+        unc_map = dict(zip(
+            unc_classified['SOS_VOTERID'].to_list(),
+            unc_classified['unc_class'].to_list(),
+        ))
+
+    index_entries = []
+
+    for precinct_name in precinct_names:
+        safe_name = _precinct_safe_name(precinct_name)
+        pdf = df.filter(pl.col('PRECINCT_NAME') == precinct_name)
+        total = len(pdf)
+
+        # ── Party doughnut ────────────────────────────────────────────────────
+        party_df = (
+            pdf.group_by('PARTY_LABEL')
+               .agg(pl.len().alias('count'))
+               .sort('count', descending=True)
+        )
+        # Shadow-split UNC if available for this precinct
+        p_unc_ids = set(pdf['SOS_VOTERID'].to_list()) if 'SOS_VOTERID' in pdf.columns else set()
+        p_unc_rows = [(vid, cls) for vid, cls in unc_map.items() if vid in p_unc_ids]
+        if p_unc_rows and unc_classified is not None:
+            p_unc_df = unc_classified.filter(pl.col('SOS_VOTERID').is_in(list(p_unc_ids)))
+            sc_counts = p_unc_df.group_by('unc_class').agg(pl.len().alias('n'))
+            sc = dict(zip(sc_counts['unc_class'].to_list(), sc_counts['n'].to_list()))
+            non_unc_map = {row['PARTY_LABEL']: row['count']
+                           for row in party_df.iter_rows(named=True)
+                           if row['PARTY_LABEL'] != 'UNC'}
+            pa_labels, pa_colors, pa_counts = [], [], []
+            for reg_party, unc_cls, unc_label, unc_color in [
+                ('REP', 'LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+                ('DEM', 'LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+            ]:
+                if reg_party in non_unc_map:
+                    pa_labels.append(reg_party)
+                    pa_colors.append(CHART_COLORS.get(reg_party, '#6366f1'))
+                    pa_counts.append(non_unc_map[reg_party])
+                pa_labels.append(unc_label)
+                pa_colors.append(unc_color)
+                pa_counts.append(sc.get(unc_cls, 0))
+            pa_labels += ['UNC – Mixed', 'UNC – No History']
+            pa_colors += [UNC_SHADOW_COLORS['MIXED'], UNC_SHADOW_COLORS['NO_HISTORY']]
+            pa_counts += [sc.get('MIXED', 0), sc.get('NO_HISTORY', 0)]
+            for other_party, other_count in non_unc_map.items():
+                if other_party not in ('REP', 'DEM'):
+                    pa_labels.append(other_party)
+                    pa_colors.append(CHART_COLORS.get(other_party, '#6366f1'))
+                    pa_counts.append(other_count)
+        else:
+            pa_labels = party_df['PARTY_LABEL'].to_list()
+            pa_colors = [CHART_COLORS.get(p, '#6366f1') for p in pa_labels]
+            pa_counts = party_df['count'].to_list()
+
+        _dump_json({
+            'title':     f'Party Affiliation — {precinct_name}',
+            'county':    county_name,
+            'precinct':  precinct_name,
+            'geography': 'precinct-detail',
+            'type':      'doughnut',
+            'updated':   today,
+            'chartConfig': {
+                'labels': pa_labels,
+                'datasets': [{
+                    'data':            pa_counts,
+                    'backgroundColor': pa_colors,
+                    'borderWidth':     2,
+                    'borderColor':     'transparent',
+                }],
+            },
+        }, DATA_DIR / f'{slug}_precinct_{safe_name}_party.json', logger)
+
+        # ── UNC shadow stacked bar ────────────────────────────────────────────
+        if unc_classified is not None and not unc_classified.is_empty() and p_unc_ids:
+            p_unc_df2 = unc_classified.filter(pl.col('SOS_VOTERID').is_in(list(p_unc_ids)))
+            if not p_unc_df2.is_empty():
+                sc2_counts = p_unc_df2.group_by('unc_class').agg(pl.len().alias('n'))
+                sc2 = dict(zip(sc2_counts['unc_class'].to_list(), sc2_counts['n'].to_list()))
+                total_unc2 = sum(sc2.values())
+                order = ['LIFETIME_D', 'LIFETIME_R', 'MIXED', 'NO_HISTORY']
+                unc_datasets = []
+                for cls in order:
+                    n = sc2.get(cls, 0)
+                    unc_datasets.append({
+                        'label':           UNC_SHADOW_LABELS[cls],
+                        'data':            [n],
+                        'backgroundColor': UNC_SHADOW_COLORS[cls],
+                        'borderRadius':    4,
+                    })
+                _dump_json({
+                    'title':     f'UNC Primary History — {precinct_name}',
+                    'county':    county_name,
+                    'precinct':  precinct_name,
+                    'geography': 'precinct-detail',
+                    'type':      'bar',
+                    'updated':   today,
+                    'note':      UNC_SHADOW_NOTE,
+                    'totalUnc':  total_unc2,
+                    'chartOptions': {
+                        'scales': {
+                            'x': {'stacked': True},
+                            'y': {'stacked': True},
+                        },
+                        'plugins': {'tooltip': {'callbacks': {}}},
+                    },
+                    'chartConfig': {
+                        'labels':   ['Unaffiliated (UNC)'],
+                        'datasets': unc_datasets,
+                    },
+                }, DATA_DIR / f'{slug}_precinct_{safe_name}_unc.json', logger)
+
+        index_entries.append({
+            'name':     precinct_name,
+            'safe_name': safe_name,
+            'total':    total,
+            'partyUrl': f'data/{slug}_precinct_{safe_name}_party.json',
+            'uncUrl':   f'data/{slug}_precinct_{safe_name}_unc.json',
+        })
+
+    _dump_json({
+        'county':    county_name,
+        'precincts': index_entries,
+    }, DATA_DIR / f'{slug}_precinct_index.json', logger)
+
+    logger.info(
+        '  Precinct charts: wrote %d precincts for %s', len(index_entries), county_name
+    )
 
 
 def _update_manifest(
@@ -1965,6 +2147,15 @@ def _update_manifest(
             'county':      county_name,
             'geography':   'county',
             'dataUrl':     f'data/{slug}_unc_shadow.json',
+        },
+        {
+            'id':          f'{slug}-precinct-index',
+            'title':       'Precinct Detail Index',
+            'navLabel':    'Precinct Charts',
+            'description': 'Per-precinct party and UNC shadow charts.',
+            'county':      county_name,
+            'geography':   'precinct-index',
+            'dataUrl':     f'data/{slug}_precinct_index.json',
         },
     ]
 
@@ -2141,6 +2332,15 @@ def _sections_for_county(county_name: str, slug: str) -> list[dict]:
             'county':      county_name,
             'geography':   'county',
             'dataUrl':     f'data/{slug}_unc_shadow.json',
+        },
+        {
+            'id':          f'{slug}-precinct-index',
+            'title':       'Precinct Detail Index',
+            'navLabel':    'Precinct Charts',
+            'description': 'Per-precinct party and UNC shadow charts.',
+            'county':      county_name,
+            'geography':   'precinct-index',
+            'dataUrl':     f'data/{slug}_precinct_index.json',
         },
     ]
 
@@ -2348,9 +2548,9 @@ def build_workbook(
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _export_county_worker(args: tuple) -> tuple:
-    """Picklable worker for ProcessPoolExecutor. Receives (county_num, ipc_bytes, election_cols)."""
+    """Picklable worker for ProcessPoolExecutor. Receives (county_num, ipc_bytes, election_cols, include_precinct_charts)."""
     import io
-    county_num, ipc_bytes, election_cols = args
+    county_num, ipc_bytes, election_cols, include_precinct_charts = args
     county_name = OHIO_COUNTIES.get(county_num.strip(), f'County {county_num}')
     logger = logging.getLogger('voter_analysis')
     if not logger.handlers:
@@ -2360,7 +2560,8 @@ def _export_county_worker(args: tuple) -> tuple:
         primary_cols = identify_primary_cols(election_cols)
         unc_classified = classify_unc_primary_history(county_df, primary_cols, logger) if primary_cols else None
         export_json(county_name, county_df, election_cols, logger,
-                    update_manifest=False, unc_classified=unc_classified)
+                    update_manifest=False, unc_classified=unc_classified,
+                    include_precinct_charts=include_precinct_charts)
         export_unc_shadow_json(county_name, county_df, primary_cols, logger,
                                unc_classified=unc_classified)
         return (county_name, None)
@@ -2369,9 +2570,10 @@ def _export_county_worker(args: tuple) -> tuple:
 
 
 def run_ohio_analysis(
-    txt_files:   list[Path],
-    use_parquet: bool = True,
-    max_workers: int  = 0,
+    txt_files:               list[Path],
+    use_parquet:             bool = True,
+    max_workers:             int  = 0,
+    include_precinct_charts: bool = False,
 ):
     """
     Export web dashboard JSON for all Ohio counties.
@@ -2381,12 +2583,11 @@ def run_ohio_analysis(
     Use run_ohio_excel() separately if you need the workbook.
 
     Args:
-        txt_files:   SWVF_*.txt source files.
-        use_parquet: Build/use Hive-partitioned Parquet cache. Default True.
-                     First run converts CSV to Parquet; all subsequent runs
-                     load from Parquet (60 s vs ~4 min for CSV at Ohio scale).
-        max_workers: Parallel worker processes for county JSON export.
-                     0 = auto (min(88, cpu_count)).
+        txt_files:               SWVF_*.txt source files.
+        use_parquet:             Build/use Hive-partitioned Parquet cache. Default True.
+        max_workers:             Parallel worker processes. 0 = auto.
+        include_precinct_charts: Also write per-precinct party + UNC JSON files.
+                                 Significantly increases output file count and run time.
     """
     logger = setup_logging('ohio')
     logger.info('=' * 60)
@@ -2424,7 +2625,7 @@ def run_ohio_analysis(
             county_df = df.filter(pl.col('COUNTY_NUMBER').str.strip_chars() == county_num)
             buf = io.BytesIO()
             county_df.write_ipc(buf)
-            tasks.append((county_num, buf.getvalue(), election_cols))
+            tasks.append((county_num, buf.getvalue(), election_cols, include_precinct_charts))
 
         n_workers = max_workers or min(len(counties_present), os.cpu_count() or 4)
         logger.info('Launching %d worker process(es) ...', n_workers)
@@ -2463,6 +2664,108 @@ def run_ohio_analysis(
 
     except Exception:
         logger.exception('Unhandled error in run_ohio_analysis')
+        raise
+
+
+def run_county_subset(
+    txt_files:               list[Path],
+    county_numbers:          list[str],
+    use_parquet:             bool = True,
+    include_precinct_charts: bool = False,
+):
+    """
+    Export web dashboard JSON for a specific subset of counties.
+
+    Identical pipeline to run_ohio_analysis() but loads only the requested
+    Parquet partitions instead of all 88.  Runs counties sequentially —
+    no parallel worker pool — since the subset is typically small (1–5).
+
+    Requires the Parquet cache to exist.  Run option [1] or [2] first if
+    starting from a fresh clone with only the raw SWVF txt files.
+
+    Args:
+        txt_files:               SWVF_*.txt source files (used to build cache if absent).
+        county_numbers:          Zero-padded county number strings, e.g. ['57', '29'].
+        use_parquet:             Must be True; included for API consistency.
+        include_precinct_charts: Also write per-precinct party + UNC JSON files.
+    """
+    logger = setup_logging('county_subset')
+    logger.info('=' * 60)
+    logger.info('COUNTY SUBSET  —  web dashboard JSON export')
+    logger.info('Counties: %s', ', '.join(
+        f"{OHIO_COUNTIES.get(n, n)} ({n})" for n in county_numbers
+    ))
+    logger.info('=' * 60)
+
+    try:
+        # ── 1. Ensure Parquet cache exists ────────────────────────────────────
+        build_parquet_cache(txt_files, logger=logger)
+
+        # ── 2. Load + clean each county sequentially ──────────────────────────
+        election_cols = None
+        processed: list[str] = []
+        failed:    list[tuple] = []
+
+        for county_num in county_numbers:
+            county_name = OHIO_COUNTIES.get(county_num.strip(), f'County {county_num}')
+            logger.info('─' * 40)
+            logger.info('Processing %s (%s) ...', county_name, county_num)
+
+            try:
+                with _timer(logger, f'load {county_name} (Parquet)'):
+                    county_df = load_voter_files_parquet(
+                        county_number=county_num, logger=logger
+                    )
+
+                with _timer(logger, f'clean {county_name}'):
+                    county_df = clean_voter_data(county_df, logger)
+
+                if election_cols is None:
+                    election_cols = identify_election_cols(county_df)
+                    logger.info('%d election columns identified', len(election_cols))
+                else:
+                    # Re-identify in case this county's slice has a different column set
+                    ec = identify_election_cols(county_df)
+                    if ec:
+                        election_cols = ec
+
+                with _timer(logger, f'participation metrics {county_name}'):
+                    county_df = add_voter_participation(county_df, election_cols, logger)
+
+                primary_cols   = identify_primary_cols(election_cols)
+                unc_classified = (
+                    classify_unc_primary_history(county_df, primary_cols, logger)
+                    if primary_cols else None
+                )
+
+                with _timer(logger, f'export JSON {county_name}'):
+                    export_json(
+                        county_name, county_df, election_cols, logger,
+                        update_manifest=True,
+                        unc_classified=unc_classified,
+                        include_precinct_charts=include_precinct_charts,
+                    )
+                    export_unc_shadow_json(
+                        county_name, county_df, primary_cols, logger,
+                        unc_classified=unc_classified,
+                    )
+
+                processed.append(county_name)
+                logger.info('  OK  %s', county_name)
+
+            except Exception as exc:
+                logger.error('FAIL %s: %s', county_name, exc)
+                failed.append((county_name, str(exc)))
+
+        if failed:
+            logger.warning('%d county export(s) failed: %s', len(failed), [f[0] for f in failed])
+
+        logger.info('=' * 60)
+        logger.info('SUCCESS  (%d counties, %d failed)', len(processed), len(failed))
+        logger.info('=' * 60)
+
+    except Exception:
+        logger.exception('Unhandled error in run_county_subset')
         raise
 
 
@@ -2552,47 +2855,53 @@ def run_county_analysis(
         with _timer(logger, 'computing participation metrics'):
             df = add_voter_participation(df, election_cols, logger)
 
+        primary_cols   = identify_primary_cols(election_cols)
+        unc_classified = (
+            classify_unc_primary_history(df, primary_cols, logger)
+            if primary_cols else None
+        )
+
+        with _timer(logger, 'exporting JSON'):
+            export_json(
+                county_name, df, election_cols, logger,
+                update_manifest=True,
+                unc_classified=unc_classified,
+            )
+            export_unc_shadow_json(
+                county_name, df, primary_cols, logger,
+                unc_classified=unc_classified,
+            )
+
         with _timer(logger, 'writing Excel workbook'):
             build_workbook(df, election_cols, output_path,
-                            county_name=county_name,
-                            include_raw=True,
-                            logger=logger)
-
-        with _timer(logger, f'JSON export — {county_name}'):
-            export_json(county_name, df, election_cols, logger)
-
-        logger.info('=' * 60)
-        logger.info('SUCCESS')
-        logger.info('=' * 60)
+                           county_name=county_name,
+                           include_raw=False,
+                           logger=logger)
+        logger.info('Workbook saved: %s', output_path)
 
     except Exception:
-        logger.exception('Unhandled error in run_county_analysis — see traceback above')
+        logger.exception('Unhandled error in run_county_analysis(%s)', county_number)
         raise
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Standalone entry point  (run directly without the pipeline script)
-# ─────────────────────────────────────────────────────────────────────────────
-
+# ══════════════════════════════════════════════════════════════════════════════
+# Entry point — invoked directly by ohio_voter_pipeline.py
+# ══════════════════════════════════════════════════════════════════════════════
 if __name__ == '__main__':
-    txt_dir   = BASE_DIR / 'source' / 'State Voter Files'
-    txt_files = sorted(txt_dir.glob('SWVF_*.txt'))
-
-    if not txt_files:
-        print(f'No SWVF_*.txt files found in {txt_dir}')
-        sys.exit(1)
-
-    print('Run mode:')
-    print('  [1]  Full Ohio analysis')
-    print('  [2]  Single county')
-    choice = input('Choice: ').strip()
-
-    _log = setup_logging('standalone')
-    src_date = get_source_date(_log)
-
-    if choice == '2':
-        county = input('County number (e.g. 57 for Montgomery): ').strip().zfill(2)
-        out    = BASE_DIR / f'county_{county}_analysis_src{src_date}.xlsx'
-        run_county_analysis(txt_files, county, out, use_parquet=True)
+    import sys as _sys
+    # Allow quick smoke-tests: python voter_data_cleaner_v2.py --test
+    if '--test' in _sys.argv:
+        _logger = setup_logging('smoke_test')
+        _logger.info('Smoke test: OHIO_COUNTIES has %d entries', len(OHIO_COUNTIES))
+        assert len(OHIO_COUNTIES) == 88, f'Expected 88 counties, got {len(OHIO_COUNTIES)}'
+        nums = sorted(OHIO_COUNTIES.keys())
+        assert nums[0] == '01' and nums[-1] == '88', f'Numbering out of range: {nums[0]}…{nums[-1]}'
+        assert OHIO_COUNTIES['57'] == 'Montgomery', \
+            f"County 57 should be Montgomery, got {OHIO_COUNTIES['57']}"
+        assert 'strictly alphabetical by county name' in open(__file__, encoding='utf-8').read(), \
+            'OHIO_COUNTIES comment block missing'
+        assert hasattr(__import__('voter_data_cleaner_v2'), 'run_county_subset'), \
+            'run_county_subset not found'
+        _logger.info('All smoke-test assertions passed.')
     else:
-        run_ohio_analysis(txt_files, use_parquet=True)
+        print('voter_data_cleaner_v2.py is a library — import it or run with --test')

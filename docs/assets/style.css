@@ -153,6 +153,36 @@ a:hover { color: var(--accent-hover); }
   cursor: pointer;
 }
 
+.scope-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+
+.scope-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border);
+}
+
+.scope-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  color: var(--text-muted);
+  padding: .3rem .75rem;
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+}
+.scope-tab:hover:not(:disabled)  { color: var(--accent); }
+.scope-tab.active                 { color: var(--accent); border-bottom-color: var(--accent); }
+.scope-tab.disabled,
+.scope-tab:disabled               { color: var(--text-muted); opacity: .4; cursor: not-allowed; }
+
 .geo-filter-group {
   display: flex;
   gap: .25rem;
@@ -335,6 +365,62 @@ a:hover { color: var(--accent-hover); }
   text-align: left;
   padding: .55rem .85rem;
   border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+  box-shadow: inset 0 -2px 0 var(--border);
+}
+
+.data-table td {
+  padding: .45rem .85rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.row-even td { background: var(--surface); }
+.row-odd  td { background: var(--surface-2); }
+
+.data-table tr:last-child td { border-bottom: none; }
+
+/* ============================================================
+   Table Pagination
+   ============================================================ */
+.table-pagination {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .55rem .85rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+  font-size: .8rem;
+}
+
+.table-pagination button {
+  padding: .3rem .75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-size: .8rem;
+  transition: background .15s;
+}
+
+.table-pagination button:hover:not(:disabled) {
+  background: var(--accent, #4a90d9);
+  color: #fff;
+  border-color: var(--accent, #4a90d9);
+}
+
+.table-pagination button:disabled {
+  opacity: .4;
+  cursor: default;
+}
+
+.pagination-label {
+  flex: 1;
+  text-align: center;
+  color: var(--text-muted);
+}
   white-space: nowrap;
   box-shadow: inset 0 -2px 0 var(--border);   /* preserve underline when border collapses with sticky */
 }

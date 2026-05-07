@@ -9,17 +9,20 @@
 const ChartDashboard = (() => {
 
   // ── State ────────────────────────────────────────────────────────────────
-  let cfg          = {};
-  let manifest     = null;
-  let activeCounty = null;   // populated by _applyUrlState before rendering
-  let activeGeo    = 'all';
-  const instances  = {};
+  let cfg            = {};
+  let manifest       = null;
+  let activeCounty   = null;
+  let activeGeo      = 'all';
+  let activePrecinct = null;   // null = no precinct selected; string = selected precinct name
+  let activeScope    = 'county'; // county | precinct | city
+  const instances    = {};
 
   // ── Entry point ──────────────────────────────────────────────────────────
   async function init(config) {
     cfg = config;
     _setupTheme();
     _setupScrollBehavior();
+    _setupScopeTabs();
     _setupGeoFilter();
 
     try {
@@ -29,18 +32,13 @@ const ChartDashboard = (() => {
       return;
     }
 
-    // Apply URL state (?county=X&geo=Y#chart-slug) before any rendering so
-    // the dashboard boots directly into the shared view. Anything not in the
-    // URL falls back to defaults: first processed county, geo=all, no hash.
     _applyUrlState();
     _populateCountyDropdown();
     _syncGeoButtonsToActiveGeo();
+    _syncScopeTabsToActiveScope();
     _renderAllSections();
     _updatePageDescription();
 
-    // Deep-link scroll: if the URL has a hash (e.g. #party-affiliation), wait
-    // for the target section to actually paint, then scroll to it. Race-free
-    // because we observe the DOM rather than guessing timing.
     var hashSuffix = _readHashSuffix();
     if (hashSuffix) _scrollToSuffixWhenReady(hashSuffix);
   }
@@ -49,41 +47,47 @@ const ChartDashboard = (() => {
   function _readUrlParams() {
     var params = new URLSearchParams(window.location.search);
     return {
-      county: params.get('county'),
-      geo:    params.get('geo'),
+      county:   params.get('county'),
+      geo:      params.get('geo'),
+      precinct: params.get('precinct'),
     };
   }
 
   function _readHashSuffix() {
-    // Hash always represents a chart-slug (e.g. #party-affiliation) — the
-    // county-independent suffix that identifies which slot to anchor on.
     var h = window.location.hash || '';
     return h.replace(/^#/, '') || null;
   }
 
   function _applyUrlState() {
-    var params = _readUrlParams();
+    var params    = _readUrlParams();
     var processed = manifest.processedCounties || manifest.counties || [];
 
-    // County: validate against processedCounties, fall back to first.
     if (params.county && processed.indexOf(params.county) >= 0) {
       activeCounty = params.county;
     } else if (processed.length > 0) {
       activeCounty = processed.slice().sort()[0];
     }
 
-    // Geo: validate against the known geography vocabulary, fall back to 'all'.
-    var validGeos = ['all', 'county', 'city', 'city-precinct', 'precinct', 'congressional'];
-    if (params.geo && validGeos.indexOf(params.geo) >= 0) {
-      activeGeo = params.geo;
+    // Restore scope + geo from URL
+    if (params.geo === 'precinct-detail' || params.geo === 'precinct') {
+      activeScope    = 'precinct';
+      activeGeo      = params.geo;
+      if (params.precinct) activePrecinct = params.precinct;
+    } else if (params.geo === 'city') {
+      activeScope = 'city';
+      activeGeo   = 'city';
+    } else {
+      var validGeos = ['all', 'county', 'city', 'city-precinct', 'precinct', 'congressional'];
+      if (params.geo && validGeos.indexOf(params.geo) >= 0) {
+        activeGeo = params.geo;
+      }
+      activeScope = 'county';
     }
   }
 
   function _writeUrlState(opts) {
-    // Update the URL without reloading. opts may include {county, geo, hash}.
-    // Anything omitted is left untouched. Pass null to clear a value.
-    var url      = new URL(window.location.href);
-    var changed  = false;
+    var url     = new URL(window.location.href);
+    var changed = false;
 
     if (opts && 'county' in opts) {
       if (opts.county) url.searchParams.set('county', opts.county);
@@ -93,6 +97,11 @@ const ChartDashboard = (() => {
     if (opts && 'geo' in opts) {
       if (opts.geo && opts.geo !== 'all') url.searchParams.set('geo', opts.geo);
       else                                url.searchParams.delete('geo');
+      changed = true;
+    }
+    if (opts && 'precinct' in opts) {
+      if (opts.precinct) url.searchParams.set('precinct', opts.precinct);
+      else               url.searchParams.delete('precinct');
       changed = true;
     }
     if (opts && 'hash' in opts) {
@@ -108,45 +117,51 @@ const ChartDashboard = (() => {
     });
   }
 
+  function _syncScopeTabsToActiveScope() {
+    var tabs = document.getElementById(cfg.scopeTabsId);
+    if (!tabs) return;
+    tabs.querySelectorAll('.scope-tab').forEach(function(t) {
+      t.classList.toggle('active', t.dataset.scope === activeScope);
+    });
+    // Show/hide geo sub-filter and precinct control based on active scope
+    var geoGroup      = document.getElementById(cfg.geoFilterGroupId);
+    var precinctCtrl  = document.getElementById(cfg.precinctControlId);
+
+    if (activeScope === 'county') {
+      if (geoGroup)     geoGroup.style.display     = '';
+      if (precinctCtrl) precinctCtrl.style.display  = 'none';
+    } else if (activeScope === 'precinct') {
+      if (geoGroup)     geoGroup.style.display     = 'none';
+      if (precinctCtrl) precinctCtrl.style.display  = '';
+    } else if (activeScope === 'city') {
+      if (geoGroup)     geoGroup.style.display     = 'none';
+      if (precinctCtrl) precinctCtrl.style.display  = 'none';
+    }
+  }
+
+  // ── Section readiness helpers ────────────────────────────────────────────
   function _isSectionReady(el) {
-    // A section is "ready" to be scrolled to when its chart/table content has
-    // actually painted — not just when the header is in the DOM. We detect
-    // this by checking that the chart-wrapper is no longer showing the
-    // 'Loading chart data...' placeholder. This is the key fix: previously
-    // the scroll fired the moment the section header existed (~40px high),
-    // way before the chart painted, and then the chart's height growth
-    // pushed the anchored content downward.
     if (!el || el.style.display === 'none') return false;
     var loading = el.querySelector('.chart-loading');
-    if (loading) return false;                            // still showing placeholder
+    if (loading) return false;
     var content = el.querySelector('canvas, .data-table, .error');
-    if (!content) return false;                           // no real content yet
+    if (!content) return false;
     if (content.tagName === 'CANVAS' && content.offsetHeight < 20) return false;
     return true;
   }
 
   function _headerOffset() {
-    // Live measurement of the sticky header height so we can position the
-    // target section just below it. CSS `scroll-margin-top: 130px` was a
-    // guess; the real header height varies (compact mode shrinks it) and we
-    // want pixel-accurate alignment.
     var h = document.getElementById('site-header');
-    return h ? h.getBoundingClientRect().height + 8 : 138;   // 8px breathing room
+    return h ? h.getBoundingClientRect().height + 8 : 138;
   }
 
   function _scrollToElement(el) {
-    // Bypass `html { scroll-behavior: smooth }` — that CSS rule overrides
-    // scrollIntoView's `behavior: 'auto'` on some browsers, causing the page
-    // to glide past the target. We compute the destination ourselves and
-    // call window.scrollTo, which respects behavior: 'auto' explicitly.
     var rect = el.getBoundingClientRect();
     var top  = rect.top + window.scrollY - _headerOffset();
     window.scrollTo({ top: top, left: 0, behavior: 'auto' });
   }
 
   function _scrollToSuffixWhenReady(suffix) {
-    // Wait for the target section to actually paint its chart or table, then
-    // scroll. Race-free against async fetches and lazy chart construction.
     var newSlug  = (activeCounty || '').toLowerCase().replace(/ /g, '_');
     var targetId = 'section-' + newSlug + '-' + suffix;
     var deadline = performance.now() + 4000;
@@ -156,16 +171,12 @@ const ChartDashboard = (() => {
       if (scrolled) return true;
       var el = document.getElementById(targetId);
       if (!_isSectionReady(el)) return false;
-      // One more frame to let the just-painted content's final dimensions
-      // settle, then scroll using our header-aware helper.
       requestAnimationFrame(function() {
         var fresh = document.getElementById(targetId);
         if (!_isSectionReady(fresh)) return;
         _scrollToElement(fresh);
         scrolled = true;
       });
-      // Set scrolled=true synchronously too so concurrent observer/poll
-      // ticks don't queue duplicate scrolls.
       scrolled = true;
       return true;
     }
@@ -193,7 +204,6 @@ const ChartDashboard = (() => {
     const sel = document.getElementById(cfg.countySelectId);
     if (!sel) return;
 
-    // Only processed counties are listed. No "all" option, no greyed placeholders.
     const processedCounties = Array.from(
       new Set(manifest.processedCounties || manifest.counties || [])
     ).sort();
@@ -213,37 +223,32 @@ const ChartDashboard = (() => {
       sel.appendChild(_el('option', { value: c, textContent: c + ' County' }));
     });
 
-    // activeCounty was already set by _applyUrlState() before this function
-    // ran. Reflect that in the dropdown.
     sel.value = activeCounty;
 
     sel.addEventListener('change', function() {
-      // Capture the chart slot the user is looking at BEFORE swapping
-      // counties. The slot is encoded as a county-independent suffix (e.g.
-      // 'party-affiliation') so we can find the equivalent slot in any
-      // county. If no chart is currently in view (user is reading a table or
-      // scrolled past all charts), suffix is null and we hold absolute scroll.
       var savedScrollY = window.scrollY;
       var anchor       = _focalChartSection();
       var anchorSuffix = anchor ? _slugSuffix(anchor.id, activeCounty) : null;
 
-      activeCounty = sel.value;
-      _writeUrlState({ county: activeCounty, hash: anchorSuffix });
+      activeCounty   = sel.value;
+      activePrecinct = null;
+      _resetPrecinctDropdown();
+
+      _writeUrlState({ county: activeCounty, geo: activeGeo, precinct: null, hash: anchorSuffix });
       _updateHeaderLabel();
       _updatePageDescription();
       _filterSections();
       _renderVisibleSections();
       _rebuildNav();
 
+      // Load precinct index for new county if in precinct scope
+      if (activeScope === 'precinct') {
+        _loadPrecinctIndex();
+      }
+
       if (anchorSuffix) {
-        // Race-free: wait for the new county's section to actually paint
-        // before scrolling. Fixes the "first switch jumps, second stays"
-        // bug — that was caused by scrolling before async chart fetches had
-        // finished growing the page.
         _scrollToSuffixWhenReady(anchorSuffix);
       } else {
-        // User was reading a table — preserve absolute scrollY so the page
-        // doesn't jump.
         requestAnimationFrame(function() {
           window.scrollTo({ top: savedScrollY, behavior: 'auto' });
         });
@@ -251,19 +256,16 @@ const ChartDashboard = (() => {
     });
 
     _updateHeaderLabel();
+
+    // Load precinct index if we're already in precinct scope on init
+    if (activeScope === 'precinct') {
+      _loadPrecinctIndex();
+    }
   }
 
-  // Section ids that contain only chart visualisations (eligible for
-  // chart-to-chart anchoring on county switch). Anything not in this list —
-  // currently just precinct and city tables — is treated as a table section
-  // and falls through to absolute-scrollY preservation.
-  var _CHART_GEOGRAPHIES = { 'county': true, 'congressional': true };
+  var _CHART_GEOGRAPHIES = { 'county': true, 'congressional': true, 'precinct-detail': true };
 
   function _focalChartSection() {
-    // Return the visible CHART section (not table) whose vertical midpoint is
-    // closest to the viewport midpoint — i.e. the chart the user is actually
-    // looking at. Returns the section element, or null if no chart section is
-    // currently in view (user is reading a table or scrolled past all charts).
     var viewMid  = window.innerHeight / 2;
     var sections = document.querySelectorAll('.chart-section');
     var best     = null;
@@ -273,7 +275,6 @@ const ChartDashboard = (() => {
       if (el.style.display === 'none') continue;
       if (!_CHART_GEOGRAPHIES[el.dataset.geo]) continue;
       var rect  = el.getBoundingClientRect();
-      // Only consider sections at least partially in the viewport.
       if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
       var elMid = rect.top + rect.height / 2;
       var dist  = Math.abs(elMid - viewMid);
@@ -286,16 +287,10 @@ const ChartDashboard = (() => {
   }
 
   function _slugSuffix(sectionElementId, county) {
-    // Given an element id like 'section-cuyahoga-party-affiliation' and the
-    // active county name 'Cuyahoga', return 'party-affiliation' — the
-    // county-independent suffix that identifies which CHART KIND this is.
-    // Used to translate the user's focal section into the equivalent section
-    // in the newly-selected county.
     var prefix = 'section-' + (county || '').toLowerCase().replace(/ /g, '_') + '-';
     if (sectionElementId.indexOf(prefix) === 0) {
       return sectionElementId.slice(prefix.length);
     }
-    // Fallback: strip the leading 'section-' and the first slug-token.
     var trimmed = sectionElementId.replace(/^section-/, '');
     var dash    = trimmed.indexOf('-');
     return dash >= 0 ? trimmed.slice(dash + 1) : trimmed;
@@ -303,10 +298,48 @@ const ChartDashboard = (() => {
 
   function _updateHeaderLabel() {
     const el = document.getElementById(cfg.headerCountyLabelId);
-    if (el) el.textContent = activeCounty ? activeCounty + ' County' : '';
+    if (!el) return;
+    if (activePrecinct && activeCounty) {
+      el.textContent = activeCounty + ' County — ' + activePrecinct;
+    } else {
+      el.textContent = activeCounty ? activeCounty + ' County' : '';
+    }
   }
 
-  // ── Geography filter ─────────────────────────────────────────────────────
+  // ── Scope tabs ───────────────────────────────────────────────────────────
+  function _setupScopeTabs() {
+    document.addEventListener('click', function(e) {
+      var tab = e.target.closest('.scope-tab');
+      if (!tab) return;
+      if (tab.disabled || tab.classList.contains('disabled')) return;
+
+      var scope = tab.dataset.scope;
+      activeScope = scope;
+
+      if (scope === 'county') {
+        activeGeo      = 'all';
+        activePrecinct = null;
+        _resetPrecinctDropdown();
+      } else if (scope === 'precinct') {
+        activeGeo      = activePrecinct ? 'precinct-detail' : 'precinct';
+        _loadPrecinctIndex();
+      } else if (scope === 'city') {
+        activeGeo      = 'city';
+        activePrecinct = null;
+        _resetPrecinctDropdown();
+      }
+
+      _writeUrlState({ geo: activeGeo, precinct: activePrecinct });
+      _syncScopeTabsToActiveScope();
+      _syncGeoButtonsToActiveGeo();
+      _filterSections();
+      _renderVisibleSections();
+      _rebuildNav();
+      _updateHeaderLabel();
+    });
+  }
+
+  // ── Geography filter (county sub-filter buttons) ─────────────────────────
   function _setupGeoFilter() {
     document.addEventListener('click', function(e) {
       if (!e.target.classList.contains('geo-btn')) return;
@@ -314,7 +347,6 @@ const ChartDashboard = (() => {
       e.target.classList.add('active');
       activeGeo = e.target.dataset.geo;
 
-      // Capture focal chart so geo changes that hide it don't strand the user.
       var anchor       = _focalChartSection();
       var anchorSuffix = anchor ? _slugSuffix(anchor.id, activeCounty) : null;
 
@@ -323,7 +355,6 @@ const ChartDashboard = (() => {
       _renderVisibleSections();
       _rebuildNav();
 
-      // If the focal chart is still visible after the filter, hold its slot.
       if (anchorSuffix) {
         var newSlug = (activeCounty || '').toLowerCase().replace(/ /g, '_');
         var target  = document.getElementById('section-' + newSlug + '-' + anchorSuffix);
@@ -334,25 +365,176 @@ const ChartDashboard = (() => {
     });
   }
 
+  // ── Precinct dropdown ────────────────────────────────────────────────────
+  function _resetPrecinctDropdown() {
+    activePrecinct = null;
+    _removePrecnctDetailSections();
+    var sel = document.getElementById(cfg.precinctSelectId);
+    if (sel) {
+      sel.innerHTML = '<option value="">-- select precinct --</option>';
+    }
+  }
+
+  async function _loadPrecinctIndex() {
+    if (!activeCounty) return;
+    var slug     = activeCounty.toLowerCase().replace(/ /g, '_');
+    var indexUrl = 'data/' + slug + '_precinct_index.json';
+    try {
+      var idx = await _fetchJSON(indexUrl);
+      _populatePrecinctDropdown(idx.precincts || []);
+    } catch (e) {
+      // No precinct index for this county yet — silently hide the dropdown
+      _resetPrecinctDropdown();
+    }
+  }
+
+  function _populatePrecinctDropdown(precincts) {
+    var sel = document.getElementById(cfg.precinctSelectId);
+    if (!sel) return;
+
+    sel.innerHTML = '';
+    var placeholder = _el('option', { value: '', textContent: '-- select precinct --' });
+    sel.appendChild(placeholder);
+
+    precincts.forEach(function(p) {
+      var opt = _el('option', { value: p.name, textContent: p.name });
+      sel.appendChild(opt);
+    });
+
+    // Restore active precinct if set
+    if (activePrecinct) sel.value = activePrecinct;
+
+    // Only attach once — remove old listener by replacing node
+    var newSel = sel.cloneNode(true);
+    sel.parentNode.replaceChild(newSel, sel);
+    newSel.value = activePrecinct || '';
+
+    newSel.addEventListener('change', function() {
+      activePrecinct = newSel.value || null;
+      activeGeo      = activePrecinct ? 'precinct-detail' : 'precinct';
+
+      _writeUrlState({ geo: activeGeo, precinct: activePrecinct });
+      _updateHeaderLabel();
+
+      if (activePrecinct) {
+        // Find the precinct entry from the index we already fetched
+        var entry = (newSel._precinctIndex || []).find(function(p) {
+          return p.name === activePrecinct;
+        });
+        if (entry) _injectPrecinctSections(entry);
+      } else {
+        _removePrecnctDetailSections();
+      }
+
+      _filterSections();
+      _renderVisibleSections();
+      _rebuildNav();
+    });
+
+    // Stash the index on the select element so the change handler can use it
+    newSel._precinctIndex = precincts;
+
+    // If a precinct is already active (deep-link), inject its sections now
+    if (activePrecinct) {
+      var entry = precincts.find(function(p) { return p.name === activePrecinct; });
+      if (entry) _injectPrecinctSections(entry);
+    }
+  }
+
+  function _injectPrecinctSections(entry) {
+    // Remove any existing precinct-detail sections for this county first
+    _removePrecnctDetailSections();
+
+    var slug       = (activeCounty || '').toLowerCase().replace(/ /g, '_');
+    var safeName   = entry.safe_name;
+    var newSections = [
+      {
+        id:          slug + '-precinct-' + safeName + '-party',
+        title:       'Party Affiliation — ' + entry.name,
+        navLabel:    'Party',
+        description: 'Party affiliation breakdown for this precinct.',
+        county:      activeCounty,
+        precinct:    entry.name,
+        geography:   'precinct-detail',
+        dataUrl:     entry.partyUrl,
+      },
+      {
+        id:          slug + '-precinct-' + safeName + '-unc',
+        title:       'UNC Primary History — ' + entry.name,
+        navLabel:    'UNC Shadow',
+        description: 'Unaffiliated voter shadow partisanship for this precinct.',
+        county:      activeCounty,
+        precinct:    entry.name,
+        geography:   'precinct-detail',
+        dataUrl:     entry.uncUrl,
+      },
+    ];
+
+    // Append to manifest so _sectionVisible can match them
+    newSections.forEach(function(s) { manifest.sections.push(s); });
+
+    // Scaffold DOM sections for the new entries
+    var container = document.getElementById(cfg.containerId);
+    newSections.forEach(function(section) {
+      var wrapper = document.createElement('section');
+      wrapper.className         = 'chart-section';
+      wrapper.id                = 'section-' + section.id;
+      wrapper.dataset.county    = section.county;
+      wrapper.dataset.geo       = section.geography;
+      wrapper.dataset.precinct  = section.precinct;
+
+      wrapper.innerHTML =
+        '<div class="section-header">' +
+          '<div class="section-meta">' +
+            '<span class="geo-tag">' + _geoLabel(section.geography) + '</span>' +
+            '<span class="county-tag">' + section.county + ' Co.</span>' +
+          '</div>' +
+          '<h2 class="section-title">' + section.title + '</h2>' +
+          (section.description ? '<p class="section-description">' + section.description + '</p>' : '') +
+        '</div>' +
+        '<div class="chart-wrapper" id="chart-wrapper-' + section.id + '">' +
+          '<div class="chart-loading">Loading chart data&hellip;</div>' +
+        '</div>' +
+        '<div class="section-footer">' +
+          '<span class="updated-label" id="updated-' + section.id + '"></span>' +
+          '<a class="data-link" href="' + section.dataUrl + '" target="_blank" rel="noopener">View raw JSON &nearr;</a>' +
+        '</div>';
+
+      container.appendChild(wrapper);
+    });
+  }
+
+  function _removePrecnctDetailSections() {
+    // Remove precinct-detail sections from manifest and DOM
+    manifest.sections = manifest.sections.filter(function(s) {
+      return s.geography !== 'precinct-detail';
+    });
+    document.querySelectorAll('.chart-section[data-geo="precinct-detail"]').forEach(function(el) {
+      // Destroy any Chart.js instance on this section before removing
+      var id = el.id.replace('section-', '');
+      if (instances[id]) { try { instances[id].destroy(); } catch(e) {} delete instances[id]; }
+      _renderedSections.delete(id);
+      el.remove();
+    });
+  }
+
   // ── Section rendering ────────────────────────────────────────────────────
-  // Track which sections have already been rendered so we don't re-fetch and
-  // re-construct charts every time the county dropdown changes.
   const _renderedSections = new Set();
 
   function _renderAllSections() {
     const container = document.getElementById(cfg.containerId);
     container.innerHTML = '';
 
-    // Build the DOM scaffold for every section up front but DO NOT load chart
-    // data yet — we render lazily after _filterSections() decides which
-    // sections are visible. This avoids the Chart.js 0×0 sizing bug that
-    // happens when a chart is constructed inside a display:none container.
     manifest.sections.forEach(function(section) {
+      // precinct-index sections are never rendered as chart sections
+      if (section.geography === 'precinct-index') return;
+
       const wrapper = document.createElement('section');
       wrapper.className      = 'chart-section';
       wrapper.id             = 'section-' + section.id;
       wrapper.dataset.county = section.county;
       wrapper.dataset.geo    = section.geography;
+      if (section.precinct) wrapper.dataset.precinct = section.precinct;
 
       wrapper.innerHTML =
         '<div class="section-header">' +
@@ -374,18 +556,15 @@ const ChartDashboard = (() => {
       container.appendChild(wrapper);
     });
 
-    _filterSections();           // hides everything not in the active county
-    _renderVisibleSections();    // now load+render only what's actually shown
+    _filterSections();
+    _renderVisibleSections();
     _rebuildNav();
   }
 
   function _renderVisibleSections() {
-    // Render any visible section that hasn't been rendered yet. Called both
-    // on initial load and after a county switch to populate newly-revealed
-    // sections. Using rAF so the DOM has reflowed and the chart-wrapper has
-    // its real width before Chart.js measures it.
     requestAnimationFrame(function() {
       manifest.sections.forEach(function(s) {
+        if (s.geography === 'precinct-index') return;
         if (_renderedSections.has(s.id)) return;
         if (!_sectionVisible(s)) return;
         const el = document.getElementById('section-' + s.id);
@@ -393,9 +572,6 @@ const ChartDashboard = (() => {
         _renderedSections.add(s.id);
         _loadAndRender(s);
       });
-      // Re-fit any already-rendered charts that just became visible — the
-      // canvas may have been sized while hidden if the user is switching
-      // back to a county whose charts were rendered earlier.
       Object.keys(instances).forEach(function(id) {
         const wrap = document.getElementById('chart-wrapper-' + id);
         if (wrap && wrap.offsetParent !== null) {
@@ -420,6 +596,7 @@ const ChartDashboard = (() => {
   // ── Filter / show-hide ───────────────────────────────────────────────────
   function _filterSections() {
     manifest.sections.forEach(function(s) {
+      if (s.geography === 'precinct-index') return;
       const el = document.getElementById('section-' + s.id);
       if (!el) return;
       el.style.display = _sectionVisible(s) ? '' : 'none';
@@ -427,11 +604,30 @@ const ChartDashboard = (() => {
   }
 
   function _sectionVisible(s) {
-    // activeCounty is always populated after _applyUrlState; we don't render
-    // an "all counties" combined view.
+    if (s.geography === 'precinct-index') return false;
+
     const countyMatch = s.county === activeCounty;
-    const geoMatch    = activeGeo === 'all' || s.geography === activeGeo;
-    return countyMatch && geoMatch;
+    if (!countyMatch) return false;
+
+    if (activeScope === 'precinct') {
+      if (activePrecinct) {
+        // Show only precinct-detail sections that match the selected precinct
+        return s.geography === 'precinct-detail' && s.precinct === activePrecinct;
+      } else {
+        // Show the precinct summary table
+        return s.geography === 'precinct';
+      }
+    }
+
+    if (activeScope === 'city') {
+      return s.geography === 'city';
+    }
+
+    // County scope: use geo sub-filter
+    const geoMatch = activeGeo === 'all' || s.geography === activeGeo;
+    // In county scope, hide precinct-detail sections
+    if (s.geography === 'precinct-detail') return false;
+    return geoMatch;
   }
 
   // ── Nav ──────────────────────────────────────────────────────────────────
@@ -442,10 +638,6 @@ const ChartDashboard = (() => {
     manifest.sections
       .filter(_sectionVisible)
       .forEach(function(s) {
-        // Hash uses the county-INDEPENDENT suffix (e.g. #party-affiliation)
-        // so the nav link is meaningful across counties and works as a
-        // shareable URL. The hashchange handler below resolves it against
-        // the currently-active county.
         var suffix = _slugSuffix('section-' + s.id, s.county);
         nav.appendChild(_el('a', {
           href:        '#' + suffix,
@@ -455,8 +647,6 @@ const ChartDashboard = (() => {
       });
   }
 
-  // Resolve hash changes (from the section-nav, an external link, or the
-  // back/forward buttons) against the currently-active county.
   window.addEventListener('hashchange', function() {
     var suffix = _readHashSuffix();
     if (suffix) _scrollToSuffixWhenReady(suffix);
@@ -482,9 +672,6 @@ const ChartDashboard = (() => {
     const colors   = _themeColors();
     const isRadial = data.type === 'pie' || data.type === 'doughnut';
 
-    // Build the tooltip plugin config. For stacked UNC shadow charts the JSON
-    // carries a `totalUnc` denominator so we can show "17.5% of UNC (45,751)"
-    // instead of a raw count. For all other charts fall back to the default.
     var tooltipPlugin = { mode: 'index', intersect: false };
     if (data.totalUnc) {
       var _total = data.totalUnc;
@@ -497,8 +684,6 @@ const ChartDashboard = (() => {
       };
     }
 
-    // Strip the placeholder callbacks object written by the Python exporter so
-    // it doesn't clobber the real callback we just built above.
     var chartOpts = data.chartOptions ? JSON.parse(JSON.stringify(data.chartOptions)) : {};
     if (chartOpts.plugins && chartOpts.plugins.tooltip) {
       delete chartOpts.plugins.tooltip.callbacks;
@@ -506,9 +691,6 @@ const ChartDashboard = (() => {
       if (Object.keys(chartOpts.plugins).length === 0)         delete chartOpts.plugins;
     }
 
-    // Detect whether any dataset carries a 'stack' key. If so, Chart.js needs
-    // stacked:true on both axes or it ignores the stack IDs entirely and falls
-    // back to a grouped (side-by-side) layout.
     var hasStack = !isRadial && (data.chartConfig.datasets || []).some(function(ds) {
       return ds.stack !== undefined && ds.stack !== null;
     });
@@ -542,11 +724,15 @@ const ChartDashboard = (() => {
     });
   }
 
-  // ── Sortable table rendering ─────────────────────────────────────────────
-  function _renderTable(wrapper, data, id) {
-    var sortState = { col: null, dir: 1 };
+  // ── Sortable, paginated table rendering ──────────────────────────────────
+  var PAGE_SIZE = 50;
 
-    // Determine which columns are numeric
+  function _renderTable(wrapper, data, id) {
+    var sortState   = { col: null, dir: 1 };
+    var currentPage = 1;
+    var totalRows   = (data.rows || []).length;
+    var paginate    = totalRows > PAGE_SIZE;
+
     var numericCols = {};
     if (data.rows && data.rows.length > 0) {
       data.rows[0].forEach(function(cell, ci) {
@@ -557,25 +743,35 @@ const ChartDashboard = (() => {
 
     function sortedRows() {
       if (sortState.col === null) return data.rows.slice();
-      var col = sortState.col;
-      var dir = sortState.dir;
+      var col   = sortState.col;
+      var dir   = sortState.dir;
       var isNum = numericCols[col];
       return data.rows.slice().sort(function(a, b) {
         var av = String(a[col]).replace(/,/g, '');
         var bv = String(b[col]).replace(/,/g, '');
-        if (isNum) {
-          return dir * ((parseFloat(av) || 0) - (parseFloat(bv) || 0));
-        }
+        if (isNum) return dir * ((parseFloat(av) || 0) - (parseFloat(bv) || 0));
         return dir * av.localeCompare(bv);
       });
     }
 
+    function pageRows(sorted) {
+      if (!paginate) return sorted;
+      var start = (currentPage - 1) * PAGE_SIZE;
+      return sorted.slice(start, start + PAGE_SIZE);
+    }
+
+    function totalPages() {
+      return Math.ceil(totalRows / PAGE_SIZE);
+    }
+
     function render() {
       wrapper.innerHTML = '';
+      var sorted  = sortedRows();
+      var visible = pageRows(sorted);
+
       var scroll = _el('div', { className: 'table-scroll' });
       var table  = _el('table', { className: 'data-table' });
 
-      // Header
       var thead = document.createElement('thead');
       var hrow  = document.createElement('tr');
       data.headers.forEach(function(h, hi) {
@@ -584,13 +780,9 @@ const ChartDashboard = (() => {
         th.style.cursor     = 'pointer';
         th.style.userSelect = 'none';
         th.addEventListener('click', function() {
-          if (sortState.col === hi) {
-            sortState.dir *= -1;
-          } else {
-            sortState.col = hi;
-            // Numbers default descending (largest first); text defaults ascending
-            sortState.dir = numericCols[hi] ? -1 : 1;
-          }
+          if (sortState.col === hi) { sortState.dir *= -1; }
+          else { sortState.col = hi; sortState.dir = numericCols[hi] ? -1 : 1; }
+          currentPage = 1;
           render();
         });
         hrow.appendChild(th);
@@ -598,9 +790,8 @@ const ChartDashboard = (() => {
       thead.appendChild(hrow);
       table.appendChild(thead);
 
-      // Body
       var tbody = document.createElement('tbody');
-      sortedRows().forEach(function(row, i) {
+      visible.forEach(function(row, i) {
         var tr = _el('tr', { className: i % 2 === 0 ? 'row-even' : 'row-odd' });
         row.forEach(function(cell) { tr.appendChild(_el('td', { textContent: cell })); });
         tbody.appendChild(tr);
@@ -608,6 +799,33 @@ const ChartDashboard = (() => {
       table.appendChild(tbody);
       scroll.appendChild(table);
       wrapper.appendChild(scroll);
+
+      if (paginate) {
+        var tp  = totalPages();
+        var nav = _el('div', { className: 'table-pagination' });
+
+        var btnPrev = _el('button', { textContent: '← Prev' });
+        btnPrev.disabled = (currentPage === 1);
+        btnPrev.addEventListener('click', function() {
+          if (currentPage > 1) { currentPage--; render(); }
+        });
+
+        var btnNext = _el('button', { textContent: 'Next →' });
+        btnNext.disabled = (currentPage === tp);
+        btnNext.addEventListener('click', function() {
+          if (currentPage < tp) { currentPage++; render(); }
+        });
+
+        var label = _el('span', {
+          textContent: 'Page ' + currentPage + ' of ' + tp + ' (' + totalRows + ' precincts)',
+          className: 'pagination-label'
+        });
+
+        nav.appendChild(btnPrev);
+        nav.appendChild(label);
+        nav.appendChild(btnNext);
+        wrapper.appendChild(nav);
+      }
     }
 
     render();
@@ -695,12 +913,14 @@ const ChartDashboard = (() => {
 
   function _geoLabel(geo) {
     var map = {
-      county:          'County',
-      precinct:        'Precinct',
-      city:            'City / Township',
-      'city-precinct': 'City Precincts',
-      congressional:   'Congressional Dist.',
-      all:             'Statewide'
+      county:           'County',
+      precinct:         'Precinct',
+      'precinct-detail':'Precinct Detail',
+      'precinct-index': 'Precinct Index',
+      city:             'City / Township',
+      'city-precinct':  'City Precincts',
+      congressional:    'Congressional Dist.',
+      all:              'Statewide'
     };
     return map[geo] || geo;
   }
