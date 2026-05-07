@@ -1,0 +1,111 @@
+{
+  "title": "Party Affiliation by Generation \u2014 CINCINNATI 4-H",
+  "county": "Hamilton",
+  "precinct": "CINCINNATI 4-H",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          5,
+          48,
+          20,
+          37,
+          5
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 2,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          8,
+          39,
+          39,
+          42,
+          10
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 2,
+        "stack": "dem"
+      },
+      {
+        "label": "Other",
+        "data": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "backgroundColor": "#f59e0b",
+        "borderRadius": 2,
+        "stack": "other"
+      },
+      {
+        "label": "UNC \u2013 Lifetime D",
+        "data": [
+          5,
+          27,
+          45,
+          117,
+          18
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Lifetime R",
+        "data": [
+          3,
+          30,
+          35,
+          76,
+          11
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Mixed",
+        "data": [
+          4,
+          23,
+          31,
+          57,
+          20
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 No History",
+        "data": [
+          1,
+          27,
+          59,
+          443,
+          235
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 2,
+        "stack": "unc"
+      }
+    ]
+  }
+}

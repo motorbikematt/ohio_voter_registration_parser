@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 SUGARCREEK C",
+  "county": "Stark",
+  "precinct": "SUGARCREEK C",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          47,
+          216,
+          184,
+          180,
+          109
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

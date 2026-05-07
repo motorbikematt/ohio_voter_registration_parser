@@ -1,0 +1,125 @@
+{
+  "title": "Party Affiliation by Birth Decade \u2014 SPRINGBORO CITY 2-D",
+  "county": "Warren",
+  "precinct": "SPRINGBORO CITY 2-D",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          1,
+          7,
+          25,
+          45,
+          48,
+          42,
+          13,
+          3,
+          8
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          1,
+          9,
+          13,
+          14,
+          11,
+          7,
+          2,
+          3
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC \u2013 Lifetime D",
+        "data": [
+          0,
+          2,
+          5,
+          12,
+          25,
+          16,
+          16,
+          6,
+          3
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Lifetime R",
+        "data": [
+          0,
+          3,
+          9,
+          26,
+          63,
+          58,
+          40,
+          14,
+          1
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Mixed",
+        "data": [
+          0,
+          0,
+          7,
+          14,
+          28,
+          36,
+          27,
+          1,
+          4
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 No History",
+        "data": [
+          1,
+          0,
+          8,
+          14,
+          39,
+          44,
+          68,
+          59,
+          139
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

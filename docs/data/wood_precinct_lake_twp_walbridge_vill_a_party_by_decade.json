@@ -1,0 +1,125 @@
+{
+  "title": "Party Affiliation by Birth Decade \u2014 LAKE TWP WALBRIDGE VILL A",
+  "county": "Wood",
+  "precinct": "LAKE TWP WALBRIDGE VILL A",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          0,
+          15,
+          40,
+          55,
+          26,
+          12,
+          10,
+          6,
+          1
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          1,
+          19,
+          43,
+          38,
+          14,
+          4,
+          5,
+          4,
+          2
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC \u2013 Lifetime D",
+        "data": [
+          2,
+          11,
+          30,
+          47,
+          28,
+          24,
+          10,
+          3,
+          0
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Lifetime R",
+        "data": [
+          2,
+          1,
+          24,
+          21,
+          16,
+          5,
+          11,
+          8,
+          0
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Mixed",
+        "data": [
+          1,
+          6,
+          8,
+          29,
+          17,
+          9,
+          6,
+          3,
+          1
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 No History",
+        "data": [
+          0,
+          3,
+          25,
+          35,
+          21,
+          47,
+          38,
+          71,
+          53
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

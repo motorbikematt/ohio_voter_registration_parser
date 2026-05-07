@@ -1,0 +1,125 @@
+{
+  "title": "Party Affiliation by Birth Decade \u2014 PRECINCT CHIPPEWA TWP 4 DTOWN",
+  "county": "Wayne",
+  "precinct": "PRECINCT CHIPPEWA TWP 4 DTOWN",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          0,
+          9,
+          42,
+          59,
+          58,
+          39,
+          26,
+          16,
+          3
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          6,
+          23,
+          30,
+          16,
+          9,
+          6,
+          3,
+          4
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC \u2013 Lifetime D",
+        "data": [
+          1,
+          6,
+          12,
+          22,
+          23,
+          22,
+          23,
+          12,
+          0
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Lifetime R",
+        "data": [
+          1,
+          4,
+          13,
+          17,
+          26,
+          31,
+          28,
+          17,
+          3
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Mixed",
+        "data": [
+          1,
+          5,
+          11,
+          26,
+          18,
+          26,
+          20,
+          11,
+          4
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 No History",
+        "data": [
+          0,
+          3,
+          8,
+          27,
+          40,
+          55,
+          86,
+          130,
+          108
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

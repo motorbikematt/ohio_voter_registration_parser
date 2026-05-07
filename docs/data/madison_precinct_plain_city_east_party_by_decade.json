@@ -1,0 +1,118 @@
+{
+  "title": "Party Affiliation by Birth Decade \u2014 PLAIN CITY EAST",
+  "county": "Madison",
+  "precinct": "PLAIN CITY EAST",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          7,
+          22,
+          41,
+          42,
+          46,
+          24,
+          14,
+          8
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          12,
+          8,
+          8,
+          7,
+          9,
+          2,
+          2
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC \u2013 Lifetime D",
+        "data": [
+          3,
+          10,
+          21,
+          17,
+          14,
+          27,
+          19,
+          0
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Lifetime R",
+        "data": [
+          2,
+          17,
+          31,
+          42,
+          24,
+          44,
+          25,
+          3
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Mixed",
+        "data": [
+          4,
+          11,
+          12,
+          25,
+          15,
+          28,
+          28,
+          17
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 No History",
+        "data": [
+          4,
+          10,
+          32,
+          35,
+          45,
+          78,
+          134,
+          83
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

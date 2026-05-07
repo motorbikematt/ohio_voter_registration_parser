@@ -1,0 +1,125 @@
+{
+  "title": "Party Affiliation by Birth Decade \u2014 PRECINCT CONCORD AUSTIN",
+  "county": "Ross",
+  "precinct": "PRECINCT CONCORD AUSTIN",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          1,
+          1,
+          11,
+          31,
+          35,
+          19,
+          29,
+          5,
+          3
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          0,
+          1,
+          8,
+          7,
+          1,
+          0,
+          0,
+          0
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC \u2013 Lifetime D",
+        "data": [
+          0,
+          0,
+          1,
+          9,
+          10,
+          8,
+          5,
+          3,
+          0
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Lifetime R",
+        "data": [
+          0,
+          3,
+          6,
+          8,
+          12,
+          10,
+          3,
+          8,
+          0
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Mixed",
+        "data": [
+          0,
+          0,
+          2,
+          8,
+          11,
+          10,
+          4,
+          4,
+          1
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 No History",
+        "data": [
+          0,
+          0,
+          6,
+          11,
+          23,
+          31,
+          35,
+          49,
+          37
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

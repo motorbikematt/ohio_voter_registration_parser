@@ -1,0 +1,118 @@
+{
+  "title": "Party Affiliation by Birth Decade \u2014 BRECKSVILLE-00-G",
+  "county": "Cuyahoga",
+  "precinct": "BRECKSVILLE-00-G",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          15,
+          50,
+          75,
+          57,
+          35,
+          30,
+          4,
+          9
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          3,
+          32,
+          59,
+          26,
+          16,
+          28,
+          10,
+          6
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC \u2013 Lifetime D",
+        "data": [
+          4,
+          8,
+          22,
+          23,
+          32,
+          43,
+          23,
+          2
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Lifetime R",
+        "data": [
+          6,
+          14,
+          23,
+          48,
+          32,
+          33,
+          11,
+          0
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Mixed",
+        "data": [
+          1,
+          12,
+          35,
+          32,
+          39,
+          37,
+          6,
+          5
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 No History",
+        "data": [
+          0,
+          7,
+          20,
+          22,
+          53,
+          77,
+          61,
+          108
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

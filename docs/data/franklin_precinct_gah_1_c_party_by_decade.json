@@ -1,0 +1,118 @@
+{
+  "title": "Party Affiliation by Birth Decade \u2014 GAH 1-C",
+  "county": "Franklin",
+  "precinct": "GAH 1-C",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          0,
+          10,
+          35,
+          39,
+          16,
+          15,
+          7,
+          2
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          2,
+          10,
+          40,
+          37,
+          20,
+          35,
+          13,
+          4
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC \u2013 Lifetime D",
+        "data": [
+          2,
+          7,
+          17,
+          23,
+          36,
+          61,
+          22,
+          1
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Lifetime R",
+        "data": [
+          1,
+          6,
+          19,
+          16,
+          23,
+          31,
+          12,
+          0
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Mixed",
+        "data": [
+          0,
+          7,
+          12,
+          25,
+          25,
+          26,
+          20,
+          2
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 No History",
+        "data": [
+          2,
+          5,
+          23,
+          26,
+          57,
+          103,
+          110,
+          87
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

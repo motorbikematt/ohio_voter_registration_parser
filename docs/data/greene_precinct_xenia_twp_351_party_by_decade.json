@@ -1,0 +1,118 @@
+{
+  "title": "Party Affiliation by Birth Decade \u2014 XENIA TWP 351",
+  "county": "Greene",
+  "precinct": "XENIA TWP 351",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          7,
+          22,
+          80,
+          47,
+          21,
+          9,
+          13,
+          5
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          1,
+          5,
+          12,
+          6,
+          4,
+          6,
+          8,
+          1
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC \u2013 Lifetime D",
+        "data": [
+          3,
+          7,
+          10,
+          10,
+          5,
+          16,
+          11,
+          1
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Lifetime R",
+        "data": [
+          8,
+          5,
+          19,
+          28,
+          15,
+          11,
+          8,
+          1
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Mixed",
+        "data": [
+          1,
+          5,
+          14,
+          10,
+          6,
+          7,
+          2,
+          1
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 No History",
+        "data": [
+          1,
+          5,
+          18,
+          20,
+          35,
+          40,
+          55,
+          50
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

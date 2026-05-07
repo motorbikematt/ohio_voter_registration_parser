@@ -1,0 +1,118 @@
+{
+  "title": "Party Affiliation by Birth Decade \u2014 PRECINCT WELLSVILLE  2",
+  "county": "Columbiana",
+  "precinct": "PRECINCT WELLSVILLE  2",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          1,
+          14,
+          36,
+          25,
+          9,
+          6,
+          3,
+          2
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          3,
+          12,
+          21,
+          10,
+          1,
+          4,
+          0,
+          0
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC \u2013 Lifetime D",
+        "data": [
+          6,
+          15,
+          24,
+          23,
+          21,
+          13,
+          5,
+          1
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Lifetime R",
+        "data": [
+          0,
+          5,
+          10,
+          6,
+          7,
+          2,
+          5,
+          0
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Mixed",
+        "data": [
+          1,
+          0,
+          7,
+          13,
+          6,
+          5,
+          4,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 No History",
+        "data": [
+          2,
+          8,
+          34,
+          43,
+          61,
+          58,
+          86,
+          78
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

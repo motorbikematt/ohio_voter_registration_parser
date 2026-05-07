@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 WYOMING C",
+  "county": "Hamilton",
+  "precinct": "WYOMING C",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          55,
+          308,
+          420,
+          418,
+          275
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

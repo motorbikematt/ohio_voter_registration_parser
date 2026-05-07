@@ -1,0 +1,111 @@
+{
+  "title": "Party Affiliation by Generation \u2014 PRECINCT JEFFERSON N",
+  "county": "Logan",
+  "precinct": "PRECINCT JEFFERSON N",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          23,
+          154,
+          126,
+          35,
+          12
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 2,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          1,
+          27,
+          6,
+          3,
+          0
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 2,
+        "stack": "dem"
+      },
+      {
+        "label": "Other",
+        "data": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "backgroundColor": "#f59e0b",
+        "borderRadius": 2,
+        "stack": "other"
+      },
+      {
+        "label": "UNC \u2013 Lifetime D",
+        "data": [
+          0,
+          17,
+          10,
+          13,
+          2
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Lifetime R",
+        "data": [
+          8,
+          46,
+          69,
+          46,
+          7
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 Mixed",
+        "data": [
+          3,
+          14,
+          19,
+          9,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC \u2013 No History",
+        "data": [
+          5,
+          51,
+          65,
+          115,
+          109
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 2,
+        "stack": "unc"
+      }
+    ]
+  }
+}

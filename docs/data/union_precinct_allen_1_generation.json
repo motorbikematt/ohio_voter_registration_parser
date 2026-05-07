@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 ALLEN 1",
+  "county": "Union",
+  "precinct": "ALLEN 1",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          24,
+          201,
+          283,
+          176,
+          133
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

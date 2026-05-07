@@ -447,28 +447,62 @@ const ChartDashboard = (() => {
 
     var slug       = (activeCounty || '').toLowerCase().replace(/ /g, '_');
     var safeName   = entry.safe_name;
-    var newSections = [
-      {
+
+    // Build sections in the same order as the County view: age cohorts, party,
+    // party x age, generations, party x generation, then the precinct-specific
+    // UNC shadow chart. Older index entries written before the pipeline patch
+    // only carry partyUrl + uncUrl; skip any section whose URL is missing.
+    var candidate = [
+      entry.decadeUrl ? {
+        id:          slug + '-precinct-' + safeName + '-decade',
+        title:       'Voter Age Distribution by Birth Decade — ' + entry.name,
+        navLabel:    'Age Cohorts',
+        description: 'Count of registered voters in this precinct grouped by birth decade.',
+        dataUrl:     entry.decadeUrl,
+      } : null,
+      entry.partyUrl ? {
         id:          slug + '-precinct-' + safeName + '-party',
         title:       'Party Affiliation — ' + entry.name,
         navLabel:    'Party',
         description: 'Party affiliation breakdown for this precinct.',
-        county:      activeCounty,
-        precinct:    entry.name,
-        geography:   'precinct-detail',
         dataUrl:     entry.partyUrl,
-      },
-      {
+      } : null,
+      entry.partyDecadeUrl ? {
+        id:          slug + '-precinct-' + safeName + '-party-by-decade',
+        title:       'Party Affiliation by Birth Decade — ' + entry.name,
+        navLabel:    'Party × Age',
+        description: 'Party affiliation within each birth decade cohort for this precinct.',
+        dataUrl:     entry.partyDecadeUrl,
+      } : null,
+      entry.generationUrl ? {
+        id:          slug + '-precinct-' + safeName + '-generation',
+        title:       'Voter Age Distribution by Generation — ' + entry.name,
+        navLabel:    'Generations',
+        description: 'Count of registered voters in this precinct grouped by generational cohort (Pew Research Center).',
+        dataUrl:     entry.generationUrl,
+      } : null,
+      entry.partyGenerationUrl ? {
+        id:          slug + '-precinct-' + safeName + '-party-by-generation',
+        title:       'Party Affiliation by Generation — ' + entry.name,
+        navLabel:    'Party × Generation',
+        description: 'Party affiliation within each generational cohort for this precinct.',
+        dataUrl:     entry.partyGenerationUrl,
+      } : null,
+      entry.uncUrl ? {
         id:          slug + '-precinct-' + safeName + '-unc',
         title:       'UNC Primary History — ' + entry.name,
         navLabel:    'UNC Shadow',
         description: 'Unaffiliated voter shadow partisanship for this precinct.',
-        county:      activeCounty,
-        precinct:    entry.name,
-        geography:   'precinct-detail',
         dataUrl:     entry.uncUrl,
-      },
+      } : null,
     ];
+
+    var newSections = candidate.filter(function(s) { return s !== null; }).map(function(s) {
+      s.county    = activeCounty;
+      s.precinct  = entry.name;
+      s.geography = 'precinct-detail';
+      return s;
+    });
 
     // Append to manifest so _sectionVisible can match them
     newSections.forEach(function(s) { manifest.sections.push(s); });

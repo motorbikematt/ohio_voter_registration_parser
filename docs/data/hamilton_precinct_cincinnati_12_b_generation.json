@@ -1,0 +1,30 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 CINCINNATI 12-B",
+  "county": "Hamilton",
+  "precinct": "CINCINNATI 12-B",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          1,
+          1,
+          49,
+          655
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

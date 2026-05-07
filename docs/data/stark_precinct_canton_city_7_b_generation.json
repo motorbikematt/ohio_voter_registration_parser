@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 CANTON CITY 7-B",
+  "county": "Stark",
+  "precinct": "CANTON CITY 7-B",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          12,
+          117,
+          136,
+          196,
+          101
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

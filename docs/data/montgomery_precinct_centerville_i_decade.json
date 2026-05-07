@@ -1,0 +1,39 @@
+{
+  "title": "Voter Age Distribution by Birth Decade \u2014 CENTERVILLE-I",
+  "county": "Montgomery",
+  "precinct": "CENTERVILLE-I",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          10,
+          115,
+          285,
+          270,
+          184,
+          106,
+          104,
+          98,
+          63
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 PRECINCT CHESTER TWP E",
+  "county": "Geauga",
+  "precinct": "PRECINCT CHESTER TWP E",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          71,
+          297,
+          186,
+          145,
+          99
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

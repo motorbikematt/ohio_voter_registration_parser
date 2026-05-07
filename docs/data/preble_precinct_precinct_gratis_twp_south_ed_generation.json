@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 PRECINCT GRATIS TWP SOUTH-ED",
+  "county": "Preble",
+  "precinct": "PRECINCT GRATIS TWP SOUTH-ED",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          5,
+          10,
+          12,
+          4,
+          10
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

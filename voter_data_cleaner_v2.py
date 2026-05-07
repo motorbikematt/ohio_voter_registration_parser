@@ -2001,12 +2001,247 @@ def export_precinct_charts(
                     },
                 }, DATA_DIR / f'{slug}_precinct_{safe_name}_unc.json', logger)
 
+        # ── Decade distribution (bar) ─────────────────────────────────────────
+        decade_url = None
+        if 'Decade' in pdf.columns:
+            p_decade_df = (
+                pdf.filter(pl.col('Decade').is_not_null())
+                   .group_by('Decade')
+                   .agg(pl.len().alias('count'))
+                   .sort('Decade')
+            )
+            if not p_decade_df.is_empty():
+                _dump_json({
+                    'title':     f'Voter Age Distribution by Birth Decade — {precinct_name}',
+                    'county':    county_name,
+                    'precinct':  precinct_name,
+                    'geography': 'precinct-detail',
+                    'type':      'bar',
+                    'updated':   today,
+                    'chartConfig': {
+                        'labels': [f'{d}s' for d in p_decade_df['Decade'].to_list()],
+                        'datasets': [{
+                            'label':           'Registered Voters',
+                            'data':            p_decade_df['count'].to_list(),
+                            'backgroundColor': CHART_COLORS['bar'],
+                            'borderRadius':    4,
+                        }],
+                    },
+                }, DATA_DIR / f'{slug}_precinct_{safe_name}_decade.json', logger)
+                decade_url = f'data/{slug}_precinct_{safe_name}_decade.json'
+
+        # ── Generation distribution (bar) ─────────────────────────────────────
+        generation_url = None
+        if 'Generation' in pdf.columns:
+            p_gen_summary = build_generation_summary(pdf)
+            if not p_gen_summary.is_empty():
+                _dump_json({
+                    'title':     f'Voter Age Distribution by Generation — {precinct_name}',
+                    'county':    county_name,
+                    'precinct':  precinct_name,
+                    'geography': 'precinct-detail',
+                    'type':      'bar',
+                    'updated':   today,
+                    'note':      'Pew Research Center generational boundaries',
+                    'chartConfig': {
+                        'labels': p_gen_summary['Generation'].to_list(),
+                        'datasets': [{
+                            'label':           'Registered Voters',
+                            'data':            p_gen_summary['Voter Count'].to_list(),
+                            'backgroundColor': CHART_COLORS['bar'],
+                            'borderRadius':    4,
+                        }],
+                    },
+                }, DATA_DIR / f'{slug}_precinct_{safe_name}_generation.json', logger)
+                generation_url = f'data/{slug}_precinct_{safe_name}_generation.json'
+
+        # ── Party × Decade (grouped/stacked bar) ──────────────────────────────
+        party_decade_url = None
+        if 'Decade' in pdf.columns and 'PARTY_LABEL' in pdf.columns:
+            p_cross = (
+                pdf.filter(pl.col('Decade').is_not_null())
+                   .group_by(['Decade', 'PARTY_LABEL'])
+                   .agg(pl.len().alias('count'))
+                   .pivot(on='PARTY_LABEL', index='Decade',
+                          values='count', aggregate_function='sum')
+                   .sort('Decade')
+            )
+            if not p_cross.is_empty():
+                p_decade_labels = [f'{d}s' for d in p_cross['Decade'].to_list()]
+                p_datasets = []
+                for party, stack_id in [('REP', 'rep'), ('DEM', 'dem'), ('Other', 'other')]:
+                    if party not in p_cross.columns:
+                        continue
+                    p_datasets.append({
+                        'label':           party,
+                        'data':            [v or 0 for v in p_cross[party].to_list()],
+                        'backgroundColor': CHART_COLORS.get(party, '#6366f1'),
+                        'borderRadius':    3,
+                        'stack':           stack_id,
+                    })
+                if (unc_classified is not None
+                        and not unc_classified.is_empty()
+                        and p_unc_ids):
+                    p_unc_decade = (
+                        unc_classified
+                        .filter(pl.col('SOS_VOTERID').is_in(list(p_unc_ids)))
+                        .join(pdf.select(['SOS_VOTERID', 'Decade']),
+                              on='SOS_VOTERID', how='left')
+                        .filter(pl.col('Decade').is_not_null())
+                        .group_by(['Decade', 'unc_class'])
+                        .agg(pl.len().alias('n'))
+                        .pivot(on='unc_class', index='Decade',
+                               values='n', aggregate_function='sum')
+                        .sort('Decade')
+                    )
+                    p_decade_vals = p_cross['Decade'].to_list()
+                    for cls, label, color in [
+                        ('LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+                        ('LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+                        ('MIXED',      'UNC – Mixed',       UNC_SHADOW_COLORS['MIXED']),
+                        ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
+                    ]:
+                        if cls in p_unc_decade.columns:
+                            dmap = dict(zip(p_unc_decade['Decade'].to_list(),
+                                            p_unc_decade[cls].to_list()))
+                            vals = [int(dmap.get(d, 0) or 0) for d in p_decade_vals]
+                        else:
+                            vals = [0] * len(p_decade_vals)
+                        p_datasets.append({
+                            'label':           label,
+                            'data':            vals,
+                            'backgroundColor': color,
+                            'borderRadius':    3,
+                            'stack':           'unc',
+                        })
+                else:
+                    if 'UNC' in p_cross.columns:
+                        p_datasets.append({
+                            'label':           'UNC',
+                            'data':            [v or 0 for v in p_cross['UNC'].to_list()],
+                            'backgroundColor': CHART_COLORS['UNC'],
+                            'borderRadius':    3,
+                            'stack':           'unc',
+                        })
+                _dump_json({
+                    'title':     f'Party Affiliation by Birth Decade — {precinct_name}',
+                    'county':    county_name,
+                    'precinct':  precinct_name,
+                    'geography': 'precinct-detail',
+                    'type':      'bar',
+                    'updated':   today,
+                    'chartConfig': {
+                        'labels':   p_decade_labels,
+                        'datasets': p_datasets,
+                    },
+                }, DATA_DIR / f'{slug}_precinct_{safe_name}_party_by_decade.json', logger)
+                party_decade_url = f'data/{slug}_precinct_{safe_name}_party_by_decade.json'
+
+        # ── Party × Generation (grouped/stacked bar) ──────────────────────────
+        party_generation_url = None
+        if 'Generation' in pdf.columns and 'PARTY_LABEL' in pdf.columns:
+            p_gen_cross = (
+                pdf.group_by(['Generation', 'PARTY_LABEL'])
+                   .agg(pl.len().alias('count'))
+                   .pivot(on='PARTY_LABEL', index='Generation',
+                          values='count', aggregate_function='sum')
+            )
+            if not p_gen_cross.is_empty():
+                p_order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                                           '_sort': list(range(len(_GEN_ORDER)))})
+                p_gen_cross = (
+                    p_gen_cross.join(p_order_df, on='Generation', how='left')
+                               .sort('_sort')
+                               .drop('_sort')
+                )
+                p_gen_labels   = p_gen_cross['Generation'].to_list()
+                p_gen_datasets = []
+                for party, stack_id in [('REP', 'rep'), ('DEM', 'dem'), ('Other', 'other')]:
+                    color = CHART_COLORS.get(party, '#888888')
+                    p_gen_datasets.append({
+                        'label':           party,
+                        'data':            (p_gen_cross[party].fill_null(0).to_list()
+                                            if party in p_gen_cross.columns else
+                                            [0] * len(p_gen_labels)),
+                        'backgroundColor': color,
+                        'borderRadius':    2,
+                        'stack':           stack_id,
+                    })
+                if (unc_classified is not None
+                        and not unc_classified.is_empty()
+                        and p_unc_ids):
+                    p_unc_gen = (
+                        unc_classified
+                        .filter(pl.col('SOS_VOTERID').is_in(list(p_unc_ids)))
+                        .join(pdf.select(['SOS_VOTERID', 'Generation']),
+                              on='SOS_VOTERID', how='left')
+                        .group_by(['Generation', 'unc_class'])
+                        .agg(pl.len().alias('n'))
+                        .pivot(on='unc_class', index='Generation',
+                               values='n', aggregate_function='sum')
+                    )
+                    p_sort_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                                              '_sort': list(range(len(_GEN_ORDER)))})
+                    p_unc_gen = (
+                        p_unc_gen.join(p_sort_df, on='Generation', how='left')
+                                 .sort('_sort')
+                                 .drop('_sort')
+                    )
+                    for cls, label, color in [
+                        ('LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+                        ('LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+                        ('MIXED',      'UNC – Mixed',       UNC_SHADOW_COLORS['MIXED']),
+                        ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
+                    ]:
+                        if cls in p_unc_gen.columns:
+                            gmap = dict(zip(p_unc_gen['Generation'].to_list(),
+                                            p_unc_gen[cls].to_list()))
+                            vals = [int(gmap.get(g, 0) or 0) for g in p_gen_labels]
+                        else:
+                            vals = [0] * len(p_gen_labels)
+                        p_gen_datasets.append({
+                            'label':           label,
+                            'data':            vals,
+                            'backgroundColor': color,
+                            'borderRadius':    2,
+                            'stack':           'unc',
+                        })
+                else:
+                    color = CHART_COLORS.get('UNC', '#888888')
+                    p_gen_datasets.append({
+                        'label':           'UNC',
+                        'data':            (p_gen_cross['UNC'].fill_null(0).to_list()
+                                            if 'UNC' in p_gen_cross.columns else
+                                            [0] * len(p_gen_labels)),
+                        'backgroundColor': color,
+                        'borderRadius':    2,
+                        'stack':           'unc',
+                    })
+                _dump_json({
+                    'title':     f'Party Affiliation by Generation — {precinct_name}',
+                    'county':    county_name,
+                    'precinct':  precinct_name,
+                    'geography': 'precinct-detail',
+                    'type':      'bar',
+                    'updated':   today,
+                    'note':      'Pew Research Center generational boundaries',
+                    'chartConfig': {
+                        'labels':   p_gen_labels,
+                        'datasets': p_gen_datasets,
+                    },
+                }, DATA_DIR / f'{slug}_precinct_{safe_name}_party_by_generation.json', logger)
+                party_generation_url = f'data/{slug}_precinct_{safe_name}_party_by_generation.json'
+
         index_entries.append({
-            'name':     precinct_name,
-            'safe_name': safe_name,
-            'total':    total,
-            'partyUrl': f'data/{slug}_precinct_{safe_name}_party.json',
-            'uncUrl':   f'data/{slug}_precinct_{safe_name}_unc.json',
+            'name':              precinct_name,
+            'safe_name':         safe_name,
+            'total':             total,
+            'partyUrl':          f'data/{slug}_precinct_{safe_name}_party.json',
+            'uncUrl':            f'data/{slug}_precinct_{safe_name}_unc.json',
+            'decadeUrl':         decade_url,
+            'generationUrl':     generation_url,
+            'partyDecadeUrl':    party_decade_url,
+            'partyGenerationUrl': party_generation_url,
         })
 
     _dump_json({

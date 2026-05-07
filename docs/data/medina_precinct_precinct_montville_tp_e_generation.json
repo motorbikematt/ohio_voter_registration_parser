@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 PRECINCT MONTVILLE TP E",
+  "county": "Medina",
+  "precinct": "PRECINCT MONTVILLE TP E",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          57,
+          284,
+          245,
+          161,
+          135
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

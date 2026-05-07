@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 PRECINCT MADISON TWP WEST POINT",
+  "county": "Columbiana",
+  "precinct": "PRECINCT MADISON TWP WEST POINT",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          40,
+          240,
+          248,
+          155,
+          102
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}
