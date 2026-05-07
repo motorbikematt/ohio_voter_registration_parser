@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 MAYFIELD HEIGHTS-00-B",
+  "county": "Cuyahoga",
+  "precinct": "MAYFIELD HEIGHTS-00-B",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          48,
+          232,
+          266,
+          357,
+          175
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

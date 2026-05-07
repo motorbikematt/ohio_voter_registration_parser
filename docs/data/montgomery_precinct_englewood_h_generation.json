@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 ENGLEWOOD-H",
+  "county": "Montgomery",
+  "precinct": "ENGLEWOOD-H",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          44,
+          224,
+          196,
+          162,
+          139
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

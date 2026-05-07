@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 WASHINGTON TOWNSHIP C",
+  "county": "Clermont",
+  "precinct": "WASHINGTON TOWNSHIP C",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          16,
+          111,
+          125,
+          75,
+          63
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

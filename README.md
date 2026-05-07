@@ -74,7 +74,7 @@ comma-separated multi-county selection are supported. Example: `57, greene, 76`.
 ### 4. View the dashboard
 
 Open `docs/index.html` locally, or view the live dashboard on GitHub Pages:
-[https://github.com/motorbikematt/ohio_voter_registration_parser](https://github.com/motorbikematt/ohio_voter_registration_parser)
+[https://motorbikematt.github.io/ohio_voter_registration_parser/](https://motorbikematt.github.io/ohio_voter_registration_parser/)
 
 The dashboard supports three scope tiers: **County** (default), **City**, and **Precinct**.
 Precinct drill-down shows per-precinct party composition and UNC shadow charts for every

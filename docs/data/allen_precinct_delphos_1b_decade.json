@@ -1,0 +1,39 @@
+{
+  "title": "Voter Age Distribution by Birth Decade \u2014 DELPHOS 1B",
+  "county": "Allen",
+  "precinct": "DELPHOS 1B",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          4,
+          32,
+          71,
+          113,
+          78,
+          65,
+          106,
+          63,
+          59
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

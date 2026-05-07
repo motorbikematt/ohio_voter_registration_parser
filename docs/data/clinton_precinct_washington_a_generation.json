@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 WASHINGTON A",
+  "county": "Clinton",
+  "precinct": "WASHINGTON A",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          33,
+          200,
+          181,
+          139,
+          85
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

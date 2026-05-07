@@ -6,10 +6,12 @@
 
 | File length | Required method |
 |---|---|
-| ≤ 300 lines | Edit tool is permitted |
-| > 300 lines | **STOP. Write a Python patch script. No exceptions.** |
+| ≤ 150 lines | Edit tool is permitted |
+| > 150 lines | **STOP. Write a Python patch script. No exceptions.** |
 
-### Python patch script template (for files > 300 lines)
+Truncation has been observed at ~950 lines, not just on multi-thousand-line files. The 150-line threshold is intentionally aggressive: it costs almost nothing to write a Python patch for a small file, and several full repair cycles to recover from a silent truncation in a medium one.
+
+### Python patch script template (for files > 150 lines)
 
 ```python
 with open('path/to/file.py', encoding='utf-8') as f:
@@ -30,9 +32,28 @@ for i, line in enumerate(src.splitlines(), 1):
         print(f"  line {i}: {line[:80]}")
 ```
 
-**Why this rule exists:** The Edit tool silently truncates large files mid-edit, corrupting everything after the insertion point. Each truncation costs multiple repair cycles and wasted tokens. The Python script approach is immune to this failure mode.
+**Why this rule exists:** The Edit tool silently truncates files mid-edit, corrupting everything after the insertion point. Observed at 951 lines as well as 2,900. Each truncation costs multiple repair cycles and wasted tokens. The Python script approach is immune to this failure mode.
 
 **No diffs. No exceptions. This rule overrides default behavior.**
+
+### Bash heredoc has the same failure mode
+
+Writing large content via `cat << 'EOF' > file` (or `>>`) also truncates silently — observed cutting off the trailing closing-paren of a multi-hundred-line script. **Do not use heredocs to write or append more than ~50 lines of content.** Use one of:
+
+- `Path('/abs/path').write_text(content)` from within a Python invocation
+- A Python patch script (preferred, per the table above)
+- Multiple short `printf` appends for tiny fixups
+
+A failed heredoc looks identical to a successful one — the file appears written, then later parsing/`node --check`/`python3 -c "compile(...)"` reveals the cut.
+
+### Always validate after a patch
+
+After any patch to a code file, immediately run a parse check before proceeding:
+
+- Python: `python3 -c "import ast; ast.parse(open('path').read())"`
+- JavaScript: `node --check path/to/file.js`
+
+A green parse check is the cheapest way to catch a silent truncation before it cascades into compounding repairs.
 
 ---
 

@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 GREENHILLS A",
+  "county": "Hamilton",
+  "precinct": "GREENHILLS A",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          26,
+          136,
+          131,
+          204,
+          100
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

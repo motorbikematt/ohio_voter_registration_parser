@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation \u2014 GREEN 2-E",
+  "county": "Summit",
+  "precinct": "GREEN 2-E",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-06",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          69,
+          344,
+          219,
+          222,
+          141
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}
