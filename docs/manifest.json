@@ -1,7 +1,7 @@
 {
   "title": "Ohio Voter Registration Analysis",
   "description": "Voter registration analysis for {county}. Use the County dropdown and Geography filter to focus the charts below.",
-  "dataNote": "Data sourced from Ohio Secretary of State statewide voter file. Last updated 2026-05-05.",
+  "dataNote": "Data sourced from Ohio Secretary of State statewide voter file. Last updated 2026-05-06.",
   "allCounties": [
     "Adams",
     "Allen",
@@ -409,6 +409,15 @@
       "dataUrl": "data/adams_unc_shadow.json"
     },
     {
+      "id": "adams-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Adams",
+      "geography": "precinct-index",
+      "dataUrl": "data/adams_precinct_index.json"
+    },
+    {
       "id": "allen-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -479,6 +488,15 @@
       "county": "Allen",
       "geography": "county",
       "dataUrl": "data/allen_unc_shadow.json"
+    },
+    {
+      "id": "allen-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Allen",
+      "geography": "precinct-index",
+      "dataUrl": "data/allen_precinct_index.json"
     },
     {
       "id": "ashland-decade-distribution",
@@ -553,6 +571,15 @@
       "dataUrl": "data/ashland_unc_shadow.json"
     },
     {
+      "id": "ashland-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Ashland",
+      "geography": "precinct-index",
+      "dataUrl": "data/ashland_precinct_index.json"
+    },
+    {
       "id": "ashtabula-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -623,6 +650,15 @@
       "county": "Ashtabula",
       "geography": "county",
       "dataUrl": "data/ashtabula_unc_shadow.json"
+    },
+    {
+      "id": "ashtabula-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Ashtabula",
+      "geography": "precinct-index",
+      "dataUrl": "data/ashtabula_precinct_index.json"
     },
     {
       "id": "athens-decade-distribution",
@@ -697,6 +733,15 @@
       "dataUrl": "data/athens_unc_shadow.json"
     },
     {
+      "id": "athens-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Athens",
+      "geography": "precinct-index",
+      "dataUrl": "data/athens_precinct_index.json"
+    },
+    {
       "id": "auglaize-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -767,6 +812,15 @@
       "county": "Auglaize",
       "geography": "county",
       "dataUrl": "data/auglaize_unc_shadow.json"
+    },
+    {
+      "id": "auglaize-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Auglaize",
+      "geography": "precinct-index",
+      "dataUrl": "data/auglaize_precinct_index.json"
     },
     {
       "id": "belmont-decade-distribution",
@@ -841,6 +895,15 @@
       "dataUrl": "data/belmont_unc_shadow.json"
     },
     {
+      "id": "belmont-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Belmont",
+      "geography": "precinct-index",
+      "dataUrl": "data/belmont_precinct_index.json"
+    },
+    {
       "id": "brown-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -911,6 +974,15 @@
       "county": "Brown",
       "geography": "county",
       "dataUrl": "data/brown_unc_shadow.json"
+    },
+    {
+      "id": "brown-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Brown",
+      "geography": "precinct-index",
+      "dataUrl": "data/brown_precinct_index.json"
     },
     {
       "id": "butler-decade-distribution",
@@ -985,6 +1057,15 @@
       "dataUrl": "data/butler_unc_shadow.json"
     },
     {
+      "id": "butler-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Butler",
+      "geography": "precinct-index",
+      "dataUrl": "data/butler_precinct_index.json"
+    },
+    {
       "id": "carroll-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1055,6 +1136,15 @@
       "county": "Carroll",
       "geography": "county",
       "dataUrl": "data/carroll_unc_shadow.json"
+    },
+    {
+      "id": "carroll-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Carroll",
+      "geography": "precinct-index",
+      "dataUrl": "data/carroll_precinct_index.json"
     },
     {
       "id": "champaign-decade-distribution",
@@ -1129,6 +1219,15 @@
       "dataUrl": "data/champaign_unc_shadow.json"
     },
     {
+      "id": "champaign-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Champaign",
+      "geography": "precinct-index",
+      "dataUrl": "data/champaign_precinct_index.json"
+    },
+    {
       "id": "clark-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1199,6 +1298,15 @@
       "county": "Clark",
       "geography": "county",
       "dataUrl": "data/clark_unc_shadow.json"
+    },
+    {
+      "id": "clark-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Clark",
+      "geography": "precinct-index",
+      "dataUrl": "data/clark_precinct_index.json"
     },
     {
       "id": "clermont-decade-distribution",
@@ -1273,6 +1381,15 @@
       "dataUrl": "data/clermont_unc_shadow.json"
     },
     {
+      "id": "clermont-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Clermont",
+      "geography": "precinct-index",
+      "dataUrl": "data/clermont_precinct_index.json"
+    },
+    {
       "id": "clinton-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1343,6 +1460,15 @@
       "county": "Clinton",
       "geography": "county",
       "dataUrl": "data/clinton_unc_shadow.json"
+    },
+    {
+      "id": "clinton-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Clinton",
+      "geography": "precinct-index",
+      "dataUrl": "data/clinton_precinct_index.json"
     },
     {
       "id": "columbiana-decade-distribution",
@@ -1417,6 +1543,15 @@
       "dataUrl": "data/columbiana_unc_shadow.json"
     },
     {
+      "id": "columbiana-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Columbiana",
+      "geography": "precinct-index",
+      "dataUrl": "data/columbiana_precinct_index.json"
+    },
+    {
       "id": "coshocton-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1487,6 +1622,15 @@
       "county": "Coshocton",
       "geography": "county",
       "dataUrl": "data/coshocton_unc_shadow.json"
+    },
+    {
+      "id": "coshocton-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Coshocton",
+      "geography": "precinct-index",
+      "dataUrl": "data/coshocton_precinct_index.json"
     },
     {
       "id": "crawford-decade-distribution",
@@ -1561,6 +1705,15 @@
       "dataUrl": "data/crawford_unc_shadow.json"
     },
     {
+      "id": "crawford-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Crawford",
+      "geography": "precinct-index",
+      "dataUrl": "data/crawford_precinct_index.json"
+    },
+    {
       "id": "cuyahoga-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1631,6 +1784,15 @@
       "county": "Cuyahoga",
       "geography": "county",
       "dataUrl": "data/cuyahoga_unc_shadow.json"
+    },
+    {
+      "id": "cuyahoga-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Cuyahoga",
+      "geography": "precinct-index",
+      "dataUrl": "data/cuyahoga_precinct_index.json"
     },
     {
       "id": "darke-decade-distribution",
@@ -1705,6 +1867,15 @@
       "dataUrl": "data/darke_unc_shadow.json"
     },
     {
+      "id": "darke-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Darke",
+      "geography": "precinct-index",
+      "dataUrl": "data/darke_precinct_index.json"
+    },
+    {
       "id": "defiance-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1775,6 +1946,15 @@
       "county": "Defiance",
       "geography": "county",
       "dataUrl": "data/defiance_unc_shadow.json"
+    },
+    {
+      "id": "defiance-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Defiance",
+      "geography": "precinct-index",
+      "dataUrl": "data/defiance_precinct_index.json"
     },
     {
       "id": "delaware-decade-distribution",
@@ -1849,6 +2029,15 @@
       "dataUrl": "data/delaware_unc_shadow.json"
     },
     {
+      "id": "delaware-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Delaware",
+      "geography": "precinct-index",
+      "dataUrl": "data/delaware_precinct_index.json"
+    },
+    {
       "id": "erie-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -1919,6 +2108,15 @@
       "county": "Erie",
       "geography": "county",
       "dataUrl": "data/erie_unc_shadow.json"
+    },
+    {
+      "id": "erie-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Erie",
+      "geography": "precinct-index",
+      "dataUrl": "data/erie_precinct_index.json"
     },
     {
       "id": "fairfield-decade-distribution",
@@ -1993,6 +2191,15 @@
       "dataUrl": "data/fairfield_unc_shadow.json"
     },
     {
+      "id": "fairfield-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Fairfield",
+      "geography": "precinct-index",
+      "dataUrl": "data/fairfield_precinct_index.json"
+    },
+    {
       "id": "fayette-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2063,6 +2270,15 @@
       "county": "Fayette",
       "geography": "county",
       "dataUrl": "data/fayette_unc_shadow.json"
+    },
+    {
+      "id": "fayette-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Fayette",
+      "geography": "precinct-index",
+      "dataUrl": "data/fayette_precinct_index.json"
     },
     {
       "id": "franklin-decade-distribution",
@@ -2137,6 +2353,15 @@
       "dataUrl": "data/franklin_unc_shadow.json"
     },
     {
+      "id": "franklin-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Franklin",
+      "geography": "precinct-index",
+      "dataUrl": "data/franklin_precinct_index.json"
+    },
+    {
       "id": "fulton-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2207,6 +2432,15 @@
       "county": "Fulton",
       "geography": "county",
       "dataUrl": "data/fulton_unc_shadow.json"
+    },
+    {
+      "id": "fulton-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Fulton",
+      "geography": "precinct-index",
+      "dataUrl": "data/fulton_precinct_index.json"
     },
     {
       "id": "gallia-decade-distribution",
@@ -2281,6 +2515,15 @@
       "dataUrl": "data/gallia_unc_shadow.json"
     },
     {
+      "id": "gallia-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Gallia",
+      "geography": "precinct-index",
+      "dataUrl": "data/gallia_precinct_index.json"
+    },
+    {
       "id": "geauga-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2351,6 +2594,15 @@
       "county": "Geauga",
       "geography": "county",
       "dataUrl": "data/geauga_unc_shadow.json"
+    },
+    {
+      "id": "geauga-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Geauga",
+      "geography": "precinct-index",
+      "dataUrl": "data/geauga_precinct_index.json"
     },
     {
       "id": "greene-decade-distribution",
@@ -2425,6 +2677,15 @@
       "dataUrl": "data/greene_unc_shadow.json"
     },
     {
+      "id": "greene-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Greene",
+      "geography": "precinct-index",
+      "dataUrl": "data/greene_precinct_index.json"
+    },
+    {
       "id": "guernsey-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2495,6 +2756,15 @@
       "county": "Guernsey",
       "geography": "county",
       "dataUrl": "data/guernsey_unc_shadow.json"
+    },
+    {
+      "id": "guernsey-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Guernsey",
+      "geography": "precinct-index",
+      "dataUrl": "data/guernsey_precinct_index.json"
     },
     {
       "id": "hamilton-decade-distribution",
@@ -2569,6 +2839,15 @@
       "dataUrl": "data/hamilton_unc_shadow.json"
     },
     {
+      "id": "hamilton-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Hamilton",
+      "geography": "precinct-index",
+      "dataUrl": "data/hamilton_precinct_index.json"
+    },
+    {
       "id": "hancock-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2639,6 +2918,15 @@
       "county": "Hancock",
       "geography": "county",
       "dataUrl": "data/hancock_unc_shadow.json"
+    },
+    {
+      "id": "hancock-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Hancock",
+      "geography": "precinct-index",
+      "dataUrl": "data/hancock_precinct_index.json"
     },
     {
       "id": "hardin-decade-distribution",
@@ -2713,6 +3001,15 @@
       "dataUrl": "data/hardin_unc_shadow.json"
     },
     {
+      "id": "hardin-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Hardin",
+      "geography": "precinct-index",
+      "dataUrl": "data/hardin_precinct_index.json"
+    },
+    {
       "id": "harrison-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2783,6 +3080,15 @@
       "county": "Harrison",
       "geography": "county",
       "dataUrl": "data/harrison_unc_shadow.json"
+    },
+    {
+      "id": "harrison-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Harrison",
+      "geography": "precinct-index",
+      "dataUrl": "data/harrison_precinct_index.json"
     },
     {
       "id": "henry-decade-distribution",
@@ -2857,6 +3163,15 @@
       "dataUrl": "data/henry_unc_shadow.json"
     },
     {
+      "id": "henry-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Henry",
+      "geography": "precinct-index",
+      "dataUrl": "data/henry_precinct_index.json"
+    },
+    {
       "id": "highland-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -2927,6 +3242,15 @@
       "county": "Highland",
       "geography": "county",
       "dataUrl": "data/highland_unc_shadow.json"
+    },
+    {
+      "id": "highland-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Highland",
+      "geography": "precinct-index",
+      "dataUrl": "data/highland_precinct_index.json"
     },
     {
       "id": "hocking-decade-distribution",
@@ -3001,6 +3325,15 @@
       "dataUrl": "data/hocking_unc_shadow.json"
     },
     {
+      "id": "hocking-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Hocking",
+      "geography": "precinct-index",
+      "dataUrl": "data/hocking_precinct_index.json"
+    },
+    {
       "id": "holmes-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3071,6 +3404,15 @@
       "county": "Holmes",
       "geography": "county",
       "dataUrl": "data/holmes_unc_shadow.json"
+    },
+    {
+      "id": "holmes-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Holmes",
+      "geography": "precinct-index",
+      "dataUrl": "data/holmes_precinct_index.json"
     },
     {
       "id": "huron-decade-distribution",
@@ -3145,6 +3487,15 @@
       "dataUrl": "data/huron_unc_shadow.json"
     },
     {
+      "id": "huron-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Huron",
+      "geography": "precinct-index",
+      "dataUrl": "data/huron_precinct_index.json"
+    },
+    {
       "id": "jackson-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3215,6 +3566,15 @@
       "county": "Jackson",
       "geography": "county",
       "dataUrl": "data/jackson_unc_shadow.json"
+    },
+    {
+      "id": "jackson-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Jackson",
+      "geography": "precinct-index",
+      "dataUrl": "data/jackson_precinct_index.json"
     },
     {
       "id": "jefferson-decade-distribution",
@@ -3289,6 +3649,15 @@
       "dataUrl": "data/jefferson_unc_shadow.json"
     },
     {
+      "id": "jefferson-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Jefferson",
+      "geography": "precinct-index",
+      "dataUrl": "data/jefferson_precinct_index.json"
+    },
+    {
       "id": "knox-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3359,6 +3728,15 @@
       "county": "Knox",
       "geography": "county",
       "dataUrl": "data/knox_unc_shadow.json"
+    },
+    {
+      "id": "knox-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Knox",
+      "geography": "precinct-index",
+      "dataUrl": "data/knox_precinct_index.json"
     },
     {
       "id": "lake-decade-distribution",
@@ -3433,6 +3811,15 @@
       "dataUrl": "data/lake_unc_shadow.json"
     },
     {
+      "id": "lake-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Lake",
+      "geography": "precinct-index",
+      "dataUrl": "data/lake_precinct_index.json"
+    },
+    {
       "id": "lawrence-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3503,6 +3890,15 @@
       "county": "Lawrence",
       "geography": "county",
       "dataUrl": "data/lawrence_unc_shadow.json"
+    },
+    {
+      "id": "lawrence-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Lawrence",
+      "geography": "precinct-index",
+      "dataUrl": "data/lawrence_precinct_index.json"
     },
     {
       "id": "licking-decade-distribution",
@@ -3577,6 +3973,15 @@
       "dataUrl": "data/licking_unc_shadow.json"
     },
     {
+      "id": "licking-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Licking",
+      "geography": "precinct-index",
+      "dataUrl": "data/licking_precinct_index.json"
+    },
+    {
       "id": "logan-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3647,6 +4052,15 @@
       "county": "Logan",
       "geography": "county",
       "dataUrl": "data/logan_unc_shadow.json"
+    },
+    {
+      "id": "logan-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Logan",
+      "geography": "precinct-index",
+      "dataUrl": "data/logan_precinct_index.json"
     },
     {
       "id": "lorain-decade-distribution",
@@ -3721,6 +4135,15 @@
       "dataUrl": "data/lorain_unc_shadow.json"
     },
     {
+      "id": "lorain-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Lorain",
+      "geography": "precinct-index",
+      "dataUrl": "data/lorain_precinct_index.json"
+    },
+    {
       "id": "lucas-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3791,6 +4214,15 @@
       "county": "Lucas",
       "geography": "county",
       "dataUrl": "data/lucas_unc_shadow.json"
+    },
+    {
+      "id": "lucas-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Lucas",
+      "geography": "precinct-index",
+      "dataUrl": "data/lucas_precinct_index.json"
     },
     {
       "id": "madison-decade-distribution",
@@ -3865,6 +4297,15 @@
       "dataUrl": "data/madison_unc_shadow.json"
     },
     {
+      "id": "madison-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Madison",
+      "geography": "precinct-index",
+      "dataUrl": "data/madison_precinct_index.json"
+    },
+    {
       "id": "mahoning-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -3935,6 +4376,15 @@
       "county": "Mahoning",
       "geography": "county",
       "dataUrl": "data/mahoning_unc_shadow.json"
+    },
+    {
+      "id": "mahoning-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Mahoning",
+      "geography": "precinct-index",
+      "dataUrl": "data/mahoning_precinct_index.json"
     },
     {
       "id": "marion-decade-distribution",
@@ -4009,6 +4459,15 @@
       "dataUrl": "data/marion_unc_shadow.json"
     },
     {
+      "id": "marion-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Marion",
+      "geography": "precinct-index",
+      "dataUrl": "data/marion_precinct_index.json"
+    },
+    {
       "id": "medina-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4079,6 +4538,15 @@
       "county": "Medina",
       "geography": "county",
       "dataUrl": "data/medina_unc_shadow.json"
+    },
+    {
+      "id": "medina-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Medina",
+      "geography": "precinct-index",
+      "dataUrl": "data/medina_precinct_index.json"
     },
     {
       "id": "meigs-decade-distribution",
@@ -4153,6 +4621,15 @@
       "dataUrl": "data/meigs_unc_shadow.json"
     },
     {
+      "id": "meigs-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Meigs",
+      "geography": "precinct-index",
+      "dataUrl": "data/meigs_precinct_index.json"
+    },
+    {
       "id": "mercer-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4223,6 +4700,15 @@
       "county": "Mercer",
       "geography": "county",
       "dataUrl": "data/mercer_unc_shadow.json"
+    },
+    {
+      "id": "mercer-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Mercer",
+      "geography": "precinct-index",
+      "dataUrl": "data/mercer_precinct_index.json"
     },
     {
       "id": "miami-decade-distribution",
@@ -4297,6 +4783,15 @@
       "dataUrl": "data/miami_unc_shadow.json"
     },
     {
+      "id": "miami-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Miami",
+      "geography": "precinct-index",
+      "dataUrl": "data/miami_precinct_index.json"
+    },
+    {
       "id": "monroe-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4367,6 +4862,15 @@
       "county": "Monroe",
       "geography": "county",
       "dataUrl": "data/monroe_unc_shadow.json"
+    },
+    {
+      "id": "monroe-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Monroe",
+      "geography": "precinct-index",
+      "dataUrl": "data/monroe_precinct_index.json"
     },
     {
       "id": "montgomery-decade-distribution",
@@ -4441,6 +4945,15 @@
       "dataUrl": "data/montgomery_unc_shadow.json"
     },
     {
+      "id": "montgomery-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Montgomery",
+      "geography": "precinct-index",
+      "dataUrl": "data/montgomery_precinct_index.json"
+    },
+    {
       "id": "morgan-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4511,6 +5024,15 @@
       "county": "Morgan",
       "geography": "county",
       "dataUrl": "data/morgan_unc_shadow.json"
+    },
+    {
+      "id": "morgan-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Morgan",
+      "geography": "precinct-index",
+      "dataUrl": "data/morgan_precinct_index.json"
     },
     {
       "id": "morrow-decade-distribution",
@@ -4585,6 +5107,15 @@
       "dataUrl": "data/morrow_unc_shadow.json"
     },
     {
+      "id": "morrow-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Morrow",
+      "geography": "precinct-index",
+      "dataUrl": "data/morrow_precinct_index.json"
+    },
+    {
       "id": "muskingum-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4655,6 +5186,15 @@
       "county": "Muskingum",
       "geography": "county",
       "dataUrl": "data/muskingum_unc_shadow.json"
+    },
+    {
+      "id": "muskingum-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Muskingum",
+      "geography": "precinct-index",
+      "dataUrl": "data/muskingum_precinct_index.json"
     },
     {
       "id": "noble-decade-distribution",
@@ -4729,6 +5269,15 @@
       "dataUrl": "data/noble_unc_shadow.json"
     },
     {
+      "id": "noble-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Noble",
+      "geography": "precinct-index",
+      "dataUrl": "data/noble_precinct_index.json"
+    },
+    {
       "id": "ottawa-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4799,6 +5348,15 @@
       "county": "Ottawa",
       "geography": "county",
       "dataUrl": "data/ottawa_unc_shadow.json"
+    },
+    {
+      "id": "ottawa-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Ottawa",
+      "geography": "precinct-index",
+      "dataUrl": "data/ottawa_precinct_index.json"
     },
     {
       "id": "paulding-decade-distribution",
@@ -4873,6 +5431,15 @@
       "dataUrl": "data/paulding_unc_shadow.json"
     },
     {
+      "id": "paulding-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Paulding",
+      "geography": "precinct-index",
+      "dataUrl": "data/paulding_precinct_index.json"
+    },
+    {
       "id": "perry-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -4943,6 +5510,15 @@
       "county": "Perry",
       "geography": "county",
       "dataUrl": "data/perry_unc_shadow.json"
+    },
+    {
+      "id": "perry-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Perry",
+      "geography": "precinct-index",
+      "dataUrl": "data/perry_precinct_index.json"
     },
     {
       "id": "pickaway-decade-distribution",
@@ -5017,6 +5593,15 @@
       "dataUrl": "data/pickaway_unc_shadow.json"
     },
     {
+      "id": "pickaway-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Pickaway",
+      "geography": "precinct-index",
+      "dataUrl": "data/pickaway_precinct_index.json"
+    },
+    {
       "id": "pike-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5087,6 +5672,15 @@
       "county": "Pike",
       "geography": "county",
       "dataUrl": "data/pike_unc_shadow.json"
+    },
+    {
+      "id": "pike-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Pike",
+      "geography": "precinct-index",
+      "dataUrl": "data/pike_precinct_index.json"
     },
     {
       "id": "portage-decade-distribution",
@@ -5161,6 +5755,15 @@
       "dataUrl": "data/portage_unc_shadow.json"
     },
     {
+      "id": "portage-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Portage",
+      "geography": "precinct-index",
+      "dataUrl": "data/portage_precinct_index.json"
+    },
+    {
       "id": "preble-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5231,6 +5834,15 @@
       "county": "Preble",
       "geography": "county",
       "dataUrl": "data/preble_unc_shadow.json"
+    },
+    {
+      "id": "preble-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Preble",
+      "geography": "precinct-index",
+      "dataUrl": "data/preble_precinct_index.json"
     },
     {
       "id": "putnam-decade-distribution",
@@ -5305,6 +5917,15 @@
       "dataUrl": "data/putnam_unc_shadow.json"
     },
     {
+      "id": "putnam-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Putnam",
+      "geography": "precinct-index",
+      "dataUrl": "data/putnam_precinct_index.json"
+    },
+    {
       "id": "richland-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5375,6 +5996,15 @@
       "county": "Richland",
       "geography": "county",
       "dataUrl": "data/richland_unc_shadow.json"
+    },
+    {
+      "id": "richland-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Richland",
+      "geography": "precinct-index",
+      "dataUrl": "data/richland_precinct_index.json"
     },
     {
       "id": "ross-decade-distribution",
@@ -5449,6 +6079,15 @@
       "dataUrl": "data/ross_unc_shadow.json"
     },
     {
+      "id": "ross-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Ross",
+      "geography": "precinct-index",
+      "dataUrl": "data/ross_precinct_index.json"
+    },
+    {
       "id": "sandusky-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5519,6 +6158,15 @@
       "county": "Sandusky",
       "geography": "county",
       "dataUrl": "data/sandusky_unc_shadow.json"
+    },
+    {
+      "id": "sandusky-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Sandusky",
+      "geography": "precinct-index",
+      "dataUrl": "data/sandusky_precinct_index.json"
     },
     {
       "id": "scioto-decade-distribution",
@@ -5593,6 +6241,15 @@
       "dataUrl": "data/scioto_unc_shadow.json"
     },
     {
+      "id": "scioto-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Scioto",
+      "geography": "precinct-index",
+      "dataUrl": "data/scioto_precinct_index.json"
+    },
+    {
       "id": "seneca-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5663,6 +6320,15 @@
       "county": "Seneca",
       "geography": "county",
       "dataUrl": "data/seneca_unc_shadow.json"
+    },
+    {
+      "id": "seneca-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Seneca",
+      "geography": "precinct-index",
+      "dataUrl": "data/seneca_precinct_index.json"
     },
     {
       "id": "shelby-decade-distribution",
@@ -5737,6 +6403,15 @@
       "dataUrl": "data/shelby_unc_shadow.json"
     },
     {
+      "id": "shelby-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Shelby",
+      "geography": "precinct-index",
+      "dataUrl": "data/shelby_precinct_index.json"
+    },
+    {
       "id": "stark-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5807,6 +6482,15 @@
       "county": "Stark",
       "geography": "county",
       "dataUrl": "data/stark_unc_shadow.json"
+    },
+    {
+      "id": "stark-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Stark",
+      "geography": "precinct-index",
+      "dataUrl": "data/stark_precinct_index.json"
     },
     {
       "id": "summit-decade-distribution",
@@ -5881,6 +6565,15 @@
       "dataUrl": "data/summit_unc_shadow.json"
     },
     {
+      "id": "summit-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Summit",
+      "geography": "precinct-index",
+      "dataUrl": "data/summit_precinct_index.json"
+    },
+    {
       "id": "trumbull-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -5951,6 +6644,15 @@
       "county": "Trumbull",
       "geography": "county",
       "dataUrl": "data/trumbull_unc_shadow.json"
+    },
+    {
+      "id": "trumbull-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Trumbull",
+      "geography": "precinct-index",
+      "dataUrl": "data/trumbull_precinct_index.json"
     },
     {
       "id": "tuscarawas-decade-distribution",
@@ -6025,6 +6727,15 @@
       "dataUrl": "data/tuscarawas_unc_shadow.json"
     },
     {
+      "id": "tuscarawas-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Tuscarawas",
+      "geography": "precinct-index",
+      "dataUrl": "data/tuscarawas_precinct_index.json"
+    },
+    {
       "id": "union-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -6095,6 +6806,15 @@
       "county": "Union",
       "geography": "county",
       "dataUrl": "data/union_unc_shadow.json"
+    },
+    {
+      "id": "union-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Union",
+      "geography": "precinct-index",
+      "dataUrl": "data/union_precinct_index.json"
     },
     {
       "id": "van_wert-decade-distribution",
@@ -6169,6 +6889,15 @@
       "dataUrl": "data/van_wert_unc_shadow.json"
     },
     {
+      "id": "van_wert-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Van Wert",
+      "geography": "precinct-index",
+      "dataUrl": "data/van_wert_precinct_index.json"
+    },
+    {
       "id": "vinton-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -6239,6 +6968,15 @@
       "county": "Vinton",
       "geography": "county",
       "dataUrl": "data/vinton_unc_shadow.json"
+    },
+    {
+      "id": "vinton-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Vinton",
+      "geography": "precinct-index",
+      "dataUrl": "data/vinton_precinct_index.json"
     },
     {
       "id": "warren-decade-distribution",
@@ -6313,6 +7051,15 @@
       "dataUrl": "data/warren_unc_shadow.json"
     },
     {
+      "id": "warren-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Warren",
+      "geography": "precinct-index",
+      "dataUrl": "data/warren_precinct_index.json"
+    },
+    {
       "id": "washington-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -6383,6 +7130,15 @@
       "county": "Washington",
       "geography": "county",
       "dataUrl": "data/washington_unc_shadow.json"
+    },
+    {
+      "id": "washington-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Washington",
+      "geography": "precinct-index",
+      "dataUrl": "data/washington_precinct_index.json"
     },
     {
       "id": "wayne-decade-distribution",
@@ -6457,6 +7213,15 @@
       "dataUrl": "data/wayne_unc_shadow.json"
     },
     {
+      "id": "wayne-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Wayne",
+      "geography": "precinct-index",
+      "dataUrl": "data/wayne_precinct_index.json"
+    },
+    {
       "id": "williams-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -6527,6 +7292,15 @@
       "county": "Williams",
       "geography": "county",
       "dataUrl": "data/williams_unc_shadow.json"
+    },
+    {
+      "id": "williams-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Williams",
+      "geography": "precinct-index",
+      "dataUrl": "data/williams_precinct_index.json"
     },
     {
       "id": "wood-decade-distribution",
@@ -6601,6 +7375,15 @@
       "dataUrl": "data/wood_unc_shadow.json"
     },
     {
+      "id": "wood-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Wood",
+      "geography": "precinct-index",
+      "dataUrl": "data/wood_precinct_index.json"
+    },
+    {
       "id": "wyandot-decade-distribution",
       "title": "Voter Age Distribution by Birth Decade",
       "navLabel": "Age Cohorts",
@@ -6671,6 +7454,15 @@
       "county": "Wyandot",
       "geography": "county",
       "dataUrl": "data/wyandot_unc_shadow.json"
+    },
+    {
+      "id": "wyandot-precinct-index",
+      "title": "Precinct Detail Index",
+      "navLabel": "Precinct Charts",
+      "description": "Per-precinct party and UNC shadow charts.",
+      "county": "Wyandot",
+      "geography": "precinct-index",
+      "dataUrl": "data/wyandot_precinct_index.json"
     }
   ]
 }

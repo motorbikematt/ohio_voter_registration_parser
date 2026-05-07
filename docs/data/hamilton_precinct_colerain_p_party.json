@@ -1,0 +1,40 @@
+{
+  "title": "Party Affiliation \u2014 COLERAIN P",
+  "county": "Hamilton",
+  "precinct": "COLERAIN P",
+  "geography": "precinct-detail",
+  "type": "doughnut",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "REP",
+      "UNC \u2013 Lifetime R",
+      "DEM",
+      "UNC \u2013 Lifetime D",
+      "UNC \u2013 Mixed",
+      "UNC \u2013 No History"
+    ],
+    "datasets": [
+      {
+        "data": [
+          52,
+          44,
+          58,
+          88,
+          32,
+          262
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#f87171",
+          "#3b82f6",
+          "#60a5fa",
+          "#a78bfa",
+          "#9ca3af"
+        ],
+        "borderWidth": 2,
+        "borderColor": "transparent"
+      }
+    ]
+  }
+}
