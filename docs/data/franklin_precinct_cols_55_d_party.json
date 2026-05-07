@@ -1,0 +1,40 @@
+{
+  "title": "Party Affiliation \u2014 COLS 55-D",
+  "county": "Franklin",
+  "precinct": "COLS 55-D",
+  "geography": "precinct-detail",
+  "type": "doughnut",
+  "updated": "2026-05-06",
+  "chartConfig": {
+    "labels": [
+      "REP",
+      "UNC \u2013 Lifetime R",
+      "DEM",
+      "UNC \u2013 Lifetime D",
+      "UNC \u2013 Mixed",
+      "UNC \u2013 No History"
+    ],
+    "datasets": [
+      {
+        "data": [
+          37,
+          34,
+          218,
+          200,
+          62,
+          490
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#f87171",
+          "#3b82f6",
+          "#60a5fa",
+          "#a78bfa",
+          "#9ca3af"
+        ],
+        "borderWidth": 2,
+        "borderColor": "transparent"
+      }
+    ]
+  }
+}
