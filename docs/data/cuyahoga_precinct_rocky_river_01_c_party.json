@@ -1,0 +1,40 @@
+{
+  "title": "Party Affiliation — ROCKY RIVER-01-C",
+  "county": "Cuyahoga",
+  "precinct": "ROCKY RIVER-01-C",
+  "geography": "precinct-detail",
+  "type": "doughnut",
+  "updated": "2026-05-07",
+  "chartConfig": {
+    "labels": [
+      "REP",
+      "UNC – Lifetime R",
+      "DEM",
+      "UNC – Lifetime D",
+      "UNC – Mixed",
+      "UNC – No History"
+    ],
+    "datasets": [
+      {
+        "data": [
+          180,
+          85,
+          174,
+          97,
+          55,
+          257
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#f87171",
+          "#3b82f6",
+          "#60a5fa",
+          "#a78bfa",
+          "#9ca3af"
+        ],
+        "borderWidth": 2,
+        "borderColor": "transparent"
+      }
+    ]
+  }
+}

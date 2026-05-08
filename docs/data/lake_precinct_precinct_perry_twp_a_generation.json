@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — PRECINCT PERRY TWP A",
+  "county": "Lake",
+  "precinct": "PRECINCT PERRY TWP A",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          50,
+          362,
+          300,
+          259,
+          167
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

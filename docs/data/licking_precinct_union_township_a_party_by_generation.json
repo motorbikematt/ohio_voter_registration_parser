@@ -1,0 +1,111 @@
+{
+  "title": "Party Affiliation by Generation — UNION TOWNSHIP A",
+  "county": "Licking",
+  "precinct": "UNION TOWNSHIP A",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          29,
+          195,
+          155,
+          44,
+          26
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 2,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          8,
+          77,
+          25,
+          14,
+          8
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 2,
+        "stack": "dem"
+      },
+      {
+        "label": "Other",
+        "data": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "backgroundColor": "#f59e0b",
+        "borderRadius": 2,
+        "stack": "other"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          7,
+          37,
+          79,
+          36,
+          18
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime R",
+        "data": [
+          8,
+          54,
+          119,
+          77,
+          10
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Mixed",
+        "data": [
+          3,
+          24,
+          42,
+          13,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – No History",
+        "data": [
+          3,
+          56,
+          142,
+          195,
+          240
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 2,
+        "stack": "unc"
+      }
+    ]
+  }
+}

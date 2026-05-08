@@ -1,0 +1,104 @@
+{
+  "title": "Party Affiliation by Generation",
+  "county": "Fairfield",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Analysis run 2026-05-07 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          2514,
+          10659,
+          6032,
+          2684,
+          823
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 2,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          770,
+          3306,
+          1423,
+          895,
+          319
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 2,
+        "stack": "dem"
+      },
+      {
+        "label": "Other",
+        "data": [],
+        "backgroundColor": "#f59e0b",
+        "borderRadius": 2,
+        "stack": "other"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          705,
+          3542,
+          4521,
+          3473,
+          468
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime R",
+        "data": [
+          891,
+          3850,
+          5024,
+          3686,
+          564
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Mixed",
+        "data": [
+          375,
+          1540,
+          1491,
+          623,
+          15
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – No History",
+        "data": [
+          733,
+          5674,
+          10974,
+          17663,
+          15056
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 2,
+        "stack": "unc"
+      }
+    ]
+  }
+}

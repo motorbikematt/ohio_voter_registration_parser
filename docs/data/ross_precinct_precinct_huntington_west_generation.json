@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — PRECINCT HUNTINGTON WEST",
+  "county": "Ross",
+  "precinct": "PRECINCT HUNTINGTON WEST",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          28,
+          214,
+          192,
+          183,
+          106
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

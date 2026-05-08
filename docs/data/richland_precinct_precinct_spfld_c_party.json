@@ -1,0 +1,40 @@
+{
+  "title": "Party Affiliation — PRECINCT SPFLD C",
+  "county": "Richland",
+  "precinct": "PRECINCT SPFLD C",
+  "geography": "precinct-detail",
+  "type": "doughnut",
+  "updated": "2026-05-07",
+  "chartConfig": {
+    "labels": [
+      "REP",
+      "UNC – Lifetime R",
+      "DEM",
+      "UNC – Lifetime D",
+      "UNC – Mixed",
+      "UNC – No History"
+    ],
+    "datasets": [
+      {
+        "data": [
+          215,
+          119,
+          53,
+          94,
+          34,
+          376
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#f87171",
+          "#3b82f6",
+          "#60a5fa",
+          "#a78bfa",
+          "#9ca3af"
+        ],
+        "borderWidth": 2,
+        "borderColor": "transparent"
+      }
+    ]
+  }
+}

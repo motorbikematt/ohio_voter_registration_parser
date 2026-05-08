@@ -1,0 +1,40 @@
+{
+  "title": "Party Affiliation — CLEVELAND -02-D",
+  "county": "Cuyahoga",
+  "precinct": "CLEVELAND -02-D",
+  "geography": "precinct-detail",
+  "type": "doughnut",
+  "updated": "2026-05-07",
+  "chartConfig": {
+    "labels": [
+      "REP",
+      "UNC – Lifetime R",
+      "DEM",
+      "UNC – Lifetime D",
+      "UNC – Mixed",
+      "UNC – No History"
+    ],
+    "datasets": [
+      {
+        "data": [
+          22,
+          12,
+          67,
+          146,
+          14,
+          729
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#f87171",
+          "#3b82f6",
+          "#60a5fa",
+          "#a78bfa",
+          "#9ca3af"
+        ],
+        "borderWidth": 2,
+        "borderColor": "transparent"
+      }
+    ]
+  }
+}

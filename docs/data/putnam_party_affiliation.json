@@ -1,0 +1,51 @@
+{
+  "title": "Party Affiliation Breakdown",
+  "county": "Putnam",
+  "geography": "county",
+  "type": "doughnut",
+  "updated": "2026-05-07",
+  "note": "Analysis run 2026-05-07 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "chartConfig": {
+    "labels": [
+      "Pure R",
+      "R – Crossover",
+      "UNC – Lifetime R",
+      "UNC – Mixed",
+      "UNC – No History",
+      "UNC – Lifetime D",
+      "D – Crossover",
+      "Pure D"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5605,
+          2315,
+          3903,
+          1185,
+          8232,
+          1456,
+          304,
+          528
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#f87171",
+          "#fca5a5",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#60a5fa",
+          "#3b82f6"
+        ],
+        "borderWidth": 2,
+        "borderColor": "transparent"
+      }
+    ]
+  },
+  "meta": {
+    "new_registrants_r": 44,
+    "new_registrants_d": 1,
+    "new_registrants_unc": 2020
+  }
+}

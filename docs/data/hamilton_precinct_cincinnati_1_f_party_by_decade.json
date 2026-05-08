@@ -1,0 +1,118 @@
+{
+  "title": "Party Affiliation by Birth Decade — CINCINNATI 1-F",
+  "county": "Hamilton",
+  "precinct": "CINCINNATI 1-F",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "chartConfig": {
+    "labels": [
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          8,
+          34,
+          61,
+          29,
+          19,
+          13,
+          6,
+          1
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          2,
+          20,
+          44,
+          24,
+          39,
+          20,
+          16,
+          2
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          0,
+          11,
+          22,
+          30,
+          53,
+          39,
+          28,
+          5
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime R",
+        "data": [
+          7,
+          18,
+          21,
+          27,
+          25,
+          18,
+          21,
+          0
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Mixed",
+        "data": [
+          4,
+          6,
+          14,
+          15,
+          8,
+          7,
+          0,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – No History",
+        "data": [
+          0,
+          5,
+          29,
+          42,
+          68,
+          98,
+          169,
+          99
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — COLS 62-A",
+  "county": "Franklin",
+  "precinct": "COLS 62-A",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          15,
+          195,
+          246,
+          316,
+          151
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

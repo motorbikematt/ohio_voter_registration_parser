@@ -1,0 +1,40 @@
+{
+  "title": "Party Affiliation — LIMA 6C",
+  "county": "Allen",
+  "precinct": "LIMA 6C",
+  "geography": "precinct-detail",
+  "type": "doughnut",
+  "updated": "2026-05-07",
+  "chartConfig": {
+    "labels": [
+      "REP",
+      "UNC – Lifetime R",
+      "DEM",
+      "UNC – Lifetime D",
+      "UNC – Mixed",
+      "UNC – No History"
+    ],
+    "datasets": [
+      {
+        "data": [
+          11,
+          13,
+          89,
+          128,
+          2,
+          544
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#f87171",
+          "#3b82f6",
+          "#60a5fa",
+          "#a78bfa",
+          "#9ca3af"
+        ],
+        "borderWidth": 2,
+        "borderColor": "transparent"
+      }
+    ]
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "title": "Party Affiliation by Birth Decade — LOUISVILLE F",
+  "county": "Stark",
+  "precinct": "LOUISVILLE F",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          7,
+          23,
+          46,
+          50,
+          30,
+          13,
+          18,
+          11,
+          3
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          4,
+          18,
+          27,
+          32,
+          17,
+          8,
+          5,
+          7,
+          2
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          2,
+          9,
+          13,
+          20,
+          20,
+          23,
+          18,
+          13,
+          0
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime R",
+        "data": [
+          0,
+          7,
+          11,
+          19,
+          16,
+          23,
+          12,
+          22,
+          4
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Mixed",
+        "data": [
+          0,
+          5,
+          9,
+          9,
+          9,
+          5,
+          4,
+          0,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – No History",
+        "data": [
+          3,
+          5,
+          8,
+          19,
+          43,
+          62,
+          71,
+          113,
+          82
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

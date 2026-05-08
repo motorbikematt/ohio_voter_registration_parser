@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — PRECINCT SPRINGFIELD 8",
+  "county": "Lucas",
+  "precinct": "PRECINCT SPRINGFIELD 8",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          142,
+          255,
+          147,
+          223,
+          160
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

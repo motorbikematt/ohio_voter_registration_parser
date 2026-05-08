@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — WEST CHESTER TWP 21",
+  "county": "Butler",
+  "precinct": "WEST CHESTER TWP 21",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          40,
+          284,
+          424,
+          389,
+          215
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "title": "Party Affiliation — ARCHBOLD THREE",
+  "county": "Fulton",
+  "precinct": "ARCHBOLD THREE",
+  "geography": "precinct-detail",
+  "type": "doughnut",
+  "updated": "2026-05-07",
+  "chartConfig": {
+    "labels": [
+      "REP",
+      "UNC – Lifetime R",
+      "DEM",
+      "UNC – Lifetime D",
+      "UNC – Mixed",
+      "UNC – No History"
+    ],
+    "datasets": [
+      {
+        "data": [
+          252,
+          171,
+          45,
+          58,
+          53,
+          433
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#f87171",
+          "#3b82f6",
+          "#60a5fa",
+          "#a78bfa",
+          "#9ca3af"
+        ],
+        "borderWidth": 2,
+        "borderColor": "transparent"
+      }
+    ]
+  }
+}

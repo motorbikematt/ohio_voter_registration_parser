@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — MENTOR-ON-THE-LAKE CITY 3A",
+  "county": "Lake",
+  "precinct": "MENTOR-ON-THE-LAKE CITY 3A",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          30,
+          265,
+          203,
+          330,
+          227
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

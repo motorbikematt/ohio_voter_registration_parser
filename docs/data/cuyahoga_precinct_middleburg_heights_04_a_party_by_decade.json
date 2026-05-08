@@ -1,0 +1,125 @@
+{
+  "title": "Party Affiliation by Birth Decade — MIDDLEBURG HEIGHTS-04-A",
+  "county": "Cuyahoga",
+  "precinct": "MIDDLEBURG HEIGHTS-04-A",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          2,
+          20,
+          44,
+          81,
+          67,
+          28,
+          12,
+          10,
+          7
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          11,
+          24,
+          44,
+          25,
+          16,
+          7,
+          7,
+          6
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          1,
+          14,
+          20,
+          34,
+          31,
+          35,
+          29,
+          23,
+          2
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime R",
+        "data": [
+          0,
+          8,
+          10,
+          9,
+          33,
+          18,
+          14,
+          16,
+          0
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Mixed",
+        "data": [
+          2,
+          8,
+          8,
+          15,
+          16,
+          15,
+          12,
+          2,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – No History",
+        "data": [
+          1,
+          8,
+          13,
+          34,
+          53,
+          69,
+          72,
+          122,
+          87
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

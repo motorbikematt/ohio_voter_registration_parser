@@ -1,0 +1,125 @@
+{
+  "title": "Party Affiliation by Birth Decade — WESTLAKE-02-B",
+  "county": "Cuyahoga",
+  "precinct": "WESTLAKE-02-B",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          1,
+          15,
+          39,
+          79,
+          55,
+          19,
+          7,
+          4,
+          4
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          7,
+          32,
+          42,
+          26,
+          17,
+          15,
+          8,
+          3
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          1,
+          1,
+          10,
+          23,
+          24,
+          29,
+          43,
+          19,
+          4
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime R",
+        "data": [
+          2,
+          5,
+          9,
+          20,
+          23,
+          20,
+          14,
+          10,
+          1
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Mixed",
+        "data": [
+          0,
+          2,
+          8,
+          10,
+          25,
+          12,
+          3,
+          1,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – No History",
+        "data": [
+          0,
+          1,
+          11,
+          25,
+          29,
+          61,
+          64,
+          77,
+          91
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

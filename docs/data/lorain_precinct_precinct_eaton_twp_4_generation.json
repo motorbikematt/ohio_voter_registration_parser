@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — PRECINCT EATON TWP #4",
+  "county": "Lorain",
+  "precinct": "PRECINCT EATON TWP #4",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          56,
+          332,
+          335,
+          304,
+          183
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "title": "Voter Age Distribution by Generation — ATHENS 4-5",
+  "county": "Athens",
+  "precinct": "ATHENS 4-5",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Baby Boomers",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          2,
+          11,
+          326
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

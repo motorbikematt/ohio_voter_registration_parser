@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — EUCLID-05-C",
+  "county": "Cuyahoga",
+  "precinct": "EUCLID-05-C",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          28,
+          212,
+          272,
+          328,
+          205
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

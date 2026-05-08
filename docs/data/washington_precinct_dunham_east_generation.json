@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — DUNHAM EAST",
+  "county": "Washington",
+  "precinct": "DUNHAM EAST",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          49,
+          298,
+          272,
+          233,
+          140
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

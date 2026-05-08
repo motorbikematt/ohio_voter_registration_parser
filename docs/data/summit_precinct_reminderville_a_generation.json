@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — REMINDERVILLE A",
+  "county": "Summit",
+  "precinct": "REMINDERVILLE A",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          59,
+          277,
+          363,
+          319,
+          181
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

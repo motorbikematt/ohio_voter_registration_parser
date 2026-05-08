@@ -1,0 +1,51 @@
+{
+  "title": "Party Affiliation Breakdown",
+  "county": "Wayne",
+  "geography": "county",
+  "type": "doughnut",
+  "updated": "2026-05-07",
+  "note": "Analysis run 2026-05-07 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "chartConfig": {
+    "labels": [
+      "Pure R",
+      "R – Crossover",
+      "UNC – Lifetime R",
+      "UNC – Mixed",
+      "UNC – No History",
+      "UNC – Lifetime D",
+      "D – Crossover",
+      "Pure D"
+    ],
+    "datasets": [
+      {
+        "data": [
+          14688,
+          4122,
+          8233,
+          2231,
+          29318,
+          5624,
+          1287,
+          3110
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#f87171",
+          "#fca5a5",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#60a5fa",
+          "#3b82f6"
+        ],
+        "borderWidth": 2,
+        "borderColor": "transparent"
+      }
+    ]
+  },
+  "meta": {
+    "new_registrants_r": 139,
+    "new_registrants_d": 20,
+    "new_registrants_unc": 6452
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — JACKSON TWP B",
+  "county": "Montgomery",
+  "precinct": "JACKSON TWP B",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          49,
+          247,
+          217,
+          158,
+          107
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

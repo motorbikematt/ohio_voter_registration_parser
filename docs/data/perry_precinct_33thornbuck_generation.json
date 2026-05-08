@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — 33THORNBUCK",
+  "county": "Perry",
+  "precinct": "33THORNBUCK",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          68,
+          399,
+          220,
+          106,
+          77
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

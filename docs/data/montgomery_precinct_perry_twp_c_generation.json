@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — PERRY TWP C",
+  "county": "Montgomery",
+  "precinct": "PERRY TWP C",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          61,
+          336,
+          196,
+          189,
+          120
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

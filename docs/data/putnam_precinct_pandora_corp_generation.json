@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — PANDORA CORP",
+  "county": "Putnam",
+  "precinct": "PANDORA CORP",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          45,
+          231,
+          189,
+          169,
+          137
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

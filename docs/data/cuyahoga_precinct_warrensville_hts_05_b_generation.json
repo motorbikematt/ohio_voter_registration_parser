@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — WARRENSVILLE HTS-05-B",
+  "county": "Cuyahoga",
+  "precinct": "WARRENSVILLE HTS-05-B",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          52,
+          156,
+          132,
+          150,
+          79
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

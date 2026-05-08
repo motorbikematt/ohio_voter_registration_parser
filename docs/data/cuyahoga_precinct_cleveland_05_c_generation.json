@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — CLEVELAND -05-C",
+  "county": "Cuyahoga",
+  "precinct": "CLEVELAND -05-C",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          7,
+          70,
+          101,
+          429,
+          331
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

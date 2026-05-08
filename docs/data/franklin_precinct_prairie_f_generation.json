@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — PRAIRIE-F",
+  "county": "Franklin",
+  "precinct": "PRAIRIE-F",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          32,
+          274,
+          279,
+          277,
+          199
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}
