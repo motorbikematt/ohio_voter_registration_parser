@@ -28,20 +28,7 @@
         "stack": "r_pure"
       },
       {
-        "label": "R – Crossover",
-        "data": [
-          98,
-          603,
-          326,
-          106,
-          8
-        ],
-        "backgroundColor": "#f87171",
-        "borderRadius": 2,
-        "stack": "r_cross"
-      },
-      {
-        "label": "UNC – Lifetime R",
+        "label": "UNC – Lapsed R",
         "data": [
           127,
           610,
@@ -51,36 +38,49 @@
         ],
         "backgroundColor": "#fca5a5",
         "borderRadius": 2,
-        "stack": "unc"
+        "stack": "unc_r"
       },
       {
-        "label": "UNC – Mixed",
+        "label": "Mixed – Active",
         "data": [
-          105,
-          373,
-          286,
-          105,
-          1
+          124,
+          692,
+          355,
+          114,
+          8
+        ],
+        "backgroundColor": "#f59e0b",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          112,
+          448,
+          362,
+          150,
+          9
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 2,
-        "stack": "unc"
+        "stack": "unc_mid"
       },
       {
-        "label": "UNC – No History",
+        "label": "UNC – No Primary",
         "data": [
-          117,
-          1151,
-          1848,
-          2606,
-          2223
+          110,
+          1076,
+          1772,
+          2561,
+          2215
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 2,
-        "stack": "unc"
+        "stack": "unc_mid"
       },
       {
-        "label": "UNC – Lifetime D",
+        "label": "UNC – Lapsed D",
         "data": [
           226,
           950,
@@ -90,20 +90,7 @@
         ],
         "backgroundColor": "#93c5fd",
         "borderRadius": 2,
-        "stack": "unc"
-      },
-      {
-        "label": "D – Crossover",
-        "data": [
-          26,
-          89,
-          29,
-          8,
-          0
-        ],
-        "backgroundColor": "#60a5fa",
-        "borderRadius": 2,
-        "stack": "d_cross"
+        "stack": "unc_d"
       },
       {
         "label": "Pure D",

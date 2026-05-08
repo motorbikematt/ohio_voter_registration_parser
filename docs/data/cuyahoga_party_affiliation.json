@@ -8,34 +8,31 @@
   "chartConfig": {
     "labels": [
       "Pure R",
-      "R – Crossover",
-      "UNC – Lifetime R",
-      "UNC – Mixed",
-      "UNC – No History",
-      "UNC – Lifetime D",
-      "D – Crossover",
+      "UNC – Lapsed R",
+      "Mixed – Active",
+      "Mixed – Lapsed",
+      "UNC – No Primary",
+      "UNC – Lapsed D",
       "Pure D"
     ],
     "datasets": [
       {
         "data": [
           45609,
-          38636,
           44299,
-          29543,
-          412379,
+          61603,
+          62300,
+          379622,
           154342,
-          22967,
           114664
         ],
         "backgroundColor": [
           "#ef4444",
-          "#f87171",
           "#fca5a5",
+          "#f59e0b",
           "#a78bfa",
           "#9ca3af",
           "#93c5fd",
-          "#60a5fa",
           "#3b82f6"
         ],
         "borderWidth": 2,
@@ -44,8 +41,8 @@
     ]
   },
   "meta": {
-    "new_registrants_r": 7256,
-    "new_registrants_d": 20086,
-    "new_registrants_unc": 226978
+    "new_registrants_r": 4217,
+    "new_registrants_d": 17592,
+    "new_registrants_unc": 232511
   }
 }

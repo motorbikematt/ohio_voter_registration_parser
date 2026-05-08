@@ -29,20 +29,7 @@
         "stack": "r_pure"
       },
       {
-        "label": "R – Crossover",
-        "data": [
-          3,
-          22,
-          12,
-          1,
-          0
-        ],
-        "backgroundColor": "#f87171",
-        "borderRadius": 2,
-        "stack": "r_cross"
-      },
-      {
-        "label": "UNC – Lifetime R",
+        "label": "UNC – Lapsed R",
         "data": [
           0,
           9,
@@ -52,36 +39,49 @@
         ],
         "backgroundColor": "#fca5a5",
         "borderRadius": 2,
-        "stack": "unc"
+        "stack": "unc_r"
       },
       {
-        "label": "UNC – Mixed",
+        "label": "Mixed – Active",
+        "data": [
+          3,
+          27,
+          14,
+          2,
+          0
+        ],
+        "backgroundColor": "#f59e0b",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
         "data": [
           1,
           11,
-          6,
-          7,
-          0
+          8,
+          9,
+          1
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 2,
-        "stack": "unc"
+        "stack": "unc_mid"
       },
       {
-        "label": "UNC – No History",
+        "label": "UNC – No Primary",
         "data": [
           1,
           26,
-          65,
-          65,
-          74
+          63,
+          63,
+          73
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 2,
-        "stack": "unc"
+        "stack": "unc_mid"
       },
       {
-        "label": "UNC – Lifetime D",
+        "label": "UNC – Lapsed D",
         "data": [
           6,
           30,
@@ -91,20 +91,7 @@
         ],
         "backgroundColor": "#93c5fd",
         "borderRadius": 2,
-        "stack": "unc"
-      },
-      {
-        "label": "D – Crossover",
-        "data": [
-          0,
-          5,
-          2,
-          1,
-          0
-        ],
-        "backgroundColor": "#60a5fa",
-        "borderRadius": 2,
-        "stack": "d_cross"
+        "stack": "unc_d"
       },
       {
         "label": "Pure D",

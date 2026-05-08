@@ -38,25 +38,7 @@
         "stack": "r_pure"
       },
       {
-        "label": "R – Crossover",
-        "data": [
-          0,
-          26,
-          593,
-          2848,
-          5383,
-          3690,
-          1980,
-          1225,
-          322,
-          32
-        ],
-        "backgroundColor": "#f87171",
-        "borderRadius": 3,
-        "stack": "r_cross"
-      },
-      {
-        "label": "UNC – Lifetime R",
+        "label": "UNC – Lapsed R",
         "data": [
           1,
           239,
@@ -71,46 +53,64 @@
         ],
         "backgroundColor": "#fca5a5",
         "borderRadius": 3,
-        "stack": "unc"
+        "stack": "unc_r"
       },
       {
-        "label": "UNC – Mixed",
+        "label": "Mixed – Active",
         "data": [
           1,
-          88,
-          852,
-          2509,
-          4395,
-          4879,
-          3830,
-          2676,
-          949,
-          25
+          68,
+          1077,
+          5226,
+          9034,
+          5961,
+          3468,
+          2525,
+          931,
+          54
+        ],
+        "backgroundColor": "#f59e0b",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          1,
+          123,
+          1226,
+          3751,
+          7145,
+          8344,
+          7898,
+          7661,
+          5389,
+          2162
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 3,
-        "stack": "unc"
+        "stack": "unc_mid"
       },
       {
-        "label": "UNC – No History",
+        "label": "UNC – No Primary",
         "data": [
           0,
-          145,
-          1442,
-          5682,
-          16792,
-          28405,
-          37898,
-          62317,
-          93672,
-          62792
+          110,
+          1068,
+          4440,
+          14042,
+          24940,
+          33830,
+          57332,
+          89232,
+          60655
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,
-        "stack": "unc"
+        "stack": "unc_mid"
       },
       {
-        "label": "UNC – Lifetime D",
+        "label": "UNC – Lapsed D",
         "data": [
           1,
           165,
@@ -125,25 +125,7 @@
         ],
         "backgroundColor": "#93c5fd",
         "borderRadius": 3,
-        "stack": "unc"
-      },
-      {
-        "label": "D – Crossover",
-        "data": [
-          1,
-          42,
-          484,
-          2378,
-          3651,
-          2271,
-          1488,
-          1300,
-          609,
-          22
-        ],
-        "backgroundColor": "#60a5fa",
-        "borderRadius": 3,
-        "stack": "d_cross"
+        "stack": "unc_d"
       },
       {
         "label": "Pure D",
