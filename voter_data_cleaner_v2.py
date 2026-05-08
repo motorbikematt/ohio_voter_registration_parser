@@ -1355,23 +1355,21 @@ UNC_SHADOW_LABELS = {
 # 8-cohort partisan-spectrum taxonomy — single source of truth for chart exports.
 COHORT_SLICES = [
     ('PURE_R',         'Pure R',           '#ef4444'),
-    ('CROSSOVER_R',    'R – Crossover',    '#f87171'),
-    ('UNC_LIFETIME_R', 'UNC – Lifetime R', '#fca5a5'),
-    ('UNC_MIXED',      'UNC – Mixed',      '#a78bfa'),
-    ('UNC_NO_HISTORY', 'UNC – No History', '#9ca3af'),
-    ('UNC_LIFETIME_D', 'UNC – Lifetime D', '#93c5fd'),
-    ('CROSSOVER_D',    'D – Crossover',    '#60a5fa'),
+    ('UNC_LAPSED_R',   'UNC – Lapsed R',  '#fca5a5'),
+    ('MIXED_ACTIVE',   'Mixed – Active',   '#f59e0b'),
+    ('MIXED_LAPSED',   'Mixed – Lapsed',   '#a78bfa'),
+    ('UNC_NO_PRIMARY', 'UNC – No Primary', '#9ca3af'),
+    ('UNC_LAPSED_D',   'UNC – Lapsed D',  '#93c5fd'),
     ('PURE_D',         'Pure D',           '#3b82f6'),
 ]
 
 COHORT_STACK_MAP = {
     'PURE_R':         'r_pure',
-    'CROSSOVER_R':    'r_cross',
-    'UNC_LIFETIME_R': 'unc',
-    'UNC_MIXED':      'unc',
-    'UNC_NO_HISTORY': 'unc',
-    'UNC_LIFETIME_D': 'unc',
-    'CROSSOVER_D':    'd_cross',
+    'UNC_LAPSED_R':   'unc_r',
+    'MIXED_ACTIVE':   'unc_mid',
+    'MIXED_LAPSED':   'unc_mid',
+    'UNC_NO_PRIMARY': 'unc_mid',
+    'UNC_LAPSED_D':   'unc_d',
     'PURE_D':         'd_pure',
 }
 
@@ -1423,7 +1421,7 @@ def classify_all_voters_primary_history(
         last_three_party             Utf8     DDD/DD/D/RRR/RR/R/MIX/NONE
         years_since_last_partisan    Float64 nullable
         switch_count                 Int32   adjacent D->R or R->D transitions
-        cohort                       Utf8    PURE_R/PURE_D/R_CROSSOVER/etc.
+        cohort                       Utf8    PURE_R/PURE_D/CROSSOVER_R/CROSSOVER_D/UNC_LAPSED_R/UNC_LAPSED_D/UNC_MIXED/UNC_NO_PRIMARY
         cohort_family                Utf8    rolled-up family
         crossover_class              Utf8 nullable  LOCKED_D/LEAN_D/TRUE_MIXED/...
         is_new_registrant            Boolean  REGISTRATION_DATE >= 2024-01-01
@@ -1456,21 +1454,18 @@ def classify_all_voters_primary_history(
         party = pl.col(party_col).str.strip_chars() if party_col in df.columns else pl.lit('')
         out = out.with_columns(party.alias('_party'))
         cohort_expr = (
-            pl.when(pl.col('_party') == 'R').then(pl.lit('R_NEW'))
-              .when(pl.col('_party') == 'D').then(pl.lit('D_NEW'))
-              .otherwise(pl.lit('UNC_NO_HISTORY'))
+            pl.when(pl.col('_party') == 'R').then(pl.lit('PURE_R'))
+              .when(pl.col('_party') == 'D').then(pl.lit('PURE_D'))
+              .otherwise(pl.lit('UNC_NO_PRIMARY'))
               .alias('cohort')
         )
         out = out.with_columns(cohort_expr).drop('_party')
         family_map = {
-            'PURE_R': 'PURE_R', 'R_NEW': 'PURE_R',
-            'PURE_D': 'PURE_D', 'D_NEW': 'PURE_D',
-            'R_CROSSOVER': 'CROSSOVER_R', 'R_DEFECTOR': 'CROSSOVER_R',
-            'D_CROSSOVER': 'CROSSOVER_D', 'D_DEFECTOR': 'CROSSOVER_D',
-            'UNC_LIFETIME_R': 'UNC_LIFETIME_R',
-            'UNC_LIFETIME_D': 'UNC_LIFETIME_D',
-            'UNC_MIXED':       'UNC_MIXED',
-            'UNC_NO_HISTORY':  'UNC_NO_HISTORY',
+            'PURE_R':         'PURE_R',
+            'PURE_D':         'PURE_D',
+            'UNC_NO_PRIMARY': 'UNC_NO_PRIMARY',
+            'MIXED_ACTIVE':   'MIXED_ACTIVE',
+            'MIXED_LAPSED':   'MIXED_LAPSED',
         }
         out = out.with_columns(
             pl.col('cohort').replace(family_map).alias('cohort_family')
@@ -1660,67 +1655,43 @@ def classify_all_voters_primary_history(
           .alias('last_three_party')
     )
 
-    # -- cohort assignment (top-down, first-match-wins) ---------------------
+    # -- cohort assignment: 6-cohort schema (top-down, first-match-wins) ----
+    # Pure = NEVER opposing primary, ever. Crossovers = Mixed. X-only UNCs = Mixed.
     cohort_expr = (
         pl.when((pl.col('_party') == 'R') & (pl.col('d_primaries') == 0))
           .then(pl.lit('PURE_R'))
         .when((pl.col('_party') == 'D') & (pl.col('r_primaries') == 0))
           .then(pl.lit('PURE_D'))
-        .when((pl.col('_party') == 'R')
-              & (pl.col('d_primaries') >= 1)
-              & (pl.col('r_primaries') >= 1))
-          .then(pl.lit('R_CROSSOVER'))
-        .when((pl.col('_party') == 'D')
-              & (pl.col('d_primaries') >= 1)
-              & (pl.col('r_primaries') >= 1))
-          .then(pl.lit('D_CROSSOVER'))
-        .when((pl.col('_party') == 'R')
-              & (pl.col('d_primaries') >= 1)
-              & (pl.col('r_primaries') == 0))
-          .then(pl.lit('R_DEFECTOR'))
-        .when((pl.col('_party') == 'D')
-              & (pl.col('d_primaries') == 0)
-              & (pl.col('r_primaries') >= 1))
-          .then(pl.lit('D_DEFECTOR'))
-        .when((pl.col('_party') == 'R')
-              & (pl.col('d_primaries') == 0)
-              & (pl.col('r_primaries') == 0))
-          .then(pl.lit('R_NEW'))
-        .when((pl.col('_party') == 'D')
-              & (pl.col('d_primaries') == 0)
-              & (pl.col('r_primaries') == 0))
-          .then(pl.lit('D_NEW'))
-        .when((pl.col('_party') == '')
-              & (pl.col('d_primaries') == 0)
-              & (pl.col('r_primaries') >= 1))
-          .then(pl.lit('UNC_LIFETIME_R'))
-        .when((pl.col('_party') == '')
-              & (pl.col('d_primaries') >= 1)
-              & (pl.col('r_primaries') == 0))
-          .then(pl.lit('UNC_LIFETIME_D'))
-        .when((pl.col('_party') == '')
-              & (pl.col('d_primaries') >= 1)
-              & (pl.col('r_primaries') >= 1))
+        .when((pl.col('_party') == 'R') & (pl.col('d_primaries') >= 1))
+          .then(pl.lit('CROSSOVER_R'))
+        .when((pl.col('_party') == 'D') & (pl.col('r_primaries') >= 1))
+          .then(pl.lit('CROSSOVER_D'))
+        .when((pl.col('_party') == '') & (pl.col('d_primaries') == 0) & (pl.col('r_primaries') >= 1))
+          .then(pl.lit('UNC_LAPSED_R'))
+        .when((pl.col('_party') == '') & (pl.col('r_primaries') == 0) & (pl.col('d_primaries') >= 1))
+          .then(pl.lit('UNC_LAPSED_D'))
+        .when((pl.col('_party') == '') & (pl.col('d_primaries') >= 1) & (pl.col('r_primaries') >= 1))
           .then(pl.lit('UNC_MIXED'))
-        .when((pl.col('_party') == '')
-              & (pl.col('d_primaries') == 0)
-              & (pl.col('r_primaries') == 0))
-          .then(pl.lit('UNC_NO_HISTORY'))
+        .when((pl.col('_party') == '') & (pl.col('x_primaries') >= 1) &
+              (pl.col('d_primaries') == 0) & (pl.col('r_primaries') == 0))
+          .then(pl.lit('UNC_MIXED'))
+        .when((pl.col('_party') == '') & (pl.col('total_primaries') == 0))
+          .then(pl.lit('UNC_NO_PRIMARY'))
         .otherwise(pl.lit('OTHER'))
         .alias('cohort')
     )
     work = work.with_columns(cohort_expr)
 
     family_map = {
-        'PURE_R': 'PURE_R',          'R_NEW': 'PURE_R',
-        'PURE_D': 'PURE_D',          'D_NEW': 'PURE_D',
-        'R_CROSSOVER': 'CROSSOVER_R','R_DEFECTOR': 'CROSSOVER_R',
-        'D_CROSSOVER': 'CROSSOVER_D','D_DEFECTOR': 'CROSSOVER_D',
-        'UNC_LIFETIME_R': 'UNC_LIFETIME_R',
-        'UNC_LIFETIME_D': 'UNC_LIFETIME_D',
-        'UNC_MIXED':       'UNC_MIXED',
-        'UNC_NO_HISTORY':  'UNC_NO_HISTORY',
-        'OTHER':           'OTHER',
+        'PURE_R':         'PURE_R',
+        'PURE_D':         'PURE_D',
+        'CROSSOVER_R':    'MIXED_ACTIVE',  # currently affiliated, opposing history
+        'CROSSOVER_D':    'MIXED_ACTIVE',
+        'UNC_LAPSED_R':   'UNC_LAPSED_R',
+        'UNC_LAPSED_D':   'UNC_LAPSED_D',
+        'UNC_MIXED':      'MIXED_LAPSED',  # UNC with mixed/X primary history
+        'UNC_NO_PRIMARY': 'UNC_NO_PRIMARY',
+        'OTHER':          'OTHER',
     }
     work = work.with_columns(
         pl.col('cohort').replace(family_map).alias('cohort_family')
@@ -1730,7 +1701,7 @@ def classify_all_voters_primary_history(
     # Tightened thresholds for affiliated crossovers (LOCKED 0.5, LEAN 0.3);
     # UNC_MIXED uses 0.4/0.2 (legacy mixed-lean predictor logic).
     crossover_class_expr = (
-        pl.when(~pl.col('cohort').is_in(['R_CROSSOVER', 'D_CROSSOVER', 'UNC_MIXED']))
+        pl.when(~pl.col('cohort').is_in(['CROSSOVER_R', 'CROSSOVER_D', 'UNC_MIXED']))
           .then(pl.lit(None, dtype=pl.Utf8))
         .when(pl.col('cohort') == 'UNC_MIXED')
           .then(
@@ -1810,12 +1781,13 @@ def _unc_classified_from_enriched_df(df: pl.DataFrame) -> 'pl.DataFrame | None':
     if 'cohort_family' not in df.columns:
         return None
 
-    unc_families = ['UNC_LIFETIME_D', 'UNC_LIFETIME_R', 'UNC_MIXED', 'UNC_NO_HISTORY']
+    unc_families = ['UNC_LAPSED_D', 'UNC_LAPSED_R', 'MIXED_ACTIVE', 'MIXED_LAPSED', 'UNC_NO_PRIMARY']
     unc_class_map = {
-        'UNC_LIFETIME_D': 'LIFETIME_D',
-        'UNC_LIFETIME_R': 'LIFETIME_R',
-        'UNC_MIXED':       'MIXED',
-        'UNC_NO_HISTORY':  'NO_HISTORY',
+        'UNC_LAPSED_D':  'LIFETIME_D',
+        'UNC_LAPSED_R':  'LIFETIME_R',
+        'MIXED_ACTIVE':  'MIXED',
+        'MIXED_LAPSED':  'MIXED',
+        'UNC_NO_PRIMARY': 'NO_HISTORY',
     }
     unc = (
         df.filter(pl.col('cohort_family').is_in(unc_families))
@@ -1844,17 +1816,18 @@ def classify_unc_primary_history(
     """
     all_classified = classify_all_voters_primary_history(df, primary_cols, logger)
 
-    unc_families = ['UNC_LIFETIME_D', 'UNC_LIFETIME_R', 'UNC_MIXED', 'UNC_NO_HISTORY']
+    unc_families = ['UNC_LAPSED_D', 'UNC_LAPSED_R', 'MIXED_ACTIVE', 'MIXED_LAPSED', 'UNC_NO_PRIMARY']
     unc = all_classified.filter(pl.col('cohort_family').is_in(unc_families))
 
     unc_class_map = {
-        'UNC_LIFETIME_D': 'LIFETIME_D',
-        'UNC_LIFETIME_R': 'LIFETIME_R',
-        'UNC_MIXED':       'MIXED',
-        'UNC_NO_HISTORY':  'NO_HISTORY',
+        'UNC_LAPSED_D':  'LIFETIME_D',
+        'UNC_LAPSED_R':  'LIFETIME_R',
+        'MIXED_ACTIVE':  'MIXED',
+        'MIXED_LAPSED':  'MIXED',
+        'UNC_NO_PRIMARY': 'NO_HISTORY',
     }
     unc = unc.with_columns(
-        pl.col('cohort').replace(unc_class_map).alias('unc_class')
+        pl.col('cohort_family').replace(unc_class_map).alias('unc_class')
     )
 
     extra_cols = [c for c in ['COUNTY_NUMBER', 'PRECINCT_NAME'] if c in df.columns]
@@ -2034,12 +2007,13 @@ def export_json(
             )
             nm = dict(zip(new_reg_df['cohort_family'].to_list(),
                           new_reg_df['n'].to_list()))
-            new_r = int(nm.get('PURE_R', 0)) + int(nm.get('CROSSOVER_R', 0))
-            new_d = int(nm.get('PURE_D', 0)) + int(nm.get('CROSSOVER_D', 0))
-            new_unc = (int(nm.get('UNC_LIFETIME_R', 0))
-                       + int(nm.get('UNC_LIFETIME_D', 0))
-                       + int(nm.get('UNC_MIXED', 0))
-                       + int(nm.get('UNC_NO_HISTORY', 0)))
+            new_r   = int(nm.get('PURE_R', 0))
+            new_d   = int(nm.get('PURE_D', 0))
+            new_unc = (int(nm.get('UNC_LAPSED_R', 0))
+                       + int(nm.get('UNC_LAPSED_D', 0))
+                       + int(nm.get('MIXED_ACTIVE', 0))
+                       + int(nm.get('MIXED_LAPSED', 0))
+                       + int(nm.get('UNC_NO_PRIMARY', 0)))
             meta_block = {
                 'new_registrants_r':   new_r,
                 'new_registrants_d':   new_d,

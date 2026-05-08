@@ -809,14 +809,11 @@ const ChartDashboard = (() => {
 
   // ── Legend column classifier ────────────────────────────────────────────────────
   // Returns 'd' | 'unc' | 'r' based on cohort label text.
+  // D col: Pure D, UNC-Lapsed D  |  UNC col: Mixed, No Primary  |  R col: Pure R, UNC-Lapsed R
   function _legendColOf(label) {
     var l = (label || '').toLowerCase();
-    if (l.indexOf('pure d')     >= 0 || l.indexOf('d-cross')   >= 0 ||
-        l.indexOf('d cross')    >= 0 || l.indexOf('lifetime-d') >= 0 ||
-        l.indexOf('lifetime d') >= 0) return 'd';
-    if (l.indexOf('pure r')     >= 0 || l.indexOf('r-cross')   >= 0 ||
-        l.indexOf('r cross')    >= 0 || l.indexOf('lifetime-r') >= 0 ||
-        l.indexOf('lifetime r') >= 0) return 'r';
+    if (l.indexOf('pure d')   >= 0 || l.indexOf('lapsed d') >= 0) return 'd';
+    if (l.indexOf('pure r')   >= 0 || l.indexOf('lapsed r') >= 0) return 'r';
     return 'unc';
   }
 
@@ -831,9 +828,9 @@ const ChartDashboard = (() => {
     for (var k = 0; k < values.length; k++) total += (Number(values[k]) || 0);
 
     // Priority sort keys for each column
-    var D_ORD   = ['pure d', 'd-cross', 'd cross', 'lifetime-d', 'lifetime d'];
-    var R_ORD   = ['pure r', 'r-cross', 'r cross', 'lifetime-r', 'lifetime r'];
-    var UNC_ORD = ['mixed', 'no-hist', 'no hist'];
+    var D_ORD   = ['pure d', 'lapsed d'];
+    var R_ORD   = ['pure r', 'lapsed r'];
+    var UNC_ORD = ['mixed – active', 'mixed – lapsed', 'no primary', 'no-primary', 'mixed'];
 
     function _pri(label, ord) {
       var l = (label || '').toLowerCase();
@@ -877,9 +874,9 @@ const ChartDashboard = (() => {
 
     var legend = _el('div', { className: 'chart-custom-legend' });
     legend.dataset.legendFor = id;
-    legend.appendChild(_buildCol('Democratic',   colD));
-    legend.appendChild(_buildCol('Unaffiliated', colUnc));
     legend.appendChild(_buildCol('Republican',   colR));
+    legend.appendChild(_buildCol('Mixed / Unaffiliated', colUnc));
+    legend.appendChild(_buildCol('Democratic',   colD));
     return legend;
   }
 
@@ -939,9 +936,9 @@ const ChartDashboard = (() => {
     lctx.fillRect(0, 0, lw, lh);
 
     var colDefs = [
-      { heading: 'Democratic',   items: colD,   x: PADDING },
-      { heading: 'Unaffiliated', items: colUnc, x: PADDING + COL_W },
-      { heading: 'Republican',   items: colR,   x: PADDING + COL_W * 2 }
+      { heading: 'Republican',   items: colR,   x: PADDING },
+      { heading: 'Mixed / Unaffiliated', items: colUnc, x: PADDING + COL_W },
+      { heading: 'Democratic',   items: colD,   x: PADDING + COL_W * 2 }
     ];
 
     colDefs.forEach(function(col) {
