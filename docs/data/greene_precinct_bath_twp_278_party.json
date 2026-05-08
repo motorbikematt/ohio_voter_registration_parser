@@ -4,33 +4,39 @@
   "precinct": "BATH TWP 278",
   "geography": "precinct-detail",
   "type": "doughnut",
-  "updated": "2026-05-07",
+  "updated": "2026-05-08",
   "chartConfig": {
     "labels": [
-      "REP",
+      "Pure R",
+      "R – Crossover",
       "UNC – Lifetime R",
-      "DEM",
-      "UNC – Lifetime D",
       "UNC – Mixed",
-      "UNC – No History"
+      "UNC – No History",
+      "UNC – Lifetime D",
+      "D – Crossover",
+      "Pure D"
     ],
     "datasets": [
       {
         "data": [
-          113,
+          83,
+          30,
           97,
-          29,
-          80,
           41,
-          352
+          352,
+          80,
+          8,
+          21
         ],
         "backgroundColor": [
           "#ef4444",
           "#f87171",
-          "#3b82f6",
-          "#60a5fa",
+          "#fca5a5",
           "#a78bfa",
-          "#9ca3af"
+          "#9ca3af",
+          "#93c5fd",
+          "#60a5fa",
+          "#3b82f6"
         ],
         "borderWidth": 2,
         "borderColor": "transparent"

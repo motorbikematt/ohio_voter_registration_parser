@@ -734,6 +734,36 @@ const ChartDashboard = (() => {
       return ds.stack !== undefined && ds.stack !== null;
     });
 
+    // Doughnut/pie: suppress tooltip (per print-legibility requirement) and
+    // generate a count + percentage legend so screenshots/prints stay readable.
+    var legendLabels = { color: colors.text, font: { family: 'system-ui, sans-serif', size: 13 } };
+    var radialTooltip = tooltipPlugin;
+    if (isRadial) {
+      radialTooltip = { enabled: false };
+      legendLabels.generateLabels = function(chart) {
+        var ds = (chart.data.datasets && chart.data.datasets[0]) || { data: [], backgroundColor: [] };
+        var values = ds.data || [];
+        var labels = chart.data.labels || [];
+        var total  = 0;
+        for (var k = 0; k < values.length; k++) total += (Number(values[k]) || 0);
+        var bgArr  = Array.isArray(ds.backgroundColor) ? ds.backgroundColor : [];
+        var out    = [];
+        for (var i = 0; i < labels.length; i++) {
+          var n   = Number(values[i]) || 0;
+          var pct = total > 0 ? (n / total * 100).toFixed(1) : '0.0';
+          out.push({
+            text:           labels[i] + ' — ' + n.toLocaleString() + ' (' + pct + '%)',
+            fillStyle:      bgArr[i] || ds.backgroundColor || '#888',
+            strokeStyle:    bgArr[i] || ds.backgroundColor || '#888',
+            lineWidth:      0,
+            hidden:         isNaN(chart.getDatasetMeta(0).data[i] && chart.getDatasetMeta(0).data[i].hidden),
+            index:          i
+          });
+        }
+        return out;
+      };
+    }
+
     instances[id] = new Chart(canvas, {
       type: data.type,
       data: data.chartConfig,
@@ -742,9 +772,9 @@ const ChartDashboard = (() => {
         maintainAspectRatio: true,
         plugins: {
           legend: {
-            labels: { color: colors.text, font: { family: 'system-ui, sans-serif', size: 13 } }
+            labels: legendLabels
           },
-          tooltip: tooltipPlugin
+          tooltip: radialTooltip
         },
         scales: isRadial ? {} : {
           x: {

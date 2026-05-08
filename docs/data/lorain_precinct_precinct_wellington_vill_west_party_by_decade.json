@@ -4,7 +4,7 @@
   "precinct": "PRECINCT WELLINGTON VILL WEST",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-05-07",
+  "updated": "2026-05-08",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -18,52 +18,36 @@
     ],
     "datasets": [
       {
-        "label": "REP",
+        "label": "Pure R",
         "data": [
           0,
-          27,
-          25,
-          24,
-          12,
-          5,
-          9,
+          16,
+          19,
+          14,
+          6,
+          3,
+          8,
           3
         ],
         "backgroundColor": "#ef4444",
         "borderRadius": 3,
-        "stack": "rep"
+        "stack": "r_pure"
       },
       {
-        "label": "DEM",
+        "label": "R – Crossover",
         "data": [
-          4,
-          21,
-          18,
-          15,
-          7,
-          4,
+          0,
+          11,
+          6,
+          10,
+          6,
           2,
-          2
+          1,
+          0
         ],
-        "backgroundColor": "#3b82f6",
+        "backgroundColor": "#f87171",
         "borderRadius": 3,
-        "stack": "dem"
-      },
-      {
-        "label": "UNC – Lifetime D",
-        "data": [
-          3,
-          9,
-          13,
-          19,
-          15,
-          25,
-          15,
-          3
-        ],
-        "backgroundColor": "#60a5fa",
-        "borderRadius": 3,
-        "stack": "unc"
+        "stack": "r_cross"
       },
       {
         "label": "UNC – Lifetime R",
@@ -77,7 +61,7 @@
           7,
           1
         ],
-        "backgroundColor": "#f87171",
+        "backgroundColor": "#fca5a5",
         "borderRadius": 3,
         "stack": "unc"
       },
@@ -112,6 +96,54 @@
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,
         "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          3,
+          9,
+          13,
+          19,
+          15,
+          25,
+          15,
+          3
+        ],
+        "backgroundColor": "#93c5fd",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "D – Crossover",
+        "data": [
+          3,
+          11,
+          10,
+          5,
+          4,
+          1,
+          0,
+          0
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "d_cross"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          1,
+          10,
+          8,
+          10,
+          3,
+          3,
+          2,
+          2
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "d_pure"
       }
     ]
   }

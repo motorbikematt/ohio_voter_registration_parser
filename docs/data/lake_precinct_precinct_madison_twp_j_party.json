@@ -4,33 +4,39 @@
   "precinct": "PRECINCT MADISON TWP J",
   "geography": "precinct-detail",
   "type": "doughnut",
-  "updated": "2026-05-07",
+  "updated": "2026-05-08",
   "chartConfig": {
     "labels": [
-      "REP",
+      "Pure R",
+      "R – Crossover",
       "UNC – Lifetime R",
-      "DEM",
-      "UNC – Lifetime D",
       "UNC – Mixed",
-      "UNC – No History"
+      "UNC – No History",
+      "UNC – Lifetime D",
+      "D – Crossover",
+      "Pure D"
     ],
     "datasets": [
       {
         "data": [
-          115,
+          69,
+          46,
           57,
-          49,
-          97,
           23,
-          339
+          339,
+          97,
+          13,
+          36
         ],
         "backgroundColor": [
           "#ef4444",
           "#f87171",
-          "#3b82f6",
-          "#60a5fa",
+          "#fca5a5",
           "#a78bfa",
-          "#9ca3af"
+          "#9ca3af",
+          "#93c5fd",
+          "#60a5fa",
+          "#3b82f6"
         ],
         "borderWidth": 2,
         "borderColor": "transparent"

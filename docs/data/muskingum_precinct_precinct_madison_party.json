@@ -4,33 +4,39 @@
   "precinct": "PRECINCT MADISON",
   "geography": "precinct-detail",
   "type": "doughnut",
-  "updated": "2026-05-07",
+  "updated": "2026-05-08",
   "chartConfig": {
     "labels": [
-      "REP",
+      "Pure R",
+      "R – Crossover",
       "UNC – Lifetime R",
-      "DEM",
-      "UNC – Lifetime D",
       "UNC – Mixed",
-      "UNC – No History"
+      "UNC – No History",
+      "UNC – Lifetime D",
+      "D – Crossover",
+      "Pure D"
     ],
     "datasets": [
       {
         "data": [
-          66,
+          48,
+          18,
           41,
-          5,
-          36,
           15,
-          135
+          135,
+          36,
+          3,
+          2
         ],
         "backgroundColor": [
           "#ef4444",
           "#f87171",
-          "#3b82f6",
-          "#60a5fa",
+          "#fca5a5",
           "#a78bfa",
-          "#9ca3af"
+          "#9ca3af",
+          "#93c5fd",
+          "#60a5fa",
+          "#3b82f6"
         ],
         "borderWidth": 2,
         "borderColor": "transparent"

@@ -4,33 +4,39 @@
   "precinct": "COLS 47-C",
   "geography": "precinct-detail",
   "type": "doughnut",
-  "updated": "2026-05-07",
+  "updated": "2026-05-08",
   "chartConfig": {
     "labels": [
-      "REP",
+      "Pure R",
+      "R – Crossover",
       "UNC – Lifetime R",
-      "DEM",
-      "UNC – Lifetime D",
       "UNC – Mixed",
-      "UNC – No History"
+      "UNC – No History",
+      "UNC – Lifetime D",
+      "D – Crossover",
+      "Pure D"
     ],
     "datasets": [
       {
         "data": [
-          37,
+          23,
+          14,
           21,
-          108,
-          167,
           18,
-          560
+          560,
+          167,
+          6,
+          102
         ],
         "backgroundColor": [
           "#ef4444",
           "#f87171",
-          "#3b82f6",
-          "#60a5fa",
+          "#fca5a5",
           "#a78bfa",
-          "#9ca3af"
+          "#9ca3af",
+          "#93c5fd",
+          "#60a5fa",
+          "#3b82f6"
         ],
         "borderWidth": 2,
         "borderColor": "transparent"

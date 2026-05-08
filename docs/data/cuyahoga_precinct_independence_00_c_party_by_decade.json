@@ -4,7 +4,7 @@
   "precinct": "INDEPENDENCE-00-C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-05-07",
+  "updated": "2026-05-08",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -19,55 +19,38 @@
     ],
     "datasets": [
       {
-        "label": "REP",
+        "label": "Pure R",
         "data": [
           1,
-          8,
-          52,
-          101,
-          65,
-          36,
-          22,
-          7,
+          5,
+          29,
+          46,
+          39,
+          23,
+          16,
+          6,
           5
         ],
         "backgroundColor": "#ef4444",
         "borderRadius": 3,
-        "stack": "rep"
+        "stack": "r_pure"
       },
       {
-        "label": "DEM",
-        "data": [
-          0,
-          5,
-          21,
-          43,
-          12,
-          13,
-          16,
-          8,
-          4
-        ],
-        "backgroundColor": "#3b82f6",
-        "borderRadius": 3,
-        "stack": "dem"
-      },
-      {
-        "label": "UNC – Lifetime D",
+        "label": "R – Crossover",
         "data": [
           0,
           3,
-          6,
           23,
-          35,
-          32,
-          27,
-          17,
-          2
+          55,
+          26,
+          13,
+          6,
+          1,
+          0
         ],
-        "backgroundColor": "#60a5fa",
+        "backgroundColor": "#f87171",
         "borderRadius": 3,
-        "stack": "unc"
+        "stack": "r_cross"
       },
       {
         "label": "UNC – Lifetime R",
@@ -82,7 +65,7 @@
           20,
           3
         ],
-        "backgroundColor": "#f87171",
+        "backgroundColor": "#fca5a5",
         "borderRadius": 3,
         "stack": "unc"
       },
@@ -119,6 +102,57 @@
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,
         "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          0,
+          3,
+          6,
+          23,
+          35,
+          32,
+          27,
+          17,
+          2
+        ],
+        "backgroundColor": "#93c5fd",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "D – Crossover",
+        "data": [
+          0,
+          2,
+          7,
+          19,
+          7,
+          1,
+          4,
+          3,
+          0
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "d_cross"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          0,
+          3,
+          14,
+          24,
+          5,
+          12,
+          12,
+          5,
+          4
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "d_pure"
       }
     ]
   }

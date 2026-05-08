@@ -3,8 +3,8 @@
   "county": "Adams",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-05-07",
-  "note": "Analysis run 2026-05-07 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-05-08",
+  "note": "Analysis run 2026-05-08 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -15,50 +15,30 @@
     ],
     "datasets": [
       {
-        "label": "REP",
+        "label": "Pure R",
         "data": [
-          500,
-          2466,
-          1728,
-          1088,
-          418
+          383,
+          1846,
+          1296,
+          960,
+          409
         ],
         "backgroundColor": "#ef4444",
         "borderRadius": 2,
-        "stack": "rep"
+        "stack": "r_pure"
       },
       {
-        "label": "DEM",
+        "label": "R – Crossover",
         "data": [
-          80,
-          401,
-          131,
-          64,
-          30
+          117,
+          620,
+          432,
+          128,
+          9
         ],
-        "backgroundColor": "#3b82f6",
+        "backgroundColor": "#f87171",
         "borderRadius": 2,
-        "stack": "dem"
-      },
-      {
-        "label": "Other",
-        "data": [],
-        "backgroundColor": "#f59e0b",
-        "borderRadius": 2,
-        "stack": "other"
-      },
-      {
-        "label": "UNC – Lifetime D",
-        "data": [
-          89,
-          417,
-          328,
-          194,
-          19
-        ],
-        "backgroundColor": "#60a5fa",
-        "borderRadius": 2,
-        "stack": "unc"
+        "stack": "r_cross"
       },
       {
         "label": "UNC – Lifetime R",
@@ -69,7 +49,7 @@
           365,
           66
         ],
-        "backgroundColor": "#f87171",
+        "backgroundColor": "#fca5a5",
         "borderRadius": 2,
         "stack": "unc"
       },
@@ -98,6 +78,45 @@
         "backgroundColor": "#9ca3af",
         "borderRadius": 2,
         "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          89,
+          417,
+          328,
+          194,
+          19
+        ],
+        "backgroundColor": "#93c5fd",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "D – Crossover",
+        "data": [
+          17,
+          111,
+          29,
+          14,
+          1
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 2,
+        "stack": "d_cross"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          63,
+          290,
+          102,
+          50,
+          29
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 2,
+        "stack": "d_pure"
       }
     ]
   }

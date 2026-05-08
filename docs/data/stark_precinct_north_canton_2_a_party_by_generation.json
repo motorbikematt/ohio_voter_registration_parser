@@ -4,7 +4,7 @@
   "precinct": "NORTH CANTON 2-A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-05-07",
+  "updated": "2026-05-08",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -16,56 +16,30 @@
     ],
     "datasets": [
       {
-        "label": "REP",
+        "label": "Pure R",
         "data": [
-          76,
-          190,
-          100,
-          40,
+          59,
+          122,
+          72,
+          31,
           21
         ],
         "backgroundColor": "#ef4444",
         "borderRadius": 2,
-        "stack": "rep"
+        "stack": "r_pure"
       },
       {
-        "label": "DEM",
+        "label": "R – Crossover",
         "data": [
-          62,
-          88,
-          42,
-          24,
-          13
-        ],
-        "backgroundColor": "#3b82f6",
-        "borderRadius": 2,
-        "stack": "dem"
-      },
-      {
-        "label": "Other",
-        "data": [
-          0,
-          0,
-          0,
-          0,
+          17,
+          68,
+          28,
+          9,
           0
         ],
-        "backgroundColor": "#f59e0b",
+        "backgroundColor": "#f87171",
         "borderRadius": 2,
-        "stack": "other"
-      },
-      {
-        "label": "UNC – Lifetime D",
-        "data": [
-          15,
-          27,
-          24,
-          28,
-          5
-        ],
-        "backgroundColor": "#60a5fa",
-        "borderRadius": 2,
-        "stack": "unc"
+        "stack": "r_cross"
       },
       {
         "label": "UNC – Lifetime R",
@@ -76,7 +50,7 @@
           30,
           9
         ],
-        "backgroundColor": "#f87171",
+        "backgroundColor": "#fca5a5",
         "borderRadius": 2,
         "stack": "unc"
       },
@@ -105,6 +79,45 @@
         "backgroundColor": "#9ca3af",
         "borderRadius": 2,
         "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          15,
+          27,
+          24,
+          28,
+          5
+        ],
+        "backgroundColor": "#93c5fd",
+        "borderRadius": 2,
+        "stack": "unc"
+      },
+      {
+        "label": "D – Crossover",
+        "data": [
+          19,
+          37,
+          16,
+          8,
+          0
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 2,
+        "stack": "d_cross"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          43,
+          51,
+          26,
+          16,
+          13
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 2,
+        "stack": "d_pure"
       }
     ]
   }

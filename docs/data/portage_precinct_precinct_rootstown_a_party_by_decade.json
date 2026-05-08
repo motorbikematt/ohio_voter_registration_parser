@@ -4,7 +4,7 @@
   "precinct": "PRECINCT ROOTSTOWN A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-05-07",
+  "updated": "2026-05-08",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -19,55 +19,38 @@
     ],
     "datasets": [
       {
-        "label": "REP",
-        "data": [
-          0,
-          8,
-          50,
-          79,
-          74,
-          51,
-          26,
-          11,
-          9
-        ],
-        "backgroundColor": "#ef4444",
-        "borderRadius": 3,
-        "stack": "rep"
-      },
-      {
-        "label": "DEM",
-        "data": [
-          0,
-          6,
-          41,
-          38,
-          20,
-          14,
-          3,
-          7,
-          2
-        ],
-        "backgroundColor": "#3b82f6",
-        "borderRadius": 3,
-        "stack": "dem"
-      },
-      {
-        "label": "UNC – Lifetime D",
+        "label": "Pure R",
         "data": [
           0,
           4,
-          18,
-          25,
-          32,
-          32,
-          18,
-          18,
-          3
+          17,
+          31,
+          30,
+          23,
+          20,
+          9,
+          8
         ],
-        "backgroundColor": "#60a5fa",
+        "backgroundColor": "#ef4444",
         "borderRadius": 3,
-        "stack": "unc"
+        "stack": "r_pure"
+      },
+      {
+        "label": "R – Crossover",
+        "data": [
+          0,
+          4,
+          33,
+          48,
+          44,
+          28,
+          6,
+          2,
+          1
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "r_cross"
       },
       {
         "label": "UNC – Lifetime R",
@@ -82,7 +65,7 @@
           18,
           1
         ],
-        "backgroundColor": "#f87171",
+        "backgroundColor": "#fca5a5",
         "borderRadius": 3,
         "stack": "unc"
       },
@@ -119,6 +102,57 @@
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,
         "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          0,
+          4,
+          18,
+          25,
+          32,
+          32,
+          18,
+          18,
+          3
+        ],
+        "backgroundColor": "#93c5fd",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "D – Crossover",
+        "data": [
+          0,
+          0,
+          6,
+          2,
+          6,
+          2,
+          0,
+          1,
+          0
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "d_cross"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          0,
+          6,
+          35,
+          36,
+          14,
+          12,
+          3,
+          6,
+          2
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "d_pure"
       }
     ]
   }

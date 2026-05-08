@@ -4,33 +4,39 @@
   "precinct": "FRANKLIN TWP B",
   "geography": "precinct-detail",
   "type": "doughnut",
-  "updated": "2026-05-07",
+  "updated": "2026-05-08",
   "chartConfig": {
     "labels": [
-      "REP",
+      "Pure R",
+      "R – Crossover",
       "UNC – Lifetime R",
-      "DEM",
-      "UNC – Lifetime D",
       "UNC – Mixed",
-      "UNC – No History"
+      "UNC – No History",
+      "UNC – Lifetime D",
+      "D – Crossover",
+      "Pure D"
     ],
     "datasets": [
       {
         "data": [
-          167,
-          90,
-          35,
-          51,
+          136,
           31,
-          301
+          90,
+          31,
+          301,
+          51,
+          5,
+          30
         ],
         "backgroundColor": [
           "#ef4444",
           "#f87171",
-          "#3b82f6",
-          "#60a5fa",
+          "#fca5a5",
           "#a78bfa",
-          "#9ca3af"
+          "#9ca3af",
+          "#93c5fd",
+          "#60a5fa",
+          "#3b82f6"
         ],
         "borderWidth": 2,
         "borderColor": "transparent"
