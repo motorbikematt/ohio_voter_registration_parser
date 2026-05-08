@@ -437,7 +437,12 @@ const ChartDashboard = (() => {
     // If a precinct is already active (deep-link), inject its sections now
     if (activePrecinct) {
       var entry = precincts.find(function(p) { return p.name === activePrecinct; });
-      if (entry) _injectPrecinctSections(entry);
+      if (entry) {
+        _injectPrecinctSections(entry);
+        _filterSections();
+        _renderVisibleSections();
+        _rebuildNav();
+      }
     }
   }
 
