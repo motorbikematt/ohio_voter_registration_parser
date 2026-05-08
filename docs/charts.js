@@ -711,12 +711,18 @@ const ChartDashboard = (() => {
     const colors   = _themeColors();
     const isRadial = data.type === 'pie' || data.type === 'doughnut';
 
-    var tooltipPlugin = { mode: 'index', intersect: false };
+    // Bar charts: mode 'index' groups all datasets at hovered x-position.
+    // Radial charts: mode 'nearest' + intersect:true targets the correct slice.
+    var tooltipPlugin = isRadial
+      ? { mode: 'nearest', intersect: true }
+      : { mode: 'index',   intersect: false };
     if (data.totalUnc) {
       var _total = data.totalUnc;
       tooltipPlugin.callbacks = {
         label: function(ctx) {
-          var n   = ctx.parsed.y || 0;
+          // ctx.parsed is a plain number on doughnut/pie, {x,y} on bar charts
+          var n   = (typeof ctx.parsed === 'object' && ctx.parsed !== null)
+                  ? (ctx.parsed.y || 0) : (Number(ctx.parsed) || 0);
           var pct = _total > 0 ? (n / _total * 100).toFixed(1) : '0.0';
           return ' ' + ctx.dataset.label + ': ' + n.toLocaleString() + ' (' + pct + '% of UNC)';
         }
@@ -734,41 +740,31 @@ const ChartDashboard = (() => {
       return ds.stack !== undefined && ds.stack !== null;
     });
 
-    // Doughnut/pie: suppress tooltip (per print-legibility requirement) and
-    // generate a count + percentage legend so screenshots/prints stay readable.
-    var legendLabels = { color: colors.text, font: { family: 'system-ui, sans-serif', size: 13 } };
+    // Radial charts: restored tooltip showing slice label + count + pct of total.
+    // Built-in Chart.js legend is disabled; custom HTML legend injected below.
     var radialTooltip = tooltipPlugin;
     if (isRadial) {
-      radialTooltip = { enabled: false };
-      legendLabels.generateLabels = function(chart) {
-        // Read theme at draw time so color is always correct on initial render
-        // and after theme toggle — Chart.js 4 re-resolves options during update()
-        // so mutations to chart.options can be lost; enforcing here is the safe path.
-        var tc = _themeColors();
-        chart.options.plugins.legend.labels.color = tc.text;
-        var ds = (chart.data.datasets && chart.data.datasets[0]) || { data: [], backgroundColor: [] };
-        var values = ds.data || [];
-        var labels = chart.data.labels || [];
-        var total  = 0;
-        for (var k = 0; k < values.length; k++) total += (Number(values[k]) || 0);
-        var bgArr  = Array.isArray(ds.backgroundColor) ? ds.backgroundColor : [];
-        var out    = [];
-        for (var i = 0; i < labels.length; i++) {
-          var n   = Number(values[i]) || 0;
-          var pct = total > 0 ? (n / total * 100).toFixed(1) : '0.0';
-          out.push({
-            text:           labels[i] + ' — ' + n.toLocaleString() + ' (' + pct + '%)',
-            fillStyle:      bgArr[i] || ds.backgroundColor || '#888',
-            strokeStyle:    bgArr[i] || ds.backgroundColor || '#888',
-            fontColor:      tc.text,
-            lineWidth:      0,
-            hidden:         !chart.getDatasetMeta(0).data[i] || !!chart.getDatasetMeta(0).data[i].hidden,
-            index:          i
-          });
+      var _rTotal = 0;
+      var _rDs    = (data.chartConfig.datasets && data.chartConfig.datasets[0]) || {};
+      (_rDs.data || []).forEach(function(v) { _rTotal += Number(v) || 0; });
+      radialTooltip = {
+        mode:      'nearest',
+        intersect: true,
+        callbacks: {
+          label: function(ctx) {
+            var n   = (typeof ctx.parsed === 'object' && ctx.parsed !== null)
+                    ? (ctx.parsed.y || 0) : (Number(ctx.parsed) || 0);
+            var pct = _rTotal > 0 ? (n / _rTotal * 100).toFixed(1) : '0.0';
+            return ' ' + ctx.label + ': ' + n.toLocaleString() + ' (' + pct + '%)';
+          }
         }
-        return out;
       };
     }
+
+    // Disable built-in legend for radial charts (custom HTML legend replaces it).
+    var legendOpts = isRadial
+      ? { display: false }
+      : { labels: { color: colors.text, font: { family: 'system-ui, sans-serif', size: 13 } } };
 
     instances[id] = new Chart(canvas, {
       type: data.type,
@@ -777,9 +773,7 @@ const ChartDashboard = (() => {
         responsive:          true,
         maintainAspectRatio: true,
         plugins: {
-          legend: {
-            labels: legendLabels
-          },
+          legend:  legendOpts,
           tooltip: radialTooltip
         },
         scales: isRadial ? {} : {
@@ -797,6 +791,214 @@ const ChartDashboard = (() => {
         }
       }, chartOpts)
     });
+
+    // Inject custom HTML legend + export button for doughnut/pie charts.
+    // appendChild(canvas) moves it out of wrapper into the new flex layout.
+    if (isRadial) {
+      var legendEl    = _renderCustomLegend(data, id, colors);
+      var exportBtn   = _buildExportButton(id, data);
+      var flex        = _el('div', { className: 'chart-legend-flex' });
+      var canvasWrap  = _el('div', { className: 'chart-canvas-holder' });
+      canvasWrap.appendChild(canvas);   // detaches canvas from wrapper, re-attaches here
+      flex.appendChild(legendEl);
+      flex.appendChild(canvasWrap);
+      wrapper.appendChild(flex);
+      wrapper.appendChild(exportBtn);
+    }
+  }
+
+  // ── Legend column classifier ────────────────────────────────────────────────────
+  // Returns 'd' | 'unc' | 'r' based on cohort label text.
+  function _legendColOf(label) {
+    var l = (label || '').toLowerCase();
+    if (l.indexOf('pure d')     >= 0 || l.indexOf('d-cross')   >= 0 ||
+        l.indexOf('d cross')    >= 0 || l.indexOf('lifetime-d') >= 0 ||
+        l.indexOf('lifetime d') >= 0) return 'd';
+    if (l.indexOf('pure r')     >= 0 || l.indexOf('r-cross')   >= 0 ||
+        l.indexOf('r cross')    >= 0 || l.indexOf('lifetime-r') >= 0 ||
+        l.indexOf('lifetime r') >= 0) return 'r';
+    return 'unc';
+  }
+
+  // ── Custom HTML legend (3-column: D | UNC | R) ─────────────────────────────────
+  function _renderCustomLegend(data, id, colors) {
+    var labels = (data.chartConfig && data.chartConfig.labels) || [];
+    var ds     = (data.chartConfig && data.chartConfig.datasets && data.chartConfig.datasets[0]) || {};
+    var values = ds.data  || [];
+    var bgArr  = Array.isArray(ds.backgroundColor) ? ds.backgroundColor : [];
+
+    var total = 0;
+    for (var k = 0; k < values.length; k++) total += (Number(values[k]) || 0);
+
+    // Priority sort keys for each column
+    var D_ORD   = ['pure d', 'd-cross', 'd cross', 'lifetime-d', 'lifetime d'];
+    var R_ORD   = ['pure r', 'r-cross', 'r cross', 'lifetime-r', 'lifetime r'];
+    var UNC_ORD = ['mixed', 'no-hist', 'no hist'];
+
+    function _pri(label, ord) {
+      var l = (label || '').toLowerCase();
+      for (var pi = 0; pi < ord.length; pi++) { if (l.indexOf(ord[pi]) >= 0) return pi; }
+      return 99;
+    }
+
+    var items = labels.map(function(label, i) {
+      var n   = Number(values[i]) || 0;
+      var pct = total > 0 ? (n / total * 100).toFixed(1) : '0.0';
+      return { label: label, color: bgArr[i] || '#888', n: n, pct: pct, col: _legendColOf(label) };
+    });
+
+    function _col(tag, ord) {
+      return items.filter(function(it) { return it.col === tag; })
+                  .sort(function(a, b) { return _pri(a.label, ord) - _pri(b.label, ord); });
+    }
+
+    var colD   = _col('d',   D_ORD);
+    var colUnc = _col('unc', UNC_ORD);
+    var colR   = _col('r',   R_ORD);
+
+    function _buildItem(it) {
+      var row    = _el('div', { className: 'cl-item' });
+      var swatch = _el('span', { className: 'cl-swatch' });
+      swatch.style.background = it.color;
+      var text = _el('span', { className: 'cl-text' });
+      text.textContent = it.label + ' — ' + it.n.toLocaleString() + ' (' + it.pct + '%)';
+      row.appendChild(swatch);
+      row.appendChild(text);
+      return row;
+    }
+
+    function _buildCol(heading, colItems) {
+      var col = _el('div', { className: 'cl-col' });
+      col.appendChild(_el('div', { className: 'cl-heading', textContent: heading }));
+      col.appendChild(_el('div', { className: 'cl-divider' }));
+      colItems.forEach(function(it) { col.appendChild(_buildItem(it)); });
+      return col;
+    }
+
+    var legend = _el('div', { className: 'chart-custom-legend' });
+    legend.dataset.legendFor = id;
+    legend.appendChild(_buildCol('Democratic',   colD));
+    legend.appendChild(_buildCol('Unaffiliated', colUnc));
+    legend.appendChild(_buildCol('Republican',   colR));
+    return legend;
+  }
+
+  // ── Export button ────────────────────────────────────────────────────────────────────────
+  function _buildExportButton(id, data) {
+    var btn = _el('button', { className: 'chart-export-btn', textContent: 'Export Chart' });
+    btn.addEventListener('click', function() { _exportChartWithLegend(id, data); });
+    return btn;
+  }
+
+  // ── PNG composite export (chart canvas + HTML legend rendered to canvas) ─────
+  function _exportChartWithLegend(id, data) {
+    var inst = instances[id];
+    if (!inst) return;
+
+    var chartCanvas = inst.canvas;
+    var dpr         = window.devicePixelRatio || 1;
+    var cw          = chartCanvas.width  / dpr;
+    var ch          = chartCanvas.height / dpr;
+
+    // Build legend data structures
+    var labels = (data.chartConfig && data.chartConfig.labels) || [];
+    var ds     = (data.chartConfig && data.chartConfig.datasets && data.chartConfig.datasets[0]) || {};
+    var values = ds.data || [];
+    var bgArr  = Array.isArray(ds.backgroundColor) ? ds.backgroundColor : [];
+    var total  = 0;
+    values.forEach(function(v) { total += Number(v) || 0; });
+
+    var labelMap = {};
+    labels.forEach(function(lbl, i) {
+      labelMap[lbl] = { color: bgArr[i] || '#888', n: Number(values[i]) || 0 };
+    });
+
+    var colD   = labels.filter(function(l) { return _legendColOf(l) === 'd';   });
+    var colUnc = labels.filter(function(l) { return _legendColOf(l) === 'unc'; });
+    var colR   = labels.filter(function(l) { return _legendColOf(l) === 'r';   });
+
+    // Legend canvas dimensions
+    var PADDING = 20;
+    var ITEM_H  = 28;
+    var COL_W   = 200;
+    var maxRows = Math.max(colD.length, colUnc.length, colR.length);
+    var lw      = COL_W * 3 + PADDING * 2;
+    var lh      = PADDING * 2 + 42 + maxRows * ITEM_H;  // 42 = heading + divider row
+
+    var colors   = _themeColors();
+    var isDark   = document.documentElement.getAttribute('data-theme') === 'dark';
+    var bgColor  = isDark ? '#1e293b' : '#ffffff';
+
+    // Render legend to offscreen canvas
+    var legCanvas   = document.createElement('canvas');
+    legCanvas.width  = lw * dpr;
+    legCanvas.height = lh * dpr;
+    var lctx = legCanvas.getContext('2d');
+    lctx.scale(dpr, dpr);
+    lctx.fillStyle = bgColor;
+    lctx.fillRect(0, 0, lw, lh);
+
+    var colDefs = [
+      { heading: 'Democratic',   items: colD,   x: PADDING },
+      { heading: 'Unaffiliated', items: colUnc, x: PADDING + COL_W },
+      { heading: 'Republican',   items: colR,   x: PADDING + COL_W * 2 }
+    ];
+
+    colDefs.forEach(function(col) {
+      var y = PADDING;
+      lctx.font      = 'bold 12px system-ui, sans-serif';
+      lctx.fillStyle = colors.text;
+      lctx.fillText(col.heading, col.x, y + 12);
+      y += 22;
+
+      lctx.save();
+      lctx.strokeStyle = colors.text;
+      lctx.globalAlpha = 0.25;
+      lctx.beginPath();
+      lctx.moveTo(col.x, y);
+      lctx.lineTo(col.x + COL_W - PADDING, y);
+      lctx.stroke();
+      lctx.restore();
+      y += 12;
+
+      col.items.forEach(function(lbl) {
+        var info = labelMap[lbl] || { color: '#888', n: 0 };
+        var pct  = total > 0 ? (info.n / total * 100).toFixed(1) : '0.0';
+        lctx.fillStyle = info.color;
+        lctx.fillRect(col.x, y + 1, 11, 11);
+        lctx.font      = '11px system-ui, sans-serif';
+        lctx.fillStyle = colors.text;
+        lctx.fillText(lbl + ' — ' + info.n.toLocaleString() + ' (' + pct + '%)', col.x + 16, y + 11);
+        y += ITEM_H;
+      });
+    });
+
+    // Composite: legend left, chart right (mobile: chart top, legend bottom)
+    var isMobile  = window.innerWidth < 768;
+    var fw        = isMobile ? Math.max(cw, lw) : cw + lw;
+    var fh        = isMobile ? ch + lh          : Math.max(ch, lh);
+    var composite = document.createElement('canvas');
+    composite.width  = fw * dpr;
+    composite.height = fh * dpr;
+    var fctx = composite.getContext('2d');
+    fctx.scale(dpr, dpr);
+    fctx.fillStyle = bgColor;
+    fctx.fillRect(0, 0, fw, fh);
+
+    if (isMobile) {
+      fctx.drawImage(chartCanvas, 0,  0,  cw, ch);
+      fctx.drawImage(legCanvas,   0,  ch, lw, lh);
+    } else {
+      fctx.drawImage(legCanvas,   0,  0,  lw, lh);
+      fctx.drawImage(chartCanvas, lw, 0,  cw, ch);
+    }
+
+    var county = (activeCounty || 'unknown').toLowerCase().replace(/ /g, '_');
+    var fname  = county + '_' + id.replace(/[^a-z0-9]/gi, '_') + '_' + Date.now() + '.png';
+    var link   = document.createElement('a');
+    link.download = fname;
+    link.href     = composite.toDataURL('image/png');
+    link.click();
   }
 
   // ── Sortable, paginated table rendering ──────────────────────────────────
