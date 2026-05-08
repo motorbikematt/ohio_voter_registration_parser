@@ -1,182 +1,146 @@
 # CLAUDE.md – Ohio Voter Registration Parser
 
-## ⚠ FILE EDITING PROTOCOL — READ BEFORE TOUCHING ANY FILE
+## File editing protocol — read first
 
-**Check line count first. Always.**
-
-| File length | Required method |
+| File length | Method |
 |---|---|
-| ≤ 150 lines | Edit tool is permitted |
-| > 150 lines | **STOP. Write a Python patch script. No exceptions.** |
+| ≤ 150 lines | Edit tool permitted |
+| > 150 lines | **Python patch script. No exceptions.** |
 
-Truncation has been observed at ~950 lines, not just on multi-thousand-line files. The 150-line threshold is intentionally aggressive: it costs almost nothing to write a Python patch for a small file, and several full repair cycles to recover from a silent truncation in a medium one.
+The Edit tool and bash heredocs both truncate silently — observed at 951 lines and at ~50-line heredoc payloads. A failed write looks identical to a successful one until parsing fails downstream.
 
-### Python patch script template (for files > 150 lines)
+Patch script template:
 
 ```python
-with open('path/to/file.py', encoding='utf-8') as f:
-    src = f.read()
-
-old = """<exact block, < 10 lines, unique in file>"""
-new = """<replacement>"""
-
-assert src.count(old) == 1, f"Expected 1 match, found {src.count(old)}"
-src = src.replace(old, new)
-
-with open('path/to/file.py', 'w', encoding='utf-8') as f:
-    f.write(src)
-
-# Confirm: print only the affected line numbers
-for i, line in enumerate(src.splitlines(), 1):
-    if any(l in line for l in new.splitlines() if l.strip()):
-        print(f"  line {i}: {line[:80]}")
+from pathlib import Path
+p = Path('path/to/file.py')
+src = p.read_text(encoding='utf-8')
+old = "exact unique block, < 10 lines"
+new = "replacement"
+assert src.count(old) == 1, f"Expected 1, found {src.count(old)}"
+p.write_text(src.replace(old, new), encoding='utf-8')
 ```
 
-**Why this rule exists:** The Edit tool silently truncates files mid-edit, corrupting everything after the insertion point. Observed at 951 lines as well as 2,900. Each truncation costs multiple repair cycles and wasted tokens. The Python script approach is immune to this failure mode.
+For payloads > ~50 lines, use `Path.write_text(content)` from inside a Python invocation — never `cat << 'EOF' >> file`.
 
-**No diffs. No exceptions. This rule overrides default behavior.**
-
-### Bash heredoc has the same failure mode
-
-Writing large content via `cat << 'EOF' > file` (or `>>`) also truncates silently — observed cutting off the trailing closing-paren of a multi-hundred-line script. **Do not use heredocs to write or append more than ~50 lines of content.** Use one of:
-
-- `Path('/abs/path').write_text(content)` from within a Python invocation
-- A Python patch script (preferred, per the table above)
-- Multiple short `printf` appends for tiny fixups
-
-A failed heredoc looks identical to a successful one — the file appears written, then later parsing/`node --check`/`python3 -c "compile(...)"` reveals the cut.
-
-### Always validate after a patch
-
-After any patch to a code file, immediately run a parse check before proceeding:
-
+After every patch, validate before proceeding:
 - Python: `python3 -c "import ast; ast.parse(open('path').read())"`
 - JavaScript: `node --check path/to/file.js`
 
-A green parse check is the cheapest way to catch a silent truncation before it cascades into compounding repairs.
-
 ---
 
-## Project Overview
+## Project overview
 
-Data processing pipeline converting raw Ohio voter registration data into actionable intelligence for a Civic Tech startup. Core architecture: bottom-up geospatial aggregation — ingest the complete Statewide Voter File (SWVF) for all 88 counties, parse to the atomic precinct level, roll up into parent jurisdictions (wards, cities, school districts, congressional districts). Primary output: comparative "diff" analytics between subregions and parent geographies. Phase 3+ integrates external datasets (census, property records, USPS) for unregistered resident matching and GIS visualization.
+Bottom-up geospatial pipeline converting raw Ohio SWVF data into precinct → ward → city → district → county aggregates, then diff analytics between subregions and parents. Phase 3+ integrates external datasets (census, property, USPS) for unregistered-resident matching and GIS visualization.
 
-## Data Processing Philosophy
+## Processing principles
 
-- **Memory-Safe Scale**: Bypass Pandas. Use **Polars** or **DuckDB** for out-of-core, vectorized processing across all 88 counties.
-- **Hierarchical Storage**: No flat CSVs. Use **Parquet** (partitioned by county/region) or **GeoParquet** for all intermediate and final layers.
-- **Stakeholder Delivery**: Final aggregated outputs go to `.xlsx` via `xlsxwriter` or `openpyxl`. Never load raw files into Excel.
-- **Preserve Traceability**: All data retains provenance back to Ohio BoE publication timestamps, original column headers, and source URLs.
-- **Zero-Trust Security**: Never commit raw PII or unaggregated voter files to GitHub. Maintain `.gitignore` for `./working/` and `./source/`.
+- **Polars or DuckDB**, not Pandas — out-of-core, vectorized, all 88 counties.
+- **Parquet** (partitioned by county) for all intermediate layers; **GeoParquet** for spatial.
+- **Excel** only for final aggregated stakeholder outputs via `xlsxwriter`/`openpyxl`. Never load raw files into Excel.
+- **Provenance** preserved: BoE timestamps, original headers, source URLs.
+- **Zero-trust security**: never commit raw PII. `.gitignore` covers `./working/` and `./source/`.
 
-## Delivery Architecture
+## Delivery
 
-**Web**: React (Vite) SPA on GitHub Pages. WebGL mapping via Deck.gl or MapLibre for precinct-polygon rendering. Lazy-load county data on demand. Full-screen map + side-panel anomaly feed. Dark/light mode; charts must be screenshot- and print-ready.
+**Web**: SPA on GitHub Pages (`/docs`); WebGL via Deck.gl/MapLibre planned. Lazy-load county data. Charts must be screenshot- and print-ready; dark/light mode.
 
-**Stakeholder (Excel)**: Final aggregated outputs only — never raw files. Use `xlsxwriter` or `openpyxl`. Freeze top rows, bold headers, auto-width columns, apply filters, conditional formatting on anomalies. Output must be print-ready with zero manual formatting.
+**Stakeholder Excel**: Aggregated only. Frozen rows, bold headers, auto-width, filters, conditional formatting on anomalies. Print-ready, zero manual cleanup.
 
-## Phases & Deliverables
+## Phases
 
-- **Phase 1 — Atomic Ingestion** → Parquet: Parse SWVF to precinct level. Core schemas: Party Affiliation, Age/Generation, Registration Status.
-- **Phase 2 — Roll-Up** → Parquet: Aggregate into Wards, Cities, School Districts, Legislative Districts, Counties.
-- **Phase 3 — Diffs** → Diff Engine + GIS: Demographic/registration deltas between any subregion and its parent. Choropleths and heatmaps, statewide → precinct drill-down.
-- **Phase 4 — Dark Data** → Unregistered Resident Matrix: Integrate property records, census blocks, USPS NCOA for probabilistic unregistered-resident matching (GOTV).
-- **Phase 5 — Temporal Tracking** → Anomaly Alert System: Demographic shifts, registration momentum, turnout variation over time. Algorithmic flagging of underperforming demographics, unaffiliated concentrations, confirmation spikes, and bright spots. SaaS delivery to subscribers.
+- **P1 — Atomic Ingestion** ✓ Parse SWVF to precinct.
+- **P2 — Roll-Up** Aggregate into wards, cities, school districts, legislative districts, counties.
+- **P3 — Diffs + GIS** Demographic/registration deltas; choropleth drill-down.
+- **P4 — Dark Data** Property + census + USPS NCOA → unregistered-resident matrix for GOTV.
+- **P5 — Temporal/Anomaly** Shift detection, momentum, turnout variance; SaaS subscriber alerts.
 
-## File Locations
+## File locations
 
-- **Raw source data**: `D:\vibe\election-data (1)\source\`
-- **Working/intermediate files**: `D:\vibe\election-data (1)\`
-- **Final deliverables**: `D:\vibe\election-data (1)\`
+- Raw: `D:\vibe\election-data (1)\source\`
+- Working / final: `D:\vibe\election-data (1)\`
 
-## Data Schema Reference
+## Schema reference
 
-Source: 4 split flat files (`SWVF_1_22.txt`, `SWVF_23_44.txt`, `SWVF_45_66.txt`, `SWVF_67_88.txt`). Pipe-delimited, quoted strings, UTF-8. 46 static columns + 89 dynamic election columns per row.
+Source: 4 split flat files (`SWVF_1_22.txt`, `SWVF_23_44.txt`, `SWVF_45_66.txt`, `SWVF_67_88.txt`). Pipe-delimited, quoted, UTF-8. 46 static cols + 89 dynamic election cols.
 
-**Join key**: `SOS_VOTERID` — statewide unique identifier. `COUNTY_ID` is county-scoped only; do not use as a cross-county join key.
+**Join key**: `SOS_VOTERID` (statewide). `COUNTY_ID` is county-scoped — never use cross-county.
 
-### Identity & Demographics
-| Column | Type | Notes |
-|---|---|---|
-| `SOS_VOTERID` | str | Statewide PK |
-| `COUNTY_NUMBER` | str | 1-88 |
-| `COUNTY_ID` | str | County-scoped, not statewide unique |
-| `LAST_NAME` | str | |
-| `FIRST_NAME` | str | |
-| `MIDDLE_NAME` | str | |
-| `SUFFIX` | str | |
-| `DATE_OF_BIRTH` | date | YYYY-MM-DD |
+### Identity / demographics
+`SOS_VOTERID`, `COUNTY_NUMBER` (1–88), `COUNTY_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `SUFFIX`, `DATE_OF_BIRTH` (YYYY-MM-DD).
 
-### Registration & Status
-| Column | Type | Notes |
-|---|---|---|
-| `REGISTRATION_DATE` | date | YYYY-MM-DD. Never reassigned on name/address change — reliable first-registration proxy for cohort analysis. Reset only on cancellation + reactivation. |
-| `VOTER_STATUS` | enum | ACTIVE or CONFIRMATION only in SWVF. Collapses 6+ internal substatus codes (ACTIVE FPCA, ACTIVE NCOA, BMV/SSA MATCH, CONF NCOA, CONF LIST MAINT, CONF NO VOTE). A CONFIRMATION spike is ambiguous — may reflect NCOA movers, BMV/SSA mismatches, or supplemental-process inactives. Distinguishing requires county-level files. |
-| `PARTY_AFFILIATION` | enum | R, D, or empty string (unaffiliated). Lagged, behavior-derived — not self-declared. Per Ohio EOM Ch.15, determined by which party primary the voter participated in within the past two calendar years. Use election history columns as ground truth for trajectory analysis. |
+### Registration / status
+- `REGISTRATION_DATE` — Never reassigned on name/address change. Reliable first-registration proxy. Resets only on cancellation + reactivation.
+- `VOTER_STATUS` — `ACTIVE` or `CONFIRMATION` only in SWVF; collapses 6+ internal substatus codes (FPCA, NCOA, BMV/SSA MATCH, CONF NCOA, CONF LIST MAINT, CONF NO VOTE). CONFIRMATION spikes are ambiguous in SWVF; subtype distinction requires county files.
+- `PARTY_AFFILIATION` — `R`, `D`, or empty (unaffiliated). Behavior-derived per Ohio EOM Ch.15: which party primary in past 2 calendar years. Use election-history columns as ground truth.
 
-### Residential Address (PII — never commit)
-RESIDENTIAL_ADDRESS1, RESIDENTIAL_SECONDARY_ADDR, RESIDENTIAL_CITY, RESIDENTIAL_STATE, RESIDENTIAL_ZIP, RESIDENTIAL_ZIP_PLUS4, RESIDENTIAL_COUNTRY, RESIDENTIAL_POSTALCODE
+### PII (never commit)
+- Residential: ADDRESS1, SECONDARY_ADDR, CITY, STATE, ZIP, ZIP_PLUS4, COUNTRY, POSTALCODE
+- Mailing: ADDRESS1, SECONDARY_ADDRESS, CITY, STATE, ZIP, ZIP_PLUS4, COUNTRY, POSTAL_CODE
 
-### Mailing Address (PII — never commit)
-MAILING_ADDRESS1, MAILING_SECONDARY_ADDRESS, MAILING_CITY, MAILING_STATE, MAILING_ZIP, MAILING_ZIP_PLUS4, MAILING_COUNTRY, MAILING_POSTAL_CODE
+### Jurisdictional aggregation keys
+`PRECINCT_NAME` (atomic unit, e.g. KETTERING 1-A), `PRECINCT_CODE`, `CONGRESSIONAL_DISTRICT`, `STATE_SENATE_DISTRICT`, `STATE_REPRESENTATIVE_DISTRICT`, `CITY`, `TOWNSHIP`, `VILLAGE`, `WARD`, `LOCAL_SCHOOL_DISTRICT`, `CITY_SCHOOL_DISTRICT`, `EXEMPTED_VILL_SCHOOL_DISTRICT`, `CAREER_CENTER`, `COUNTY_COURT_DISTRICT`, `MUNICIPAL_COURT_DISTRICT`, `COURT_OF_APPEALS`, `STATE_BOARD_OF_EDUCATION`, `EDU_SERVICE_CENTER_DISTRICT`, `LIBRARY`.
 
-### Jurisdictional Assignments (aggregation keys)
-| Column | Notes |
-|---|---|
-| `PRECINCT_NAME` | Human-readable (e.g., KETTERING 1-A) — primary atomic unit |
-| `PRECINCT_CODE` | Internal code (e.g., 01AAI) |
-| `CONGRESSIONAL_DISTRICT` | Federal House district |
-| `STATE_SENATE_DISTRICT` | |
-| `STATE_REPRESENTATIVE_DISTRICT` | |
-| `CITY` | Municipal jurisdiction |
-| `TOWNSHIP` | |
-| `VILLAGE` | |
-| `WARD` | Municipal ward |
-| `LOCAL_SCHOOL_DISTRICT` | |
-| `CITY_SCHOOL_DISTRICT` | |
-| `CAREER_CENTER` | Vocational district |
-| `EXEMPTED_VILL_SCHOOL_DISTRICT` | |
-| `COUNTY_COURT_DISTRICT` | |
-| `MUNICIPAL_COURT_DISTRICT` | |
-| `COURT_OF_APPEALS` | |
-| `STATE_BOARD_OF_EDUCATION` | |
-| `EDU_SERVICE_CENTER_DISTRICT` | |
-| `LIBRARY` | |
+### Election history (89 dynamic cols)
+Format `[TYPE]-[MM/DD/YYYY]`, TYPE ∈ {PRIMARY, GENERAL, SPECIAL}. Range 03/07/2000 → 02/03/2026. Values: `R`/`D` (party primary ballot), `X` (non-partisan), empty (didn't vote). 2 calendar years of blanks → supplemental list maintenance → CONFIRMATION. High CONFIRMATION + sparse recent history = anomaly signal (Ohio EOM Ch.4). No `_TYPE` suffixes (absentee/Eday) in SWVF — county files only.
 
-### Election History Columns (dynamic, 89 total)
-Format: [TYPE]-[MM/DD/YYYY] where TYPE is PRIMARY, GENERAL, or SPECIAL.
-Range: PRIMARY-03/07/2000 to SPECIAL-02/03/2026.
-Values: R or D (party ballot in primary), X (non-partisan participation), empty string (did not participate).
-No _TYPE suffix columns (absentee/Eday) — those exist in county-level files only.
-Ground truth for party affiliation trajectory and engagement modeling. Two calendar years of blanks triggers supplemental list-maintenance, placing voters in CONFIRMATION status. High CONFIRMATION density + sparse recent history = concrete anomaly signal (Ohio EOM Ch.4).
+### Not in SWVF
+- Last Activity Type (VOT/ABR/REG/UPD/BMV/PET/CON) — must infer from election history.
+- Ballot method (`_TYPE` cols) — Absentee/Eday/Provisional.
+- CONFIRMATION subtype.
 
-### Missing Fields (county files only, not in SWVF)
-- Last Activity Type (LAT): VOT, ABR, REG, UPD, BMV, PET, CON — drives list maintenance and CONFIRMATION transitions. Must be inferred from election history columns.
-- Ballot method (_TYPE columns): Absentee / Election Day / Provisional.
-- CONFIRMATION subtype: NCOA vs. supplemental vs. BMV mismatch.
+### External (P3+)
+Precinct canvass: https://www.ohiosos.gov/elections/election-results-and-data/
 
-### External Data Sources (Phase 3+)
-Precinct-level official canvass results published by Ohio SoS after each even-year election:
-https://www.ohiosos.gov/elections/election-results-and-data/
+### Error policy
+Log malformed rows to `./working/errors/[county].log` and continue. Never halt on parse error.
 
-### Error Policy
-On malformed rows: log to ./working/errors/[county].log and continue. Do not halt on parse errors.
+## Project state
 
-## Known Project State
-
-- **Current phase**: Phase 1 complete — pipeline built; Parquet cache operational (88 partitions)
-- **Processed**: Parquet cache built from all 4 SWVF source files; 7,892,613 rows × 135 columns
+- **Phase 1 complete**. Parquet cache: 88 partitions, 7,892,613 rows × 135 cols.
 - **Active scripts**:
   - `ohio_voter_pipeline.py` — menu driver
-  - `voter_data_cleaner_v2.py` — core engine; includes `classify_all_voters_primary_history()` universal cohort classifier; `clean_voter_data()` auto-attaches 15 cohort columns to every row
-  - `precinct_unc_export.py` — precinct-level cohort counts (pure_d/r, crossover, unc_lifetime, new_registrants per precinct)
-  - `precinct_party_export.py` — interactive 8-tab partisan-spectrum Excel workbook by county or precinct
-  - `export_unc_targets.py` — cohort-segmented targeting CSVs: Pure_D/, Pure_R/, D_Crossover/, R_Crossover/, All_Affiliated_D/, All_Affiliated_R/, plus all existing UNC subdirs
-- **Dashboard**: GitHub Pages at `docs/` — county + precinct + city scope tabs; manifest-driven; Chart.js
-- **Dashboard JSON status**: STALE — `docs/data/` was built with the old 6-slice REP/DEM/UNC schema. Must run full statewide build (pipeline option 1 or 2) to regenerate with 8-cohort taxonomy. Dashboard JS also needs updating to consume new cohort labels (separate session).
-- **Cohort taxonomy** (2026-05-07): 12 cohorts → 8 cohort_family values. PURE_R/D = registered party + zero crossover primary history. CROSSOVER_R/D = registered party + mixed history (decay-weighted lean score, tightened thresholds: LOCKED ±0.50, LEAN ±0.30). UNC subclasses unchanged. `classify_unc_primary_history()` is now a wrapper over the universal function — do not delete until all callers migrated.
-- **Next milestone**: Full statewide JSON build → dashboard JS update to render 8-cohort doughnut
+  - `voter_data_cleaner_v2.py` — core engine (~3,650 lines). Module-level `COHORT_SLICES` + `COHORT_STACK_MAP`. `classify_all_voters_primary_history()` universal classifier; `clean_voter_data()` auto-attaches 15 cohort columns; `export_json()` + `export_precinct_charts()` write all 6 chart types.
+  - `precinct_unc_export.py` — per-precinct cohort counts (pure_d/r, crossover, unc_lifetime, new_registrants).
+  - `precinct_party_export.py` — interactive 8-tab partisan-spectrum xlsx by county/precinct.
+  - `export_unc_targets.py` — cohort-segmented targeting CSVs.
+- **Dashboard**: GitHub Pages `/docs` — county + precinct scope, manifest-driven, Chart.js. Live: https://motorbikematt.github.io/ohio_voter_registration_parser/
+  - Deep-link: `?county=Montgomery&geo=precinct-detail&precinct=DAYTON+8-B#decade-distribution`
+  - 2026-05-07: deep-link bug fixed — `_populatePrecinctDropdown` in `docs/charts.js` now calls `_filterSections` + `_renderVisibleSections` + `_rebuildNav` after injecting precinct sections.
+- **Dashboard JSON status**: STALE. All 4 stacked-bar chart blocks (county + precinct, decade + generation) were rewritten 2026-05-08 to pivot on `cohort_family`. Doughnut got tooltip suppression + count/pct legend. Run pipeline option 1 or 2 to regenerate `docs/data/`, then commit + push.
+- **Cohort taxonomy** (2026-05-07): 12 cohorts → 8 `cohort_family` values. PURE_R/D = registered + zero crossover history. CROSSOVER_R/D = registered + mixed history (decay-weighted lean: LOCKED ±0.50, LEAN ±0.30). UNC subclasses unchanged. `classify_unc_primary_history()` is now a wrapper — kept until all callers migrated.
+
+## Chart consistency contract
+
+All geographies (precinct, county, ward, city, district) render the same 6 charts with identical labels, colors, and ordering:
+
+| Chart | Type | Series |
+|---|---|---|
+| Party Affiliation | doughnut | 8-cohort `COHORT_SLICES`: Pure R → R-Crossover → UNC-Lifetime-R → UNC-Mixed → UNC-No-History → UNC-Lifetime-D → D-Crossover → Pure D |
+| Age by Decade | bar | Decade (1920s–2010s) |
+| Age by Generation | bar | Pew boundaries |
+| Party × Decade | stacked bar | 8-cohort stacks per decade (stack ids: `r_pure`, `r_cross`, `unc`, `d_cross`, `d_pure`) |
+| Party × Generation | stacked bar | 8-cohort stacks per generation (same stack ids) |
+| UNC Shadow | stacked bar | LIFETIME_R / LIFETIME_D / MIXED / NO_HISTORY |
+
+Doughnut tooltips are disabled and the legend renders `"<Cohort> — <count> (<pct>%)"` with thousands separators for screenshot/print legibility. Bar tooltips remain enabled.
+
+`COHORT_SLICES` and `COHORT_STACK_MAP` are module-level in `voter_data_cleaner_v2.py` near `UNC_SHADOW_COLORS` — single source of truth.
+
+## Pipeline architecture
+
+- `ThreadPoolExecutor` `max_workers=8` — shared address space, no IPC, no WinError 1450.
+- `orjson` for JSON (GIL-releasing, ~3–5× stdlib). Falls back to stdlib if missing.
+- `psutil` RSS logging in every `_timer` exit. Peak RSS ~45 GB during Excel pass (two 7.9M-row frames).
+- Pre-classification: `classify_all_voters_primary_history()` runs once in main process; workers receive enriched slices with `cohort_family` attached. `_unc_classified_from_enriched_df()` fast path skips redundant decay math.
+- Install: `.venv\Scripts\pip install orjson psutil`
+
+## Git
+
+- `.git/index.lock` from failed sandbox git ops: `Remove-Item "D:\vibe\election-data (1)\.git\index.lock" -Force`, then commit from PowerShell or VS Code.
+- GitHub Pages: `/docs` on `main`. Actions build ~40s.
+- Pending cleanup: `git rm --cached` for `GEMINI.md`, old `voter_data_cleaner.py` (v1), two stray `.png` files.
 
 ---
 
-*Last updated: 2026-05-07*
+*Last updated: 2026-05-08*

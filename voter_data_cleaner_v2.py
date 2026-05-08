@@ -1352,6 +1352,29 @@ UNC_SHADOW_LABELS = {
     'NO_HISTORY':  'No Primary History',
 }
 
+# 8-cohort partisan-spectrum taxonomy — single source of truth for chart exports.
+COHORT_SLICES = [
+    ('PURE_R',         'Pure R',           '#ef4444'),
+    ('CROSSOVER_R',    'R – Crossover',    '#f87171'),
+    ('UNC_LIFETIME_R', 'UNC – Lifetime R', '#fca5a5'),
+    ('UNC_MIXED',      'UNC – Mixed',      '#a78bfa'),
+    ('UNC_NO_HISTORY', 'UNC – No History', '#9ca3af'),
+    ('UNC_LIFETIME_D', 'UNC – Lifetime D', '#93c5fd'),
+    ('CROSSOVER_D',    'D – Crossover',    '#60a5fa'),
+    ('PURE_D',         'Pure D',           '#3b82f6'),
+]
+
+COHORT_STACK_MAP = {
+    'PURE_R':         'r_pure',
+    'CROSSOVER_R':    'r_cross',
+    'UNC_LIFETIME_R': 'unc',
+    'UNC_MIXED':      'unc',
+    'UNC_NO_HISTORY': 'unc',
+    'UNC_LIFETIME_D': 'unc',
+    'CROSSOVER_D':    'd_cross',
+    'PURE_D':         'd_pure',
+}
+
 UNC_SHADOW_NOTE = (
     'Shadow partisanship inferred from primary ballot history only. '
     'Ohio uses an open primary: voters may cross party lines in any election. '
@@ -1989,17 +2012,7 @@ def export_json(
     # ── Party affiliation (doughnut chart) ────────────────────────────────────
     # 8-slice partisan-spectrum layout based on cohort_family.  Falls back to
     # the legacy PARTY_LABEL doughnut when the universal classifier output is
-    # not present (e.g. legacy callers passing in unenriched frames).
-    COHORT_SLICES = [
-        ('PURE_R',         'Pure R',           '#ef4444'),
-        ('CROSSOVER_R',    'R – Crossover',    '#f87171'),
-        ('UNC_LIFETIME_R', 'UNC – Lifetime R', '#fca5a5'),
-        ('UNC_MIXED',      'UNC – Mixed',      '#a78bfa'),
-        ('UNC_NO_HISTORY', 'UNC – No History', '#9ca3af'),
-        ('UNC_LIFETIME_D', 'UNC – Lifetime D', '#93c5fd'),
-        ('CROSSOVER_D',    'D – Crossover',    '#60a5fa'),
-        ('PURE_D',         'Pure D',           '#3b82f6'),
-    ]
+    # not present.  COHORT_SLICES + COHORT_STACK_MAP are module-level constants.
     meta_block: dict | None = None
     if 'cohort_family' in df.columns:
         cohort_counts_df = (
@@ -2095,67 +2108,92 @@ def export_json(
         party_payload['meta'] = meta_block
     _dump_json(party_payload, DATA_DIR / f'{slug}_party_affiliation.json', logger)
 
-    # ── Party × Decade (grouped bar chart) ────────────────────────────────────
-    # Build base cross-tab excluding UNC; then append shadow-split UNC datasets.
-    cross = (
-        df.group_by(['Decade', 'PARTY_LABEL'])
-          .agg(pl.len().alias('count'))
-          .pivot(on='PARTY_LABEL', index='Decade', values='count', aggregate_function='sum')
-          .sort('Decade')
-    )
-    decade_labels = [f'{d}s' for d in cross['Decade'].to_list()]
-    datasets      = []
-    # REP and DEM each get a unique stack so they render as standalone bars.
-    # All UNC segments share stack 'unc' so they pile into one stacked column.
-    for party, stack_id in [('REP', 'rep'), ('DEM', 'dem'), ('Other', 'other')]:
-        if party not in cross.columns:
-            continue
-        datasets.append({
-            'label':           party,
-            'data':            [v or 0 for v in cross[party].to_list()],
-            'backgroundColor': CHART_COLORS.get(party, '#6366f1'),
-            'borderRadius':    3,
-            'stack':           stack_id,
-        })
-    # UNC: split by shadow classification if available, all sharing stack 'unc'
-    if unc_classified is not None and not unc_classified.is_empty():
-        unc_decade = (
-            unc_classified
-            .join(df.select(['SOS_VOTERID', 'Decade']), on='SOS_VOTERID', how='left')
-            .group_by(['Decade', 'unc_class'])
-            .agg(pl.len().alias('n'))
-            .pivot(on='unc_class', index='Decade', values='n', aggregate_function='sum')
-            .sort('Decade')
+    # ── Party × Decade (stacked bar chart) ────────────────────────────────────
+    # Pivot on cohort_family so labels/colors/order match the doughnut.
+    # Falls back to the legacy PARTY_LABEL+unc_classified shape only if
+    # cohort_family is not present on df (unenriched callers).
+    if 'cohort_family' in df.columns:
+        cross = (
+            df.filter(pl.col('Decade').is_not_null())
+              .group_by(['Decade', 'cohort_family'])
+              .agg(pl.len().alias('n'))
+              .pivot(on='cohort_family', index='Decade',
+                     values='n', aggregate_function='sum')
+              .sort('Decade')
         )
-        decade_vals = cross['Decade'].to_list()
-        for cls, label, color in [
-            ('LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
-            ('LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
-            ('MIXED',      'UNC – Mixed',       UNC_SHADOW_COLORS['MIXED']),
-            ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
-        ]:
-            if cls in unc_decade.columns:
-                dmap = dict(zip(unc_decade['Decade'].to_list(),
-                                unc_decade[cls].to_list()))
-                vals = [int(dmap.get(d, 0) or 0) for d in decade_vals]
+        decade_labels = [f'{d}s' for d in cross['Decade'].to_list()]
+        decade_vals   = cross['Decade'].to_list()
+        datasets      = []
+        for fam, lbl, color in COHORT_SLICES:
+            if fam in cross.columns:
+                vals = [int(v or 0) for v in cross[fam].to_list()]
             else:
                 vals = [0] * len(decade_vals)
             datasets.append({
-                'label':           label,
+                'label':           lbl,
                 'data':            vals,
                 'backgroundColor': color,
                 'borderRadius':    3,
-                'stack':           'unc',
+                'stack':           COHORT_STACK_MAP[fam],
             })
     else:
-        if 'UNC' in cross.columns:
+        # Legacy fallback — original PARTY_LABEL pivot + unc_classified split.
+        cross = (
+            df.group_by(['Decade', 'PARTY_LABEL'])
+              .agg(pl.len().alias('count'))
+              .pivot(on='PARTY_LABEL', index='Decade', values='count', aggregate_function='sum')
+              .sort('Decade')
+        )
+        decade_labels = [f'{d}s' for d in cross['Decade'].to_list()]
+        datasets      = []
+        for party, stack_id in [('REP', 'rep'), ('DEM', 'dem'), ('Other', 'other')]:
+            if party not in cross.columns:
+                continue
             datasets.append({
-                'label':           'UNC',
-                'data':            [v or 0 for v in cross['UNC'].to_list()],
-                'backgroundColor': CHART_COLORS['UNC'],
+                'label':           party,
+                'data':            [v or 0 for v in cross[party].to_list()],
+                'backgroundColor': CHART_COLORS.get(party, '#6366f1'),
                 'borderRadius':    3,
-                'stack':           'unc',
+                'stack':           stack_id,
             })
+        if unc_classified is not None and not unc_classified.is_empty():
+            unc_decade = (
+                unc_classified
+                .join(df.select(['SOS_VOTERID', 'Decade']), on='SOS_VOTERID', how='left')
+                .group_by(['Decade', 'unc_class'])
+                .agg(pl.len().alias('n'))
+                .pivot(on='unc_class', index='Decade', values='n', aggregate_function='sum')
+                .sort('Decade')
+            )
+            decade_vals = cross['Decade'].to_list()
+            for cls, label, color in [
+                ('LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+                ('LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+                ('MIXED',      'UNC – Mixed',       UNC_SHADOW_COLORS['MIXED']),
+                ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
+            ]:
+                if cls in unc_decade.columns:
+                    dmap = dict(zip(unc_decade['Decade'].to_list(),
+                                    unc_decade[cls].to_list()))
+                    vals = [int(dmap.get(d, 0) or 0) for d in decade_vals]
+                else:
+                    vals = [0] * len(decade_vals)
+                datasets.append({
+                    'label':           label,
+                    'data':            vals,
+                    'backgroundColor': color,
+                    'borderRadius':    3,
+                    'stack':           'unc',
+                })
+        else:
+            if 'UNC' in cross.columns:
+                datasets.append({
+                    'label':           'UNC',
+                    'data':            [v or 0 for v in cross['UNC'].to_list()],
+                    'backgroundColor': CHART_COLORS['UNC'],
+                    'borderRadius':    3,
+                    'stack':           'unc',
+                })
     _dump_json({
         'title':     'Party Affiliation by Birth Decade',
         'county':    county_name,
@@ -2189,70 +2227,102 @@ def export_json(
         },
     }, DATA_DIR / f'{slug}_generation_distribution.json', logger)
 
-    # ── Party × Generation (grouped bar chart) ────────────────────────────────
-    gen_cross = (
-        df.group_by(['Generation', 'PARTY_LABEL'])
-          .agg(pl.len().alias('count'))
-          .pivot(on='PARTY_LABEL', index='Generation',
-                 values='count', aggregate_function='sum')
-    )
-    order_df = pl.DataFrame({'Generation': _GEN_ORDER,
-                             '_sort': list(range(len(_GEN_ORDER)))})
-    gen_cross = (
-        gen_cross.join(order_df, on='Generation', how='left')
-                 .sort('_sort')
-                 .drop('_sort')
-    )
-    gen_labels   = gen_cross['Generation'].to_list()
-    gen_datasets = []
-    for party, stack_id in [('REP', 'rep'), ('DEM', 'dem'), ('Other', 'other')]:
-        color = CHART_COLORS.get(party, '#888888')
-        gen_datasets.append({
-            'label':           party,
-            'data':            gen_cross[party].fill_null(0).to_list() if party in gen_cross.columns else [],
-            'backgroundColor': color,
-            'borderRadius':    2,
-            'stack':           stack_id,
-        })
-    if unc_classified is not None and not unc_classified.is_empty():
-        unc_gen = (
-            unc_classified
-            .join(df.select(['SOS_VOTERID', 'Generation']), on='SOS_VOTERID', how='left')
-            .group_by(['Generation', 'unc_class'])
-            .agg(pl.len().alias('n'))
-            .pivot(on='unc_class', index='Generation', values='n', aggregate_function='sum')
+    # ── Party × Generation (stacked bar chart) ────────────────────────────────
+    # Pivot on cohort_family so labels/colors/order match the doughnut.
+    if 'cohort_family' in df.columns:
+        gen_cross = (
+            df.filter(pl.col('Generation').is_not_null())
+              .group_by(['Generation', 'cohort_family'])
+              .agg(pl.len().alias('n'))
+              .pivot(on='cohort_family', index='Generation',
+                     values='n', aggregate_function='sum')
         )
-        sort_df = pl.DataFrame({'Generation': _GEN_ORDER, '_sort': list(range(len(_GEN_ORDER)))})
-        unc_gen = (
-            unc_gen.join(sort_df, on='Generation', how='left').sort('_sort').drop('_sort')
+        order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                                 '_sort': list(range(len(_GEN_ORDER)))})
+        gen_cross = (
+            gen_cross.join(order_df, on='Generation', how='left')
+                     .sort('_sort')
+                     .drop('_sort')
         )
-        for cls, label, color in [
-            ('LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
-            ('LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
-            ('MIXED',      'UNC – Mixed',       UNC_SHADOW_COLORS['MIXED']),
-            ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
-        ]:
-            if cls in unc_gen.columns:
-                gmap  = dict(zip(unc_gen['Generation'].to_list(), unc_gen[cls].to_list()))
-                vals  = [int(gmap.get(g, 0) or 0) for g in gen_labels]
+        gen_labels   = gen_cross['Generation'].to_list()
+        gen_datasets = []
+        for fam, lbl, color in COHORT_SLICES:
+            if fam in gen_cross.columns:
+                vals = [int(v or 0) for v in gen_cross[fam].fill_null(0).to_list()]
             else:
                 vals = [0] * len(gen_labels)
             gen_datasets.append({
-                'label':           label,
+                'label':           lbl,
                 'data':            vals,
+                'backgroundColor': color,
+                'borderRadius':    2,
+                'stack':           COHORT_STACK_MAP[fam],
+            })
+    else:
+        # Legacy fallback — original PARTY_LABEL pivot + unc_classified split.
+        gen_cross = (
+            df.group_by(['Generation', 'PARTY_LABEL'])
+              .agg(pl.len().alias('count'))
+              .pivot(on='PARTY_LABEL', index='Generation',
+                     values='count', aggregate_function='sum')
+        )
+        order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                                 '_sort': list(range(len(_GEN_ORDER)))})
+        gen_cross = (
+            gen_cross.join(order_df, on='Generation', how='left')
+                     .sort('_sort')
+                     .drop('_sort')
+        )
+        gen_labels   = gen_cross['Generation'].to_list()
+        gen_datasets = []
+        for party, stack_id in [('REP', 'rep'), ('DEM', 'dem'), ('Other', 'other')]:
+            color = CHART_COLORS.get(party, '#888888')
+            gen_datasets.append({
+                'label':           party,
+                'data':            gen_cross[party].fill_null(0).to_list() if party in gen_cross.columns else [],
+                'backgroundColor': color,
+                'borderRadius':    2,
+                'stack':           stack_id,
+            })
+        if unc_classified is not None and not unc_classified.is_empty():
+            unc_gen = (
+                unc_classified
+                .join(df.select(['SOS_VOTERID', 'Generation']), on='SOS_VOTERID', how='left')
+                .group_by(['Generation', 'unc_class'])
+                .agg(pl.len().alias('n'))
+                .pivot(on='unc_class', index='Generation', values='n', aggregate_function='sum')
+            )
+            sort_df = pl.DataFrame({'Generation': _GEN_ORDER, '_sort': list(range(len(_GEN_ORDER)))})
+            unc_gen = (
+                unc_gen.join(sort_df, on='Generation', how='left').sort('_sort').drop('_sort')
+            )
+            for cls, label, color in [
+                ('LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+                ('LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+                ('MIXED',      'UNC – Mixed',       UNC_SHADOW_COLORS['MIXED']),
+                ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
+            ]:
+                if cls in unc_gen.columns:
+                    gmap  = dict(zip(unc_gen['Generation'].to_list(), unc_gen[cls].to_list()))
+                    vals  = [int(gmap.get(g, 0) or 0) for g in gen_labels]
+                else:
+                    vals = [0] * len(gen_labels)
+                gen_datasets.append({
+                    'label':           label,
+                    'data':            vals,
+                    'backgroundColor': color,
+                    'borderRadius':    2,
+                    'stack':           'unc',
+                })
+        else:
+            color = CHART_COLORS.get('UNC', '#888888')
+            gen_datasets.append({
+                'label':           'UNC',
+                'data':            gen_cross['UNC'].fill_null(0).to_list() if 'UNC' in gen_cross.columns else [],
                 'backgroundColor': color,
                 'borderRadius':    2,
                 'stack':           'unc',
             })
-    else:
-        color = CHART_COLORS.get('UNC', '#888888')
-        gen_datasets.append({
-            'label':           'UNC',
-            'data':            gen_cross['UNC'].fill_null(0).to_list() if 'UNC' in gen_cross.columns else [],
-            'backgroundColor': color,
-            'borderRadius':    2,
-            'stack':           'unc',
-        })
     _dump_json({
         'title':     'Party Affiliation by Generation',
         'county':    county_name,
@@ -2537,9 +2607,50 @@ def export_precinct_charts(
                 }, DATA_DIR / f'{slug}_precinct_{safe_name}_generation.json', logger)
                 generation_url = f'data/{slug}_precinct_{safe_name}_generation.json'
 
-        # ── Party × Decade (grouped/stacked bar) ──────────────────────────────
+        # ── Party × Decade (stacked bar) ──────────────────────────────────────
+        # Pivot on cohort_family so labels/colors match the doughnut. Falls back
+        # to PARTY_LABEL pivot only if cohort_family is missing on pdf.
         party_decade_url = None
-        if 'Decade' in pdf.columns and 'PARTY_LABEL' in pdf.columns:
+        if 'Decade' in pdf.columns and 'cohort_family' in pdf.columns:
+            p_cross = (
+                pdf.filter(pl.col('Decade').is_not_null())
+                   .group_by(['Decade', 'cohort_family'])
+                   .agg(pl.len().alias('n'))
+                   .pivot(on='cohort_family', index='Decade',
+                          values='n', aggregate_function='sum')
+                   .sort('Decade')
+            )
+            if not p_cross.is_empty():
+                p_decade_labels = [f'{d}s' for d in p_cross['Decade'].to_list()]
+                p_decade_vals   = p_cross['Decade'].to_list()
+                p_datasets = []
+                for fam, lbl, color in COHORT_SLICES:
+                    if fam in p_cross.columns:
+                        vals = [int(v or 0) for v in p_cross[fam].to_list()]
+                    else:
+                        vals = [0] * len(p_decade_vals)
+                    p_datasets.append({
+                        'label':           lbl,
+                        'data':            vals,
+                        'backgroundColor': color,
+                        'borderRadius':    3,
+                        'stack':           COHORT_STACK_MAP[fam],
+                    })
+                _dump_json({
+                    'title':     f'Party Affiliation by Birth Decade — {precinct_name}',
+                    'county':    county_name,
+                    'precinct':  precinct_name,
+                    'geography': 'precinct-detail',
+                    'type':      'bar',
+                    'updated':   today,
+                    'chartConfig': {
+                        'labels':   p_decade_labels,
+                        'datasets': p_datasets,
+                    },
+                }, DATA_DIR / f'{slug}_precinct_{safe_name}_party_by_decade.json', logger)
+                party_decade_url = f'data/{slug}_precinct_{safe_name}_party_by_decade.json'
+        elif 'Decade' in pdf.columns and 'PARTY_LABEL' in pdf.columns:
+            # Legacy fallback path — original PARTY_LABEL + unc_classified shape.
             p_cross = (
                 pdf.filter(pl.col('Decade').is_not_null())
                    .group_by(['Decade', 'PARTY_LABEL'])
@@ -2619,9 +2730,56 @@ def export_precinct_charts(
                 }, DATA_DIR / f'{slug}_precinct_{safe_name}_party_by_decade.json', logger)
                 party_decade_url = f'data/{slug}_precinct_{safe_name}_party_by_decade.json'
 
-        # ── Party × Generation (grouped/stacked bar) ──────────────────────────
+        # ── Party × Generation (stacked bar) ──────────────────────────────────
+        # Pivot on cohort_family so labels/colors match the doughnut. Falls back
+        # to PARTY_LABEL pivot only if cohort_family is missing on pdf.
         party_generation_url = None
-        if 'Generation' in pdf.columns and 'PARTY_LABEL' in pdf.columns:
+        if 'Generation' in pdf.columns and 'cohort_family' in pdf.columns:
+            p_gen_cross = (
+                pdf.filter(pl.col('Generation').is_not_null())
+                   .group_by(['Generation', 'cohort_family'])
+                   .agg(pl.len().alias('n'))
+                   .pivot(on='cohort_family', index='Generation',
+                          values='n', aggregate_function='sum')
+            )
+            if not p_gen_cross.is_empty():
+                p_order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                                           '_sort': list(range(len(_GEN_ORDER)))})
+                p_gen_cross = (
+                    p_gen_cross.join(p_order_df, on='Generation', how='left')
+                               .sort('_sort')
+                               .drop('_sort')
+                )
+                p_gen_labels   = p_gen_cross['Generation'].to_list()
+                p_gen_datasets = []
+                for fam, lbl, color in COHORT_SLICES:
+                    if fam in p_gen_cross.columns:
+                        vals = [int(v or 0) for v in p_gen_cross[fam].fill_null(0).to_list()]
+                    else:
+                        vals = [0] * len(p_gen_labels)
+                    p_gen_datasets.append({
+                        'label':           lbl,
+                        'data':            vals,
+                        'backgroundColor': color,
+                        'borderRadius':    2,
+                        'stack':           COHORT_STACK_MAP[fam],
+                    })
+                _dump_json({
+                    'title':     f'Party Affiliation by Generation — {precinct_name}',
+                    'county':    county_name,
+                    'precinct':  precinct_name,
+                    'geography': 'precinct-detail',
+                    'type':      'bar',
+                    'updated':   today,
+                    'note':      'Pew Research Center generational boundaries',
+                    'chartConfig': {
+                        'labels':   p_gen_labels,
+                        'datasets': p_gen_datasets,
+                    },
+                }, DATA_DIR / f'{slug}_precinct_{safe_name}_party_by_generation.json', logger)
+                party_generation_url = f'data/{slug}_precinct_{safe_name}_party_by_generation.json'
+        elif 'Generation' in pdf.columns and 'PARTY_LABEL' in pdf.columns:
+            # Legacy fallback path — original PARTY_LABEL + unc_classified shape.
             p_gen_cross = (
                 pdf.group_by(['Generation', 'PARTY_LABEL'])
                    .agg(pl.len().alias('count'))

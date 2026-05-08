@@ -3,8 +3,8 @@
   "county": "Clermont",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-05-07",
-  "note": "Analysis run 2026-05-07 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-05-08",
+  "note": "Analysis run 2026-05-08 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -19,55 +19,38 @@
     ],
     "datasets": [
       {
-        "label": "REP",
+        "label": "Pure R",
         "data": [
-          46,
-          1001,
-          4990,
-          9000,
-          7903,
-          4343,
-          2904,
-          1354,
-          730
+          39,
+          829,
+          3916,
+          7030,
+          6364,
+          3483,
+          2432,
+          1260,
+          719
         ],
         "backgroundColor": "#ef4444",
         "borderRadius": 3,
-        "stack": "rep"
+        "stack": "r_pure"
       },
       {
-        "label": "DEM",
+        "label": "R – Crossover",
         "data": [
-          9,
-          215,
-          1125,
-          1911,
-          1049,
-          767,
-          778,
-          476,
-          309
+          7,
+          172,
+          1074,
+          1970,
+          1539,
+          860,
+          472,
+          94,
+          11
         ],
-        "backgroundColor": "#3b82f6",
+        "backgroundColor": "#f87171",
         "borderRadius": 3,
-        "stack": "dem"
-      },
-      {
-        "label": "UNC – Lifetime D",
-        "data": [
-          17,
-          244,
-          1030,
-          2052,
-          2344,
-          2637,
-          2638,
-          1655,
-          239
-        ],
-        "backgroundColor": "#60a5fa",
-        "borderRadius": 3,
-        "stack": "unc"
+        "stack": "r_cross"
       },
       {
         "label": "UNC – Lifetime R",
@@ -82,7 +65,7 @@
           2377,
           313
         ],
-        "backgroundColor": "#f87171",
+        "backgroundColor": "#fca5a5",
         "borderRadius": 3,
         "stack": "unc"
       },
@@ -119,6 +102,57 @@
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,
         "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          17,
+          244,
+          1030,
+          2052,
+          2344,
+          2637,
+          2638,
+          1655,
+          239
+        ],
+        "backgroundColor": "#93c5fd",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "D – Crossover",
+        "data": [
+          0,
+          57,
+          323,
+          549,
+          283,
+          190,
+          168,
+          58,
+          10
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "d_cross"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          9,
+          158,
+          802,
+          1362,
+          766,
+          577,
+          610,
+          418,
+          299
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "d_pure"
       }
     ]
   }
