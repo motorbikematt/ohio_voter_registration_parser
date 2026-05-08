@@ -2374,45 +2374,57 @@ def export_precinct_charts(
         total = len(pdf)
 
         # ── Party doughnut ────────────────────────────────────────────────────
-        party_df = (
-            pdf.group_by('PARTY_LABEL')
-               .agg(pl.len().alias('count'))
-               .sort('count', descending=True)
-        )
-        # Shadow-split UNC if available for this precinct
+        # 8-cohort partisan-spectrum layout — mirrors export_json() exactly so
+        # precinct, county, ward, and district charts are visually identical.
         p_unc_ids = set(pdf['SOS_VOTERID'].to_list()) if 'SOS_VOTERID' in pdf.columns else set()
-        p_unc_rows = [(vid, cls) for vid, cls in unc_map.items() if vid in p_unc_ids]
-        if p_unc_rows and unc_classified is not None:
-            p_unc_df = unc_classified.filter(pl.col('SOS_VOTERID').is_in(list(p_unc_ids)))
-            sc_counts = p_unc_df.group_by('unc_class').agg(pl.len().alias('n'))
-            sc = dict(zip(sc_counts['unc_class'].to_list(), sc_counts['n'].to_list()))
-            non_unc_map = {row['PARTY_LABEL']: row['count']
-                           for row in party_df.iter_rows(named=True)
-                           if row['PARTY_LABEL'] != 'UNC'}
-            pa_labels, pa_colors, pa_counts = [], [], []
-            for reg_party, unc_cls, unc_label, unc_color in [
-                ('REP', 'LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
-                ('DEM', 'LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
-            ]:
-                if reg_party in non_unc_map:
-                    pa_labels.append(reg_party)
-                    pa_colors.append(CHART_COLORS.get(reg_party, '#6366f1'))
-                    pa_counts.append(non_unc_map[reg_party])
-                pa_labels.append(unc_label)
-                pa_colors.append(unc_color)
-                pa_counts.append(sc.get(unc_cls, 0))
-            pa_labels += ['UNC – Mixed', 'UNC – No History']
-            pa_colors += [UNC_SHADOW_COLORS['MIXED'], UNC_SHADOW_COLORS['NO_HISTORY']]
-            pa_counts += [sc.get('MIXED', 0), sc.get('NO_HISTORY', 0)]
-            for other_party, other_count in non_unc_map.items():
-                if other_party not in ('REP', 'DEM'):
-                    pa_labels.append(other_party)
-                    pa_colors.append(CHART_COLORS.get(other_party, '#6366f1'))
-                    pa_counts.append(other_count)
+        if 'cohort_family' in pdf.columns:
+            cmap = dict(zip(*pdf.group_by('cohort_family')
+                              .agg(pl.len().alias('n'))
+                              .select(['cohort_family', 'n'])
+                              .to_dict(as_series=False)
+                              .values()))
+            pa_labels = [lbl   for _, lbl, _ in COHORT_SLICES]
+            pa_colors = [color for _, _, color in COHORT_SLICES]
+            pa_counts = [int(cmap.get(fam, 0)) for fam, _, _ in COHORT_SLICES]
         else:
-            pa_labels = party_df['PARTY_LABEL'].to_list()
-            pa_colors = [CHART_COLORS.get(p, '#6366f1') for p in pa_labels]
-            pa_counts = party_df['count'].to_list()
+            # Legacy fallback: PARTY_LABEL doughnut + optional unc_classified split
+            party_df = (
+                pdf.group_by('PARTY_LABEL')
+                   .agg(pl.len().alias('count'))
+                   .sort('count', descending=True)
+            )
+            p_unc_rows = [(vid, cls) for vid, cls in unc_map.items() if vid in p_unc_ids]
+            if p_unc_rows and unc_classified is not None:
+                p_unc_df = unc_classified.filter(pl.col('SOS_VOTERID').is_in(list(p_unc_ids)))
+                sc_counts = p_unc_df.group_by('unc_class').agg(pl.len().alias('n'))
+                sc = dict(zip(sc_counts['unc_class'].to_list(), sc_counts['n'].to_list()))
+                non_unc_map = {row['PARTY_LABEL']: row['count']
+                               for row in party_df.iter_rows(named=True)
+                               if row['PARTY_LABEL'] != 'UNC'}
+                pa_labels, pa_colors, pa_counts = [], [], []
+                for reg_party, unc_cls, unc_label, unc_color in [
+                    ('REP', 'LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+                    ('DEM', 'LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+                ]:
+                    if reg_party in non_unc_map:
+                        pa_labels.append(reg_party)
+                        pa_colors.append(CHART_COLORS.get(reg_party, '#6366f1'))
+                        pa_counts.append(non_unc_map[reg_party])
+                    pa_labels.append(unc_label)
+                    pa_colors.append(unc_color)
+                    pa_counts.append(sc.get(unc_cls, 0))
+                pa_labels += ['UNC – Mixed', 'UNC – No History']
+                pa_colors += [UNC_SHADOW_COLORS['MIXED'], UNC_SHADOW_COLORS['NO_HISTORY']]
+                pa_counts += [sc.get('MIXED', 0), sc.get('NO_HISTORY', 0)]
+                for other_party, other_count in non_unc_map.items():
+                    if other_party not in ('REP', 'DEM'):
+                        pa_labels.append(other_party)
+                        pa_colors.append(CHART_COLORS.get(other_party, '#6366f1'))
+                        pa_counts.append(other_count)
+            else:
+                pa_labels = party_df['PARTY_LABEL'].to_list()
+                pa_colors = [CHART_COLORS.get(p, '#6366f1') for p in pa_labels]
+                pa_counts = party_df['count'].to_list()
 
         _dump_json({
             'title':     f'Party Affiliation — {precinct_name}',
