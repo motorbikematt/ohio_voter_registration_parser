@@ -741,6 +741,11 @@ const ChartDashboard = (() => {
     if (isRadial) {
       radialTooltip = { enabled: false };
       legendLabels.generateLabels = function(chart) {
+        // Read theme at draw time so color is always correct on initial render
+        // and after theme toggle — Chart.js 4 re-resolves options during update()
+        // so mutations to chart.options can be lost; enforcing here is the safe path.
+        var tc = _themeColors();
+        chart.options.plugins.legend.labels.color = tc.text;
         var ds = (chart.data.datasets && chart.data.datasets[0]) || { data: [], backgroundColor: [] };
         var values = ds.data || [];
         var labels = chart.data.labels || [];
@@ -755,6 +760,7 @@ const ChartDashboard = (() => {
             text:           labels[i] + ' — ' + n.toLocaleString() + ' (' + pct + '%)',
             fillStyle:      bgArr[i] || ds.backgroundColor || '#888',
             strokeStyle:    bgArr[i] || ds.backgroundColor || '#888',
+            fontColor:      tc.text,
             lineWidth:      0,
             hidden:         !chart.getDatasetMeta(0).data[i] || !!chart.getDatasetMeta(0).data[i].hidden,
             index:          i
