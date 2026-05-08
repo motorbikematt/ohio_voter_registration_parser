@@ -756,7 +756,7 @@ const ChartDashboard = (() => {
             fillStyle:      bgArr[i] || ds.backgroundColor || '#888',
             strokeStyle:    bgArr[i] || ds.backgroundColor || '#888',
             lineWidth:      0,
-            hidden:         isNaN(chart.getDatasetMeta(0).data[i] && chart.getDatasetMeta(0).data[i].hidden),
+            hidden:         !chart.getDatasetMeta(0).data[i] || !!chart.getDatasetMeta(0).data[i].hidden,
             index:          i
           });
         }
