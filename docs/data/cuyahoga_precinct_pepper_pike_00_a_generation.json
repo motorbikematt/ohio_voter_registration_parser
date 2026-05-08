@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — PEPPER PIKE-00-A",
+  "county": "Cuyahoga",
+  "precinct": "PEPPER PIKE-00-A",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          131,
+          337,
+          284,
+          235,
+          178
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

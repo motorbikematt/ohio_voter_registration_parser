@@ -1,0 +1,132 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "county": "Delaware",
+  "geography": "county",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Analysis run 2026-05-07 — Ohio Secretary of State SWVF voter file",
+  "chartConfig": {
+    "labels": [
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "REP",
+        "data": [
+          0,
+          51,
+          970,
+          4807,
+          8199,
+          8836,
+          6965,
+          4102,
+          1373,
+          1130
+        ],
+        "backgroundColor": "#ef4444",
+        "borderRadius": 3,
+        "stack": "rep"
+      },
+      {
+        "label": "DEM",
+        "data": [
+          0,
+          24,
+          377,
+          2272,
+          3852,
+          3087,
+          3397,
+          3082,
+          1175,
+          992
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 3,
+        "stack": "dem"
+      },
+      {
+        "label": "UNC – Lifetime D",
+        "data": [
+          0,
+          23,
+          244,
+          898,
+          1755,
+          2715,
+          3835,
+          3373,
+          2007,
+          549
+        ],
+        "backgroundColor": "#60a5fa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Lifetime R",
+        "data": [
+          0,
+          51,
+          446,
+          1381,
+          2684,
+          4832,
+          5224,
+          4192,
+          2435,
+          354
+        ],
+        "backgroundColor": "#f87171",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – Mixed",
+        "data": [
+          0,
+          12,
+          202,
+          687,
+          1232,
+          1771,
+          1834,
+          950,
+          242,
+          9
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc"
+      },
+      {
+        "label": "UNC – No History",
+        "data": [
+          1,
+          21,
+          401,
+          1515,
+          3227,
+          5687,
+          10166,
+          13591,
+          14692,
+          18111
+        ],
+        "backgroundColor": "#9ca3af",
+        "borderRadius": 3,
+        "stack": "unc"
+      }
+    ]
+  }
+}

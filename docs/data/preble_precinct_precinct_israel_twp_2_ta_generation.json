@@ -1,0 +1,30 @@
+{
+  "title": "Voter Age Distribution by Generation — PRECINCT ISRAEL TWP 2-TA",
+  "county": "Preble",
+  "precinct": "PRECINCT ISRAEL TWP 2-TA",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          4,
+          2,
+          1,
+          1
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

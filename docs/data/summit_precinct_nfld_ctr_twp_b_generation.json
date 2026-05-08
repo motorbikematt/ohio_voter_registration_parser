@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — NFLD CTR TWP B",
+  "county": "Summit",
+  "precinct": "NFLD CTR TWP B",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          94,
+          351,
+          249,
+          215,
+          121
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

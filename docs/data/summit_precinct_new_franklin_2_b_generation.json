@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — NEW FRANKLIN 2-B",
+  "county": "Summit",
+  "precinct": "NEW FRANKLIN 2-B",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          67,
+          300,
+          204,
+          171,
+          108
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}

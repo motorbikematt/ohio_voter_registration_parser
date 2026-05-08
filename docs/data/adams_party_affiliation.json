@@ -1,0 +1,51 @@
+{
+  "title": "Party Affiliation Breakdown",
+  "county": "Adams",
+  "geography": "county",
+  "type": "doughnut",
+  "updated": "2026-05-07",
+  "note": "Analysis run 2026-05-07 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "chartConfig": {
+    "labels": [
+      "Pure R",
+      "R – Crossover",
+      "UNC – Lifetime R",
+      "UNC – Mixed",
+      "UNC – No History",
+      "UNC – Lifetime D",
+      "D – Crossover",
+      "Pure D"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4894,
+          1306,
+          1678,
+          440,
+          6868,
+          1047,
+          172,
+          534
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#f87171",
+          "#fca5a5",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#60a5fa",
+          "#3b82f6"
+        ],
+        "borderWidth": 2,
+        "borderColor": "transparent"
+      }
+    ]
+  },
+  "meta": {
+    "new_registrants_r": 117,
+    "new_registrants_d": 5,
+    "new_registrants_unc": 1969
+  }
+}

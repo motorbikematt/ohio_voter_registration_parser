@@ -1,0 +1,3624 @@
+"""
+voter_data_cleaner_v2.py
+════════════════════════
+Voter data cleaner, analyser, and exporter for the Ohio Secretary of State
+statewide voter file format (SWVF_*.txt, 135 columns, ~7.9M rows across 4 files).
+
+WHAT THIS SCRIPT DOES
+─────────────────────
+1.  Loads one or more SWVF_*.txt files using Polars (not pandas) for speed.
+    Polars uses Apache Arrow memory layout and SIMD parallelism; it handles
+    Ohio-scale data (~4–5 GB uncompressed) in roughly 1/5 the time and memory
+    that pandas would require.
+
+2.  Optionally filters to a single county during load, using chunked streaming
+    so only the matching rows are ever materialized in RAM.
+
+3.  Cleans and enriches the data:
+      - Parses DATE_OF_BIRTH and REGISTRATION_DATE into proper date types.
+      - Derives birth-decade cohorts for age-cohort analysis.
+      - Normalises PARTY_AFFILIATION ('R'/'D'/'') into display labels (REP/DEM/UNC).
+      - Computes per-voter participation metrics (elections eligible, elections voted,
+        turnout rate, frequency class) using Polars' sum_horizontal — a single pass
+        over all 89 election columns rather than a Python for-loop.
+
+4.  Builds summary tables (county totals, decade distributions, party cross-tabs,
+    district breakdowns, precinct tables) as small Polars DataFrames.
+
+5.  Writes two output formats from the same summary data:
+      a. Excel workbook (.xlsx) using xlsxwriter — formatted, multi-sheet.
+      b. JSON files into docs/data/ — exact schema consumed by index.html / charts.js.
+         The HTML dashboard reads these files directly; no data conversion step needed.
+
+6.  Logs all major steps, timings, and errors to both console and a timestamped
+    file in logs/ so failed runs can be debugged without re-running everything.
+
+SCHEMA CHANGES FROM v1 (Montgomery County CSV) → v2 (State SWVF)
+──────────────────────────────────────────────────────────────────
+v1 column               v2 column
+─────────────────────── ─────────────────────────────────────────
+SOSIDNUM / CNTYIDNUM    SOS_VOTERID / COUNTY_NUMBER / COUNTY_ID
+LASTN, FIRSTN           LAST_NAME, FIRST_NAME
+BIRTHYEAR  (int)        DATE_OF_BIRTH  (YYYY-MM-DD string → parsed)
+REGDATE  (MM/DD/YYYY)   REGISTRATION_DATE  (YYYY-MM-DD string → parsed)
+VOTERSTAT               VOTER_STATUS  ('ACTIVE' | 'CONFIRMATION')
+PARTYAFFIL (REP/DEM/UNC) PARTY_AFFILIATION  ('R' | 'D' | '')
+STNUM+STDIR+STNAME+APT  RESIDENTIAL_ADDRESS1  (pre-combined single field)
+U.S. CONGRESS           CONGRESSIONAL_DISTRICT
+STATE SENATE            STATE_SENATE_DISTRICT
+STATE HOUSE             STATE_REPRESENTATIVE_DISTRICT
+SCHOOL DIST             LOCAL_SCHOOL_DISTRICT
+CO BD OF EDUC           STATE_BOARD_OF_EDUCATION
+Election cols: YYYYMMDDX  PRIMARY-MM/DD/YYYY | GENERAL-... | SPECIAL-...
+Participation values: non-empty str  →  'X' (in-person) | 'R' (absentee) | 'D' (provisional) | ''
+"""
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Imports
+# ─────────────────────────────────────────────────────────────────────────────
+
+import concurrent.futures
+import json
+try:
+    import orjson as _orjson
+except ImportError:
+    _orjson = None
+try:
+    import psutil as _psutil
+    _psutil_proc = _psutil.Process()
+except ImportError:
+    _psutil = None
+    _psutil_proc = None
+import logging
+import re
+import sys
+import time
+from datetime import date as date_t
+from datetime import datetime
+from pathlib import Path
+
+import polars as pl                  # fast columnar processing — replaces pandas for analysis
+import pandas as pd                  # used ONLY for xlsxwriter compatibility at write time
+import xlsxwriter                    # noqa: F401 — imported for engine availability check
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Paths and constants
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Derive BASE_DIR from the location of this script so the repo works
+# regardless of where it is cloned or what OS it runs on.
+BASE_DIR     = Path(__file__).parent
+DOCS_DIR     = BASE_DIR / "docs"
+DATA_DIR     = DOCS_DIR / "data"
+LOGS_DIR     = BASE_DIR / "logs"
+PARQUET_DIR  = BASE_DIR / "source" / "parquet"
+
+# Voter frequency thresholds (fraction of eligible elections in which voter participated).
+FREQ_HIGH = 0.75   # ≥75% → "Frequent"
+FREQ_LOW  = 0.25   # <25% → "Infrequent";  25–74% → "Moderate"
+
+# District fields that appear as breakdown sheets in the Excel workbook.
+# These match column names in the SWVF state file exactly.
+DISTRICT_FIELDS = [
+    'CONGRESSIONAL_DISTRICT',
+    'STATE_SENATE_DISTRICT',
+    'STATE_REPRESENTATIVE_DISTRICT',
+    'LOCAL_SCHOOL_DISTRICT',
+    'STATE_BOARD_OF_EDUCATION',
+]
+
+# Raw party codes from the state file → human-readable display labels.
+# Blank string means the voter has not declared a party affiliation.
+PARTY_MAP: dict[str, str] = {
+    'R': 'REP',
+    'D': 'DEM',
+    '':  'UNC',
+}
+TOP_PARTIES = ['REP', 'DEM', 'UNC']   # columns shown explicitly; everything else → "Other"
+
+ELECTION_TYPE_LABELS: dict[str, str] = {
+    'PRIMARY': 'Primary',
+    'GENERAL': 'General',
+    'SPECIAL': 'Special',
+}
+
+# Colors used in the web dashboard JSON (Chart.js backgroundColor values).
+# These must match the existing sample JSON files so no CSS changes are needed.
+CHART_COLORS = {
+    'REP':   '#ef4444',   # red
+    'DEM':   '#3b82f6',   # blue
+    'UNC':   '#9ca3af',   # grey
+    'Other': '#f59e0b',   # amber
+    'bar':   '#3b82f6',   # default bar fill
+}
+
+# Excel header colors
+_DARK_BLUE = '#366092'
+_MED_BLUE  = '#4472C4'
+_TITLE_BG  = '#D9E1F2'
+
+# Regex that matches the state-format election participation column names.
+# Examples: "PRIMARY-03/07/2000", "GENERAL-11/04/2025", "SPECIAL-08/08/2023"
+ELEC_RE = re.compile(r'^(PRIMARY|GENERAL|SPECIAL)-(\d{2}/\d{2}/\d{4})$')
+
+MANIFEST_PATH = BASE_DIR / 'download_manifest.json'
+
+
+def get_source_date(logger: logging.Logger) -> str:
+    """
+    Extract the effective source-file date from download_manifest.json.
+
+    The pipeline stores per-file ``last_modified`` HTTP header strings.  We
+    parse the most recent one and return it formatted as ``YYYYMMDD``.  If the
+    manifest is absent or unparseable, fall back to today's date so callers
+    always get a usable string.
+    """
+    if not MANIFEST_PATH.exists():
+        logger.warning('download_manifest.json not found — falling back to today\'s date '
+                       'for output filenames (source-file date is unavailable)')
+        return date_t.today().strftime('%Y%m%d')
+
+    try:
+        raw = json.loads(MANIFEST_PATH.read_text(encoding='utf-8'))
+    except (json.JSONDecodeError, OSError) as exc:
+        logger.warning('download_manifest.json could not be read (%s) — '
+                       'falling back to today\'s date', exc)
+        return date_t.today().strftime('%Y%m%d')
+
+    # Collect all last_modified values from per-file entries
+    dates: list[datetime] = []
+    for key, val in raw.items():
+        if not isinstance(val, dict):
+            continue
+        lm = val.get('last_modified')
+        if not lm or lm == 'unknown':
+            continue
+        # HTTP Last-Modified format: "Thu, 24 Apr 2026 18:30:00 GMT"
+        for fmt in ('%a, %d %b %Y %H:%M:%S %Z', '%a, %d %b %Y %H:%M:%S GMT'):
+            try:
+                dates.append(datetime.strptime(lm, fmt))
+                break
+            except ValueError:
+                continue
+
+    if not dates:
+        logger.warning('No parseable last_modified dates in download_manifest.json — '
+                       'falling back to today\'s date')
+        return date_t.today().strftime('%Y%m%d')
+
+    source_dt = max(dates)
+    logger.info('Source-file date from manifest: %s', source_dt.strftime('%Y-%m-%d'))
+    return source_dt.strftime('%Y%m%d')
+
+# Ohio county number → county name.
+# County numbers run 01–88 and are zero-padded strings in the voter file.
+# Ohio SOS official county numbering: 01–88, strictly alphabetical by county name.
+# This is NOT geographic — it is the state's administrative index.
+# Numbers are zero-padded to two digits and used as:
+#   - Hive partition keys in the Parquet cache  (COUNTY_NUMBER=57/)
+#   - SWVF COUNTY_NUMBER field values
+#   - manifest slug lookups and dashboard data file prefixes
+# Source: Ohio Secretary of State Statewide Voter File documentation.
+OHIO_COUNTIES: dict[str, str] = {
+    '01': 'Adams',       '02': 'Allen',       '03': 'Ashland',     '04': 'Ashtabula',
+    '05': 'Athens',      '06': 'Auglaize',    '07': 'Belmont',     '08': 'Brown',
+    '09': 'Butler',      '10': 'Carroll',     '11': 'Champaign',   '12': 'Clark',
+    '13': 'Clermont',    '14': 'Clinton',     '15': 'Columbiana',  '16': 'Coshocton',
+    '17': 'Crawford',    '18': 'Cuyahoga',    '19': 'Darke',       '20': 'Defiance',
+    '21': 'Delaware',    '22': 'Erie',        '23': 'Fairfield',   '24': 'Fayette',
+    '25': 'Franklin',    '26': 'Fulton',      '27': 'Gallia',      '28': 'Geauga',
+    '29': 'Greene',      '30': 'Guernsey',    '31': 'Hamilton',    '32': 'Hancock',
+    '33': 'Hardin',      '34': 'Harrison',    '35': 'Henry',       '36': 'Highland',
+    '37': 'Hocking',     '38': 'Holmes',      '39': 'Huron',       '40': 'Jackson',
+    '41': 'Jefferson',   '42': 'Knox',        '43': 'Lake',        '44': 'Lawrence',
+    '45': 'Licking',     '46': 'Logan',       '47': 'Lorain',      '48': 'Lucas',
+    '49': 'Madison',     '50': 'Mahoning',    '51': 'Marion',      '52': 'Medina',
+    '53': 'Meigs',       '54': 'Mercer',      '55': 'Miami',       '56': 'Monroe',
+    '57': 'Montgomery',  '58': 'Morgan',      '59': 'Morrow',      '60': 'Muskingum',
+    '61': 'Noble',       '62': 'Ottawa',      '63': 'Paulding',    '64': 'Perry',
+    '65': 'Pickaway',    '66': 'Pike',        '67': 'Portage',     '68': 'Preble',
+    '69': 'Putnam',      '70': 'Richland',    '71': 'Ross',        '72': 'Sandusky',
+    '73': 'Scioto',      '74': 'Seneca',      '75': 'Shelby',      '76': 'Stark',
+    '77': 'Summit',      '78': 'Trumbull',    '79': 'Tuscarawas',  '80': 'Union',
+    '81': 'Van Wert',    '82': 'Vinton',      '83': 'Warren',      '84': 'Washington',
+    '85': 'Wayne',       '86': 'Williams',    '87': 'Wood',        '88': 'Wyandot',
+}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Logging setup
+# ─────────────────────────────────────────────────────────────────────────────
+
+def setup_logging(run_label: str = '') -> logging.Logger:
+    """
+    Configure a logger that writes to both:
+      - Console  (INFO level — concise progress for interactive use)
+      - Log file (DEBUG level — full detail for post-run debugging)
+
+    The log file is timestamped so each run produces its own file, making
+    it easy to compare across runs or share a failing run's log for review.
+
+    Returns the root logger configured with both handlers.
+    """
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
+
+    timestamp    = datetime.now().strftime('%Y%m%d_%H%M%S')
+    suffix       = f'_{run_label}' if run_label else ''
+    log_path     = LOGS_DIR / f'voter_analysis_{timestamp}{suffix}.log'
+
+    logger = logging.getLogger('voter_analysis')
+
+    # If the logger already has handlers it was configured earlier this session
+    # (e.g. Cell 1 re-run in the notebook without a kernel restart).  Reuse it
+    # so we don't create a new log file and duplicate console output on every run.
+    if logger.handlers:
+        return logger
+
+    logger.setLevel(logging.DEBUG)   # capture everything; handlers filter individually
+
+    # ── Console handler: INFO and above, no timestamps (they clutter the terminal) ──
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.INFO)
+    console_handler.setFormatter(logging.Formatter('%(levelname)-8s  %(message)s'))
+    logger.addHandler(console_handler)
+
+    # ── File handler: DEBUG and above, full timestamps for forensic debugging ──
+    file_handler = logging.FileHandler(log_path, encoding='utf-8')
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s  %(levelname)-8s  %(funcName)s:%(lineno)d  %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+    ))
+    logger.addHandler(file_handler)
+
+    logger.info('Log file: %s', log_path)
+    return logger
+
+
+def _timer(logger: logging.Logger, step: str):
+    """
+    Context manager that logs how long a labelled step took.
+
+    Usage:
+        with _timer(log, "loading voter files"):
+            df = load_voter_files(...)
+    """
+    class _T:
+        def __enter__(self):
+            self._start = time.perf_counter()
+            logger.info('► %s ...', step)
+            return self
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            elapsed = time.perf_counter() - self._start
+            rss_str = ''
+            if _psutil_proc is not None:
+                try:
+                    rss_mb = _psutil_proc.memory_info().rss / 1_048_576
+                    rss_str = f'  RSS={rss_mb:,.0f} MB'
+                except Exception:
+                    pass
+            if exc_type:
+                logger.error('✗ %s failed after %.1f s — %s: %s',
+                             step, elapsed, exc_type.__name__, exc_val)
+            else:
+                logger.info('  ✓ %s  (%.1f s)%s', step, elapsed, rss_str)
+            return False   # do not suppress exceptions
+    return _T()
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Election-column helpers
+# ─────────────────────────────────────────────────────────────────────────────
+
+def identify_election_cols(df: pl.DataFrame) -> list[str]:
+    """
+    Find and sort all election participation columns in the DataFrame.
+
+    The state voter file has one column per election held since 2000,
+    named "TYPE-MM/DD/YYYY" (e.g. "GENERAL-11/04/2025").  Participation
+    values are: 'X' (in-person), 'R' (absentee), 'D' (provisional), '' (did not vote).
+
+    Returns columns sorted chronologically by election date so participation
+    metrics accumulate in the correct order.
+    """
+    cols = [c for c in df.columns if ELEC_RE.match(c)]
+    cols.sort(key=lambda c: datetime.strptime(ELEC_RE.match(c).group(2), '%m/%d/%Y'))
+    return cols
+
+
+def parse_election_meta(col: str) -> tuple[date_t | None, str | None, str | None]:
+    """
+    Decompose an election column name into its component parts.
+
+    'PRIMARY-03/07/2000' → (date(2000, 3, 7), 'PRIMARY', 'Primary')
+
+    Returns (None, None, None) if the column name doesn't match the expected pattern.
+    This can happen if the SOS adds a new election type not in ELECTION_TYPE_LABELS.
+    """
+    m = ELEC_RE.match(col)
+    if not m:
+        return None, None, None
+    type_code, date_str = m.groups()
+    try:
+        elec_date = datetime.strptime(date_str, '%m/%d/%Y').date()
+    except ValueError:
+        return None, None, None
+    return elec_date, type_code, ELECTION_TYPE_LABELS.get(type_code, type_code)
+
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Parquet cache  (one-time conversion; fast loads on every subsequent run)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def build_parquet_cache(
+    txt_files:   list[Path],
+    parquet_dir: Path | None = None,
+    logger:      logging.Logger | None = None,
+) -> Path:
+    """
+    Convert SWVF_*.txt → Hive-partitioned Parquet on first run.
+
+    Layout: source/parquet/COUNTY_NUMBER=01/, COUNTY_NUMBER=02/, ...
+
+    Idempotent: skips conversion if all 88 partitions already exist.
+    Subsequent loads via load_voter_files_parquet() skip CSV entirely —
+    load time drops from ~4 min to under 60 s at Ohio scale.
+    """
+    import pyarrow as pa
+    import pyarrow.dataset as ds
+
+    log  = logger or logging.getLogger('voter_analysis')
+    pdir = parquet_dir or PARQUET_DIR
+    pdir.mkdir(parents=True, exist_ok=True)
+
+    existing = {p.name for p in pdir.iterdir() if p.is_dir()}
+    expected = {f'COUNTY_NUMBER={n:02d}' for n in range(1, 89)}
+    if existing >= expected:
+        log.info('Parquet cache complete (%d partitions) — skipping.', len(existing))
+        return pdir
+
+    log.info('Parquet cache missing %d partition(s). Building from %d txt file(s).',
+             len(expected - existing), len(txt_files))
+
+    with _timer(log, 'read CSV for Parquet conversion'):
+        df = pl.concat([
+            pl.scan_csv(p, separator=',', quote_char='"',
+                        infer_schema=False, encoding='utf8-lossy',
+                        ignore_errors=True)
+            for p in txt_files
+        ]).collect()
+        log.info('  %s rows loaded', f'{len(df):,}')
+
+    with _timer(log, 'write Hive-partitioned Parquet'):
+        ds.write_dataset(
+            df.to_arrow(),
+            base_dir=str(pdir),
+            format='parquet',
+            partitioning=ds.partitioning(
+                pa.schema([pa.field('COUNTY_NUMBER', pa.string())]),
+                flavor='hive',
+            ),
+            file_options=ds.ParquetFileFormat().make_write_options(compression='snappy'),
+            existing_data_behavior='overwrite_or_ignore',
+        )
+        n = sum(1 for p in pdir.iterdir() if p.is_dir())
+        log.info('  %d county partitions written to %s', n, pdir)
+
+    return pdir
+
+
+def load_voter_files_parquet(
+    parquet_dir:   Path | None = None,
+    county_number: str | None  = None,
+    logger:        logging.Logger | None = None,
+) -> pl.DataFrame:
+    """Load from Hive-partitioned Parquet. Requires build_parquet_cache() first."""
+    log  = logger or logging.getLogger('voter_analysis')
+    pdir = parquet_dir or PARQUET_DIR
+
+    if not pdir.exists():
+        raise FileNotFoundError(f'Parquet cache not found at {pdir}. Run build_parquet_cache() first.')
+
+    if county_number:
+        cnum = county_number.strip().zfill(2)
+        part = pdir / f'COUNTY_NUMBER={cnum}'
+        if not part.exists():
+            part = pdir / f'COUNTY_NUMBER={int(cnum)}'
+        if not part.exists():
+            raise FileNotFoundError(f'No Parquet partition for county {cnum}.')
+        log.info('Loading Parquet partition: %s', part.name)
+        df = pl.read_parquet(str(part) + '/**/*.parquet')
+        if 'COUNTY_NUMBER' not in df.columns:
+            df = df.with_columns(pl.lit(cnum).alias('COUNTY_NUMBER'))
+    else:
+        log.info('Loading full Parquet cache: %s', pdir)
+        df = pl.read_parquet(str(pdir) + '/**/*.parquet', hive_partitioning=True)
+
+    # PyArrow may infer COUNTY_NUMBER as integer from the Hive partition key.
+    # Cast to String so all downstream str.strip_chars() calls work correctly.
+    if df['COUNTY_NUMBER'].dtype != pl.String:
+        df = df.with_columns(
+            pl.col('COUNTY_NUMBER').cast(pl.String).str.zfill(2)
+        )
+
+    log.info('Loaded %s rows x %d columns from Parquet', f'{len(df):,}', len(df.columns))
+    return df
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# File loading  (Polars — lazy scan + optional county filter)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def load_voter_files(
+    txt_files:     list[Path],
+    county_number: str | None   = None,
+    logger:        logging.Logger | None = None,
+) -> pl.DataFrame:
+    """
+    Load and concatenate SWVF_*.txt files using Polars lazy scanning.
+
+    WHY LAZY SCANNING:
+    Polars' scan_csv() builds a query plan without reading the file.  When we
+    call .collect() the query optimizer pushes the county filter down to the
+    file reader so only matching rows are ever decoded — on a 1.4 GB file this
+    can reduce RAM usage by 50–98 % depending on the county size.
+
+    WHY infer_schema=False:
+    All 135 columns are treated as plain strings on load.  This avoids Polars
+    mis-casting election participation columns ('X'/'R'/'D'/'') as booleans or
+    integers, and prevents type errors on columns with mixed content.
+    Typed columns (DATE_OF_BIRTH, REGISTRATION_DATE, BIRTHYEAR) are cast
+    explicitly in clean_voter_data().
+
+    Args:
+        txt_files:     Ordered list of SWVF_*.txt paths (typically 4 files).
+        county_number: Zero-padded county string, e.g. '57' for Montgomery.
+                       Pass None to load all 88 counties (full Ohio).
+        logger:        Caller's logger instance; falls back to print if None.
+    """
+    log = logger or logging.getLogger('voter_analysis')
+    frames: list[pl.LazyFrame] = []
+
+    for path in txt_files:
+        log.debug('Scanning %s', path.name)
+
+        # scan_csv returns a LazyFrame — nothing is read yet
+        lf = pl.scan_csv(
+            path,
+            separator=',',
+            quote_char='"',
+            infer_schema=False,      # all cols as Utf8/String until explicitly cast
+            encoding='utf8-lossy',   # Polars only accepts 'utf8' or 'utf8-lossy';
+                                     # utf8-lossy silently replaces invalid UTF-8 bytes
+                                     # (Windows-1252 chars in voter names) with U+FFFD
+            ignore_errors=True,      # malformed rows are skipped, not fatal
+        )
+
+        if county_number:
+            # Push filter into the scan so only matching rows are decoded.
+            # str.strip() handles any accidental leading/trailing whitespace
+            # in the COUNTY_NUMBER field.
+            lf = lf.filter(
+                pl.col('COUNTY_NUMBER').str.strip_chars() == county_number
+            )
+
+        frames.append(lf)
+
+    if not frames:
+        raise ValueError('No voter files provided to load_voter_files()')
+
+    # Concatenate all lazy frames, then collect (execute) the full query plan.
+    # Polars will parallelise reads across files on multi-core systems.
+    log.info('Collecting %d file(s)%s ...',
+             len(frames),
+             f' filtered to county {county_number}' if county_number else ' (full state)')
+
+    combined = pl.concat(frames).collect()
+
+    log.info('Loaded: %s rows × %d columns', f'{len(combined):,}', len(combined.columns))
+    return combined
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Data cleaning and enrichment  (Polars)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def clean_voter_data(df: pl.DataFrame, logger: logging.Logger) -> pl.DataFrame:
+    """
+    Validate, parse, and enrich the raw voter DataFrame.
+
+    Transformations applied:
+      DATE_OF_BIRTH     → BIRTHYEAR (Int32) + Decade (Int32) for cohort analysis
+      REGISTRATION_DATE → REGDATE_DT (Date) for eligibility comparisons
+      PARTY_AFFILIATION → PARTY_LABEL (Utf8: REP/DEM/UNC/Other) for cross-tabs
+      VOTER_STATUS      → normalised to uppercase, trimmed
+
+    Rows with unparseable birth dates or birth years outside 1900–current year
+    are dropped.  All other rows are retained regardless of status.
+    """
+    initial_count = len(df)
+
+    # ── Birth year: parse full date, extract year, derive decade ──────────────
+    # DATE_OF_BIRTH is "YYYY-MM-DD" in the state file.
+    # We derive BIRTHYEAR as an Int32 so we can do arithmetic (// 10 * 10 for decade).
+    df = df.with_columns([
+        pl.col('DATE_OF_BIRTH')
+          .str.to_date(format='%Y-%m-%d', strict=False)   # strict=False → null on failure
+          .dt.year()
+          .alias('BIRTHYEAR'),
+    ])
+
+    # Drop rows where birth year could not be parsed or is out of plausible range.
+    # This removes test records, data-entry errors, and placeholder entries.
+    current_year = date_t.today().year
+    invalid_mask = ~(
+        pl.col('BIRTHYEAR').is_not_null() &
+        pl.col('BIRTHYEAR').is_between(1900, current_year)
+    )
+    invalid_rows = df.filter(invalid_mask)
+
+    if len(invalid_rows) > 0:
+        # Write bad rows to a CSV error file instead of looping through them in Python.
+        # iter_rows() on tens-of-thousands of invalid records + per-row logger.warning()
+        # calls are extremely slow (blocks on disk I/O each iteration) and caused silent
+        # process death on full-Ohio 7.9M-row runs.  A single Polars write_csv() is
+        # ~1000× faster and produces a file analysts can inspect directly.
+        error_dir = Path(__file__).parent / 'working' / 'errors'
+        error_dir.mkdir(parents=True, exist_ok=True)
+        error_file = error_dir / f'invalid_birthyear_{logger.name}.csv'
+        invalid_rows.select('SOS_VOTERID', 'DATE_OF_BIRTH', 'BIRTHYEAR').write_csv(error_file)
+        logger.warning(
+            'Dropped %d rows with invalid birth years (out of range 1900–%d) — '
+            'details: %s',
+            len(invalid_rows), current_year, error_file,
+        )
+
+    df = df.filter(~invalid_mask)
+
+    # Create decade cohort column: 1987 → 1980, 2003 → 2000, etc.
+    df = df.with_columns([
+        (pl.col('BIRTHYEAR') // 10 * 10).alias('Decade'),
+    ])
+
+    # Create generational cohort column using Pew Research Center delineations.
+    # Boundaries:
+    #   Silent/Greatest : ≤ 1945
+    #   Baby Boomers    : 1946–1964
+    #   Generation X    : 1965–1980
+    #   Millennials     : 1981–1996
+    #   Generation Z    : 1997–2012
+    #   Gen Alpha       : ≥ 2013  (too young to vote but kept for completeness)
+    #   Unknown         : null BIRTHYEAR (already filtered, but defensive)
+    # Source: Pew Research Center (2019) — https://pewrsr.ch/2HFp9rq
+    df = df.with_columns([
+        pl.when(pl.col('BIRTHYEAR') <= 1945).then(pl.lit('Silent/Greatest'))
+          .when(pl.col('BIRTHYEAR') <= 1964).then(pl.lit('Baby Boomers'))
+          .when(pl.col('BIRTHYEAR') <= 1980).then(pl.lit('Gen X'))
+          .when(pl.col('BIRTHYEAR') <= 1996).then(pl.lit('Millennials'))
+          .when(pl.col('BIRTHYEAR') <= 2012).then(pl.lit('Gen Z'))
+          .otherwise(pl.lit('Gen Alpha'))
+          .alias('Generation'),
+    ])
+
+    # ── Registration date: parse to a native Date type ────────────────────────
+    # REGISTRATION_DATE is "YYYY-MM-DD" in the state file.
+    # Stored as a Polars Date so we can compare directly with election date objects.
+    # Null means the registration date is missing — those voters will have 0
+    # eligible elections in the participation calculation.
+    df = df.with_columns([
+        pl.col('REGISTRATION_DATE')
+          .str.to_date(format='%Y-%m-%d', strict=False)
+          .alias('REGDATE_DT'),
+    ])
+
+    null_reg = df.filter(pl.col('REGDATE_DT').is_null()).height
+    if null_reg:
+        logger.warning('%d voters have no parseable registration date — '
+                       'they will show 0 eligible elections', null_reg)
+
+    # ── Party label: map raw code to display string ───────────────────────────
+    # The state file uses single-character codes: 'R', 'D', or '' (unaffiliated).
+    # We normalise to REP/DEM/UNC for consistency with the web dashboard colors
+    # and Excel cross-tabs.  Any unexpected code becomes 'Other'.
+    df = df.with_columns([
+        pl.col('PARTY_AFFILIATION')
+          .str.strip_chars()
+          .replace(PARTY_MAP, default='Other')
+          .alias('PARTY_LABEL'),
+    ])
+
+    # ── Voter status: normalise whitespace ────────────────────────────────────
+    df = df.with_columns([
+        pl.col('VOTER_STATUS').str.strip_chars().str.to_uppercase().alias('VOTER_STATUS'),
+    ])
+
+    # ── Universal cohort classifier ───────────────────────────────────────────
+    # Attach cohort assignments + decay-weighted lean scoring + new-registrant
+    # flag onto every voter row.  The classifier joins back on SOS_VOTERID, so
+    # downstream code can filter or group on cohort_family without re-running.
+    primary_cols_local = identify_primary_cols(identify_election_cols(df))
+    if primary_cols_local:
+        classified = classify_all_voters_primary_history(df, primary_cols_local, logger)
+        join_cols  = [c for c in classified.columns if c != 'SOS_VOTERID']
+        df = df.join(
+            classified.select(['SOS_VOTERID'] + join_cols),
+            on='SOS_VOTERID',
+            how='left',
+        )
+        logger.info('Cohort classifier attached: %d cohort columns', len(join_cols))
+
+    logger.info('Clean complete: %s valid records', f'{len(df):,}')
+    return df
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Participation metrics  (Polars — single pass via sum_horizontal)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def add_voter_participation(
+    df:            pl.DataFrame,
+    election_cols: list[str],
+    logger:        logging.Logger,
+) -> pl.DataFrame:
+    """
+    Compute per-voter participation metrics across all 89 election columns.
+
+    WHY sum_horizontal INSTEAD OF A PYTHON LOOP:
+    The pandas v1 approach looped over each election column in Python, creating
+    a series per column and accumulating.  With 89 columns × 7.9M rows that's
+    ~700M boolean evaluations executed serially.
+
+    Polars' sum_horizontal() evaluates all 89 expressions in a single columnar
+    pass using SIMD instructions and thread-level parallelism.  Expect ~10–20×
+    faster execution compared to the pandas loop on Ohio-scale data.
+
+    Columns added (all-elections, backward-compatible names):
+      Elections_Eligible — number of elections held after the voter's registration date
+      Elections_Voted    — of those, number where the voter participated
+      Turnout_Rate       — Elections_Voted / Elections_Eligible  (null if 0 eligible)
+
+    Columns added (generals-only):
+      General_Eligible      — general elections held after the voter's registration date
+      General_Voted         — of those, generals where the voter participated
+      General_Turnout_Rate  — General_Voted / General_Eligible  (null if 0 eligible)
+
+    Derived:
+      Voter_Frequency    — categorical label based on General_Turnout_Rate vs FREQ thresholds
+
+    A voter is "eligible" for an election if their REGDATE_DT is on or before
+    that election's date.  A voter "voted" if they were eligible AND their
+    participation value is non-empty (X, R, or D).
+    """
+    logger.info('Building participation metric expressions for %d election columns ...',
+                len(election_cols))
+
+    # Build one Polars expression per election column for each of:
+    #   elig  — 1 if voter was registered on/before election date, else 0
+    #   voted — 1 if voter was eligible AND has a non-empty participation value
+    # All expressions are Int32 so sum_horizontal produces an integer total.
+    #
+    # Two parallel sets are built: all-elections and generals-only.
+    # Voter_Frequency is based on the generals-only rate so that the ≥75%
+    # "Frequent" threshold is reachable (a voter attending every general
+    # since 2000 scores ~100% instead of ~28% when diluted by 89 elections).
+    elig_exprs:  list[pl.Expr] = []
+    voted_exprs: list[pl.Expr] = []
+    gen_elig_exprs:  list[pl.Expr] = []
+    gen_voted_exprs: list[pl.Expr] = []
+    skipped = 0
+
+    for col in election_cols:
+        elec_date, type_code, _ = parse_election_meta(col)
+        if elec_date is None:
+            logger.warning('Could not parse election date from column "%s" — skipping', col)
+            skipped += 1
+            continue
+
+        # Polars stores Python date objects directly in comparisons with Date columns
+        elig = (
+            pl.col('REGDATE_DT').is_not_null() &
+            (pl.col('REGDATE_DT') <= pl.lit(elec_date))
+        ).cast(pl.Int32)
+
+        voted = (
+            elig.cast(pl.Boolean) &                     # must be eligible
+            pl.col(col).is_not_null() &                 # participation value must exist
+            (pl.col(col).str.strip_chars() != '')        # and be non-empty (X / R / D)
+        ).cast(pl.Int32)
+
+        elig_exprs.append(elig)
+        voted_exprs.append(voted)
+
+        if col.startswith('GENERAL-'):
+            gen_elig_exprs.append(elig)
+            gen_voted_exprs.append(voted)
+
+    if skipped:
+        logger.warning('Skipped %d election columns with unparseable dates', skipped)
+
+    logger.info('  %d total election expressions, %d generals-only',
+                len(elig_exprs), len(gen_elig_exprs))
+
+    # sum_horizontal adds across all expressions row-by-row, fully vectorised.
+    # This replaces the 89-iteration Python for-loop from v1.
+    df = df.with_columns([
+        pl.sum_horizontal(elig_exprs).alias('Elections_Eligible'),
+        pl.sum_horizontal(voted_exprs).alias('Elections_Voted'),
+    ])
+
+    # Generals-only metrics
+    if gen_elig_exprs:
+        df = df.with_columns([
+            pl.sum_horizontal(gen_elig_exprs).alias('General_Eligible'),
+            pl.sum_horizontal(gen_voted_exprs).alias('General_Voted'),
+        ])
+    else:
+        # Edge case: no GENERAL- columns in the data at all
+        df = df.with_columns([
+            pl.lit(0).cast(pl.Int32).alias('General_Eligible'),
+            pl.lit(0).cast(pl.Int32).alias('General_Voted'),
+        ])
+
+    # Turnout rate: voted / eligible.  Divide-by-zero → null (not 0), which
+    # correctly propagates to 'No Eligible Elections' in the frequency label.
+    df = df.with_columns([
+        (
+            pl.col('Elections_Voted').cast(pl.Float64) /
+            pl.when(pl.col('Elections_Eligible') == 0)
+              .then(None)
+              .otherwise(pl.col('Elections_Eligible'))
+        ).round(4).alias('Turnout_Rate'),
+        (
+            pl.col('General_Voted').cast(pl.Float64) /
+            pl.when(pl.col('General_Eligible') == 0)
+              .then(None)
+              .otherwise(pl.col('General_Eligible'))
+        ).round(4).alias('General_Turnout_Rate'),
+    ])
+
+    # Frequency label: based on generals-only turnout rate so the ≥75%
+    # threshold is meaningful.  A voter who participates in every general
+    # election since registration now correctly scores as "Frequent".
+    df = df.with_columns([
+        pl.when(pl.col('General_Eligible') == 0)
+          .then(pl.lit('No Eligible Elections'))
+          .when(pl.col('General_Turnout_Rate') >= FREQ_HIGH)
+          .then(pl.lit('Frequent (≥75%)'))
+          .when(pl.col('General_Turnout_Rate') >= FREQ_LOW)
+          .then(pl.lit('Moderate (25–74%)'))
+          .otherwise(pl.lit('Infrequent (<25%)'))
+          .alias('Voter_Frequency')
+    ])
+
+    eligible_count = df.filter(pl.col('Elections_Eligible') > 0).height
+    gen_eligible   = df.filter(pl.col('General_Eligible') > 0).height
+    logger.info('Participation complete: %s voters had ≥1 eligible election '
+                '(%s with ≥1 eligible general)',
+                f'{eligible_count:,}', f'{gen_eligible:,}')
+    return df
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Summary builders  (Polars → small DataFrames; cheap to convert to pandas)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def build_county_summary(df: pl.DataFrame) -> pl.DataFrame:
+    """
+    One row per county: total voters, active count, party breakdown.
+    Used as the top-level sheet in the Ohio-wide Excel workbook where
+    dumping all 7.9M raw rows would exceed Excel's row limit.
+    """
+    # Total voters per county
+    totals = (
+        df.group_by('COUNTY_NUMBER')
+          .agg(pl.len().alias('Total Voters'))
+    )
+
+    # Active voters (status == 'ACTIVE')
+    active = (
+        df.filter(pl.col('VOTER_STATUS') == 'ACTIVE')
+          .group_by('COUNTY_NUMBER')
+          .agg(pl.len().alias('Active Voters'))
+    )
+
+    # Party breakdown per county using pivot
+    party_pivot = (
+        df.group_by(['COUNTY_NUMBER', 'PARTY_LABEL'])
+          .agg(pl.len().alias('n'))
+          .pivot(on='PARTY_LABEL', index='COUNTY_NUMBER', values='n', aggregate_function='sum')
+    )
+
+    # Join all pieces together on COUNTY_NUMBER
+    summary = (
+        totals
+        .join(active,       on='COUNTY_NUMBER', how='left')
+        .join(party_pivot,  on='COUNTY_NUMBER', how='left')
+        .with_columns([
+            # Add human-readable county name from our lookup dict
+            pl.col('COUNTY_NUMBER')
+              .replace(OHIO_COUNTIES, default='Unknown')
+              .alias('County Name'),
+        ])
+        .sort('Total Voters', descending=True)
+    )
+
+    return summary
+
+
+def build_decade_summary(df: pl.DataFrame) -> pl.DataFrame:
+    """
+    Voter counts grouped by birth decade.
+    Drives both the Decade Summary Excel sheet and the web dashboard bar chart.
+    """
+    return (
+        df.group_by('Decade')
+          .agg(pl.len().alias('Voter Count'))
+          .sort('Decade')
+    )
+
+
+# Ordered list used for sorting generation rows chronologically.
+_GEN_ORDER = ['Silent/Greatest', 'Baby Boomers', 'Gen X', 'Millennials', 'Gen Z', 'Gen Alpha']
+
+
+def build_generation_summary(df: pl.DataFrame) -> pl.DataFrame:
+    """
+    Voter counts grouped by generational cohort (Pew Research Center boundaries).
+    Rows are returned in chronological birth-order.
+    """
+    order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                             '_sort': list(range(len(_GEN_ORDER)))})
+    summary = (
+        df.group_by('Generation')
+          .agg(pl.len().alias('Voter Count'))
+    )
+    return (
+        summary.join(order_df, on='Generation', how='left')
+               .sort('_sort')
+               .drop('_sort')
+    )
+
+
+def build_generation_crosstab(df: pl.DataFrame, logger: logging.Logger) -> pl.DataFrame:
+    """
+    Party affiliation × generational cohort cross-tabulation.
+    Mirrors the structure of the decade cross-tab in build_party_crosstabs().
+    """
+    order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                             '_sort': list(range(len(_GEN_ORDER)))})
+    try:
+        raw = (
+            df.group_by(['Generation', 'PARTY_LABEL'])
+              .agg(pl.len().alias('count'))
+              .pivot(on='PARTY_LABEL', index='Generation',
+                     values='count', aggregate_function='sum')
+        )
+        # Ensure all expected party columns exist
+        for party in TOP_PARTIES + ['Other']:
+            if party not in raw.columns:
+                raw = raw.with_columns(pl.lit(0).cast(pl.Int64).alias(party))
+        total = raw.select(pl.col(c) for c in TOP_PARTIES + ['Other']).sum_horizontal()
+        raw = raw.with_columns(total.alias('Total'))
+        result = (
+            raw.join(order_df, on='Generation', how='left')
+               .sort('_sort')
+               .drop('_sort')
+               .rename({'Generation': 'Generational Cohort'})
+        )
+        return result
+    except Exception:
+        logger.warning('build_generation_crosstab: could not build cross-tab', exc_info=True)
+        return pl.DataFrame()
+
+
+def build_election_participation(
+    df:            pl.DataFrame,
+    election_cols: list[str],
+    logger:        logging.Logger,
+) -> tuple[pl.DataFrame, pl.DataFrame, pl.DataFrame]:
+    """
+    Build three summary DataFrames for the Participation Excel sheet:
+
+      election_df — one row per election: eligible count, votes cast, turnout rate
+      type_df     — aggregated by election type (Primary / General / Special)
+      freq_df     — voter frequency distribution (Frequent / Moderate / Infrequent)
+
+    These are computed directly from the per-voter REGDATE_DT and election columns
+    rather than from the derived Elections_Eligible/Voted columns, because the
+    per-election breakdown needs election-specific eligibility counts.
+
+    NOTE: This step iterates over 89 election columns in Python.  For Ohio-scale
+    data (~7.9M rows) this is the slowest part of the analysis — each column
+    requires a Polars filter + aggregation.  It runs in roughly 30–60 seconds on
+    an 8-core machine.  A future optimisation would be to unpivot the election
+    columns into a long format and aggregate in one pass.
+    """
+    logger.info('Building election-level participation summary (%d elections) ...',
+                len(election_cols))
+
+    rows = []
+    total = len(election_cols)
+    for i, col in enumerate(election_cols, 1):
+        # Log progress every 10 elections so the user knows the loop is running.
+        # This step can take 30–60 s on Ohio-wide data; without it the process
+        # looks hung during a long silent pause.
+        if i % 10 == 0 or i == total:
+            logger.info('  Participation by election: %d / %d', i, total)
+
+        elec_date, type_code, type_label = parse_election_meta(col)
+        if elec_date is None:
+            continue
+
+        elig_mask = (
+            pl.col('REGDATE_DT').is_not_null() &
+            (pl.col('REGDATE_DT') <= pl.lit(elec_date))
+        )
+        n_elig  = df.filter(elig_mask).height
+        n_voted = df.filter(
+            elig_mask &
+            pl.col(col).is_not_null() &
+            (pl.col(col).str.strip_chars() != '')
+        ).height
+        rate = n_voted / n_elig if n_elig > 0 else None
+
+        rows.append({
+            'Election': col,
+            'Date':     elec_date.strftime('%Y-%m-%d'),
+            'Type':     type_label,
+            'Eligible': n_elig,
+            'Voted':    n_voted,
+            'Rate':     f'{rate:.1%}' if rate is not None else 'N/A',
+            '_rate_raw': rate,   # retained for type aggregation, dropped before output
+        })
+
+    election_df = pl.DataFrame(rows)
+
+    # Aggregate by election type (sum eligible/voted, average rate)
+    type_df = (
+        election_df.group_by('Type')
+          .agg([
+              pl.len().alias('Elections'),
+              pl.col('Eligible').mean().round(0).cast(pl.Int64).alias('Avg Eligible'),
+              pl.col('Voted').mean().round(0).cast(pl.Int64).alias('Avg Voted'),
+              pl.col('_rate_raw').mean().alias('_avg_rate'),
+          ])
+          .with_columns([
+              pl.col('_avg_rate').map_elements(
+                  lambda r: f'{r:.1%}' if r is not None else 'N/A',
+                  return_dtype=pl.Utf8,
+              ).alias('Avg Rate'),
+          ])
+          .drop('_avg_rate')
+    )
+
+    election_df = election_df.drop('_rate_raw')
+
+    # Voter frequency distribution
+    freq_order = ['Frequent (≥75%)', 'Moderate (25–74%)', 'Infrequent (<25%)', 'No Eligible Elections']
+    freq_counts = df.group_by('Voter_Frequency').agg(pl.len().alias('Voter Count'))
+    # Ensure all categories present even if count is zero
+    all_cats    = pl.DataFrame({'Voter_Frequency': freq_order})
+    freq_df = (
+        all_cats
+        .join(freq_counts, on='Voter_Frequency', how='left')
+        .with_columns(pl.col('Voter Count').fill_null(0))
+        .with_columns([
+            (pl.col('Voter Count') / len(df) * 100)
+              .round(2)
+              .cast(pl.Utf8)
+              .str.concat('%')
+              .alias('Percent')
+        ])
+        .rename({'Voter_Frequency': 'Frequency Class'})
+    )
+
+    logger.info('Election participation summary complete: %d elections', len(election_df))
+    return election_df, type_df, freq_df
+
+
+def build_district_breakdown(
+    df:            pl.DataFrame,
+    election_cols: list[str],
+    logger:        logging.Logger,
+) -> tuple[dict[str, pl.DataFrame], str | None]:
+    """
+    Per-district breakdown for each field in DISTRICT_FIELDS.
+
+    For each district field (Congressional, Senate, House, School, Board of Ed),
+    produces a table with total voters, party breakdown, status breakdown, and
+    turnout in the most recent General election.
+
+    Returns (district_tables_dict, most_recent_general_col_name).
+    """
+    logger.info('Building district breakdowns ...')
+
+    # Identify the most recent General election column for turnout calculation.
+    # General elections are the most comparable across districts.
+    g_cols        = [c for c in election_cols if c.startswith('GENERAL-')]
+    most_recent_g = g_cols[-1] if g_cols else None
+
+    # Pre-compute eligibility and voted columns for the most recent General election
+    # so we don't recompute for every district field.
+    if most_recent_g:
+        g_date, _, _ = parse_election_meta(most_recent_g)
+        df = df.with_columns([
+            (
+                pl.col('REGDATE_DT').is_not_null() &
+                (pl.col('REGDATE_DT') <= pl.lit(g_date))
+            ).cast(pl.Int32).alias('_elig_g'),
+
+            (
+                (pl.col('REGDATE_DT').is_not_null() & (pl.col('REGDATE_DT') <= pl.lit(g_date))) &
+                pl.col(most_recent_g).is_not_null() &
+                (pl.col(most_recent_g).str.strip_chars() != '')
+            ).cast(pl.Int32).alias('_voted_g'),
+        ])
+    else:
+        df = df.with_columns([
+            pl.lit(0).cast(pl.Int32).alias('_elig_g'),
+            pl.lit(0).cast(pl.Int32).alias('_voted_g'),
+        ])
+
+    district_tables: dict[str, pl.DataFrame] = {}
+
+    for field in DISTRICT_FIELDS:
+        if field not in df.columns:
+            logger.warning('District field "%s" not found in voter file — skipping', field)
+            continue
+
+        # Group by district value, computing all metrics in one aggregation pass
+        agg = (
+            df.with_columns(
+                pl.col(field).fill_null('Unknown').str.strip_chars().alias('_district')
+            )
+            .group_by(['_district', 'PARTY_LABEL', 'VOTER_STATUS'])
+            .agg([
+                pl.len().alias('_n'),
+                pl.col('_elig_g').sum().alias('_elig_g'),
+                pl.col('_voted_g').sum().alias('_voted_g'),
+            ])
+        )
+
+        # Pivot party and status into separate columns
+        totals    = agg.group_by('_district').agg(pl.col('_n').sum().alias('Total Voters'))
+        party_ct  = (
+            agg.group_by(['_district', 'PARTY_LABEL'])
+               .agg(pl.col('_n').sum())
+               .pivot(on='PARTY_LABEL', index='_district', values='_n', aggregate_function='sum')
+        )
+        # Explicit aggregation instead of pivot — fixed schema regardless of
+        # what VOTER_STATUS values exist in the statewide file.
+        status_ct = (
+            agg.group_by('_district')
+               .agg([
+                   pl.col('VOTER_STATUS').eq('ACTIVE').mul(pl.col('_n')).sum().cast(pl.Int64).alias('ACTIVE'),
+                   pl.col('VOTER_STATUS').eq('CONFIRMATION').mul(pl.col('_n')).sum().cast(pl.Int64).alias('CONFIRMATION'),
+               ])
+        )
+        g_agg = (
+            agg.group_by('_district')
+               .agg([
+                   pl.col('_elig_g').sum().alias('Eligible (General)'),
+                   pl.col('_voted_g').sum().alias('Voted (General)'),
+               ])
+               .with_columns([
+                   pl.when(pl.col('Eligible (General)') > 0)
+                     .then(pl.col('Voted (General)').cast(pl.Float64) /
+                           pl.col('Eligible (General)').cast(pl.Float64))
+                     .otherwise(None)
+                     .round(4)
+                     .map_elements(
+                         lambda r: f'{r:.1%}' if r is not None else 'N/A',
+                         return_dtype=pl.Utf8,
+                     )
+                     .alias('Turnout%')
+               ])
+        )
+
+        # Rename party columns to include prefix for clarity in Excel
+        for p in TOP_PARTIES + ['Other']:
+            if p not in party_ct.columns:
+                party_ct = party_ct.with_columns(pl.lit(0).cast(pl.Int32).alias(p))
+        party_ct = party_ct.rename({p: f'Party: {p}' for p in TOP_PARTIES + ['Other']
+                                    if p in party_ct.columns})
+
+        out = (
+            totals
+            .join(party_ct,  on='_district', how='left')
+            .join(status_ct, on='_district', how='left')
+            .join(g_agg,     on='_district', how='left')
+            .rename({'_district': field})
+            .sort('Total Voters', descending=True)
+        )
+
+        district_tables[field] = out
+        logger.debug('District breakdown for %s: %d districts', field, len(out))
+
+    # Drop the temporary general-election helper columns
+    df = df.drop(['_elig_g', '_voted_g'])
+
+    logger.info('District breakdown complete: %d field(s)', len(district_tables))
+    return district_tables, most_recent_g
+
+
+def build_party_crosstabs(df: pl.DataFrame, logger: logging.Logger) -> tuple:
+    """
+    Three crosstabs used in the Party Cross-tabs Excel sheet and web dashboard:
+
+      by_congress — party × Congressional district
+      by_decade   — party × birth decade cohort
+      by_status   — party × voter registration status
+    """
+    logger.info('Building party cross-tabs ...')
+
+    def crosstab(group_col: str, label: str) -> pl.DataFrame:
+        """Pivot party counts for the given grouping column."""
+        return (
+            df.with_columns(
+                pl.col(group_col).fill_null('Unknown').str.strip_chars().alias('_grp')
+            )
+            .group_by(['_grp', 'PARTY_LABEL'])
+            .agg(pl.len().alias('n'))
+            .pivot(on='PARTY_LABEL', index='_grp', values='n', aggregate_function='sum')
+            .rename({'_grp': label})
+        )
+
+    by_congress = crosstab('CONGRESSIONAL_DISTRICT', 'Congressional District')
+    by_decade   = crosstab('Decade',                 'Birth Decade')
+
+    # by_status uses explicit aggregation instead of the generic crosstab pivot
+    # so the column schema is fixed regardless of unexpected VOTER_STATUS values.
+    by_status = (
+        df.group_by('PARTY_LABEL')
+          .agg([
+              pl.col('VOTER_STATUS').eq('ACTIVE').sum().cast(pl.Int64).alias('ACTIVE'),
+              pl.col('VOTER_STATUS').eq('CONFIRMATION').sum().cast(pl.Int64).alias('CONFIRMATION'),
+          ])
+          .with_columns(
+              (pl.col('ACTIVE') + pl.col('CONFIRMATION')).alias('Total')
+          )
+          .sort('Total', descending=True)
+          .rename({'PARTY_LABEL': 'Voter Status'})
+    )
+
+    return by_congress, by_decade, by_status
+
+
+def build_precinct_summary(df: pl.DataFrame) -> pl.DataFrame:
+    """
+    Precinct-level active/inactive counts for the table chart in the web dashboard.
+
+    Uses explicit .eq() aggregations instead of a pivot so the output schema is
+    fixed regardless of what VOTER_STATUS values exist in the source file (the
+    statewide file may contain RETIRED, DELETED, or other values beyond ACTIVE /
+    CONFIRMATION).  This also includes COUNTY_NUMBER so city-level aggregation
+    and future cross-county merges can group by city name across county lines.
+
+    Est. Unregistered is intentionally set to 'N/A' — this column will be
+    populated in a future step once Census adult-population data by precinct is
+    integrated.  The column is included now so the JSON schema is stable.
+    """
+    return (
+        df.with_columns(
+            pl.col('PRECINCT_NAME').fill_null('Unknown').str.strip_chars().alias('PRECINCT_NAME')
+        )
+        .group_by(['COUNTY_NUMBER', 'PRECINCT_NAME'])
+        .agg([
+            pl.col('VOTER_STATUS').eq('ACTIVE').sum().cast(pl.Int64).alias('ACTIVE'),
+            pl.col('VOTER_STATUS').eq('CONFIRMATION').sum().cast(pl.Int64).alias('CONFIRMATION'),
+        ])
+        .with_columns([
+            (pl.col('ACTIVE') + pl.col('CONFIRMATION')).alias('Total Registered'),
+            pl.lit('N/A').alias('Est. Unregistered'),
+        ])
+        .sort('Total Registered', descending=True)
+    )
+
+
+# Precinct-ID suffixes that should be stripped to recover the city/township name.
+# Pattern: optional separator (space or dash), then one or more digits, optionally
+# followed by a dash and a letter — e.g. "3-E", "14", "5-D".  Also matches a
+# lone trailing letter after a separator — e.g. "MIAMI TWP R" → "MIAMI TWP",
+# "W CARROLLTON-G" → "W CARROLLTON".
+# The regex is applied right-to-left (on the reversed string) so we only strip
+# the rightmost token.
+# Precinct-ID suffix patterns, applied in order to the END of the precinct name.
+# Each pattern requires a SEPARATOR (whitespace or hyphen) before the ID token so
+# we never strip into the city's own letters. Order matters — most specific first.
+_PRECINCT_SUFFIX_PATTERNS = [
+    # "DAYTON 3-E", "DAYTON 03-D", "CLEVELAND 18-A"   → city + space + digits + sep + letter
+    re.compile(r'[\s\-]+\d+\s*[\-\s]\s*[A-Z]\s*$', re.IGNORECASE),
+    # "TROTWOOD-A", "W CARROLLTON-G"                  → city + dash + single letter
+    re.compile(r'\-\s*[A-Z]\s*$',                  re.IGNORECASE),
+    # "HUBER HEIGHTS 5-D", "CLEVELAND-04-A"           → city + sep + letter + dash + digits + opt letter
+    re.compile(r'[\s\-]+[A-Z]?\-?\d+[A-Z]?\s*$',   re.IGNORECASE),
+    # "MIAMI TWP R", "CLEVELAND A"                    → city + space + single trailing letter
+    re.compile(r'\s+[A-Z]\s*$',                    re.IGNORECASE),
+    # "DAYTON 3", "CLEVELAND 12"                      → city + space + digits only
+    re.compile(r'[\s\-]+\d+\s*$',                  re.IGNORECASE),
+]
+
+
+def _extract_city(precinct_name: str) -> str:
+    """
+    Extract the municipality portion from a SWVF precinct name.
+
+    Examples:
+        'DAYTON 3-E'        → 'DAYTON'
+        'HUBER HEIGHTS 5-D' → 'HUBER HEIGHTS'
+        'MIAMI TWP R'       → 'MIAMI TWP'
+        'W CARROLLTON-G'    → 'W CARROLLTON'
+        'TROTWOOD-A'        → 'TROTWOOD'
+        'CLEVELAND 18-A'    → 'CLEVELAND'
+        'CLEVELAND'         → 'CLEVELAND'   (no precinct ID, returned unchanged)
+        'BEREA'             → 'BEREA'       (no separator before letter; not stripped)
+
+    Strategy: try each precinct-ID suffix pattern in order against the end of the
+    name. Each pattern requires a separator (space or hyphen) before the ID token
+    so the city's own letters are never eaten. If no pattern matches, the name is
+    returned as-is — better to leave a precinct un-aggregated than to corrupt a
+    city name.
+    """
+    name = precinct_name.strip()
+    for pat in _PRECINCT_SUFFIX_PATTERNS:
+        stripped = pat.sub('', name, count=1).strip(' -')
+        if stripped and stripped != name:
+            return stripped
+    return name
+
+
+def build_city_summary(df: pl.DataFrame) -> pl.DataFrame:
+    """
+    Aggregate voter registration to city/township level by extracting the
+    municipality from PRECINCT_NAME.
+
+    COUNTY_NUMBER is preserved in the output so that when multiple counties are
+    processed (Phase 3 statewide), cities that span county lines (e.g. Kettering
+    across Montgomery and Greene) can be identified and merged by downstream logic
+    without any changes to this function.
+
+    Schema:
+        COUNTY_NUMBER   — Ohio SOS county code (string)
+        City            — extracted municipality name
+        ACTIVE          — active registered voters
+        CONFIRMATION    — confirmation-status voters
+        Total Registered
+        Precincts       — number of distinct precincts contributing to this city
+        Est. Unregistered — placeholder; requires Census integration
+    """
+    return (
+        df.with_columns([
+            pl.col('PRECINCT_NAME').fill_null('Unknown').str.strip_chars().alias('PRECINCT_NAME'),
+            pl.col('COUNTY_NUMBER').fill_null('??').str.strip_chars().alias('COUNTY_NUMBER'),
+        ])
+        .with_columns(
+            pl.col('PRECINCT_NAME')
+              .map_elements(_extract_city, return_dtype=pl.Utf8)
+              .alias('City')
+        )
+        .group_by(['COUNTY_NUMBER', 'City'])
+        .agg([
+            pl.col('VOTER_STATUS').eq('ACTIVE').sum().cast(pl.Int64).alias('ACTIVE'),
+            pl.col('VOTER_STATUS').eq('CONFIRMATION').sum().cast(pl.Int64).alias('CONFIRMATION'),
+            pl.col('PRECINCT_NAME').n_unique().alias('Precincts'),
+        ])
+        .with_columns([
+            (pl.col('ACTIVE') + pl.col('CONFIRMATION')).alias('Total Registered'),
+            pl.lit('N/A').alias('Est. Unregistered'),
+        ])
+        .sort('Total Registered', descending=True)
+    )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# JSON export  (writes to docs/data/ — consumed directly by index.html)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _dump_json(obj: dict, path: Path, logger: logging.Logger):
+    """Write a dict as formatted JSON; log the result.
+
+    Uses orjson when available (3-10x faster, GIL-releasing, direct bytes
+    write to NVMe buffer).  Falls back to stdlib json if orjson is not
+    installed.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if _orjson is not None:
+        path.write_bytes(_orjson.dumps(obj, option=_orjson.OPT_INDENT_2 | _orjson.OPT_NON_STR_KEYS))
+    else:
+        path.write_text(json.dumps(obj, indent=2, default=str), encoding='utf-8')
+    logger.debug('JSON written: %s  (%d bytes)', path.name, path.stat().st_size)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# UNC shadow-partisanship classifier  (Polars-native, format-agnostic)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# UNC shadow classification colors — intentionally lighter than the full-
+# saturation party colors so the visual distinction between "registered" and
+# "behaviorally inferred" is immediately apparent.
+UNC_SHADOW_COLORS = {
+    'LIFETIME_D':   '#60a5fa',   # blue-400  — lighter tint of DEM #3b82f6 (blue-500)
+    'LIFETIME_R':   '#f87171',   # red-400   — lighter tint of REP #ef4444 (red-500)
+    'MIXED':        '#a78bfa',   # violet-400 — crossed party lines
+    'NO_HISTORY':   '#9ca3af',   # grey-400   — no primary participation on record
+}
+
+UNC_SHADOW_LABELS = {
+    'LIFETIME_D':  'Lifetime D',
+    'LIFETIME_R':  'Lifetime R',
+    'MIXED':       'Mixed / Crossover',
+    'NO_HISTORY':  'No Primary History',
+}
+
+UNC_SHADOW_NOTE = (
+    'Shadow partisanship inferred from primary ballot history only. '
+    'Ohio uses an open primary: voters may cross party lines in any election. '
+    'These labels reflect behavioral pattern, not registration status. '
+    'Voters with ballots in both D and R primaries are classified as Mixed.'
+)
+
+
+def identify_primary_cols(election_cols: list[str]) -> list[str]:
+    """
+    Filter a list of election columns down to primary-only columns.
+
+    Accepts the output of identify_election_cols() — sorted chronologically.
+    The filter is deliberately the only state-specific logic: swap this
+    predicate for a different state's naming convention and the classifier
+    itself needs no changes.
+
+    Ohio SWVF format: 'PRIMARY-MM/DD/YYYY'
+    """
+    return [c for c in election_cols if c.startswith('PRIMARY-')]
+
+
+def classify_all_voters_primary_history(
+    df:             pl.DataFrame,
+    primary_cols:   list[str],
+    logger:         logging.Logger,
+    reference_date: 'date_t | None' = None,
+) -> pl.DataFrame:
+    """
+    Universal voter classifier — applies cohort taxonomy + decay-weighted
+    crossover scoring to ALL voters (not just UNC).
+
+    Cohorts are evaluated top-down with first-match-wins semantics.  See
+    CLAUDE.md / refactor doc for the full taxonomy table.  Output is one row
+    per voter keyed on SOS_VOTERID, joinable back onto the source df.
+
+    Returns a DataFrame with columns:
+        SOS_VOTERID                  Utf8
+        d_primaries, r_primaries     Int32  (count of partisan ballots)
+        x_primaries                  Int32  (non-partisan ballots: not in {D, R, ''})
+        total_primaries              Int32  (any non-empty ballot)
+        partisan_primaries           Int32  (= d + r)
+        lean_score                   Float64 nullable  decay-weighted partisan lean
+        confidence                   Float64 nullable  |lean| * n / (n + 2)
+        recent_5yr_lean              Float64 nullable  same math, last 5 years only
+        last_three_party             Utf8     DDD/DD/D/RRR/RR/R/MIX/NONE
+        years_since_last_partisan    Float64 nullable
+        switch_count                 Int32   adjacent D->R or R->D transitions
+        cohort                       Utf8    PURE_R/PURE_D/R_CROSSOVER/etc.
+        cohort_family                Utf8    rolled-up family
+        crossover_class              Utf8 nullable  LOCKED_D/LEAN_D/TRUE_MIXED/...
+        is_new_registrant            Boolean  REGISTRATION_DATE >= 2024-01-01
+    """
+    from math import exp
+
+    if reference_date is None:
+        reference_date = date_t(2026, 5, 7)
+
+    party_col = 'PARTY_AFFILIATION' if 'PARTY_AFFILIATION' in df.columns else 'PARTYAFFIL'
+
+    # -- Empty-primary-cols edge case ----------------------------------------
+    if not primary_cols:
+        logger.warning('classify_all_voters_primary_history: no primary columns - '
+                       'returning minimal frame keyed on SOS_VOTERID')
+        out = df.select([
+            pl.col('SOS_VOTERID'),
+            pl.lit(0).cast(pl.Int32).alias('d_primaries'),
+            pl.lit(0).cast(pl.Int32).alias('r_primaries'),
+            pl.lit(0).cast(pl.Int32).alias('x_primaries'),
+            pl.lit(0).cast(pl.Int32).alias('total_primaries'),
+            pl.lit(0).cast(pl.Int32).alias('partisan_primaries'),
+            pl.lit(None).cast(pl.Float64).alias('lean_score'),
+            pl.lit(None).cast(pl.Float64).alias('confidence'),
+            pl.lit(None).cast(pl.Float64).alias('recent_5yr_lean'),
+            pl.lit('NONE').alias('last_three_party'),
+            pl.lit(None).cast(pl.Float64).alias('years_since_last_partisan'),
+            pl.lit(0).cast(pl.Int32).alias('switch_count'),
+        ])
+        party = pl.col(party_col).str.strip_chars() if party_col in df.columns else pl.lit('')
+        out = out.with_columns(party.alias('_party'))
+        cohort_expr = (
+            pl.when(pl.col('_party') == 'R').then(pl.lit('R_NEW'))
+              .when(pl.col('_party') == 'D').then(pl.lit('D_NEW'))
+              .otherwise(pl.lit('UNC_NO_HISTORY'))
+              .alias('cohort')
+        )
+        out = out.with_columns(cohort_expr).drop('_party')
+        family_map = {
+            'PURE_R': 'PURE_R', 'R_NEW': 'PURE_R',
+            'PURE_D': 'PURE_D', 'D_NEW': 'PURE_D',
+            'R_CROSSOVER': 'CROSSOVER_R', 'R_DEFECTOR': 'CROSSOVER_R',
+            'D_CROSSOVER': 'CROSSOVER_D', 'D_DEFECTOR': 'CROSSOVER_D',
+            'UNC_LIFETIME_R': 'UNC_LIFETIME_R',
+            'UNC_LIFETIME_D': 'UNC_LIFETIME_D',
+            'UNC_MIXED':       'UNC_MIXED',
+            'UNC_NO_HISTORY':  'UNC_NO_HISTORY',
+        }
+        out = out.with_columns(
+            pl.col('cohort').replace(family_map).alias('cohort_family')
+        )
+        out = out.with_columns(pl.lit(None).cast(pl.Utf8).alias('crossover_class'))
+        if 'REGISTRATION_DATE' in df.columns:
+            reg = df.select([pl.col('SOS_VOTERID'),
+                             pl.col('REGISTRATION_DATE')]).clone()
+            if reg.schema['REGISTRATION_DATE'] != pl.Date:
+                reg = reg.with_columns(
+                    pl.col('REGISTRATION_DATE')
+                      .str.to_date(format='%Y-%m-%d', strict=False)
+                      .alias('REGISTRATION_DATE')
+                )
+            reg = reg.with_columns(
+                (pl.col('REGISTRATION_DATE') >= pl.lit(date_t(2024, 1, 1)))
+                  .fill_null(False)
+                  .alias('is_new_registrant')
+            ).select(['SOS_VOTERID', 'is_new_registrant'])
+            out = out.join(reg, on='SOS_VOTERID', how='left')
+        else:
+            out = out.with_columns(pl.lit(False).alias('is_new_registrant'))
+        return out
+
+    logger.info('  classify_all_voters_primary_history: %s voters x %d primary columns',
+                f'{len(df):,}', len(primary_cols))
+
+    # -- Parse election date for each primary column ------------------------
+    col_meta: list[tuple[str, date_t]] = []
+    for c in primary_cols:
+        m = ELEC_RE.match(c)
+        if not m:
+            continue
+        try:
+            mm, dd, yyyy = m.group(2).split('/')
+            d = date_t(int(yyyy), int(mm), int(dd))
+        except ValueError:
+            continue
+        col_meta.append((c, d))
+
+    col_meta_newest_first = sorted(col_meta, key=lambda x: x[1], reverse=True)
+    col_meta_chrono       = sorted(col_meta, key=lambda x: x[1])
+
+    weights:   dict[str, float] = {}
+    is_recent: dict[str, bool]  = {}
+    for c, d in col_meta:
+        years_since = (reference_date - d).days / 365.25
+        w = exp(-0.15 * years_since)
+        if d.year % 4 == 0 and d.month == 3:
+            w *= 1.25
+        weights[c]   = w
+        is_recent[c] = years_since <= 5.0
+
+    # -- Build expressions for D / R / X / total counts ---------------------
+    d_exprs:   list[pl.Expr] = []
+    r_exprs:   list[pl.Expr] = []
+    x_exprs:   list[pl.Expr] = []
+    any_exprs: list[pl.Expr] = []
+
+    for c, _ in col_meta:
+        v = pl.col(c).str.strip_chars()
+        d_exprs.append((v == 'D').cast(pl.Int32))
+        r_exprs.append((v == 'R').cast(pl.Int32))
+        x_exprs.append(((v != '') & (v != 'D') & (v != 'R')).cast(pl.Int32))
+        any_exprs.append((v != '').cast(pl.Int32))
+
+    # -- Lean numerator/denominator + recent-5yr variant --------------------
+    lean_num_exprs:   list[pl.Expr] = []
+    lean_den_exprs:   list[pl.Expr] = []
+    recent_num_exprs: list[pl.Expr] = []
+    recent_den_exprs: list[pl.Expr] = []
+
+    for c, _ in col_meta:
+        v = pl.col(c).str.strip_chars()
+        w = weights[c]
+        ballot_val = (
+            pl.when(v == 'D').then(pl.lit(1.0 * w))
+              .when(v == 'R').then(pl.lit(-1.0 * w))
+              .otherwise(pl.lit(0.0))
+        )
+        partisan_w = (
+            pl.when((v == 'D') | (v == 'R')).then(pl.lit(w))
+              .otherwise(pl.lit(0.0))
+        )
+        lean_num_exprs.append(ballot_val)
+        lean_den_exprs.append(partisan_w)
+        if is_recent[c]:
+            recent_num_exprs.append(ballot_val)
+            recent_den_exprs.append(partisan_w)
+
+    # -- switch_count: adjacent partisan flips in chronological order -------
+    switch_exprs: list[pl.Expr] = []
+    chrono_cols = [c for c, _ in col_meta_chrono]
+    for prev_col, next_col in zip(chrono_cols, chrono_cols[1:]):
+        v1 = pl.col(prev_col).str.strip_chars()
+        v2 = pl.col(next_col).str.strip_chars()
+        diff_partisan = (
+            ((v1 == 'D') & (v2 == 'R')) | ((v1 == 'R') & (v2 == 'D'))
+        ).cast(pl.Int32)
+        switch_exprs.append(diff_partisan)
+
+    # -- years_since_last_partisan ------------------------------------------
+    yslp_exprs: list[pl.Expr] = []
+    for c, d in col_meta_newest_first:
+        years_since = (reference_date - d).days / 365.25
+        v = pl.col(c).str.strip_chars()
+        ex = (
+            pl.when((v == 'D') | (v == 'R')).then(pl.lit(years_since))
+              .otherwise(pl.lit(None, dtype=pl.Float64))
+        )
+        yslp_exprs.append(ex)
+
+    # -- Project to working frame ------------------------------------------
+    base_select = [pl.col('SOS_VOTERID'),
+                   pl.col(party_col).str.strip_chars().alias('_party')]
+    if 'REGISTRATION_DATE' in df.columns:
+        base_select.append(pl.col('REGISTRATION_DATE'))
+    work = df.select(base_select + [pl.col(c) for c, _ in col_meta])
+
+    work = work.with_columns([
+        pl.sum_horizontal(d_exprs).alias('d_primaries'),
+        pl.sum_horizontal(r_exprs).alias('r_primaries'),
+        pl.sum_horizontal(x_exprs).alias('x_primaries'),
+        pl.sum_horizontal(any_exprs).alias('total_primaries'),
+        (pl.sum_horizontal(lean_num_exprs) if lean_num_exprs
+            else pl.lit(0.0)).alias('_lean_num'),
+        (pl.sum_horizontal(lean_den_exprs) if lean_den_exprs
+            else pl.lit(0.0)).alias('_lean_den'),
+        (pl.sum_horizontal(recent_num_exprs) if recent_num_exprs
+            else pl.lit(0.0)).alias('_recent_num'),
+        (pl.sum_horizontal(recent_den_exprs) if recent_den_exprs
+            else pl.lit(0.0)).alias('_recent_den'),
+        (pl.sum_horizontal(switch_exprs) if switch_exprs
+            else pl.lit(0).cast(pl.Int32)).alias('switch_count'),
+        (pl.min_horizontal(yslp_exprs) if yslp_exprs
+            else pl.lit(None).cast(pl.Float64)).alias('years_since_last_partisan'),
+    ])
+
+    work = work.with_columns([
+        (pl.col('d_primaries') + pl.col('r_primaries')).alias('partisan_primaries'),
+        pl.when(pl.col('_lean_den') > 0)
+          .then(pl.col('_lean_num') / pl.col('_lean_den'))
+          .otherwise(None)
+          .alias('lean_score'),
+        pl.when(pl.col('_recent_den') > 0)
+          .then(pl.col('_recent_num') / pl.col('_recent_den'))
+          .otherwise(None)
+          .alias('recent_5yr_lean'),
+    ])
+    work = work.with_columns([
+        pl.when(pl.col('partisan_primaries') > 0)
+          .then(
+              pl.col('lean_score').abs()
+              * pl.col('partisan_primaries').cast(pl.Float64)
+              / (pl.col('partisan_primaries').cast(pl.Float64) + 2.0)
+          )
+          .otherwise(None)
+          .alias('confidence'),
+    ])
+
+    # -- last_three_party: concat partisan letters newest-first, take first 3
+    if col_meta_newest_first:
+        partisan_letter_exprs = []
+        for c, _ in col_meta_newest_first:
+            v = pl.col(c).str.strip_chars()
+            ex = (
+                pl.when(v == 'D').then(pl.lit('D'))
+                  .when(v == 'R').then(pl.lit('R'))
+                  .otherwise(pl.lit(''))
+            )
+            partisan_letter_exprs.append(ex)
+        work = work.with_columns(
+            pl.concat_str(partisan_letter_exprs).str.slice(0, 3).alias('_last3raw')
+        )
+    else:
+        work = work.with_columns(pl.lit('').alias('_last3raw'))
+
+    work = work.with_columns(
+        pl.when(pl.col('_last3raw') == 'DDD').then(pl.lit('DDD'))
+          .when(pl.col('_last3raw') == 'RRR').then(pl.lit('RRR'))
+          .when(pl.col('_last3raw').str.len_chars() == 0).then(pl.lit('NONE'))
+          .when(pl.col('_last3raw') == 'D').then(pl.lit('D'))
+          .when(pl.col('_last3raw') == 'R').then(pl.lit('R'))
+          .when(pl.col('_last3raw') == 'DD').then(pl.lit('DD'))
+          .when(pl.col('_last3raw') == 'RR').then(pl.lit('RR'))
+          .otherwise(pl.lit('MIX'))
+          .alias('last_three_party')
+    )
+
+    # -- cohort assignment (top-down, first-match-wins) ---------------------
+    cohort_expr = (
+        pl.when((pl.col('_party') == 'R') & (pl.col('d_primaries') == 0))
+          .then(pl.lit('PURE_R'))
+        .when((pl.col('_party') == 'D') & (pl.col('r_primaries') == 0))
+          .then(pl.lit('PURE_D'))
+        .when((pl.col('_party') == 'R')
+              & (pl.col('d_primaries') >= 1)
+              & (pl.col('r_primaries') >= 1))
+          .then(pl.lit('R_CROSSOVER'))
+        .when((pl.col('_party') == 'D')
+              & (pl.col('d_primaries') >= 1)
+              & (pl.col('r_primaries') >= 1))
+          .then(pl.lit('D_CROSSOVER'))
+        .when((pl.col('_party') == 'R')
+              & (pl.col('d_primaries') >= 1)
+              & (pl.col('r_primaries') == 0))
+          .then(pl.lit('R_DEFECTOR'))
+        .when((pl.col('_party') == 'D')
+              & (pl.col('d_primaries') == 0)
+              & (pl.col('r_primaries') >= 1))
+          .then(pl.lit('D_DEFECTOR'))
+        .when((pl.col('_party') == 'R')
+              & (pl.col('d_primaries') == 0)
+              & (pl.col('r_primaries') == 0))
+          .then(pl.lit('R_NEW'))
+        .when((pl.col('_party') == 'D')
+              & (pl.col('d_primaries') == 0)
+              & (pl.col('r_primaries') == 0))
+          .then(pl.lit('D_NEW'))
+        .when((pl.col('_party') == '')
+              & (pl.col('d_primaries') == 0)
+              & (pl.col('r_primaries') >= 1))
+          .then(pl.lit('UNC_LIFETIME_R'))
+        .when((pl.col('_party') == '')
+              & (pl.col('d_primaries') >= 1)
+              & (pl.col('r_primaries') == 0))
+          .then(pl.lit('UNC_LIFETIME_D'))
+        .when((pl.col('_party') == '')
+              & (pl.col('d_primaries') >= 1)
+              & (pl.col('r_primaries') >= 1))
+          .then(pl.lit('UNC_MIXED'))
+        .when((pl.col('_party') == '')
+              & (pl.col('d_primaries') == 0)
+              & (pl.col('r_primaries') == 0))
+          .then(pl.lit('UNC_NO_HISTORY'))
+        .otherwise(pl.lit('OTHER'))
+        .alias('cohort')
+    )
+    work = work.with_columns(cohort_expr)
+
+    family_map = {
+        'PURE_R': 'PURE_R',          'R_NEW': 'PURE_R',
+        'PURE_D': 'PURE_D',          'D_NEW': 'PURE_D',
+        'R_CROSSOVER': 'CROSSOVER_R','R_DEFECTOR': 'CROSSOVER_R',
+        'D_CROSSOVER': 'CROSSOVER_D','D_DEFECTOR': 'CROSSOVER_D',
+        'UNC_LIFETIME_R': 'UNC_LIFETIME_R',
+        'UNC_LIFETIME_D': 'UNC_LIFETIME_D',
+        'UNC_MIXED':       'UNC_MIXED',
+        'UNC_NO_HISTORY':  'UNC_NO_HISTORY',
+        'OTHER':           'OTHER',
+    }
+    work = work.with_columns(
+        pl.col('cohort').replace(family_map).alias('cohort_family')
+    )
+
+    # -- crossover_class: applies only to R_CROSSOVER, D_CROSSOVER, UNC_MIXED
+    # Tightened thresholds for affiliated crossovers (LOCKED 0.5, LEAN 0.3);
+    # UNC_MIXED uses 0.4/0.2 (legacy mixed-lean predictor logic).
+    crossover_class_expr = (
+        pl.when(~pl.col('cohort').is_in(['R_CROSSOVER', 'D_CROSSOVER', 'UNC_MIXED']))
+          .then(pl.lit(None, dtype=pl.Utf8))
+        .when(pl.col('cohort') == 'UNC_MIXED')
+          .then(
+              pl.when((pl.col('lean_score') >= 0.40)
+                      & (pl.col('last_three_party') == 'DDD')
+                      & (pl.col('years_since_last_partisan') <= 6.0))
+                .then(pl.lit('LOCKED_D'))
+              .when((pl.col('lean_score') <= -0.40)
+                      & (pl.col('last_three_party') == 'RRR')
+                      & (pl.col('years_since_last_partisan') <= 6.0))
+                .then(pl.lit('LOCKED_R'))
+              .when(pl.col('lean_score') >= 0.20).then(pl.lit('LEAN_D'))
+              .when(pl.col('lean_score') <= -0.20).then(pl.lit('LEAN_R'))
+              .otherwise(pl.lit('TRUE_MIXED'))
+          )
+        .otherwise(
+              pl.when((pl.col('lean_score') >= 0.50)
+                      & (pl.col('last_three_party') == 'DDD')
+                      & (pl.col('years_since_last_partisan') <= 6.0))
+                .then(pl.lit('LOCKED_D'))
+              .when((pl.col('lean_score') <= -0.50)
+                      & (pl.col('last_three_party') == 'RRR')
+                      & (pl.col('years_since_last_partisan') <= 6.0))
+                .then(pl.lit('LOCKED_R'))
+              .when(pl.col('lean_score') >= 0.30).then(pl.lit('LEAN_D'))
+              .when(pl.col('lean_score') <= -0.30).then(pl.lit('LEAN_R'))
+              .otherwise(pl.lit('TRUE_MIXED'))
+        )
+        .alias('crossover_class')
+    )
+    work = work.with_columns(crossover_class_expr)
+
+    # -- is_new_registrant ---------------------------------------------------
+    if 'REGISTRATION_DATE' in work.columns:
+        if work.schema['REGISTRATION_DATE'] != pl.Date:
+            work = work.with_columns(
+                pl.col('REGISTRATION_DATE')
+                  .str.to_date(format='%Y-%m-%d', strict=False)
+                  .alias('_regdate_d')
+            )
+        else:
+            work = work.with_columns(
+                pl.col('REGISTRATION_DATE').alias('_regdate_d')
+            )
+        work = work.with_columns(
+            (pl.col('_regdate_d') >= pl.lit(date_t(2024, 1, 1)))
+              .fill_null(False)
+              .alias('is_new_registrant')
+        )
+    else:
+        work = work.with_columns(pl.lit(False).alias('is_new_registrant'))
+
+    out = work.select([
+        'SOS_VOTERID',
+        'd_primaries', 'r_primaries', 'x_primaries',
+        'total_primaries', 'partisan_primaries',
+        'lean_score', 'confidence', 'recent_5yr_lean',
+        'last_three_party', 'years_since_last_partisan',
+        'switch_count',
+        'cohort', 'cohort_family', 'crossover_class',
+        'is_new_registrant',
+    ])
+    return out
+
+
+def _unc_classified_from_enriched_df(df: pl.DataFrame) -> 'pl.DataFrame | None':
+    """
+    Fast path: build the unc_classified frame directly from a df that already
+    has cohort columns attached (i.e. after clean_voter_data() ran the universal
+    classifier).  Avoids re-running classify_all_voters_primary_history() in
+    workers that receive a pre-enriched IPC payload.
+
+    Returns None if cohort_family is not in df.columns.
+    Returns columns: SOS_VOTERID, COUNTY_NUMBER, PRECINCT_NAME,
+                     d_primaries, r_primaries, total_primaries, unc_class
+    """
+    if 'cohort_family' not in df.columns:
+        return None
+
+    unc_families = ['UNC_LIFETIME_D', 'UNC_LIFETIME_R', 'UNC_MIXED', 'UNC_NO_HISTORY']
+    unc_class_map = {
+        'UNC_LIFETIME_D': 'LIFETIME_D',
+        'UNC_LIFETIME_R': 'LIFETIME_R',
+        'UNC_MIXED':       'MIXED',
+        'UNC_NO_HISTORY':  'NO_HISTORY',
+    }
+    unc = (
+        df.filter(pl.col('cohort_family').is_in(unc_families))
+          .with_columns(
+              pl.col('cohort_family').replace(unc_class_map).alias('unc_class')
+          )
+    )
+    keep_candidates = ['SOS_VOTERID', 'COUNTY_NUMBER', 'PRECINCT_NAME',
+                       'd_primaries', 'r_primaries', 'total_primaries', 'unc_class']
+    keep = [c for c in keep_candidates if c in unc.columns]
+    return unc.select(keep)
+
+
+def classify_unc_primary_history(
+    df:           pl.DataFrame,
+    primary_cols: list[str],
+    logger:       logging.Logger,
+) -> pl.DataFrame:
+    """
+    Backward-compat wrapper - delegates to classify_all_voters_primary_history,
+    filters to UNC families, and remaps cohort names to the legacy schema
+    (LIFETIME_D / LIFETIME_R / MIXED / NO_HISTORY).
+
+    Returns columns: SOS_VOTERID, COUNTY_NUMBER, PRECINCT_NAME,
+                     d_primaries, r_primaries, total_primaries, unc_class
+    """
+    all_classified = classify_all_voters_primary_history(df, primary_cols, logger)
+
+    unc_families = ['UNC_LIFETIME_D', 'UNC_LIFETIME_R', 'UNC_MIXED', 'UNC_NO_HISTORY']
+    unc = all_classified.filter(pl.col('cohort_family').is_in(unc_families))
+
+    unc_class_map = {
+        'UNC_LIFETIME_D': 'LIFETIME_D',
+        'UNC_LIFETIME_R': 'LIFETIME_R',
+        'UNC_MIXED':       'MIXED',
+        'UNC_NO_HISTORY':  'NO_HISTORY',
+    }
+    unc = unc.with_columns(
+        pl.col('cohort').replace(unc_class_map).alias('unc_class')
+    )
+
+    extra_cols = [c for c in ['COUNTY_NUMBER', 'PRECINCT_NAME'] if c in df.columns]
+    if extra_cols:
+        unc = unc.join(
+            df.select(['SOS_VOTERID'] + extra_cols),
+            on='SOS_VOTERID',
+            how='left',
+        )
+
+    keep = [c for c in ['SOS_VOTERID', 'COUNTY_NUMBER', 'PRECINCT_NAME',
+                         'd_primaries', 'r_primaries', 'total_primaries', 'unc_class']
+            if c in unc.columns]
+    return unc.select(keep)
+
+
+def export_unc_shadow_json(
+    county_name:    str,
+    df:             pl.DataFrame,
+    primary_cols:   list[str],
+    logger:         logging.Logger,
+    unc_classified: 'pl.DataFrame | None' = None,
+) -> bool:
+    """
+    Classify UNC voters and write {slug}_unc_shadow.json for the dashboard.
+
+    Returns True if the file was written, False if skipped (e.g. no UNC voters
+    or no primary columns).  The caller uses the return value to decide whether
+    to add a manifest section for this county.
+
+    JSON schema (stacked bar):
+      type: 'bar'
+      chartOptions: { scales: { x: { stacked: true }, y: { stacked: true } } }
+      chartConfig.labels: ['Unaffiliated (UNC)']   — single x-axis group
+      chartConfig.datasets: four datasets, one per classification
+    """
+    slug  = county_name.lower().replace(' ', '_')
+    today = date_t.today().isoformat()
+    out   = DATA_DIR / f'{slug}_unc_shadow.json'
+
+    if not primary_cols:
+        logger.info('  UNC shadow: no primary columns — skipping %s', county_name)
+        return False
+
+    classified = unc_classified if unc_classified is not None else classify_unc_primary_history(df, primary_cols, logger)
+    if classified.is_empty():
+        logger.info('  UNC shadow: no UNC voters — skipping %s', county_name)
+        return False
+
+    counts = (
+        classified
+        .group_by('unc_class')
+        .agg(pl.len().alias('n'))
+    )
+    count_map: dict[str, int] = dict(zip(
+        counts['unc_class'].to_list(),
+        counts['n'].to_list(),
+    ))
+
+    order = ['LIFETIME_D', 'LIFETIME_R', 'MIXED', 'NO_HISTORY']
+    total_unc = sum(count_map.values())
+
+    datasets = []
+    for cls in order:
+        n = count_map.get(cls, 0)
+        datasets.append({
+            'label':           UNC_SHADOW_LABELS[cls],
+            'data':            [n],
+            'backgroundColor': UNC_SHADOW_COLORS[cls],
+            'borderRadius':    4,
+        })
+
+    _dump_json({
+        'title':       'UNC Voter Primary History',
+        'county':      county_name,
+        'geography':   'county',
+        'type':        'bar',
+        'updated':     today,
+        'note':        UNC_SHADOW_NOTE,
+        'totalUnc':    total_unc,
+        'chartOptions': {
+            'scales': {
+                'x': {'stacked': True},
+                'y': {'stacked': True},
+            },
+            'plugins': {
+                'tooltip': {
+                    'callbacks': {}   # overridden by charts.js defaults
+                }
+            },
+        },
+        'chartConfig': {
+            'labels':   ['Unaffiliated (UNC)'],
+            'datasets': datasets,
+        },
+    }, out, logger)
+
+    logger.info('  UNC shadow JSON: %s  (total UNC=%s)', out.name, f'{total_unc:,}')
+    return True
+
+
+def export_json(
+    county_name:             str,
+    df:                      pl.DataFrame,
+    election_cols:           list[str],
+    logger:                  logging.Logger,
+    update_manifest:         bool = True,
+    unc_classified:          'pl.DataFrame | None' = None,
+    include_precinct_charts: bool = False,
+):
+    """
+    Write four JSON files into docs/data/ matching the exact schema expected by
+    charts.js / index.html.  These replace the sample data files shipped with
+    the dashboard.
+
+    The web dashboard reads these files at runtime via fetch() — the Python
+    script and the browser share the same data without any intermediate conversion.
+    When you run an analysis for a new county, the dashboard automatically gets
+    that county's data the next time the page loads.
+
+    Files written:
+      {slug}_decade_distribution.json  — bar chart: voters by birth decade
+      {slug}_party_affiliation.json    — doughnut: party breakdown
+      {slug}_party_by_decade.json      — grouped bar: party × decade
+      {slug}_precinct_summary.json     — table: precinct active/inactive counts
+    """
+    slug    = county_name.lower().replace(' ', '_')
+    today   = date_t.today().isoformat()
+    note    = f'Analysis run {today} — Ohio Secretary of State SWVF voter file'
+
+    # ── Decade distribution (bar chart) ───────────────────────────────────────
+    decade_df = (
+        df.group_by('Decade')
+          .agg(pl.len().alias('count'))
+          .sort('Decade')
+    )
+    _dump_json({
+        'title':     'Voter Age Distribution by Birth Decade',
+        'county':    county_name,
+        'geography': 'county',
+        'type':      'bar',
+        'updated':   today,
+        'note':      note,
+        'chartConfig': {
+            'labels': [f'{d}s' for d in decade_df['Decade'].to_list()],
+            'datasets': [{
+                'label':           'Registered Voters',
+                'data':            decade_df['count'].to_list(),
+                'backgroundColor': CHART_COLORS['bar'],
+                'borderRadius':    4,
+            }],
+        },
+    }, DATA_DIR / f'{slug}_decade_distribution.json', logger)
+
+    # ── Party affiliation (doughnut chart) ────────────────────────────────────
+    # 8-slice partisan-spectrum layout based on cohort_family.  Falls back to
+    # the legacy PARTY_LABEL doughnut when the universal classifier output is
+    # not present (e.g. legacy callers passing in unenriched frames).
+    COHORT_SLICES = [
+        ('PURE_R',         'Pure R',           '#ef4444'),
+        ('CROSSOVER_R',    'R – Crossover',    '#f87171'),
+        ('UNC_LIFETIME_R', 'UNC – Lifetime R', '#fca5a5'),
+        ('UNC_MIXED',      'UNC – Mixed',      '#a78bfa'),
+        ('UNC_NO_HISTORY', 'UNC – No History', '#9ca3af'),
+        ('UNC_LIFETIME_D', 'UNC – Lifetime D', '#93c5fd'),
+        ('CROSSOVER_D',    'D – Crossover',    '#60a5fa'),
+        ('PURE_D',         'Pure D',           '#3b82f6'),
+    ]
+    meta_block: dict | None = None
+    if 'cohort_family' in df.columns:
+        cohort_counts_df = (
+            df.group_by('cohort_family').agg(pl.len().alias('n'))
+        )
+        cmap = dict(zip(cohort_counts_df['cohort_family'].to_list(),
+                        cohort_counts_df['n'].to_list()))
+        pa_labels = [lbl   for _, lbl, _ in COHORT_SLICES]
+        pa_colors = [color for _, _, color in COHORT_SLICES]
+        pa_counts = [int(cmap.get(fam, 0)) for fam, _, _ in COHORT_SLICES]
+        pa_note   = note + ' — partisan spectrum: registered + behavioral cohorts.'
+
+        # New-registrant counts by family (for dashboard meta block)
+        if 'is_new_registrant' in df.columns:
+            new_reg_df = (
+                df.filter(pl.col('is_new_registrant'))
+                  .group_by('cohort_family')
+                  .agg(pl.len().alias('n'))
+            )
+            nm = dict(zip(new_reg_df['cohort_family'].to_list(),
+                          new_reg_df['n'].to_list()))
+            new_r = int(nm.get('PURE_R', 0)) + int(nm.get('CROSSOVER_R', 0))
+            new_d = int(nm.get('PURE_D', 0)) + int(nm.get('CROSSOVER_D', 0))
+            new_unc = (int(nm.get('UNC_LIFETIME_R', 0))
+                       + int(nm.get('UNC_LIFETIME_D', 0))
+                       + int(nm.get('UNC_MIXED', 0))
+                       + int(nm.get('UNC_NO_HISTORY', 0)))
+            meta_block = {
+                'new_registrants_r':   new_r,
+                'new_registrants_d':   new_d,
+                'new_registrants_unc': new_unc,
+            }
+    else:
+        # Legacy fallback: PARTY_LABEL doughnut + optional unc_classified split
+        party_df = (
+            df.group_by('PARTY_LABEL')
+              .agg(pl.len().alias('count'))
+              .sort('count', descending=True)
+        )
+        if unc_classified is not None and not unc_classified.is_empty():
+            shadow_counts = (
+                unc_classified.group_by('unc_class').agg(pl.len().alias('n'))
+            )
+            sc = dict(zip(shadow_counts['unc_class'].to_list(),
+                           shadow_counts['n'].to_list()))
+            non_unc_map = {row['PARTY_LABEL']: row['count']
+                           for row in party_df.iter_rows(named=True)
+                           if row['PARTY_LABEL'] != 'UNC'}
+            pa_labels, pa_colors, pa_counts = [], [], []
+            for reg_party, unc_cls, unc_label, unc_color in [
+                ('REP', 'LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+                ('DEM', 'LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+            ]:
+                if reg_party in non_unc_map:
+                    pa_labels.append(reg_party)
+                    pa_colors.append(CHART_COLORS.get(reg_party, '#6366f1'))
+                    pa_counts.append(non_unc_map[reg_party])
+                pa_labels.append(unc_label)
+                pa_colors.append(unc_color)
+                pa_counts.append(sc.get(unc_cls, 0))
+            pa_labels += ['UNC – Mixed', 'UNC – No History']
+            pa_colors += [UNC_SHADOW_COLORS['MIXED'], UNC_SHADOW_COLORS['NO_HISTORY']]
+            pa_counts += [sc.get('MIXED', 0), sc.get('NO_HISTORY', 0)]
+            for other_party, other_count in non_unc_map.items():
+                if other_party not in ('REP', 'DEM'):
+                    pa_labels.append(other_party)
+                    pa_colors.append(CHART_COLORS.get(other_party, '#6366f1'))
+                    pa_counts.append(other_count)
+            pa_note = note + ' — UNC split by primary ballot history; see methodology note.'
+        else:
+            pa_labels = party_df['PARTY_LABEL'].to_list()
+            pa_colors = [CHART_COLORS.get(p, '#6366f1') for p in pa_labels]
+            pa_counts = party_df['count'].to_list()
+            pa_note   = note
+    party_payload = {
+        'title':     'Party Affiliation Breakdown',
+        'county':    county_name,
+        'geography': 'county',
+        'type':      'doughnut',
+        'updated':   today,
+        'note':      pa_note,
+        'chartConfig': {
+            'labels': pa_labels,
+            'datasets': [{
+                'data':            pa_counts,
+                'backgroundColor': pa_colors,
+                'borderWidth':     2,
+                'borderColor':     'transparent',
+            }],
+        },
+    }
+    if meta_block is not None:
+        party_payload['meta'] = meta_block
+    _dump_json(party_payload, DATA_DIR / f'{slug}_party_affiliation.json', logger)
+
+    # ── Party × Decade (grouped bar chart) ────────────────────────────────────
+    # Build base cross-tab excluding UNC; then append shadow-split UNC datasets.
+    cross = (
+        df.group_by(['Decade', 'PARTY_LABEL'])
+          .agg(pl.len().alias('count'))
+          .pivot(on='PARTY_LABEL', index='Decade', values='count', aggregate_function='sum')
+          .sort('Decade')
+    )
+    decade_labels = [f'{d}s' for d in cross['Decade'].to_list()]
+    datasets      = []
+    # REP and DEM each get a unique stack so they render as standalone bars.
+    # All UNC segments share stack 'unc' so they pile into one stacked column.
+    for party, stack_id in [('REP', 'rep'), ('DEM', 'dem'), ('Other', 'other')]:
+        if party not in cross.columns:
+            continue
+        datasets.append({
+            'label':           party,
+            'data':            [v or 0 for v in cross[party].to_list()],
+            'backgroundColor': CHART_COLORS.get(party, '#6366f1'),
+            'borderRadius':    3,
+            'stack':           stack_id,
+        })
+    # UNC: split by shadow classification if available, all sharing stack 'unc'
+    if unc_classified is not None and not unc_classified.is_empty():
+        unc_decade = (
+            unc_classified
+            .join(df.select(['SOS_VOTERID', 'Decade']), on='SOS_VOTERID', how='left')
+            .group_by(['Decade', 'unc_class'])
+            .agg(pl.len().alias('n'))
+            .pivot(on='unc_class', index='Decade', values='n', aggregate_function='sum')
+            .sort('Decade')
+        )
+        decade_vals = cross['Decade'].to_list()
+        for cls, label, color in [
+            ('LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+            ('LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+            ('MIXED',      'UNC – Mixed',       UNC_SHADOW_COLORS['MIXED']),
+            ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
+        ]:
+            if cls in unc_decade.columns:
+                dmap = dict(zip(unc_decade['Decade'].to_list(),
+                                unc_decade[cls].to_list()))
+                vals = [int(dmap.get(d, 0) or 0) for d in decade_vals]
+            else:
+                vals = [0] * len(decade_vals)
+            datasets.append({
+                'label':           label,
+                'data':            vals,
+                'backgroundColor': color,
+                'borderRadius':    3,
+                'stack':           'unc',
+            })
+    else:
+        if 'UNC' in cross.columns:
+            datasets.append({
+                'label':           'UNC',
+                'data':            [v or 0 for v in cross['UNC'].to_list()],
+                'backgroundColor': CHART_COLORS['UNC'],
+                'borderRadius':    3,
+                'stack':           'unc',
+            })
+    _dump_json({
+        'title':     'Party Affiliation by Birth Decade',
+        'county':    county_name,
+        'geography': 'county',
+        'type':      'bar',
+        'updated':   today,
+        'note':      note,
+        'chartConfig': {
+            'labels':   decade_labels,
+            'datasets': datasets,
+        },
+    }, DATA_DIR / f'{slug}_party_by_decade.json', logger)
+
+    # ── Generation distribution (bar chart) ───────────────────────────────────
+    gen_df = build_generation_summary(df)
+    _dump_json({
+        'title':     'Voter Age Distribution by Generation',
+        'county':    county_name,
+        'geography': 'county',
+        'type':      'bar',
+        'updated':   today,
+        'note':      note + ' — Pew Research Center generational boundaries',
+        'chartConfig': {
+            'labels': gen_df['Generation'].to_list(),
+            'datasets': [{
+                'label':           'Registered Voters',
+                'data':            gen_df['Voter Count'].to_list(),
+                'backgroundColor': CHART_COLORS['bar'],
+                'borderRadius':    4,
+            }],
+        },
+    }, DATA_DIR / f'{slug}_generation_distribution.json', logger)
+
+    # ── Party × Generation (grouped bar chart) ────────────────────────────────
+    gen_cross = (
+        df.group_by(['Generation', 'PARTY_LABEL'])
+          .agg(pl.len().alias('count'))
+          .pivot(on='PARTY_LABEL', index='Generation',
+                 values='count', aggregate_function='sum')
+    )
+    order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                             '_sort': list(range(len(_GEN_ORDER)))})
+    gen_cross = (
+        gen_cross.join(order_df, on='Generation', how='left')
+                 .sort('_sort')
+                 .drop('_sort')
+    )
+    gen_labels   = gen_cross['Generation'].to_list()
+    gen_datasets = []
+    for party, stack_id in [('REP', 'rep'), ('DEM', 'dem'), ('Other', 'other')]:
+        color = CHART_COLORS.get(party, '#888888')
+        gen_datasets.append({
+            'label':           party,
+            'data':            gen_cross[party].fill_null(0).to_list() if party in gen_cross.columns else [],
+            'backgroundColor': color,
+            'borderRadius':    2,
+            'stack':           stack_id,
+        })
+    if unc_classified is not None and not unc_classified.is_empty():
+        unc_gen = (
+            unc_classified
+            .join(df.select(['SOS_VOTERID', 'Generation']), on='SOS_VOTERID', how='left')
+            .group_by(['Generation', 'unc_class'])
+            .agg(pl.len().alias('n'))
+            .pivot(on='unc_class', index='Generation', values='n', aggregate_function='sum')
+        )
+        sort_df = pl.DataFrame({'Generation': _GEN_ORDER, '_sort': list(range(len(_GEN_ORDER)))})
+        unc_gen = (
+            unc_gen.join(sort_df, on='Generation', how='left').sort('_sort').drop('_sort')
+        )
+        for cls, label, color in [
+            ('LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+            ('LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+            ('MIXED',      'UNC – Mixed',       UNC_SHADOW_COLORS['MIXED']),
+            ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
+        ]:
+            if cls in unc_gen.columns:
+                gmap  = dict(zip(unc_gen['Generation'].to_list(), unc_gen[cls].to_list()))
+                vals  = [int(gmap.get(g, 0) or 0) for g in gen_labels]
+            else:
+                vals = [0] * len(gen_labels)
+            gen_datasets.append({
+                'label':           label,
+                'data':            vals,
+                'backgroundColor': color,
+                'borderRadius':    2,
+                'stack':           'unc',
+            })
+    else:
+        color = CHART_COLORS.get('UNC', '#888888')
+        gen_datasets.append({
+            'label':           'UNC',
+            'data':            gen_cross['UNC'].fill_null(0).to_list() if 'UNC' in gen_cross.columns else [],
+            'backgroundColor': color,
+            'borderRadius':    2,
+            'stack':           'unc',
+        })
+    _dump_json({
+        'title':     'Party Affiliation by Generation',
+        'county':    county_name,
+        'geography': 'county',
+        'type':      'bar',
+        'updated':   today,
+        'note':      note + ' — Pew Research Center generational boundaries',
+        'chartConfig': {
+            'labels':   gen_labels,
+            'datasets': gen_datasets,
+        },
+    }, DATA_DIR / f'{slug}_party_by_generation.json', logger)
+
+    # ── Precinct summary (table) ──────────────────────────────────────────────
+    precinct_df = build_precinct_summary(df)
+    rows = []
+    for row in precinct_df.iter_rows(named=True):
+        rows.append([
+            row.get('PRECINCT_NAME', ''),
+            f"{row.get('ACTIVE', 0):,}",
+            f"{row.get('CONFIRMATION', 0):,}",
+            f"{row.get('Total Registered', 0):,}",
+            row.get('Est. Unregistered', 'N/A'),
+        ])
+    _dump_json({
+        'title':     'Registration by Precinct',
+        'county':    county_name,
+        'geography': 'precinct',
+        'type':      'table',
+        'updated':   today,
+        'note':      note + ' — Est. Unregistered requires Census integration (future)',
+        'headers':   ['Precinct', 'Active', 'Confirmation', 'Total Registered', 'Est. Unregistered'],
+        'rows':      rows,
+    }, DATA_DIR / f'{slug}_precinct_summary.json', logger)
+
+    # ── City/township summary (table) ─────────────────────────────────────────
+    city_df = build_city_summary(df)
+    city_rows = []
+    for row in city_df.iter_rows(named=True):
+        city_rows.append([
+            row.get('COUNTY_NUMBER', ''),
+            row.get('City', ''),
+            f"{row.get('ACTIVE', 0):,}",
+            f"{row.get('CONFIRMATION', 0):,}",
+            f"{row.get('Total Registered', 0):,}",
+            str(row.get('Precincts', '')),
+            row.get('Est. Unregistered', 'N/A'),
+        ])
+    _dump_json({
+        'title':     'Registration by City / Township',
+        'county':    county_name,
+        'geography': 'city',
+        'type':      'table',
+        'updated':   today,
+        'note':      note + ' — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.',
+        'headers':   ['County #', 'City / Township', 'Active', 'Confirmation', 'Total Registered', 'Precincts', 'Est. Unregistered'],
+        'rows':      city_rows,
+    }, DATA_DIR / f'{slug}_city_summary.json', logger)
+
+    logger.info('JSON export complete for %s County (%s)', county_name, slug)
+
+    # ── Per-precinct chart files (opt-in) ─────────────────────────────────────
+    if include_precinct_charts:
+        export_precinct_charts(county_name, slug, df, election_cols, unc_classified, logger)
+
+    if update_manifest:
+        _update_manifest(county_name, slug, today, logger)
+
+
+def _precinct_safe_name(precinct_name: str) -> str:
+    """Convert a precinct display name to a filesystem-safe slug."""
+    s = precinct_name.lower()
+    s = re.sub(r'[^a-z0-9]+', '_', s)
+    s = re.sub(r'_+', '_', s)
+    return s.strip('_')
+
+
+def export_precinct_charts(
+    county_name:    str,
+    slug:           str,
+    df:             pl.DataFrame,
+    election_cols:  list[str],
+    unc_classified: 'pl.DataFrame | None',
+    logger:         logging.Logger,
+):
+    """
+    For every unique PRECINCT_NAME in df, write per-precinct party doughnut
+    and UNC shadow stacked-bar JSON files, then write a precinct index JSON.
+
+    Output files (example slug = 'montgomery', precinct 'KETTERING 1-A'):
+      montgomery_precinct_kettering_1_a_party.json
+      montgomery_precinct_kettering_1_a_unc.json
+      montgomery_precinct_index.json
+    """
+    today = date_t.today().isoformat()
+
+    if 'PRECINCT_NAME' not in df.columns:
+        logger.info('  Precinct charts: no PRECINCT_NAME column — skipping %s', county_name)
+        return
+
+    precinct_names = sorted(df['PRECINCT_NAME'].drop_nulls().unique().to_list())
+    if not precinct_names:
+        logger.info('  Precinct charts: no precincts found — skipping %s', county_name)
+        return
+
+    # Build a lookup: SOS_VOTERID → unc_class (for fast per-precinct filtering)
+    unc_map: dict = {}
+    if unc_classified is not None and not unc_classified.is_empty():
+        unc_map = dict(zip(
+            unc_classified['SOS_VOTERID'].to_list(),
+            unc_classified['unc_class'].to_list(),
+        ))
+
+    index_entries = []
+
+    for precinct_name in precinct_names:
+        safe_name = _precinct_safe_name(precinct_name)
+        pdf = df.filter(pl.col('PRECINCT_NAME') == precinct_name)
+        total = len(pdf)
+
+        # ── Party doughnut ────────────────────────────────────────────────────
+        party_df = (
+            pdf.group_by('PARTY_LABEL')
+               .agg(pl.len().alias('count'))
+               .sort('count', descending=True)
+        )
+        # Shadow-split UNC if available for this precinct
+        p_unc_ids = set(pdf['SOS_VOTERID'].to_list()) if 'SOS_VOTERID' in pdf.columns else set()
+        p_unc_rows = [(vid, cls) for vid, cls in unc_map.items() if vid in p_unc_ids]
+        if p_unc_rows and unc_classified is not None:
+            p_unc_df = unc_classified.filter(pl.col('SOS_VOTERID').is_in(list(p_unc_ids)))
+            sc_counts = p_unc_df.group_by('unc_class').agg(pl.len().alias('n'))
+            sc = dict(zip(sc_counts['unc_class'].to_list(), sc_counts['n'].to_list()))
+            non_unc_map = {row['PARTY_LABEL']: row['count']
+                           for row in party_df.iter_rows(named=True)
+                           if row['PARTY_LABEL'] != 'UNC'}
+            pa_labels, pa_colors, pa_counts = [], [], []
+            for reg_party, unc_cls, unc_label, unc_color in [
+                ('REP', 'LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+                ('DEM', 'LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+            ]:
+                if reg_party in non_unc_map:
+                    pa_labels.append(reg_party)
+                    pa_colors.append(CHART_COLORS.get(reg_party, '#6366f1'))
+                    pa_counts.append(non_unc_map[reg_party])
+                pa_labels.append(unc_label)
+                pa_colors.append(unc_color)
+                pa_counts.append(sc.get(unc_cls, 0))
+            pa_labels += ['UNC – Mixed', 'UNC – No History']
+            pa_colors += [UNC_SHADOW_COLORS['MIXED'], UNC_SHADOW_COLORS['NO_HISTORY']]
+            pa_counts += [sc.get('MIXED', 0), sc.get('NO_HISTORY', 0)]
+            for other_party, other_count in non_unc_map.items():
+                if other_party not in ('REP', 'DEM'):
+                    pa_labels.append(other_party)
+                    pa_colors.append(CHART_COLORS.get(other_party, '#6366f1'))
+                    pa_counts.append(other_count)
+        else:
+            pa_labels = party_df['PARTY_LABEL'].to_list()
+            pa_colors = [CHART_COLORS.get(p, '#6366f1') for p in pa_labels]
+            pa_counts = party_df['count'].to_list()
+
+        _dump_json({
+            'title':     f'Party Affiliation — {precinct_name}',
+            'county':    county_name,
+            'precinct':  precinct_name,
+            'geography': 'precinct-detail',
+            'type':      'doughnut',
+            'updated':   today,
+            'chartConfig': {
+                'labels': pa_labels,
+                'datasets': [{
+                    'data':            pa_counts,
+                    'backgroundColor': pa_colors,
+                    'borderWidth':     2,
+                    'borderColor':     'transparent',
+                }],
+            },
+        }, DATA_DIR / f'{slug}_precinct_{safe_name}_party.json', logger)
+
+        # ── UNC shadow stacked bar ────────────────────────────────────────────
+        if unc_classified is not None and not unc_classified.is_empty() and p_unc_ids:
+            p_unc_df2 = unc_classified.filter(pl.col('SOS_VOTERID').is_in(list(p_unc_ids)))
+            if not p_unc_df2.is_empty():
+                sc2_counts = p_unc_df2.group_by('unc_class').agg(pl.len().alias('n'))
+                sc2 = dict(zip(sc2_counts['unc_class'].to_list(), sc2_counts['n'].to_list()))
+                total_unc2 = sum(sc2.values())
+                order = ['LIFETIME_D', 'LIFETIME_R', 'MIXED', 'NO_HISTORY']
+                unc_datasets = []
+                for cls in order:
+                    n = sc2.get(cls, 0)
+                    unc_datasets.append({
+                        'label':           UNC_SHADOW_LABELS[cls],
+                        'data':            [n],
+                        'backgroundColor': UNC_SHADOW_COLORS[cls],
+                        'borderRadius':    4,
+                    })
+                _dump_json({
+                    'title':     f'UNC Primary History — {precinct_name}',
+                    'county':    county_name,
+                    'precinct':  precinct_name,
+                    'geography': 'precinct-detail',
+                    'type':      'bar',
+                    'updated':   today,
+                    'note':      UNC_SHADOW_NOTE,
+                    'totalUnc':  total_unc2,
+                    'chartOptions': {
+                        'scales': {
+                            'x': {'stacked': True},
+                            'y': {'stacked': True},
+                        },
+                        'plugins': {'tooltip': {'callbacks': {}}},
+                    },
+                    'chartConfig': {
+                        'labels':   ['Unaffiliated (UNC)'],
+                        'datasets': unc_datasets,
+                    },
+                }, DATA_DIR / f'{slug}_precinct_{safe_name}_unc.json', logger)
+
+        # ── Decade distribution (bar) ─────────────────────────────────────────
+        decade_url = None
+        if 'Decade' in pdf.columns:
+            p_decade_df = (
+                pdf.filter(pl.col('Decade').is_not_null())
+                   .group_by('Decade')
+                   .agg(pl.len().alias('count'))
+                   .sort('Decade')
+            )
+            if not p_decade_df.is_empty():
+                _dump_json({
+                    'title':     f'Voter Age Distribution by Birth Decade — {precinct_name}',
+                    'county':    county_name,
+                    'precinct':  precinct_name,
+                    'geography': 'precinct-detail',
+                    'type':      'bar',
+                    'updated':   today,
+                    'chartConfig': {
+                        'labels': [f'{d}s' for d in p_decade_df['Decade'].to_list()],
+                        'datasets': [{
+                            'label':           'Registered Voters',
+                            'data':            p_decade_df['count'].to_list(),
+                            'backgroundColor': CHART_COLORS['bar'],
+                            'borderRadius':    4,
+                        }],
+                    },
+                }, DATA_DIR / f'{slug}_precinct_{safe_name}_decade.json', logger)
+                decade_url = f'data/{slug}_precinct_{safe_name}_decade.json'
+
+        # ── Generation distribution (bar) ─────────────────────────────────────
+        generation_url = None
+        if 'Generation' in pdf.columns:
+            p_gen_summary = build_generation_summary(pdf)
+            if not p_gen_summary.is_empty():
+                _dump_json({
+                    'title':     f'Voter Age Distribution by Generation — {precinct_name}',
+                    'county':    county_name,
+                    'precinct':  precinct_name,
+                    'geography': 'precinct-detail',
+                    'type':      'bar',
+                    'updated':   today,
+                    'note':      'Pew Research Center generational boundaries',
+                    'chartConfig': {
+                        'labels': p_gen_summary['Generation'].to_list(),
+                        'datasets': [{
+                            'label':           'Registered Voters',
+                            'data':            p_gen_summary['Voter Count'].to_list(),
+                            'backgroundColor': CHART_COLORS['bar'],
+                            'borderRadius':    4,
+                        }],
+                    },
+                }, DATA_DIR / f'{slug}_precinct_{safe_name}_generation.json', logger)
+                generation_url = f'data/{slug}_precinct_{safe_name}_generation.json'
+
+        # ── Party × Decade (grouped/stacked bar) ──────────────────────────────
+        party_decade_url = None
+        if 'Decade' in pdf.columns and 'PARTY_LABEL' in pdf.columns:
+            p_cross = (
+                pdf.filter(pl.col('Decade').is_not_null())
+                   .group_by(['Decade', 'PARTY_LABEL'])
+                   .agg(pl.len().alias('count'))
+                   .pivot(on='PARTY_LABEL', index='Decade',
+                          values='count', aggregate_function='sum')
+                   .sort('Decade')
+            )
+            if not p_cross.is_empty():
+                p_decade_labels = [f'{d}s' for d in p_cross['Decade'].to_list()]
+                p_datasets = []
+                for party, stack_id in [('REP', 'rep'), ('DEM', 'dem'), ('Other', 'other')]:
+                    if party not in p_cross.columns:
+                        continue
+                    p_datasets.append({
+                        'label':           party,
+                        'data':            [v or 0 for v in p_cross[party].to_list()],
+                        'backgroundColor': CHART_COLORS.get(party, '#6366f1'),
+                        'borderRadius':    3,
+                        'stack':           stack_id,
+                    })
+                if (unc_classified is not None
+                        and not unc_classified.is_empty()
+                        and p_unc_ids):
+                    p_unc_decade = (
+                        unc_classified
+                        .filter(pl.col('SOS_VOTERID').is_in(list(p_unc_ids)))
+                        .join(pdf.select(['SOS_VOTERID', 'Decade']),
+                              on='SOS_VOTERID', how='left')
+                        .filter(pl.col('Decade').is_not_null())
+                        .group_by(['Decade', 'unc_class'])
+                        .agg(pl.len().alias('n'))
+                        .pivot(on='unc_class', index='Decade',
+                               values='n', aggregate_function='sum')
+                        .sort('Decade')
+                    )
+                    p_decade_vals = p_cross['Decade'].to_list()
+                    for cls, label, color in [
+                        ('LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+                        ('LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+                        ('MIXED',      'UNC – Mixed',       UNC_SHADOW_COLORS['MIXED']),
+                        ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
+                    ]:
+                        if cls in p_unc_decade.columns:
+                            dmap = dict(zip(p_unc_decade['Decade'].to_list(),
+                                            p_unc_decade[cls].to_list()))
+                            vals = [int(dmap.get(d, 0) or 0) for d in p_decade_vals]
+                        else:
+                            vals = [0] * len(p_decade_vals)
+                        p_datasets.append({
+                            'label':           label,
+                            'data':            vals,
+                            'backgroundColor': color,
+                            'borderRadius':    3,
+                            'stack':           'unc',
+                        })
+                else:
+                    if 'UNC' in p_cross.columns:
+                        p_datasets.append({
+                            'label':           'UNC',
+                            'data':            [v or 0 for v in p_cross['UNC'].to_list()],
+                            'backgroundColor': CHART_COLORS['UNC'],
+                            'borderRadius':    3,
+                            'stack':           'unc',
+                        })
+                _dump_json({
+                    'title':     f'Party Affiliation by Birth Decade — {precinct_name}',
+                    'county':    county_name,
+                    'precinct':  precinct_name,
+                    'geography': 'precinct-detail',
+                    'type':      'bar',
+                    'updated':   today,
+                    'chartConfig': {
+                        'labels':   p_decade_labels,
+                        'datasets': p_datasets,
+                    },
+                }, DATA_DIR / f'{slug}_precinct_{safe_name}_party_by_decade.json', logger)
+                party_decade_url = f'data/{slug}_precinct_{safe_name}_party_by_decade.json'
+
+        # ── Party × Generation (grouped/stacked bar) ──────────────────────────
+        party_generation_url = None
+        if 'Generation' in pdf.columns and 'PARTY_LABEL' in pdf.columns:
+            p_gen_cross = (
+                pdf.group_by(['Generation', 'PARTY_LABEL'])
+                   .agg(pl.len().alias('count'))
+                   .pivot(on='PARTY_LABEL', index='Generation',
+                          values='count', aggregate_function='sum')
+            )
+            if not p_gen_cross.is_empty():
+                p_order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                                           '_sort': list(range(len(_GEN_ORDER)))})
+                p_gen_cross = (
+                    p_gen_cross.join(p_order_df, on='Generation', how='left')
+                               .sort('_sort')
+                               .drop('_sort')
+                )
+                p_gen_labels   = p_gen_cross['Generation'].to_list()
+                p_gen_datasets = []
+                for party, stack_id in [('REP', 'rep'), ('DEM', 'dem'), ('Other', 'other')]:
+                    color = CHART_COLORS.get(party, '#888888')
+                    p_gen_datasets.append({
+                        'label':           party,
+                        'data':            (p_gen_cross[party].fill_null(0).to_list()
+                                            if party in p_gen_cross.columns else
+                                            [0] * len(p_gen_labels)),
+                        'backgroundColor': color,
+                        'borderRadius':    2,
+                        'stack':           stack_id,
+                    })
+                if (unc_classified is not None
+                        and not unc_classified.is_empty()
+                        and p_unc_ids):
+                    p_unc_gen = (
+                        unc_classified
+                        .filter(pl.col('SOS_VOTERID').is_in(list(p_unc_ids)))
+                        .join(pdf.select(['SOS_VOTERID', 'Generation']),
+                              on='SOS_VOTERID', how='left')
+                        .group_by(['Generation', 'unc_class'])
+                        .agg(pl.len().alias('n'))
+                        .pivot(on='unc_class', index='Generation',
+                               values='n', aggregate_function='sum')
+                    )
+                    p_sort_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                                              '_sort': list(range(len(_GEN_ORDER)))})
+                    p_unc_gen = (
+                        p_unc_gen.join(p_sort_df, on='Generation', how='left')
+                                 .sort('_sort')
+                                 .drop('_sort')
+                    )
+                    for cls, label, color in [
+                        ('LIFETIME_D', 'UNC – Lifetime D', UNC_SHADOW_COLORS['LIFETIME_D']),
+                        ('LIFETIME_R', 'UNC – Lifetime R', UNC_SHADOW_COLORS['LIFETIME_R']),
+                        ('MIXED',      'UNC – Mixed',       UNC_SHADOW_COLORS['MIXED']),
+                        ('NO_HISTORY', 'UNC – No History',  UNC_SHADOW_COLORS['NO_HISTORY']),
+                    ]:
+                        if cls in p_unc_gen.columns:
+                            gmap = dict(zip(p_unc_gen['Generation'].to_list(),
+                                            p_unc_gen[cls].to_list()))
+                            vals = [int(gmap.get(g, 0) or 0) for g in p_gen_labels]
+                        else:
+                            vals = [0] * len(p_gen_labels)
+                        p_gen_datasets.append({
+                            'label':           label,
+                            'data':            vals,
+                            'backgroundColor': color,
+                            'borderRadius':    2,
+                            'stack':           'unc',
+                        })
+                else:
+                    color = CHART_COLORS.get('UNC', '#888888')
+                    p_gen_datasets.append({
+                        'label':           'UNC',
+                        'data':            (p_gen_cross['UNC'].fill_null(0).to_list()
+                                            if 'UNC' in p_gen_cross.columns else
+                                            [0] * len(p_gen_labels)),
+                        'backgroundColor': color,
+                        'borderRadius':    2,
+                        'stack':           'unc',
+                    })
+                _dump_json({
+                    'title':     f'Party Affiliation by Generation — {precinct_name}',
+                    'county':    county_name,
+                    'precinct':  precinct_name,
+                    'geography': 'precinct-detail',
+                    'type':      'bar',
+                    'updated':   today,
+                    'note':      'Pew Research Center generational boundaries',
+                    'chartConfig': {
+                        'labels':   p_gen_labels,
+                        'datasets': p_gen_datasets,
+                    },
+                }, DATA_DIR / f'{slug}_precinct_{safe_name}_party_by_generation.json', logger)
+                party_generation_url = f'data/{slug}_precinct_{safe_name}_party_by_generation.json'
+
+        index_entries.append({
+            'name':              precinct_name,
+            'safe_name':         safe_name,
+            'total':             total,
+            'partyUrl':          f'data/{slug}_precinct_{safe_name}_party.json',
+            'uncUrl':            f'data/{slug}_precinct_{safe_name}_unc.json',
+            'decadeUrl':         decade_url,
+            'generationUrl':     generation_url,
+            'partyDecadeUrl':    party_decade_url,
+            'partyGenerationUrl': party_generation_url,
+        })
+
+    _dump_json({
+        'county':    county_name,
+        'precincts': index_entries,
+    }, DATA_DIR / f'{slug}_precinct_index.json', logger)
+
+    logger.info(
+        '  Precinct charts: wrote %d precincts for %s', len(index_entries), county_name
+    )
+
+
+def _update_manifest(
+    county_name: str,
+    slug:        str,
+    today:       str,
+    logger:      logging.Logger,
+):
+    """
+    Update docs/manifest.json to include the newly analysed county.
+
+    The manifest is the index that charts.js uses to populate the county
+    dropdown and build the section list.  We add the county to the counties
+    list AND processedCounties (which the dropdown actually reads), then
+    upsert this county's section entries.  Existing entries for other
+    counties are preserved unchanged.
+
+    For statewide runs, prefer _write_manifest_bulk() — calling this in a
+    per-county loop is O(N²) in disk I/O. This function exists for
+    single-county runs and as a fallback.
+    """
+    manifest_path = DOCS_DIR / 'manifest.json'
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+    else:
+        # Bootstrap a fresh manifest if none exists
+        manifest = {
+            'title':             'Ohio Voter Registration Analysis',
+            'description':       'Voter registration analysis for {county}.',
+            'dataNote':          '',
+            'counties':          [],
+            'processedCounties': [],
+            'sections':          [],
+        }
+
+    # Always overwrite dataNote with a real-data message so the "Sample data"
+    # banner in the web dashboard is cleared after the first analysis run.
+    manifest['dataNote'] = (
+        f'Data sourced from Ohio Secretary of State statewide voter file. '
+        f'Last updated {today}.'
+    )
+
+    # Add county to both lists. `counties` is legacy (kept for back-compat with
+    # any older code paths). `processedCounties` is what charts.js actually reads
+    # to populate the county dropdown — it MUST be kept in sync.
+    if county_name not in manifest.get('counties', []):
+        manifest.setdefault('counties', []).append(county_name)
+    if county_name not in manifest.get('processedCounties', []):
+        manifest.setdefault('processedCounties', []).append(county_name)
+        manifest['processedCounties'].sort()
+
+    # Define the four sections this county contributes.
+    # IDs are namespaced by slug to avoid collisions between counties.
+    new_sections = [
+        {
+            'id':          f'{slug}-decade-distribution',
+            'title':       'Voter Age Distribution by Birth Decade',
+            'navLabel':    'Age Cohorts',
+            'description': 'Count of registered voters grouped by birth decade.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_decade_distribution.json',
+        },
+        {
+            'id':          f'{slug}-party-affiliation',
+            'title':       'Party Affiliation Breakdown',
+            'navLabel':    'Party',
+            'description': 'Distribution of registered voters by party affiliation.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_party_affiliation.json',
+        },
+        {
+            'id':          f'{slug}-party-by-decade',
+            'title':       'Party Affiliation by Birth Decade',
+            'navLabel':    'Party × Age',
+            'description': 'Party affiliation within each birth decade cohort.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_party_by_decade.json',
+        },
+        {
+            'id':          f'{slug}-generation-distribution',
+            'title':       'Voter Age Distribution by Generation',
+            'navLabel':    'Generations',
+            'description': 'Count of registered voters grouped by generational cohort (Pew Research Center).',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_generation_distribution.json',
+        },
+        {
+            'id':          f'{slug}-party-by-generation',
+            'title':       'Party Affiliation by Generation',
+            'navLabel':    'Party × Generation',
+            'description': 'Party affiliation within each generational cohort.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_party_by_generation.json',
+        },
+        {
+            'id':          f'{slug}-precinct-summary',
+            'title':       'Registration by Precinct',
+            'navLabel':    'Precincts',
+            'description': 'Precinct-level active and confirmation voter counts.',
+            'county':      county_name,
+            'geography':   'precinct',
+            'dataUrl':     f'data/{slug}_precinct_summary.json',
+        },
+        {
+            'id':          f'{slug}-city-summary',
+            'title':       'Registration by City / Township',
+            'navLabel':    'Cities',
+            'description': 'City and township level totals aggregated from precinct names. Cross-county cities appear as separate rows until Phase 3 statewide merge.',
+            'county':      county_name,
+            'geography':   'city',
+            'dataUrl':     f'data/{slug}_city_summary.json',
+        },
+        {
+            'id':          f'{slug}-unc-shadow',
+            'title':       'UNC Voter Primary History',
+            'navLabel':    'UNC Shadow',
+            'description': (
+                'Unaffiliated voters segmented by lifetime primary ballot pattern. '
+                'Lifetime D/R = voted exclusively in one party\'s primaries. '
+                'Mixed = crossed party lines at least once. '
+                'Shadow partisanship is inferred from behavior, not registration status.'
+            ),
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_unc_shadow.json',
+        },
+        {
+            'id':          f'{slug}-precinct-index',
+            'title':       'Precinct Detail Index',
+            'navLabel':    'Precinct Charts',
+            'description': 'Per-precinct party and UNC shadow charts.',
+            'county':      county_name,
+            'geography':   'precinct-index',
+            'dataUrl':     f'data/{slug}_precinct_index.json',
+        },
+    ]
+
+    # Replace any existing sections for this county — identified by slug prefix in
+    # the id OR by dataUrl pointing to this slug's data files.  The dataUrl check
+    # removes legacy entries that pre-date slug-prefixed IDs so they can't
+    # re-accumulate on subsequent runs.
+    def _is_stale(s):
+        sid  = s.get('id', '')
+        url  = s.get('dataUrl', '')
+        return sid.startswith(slug + '-') or (f'/{slug}_' in url) or (f'data/{slug}_' in url)
+
+    existing_sections = [s for s in manifest.get('sections', []) if not _is_stale(s)]
+    manifest['sections'] = existing_sections + new_sections
+
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding='utf-8')
+    logger.info(
+        'manifest.json updated — %d counties, %d processed',
+        len(manifest.get('counties', [])),
+        len(manifest.get('processedCounties', [])),
+    )
+
+
+def _write_manifest_bulk(
+    processed_counties: list[str],
+    today:              str,
+    logger:             logging.Logger,
+):
+    """
+    Write docs/manifest.json once for an entire statewide export run.
+
+    Replaces the prior per-county loop that re-read and re-wrote the manifest
+    88 times (O(N²) disk I/O, log spam, and historically prone to leaving
+    `processedCounties` stale because the per-county writer only touched the
+    legacy `counties` field).
+
+    Both `counties` and `processedCounties` are set to the exact list of
+    counties whose JSON files were successfully written this run. Section
+    entries for those counties are upserted; entries for counties NOT in this
+    run are preserved (so a single-county re-run does not wipe the rest).
+    """
+    manifest_path = DOCS_DIR / 'manifest.json'
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+    else:
+        manifest = {
+            'title':             'Ohio Voter Registration Analysis',
+            'description':       'Voter registration analysis for {county}.',
+            'dataNote':          '',
+            'counties':          [],
+            'processedCounties': [],
+            'sections':          [],
+        }
+
+    manifest['dataNote'] = (
+        f'Data sourced from Ohio Secretary of State statewide voter file. '
+        f'Last updated {today}.'
+    )
+
+    # Merge: union the run's counties with anything already on disk, then sort.
+    # This keeps prior runs' work intact if someone re-runs a partial set.
+    existing_counties = set(manifest.get('counties', []))
+    existing_processed = set(manifest.get('processedCounties', []))
+    all_counties  = sorted(existing_counties  | set(processed_counties))
+    all_processed = sorted(existing_processed | set(processed_counties))
+    manifest['counties']          = all_counties
+    manifest['processedCounties'] = all_processed
+
+    # Rebuild section list: drop any section whose slug matches a county in
+    # this run (so rerunning a county replaces its sections cleanly), then
+    # append fresh sections for every county in this run.
+    run_slugs = {c.lower().replace(' ', '_') for c in processed_counties}
+
+    def _belongs_to_run(s):
+        sid = s.get('id', '')
+        url = s.get('dataUrl', '')
+        for slug in run_slugs:
+            if sid.startswith(slug + '-') or (f'/{slug}_' in url) or (f'data/{slug}_' in url):
+                return True
+        return False
+
+    kept_sections = [s for s in manifest.get('sections', []) if not _belongs_to_run(s)]
+    new_sections  = []
+    for county_name in processed_counties:
+        slug = county_name.lower().replace(' ', '_')
+        new_sections.extend(_sections_for_county(county_name, slug))
+    manifest['sections'] = kept_sections + new_sections
+
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding='utf-8')
+    logger.info(
+        'manifest.json written — %d counties, %d processed, %d sections',
+        len(manifest['counties']),
+        len(manifest['processedCounties']),
+        len(manifest['sections']),
+    )
+
+
+def _sections_for_county(county_name: str, slug: str) -> list[dict]:
+    """Return the list of section descriptors charts.js needs for one county."""
+    return [
+        {
+            'id':          f'{slug}-decade-distribution',
+            'title':       'Voter Age Distribution by Birth Decade',
+            'navLabel':    'Age Cohorts',
+            'description': 'Count of registered voters grouped by birth decade.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_decade_distribution.json',
+        },
+        {
+            'id':          f'{slug}-party-affiliation',
+            'title':       'Party Affiliation Breakdown',
+            'navLabel':    'Party',
+            'description': 'Distribution of registered voters by party affiliation.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_party_affiliation.json',
+        },
+        {
+            'id':          f'{slug}-party-by-decade',
+            'title':       'Party Affiliation by Birth Decade',
+            'navLabel':    'Party × Age',
+            'description': 'Party affiliation within each birth decade cohort.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_party_by_decade.json',
+        },
+        {
+            'id':          f'{slug}-generation-distribution',
+            'title':       'Voter Age Distribution by Generation',
+            'navLabel':    'Generations',
+            'description': 'Count of registered voters grouped by generational cohort (Pew Research Center).',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_generation_distribution.json',
+        },
+        {
+            'id':          f'{slug}-party-by-generation',
+            'title':       'Party Affiliation by Generation',
+            'navLabel':    'Party × Generation',
+            'description': 'Party affiliation within each generational cohort.',
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_party_by_generation.json',
+        },
+        {
+            'id':          f'{slug}-precinct-summary',
+            'title':       'Registration by Precinct',
+            'navLabel':    'Precincts',
+            'description': 'Precinct-level active and confirmation voter counts.',
+            'county':      county_name,
+            'geography':   'precinct',
+            'dataUrl':     f'data/{slug}_precinct_summary.json',
+        },
+        {
+            'id':          f'{slug}-city-summary',
+            'title':       'Registration by City / Township',
+            'navLabel':    'Cities',
+            'description': 'City and township level totals aggregated from precinct names. Cross-county cities appear as separate rows until Phase 3 statewide merge.',
+            'county':      county_name,
+            'geography':   'city',
+            'dataUrl':     f'data/{slug}_city_summary.json',
+        },
+        {
+            'id':          f'{slug}-unc-shadow',
+            'title':       'UNC Voter Primary History',
+            'navLabel':    'UNC Shadow',
+            'description': (
+                'Unaffiliated voters segmented by lifetime primary ballot pattern. '
+                'Lifetime D/R = voted exclusively in one party\'s primaries. '
+                'Mixed = crossed party lines at least once. '
+                'Shadow partisanship is inferred from behavior, not registration status.'
+            ),
+            'county':      county_name,
+            'geography':   'county',
+            'dataUrl':     f'data/{slug}_unc_shadow.json',
+        },
+        {
+            'id':          f'{slug}-precinct-index',
+            'title':       'Precinct Detail Index',
+            'navLabel':    'Precinct Charts',
+            'description': 'Per-precinct party and UNC shadow charts.',
+            'county':      county_name,
+            'geography':   'precinct-index',
+            'dataUrl':     f'data/{slug}_precinct_index.json',
+        },
+    ]
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Excel output  (Polars → pandas → xlsxwriter)
+# ─────────────────────────────────────────────────────────────────────────────
+# We convert only the small summary DataFrames to pandas here — the raw
+# 7.9M-row frame never touches pandas.  The conversion cost is negligible
+# because summaries are at most a few thousand rows.
+
+def _hdr_fmt(wb, bg: str = _MED_BLUE):
+    return wb.add_format({
+        'bold': True, 'font_color': '#FFFFFF', 'bg_color': bg,
+        'align': 'center', 'valign': 'vcenter', 'font_name': 'Arial', 'font_size': 11,
+    })
+
+def _title_fmt(wb):
+    return wb.add_format({
+        'bold': True, 'font_color': '#1F3864', 'bg_color': _TITLE_BG,
+        'font_name': 'Arial', 'font_size': 12,
+    })
+
+def _write_section(writer, sheet, df_pd, start_row, title, hdr_fmt, t_fmt, col_widths=None):
+    """
+    Write a titled table block to an Excel sheet.  Accepts a pandas DataFrame
+    (converted from Polars upstream).  Returns the next free row index.
+    """
+    if title:
+        if sheet not in writer.sheets:
+            df_pd.head(0).to_excel(writer, sheet_name=sheet, startrow=start_row + 1, index=False)
+        writer.sheets[sheet].write(start_row, 0, title, t_fmt)
+
+    df_pd.to_excel(writer, sheet_name=sheet, startrow=start_row + 1, index=False)
+    ws = writer.sheets[sheet]
+    for i, col in enumerate(df_pd.columns):
+        ws.write(start_row + 1, i, str(col), hdr_fmt)
+
+    if col_widths:
+        items = col_widths.items() if isinstance(col_widths, dict) else col_widths
+        for ci, w in items:
+            ws.set_column(ci, ci, w)
+
+    return start_row + 1 + 1 + len(df_pd) + 2   # title + header + rows + blank gap
+
+
+def build_workbook(
+    df:            pl.DataFrame,
+    election_cols: list[str],
+    output_path:   Path,
+    county_name:   str,
+    include_raw:   bool,
+    logger:        logging.Logger,
+):
+    """
+    Assemble the Excel workbook.
+
+    include_raw=True   → county analysis: include a raw Voter Data sheet
+                         (safe at ~300K rows; Excel's limit is ~1M rows)
+    include_raw=False  → Ohio-wide analysis: include a County Summary sheet instead
+                         (7.9M rows would exceed Excel's limit and take hours to write)
+    """
+    logger.info('Creating workbook: %s', output_path.name)
+
+    with pd.ExcelWriter(output_path, engine='xlsxwriter') as writer:
+        wb = writer.book
+
+        # ── Sheet 1: Raw data OR County Summary ───────────────────────────────
+        if include_raw:
+            logger.info('  Writing Voter Data sheet ...')
+            # Exclude the 89 election columns from the raw sheet — they'd make it
+            # unreadable (89 single-char columns after the demographic fields).
+            # Election history is covered by the Participation summary sheet.
+            display_cols = [c for c in df.columns if not ELEC_RE.match(c)]
+            df_raw_pd    = df.select(display_cols).to_pandas()
+            df_raw_pd.to_excel(writer, sheet_name='Voter Data', index=False)
+            ws  = writer.sheets['Voter Data']
+            hf  = _hdr_fmt(wb, bg=_DARK_BLUE)
+            for i, c in enumerate(df_raw_pd.columns):
+                ws.write(0, i, c, hf)
+                ws.set_column(i, i, min(max(len(c), 10), 32))
+            ws.freeze_panes(1, 0)
+            logger.info('  ✓ Voter Data: %s rows, %d columns',
+                        f'{len(df_raw_pd):,}', len(display_cols))
+
+        else:
+            logger.info('  Writing County Summary sheet ...')
+            county_sum_pd = build_county_summary(df).to_pandas()
+            _write_section(writer, 'County Summary', county_sum_pd, 0,
+                           'Voter Registration by County',
+                           _hdr_fmt(wb), _title_fmt(wb),
+                           col_widths={0: 12, 1: 16, 2: 14, 3: 14})
+            writer.sheets['County Summary'].set_column(0, 12, 14)
+            logger.info('  ✓ County Summary: %d counties', len(county_sum_pd))
+
+        # ── Sheet 2: Decade Summary ───────────────────────────────────────────
+        logger.info('  Writing Decade Summary sheet ...')
+        decade_pd = build_decade_summary(df).to_pandas()
+        decade_pd.to_excel(writer, sheet_name='Decade Summary', index=False)
+        ws  = writer.sheets['Decade Summary']
+        hf  = _hdr_fmt(wb)
+        for i, c in enumerate(decade_pd.columns):
+            ws.write(0, i, c, hf)
+        ws.set_column(0, 0, 15)
+        ws.set_column(1, 1, 15)
+        # Embed bar chart
+        chart = wb.add_chart({'type': 'column'})
+        n     = len(decade_pd)
+        chart.add_series({
+            'name':       'Voter Count',
+            'categories': ['Decade Summary', 1, 0, n, 0],
+            'values':     ['Decade Summary', 1, 1, n, 1],
+            'fill':       {'color': _MED_BLUE},
+        })
+        chart.set_title({'name': f'Voters by Birth Decade — {county_name}'})
+        chart.set_x_axis({'name': 'Birth Decade'})
+        chart.set_y_axis({'name': 'Voter Count', 'num_format': '#,##0'})
+        chart.set_size({'width': 480, 'height': 300})
+        ws.insert_chart('D2', chart)
+        logger.info('  ✓ Decade Summary: %d cohorts', len(decade_pd))
+
+        # ── Sheet 2b: Generation Summary ─────────────────────────────────────
+        logger.info('  Writing Generation Summary sheet ...')
+        gen_pd = build_generation_summary(df).to_pandas()
+        gen_pd.to_excel(writer, sheet_name='Generation Summary', index=False)
+        ws  = writer.sheets['Generation Summary']
+        hf  = _hdr_fmt(wb)
+        for i, c in enumerate(gen_pd.columns):
+            ws.write(0, i, c, hf)
+        ws.set_column(0, 0, 22)
+        ws.set_column(1, 1, 15)
+        # Embed bar chart
+        chart = wb.add_chart({'type': 'column'})
+        n     = len(gen_pd)
+        chart.add_series({
+            'name':       'Voter Count',
+            'categories': ['Generation Summary', 1, 0, n, 0],
+            'values':     ['Generation Summary', 1, 1, n, 1],
+            'fill':       {'color': _MED_BLUE},
+        })
+        chart.set_title({'name': f'Voters by Generation — {county_name}'})
+        chart.set_x_axis({'name': 'Generation'})
+        chart.set_y_axis({'name': 'Voter Count', 'num_format': '#,##0'})
+        chart.set_size({'width': 480, 'height': 300})
+        ws.insert_chart('D2', chart)
+        logger.info('  ✓ Generation Summary: %d cohorts', len(gen_pd))
+
+        # ── Sheet 3: Participation ────────────────────────────────────────────
+        logger.info('  Writing Participation sheet ...')
+        hf, tf = _hdr_fmt(wb), _title_fmt(wb)
+        election_df, type_df, freq_df = build_election_participation(df, election_cols, logger)
+        row = 0
+        row = _write_section(writer, 'Participation', election_df.to_pandas(), row,
+                             'Election Participation — by Election', hf, tf,
+                             col_widths={0: 30, 1: 14, 2: 12, 3: 12, 4: 10, 5: 10})
+        row = _write_section(writer, 'Participation', type_df.to_pandas(), row,
+                             'Participation Summary — by Type', hf, tf,
+                             col_widths={0: 16, 1: 12, 2: 14, 3: 12, 4: 12})
+        _write_section(writer, 'Participation', freq_df.to_pandas(), row,
+                       'Voter Frequency Distribution', hf, tf,
+                       col_widths={0: 30, 1: 14, 2: 10})
+        writer.sheets['Participation'].freeze_panes(2, 0)
+        logger.info('  ✓ Participation: %d elections', len(election_df))
+
+        # ── Sheet 4: District Breakdown ───────────────────────────────────────
+        logger.info('  Writing District Breakdown sheet ...')
+        hf, tf = _hdr_fmt(wb), _title_fmt(wb)
+        dist_tables, most_recent_g = build_district_breakdown(df, election_cols, logger)
+        row = 0
+        for field, tbl in dist_tables.items():
+            row = _write_section(writer, 'District Breakdown', tbl.to_pandas(), row,
+                                 f'Breakdown — {field}', hf, tf)
+        ws = writer.sheets.get('District Breakdown')
+        if ws:
+            ws.set_column(0, 0, 38)
+            ws.set_column(1, 20, 16)
+        logger.info('  ✓ District Breakdown: %d field(s)', len(dist_tables))
+
+        # ── Sheet 5: Party Cross-tabs ─────────────────────────────────────────
+        logger.info('  Writing Party Cross-tabs sheet ...')
+        hf, tf = _hdr_fmt(wb), _title_fmt(wb)
+        by_congress, by_decade, by_status = build_party_crosstabs(df, logger)
+        by_generation = build_generation_crosstab(df, logger)
+        row = 0
+        row = _write_section(writer, 'Party Cross-tabs', by_congress.to_pandas(), row,
+                             'Party × Congressional District', hf, tf, col_widths={0: 35})
+        row = _write_section(writer, 'Party Cross-tabs', by_decade.to_pandas(), row,
+                             'Party × Birth Decade', hf, tf, col_widths={0: 16})
+        row = _write_section(writer, 'Party Cross-tabs', by_status.to_pandas(), row,
+                             'Party × Voter Status', hf, tf, col_widths={0: 25})
+        if len(by_generation) > 0:
+            _write_section(writer, 'Party Cross-tabs', by_generation.to_pandas(), row,
+                           'Party × Generation (Pew Research Center)', hf, tf, col_widths={0: 28})
+        ws = writer.sheets.get('Party Cross-tabs')
+        if ws:
+            ws.set_column(1, 30, 12)
+        logger.info('  ✓ Party Cross-tabs')
+
+    size_mb = output_path.stat().st_size / 1e6
+    logger.info('Workbook saved: %s  (%.1f MB)', output_path.name, size_mb)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Public entry points  (called by ohio_voter_pipeline.py)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _export_county_worker(args: tuple) -> tuple:
+    """
+    Thread worker for ThreadPoolExecutor.
+    Receives (county_num, county_df, election_cols, include_precinct_charts).
+
+    Threads share the main process address space — no IPC serialisation, no
+    pipe handles, no WinError 1450.  county_df is a pre-sliced, pre-enriched
+    Polars DataFrame (cohort columns already attached by clean_voter_data).
+    orjson releases the GIL during serialisation so threads overlap on I/O.
+    """
+    county_num, county_df, election_cols, include_precinct_charts = args
+    county_name = OHIO_COUNTIES.get(county_num.strip(), f'County {county_num}')
+    logger = logging.getLogger('voter_analysis')
+    try:
+        primary_cols = identify_primary_cols(election_cols)
+
+        # Fast path: build unc_classified from pre-enriched frame (no classifier re-run).
+        unc_classified = _unc_classified_from_enriched_df(county_df)
+        if unc_classified is None and primary_cols:
+            unc_classified = classify_unc_primary_history(county_df, primary_cols, logger)
+
+        export_json(county_name, county_df, election_cols, logger,
+                    update_manifest=False, unc_classified=unc_classified,
+                    include_precinct_charts=include_precinct_charts)
+        export_unc_shadow_json(county_name, county_df, primary_cols, logger,
+                               unc_classified=unc_classified)
+        return (county_name, None)
+    except Exception as exc:
+        return (county_name, str(exc))
+
+
+def run_ohio_analysis(
+    txt_files:               list[Path],
+    use_parquet:             bool = True,
+    max_workers:             int  = 0,
+    include_precinct_charts: bool = False,
+):
+    """
+    Export web dashboard JSON for all Ohio counties.
+
+    Writes JSON to docs/data/ and updates docs/manifest.json.
+    No Excel output — completely independent of the spreadsheet path.
+    Use run_ohio_excel() separately if you need the workbook.
+
+    Args:
+        txt_files:               SWVF_*.txt source files.
+        use_parquet:             Build/use Hive-partitioned Parquet cache. Default True.
+        max_workers:             Parallel worker processes. 0 = auto.
+        include_precinct_charts: Also write per-precinct party + UNC JSON files.
+                                 Significantly increases output file count and run time.
+    """
+    logger = setup_logging('ohio')
+    logger.info('=' * 60)
+    logger.info('OHIO STATEWIDE  —  web dashboard JSON export')
+    logger.info('=' * 60)
+
+    try:
+        # ── 1. Load ───────────────────────────────────────────────────────────
+        if use_parquet:
+            build_parquet_cache(txt_files, logger=logger)
+            with _timer(logger, 'loading voter files (Parquet)'):
+                df = load_voter_files_parquet(logger=logger)
+        else:
+            with _timer(logger, 'loading voter files (CSV)'):
+                df = load_voter_files(txt_files, logger=logger)
+
+        # ── 2. Clean + enrich ─────────────────────────────────────────────────
+        with _timer(logger, 'cleaning voter data'):
+            df = clean_voter_data(df, logger)
+
+        election_cols = identify_election_cols(df)
+        logger.info('%d election columns: %s to %s',
+                    len(election_cols), election_cols[0], election_cols[-1])
+
+        with _timer(logger, 'computing participation metrics'):
+            df = add_voter_participation(df, election_cols, logger)
+
+        # ── 3. Parallel county JSON export ────────────────────────────────────
+        counties_present = sorted(df['COUNTY_NUMBER'].str.strip_chars().unique().to_list())
+        logger.info('Preparing %d county slices ...', len(counties_present))
+
+        # Build per-county task list.  Threads share address space — no IPC
+        # serialisation needed.  Pass the df slice directly; Polars DataFrames
+        # are reference-counted and safe to read from multiple threads.
+        tasks = []
+        for county_num in counties_present:
+            county_df = df.filter(pl.col('COUNTY_NUMBER').str.strip_chars() == county_num)
+            tasks.append((county_num, county_df, election_cols, include_precinct_charts))
+
+        # ThreadPoolExecutor: no IPC pipes, no WinError 1450.
+        # orjson releases the GIL during serialisation so threads overlap on I/O.
+        # 8 threads matches the i7-9700K physical core count (no hyperthreading).
+        n_workers = max_workers or 8
+        logger.info('Launching %d thread worker(s) ...', n_workers)
+
+        processed: list[str] = []
+        failed:    list[tuple] = []
+
+        with _timer(logger, f'parallel JSON export ({n_workers} threads)'):
+            with concurrent.futures.ThreadPoolExecutor(max_workers=n_workers) as pool:
+                futures = {pool.submit(_export_county_worker, t): t[0] for t in tasks}
+                for fut in concurrent.futures.as_completed(futures):
+                    county_num = futures[fut]
+                    try:
+                        county_name, err = fut.result()
+                        if err:
+                            logger.error('FAIL %s: %s', county_name, err)
+                            failed.append((county_name, err))
+                        else:
+                            logger.info('  OK  %s', county_name)
+                            processed.append(county_name)
+                    except Exception as exc:
+                        cname = OHIO_COUNTIES.get(county_num.strip(), county_num)
+                        logger.error('FAIL %s: %s', cname, exc)
+                        failed.append((cname, str(exc)))
+
+        # ── 4. Write manifest once — no race condition, no O(N²) I/O ──────────
+        today = date_t.today().isoformat()
+        _write_manifest_bulk(sorted(processed), today, logger)
+
+        if failed:
+            logger.warning('%d county export(s) failed: %s', len(failed), [f[0] for f in failed])
+
+        logger.info('=' * 60)
+        logger.info('SUCCESS  (%d counties, %d failed)', len(processed), len(failed))
+        logger.info('=' * 60)
+
+    except Exception:
+        logger.exception('Unhandled error in run_ohio_analysis')
+        raise
+
+
+def run_county_subset(
+    txt_files:               list[Path],
+    county_numbers:          list[str],
+    use_parquet:             bool = True,
+    include_precinct_charts: bool = False,
+):
+    """
+    Export web dashboard JSON for a specific subset of counties.
+
+    Identical pipeline to run_ohio_analysis() but loads only the requested
+    Parquet partitions instead of all 88.  Runs counties sequentially —
+    no parallel worker pool — since the subset is typically small (1–5).
+
+    Requires the Parquet cache to exist.  Run option [1] or [2] first if
+    starting from a fresh clone with only the raw SWVF txt files.
+
+    Args:
+        txt_files:               SWVF_*.txt source files (used to build cache if absent).
+        county_numbers:          Zero-padded county number strings, e.g. ['57', '29'].
+        use_parquet:             Must be True; included for API consistency.
+        include_precinct_charts: Also write per-precinct party + UNC JSON files.
+    """
+    logger = setup_logging('county_subset')
+    logger.info('=' * 60)
+    logger.info('COUNTY SUBSET  —  web dashboard JSON export')
+    logger.info('Counties: %s', ', '.join(
+        f"{OHIO_COUNTIES.get(n, n)} ({n})" for n in county_numbers
+    ))
+    logger.info('=' * 60)
+
+    try:
+        # ── 1. Ensure Parquet cache exists ────────────────────────────────────
+        build_parquet_cache(txt_files, logger=logger)
+
+        # ── 2. Load + clean each county sequentially ──────────────────────────
+        election_cols = None
+        processed: list[str] = []
+        failed:    list[tuple] = []
+
+        for county_num in county_numbers:
+            county_name = OHIO_COUNTIES.get(county_num.strip(), f'County {county_num}')
+            logger.info('─' * 40)
+            logger.info('Processing %s (%s) ...', county_name, county_num)
+
+            try:
+                with _timer(logger, f'load {county_name} (Parquet)'):
+                    county_df = load_voter_files_parquet(
+                        county_number=county_num, logger=logger
+                    )
+
+                with _timer(logger, f'clean {county_name}'):
+                    county_df = clean_voter_data(county_df, logger)
+
+                if election_cols is None:
+                    election_cols = identify_election_cols(county_df)
+                    logger.info('%d election columns identified', len(election_cols))
+                else:
+                    # Re-identify in case this county's slice has a different column set
+                    ec = identify_election_cols(county_df)
+                    if ec:
+                        election_cols = ec
+
+                with _timer(logger, f'participation metrics {county_name}'):
+                    county_df = add_voter_participation(county_df, election_cols, logger)
+
+                primary_cols   = identify_primary_cols(election_cols)
+                unc_classified = (
+                    classify_unc_primary_history(county_df, primary_cols, logger)
+                    if primary_cols else None
+                )
+
+                with _timer(logger, f'export JSON {county_name}'):
+                    export_json(
+                        county_name, county_df, election_cols, logger,
+                        update_manifest=True,
+                        unc_classified=unc_classified,
+                        include_precinct_charts=include_precinct_charts,
+                    )
+                    export_unc_shadow_json(
+                        county_name, county_df, primary_cols, logger,
+                        unc_classified=unc_classified,
+                    )
+
+                processed.append(county_name)
+                logger.info('  OK  %s', county_name)
+
+            except Exception as exc:
+                logger.error('FAIL %s: %s', county_name, exc)
+                failed.append((county_name, str(exc)))
+
+        if failed:
+            logger.warning('%d county export(s) failed: %s', len(failed), [f[0] for f in failed])
+
+        logger.info('=' * 60)
+        logger.info('SUCCESS  (%d counties, %d failed)', len(processed), len(failed))
+        logger.info('=' * 60)
+
+    except Exception:
+        logger.exception('Unhandled error in run_county_subset')
+        raise
+
+
+def run_ohio_excel(
+    txt_files:   list[Path],
+    output_path: Path,
+    use_parquet: bool = True,
+):
+    """
+    Write a summary Excel workbook for all of Ohio.
+
+    Completely independent of run_ohio_analysis() — call only when the
+    Excel deliverable is needed. Does not touch JSON or the dashboard.
+    """
+    logger = setup_logging('ohio_excel')
+    logger.info('=' * 60)
+    logger.info('OHIO STATEWIDE  —  Excel export')
+    logger.info('=' * 60)
+
+    try:
+        if use_parquet and PARQUET_DIR.exists():
+            with _timer(logger, 'loading voter files (Parquet)'):
+                df = load_voter_files_parquet(logger=logger)
+        else:
+            with _timer(logger, 'loading voter files (CSV)'):
+                df = load_voter_files(txt_files, logger=logger)
+
+        with _timer(logger, 'cleaning voter data'):
+            df = clean_voter_data(df, logger)
+
+        election_cols = identify_election_cols(df)
+
+        with _timer(logger, 'computing participation metrics'):
+            df = add_voter_participation(df, election_cols, logger)
+
+        with _timer(logger, 'writing Excel workbook'):
+            build_workbook(df, election_cols, output_path,
+                           county_name='Ohio (Statewide)',
+                           include_raw=False,
+                           logger=logger)
+        logger.info('Workbook saved: %s', output_path)
+
+    except Exception:
+        logger.exception('Unhandled error in run_ohio_excel')
+        raise
+
+
+def run_county_analysis(
+    txt_files:     list[Path],
+    county_number: str,
+    output_path:   Path,
+    use_parquet:   bool = True,
+):
+    """
+    Single-county web dashboard JSON + Excel export.
+
+    Prefers Parquet cache when available; falls back to CSV scan.
+    """
+    county_number = county_number.zfill(2)
+    county_name   = OHIO_COUNTIES.get(county_number, f'County {county_number}')
+    logger        = setup_logging(f'county_{county_number}')
+
+    logger.info('=' * 60)
+    logger.info('COUNTY %s (%s)', county_number, county_name)
+    logger.info('=' * 60)
+
+    try:
+        if use_parquet and PARQUET_DIR.exists():
+            with _timer(logger, f'loading county {county_number} (Parquet)'):
+                df = load_voter_files_parquet(county_number=county_number, logger=logger)
+        else:
+            with _timer(logger, f'loading county {county_number} (CSV)'):
+                df = load_voter_files(txt_files, county_number=county_number, logger=logger)
+
+        if df.is_empty():
+            logger.error('No records found for county %s — check county number and file range',
+                         county_number)
+            return
+
+        with _timer(logger, 'cleaning voter data'):
+            df = clean_voter_data(df, logger)
+
+        election_cols = identify_election_cols(df)
+        logger.info('%d election columns: %s → %s',
+                    len(election_cols), election_cols[0], election_cols[-1])
+
+        with _timer(logger, 'computing participation metrics'):
+            df = add_voter_participation(df, election_cols, logger)
+
+        primary_cols   = identify_primary_cols(election_cols)
+        unc_classified = (
+            classify_unc_primary_history(df, primary_cols, logger)
+            if primary_cols else None
+        )
+
+        with _timer(logger, 'exporting JSON'):
+            export_json(
+                county_name, df, election_cols, logger,
+                update_manifest=True,
+                unc_classified=unc_classified,
+            )
+            export_unc_shadow_json(
+                county_name, df, primary_cols, logger,
+                unc_classified=unc_classified,
+            )
+
+        with _timer(logger, 'writing Excel workbook'):
+            build_workbook(df, election_cols, output_path,
+                           county_name=county_name,
+                           include_raw=False,
+                           logger=logger)
+        logger.info('Workbook saved: %s', output_path)
+
+    except Exception:
+        logger.exception('Unhandled error in run_county_analysis(%s)', county_number)
+        raise
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Entry point — invoked directly by ohio_voter_pipeline.py
+# ══════════════════════════════════════════════════════════════════════════════
+if __name__ == '__main__':
+    import sys as _sys
+    # Allow quick smoke-tests: python voter_data_cleaner_v2.py --test
+    if '--test' in _sys.argv:
+        _logger = setup_logging('smoke_test')
+        _logger.info('Smoke test: OHIO_COUNTIES has %d entries', len(OHIO_COUNTIES))
+        assert len(OHIO_COUNTIES) == 88, f'Expected 88 counties, got {len(OHIO_COUNTIES)}'
+        nums = sorted(OHIO_COUNTIES.keys())
+        assert nums[0] == '01' and nums[-1] == '88', f'Numbering out of range: {nums[0]}…{nums[-1]}'
+        assert OHIO_COUNTIES['57'] == 'Montgomery', \
+            f"County 57 should be Montgomery, got {OHIO_COUNTIES['57']}"
+        assert 'strictly alphabetical by county name' in open(__file__, encoding='utf-8').read(), \
+            'OHIO_COUNTIES comment block missing'
+        assert hasattr(__import__('voter_data_cleaner_v2'), 'run_county_subset'), \
+            'run_county_subset not found'
+        _logger.info('All smoke-test assertions passed.')
+    else:
+        print('voter_data_cleaner_v2.py is a library — import it or run with --test')

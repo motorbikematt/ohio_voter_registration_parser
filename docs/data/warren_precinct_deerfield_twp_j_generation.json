@@ -1,0 +1,32 @@
+{
+  "title": "Voter Age Distribution by Generation — DEERFIELD TWP J",
+  "county": "Warren",
+  "precinct": "DEERFIELD TWP J",
+  "geography": "precinct-detail",
+  "type": "bar",
+  "updated": "2026-05-07",
+  "note": "Pew Research Center generational boundaries",
+  "chartConfig": {
+    "labels": [
+      "Silent/Greatest",
+      "Baby Boomers",
+      "Gen X",
+      "Millennials",
+      "Gen Z"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          18,
+          282,
+          371,
+          283,
+          228
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  }
+}
