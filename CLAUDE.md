@@ -107,8 +107,8 @@ Log malformed rows to `./working/errors/[county].log` and continue. Never halt o
 - **Dashboard**: GitHub Pages `/docs` — county + precinct scope, manifest-driven, Chart.js. Live: https://motorbikematt.github.io/ohio_voter_registration_parser/
   - Deep-link: `?county=Montgomery&geo=precinct-detail&precinct=DAYTON+8-B#decade-distribution`
   - 2026-05-07: deep-link bug fixed — `_populatePrecinctDropdown` in `docs/charts.js` now calls `_filterSections` + `_renderVisibleSections` + `_rebuildNav` after injecting precinct sections.
-- **Dashboard JSON status**: STALE. All 4 stacked-bar chart blocks (county + precinct, decade + generation) were rewritten 2026-05-08 to pivot on `cohort_family`. Doughnut got tooltip suppression + count/pct legend. Run pipeline option 1 or 2 to regenerate `docs/data/`, then commit + push.
-- **Cohort taxonomy** (2026-05-07): 12 cohorts → 8 `cohort_family` values. PURE_R/D = registered + zero crossover history. CROSSOVER_R/D = registered + mixed history (decay-weighted lean: LOCKED ±0.50, LEAN ±0.30). UNC subclasses unchanged. `classify_unc_primary_history()` is now a wrapper — kept until all callers migrated.
+- **Dashboard JSON status**: Current as of 2026-05-08. Regenerate with pipeline option 1 or 2 after any classifier change, then commit + push.
+- **Cohort taxonomy** (2026-05-08): 7 public `cohort_family` values. No decay scoring. Pure means zero opposing-party primary history, lifetime. CROSSOVER_R/D preserved internally in `cohort` column for future proprietary analysis; map to `MIXED_ACTIVE` in `cohort_family`. `classify_unc_primary_history()` is a legacy wrapper delegating to `classify_all_voters_primary_history()` — pending caller audit before removal.
 
 ## Chart consistency contract
 
@@ -116,12 +116,12 @@ All geographies (precinct, county, ward, city, district) render the same 6 chart
 
 | Chart | Type | Series |
 |---|---|---|
-| Party Affiliation | doughnut | 8-cohort `COHORT_SLICES`: Pure R → R-Crossover → UNC-Lifetime-R → UNC-Mixed → UNC-No-History → UNC-Lifetime-D → D-Crossover → Pure D |
+| Party Affiliation | doughnut | 7-cohort `COHORT_SLICES`: Pure R → UNC Lapsed R → Mixed Active → Mixed Lapsed → UNC No Primary → UNC Lapsed D → Pure D. Columns: Republican \| Mixed / Unaffiliated \| Democratic |
 | Age by Decade | bar | Decade (1920s–2010s) |
 | Age by Generation | bar | Pew boundaries |
-| Party × Decade | stacked bar | 8-cohort stacks per decade (stack ids: `r_pure`, `r_cross`, `unc`, `d_cross`, `d_pure`) |
-| Party × Generation | stacked bar | 8-cohort stacks per generation (same stack ids) |
-| UNC Shadow | stacked bar | LIFETIME_R / LIFETIME_D / MIXED / NO_HISTORY |
+| Party × Decade | stacked bar | 7-cohort stacks per decade (stack ids: `r_pure`, `unc_r`, `unc_mid`, `unc_d`, `d_pure`) |
+| Party × Generation | stacked bar | 7-cohort stacks per generation (same stack ids) |
+| UNC Shadow | stacked bar | UNC_LAPSED_R / UNC_LAPSED_D / MIXED_ACTIVE / MIXED_LAPSED / UNC_NO_PRIMARY |
 
 Doughnut tooltips are disabled and the legend renders `"<Cohort> — <count> (<pct>%)"` with thousands separators for screenshot/print legibility. Bar tooltips remain enabled.
 
@@ -143,4 +143,4 @@ Doughnut tooltips are disabled and the legend renders `"<Cohort> — <count> (<p
 
 ---
 
-*Last updated: 2026-05-08*
+*Last updated: 2026-05-08 (7-cohort schema, Mixed-Active/Lapsed split)*

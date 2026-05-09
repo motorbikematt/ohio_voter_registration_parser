@@ -4,21 +4,19 @@ precinct_party_export.py
 Export a multi-tab Excel workbook of voter names + addresses + all source
 columns, split by partisan cohort, for a chosen county or a single precinct.
 
-Tab layout (8-tab partisan spectrum — colours match dashboard doughnut):
+Tab layout (7-tab partisan spectrum — colours match dashboard doughnut):
   Pure_R          #ef4444   registered R, zero D primary ballots ever
-  R_Crossover     #f87171   registered R, has voted both primaries (scored)
-  UNC_Lifetime_R  #fca5a5   unaffiliated, all primaries were R ballots
-  UNC_Mixed       #a78bfa   unaffiliated, mixed primary history (scored)
-  UNC_No_History  #9ca3af   unaffiliated, no primary participation ever
-  UNC_Lifetime_D  #93c5fd   unaffiliated, all primaries were D ballots
-  D_Crossover     #60a5fa   registered D, has voted both primaries (scored)
+  UNC_Lapsed_R    #fca5a5   unaffiliated, all primaries were R ballots
+  Mixed_Active    #f59e0b   currently affiliated crossover voters
+  Mixed_Lapsed    #a78bfa   unaffiliated, mixed or X-only primary history
+  UNC_No_Primary  #9ca3af   unaffiliated, no primary participation ever
+  UNC_Lapsed_D    #93c5fd   unaffiliated, all primaries were D ballots
   Pure_D          #3b82f6   registered D, zero R primary ballots ever
   Summary         #1e293b   row counts per tab
 
 Cohort assignment uses classify_all_voters_primary_history() (voter_data_cleaner_v2).
-Crossover and UNC_Mixed tabs include scoring columns: lean_score, confidence,
-crossover_class, last_three_party, years_since_last_partisan, switch_count.
-Pure and Lifetime tabs omit scoring columns (all null for those cohorts).
+cohort_family is the segmentation key; internal cohort column preserved for
+future proprietary crossover analysis but not surfaced in output tabs.
 
 Output:  UNC_Exports/Workbooks/{County}_{Precinct}_voters.xlsx
                              or {County}_all_voters.xlsx
@@ -51,16 +49,16 @@ classify_unc   = v2.classify_unc_primary_history
 classify_all   = v2.classify_all_voters_primary_history
 
 # ── Tab definitions ───────────────────────────────────────────────────────────
-# 8-tab partisan-spectrum layout based on cohort_family (universal classifier).
+# 7-tab partisan-spectrum layout based on cohort_family (universal classifier).
+# Mirrors the public dashboard taxonomy exactly — no decay scoring surfaced.
 TABS = [
     # (tab_name,         tab_colour,  filter_col,      cohort_family value)
     ("Pure_R",         "#ef4444",   "cohort_family", "PURE_R"),
-    ("R_Crossover",    "#f87171",   "cohort_family", "CROSSOVER_R"),
-    ("UNC_Lifetime_R", "#fca5a5",   "cohort_family", "UNC_LIFETIME_R"),
-    ("UNC_Mixed",      "#a78bfa",   "cohort_family", "UNC_MIXED"),
-    ("UNC_No_History", "#9ca3af",   "cohort_family", "UNC_NO_HISTORY"),
-    ("UNC_Lifetime_D", "#93c5fd",   "cohort_family", "UNC_LIFETIME_D"),
-    ("D_Crossover",    "#60a5fa",   "cohort_family", "CROSSOVER_D"),
+    ("UNC_Lapsed_R",   "#fca5a5",   "cohort_family", "UNC_LAPSED_R"),
+    ("Mixed_Active",   "#f59e0b",   "cohort_family", "MIXED_ACTIVE"),
+    ("Mixed_Lapsed",   "#a78bfa",   "cohort_family", "MIXED_LAPSED"),
+    ("UNC_No_Primary", "#9ca3af",   "cohort_family", "UNC_NO_PRIMARY"),
+    ("UNC_Lapsed_D",   "#93c5fd",   "cohort_family", "UNC_LAPSED_D"),
     ("Pure_D",         "#3b82f6",   "cohort_family", "PURE_D"),
 ]
 
@@ -148,21 +146,19 @@ def _write_workbook(
                                  pl.Float32, pl.Float64)
 
     # ── Write data tabs ───────────────────────────────────────────────────────
-    # Cohorts with meaningful crossover scoring keep all scoring columns;
-    # Pure_* and UNC_Lifetime_* tabs drop them (they'd be nearly all null).
-    SCORING_COLS_KEEP = {"R_Crossover", "D_Crossover", "UNC_Mixed"}
+    # Decay scoring columns are not surfaced — output mirrors the public
+    # dashboard taxonomy (cohort_family only, no lean_score / crossover_class).
+    DROP_ALWAYS = [
+        "lean_score", "confidence", "recent_5yr_lean",
+        "crossover_class", "last_three_party",
+        "years_since_last_partisan", "switch_count",
+    ]
     for tab_name, tab_colour, _, _ in TABS:
         frame = frames[tab_name]
 
-        if tab_name not in SCORING_COLS_KEEP:
-            drop_candidates = [
-                "lean_score", "confidence", "recent_5yr_lean",
-                "crossover_class", "last_three_party",
-                "years_since_last_partisan", "switch_count",
-            ]
-            drop = [c for c in drop_candidates if c in frame.columns]
-            if drop:
-                frame = frame.drop(drop)
+        drop = [c for c in DROP_ALWAYS if c in frame.columns]
+        if drop:
+            frame = frame.drop(drop)
 
         ws = wb.add_worksheet(tab_name)
         ws.set_tab_color(tab_colour)
