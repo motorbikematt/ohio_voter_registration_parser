@@ -304,6 +304,7 @@ def prompt_next_step(txt_files: list[Path]) -> tuple[str, bool, list[str] | None
     print("  [1]  Full Ohio (88 counties) → web dashboard JSON only  (default; press Enter)")
     print("  [2]  Full Ohio (88 counties) → web dashboard JSON + Excel workbook")
     print("  [3]  Selected counties only  → web dashboard JSON")
+    print("  [4]  Generate jurisdictional groupings (cities, townships, etc.)")
     print("  [L]  List all 88 counties with official state numbers")
     print("  [0]  Exit")
     print()
@@ -330,7 +331,10 @@ def prompt_next_step(txt_files: list[Path]) -> tuple[str, bool, list[str] | None
             include_precincts = prompt_precinct_charts()
             return "3", include_precincts, county_nums
 
-        print("  Invalid choice. Enter 1, 2, 3, L, or 0.")
+        if choice == "4":
+            return "4", False, None
+
+        print("  Invalid choice. Enter 1, 2, 3, 4, L, or 0.")
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
