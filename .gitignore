@@ -18,8 +18,17 @@ source/
 
 # ─── Analysis outputs ─────────────────────────────────────
 # Excel workbooks and CSVs produced by the analysis scripts.
+# EXCEPTION: We track precinct metadata as it contains no PII.
 *.xlsx
 *.csv
+!source/precinct_keys/*.csv
+
+# ─── Project Specific Artifacts ───────────────────────────
+working/
+collision_report.md
+.ipynb_checkpoints/
+*.bat
+*.ps1
 
 # ─── Raw voter file formats ────────────────────────────────
 # The decompressed state voter files are plain .txt.  This rule
