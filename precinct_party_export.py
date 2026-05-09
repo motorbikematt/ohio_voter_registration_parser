@@ -138,11 +138,10 @@ def _countifs_dob_cohort(tab: str, dob_col: str, yr_lo: int, yr_hi: int,
     dob_range = f"'{tab}'!{dob_col}2:{dob_col}{max_row}"
     cf_range  = f"'{tab}'!{cf_col}2:{cf_col}{max_row}"
     return (
-        '=SUMPRODUCT('
+        f'=SUMPRODUCT('
         f'(VALUE(LEFT({dob_range},4))>={yr_lo})*'
         f'(VALUE(LEFT({dob_range},4))<={yr_hi})*'
         f'({cf_range}="{cf_val}"))'
-        ')'
     )
 
 
