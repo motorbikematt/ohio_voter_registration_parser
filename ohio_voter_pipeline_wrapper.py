@@ -40,9 +40,9 @@ import polars as pl
 
 # --- CONFIG --------------------------------------------------------------
 PROJECT_ROOT = Path(r"D:\vibe\election-data (1)")
-EXPORT_SCRIPT = PROJECT_ROOT / "export_unc_targets.py"
-PREDICTOR = PROJECT_ROOT / "mixed_lean_predictor.py"
-RUNNER = PROJECT_ROOT / "run_lean_predictor_all_cohorts.py"
+EXPORT_SCRIPT = PROJECT_ROOT / "tools" / "export_unc_targets.py"
+PREDICTOR = PROJECT_ROOT / "tools" / "scoring" / "mixed_lean_predictor.py"
+RUNNER = PROJECT_ROOT / "tools" / "scoring" / "run_lean_predictor_all_cohorts.py"
 
 SOURCE_DIR = PROJECT_ROOT / "source"
 EXPORT_ROOT = PROJECT_ROOT / "UNC_Exports"

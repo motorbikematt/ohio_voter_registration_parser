@@ -458,11 +458,8 @@ def _dispatch(
             include_precinct_charts=include_precincts,
         )
 
-    else:
-        print("\nExiting. Voter files are in:")
-        for f in txt_files:
-            print(f"  {f}")
-
-
-if __name__ == "__main__":
-    main()
+    elif choice == "4":
+        import jurisdictional_groupings as jg
+        logger, _ = jg.setup_logger()
+        logger.info("Running jurisdictional groupings for cities...")
+        jg.main(jurisdictions_to_process=['cities'], output_format='json', logger=logger)

@@ -37,7 +37,7 @@ import polars as pl
 
 # --- CONFIG --------------------------------------------------------------
 PROJECT_ROOT = Path(r"D:\vibe\election-data (1)")
-PREDICTOR = PROJECT_ROOT / "mixed_lean_predictor.py"
+PREDICTOR = PROJECT_ROOT / "tools" / "scoring" / "mixed_lean_predictor.py"
 MIXED_DIR = PROJECT_ROOT / "UNC_Exports" / "Mixed"
 STATEWIDE_SUMMARY = MIXED_DIR / "_statewide_MIXED_summary.csv"
 STATEWIDE_DETAILS = MIXED_DIR / "_statewide_MIXED_summary_by_county.csv"

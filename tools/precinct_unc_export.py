@@ -27,7 +27,7 @@ import polars as pl
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 
-BASE_DIR    = Path(__file__).parent
+BASE_DIR    = Path(__file__).parent.parent
 SOURCE_DIR  = BASE_DIR / "source"
 TXT_DIR     = SOURCE_DIR / "State Voter Files"
 PARQUET_DIR = SOURCE_DIR / "parquet"

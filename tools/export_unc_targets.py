@@ -385,7 +385,7 @@ def main() -> None:
     logger = _build_logger()
     args   = parse_args()
 
-    script_dir = Path(__file__).parent
+    script_dir = Path(__file__).parent.parent
     output_dir = Path(args.output_dir) if args.output_dir else script_dir / 'UNC_Exports'
 
     txt_files    = [Path(p) for p in args.inputs]

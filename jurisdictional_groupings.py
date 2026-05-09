@@ -486,10 +486,10 @@ def main(
     # Load enriched parquet
     logger.info('Loading enriched voter parquet...')
     try:
-        df = pl.read_parquet(str(PARQUET_DIR / 'all_counties_enriched.parquet'))
+        df = pl.read_parquet(str(PARQUET_DIR))
         logger.info(f'Loaded {df.height:,} rows × {df.width} columns')
     except FileNotFoundError:
-        logger.error(f'Enriched parquet not found at {PARQUET_DIR / "all_counties_enriched.parquet"}')
+        logger.error(f'Enriched parquet not found at {PARQUET_DIR}')
         logger.error('Run voter_data_cleaner_v2.py (option 1) to generate it.')
         return False
 
