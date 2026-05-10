@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 517 (21%)",
+      "UNC – Lapsed R — 276 (11%)",
+      "Mixed – Active — 223 (9%)",
+      "Mixed – Lapsed — 212 (9%)",
+      "UNC – No Primary — 720 (30%)",
+      "UNC – Lapsed D — 264 (11%)",
+      "Pure D — 215 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          517,
+          276,
+          223,
+          212,
+          720,
+          264,
+          215
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PROVIDENCE TOWNSHIP (Lucas Co.)",
+  "updated": "2026-05-10"
+}

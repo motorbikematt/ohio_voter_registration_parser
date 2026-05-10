@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 67 (21%)",
+      "UNC – Lapsed R — 36 (11%)",
+      "Mixed – Active — 51 (16%)",
+      "Mixed – Lapsed — 13 (4%)",
+      "UNC – No Primary — 108 (34%)",
+      "UNC – Lapsed D — 35 (11%)",
+      "Pure D — 4 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          67,
+          36,
+          51,
+          13,
+          108,
+          35,
+          4
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WAYNE TWP (Pickaway Co.)",
+  "updated": "2026-05-10"
+}

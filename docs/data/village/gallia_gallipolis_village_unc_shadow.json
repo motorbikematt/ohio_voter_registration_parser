@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 200",
+      "Mixed – Active — 183",
+      "Mixed – Lapsed — 72",
+      "UNC – No Primary — 893",
+      "UNC – Lapsed D — 138"
+    ],
+    "datasets": [
+      {
+        "data": [
+          200,
+          183,
+          72,
+          893,
+          138
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "GALLIPOLIS VILLAGE (Gallia Co.)",
+  "updated": "2026-05-10"
+}

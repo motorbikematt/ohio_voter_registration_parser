@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 7",
+      "Mixed – Active — 14",
+      "Mixed – Lapsed — 21",
+      "UNC – No Primary — 99",
+      "UNC – Lapsed D — 26"
+    ],
+    "datasets": [
+      {
+        "data": [
+          7,
+          14,
+          21,
+          99,
+          26
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "IRONDALE VILLAGE (Jefferson Co.)",
+  "updated": "2026-05-10"
+}

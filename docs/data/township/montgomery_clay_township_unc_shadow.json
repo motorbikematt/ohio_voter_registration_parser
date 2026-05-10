@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 973",
+      "Mixed – Active — 569",
+      "Mixed – Lapsed — 619",
+      "UNC – No Primary — 2,152",
+      "UNC – Lapsed D — 476"
+    ],
+    "datasets": [
+      {
+        "data": [
+          973,
+          569,
+          619,
+          2152,
+          476
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "CLAY TOWNSHIP (Montgomery Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 213",
+      "Mixed – Active — 369",
+      "Mixed – Lapsed — 145",
+      "UNC – No Primary — 970",
+      "UNC – Lapsed D — 205"
+    ],
+    "datasets": [
+      {
+        "data": [
+          213,
+          369,
+          145,
+          970,
+          205
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "LAFAYETTE TWP (Coshocton Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 456 (21%)",
+      "UNC – Lapsed R — 286 (13%)",
+      "Mixed – Active — 205 (9%)",
+      "Mixed – Lapsed — 70 (3%)",
+      "UNC – No Primary — 906 (42%)",
+      "UNC – Lapsed D — 166 (8%)",
+      "Pure D — 84 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          456,
+          286,
+          205,
+          70,
+          906,
+          166,
+          84
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SPRINGFIELD TWP (Gallia Co.)",
+  "updated": "2026-05-10"
+}

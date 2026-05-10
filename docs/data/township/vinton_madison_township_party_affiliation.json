@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 91 (24%)",
+      "UNC – Lapsed R — 37 (10%)",
+      "Mixed – Active — 28 (7%)",
+      "Mixed – Lapsed — 21 (6%)",
+      "UNC – No Primary — 136 (36%)",
+      "UNC – Lapsed D — 27 (7%)",
+      "Pure D — 41 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          91,
+          37,
+          28,
+          21,
+          136,
+          27,
+          41
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MADISON TOWNSHIP (Vinton Co.)",
+  "updated": "2026-05-10"
+}

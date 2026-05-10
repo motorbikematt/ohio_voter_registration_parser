@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 24 (11%)",
+      "UNC – Lapsed R — 17 (8%)",
+      "Mixed – Active — 18 (9%)",
+      "Mixed – Lapsed — 16 (8%)",
+      "UNC – No Primary — 94 (45%)",
+      "UNC – Lapsed D — 36 (17%)",
+      "Pure D — 6 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          24,
+          17,
+          18,
+          16,
+          94,
+          36,
+          6
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WASHINGTONVILLE VILLAGE (Columbiana Co.)",
+  "updated": "2026-05-10"
+}

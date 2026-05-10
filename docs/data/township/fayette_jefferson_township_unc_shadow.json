@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 198",
+      "Mixed – Active — 113",
+      "Mixed – Lapsed — 93",
+      "UNC – No Primary — 643",
+      "UNC – Lapsed D — 104"
+    ],
+    "datasets": [
+      {
+        "data": [
+          198,
+          113,
+          93,
+          643,
+          104
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "JEFFERSON TOWNSHIP (Fayette Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,219 (21%)",
+      "UNC – Lapsed R — 1,293 (12%)",
+      "Mixed – Active — 587 (5%)",
+      "Mixed – Lapsed — 713 (7%)",
+      "UNC – No Primary — 4,884 (45%)",
+      "UNC – Lapsed D — 737 (7%)",
+      "Pure D — 334 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2219,
+          1293,
+          587,
+          713,
+          4884,
+          737,
+          334
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "GOSHEN TWP (Clermont Co.)",
+  "updated": "2026-05-10"
+}

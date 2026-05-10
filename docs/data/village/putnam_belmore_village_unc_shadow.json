@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 3",
+      "Mixed – Active — 3",
+      "Mixed – Lapsed — 2",
+      "UNC – No Primary — 27",
+      "UNC – Lapsed D — 8"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3,
+          3,
+          2,
+          27,
+          8
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "BELMORE VILLAGE (Putnam Co.)",
+  "updated": "2026-05-10"
+}

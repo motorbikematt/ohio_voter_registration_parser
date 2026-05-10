@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 268",
+      "Mixed – Active — 151",
+      "Mixed – Lapsed — 133",
+      "UNC – No Primary — 665",
+      "UNC – Lapsed D — 158"
+    ],
+    "datasets": [
+      {
+        "data": [
+          268,
+          151,
+          133,
+          665,
+          158
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "WORTHINGTON TWP (Richland Co.)",
+  "updated": "2026-05-10"
+}

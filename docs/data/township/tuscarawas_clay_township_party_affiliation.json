@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 35 (8%)",
+      "UNC – Lapsed R — 47 (10%)",
+      "Mixed – Active — 48 (11%)",
+      "Mixed – Lapsed — 54 (12%)",
+      "UNC – No Primary — 177 (39%)",
+      "UNC – Lapsed D — 69 (15%)",
+      "Pure D — 27 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          35,
+          47,
+          48,
+          54,
+          177,
+          69,
+          27
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CLAY TOWNSHIP (Tuscarawas Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,766",
+      "Mixed – Active — 648",
+      "Mixed – Lapsed — 1,381",
+      "UNC – No Primary — 4,548",
+      "UNC – Lapsed D — 971"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1766,
+          648,
+          1381,
+          4548,
+          971
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "PIERCE TWP (Clermont Co.)",
+  "updated": "2026-05-10"
+}

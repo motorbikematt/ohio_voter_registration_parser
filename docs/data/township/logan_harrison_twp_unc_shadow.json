@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 196",
+      "Mixed – Active — 100",
+      "Mixed – Lapsed — 89",
+      "UNC – No Primary — 528",
+      "UNC – Lapsed D — 84"
+    ],
+    "datasets": [
+      {
+        "data": [
+          196,
+          100,
+          89,
+          528,
+          84
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "HARRISON TWP (Logan Co.)",
+  "updated": "2026-05-10"
+}

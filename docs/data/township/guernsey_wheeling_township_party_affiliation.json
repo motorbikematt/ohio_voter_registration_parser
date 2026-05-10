@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 75 (19%)",
+      "UNC – Lapsed R — 63 (16%)",
+      "Mixed – Active — 29 (7%)",
+      "Mixed – Lapsed — 14 (4%)",
+      "UNC – No Primary — 167 (42%)",
+      "UNC – Lapsed D — 45 (11%)",
+      "Pure D — 6 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          75,
+          63,
+          29,
+          14,
+          167,
+          45,
+          6
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WHEELING TOWNSHIP (Guernsey Co.)",
+  "updated": "2026-05-10"
+}

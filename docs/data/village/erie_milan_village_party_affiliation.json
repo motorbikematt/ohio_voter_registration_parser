@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 112 (17%)",
+      "UNC – Lapsed R — 62 (9%)",
+      "Mixed – Active — 86 (13%)",
+      "Mixed – Lapsed — 80 (12%)",
+      "UNC – No Primary — 201 (30%)",
+      "UNC – Lapsed D — 73 (11%)",
+      "Pure D — 48 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          112,
+          62,
+          86,
+          80,
+          201,
+          73,
+          48
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "MILAN VILLAGE (Erie Co.)",
+  "updated": "2026-05-10"
+}

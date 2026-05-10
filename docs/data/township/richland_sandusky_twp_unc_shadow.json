@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 79",
+      "Mixed – Active — 62",
+      "Mixed – Lapsed — 68",
+      "UNC – No Primary — 267",
+      "UNC – Lapsed D — 79"
+    ],
+    "datasets": [
+      {
+        "data": [
+          79,
+          62,
+          68,
+          267,
+          79
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "SANDUSKY TWP (Richland Co.)",
+  "updated": "2026-05-10"
+}

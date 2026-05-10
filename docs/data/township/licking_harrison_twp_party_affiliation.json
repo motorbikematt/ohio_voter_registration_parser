@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,633 (23%)",
+      "UNC – Lapsed R — 878 (13%)",
+      "Mixed – Active — 582 (8%)",
+      "Mixed – Lapsed — 803 (12%)",
+      "UNC – No Primary — 2,126 (31%)",
+      "UNC – Lapsed D — 677 (10%)",
+      "Pure D — 260 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1633,
+          878,
+          582,
+          803,
+          2126,
+          677,
+          260
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HARRISON TWP (Licking Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 261 (21%)",
+      "UNC – Lapsed R — 160 (13%)",
+      "Mixed – Active — 47 (4%)",
+      "Mixed – Lapsed — 79 (6%)",
+      "UNC – No Primary — 609 (49%)",
+      "UNC – Lapsed D — 70 (6%)",
+      "Pure D — 29 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          261,
+          160,
+          47,
+          79,
+          609,
+          70,
+          29
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SPENCERVILLE VILLAGE (Unknown Co.)",
+  "updated": "2026-05-10"
+}

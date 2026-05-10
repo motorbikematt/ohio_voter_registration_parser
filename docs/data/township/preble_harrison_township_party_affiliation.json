@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 650 (22%)",
+      "UNC – Lapsed R — 427 (14%)",
+      "Mixed – Active — 285 (10%)",
+      "Mixed – Lapsed — 210 (7%)",
+      "UNC – No Primary — 1,163 (39%)",
+      "UNC – Lapsed D — 200 (7%)",
+      "Pure D — 58 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          650,
+          427,
+          285,
+          210,
+          1163,
+          200,
+          58
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HARRISON TOWNSHIP (Preble Co.)",
+  "updated": "2026-05-10"
+}

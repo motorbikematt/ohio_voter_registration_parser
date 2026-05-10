@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 226",
+      "Mixed – Active — 150",
+      "Mixed – Lapsed — 123",
+      "UNC – No Primary — 714",
+      "UNC – Lapsed D — 145"
+    ],
+    "datasets": [
+      {
+        "data": [
+          226,
+          150,
+          123,
+          714,
+          145
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "CLINTON TOWNSHIP (Knox Co.)",
+  "updated": "2026-05-10"
+}

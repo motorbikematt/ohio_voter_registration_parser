@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 121",
+      "Mixed – Active — 47",
+      "Mixed – Lapsed — 45",
+      "UNC – No Primary — 303",
+      "UNC – Lapsed D — 45"
+    ],
+    "datasets": [
+      {
+        "data": [
+          121,
+          47,
+          45,
+          303,
+          45
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "HARRISON TOWNSHIP (Van Wert Co.)",
+  "updated": "2026-05-10"
+}

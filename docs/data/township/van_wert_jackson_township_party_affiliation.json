@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 102 (30%)",
+      "UNC – Lapsed R — 55 (16%)",
+      "Mixed – Active — 18 (5%)",
+      "Mixed – Lapsed — 10 (3%)",
+      "UNC – No Primary — 136 (40%)",
+      "UNC – Lapsed D — 16 (5%)",
+      "Pure D — 3 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          102,
+          55,
+          18,
+          10,
+          136,
+          16,
+          3
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JACKSON TOWNSHIP (Van Wert Co.)",
+  "updated": "2026-05-10"
+}

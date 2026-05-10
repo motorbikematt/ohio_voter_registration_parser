@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 16",
+      "Mixed – Active — 53",
+      "Mixed – Lapsed — 48",
+      "UNC – No Primary — 1,461",
+      "UNC – Lapsed D — 156"
+    ],
+    "datasets": [
+      {
+        "data": [
+          16,
+          53,
+          48,
+          1461,
+          156
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "GAMBIER VILLAGE (Knox Co.)",
+  "updated": "2026-05-10"
+}

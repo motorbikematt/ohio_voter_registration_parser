@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 391 (21%)",
+      "UNC – Lapsed R — 283 (15%)",
+      "Mixed – Active — 159 (8%)",
+      "Mixed – Lapsed — 154 (8%)",
+      "UNC – No Primary — 630 (34%)",
+      "UNC – Lapsed D — 165 (9%)",
+      "Pure D — 92 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          391,
+          283,
+          159,
+          154,
+          630,
+          165,
+          92
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "NEWARK TWP (Licking Co.)",
+  "updated": "2026-05-10"
+}

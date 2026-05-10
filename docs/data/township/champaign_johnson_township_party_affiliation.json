@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 655 (29%)",
+      "UNC – Lapsed R — 204 (9%)",
+      "Mixed – Active — 241 (11%)",
+      "Mixed – Lapsed — 149 (7%)",
+      "UNC – No Primary — 771 (34%)",
+      "UNC – Lapsed D — 148 (7%)",
+      "Pure D — 95 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          655,
+          204,
+          241,
+          149,
+          771,
+          148,
+          95
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JOHNSON TOWNSHIP (Champaign Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 154 (26%)",
+      "UNC – Lapsed R — 82 (14%)",
+      "Mixed – Active — 68 (11%)",
+      "Mixed – Lapsed — 30 (5%)",
+      "UNC – No Primary — 197 (33%)",
+      "UNC – Lapsed D — 45 (8%)",
+      "Pure D — 18 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          154,
+          82,
+          68,
+          30,
+          197,
+          45,
+          18
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BLOOM TOWNSHIP (Morgan Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 248 (21%)",
+      "UNC – Lapsed R — 138 (12%)",
+      "Mixed – Active — 132 (11%)",
+      "Mixed – Lapsed — 84 (7%)",
+      "UNC – No Primary — 365 (32%)",
+      "UNC – Lapsed D — 131 (11%)",
+      "Pure D — 56 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          248,
+          138,
+          132,
+          84,
+          365,
+          131,
+          56
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "CALDWELL VILLAGE (Noble Co.)",
+  "updated": "2026-05-10"
+}

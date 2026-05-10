@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 196 (20%)",
+      "UNC – Lapsed R — 60 (6%)",
+      "Mixed – Active — 144 (15%)",
+      "Mixed – Lapsed — 40 (4%)",
+      "UNC – No Primary — 396 (40%)",
+      "UNC – Lapsed D — 87 (9%)",
+      "Pure D — 61 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          196,
+          60,
+          144,
+          40,
+          396,
+          87,
+          61
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "DEERCREEK TOWNSHIP (Pickaway Co.)",
+  "updated": "2026-05-10"
+}

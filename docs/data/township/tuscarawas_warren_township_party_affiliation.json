@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 120 (16%)",
+      "UNC – Lapsed R — 97 (13%)",
+      "Mixed – Active — 83 (11%)",
+      "Mixed – Lapsed — 76 (10%)",
+      "UNC – No Primary — 248 (33%)",
+      "UNC – Lapsed D — 100 (13%)",
+      "Pure D — 34 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          120,
+          97,
+          83,
+          76,
+          248,
+          100,
+          34
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WARREN TOWNSHIP (Tuscarawas Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 242 (20%)",
+      "UNC – Lapsed R — 99 (8%)",
+      "Mixed – Active — 179 (15%)",
+      "Mixed – Lapsed — 71 (6%)",
+      "UNC – No Primary — 391 (33%)",
+      "UNC – Lapsed D — 105 (9%)",
+      "Pure D — 108 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          242,
+          99,
+          179,
+          71,
+          391,
+          105,
+          108
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "KINSMAN TWP ONLY (Trumbull Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 210 (27%)",
+      "UNC – Lapsed R — 146 (19%)",
+      "Mixed – Active — 62 (8%)",
+      "Mixed – Lapsed — 44 (6%)",
+      "UNC – No Primary — 257 (33%)",
+      "UNC – Lapsed D — 44 (6%)",
+      "Pure D — 18 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          210,
+          146,
+          62,
+          44,
+          257,
+          44,
+          18
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "RIDGEVILLE TOWNSHIP (Henry Co.)",
+  "updated": "2026-05-10"
+}

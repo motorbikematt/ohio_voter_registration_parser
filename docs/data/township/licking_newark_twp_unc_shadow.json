@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 283",
+      "Mixed – Active — 159",
+      "Mixed – Lapsed — 154",
+      "UNC – No Primary — 630",
+      "UNC – Lapsed D — 165"
+    ],
+    "datasets": [
+      {
+        "data": [
+          283,
+          159,
+          154,
+          630,
+          165
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "NEWARK TWP (Licking Co.)",
+  "updated": "2026-05-10"
+}

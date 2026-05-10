@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 131 (16%)",
+      "UNC – Lapsed R — 60 (8%)",
+      "Mixed – Active — 82 (10%)",
+      "Mixed – Lapsed — 32 (4%)",
+      "UNC – No Primary — 340 (43%)",
+      "UNC – Lapsed D — 114 (14%)",
+      "Pure D — 36 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          131,
+          60,
+          82,
+          32,
+          340,
+          114,
+          36
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MONROE TOWNSHIP (Perry Co.)",
+  "updated": "2026-05-10"
+}

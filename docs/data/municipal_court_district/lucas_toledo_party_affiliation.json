@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 7,252 (4%)",
+      "UNC – Lapsed R — 8,053 (5%)",
+      "Mixed – Active — 6,256 (4%)",
+      "Mixed – Lapsed — 10,215 (6%)",
+      "UNC – No Primary — 93,093 (54%)",
+      "UNC – Lapsed D — 31,341 (18%)",
+      "Pure D — 16,875 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          7252,
+          8053,
+          6256,
+          10215,
+          93093,
+          31341,
+          16875
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "TOLEDO (Lucas Co.)",
+  "updated": "2026-05-10"
+}

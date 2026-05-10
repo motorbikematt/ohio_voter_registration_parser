@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 499 (16%)",
+      "UNC – Lapsed R — 534 (17%)",
+      "Mixed – Active — 161 (5%)",
+      "Mixed – Lapsed — 426 (14%)",
+      "UNC – No Primary — 1,065 (35%)",
+      "UNC – Lapsed D — 293 (10%)",
+      "Pure D — 101 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          499,
+          534,
+          161,
+          426,
+          1065,
+          293,
+          101
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "PLAIN CITY VILLAGE (Madison Co.)",
+  "updated": "2026-05-10"
+}

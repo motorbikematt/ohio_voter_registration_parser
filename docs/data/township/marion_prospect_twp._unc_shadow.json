@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 205",
+      "Mixed – Active — 104",
+      "Mixed – Lapsed — 116",
+      "UNC – No Primary — 554",
+      "UNC – Lapsed D — 126"
+    ],
+    "datasets": [
+      {
+        "data": [
+          205,
+          104,
+          116,
+          554,
+          126
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "PROSPECT TWP. (Marion Co.)",
+  "updated": "2026-05-10"
+}

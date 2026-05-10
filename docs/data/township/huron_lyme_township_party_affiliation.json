@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 137 (22%)",
+      "UNC – Lapsed R — 66 (11%)",
+      "Mixed – Active — 59 (10%)",
+      "Mixed – Lapsed — 60 (10%)",
+      "UNC – No Primary — 190 (31%)",
+      "UNC – Lapsed D — 56 (9%)",
+      "Pure D — 47 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          137,
+          66,
+          59,
+          60,
+          190,
+          56,
+          47
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "LYME TOWNSHIP (Huron Co.)",
+  "updated": "2026-05-10"
+}

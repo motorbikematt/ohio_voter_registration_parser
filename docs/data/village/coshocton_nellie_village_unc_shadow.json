@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 10",
+      "Mixed – Active — 11",
+      "Mixed – Lapsed — 3",
+      "UNC – No Primary — 32",
+      "UNC – Lapsed D — 14"
+    ],
+    "datasets": [
+      {
+        "data": [
+          10,
+          11,
+          3,
+          32,
+          14
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "NELLIE VILLAGE (Coshocton Co.)",
+  "updated": "2026-05-10"
+}

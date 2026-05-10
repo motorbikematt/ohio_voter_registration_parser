@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 578 (22%)",
+      "UNC – Lapsed R — 259 (10%)",
+      "Mixed – Active — 257 (10%)",
+      "Mixed – Lapsed — 284 (11%)",
+      "UNC – No Primary — 932 (35%)",
+      "UNC – Lapsed D — 209 (8%)",
+      "Pure D — 138 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          578,
+          259,
+          257,
+          284,
+          932,
+          209,
+          138
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "YORK TWP (Fulton Co.)",
+  "updated": "2026-05-10"
+}

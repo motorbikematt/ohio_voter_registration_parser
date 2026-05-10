@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,080 (24%)",
+      "UNC – Lapsed R — 894 (19%)",
+      "Mixed – Active — 237 (5%)",
+      "Mixed – Lapsed — 452 (10%)",
+      "UNC – No Primary — 1,565 (34%)",
+      "UNC – Lapsed D — 252 (5%)",
+      "Pure D — 105 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1080,
+          894,
+          237,
+          452,
+          1565,
+          252,
+          105
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "GERMAN TWP (Fulton Co.)",
+  "updated": "2026-05-10"
+}

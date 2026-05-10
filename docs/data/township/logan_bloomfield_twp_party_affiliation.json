@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 76 (26%)",
+      "UNC – Lapsed R — 59 (20%)",
+      "Mixed – Active — 36 (12%)",
+      "Mixed – Lapsed — 17 (6%)",
+      "UNC – No Primary — 92 (31%)",
+      "UNC – Lapsed D — 13 (4%)",
+      "Pure D — 5 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          76,
+          59,
+          36,
+          17,
+          92,
+          13,
+          5
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BLOOMFIELD TWP (Logan Co.)",
+  "updated": "2026-05-10"
+}

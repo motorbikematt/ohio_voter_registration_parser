@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 135",
+      "Mixed – Active — 98",
+      "Mixed – Lapsed — 98",
+      "UNC – No Primary — 383",
+      "UNC – Lapsed D — 123"
+    ],
+    "datasets": [
+      {
+        "data": [
+          135,
+          98,
+          98,
+          383,
+          123
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "GRAND PRAIRIE TWP. (Marion Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,253 (19%)",
+      "UNC – Lapsed R — 776 (12%)",
+      "Mixed – Active — 770 (12%)",
+      "Mixed – Lapsed — 747 (11%)",
+      "UNC – No Primary — 1,992 (30%)",
+      "UNC – Lapsed D — 668 (10%)",
+      "Pure D — 425 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1253,
+          776,
+          770,
+          747,
+          1992,
+          668,
+          425
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "NIMISHILLEN (Stark Co.)",
+  "updated": "2026-05-10"
+}

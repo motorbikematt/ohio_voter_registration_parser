@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 69 (18%)",
+      "UNC – Lapsed R — 26 (7%)",
+      "Mixed – Active — 41 (10%)",
+      "Mixed – Lapsed — 37 (9%)",
+      "UNC – No Primary — 172 (44%)",
+      "UNC – Lapsed D — 34 (9%)",
+      "Pure D — 13 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          69,
+          26,
+          41,
+          37,
+          172,
+          34,
+          13
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "GREEN SPRINGS VILLAGE (Seneca Co.)",
+  "updated": "2026-05-10"
+}

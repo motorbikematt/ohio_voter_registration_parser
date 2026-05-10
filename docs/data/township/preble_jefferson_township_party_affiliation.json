@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 392 (18%)",
+      "UNC – Lapsed R — 285 (13%)",
+      "Mixed – Active — 127 (6%)",
+      "Mixed – Lapsed — 137 (6%)",
+      "UNC – No Primary — 982 (46%)",
+      "UNC – Lapsed D — 173 (8%)",
+      "Pure D — 55 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          392,
+          285,
+          127,
+          137,
+          982,
+          173,
+          55
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JEFFERSON TOWNSHIP (Preble Co.)",
+  "updated": "2026-05-10"
+}

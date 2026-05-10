@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 90",
+      "Mixed – Active — 104",
+      "Mixed – Lapsed — 95",
+      "UNC – No Primary — 200",
+      "UNC – Lapsed D — 106"
+    ],
+    "datasets": [
+      {
+        "data": [
+          90,
+          104,
+          95,
+          200,
+          106
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "FAIRFIELD TOWNSHIP (Mahoning Co.)",
+  "updated": "2026-05-10"
+}

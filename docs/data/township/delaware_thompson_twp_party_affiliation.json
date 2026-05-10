@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 153 (29%)",
+      "UNC – Lapsed R — 68 (13%)",
+      "Mixed – Active — 56 (10%)",
+      "Mixed – Lapsed — 47 (9%)",
+      "UNC – No Primary — 152 (28%)",
+      "UNC – Lapsed D — 38 (7%)",
+      "Pure D — 22 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          153,
+          68,
+          56,
+          47,
+          152,
+          38,
+          22
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "THOMPSON TWP (Delaware Co.)",
+  "updated": "2026-05-10"
+}

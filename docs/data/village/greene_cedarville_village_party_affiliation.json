@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 289 (22%)",
+      "UNC – Lapsed R — 206 (15%)",
+      "Mixed – Active — 33 (2%)",
+      "Mixed – Lapsed — 36 (3%)",
+      "UNC – No Primary — 721 (54%)",
+      "UNC – Lapsed D — 35 (3%)",
+      "Pure D — 14 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          289,
+          206,
+          33,
+          36,
+          721,
+          35,
+          14
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "CEDARVILLE VILLAGE (Greene Co.)",
+  "updated": "2026-05-10"
+}

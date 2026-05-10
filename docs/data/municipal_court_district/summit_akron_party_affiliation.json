@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 8,105 (5%)",
+      "UNC – Lapsed R — 8,125 (5%)",
+      "Mixed – Active — 10,401 (7%)",
+      "Mixed – Lapsed — 7,995 (5%)",
+      "UNC – No Primary — 72,451 (48%)",
+      "UNC – Lapsed D — 23,647 (16%)",
+      "Pure D — 20,785 (14%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          8105,
+          8125,
+          10401,
+          7995,
+          72451,
+          23647,
+          20785
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "AKRON (Summit Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 9,696 (16%)",
+      "UNC – Lapsed R — 5,395 (9%)",
+      "Mixed – Active — 6,270 (10%)",
+      "Mixed – Lapsed — 4,954 (8%)",
+      "UNC – No Primary — 23,362 (38%)",
+      "UNC – Lapsed D — 6,970 (11%)",
+      "Pure D — 4,130 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          9696,
+          5395,
+          6270,
+          4954,
+          23362,
+          6970,
+          4130
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "PAINESVILLE (Lake Co.)",
+  "updated": "2026-05-10"
+}

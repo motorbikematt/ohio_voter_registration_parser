@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 294 (36%)",
+      "UNC – Lapsed R — 97 (12%)",
+      "Mixed – Active — 74 (9%)",
+      "Mixed – Lapsed — 43 (5%)",
+      "UNC – No Primary — 263 (32%)",
+      "UNC – Lapsed D — 25 (3%)",
+      "Pure D — 15 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          294,
+          97,
+          74,
+          43,
+          263,
+          25,
+          15
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "UNION TOWNSHIP (Knox Co.)",
+  "updated": "2026-05-10"
+}

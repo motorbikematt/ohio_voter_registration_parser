@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 311 (18%)",
+      "UNC – Lapsed R — 191 (11%)",
+      "Mixed – Active — 234 (13%)",
+      "Mixed – Lapsed — 179 (10%)",
+      "UNC – No Primary — 534 (31%)",
+      "UNC – Lapsed D — 187 (11%)",
+      "Pure D — 101 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          311,
+          191,
+          234,
+          179,
+          534,
+          187,
+          101
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "ATWATER TOWNSHIP (Portage Co.)",
+  "updated": "2026-05-10"
+}

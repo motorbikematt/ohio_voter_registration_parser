@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 18",
+      "Mixed – Active — 19",
+      "Mixed – Lapsed — 7",
+      "UNC – No Primary — 99",
+      "UNC – Lapsed D — 24"
+    ],
+    "datasets": [
+      {
+        "data": [
+          18,
+          19,
+          7,
+          99,
+          24
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "WASHINGTONVILLE VILLAGE (Mahoning Co.)",
+  "updated": "2026-05-10"
+}

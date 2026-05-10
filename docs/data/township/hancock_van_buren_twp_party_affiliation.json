@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 270 (41%)",
+      "UNC – Lapsed R — 86 (13%)",
+      "Mixed – Active — 45 (7%)",
+      "Mixed – Lapsed — 40 (6%)",
+      "UNC – No Primary — 178 (27%)",
+      "UNC – Lapsed D — 26 (4%)",
+      "Pure D — 14 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          270,
+          86,
+          45,
+          40,
+          178,
+          26,
+          14
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "VAN BUREN TWP (Hancock Co.)",
+  "updated": "2026-05-10"
+}

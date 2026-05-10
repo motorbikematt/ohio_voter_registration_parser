@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 317 (34%)",
+      "UNC – Lapsed R — 130 (14%)",
+      "Mixed – Active — 82 (9%)",
+      "Mixed – Lapsed — 55 (6%)",
+      "UNC – No Primary — 277 (30%)",
+      "UNC – Lapsed D — 55 (6%)",
+      "Pure D — 18 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          317,
+          130,
+          82,
+          55,
+          277,
+          55,
+          18
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BIGLICK TWP (Hancock Co.)",
+  "updated": "2026-05-10"
+}

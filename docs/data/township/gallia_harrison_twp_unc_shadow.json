@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 89",
+      "Mixed – Active — 58",
+      "Mixed – Lapsed — 26",
+      "UNC – No Primary — 248",
+      "UNC – Lapsed D — 33"
+    ],
+    "datasets": [
+      {
+        "data": [
+          89,
+          58,
+          26,
+          248,
+          33
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "HARRISON TWP (Gallia Co.)",
+  "updated": "2026-05-10"
+}

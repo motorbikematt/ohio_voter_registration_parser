@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 895",
+      "Mixed – Active — 702",
+      "Mixed – Lapsed — 400",
+      "UNC – No Primary — 1,769",
+      "UNC – Lapsed D — 395"
+    ],
+    "datasets": [
+      {
+        "data": [
+          895,
+          702,
+          400,
+          1769,
+          395
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "OTTAWA TWP. (Putnam Co.)",
+  "updated": "2026-05-10"
+}

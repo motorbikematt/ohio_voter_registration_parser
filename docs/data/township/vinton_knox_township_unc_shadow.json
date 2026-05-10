@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 49",
+      "Mixed – Active — 38",
+      "Mixed – Lapsed — 26",
+      "UNC – No Primary — 128",
+      "UNC – Lapsed D — 75"
+    ],
+    "datasets": [
+      {
+        "data": [
+          49,
+          38,
+          26,
+          128,
+          75
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "KNOX TOWNSHIP (Vinton Co.)",
+  "updated": "2026-05-10"
+}

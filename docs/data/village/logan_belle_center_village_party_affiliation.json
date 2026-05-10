@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 121 (21%)",
+      "UNC – Lapsed R — 74 (13%)",
+      "Mixed – Active — 28 (5%)",
+      "Mixed – Lapsed — 35 (6%)",
+      "UNC – No Primary — 271 (47%)",
+      "UNC – Lapsed D — 30 (5%)",
+      "Pure D — 14 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          121,
+          74,
+          28,
+          35,
+          271,
+          30,
+          14
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BELLE CENTER VILLAGE (Logan Co.)",
+  "updated": "2026-05-10"
+}

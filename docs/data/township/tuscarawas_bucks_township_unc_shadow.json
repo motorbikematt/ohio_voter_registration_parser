@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 121",
+      "Mixed – Active — 47",
+      "Mixed – Lapsed — 72",
+      "UNC – No Primary — 365",
+      "UNC – Lapsed D — 68"
+    ],
+    "datasets": [
+      {
+        "data": [
+          121,
+          47,
+          72,
+          365,
+          68
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BUCKS TOWNSHIP (Tuscarawas Co.)",
+  "updated": "2026-05-10"
+}

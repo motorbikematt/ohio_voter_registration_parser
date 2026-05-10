@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 234",
+      "Mixed – Active — 214",
+      "Mixed – Lapsed — 209",
+      "UNC – No Primary — 773",
+      "UNC – Lapsed D — 244"
+    ],
+    "datasets": [
+      {
+        "data": [
+          234,
+          214,
+          209,
+          773,
+          244
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "FULTON TWP (Fulton Co.)",
+  "updated": "2026-05-10"
+}

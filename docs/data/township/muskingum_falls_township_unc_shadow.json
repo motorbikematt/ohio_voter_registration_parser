@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 849",
+      "Mixed – Active — 597",
+      "Mixed – Lapsed — 475",
+      "UNC – No Primary — 1,926",
+      "UNC – Lapsed D — 668"
+    ],
+    "datasets": [
+      {
+        "data": [
+          849,
+          597,
+          475,
+          1926,
+          668
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "FALLS TOWNSHIP (Muskingum Co.)",
+  "updated": "2026-05-10"
+}

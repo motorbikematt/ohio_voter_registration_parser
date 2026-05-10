@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 133 (13%)",
+      "UNC – Lapsed R — 107 (10%)",
+      "Mixed – Active — 106 (10%)",
+      "Mixed – Lapsed — 82 (8%)",
+      "UNC – No Primary — 474 (46%)",
+      "UNC – Lapsed D — 74 (7%)",
+      "Pure D — 54 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          133,
+          107,
+          106,
+          82,
+          474,
+          74,
+          54
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FARMINGTON TWP ONLY (Trumbull Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 95",
+      "Mixed – Active — 180",
+      "Mixed – Lapsed — 96",
+      "UNC – No Primary — 497",
+      "UNC – Lapsed D — 163"
+    ],
+    "datasets": [
+      {
+        "data": [
+          95,
+          180,
+          96,
+          497,
+          163
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "YELLOW CREEK TWP (Columbiana Co.)",
+  "updated": "2026-05-10"
+}

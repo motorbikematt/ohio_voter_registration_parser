@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 358 (22%)",
+      "UNC – Lapsed R — 247 (15%)",
+      "Mixed – Active — 128 (8%)",
+      "Mixed – Lapsed — 63 (4%)",
+      "UNC – No Primary — 724 (44%)",
+      "UNC – Lapsed D — 103 (6%)",
+      "Pure D — 28 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          358,
+          247,
+          128,
+          63,
+          724,
+          103,
+          28
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "GREEN TOWNSHIP (Clinton Co.)",
+  "updated": "2026-05-10"
+}

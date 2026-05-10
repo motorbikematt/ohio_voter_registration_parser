@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 175 (19%)",
+      "UNC – Lapsed R — 119 (13%)",
+      "Mixed – Active — 116 (12%)",
+      "Mixed – Lapsed — 91 (10%)",
+      "UNC – No Primary — 301 (32%)",
+      "UNC – Lapsed D — 92 (10%)",
+      "Pure D — 40 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          175,
+          119,
+          116,
+          91,
+          301,
+          92,
+          40
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BURTON VILLAGE (Geauga Co.)",
+  "updated": "2026-05-10"
+}

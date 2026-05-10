@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 110",
+      "Mixed – Active — 55",
+      "Mixed – Lapsed — 71",
+      "UNC – No Primary — 369",
+      "UNC – Lapsed D — 41"
+    ],
+    "datasets": [
+      {
+        "data": [
+          110,
+          55,
+          71,
+          369,
+          41
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "DEGRAFF VILLAGE (Logan Co.)",
+  "updated": "2026-05-10"
+}

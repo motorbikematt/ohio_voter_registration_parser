@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 122 (16%)",
+      "UNC – Lapsed R — 90 (12%)",
+      "Mixed – Active — 104 (13%)",
+      "Mixed – Lapsed — 95 (12%)",
+      "UNC – No Primary — 200 (26%)",
+      "UNC – Lapsed D — 106 (14%)",
+      "Pure D — 65 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          122,
+          90,
+          104,
+          95,
+          200,
+          106,
+          65
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FAIRFIELD TOWNSHIP (Mahoning Co.)",
+  "updated": "2026-05-10"
+}

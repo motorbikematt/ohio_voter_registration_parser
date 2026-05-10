@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 110 (12%)",
+      "UNC – Lapsed R — 139 (15%)",
+      "Mixed – Active — 49 (5%)",
+      "Mixed – Lapsed — 52 (6%)",
+      "UNC – No Primary — 435 (48%)",
+      "UNC – Lapsed D — 94 (10%)",
+      "Pure D — 23 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          110,
+          139,
+          49,
+          52,
+          435,
+          94,
+          23
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "UNION TOWNSHIP (Pike Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 472 (15%)",
+      "UNC – Lapsed R — 379 (12%)",
+      "Mixed – Active — 283 (9%)",
+      "Mixed – Lapsed — 429 (13%)",
+      "UNC – No Primary — 1,105 (34%)",
+      "UNC – Lapsed D — 383 (12%)",
+      "Pure D — 159 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          472,
+          379,
+          283,
+          429,
+          1105,
+          383,
+          159
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FRANKLIN TOWNSHIP (Tuscarawas Co.)",
+  "updated": "2026-05-10"
+}

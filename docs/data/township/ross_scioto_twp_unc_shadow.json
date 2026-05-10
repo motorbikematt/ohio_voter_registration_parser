@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,552",
+      "Mixed – Active — 1,303",
+      "Mixed – Lapsed — 1,212",
+      "UNC – No Primary — 7,720",
+      "UNC – Lapsed D — 2,355"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1552,
+          1303,
+          1212,
+          7720,
+          2355
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "SCIOTO TWP (Ross Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3 (23%)",
+      "UNC – Lapsed R — 0 (0%)",
+      "Mixed – Active — 1 (8%)",
+      "Mixed – Lapsed — 1 (8%)",
+      "UNC – No Primary — 4 (31%)",
+      "UNC – Lapsed D — 3 (23%)",
+      "Pure D — 1 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3,
+          0,
+          1,
+          1,
+          4,
+          3,
+          1
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "UTICA VILLAGE (Knox Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 511 (21%)",
+      "UNC – Lapsed R — 350 (15%)",
+      "Mixed – Active — 262 (11%)",
+      "Mixed – Lapsed — 213 (9%)",
+      "UNC – No Primary — 855 (36%)",
+      "UNC – Lapsed D — 138 (6%)",
+      "Pure D — 49 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          511,
+          350,
+          262,
+          213,
+          855,
+          138,
+          49
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FRANKLIN TOWNSHIP (Shelby Co.)",
+  "updated": "2026-05-10"
+}

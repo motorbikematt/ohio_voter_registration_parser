@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 171 (14%)",
+      "UNC – Lapsed R — 144 (12%)",
+      "Mixed – Active — 132 (11%)",
+      "Mixed – Lapsed — 118 (10%)",
+      "UNC – No Primary — 421 (34%)",
+      "UNC – Lapsed D — 143 (12%)",
+      "Pure D — 109 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          171,
+          144,
+          132,
+          118,
+          421,
+          143,
+          109
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "RICHFIELD TOWNSHIP (Lucas Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 479 (23%)",
+      "UNC – Lapsed R — 250 (12%)",
+      "Mixed – Active — 152 (7%)",
+      "Mixed – Lapsed — 170 (8%)",
+      "UNC – No Primary — 776 (38%)",
+      "UNC – Lapsed D — 155 (8%)",
+      "Pure D — 72 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          479,
+          250,
+          152,
+          170,
+          776,
+          155,
+          72
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PLEASANT TOWNSHIP (Madison Co.)",
+  "updated": "2026-05-10"
+}

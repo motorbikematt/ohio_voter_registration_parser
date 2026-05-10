@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 102 (11%)",
+      "UNC – Lapsed R — 82 (8%)",
+      "Mixed – Active — 51 (5%)",
+      "Mixed – Lapsed — 47 (5%)",
+      "UNC – No Primary — 515 (53%)",
+      "UNC – Lapsed D — 139 (14%)",
+      "Pure D — 32 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          102,
+          82,
+          51,
+          47,
+          515,
+          139,
+          32
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BENTON TOWNSHIP (Pike Co.)",
+  "updated": "2026-05-10"
+}

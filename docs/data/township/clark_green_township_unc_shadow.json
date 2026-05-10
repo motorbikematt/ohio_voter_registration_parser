@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 236",
+      "Mixed – Active — 219",
+      "Mixed – Lapsed — 111",
+      "UNC – No Primary — 655",
+      "UNC – Lapsed D — 170"
+    ],
+    "datasets": [
+      {
+        "data": [
+          236,
+          219,
+          111,
+          655,
+          170
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "GREEN TOWNSHIP (Clark Co.)",
+  "updated": "2026-05-10"
+}

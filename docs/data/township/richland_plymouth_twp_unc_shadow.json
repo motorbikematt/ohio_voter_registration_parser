@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 130",
+      "Mixed – Active — 89",
+      "Mixed – Lapsed — 90",
+      "UNC – No Primary — 498",
+      "UNC – Lapsed D — 79"
+    ],
+    "datasets": [
+      {
+        "data": [
+          130,
+          89,
+          90,
+          498,
+          79
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "PLYMOUTH TWP (Richland Co.)",
+  "updated": "2026-05-10"
+}

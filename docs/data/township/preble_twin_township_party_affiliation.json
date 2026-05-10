@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 418 (22%)",
+      "UNC – Lapsed R — 310 (17%)",
+      "Mixed – Active — 150 (8%)",
+      "Mixed – Lapsed — 130 (7%)",
+      "UNC – No Primary — 690 (37%)",
+      "UNC – Lapsed D — 124 (7%)",
+      "Pure D — 42 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          418,
+          310,
+          150,
+          130,
+          690,
+          124,
+          42
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "TWIN TOWNSHIP (Preble Co.)",
+  "updated": "2026-05-10"
+}

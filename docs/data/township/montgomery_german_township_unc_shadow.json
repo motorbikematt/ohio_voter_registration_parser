@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,051",
+      "Mixed – Active — 617",
+      "Mixed – Lapsed — 718",
+      "UNC – No Primary — 1,955",
+      "UNC – Lapsed D — 517"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1051,
+          617,
+          718,
+          1955,
+          517
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "GERMAN TOWNSHIP (Montgomery Co.)",
+  "updated": "2026-05-10"
+}

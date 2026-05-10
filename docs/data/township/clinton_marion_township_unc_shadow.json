@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 391",
+      "Mixed – Active — 259",
+      "Mixed – Lapsed — 186",
+      "UNC – No Primary — 1,505",
+      "UNC – Lapsed D — 159"
+    ],
+    "datasets": [
+      {
+        "data": [
+          391,
+          259,
+          186,
+          1505,
+          159
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MARION TOWNSHIP (Clinton Co.)",
+  "updated": "2026-05-10"
+}

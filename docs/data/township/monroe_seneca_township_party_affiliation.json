@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 24 (14%)",
+      "UNC – Lapsed R — 11 (6%)",
+      "Mixed – Active — 23 (13%)",
+      "Mixed – Lapsed — 12 (7%)",
+      "UNC – No Primary — 64 (36%)",
+      "UNC – Lapsed D — 27 (15%)",
+      "Pure D — 15 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          24,
+          11,
+          23,
+          12,
+          64,
+          27,
+          15
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SENECA TOWNSHIP (Monroe Co.)",
+  "updated": "2026-05-10"
+}

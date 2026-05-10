@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 202",
+      "Mixed – Active — 118",
+      "Mixed – Lapsed — 51",
+      "UNC – No Primary — 498",
+      "UNC – Lapsed D — 62"
+    ],
+    "datasets": [
+      {
+        "data": [
+          202,
+          118,
+          51,
+          498,
+          62
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "NEW MARKET TOWNSHIP (Highland Co.)",
+  "updated": "2026-05-10"
+}

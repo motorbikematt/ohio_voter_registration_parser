@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 88 (6%)",
+      "UNC – Lapsed R — 79 (5%)",
+      "Mixed – Active — 139 (9%)",
+      "Mixed – Lapsed — 83 (5%)",
+      "UNC – No Primary — 781 (51%)",
+      "UNC – Lapsed D — 250 (16%)",
+      "Pure D — 99 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          88,
+          79,
+          139,
+          83,
+          781,
+          250,
+          99
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "DENNISON VILLAGE (Tuscarawas Co.)",
+  "updated": "2026-05-10"
+}

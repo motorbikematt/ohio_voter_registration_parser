@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 93 (19%)",
+      "UNC – Lapsed R — 44 (9%)",
+      "Mixed – Active — 48 (10%)",
+      "Mixed – Lapsed — 29 (6%)",
+      "UNC – No Primary — 174 (36%)",
+      "UNC – Lapsed D — 59 (12%)",
+      "Pure D — 35 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          93,
+          44,
+          48,
+          29,
+          174,
+          59,
+          35
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FREEPORT TOWNSHIP (Harrison Co.)",
+  "updated": "2026-05-10"
+}

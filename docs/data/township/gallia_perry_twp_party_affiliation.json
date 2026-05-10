@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 200 (27%)",
+      "UNC – Lapsed R — 87 (12%)",
+      "Mixed – Active — 72 (10%)",
+      "Mixed – Lapsed — 45 (6%)",
+      "UNC – No Primary — 247 (34%)",
+      "UNC – Lapsed D — 59 (8%)",
+      "Pure D — 21 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          200,
+          87,
+          72,
+          45,
+          247,
+          59,
+          21
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PERRY TWP (Gallia Co.)",
+  "updated": "2026-05-10"
+}

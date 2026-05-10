@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 208 (20%)",
+      "UNC – Lapsed R — 133 (13%)",
+      "Mixed – Active — 89 (9%)",
+      "Mixed – Lapsed — 86 (8%)",
+      "UNC – No Primary — 393 (39%)",
+      "UNC – Lapsed D — 76 (7%)",
+      "Pure D — 31 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          208,
+          133,
+          89,
+          86,
+          393,
+          76,
+          31
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PAINT TOWNSHIP (Fayette Co.)",
+  "updated": "2026-05-10"
+}

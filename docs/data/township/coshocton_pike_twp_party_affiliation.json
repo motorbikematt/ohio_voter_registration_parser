@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 105 (25%)",
+      "UNC – Lapsed R — 72 (17%)",
+      "Mixed – Active — 21 (5%)",
+      "Mixed – Lapsed — 38 (9%)",
+      "UNC – No Primary — 160 (37%)",
+      "UNC – Lapsed D — 22 (5%)",
+      "Pure D — 10 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          105,
+          72,
+          21,
+          38,
+          160,
+          22,
+          10
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PIKE TWP (Coshocton Co.)",
+  "updated": "2026-05-10"
+}

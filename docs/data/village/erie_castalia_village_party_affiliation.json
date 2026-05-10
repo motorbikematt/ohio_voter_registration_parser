@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 55 (10%)",
+      "UNC – Lapsed R — 39 (7%)",
+      "Mixed – Active — 91 (17%)",
+      "Mixed – Lapsed — 53 (10%)",
+      "UNC – No Primary — 183 (34%)",
+      "UNC – Lapsed D — 71 (13%)",
+      "Pure D — 45 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          55,
+          39,
+          91,
+          53,
+          183,
+          71,
+          45
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "CASTALIA VILLAGE (Erie Co.)",
+  "updated": "2026-05-10"
+}

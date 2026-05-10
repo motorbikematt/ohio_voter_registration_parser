@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,048 (16%)",
+      "UNC – Lapsed R — 2,695 (14%)",
+      "Mixed – Active — 1,104 (6%)",
+      "Mixed – Lapsed — 3,087 (16%)",
+      "UNC – No Primary — 6,900 (36%)",
+      "UNC – Lapsed D — 1,684 (9%)",
+      "Pure D — 711 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3048,
+          2695,
+          1104,
+          3087,
+          6900,
+          1684,
+          711
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PARIS TOWNSHIP (Union Co.)",
+  "updated": "2026-05-10"
+}

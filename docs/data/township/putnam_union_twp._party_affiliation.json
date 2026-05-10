@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 574 (27%)",
+      "UNC – Lapsed R — 378 (18%)",
+      "Mixed – Active — 294 (14%)",
+      "Mixed – Lapsed — 163 (8%)",
+      "UNC – No Primary — 542 (26%)",
+      "UNC – Lapsed D — 101 (5%)",
+      "Pure D — 39 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          574,
+          378,
+          294,
+          163,
+          542,
+          101,
+          39
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "UNION TWP. (Putnam Co.)",
+  "updated": "2026-05-10"
+}

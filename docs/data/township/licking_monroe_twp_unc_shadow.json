@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 827",
+      "Mixed – Active — 403",
+      "Mixed – Lapsed — 511",
+      "UNC – No Primary — 2,106",
+      "UNC – Lapsed D — 537"
+    ],
+    "datasets": [
+      {
+        "data": [
+          827,
+          403,
+          511,
+          2106,
+          537
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MONROE TWP (Licking Co.)",
+  "updated": "2026-05-10"
+}

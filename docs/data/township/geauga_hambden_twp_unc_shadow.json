@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 445",
+      "Mixed – Active — 459",
+      "Mixed – Lapsed — 312",
+      "UNC – No Primary — 1,108",
+      "UNC – Lapsed D — 297"
+    ],
+    "datasets": [
+      {
+        "data": [
+          445,
+          459,
+          312,
+          1108,
+          297
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "HAMBDEN TWP (Geauga Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 348 (31%)",
+      "UNC – Lapsed R — 140 (12%)",
+      "Mixed – Active — 89 (8%)",
+      "Mixed – Lapsed — 76 (7%)",
+      "UNC – No Primary — 393 (35%)",
+      "UNC – Lapsed D — 55 (5%)",
+      "Pure D — 22 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          348,
+          140,
+          89,
+          76,
+          393,
+          55,
+          22
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MONROE TWP (Darke Co.)",
+  "updated": "2026-05-10"
+}

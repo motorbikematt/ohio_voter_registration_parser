@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 350",
+      "Mixed – Active — 383",
+      "Mixed – Lapsed — 449",
+      "UNC – No Primary — 1,025",
+      "UNC – Lapsed D — 383"
+    ],
+    "datasets": [
+      {
+        "data": [
+          350,
+          383,
+          449,
+          1025,
+          383
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MANTUA TOWNSHIP (Portage Co.)",
+  "updated": "2026-05-10"
+}

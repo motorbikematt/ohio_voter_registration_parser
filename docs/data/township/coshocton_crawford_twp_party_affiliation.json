@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 54 (15%)",
+      "UNC – Lapsed R — 63 (17%)",
+      "Mixed – Active — 20 (5%)",
+      "Mixed – Lapsed — 20 (5%)",
+      "UNC – No Primary — 194 (52%)",
+      "UNC – Lapsed D — 14 (4%)",
+      "Pure D — 5 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          54,
+          63,
+          20,
+          20,
+          194,
+          14,
+          5
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CRAWFORD TWP (Coshocton Co.)",
+  "updated": "2026-05-10"
+}

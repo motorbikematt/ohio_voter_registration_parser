@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 33",
+      "Mixed – Active — 21",
+      "Mixed – Lapsed — 47",
+      "UNC – No Primary — 137",
+      "UNC – Lapsed D — 25"
+    ],
+    "datasets": [
+      {
+        "data": [
+          33,
+          21,
+          47,
+          137,
+          25
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "SHERMAN TOWNSHIP (Huron Co.)",
+  "updated": "2026-05-10"
+}

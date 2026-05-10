@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 195 (25%)",
+      "UNC – Lapsed R — 92 (12%)",
+      "Mixed – Active — 94 (12%)",
+      "Mixed – Lapsed — 41 (5%)",
+      "UNC – No Primary — 273 (36%)",
+      "UNC – Lapsed D — 51 (7%)",
+      "Pure D — 20 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          195,
+          92,
+          94,
+          41,
+          273,
+          51,
+          20
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JACKSON TOWNSHIP (Preble Co.)",
+  "updated": "2026-05-10"
+}

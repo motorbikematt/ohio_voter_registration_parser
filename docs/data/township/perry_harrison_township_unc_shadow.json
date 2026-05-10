@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 240",
+      "Mixed – Active — 205",
+      "Mixed – Lapsed — 110",
+      "UNC – No Primary — 1,315",
+      "UNC – Lapsed D — 321"
+    ],
+    "datasets": [
+      {
+        "data": [
+          240,
+          205,
+          110,
+          1315,
+          321
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "HARRISON TOWNSHIP (Perry Co.)",
+  "updated": "2026-05-10"
+}

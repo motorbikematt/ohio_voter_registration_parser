@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 243",
+      "Mixed – Active — 227",
+      "Mixed – Lapsed — 172",
+      "UNC – No Primary — 1,358",
+      "UNC – Lapsed D — 338"
+    ],
+    "datasets": [
+      {
+        "data": [
+          243,
+          227,
+          172,
+          1358,
+          338
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "OXFORD TOWNSHIP (Tuscarawas Co.)",
+  "updated": "2026-05-10"
+}

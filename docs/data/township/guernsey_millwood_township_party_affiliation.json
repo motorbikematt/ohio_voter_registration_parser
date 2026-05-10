@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 158 (25%)",
+      "UNC – Lapsed R — 60 (9%)",
+      "Mixed – Active — 73 (11%)",
+      "Mixed – Lapsed — 34 (5%)",
+      "UNC – No Primary — 237 (37%)",
+      "UNC – Lapsed D — 52 (8%)",
+      "Pure D — 22 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          158,
+          60,
+          73,
+          34,
+          237,
+          52,
+          22
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MILLWOOD TOWNSHIP (Guernsey Co.)",
+  "updated": "2026-05-10"
+}

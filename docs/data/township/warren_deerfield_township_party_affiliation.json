@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,397 (16%)",
+      "UNC – Lapsed R — 3,461 (13%)",
+      "Mixed – Active — 1,634 (6%)",
+      "Mixed – Lapsed — 2,463 (9%)",
+      "UNC – No Primary — 11,342 (41%)",
+      "UNC – Lapsed D — 2,688 (10%)",
+      "Pure D — 1,670 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4397,
+          3461,
+          1634,
+          2463,
+          11342,
+          2688,
+          1670
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "DEERFIELD TOWNSHIP (Warren Co.)",
+  "updated": "2026-05-10"
+}

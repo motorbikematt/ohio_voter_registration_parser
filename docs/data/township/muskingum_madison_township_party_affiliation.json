@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 48 (16%)",
+      "UNC – Lapsed R — 41 (14%)",
+      "Mixed – Active — 21 (7%)",
+      "Mixed – Lapsed — 21 (7%)",
+      "UNC – No Primary — 129 (43%)",
+      "UNC – Lapsed D — 36 (12%)",
+      "Pure D — 2 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          48,
+          41,
+          21,
+          21,
+          129,
+          36,
+          2
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MADISON TOWNSHIP (Muskingum Co.)",
+  "updated": "2026-05-10"
+}

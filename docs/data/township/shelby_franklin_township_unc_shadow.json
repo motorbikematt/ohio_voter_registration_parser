@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 350",
+      "Mixed – Active — 262",
+      "Mixed – Lapsed — 213",
+      "UNC – No Primary — 855",
+      "UNC – Lapsed D — 138"
+    ],
+    "datasets": [
+      {
+        "data": [
+          350,
+          262,
+          213,
+          855,
+          138
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "FRANKLIN TOWNSHIP (Shelby Co.)",
+  "updated": "2026-05-10"
+}

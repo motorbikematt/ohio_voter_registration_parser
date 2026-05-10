@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 64 (19%)",
+      "UNC – Lapsed R — 37 (11%)",
+      "Mixed – Active — 47 (14%)",
+      "Mixed – Lapsed — 23 (7%)",
+      "UNC – No Primary — 114 (34%)",
+      "UNC – Lapsed D — 25 (7%)",
+      "Pure D — 26 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          64,
+          37,
+          47,
+          23,
+          114,
+          25,
+          26
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "STOCK TOWNSHIP (Harrison Co.)",
+  "updated": "2026-05-10"
+}

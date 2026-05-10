@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 909 (21%)",
+      "UNC – Lapsed R — 526 (12%)",
+      "Mixed – Active — 666 (15%)",
+      "Mixed – Lapsed — 422 (10%)",
+      "UNC – No Primary — 1,240 (28%)",
+      "UNC – Lapsed D — 445 (10%)",
+      "Pure D — 219 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          909,
+          526,
+          666,
+          422,
+          1240,
+          445,
+          219
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "RUSSELL TWP (Geauga Co.)",
+  "updated": "2026-05-10"
+}

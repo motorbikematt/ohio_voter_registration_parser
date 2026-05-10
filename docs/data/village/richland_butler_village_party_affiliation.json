@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 135 (23%)",
+      "UNC – Lapsed R — 72 (12%)",
+      "Mixed – Active — 36 (6%)",
+      "Mixed – Lapsed — 36 (6%)",
+      "UNC – No Primary — 237 (40%)",
+      "UNC – Lapsed D — 50 (8%)",
+      "Pure D — 28 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          135,
+          72,
+          36,
+          36,
+          237,
+          50,
+          28
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BUTLER VILLAGE (Richland Co.)",
+  "updated": "2026-05-10"
+}

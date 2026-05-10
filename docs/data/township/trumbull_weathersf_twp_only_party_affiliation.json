@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 355 (7%)",
+      "UNC – Lapsed R — 323 (6%)",
+      "Mixed – Active — 634 (12%)",
+      "Mixed – Lapsed — 441 (8%)",
+      "UNC – No Primary — 1,878 (36%)",
+      "UNC – Lapsed D — 982 (19%)",
+      "Pure D — 578 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          355,
+          323,
+          634,
+          441,
+          1878,
+          982,
+          578
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WEATHERSF TWP ONLY (Trumbull Co.)",
+  "updated": "2026-05-10"
+}

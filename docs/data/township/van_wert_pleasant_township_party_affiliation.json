@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,828 (21%)",
+      "UNC – Lapsed R — 1,202 (14%)",
+      "Mixed – Active — 663 (8%)",
+      "Mixed – Lapsed — 439 (5%)",
+      "UNC – No Primary — 3,840 (44%)",
+      "UNC – Lapsed D — 479 (6%)",
+      "Pure D — 223 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1828,
+          1202,
+          663,
+          439,
+          3840,
+          479,
+          223
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PLEASANT TOWNSHIP (Van Wert Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 226",
+      "Mixed – Active — 108",
+      "Mixed – Lapsed — 111",
+      "UNC – No Primary — 615",
+      "UNC – Lapsed D — 152"
+    ],
+    "datasets": [
+      {
+        "data": [
+          226,
+          108,
+          111,
+          615,
+          152
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "LIBERTY TOWNSHIP (Henry Co.)",
+  "updated": "2026-05-10"
+}

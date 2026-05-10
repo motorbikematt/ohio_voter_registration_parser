@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 627 (28%)",
+      "UNC – Lapsed R — 201 (9%)",
+      "Mixed – Active — 231 (10%)",
+      "Mixed – Lapsed — 205 (9%)",
+      "UNC – No Primary — 649 (29%)",
+      "UNC – Lapsed D — 168 (7%)",
+      "Pure D — 179 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          627,
+          201,
+          231,
+          205,
+          649,
+          168,
+          179
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "HARTVILLE VILLAGE (Stark Co.)",
+  "updated": "2026-05-10"
+}

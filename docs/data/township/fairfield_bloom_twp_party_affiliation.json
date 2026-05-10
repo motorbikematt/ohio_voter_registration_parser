@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,568 (20%)",
+      "UNC – Lapsed R — 1,337 (17%)",
+      "Mixed – Active — 547 (7%)",
+      "Mixed – Lapsed — 789 (10%)",
+      "UNC – No Primary — 2,582 (33%)",
+      "UNC – Lapsed D — 820 (10%)",
+      "Pure D — 281 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1568,
+          1337,
+          547,
+          789,
+          2582,
+          820,
+          281
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BLOOM TWP (Fairfield Co.)",
+  "updated": "2026-05-10"
+}

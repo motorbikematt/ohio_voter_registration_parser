@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 353 (22%)",
+      "UNC – Lapsed R — 156 (10%)",
+      "Mixed – Active — 137 (9%)",
+      "Mixed – Lapsed — 168 (10%)",
+      "UNC – No Primary — 632 (39%)",
+      "UNC – Lapsed D — 115 (7%)",
+      "Pure D — 47 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          353,
+          156,
+          137,
+          168,
+          632,
+          115,
+          47
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SULLIVAN-COMBINED (Unknown Co.)",
+  "updated": "2026-05-10"
+}

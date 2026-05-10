@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 10",
+      "Mixed – Active — 5",
+      "Mixed – Lapsed — 14",
+      "UNC – No Primary — 68",
+      "UNC – Lapsed D — 18"
+    ],
+    "datasets": [
+      {
+        "data": [
+          10,
+          5,
+          14,
+          68,
+          18
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "BURBANK VILLAGE (Wayne Co.)",
+  "updated": "2026-05-10"
+}

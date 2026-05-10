@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 294",
+      "Mixed – Active — 187",
+      "Mixed – Lapsed — 144",
+      "UNC – No Primary — 1,257",
+      "UNC – Lapsed D — 232"
+    ],
+    "datasets": [
+      {
+        "data": [
+          294,
+          187,
+          144,
+          1257,
+          232
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "PAINT TOWNSHIP (Highland Co.)",
+  "updated": "2026-05-10"
+}

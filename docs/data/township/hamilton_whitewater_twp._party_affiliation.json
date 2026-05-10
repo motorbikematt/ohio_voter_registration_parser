@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 562 (13%)",
+      "UNC – Lapsed R — 562 (13%)",
+      "Mixed – Active — 161 (4%)",
+      "Mixed – Lapsed — 291 (7%)",
+      "UNC – No Primary — 2,368 (55%)",
+      "UNC – Lapsed D — 254 (6%)",
+      "Pure D — 70 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          562,
+          562,
+          161,
+          291,
+          2368,
+          254,
+          70
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WHITEWATER TWP. (Hamilton Co.)",
+  "updated": "2026-05-10"
+}

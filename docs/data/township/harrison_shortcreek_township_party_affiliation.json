@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 95 (13%)",
+      "UNC – Lapsed R — 64 (9%)",
+      "Mixed – Active — 107 (15%)",
+      "Mixed – Lapsed — 55 (7%)",
+      "UNC – No Primary — 246 (33%)",
+      "UNC – Lapsed D — 114 (16%)",
+      "Pure D — 54 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          95,
+          64,
+          107,
+          55,
+          246,
+          114,
+          54
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SHORTCREEK TOWNSHIP (Harrison Co.)",
+  "updated": "2026-05-10"
+}

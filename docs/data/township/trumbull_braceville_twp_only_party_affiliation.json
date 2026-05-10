@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 204 (12%)",
+      "UNC – Lapsed R — 121 (7%)",
+      "Mixed – Active — 203 (12%)",
+      "Mixed – Lapsed — 104 (6%)",
+      "UNC – No Primary — 659 (39%)",
+      "UNC – Lapsed D — 239 (14%)",
+      "Pure D — 175 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          204,
+          121,
+          203,
+          104,
+          659,
+          239,
+          175
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BRACEVILLE TWP ONLY (Trumbull Co.)",
+  "updated": "2026-05-10"
+}

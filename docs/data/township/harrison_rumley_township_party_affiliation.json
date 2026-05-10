@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 153 (20%)",
+      "UNC – Lapsed R — 59 (8%)",
+      "Mixed – Active — 126 (16%)",
+      "Mixed – Lapsed — 40 (5%)",
+      "UNC – No Primary — 274 (36%)",
+      "UNC – Lapsed D — 74 (10%)",
+      "Pure D — 44 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          153,
+          59,
+          126,
+          40,
+          274,
+          74,
+          44
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "RUMLEY TOWNSHIP (Harrison Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 115",
+      "Mixed – Active — 77",
+      "Mixed – Lapsed — 72",
+      "UNC – No Primary — 256",
+      "UNC – Lapsed D — 79"
+    ],
+    "datasets": [
+      {
+        "data": [
+          115,
+          77,
+          72,
+          256,
+          79
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "WALDO TWP. (Marion Co.)",
+  "updated": "2026-05-10"
+}

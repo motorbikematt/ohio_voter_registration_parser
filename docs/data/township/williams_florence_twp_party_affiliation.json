@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 327 (24%)",
+      "UNC – Lapsed R — 205 (15%)",
+      "Mixed – Active — 118 (9%)",
+      "Mixed – Lapsed — 127 (9%)",
+      "UNC – No Primary — 472 (35%)",
+      "UNC – Lapsed D — 62 (5%)",
+      "Pure D — 34 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          327,
+          205,
+          118,
+          127,
+          472,
+          62,
+          34
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FLORENCE TWP (Williams Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 57 (24%)",
+      "UNC – Lapsed R — 23 (10%)",
+      "Mixed – Active — 43 (18%)",
+      "Mixed – Lapsed — 20 (8%)",
+      "UNC – No Primary — 64 (27%)",
+      "UNC – Lapsed D — 18 (8%)",
+      "Pure D — 11 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          57,
+          23,
+          43,
+          20,
+          64,
+          18,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SHARON TOWNSHIP (Noble Co.)",
+  "updated": "2026-05-10"
+}

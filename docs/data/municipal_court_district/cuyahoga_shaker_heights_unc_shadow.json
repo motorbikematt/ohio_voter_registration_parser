@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 2,144",
+      "Mixed – Active — 4,387",
+      "Mixed – Lapsed — 3,296",
+      "UNC – No Primary — 17,308",
+      "UNC – Lapsed D — 8,746"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2144,
+          4387,
+          3296,
+          17308,
+          8746
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "SHAKER-HEIGHTS (Cuyahoga Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 376 (25%)",
+      "UNC – Lapsed R — 177 (12%)",
+      "Mixed – Active — 112 (8%)",
+      "Mixed – Lapsed — 76 (5%)",
+      "UNC – No Primary — 618 (42%)",
+      "UNC – Lapsed D — 76 (5%)",
+      "Pure D — 47 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          376,
+          177,
+          112,
+          76,
+          618,
+          76,
+          47
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PLEASANT TWP (Hancock Co.)",
+  "updated": "2026-05-10"
+}

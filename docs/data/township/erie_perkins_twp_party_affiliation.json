@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 930 (10%)",
+      "UNC – Lapsed R — 864 (10%)",
+      "Mixed – Active — 1,028 (11%)",
+      "Mixed – Lapsed — 1,173 (13%)",
+      "UNC – No Primary — 2,940 (33%)",
+      "UNC – Lapsed D — 1,366 (15%)",
+      "Pure D — 654 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          930,
+          864,
+          1028,
+          1173,
+          2940,
+          1366,
+          654
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PERKINS TWP (Erie Co.)",
+  "updated": "2026-05-10"
+}

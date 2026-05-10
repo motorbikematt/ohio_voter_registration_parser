@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 199 (23%)",
+      "UNC – Lapsed R — 107 (12%)",
+      "Mixed – Active — 90 (10%)",
+      "Mixed – Lapsed — 53 (6%)",
+      "UNC – No Primary — 312 (36%)",
+      "UNC – Lapsed D — 71 (8%)",
+      "Pure D — 27 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          199,
+          107,
+          90,
+          53,
+          312,
+          71,
+          27
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WASHINGTON TOWNSHIP (Morrow Co.)",
+  "updated": "2026-05-10"
+}

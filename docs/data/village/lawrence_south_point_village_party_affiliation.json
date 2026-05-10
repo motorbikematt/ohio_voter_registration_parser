@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 462 (18%)",
+      "UNC – Lapsed R — 301 (12%)",
+      "Mixed – Active — 235 (9%)",
+      "Mixed – Lapsed — 110 (4%)",
+      "UNC – No Primary — 1,131 (44%)",
+      "UNC – Lapsed D — 236 (9%)",
+      "Pure D — 117 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          462,
+          301,
+          235,
+          110,
+          1131,
+          236,
+          117
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SOUTH POINT VILLAGE (Lawrence Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 32 (13%)",
+      "UNC – Lapsed R — 25 (10%)",
+      "Mixed – Active — 27 (11%)",
+      "Mixed – Lapsed — 22 (9%)",
+      "UNC – No Primary — 93 (37%)",
+      "UNC – Lapsed D — 43 (17%)",
+      "Pure D — 10 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          32,
+          25,
+          27,
+          22,
+          93,
+          43,
+          10
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PERRY TOWNSHIP (Tuscarawas Co.)",
+  "updated": "2026-05-10"
+}

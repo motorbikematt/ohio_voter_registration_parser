@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,550 (19%)",
+      "UNC – Lapsed R — 4,126 (17%)",
+      "Mixed – Active — 1,317 (5%)",
+      "Mixed – Lapsed — 2,183 (9%)",
+      "UNC – No Primary — 9,203 (38%)",
+      "UNC – Lapsed D — 1,854 (8%)",
+      "Pure D — 848 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4550,
+          4126,
+          1317,
+          2183,
+          9203,
+          1854,
+          848
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HAMILTON TOWNSHIP (Warren Co.)",
+  "updated": "2026-05-10"
+}

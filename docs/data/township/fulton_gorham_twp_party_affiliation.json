@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 229 (17%)",
+      "UNC – Lapsed R — 173 (13%)",
+      "Mixed – Active — 92 (7%)",
+      "Mixed – Lapsed — 92 (7%)",
+      "UNC – No Primary — 634 (47%)",
+      "UNC – Lapsed D — 105 (8%)",
+      "Pure D — 32 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          229,
+          173,
+          92,
+          92,
+          634,
+          105,
+          32
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "GORHAM TWP (Fulton Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 332",
+      "Mixed – Active — 262",
+      "Mixed – Lapsed — 151",
+      "UNC – No Primary — 721",
+      "UNC – Lapsed D — 155"
+    ],
+    "datasets": [
+      {
+        "data": [
+          332,
+          262,
+          151,
+          721,
+          155
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "CLARIDON TWP (Geauga Co.)",
+  "updated": "2026-05-10"
+}

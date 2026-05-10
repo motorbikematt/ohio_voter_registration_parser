@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 272 (21%)",
+      "UNC – Lapsed R — 135 (10%)",
+      "Mixed – Active — 86 (6%)",
+      "Mixed – Lapsed — 100 (8%)",
+      "UNC – No Primary — 587 (44%)",
+      "UNC – Lapsed D — 103 (8%)",
+      "Pure D — 42 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          272,
+          135,
+          86,
+          100,
+          587,
+          103,
+          42
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "CARDINGTON VILLAGE (Morrow Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 120 (21%)",
+      "UNC – Lapsed R — 63 (11%)",
+      "Mixed – Active — 52 (9%)",
+      "Mixed – Lapsed — 57 (10%)",
+      "UNC – No Primary — 211 (37%)",
+      "UNC – Lapsed D — 53 (9%)",
+      "Pure D — 12 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          120,
+          63,
+          52,
+          57,
+          211,
+          53,
+          12
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "TULLY TWP. (Marion Co.)",
+  "updated": "2026-05-10"
+}

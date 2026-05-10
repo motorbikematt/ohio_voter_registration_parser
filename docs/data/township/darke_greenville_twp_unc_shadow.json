@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,385",
+      "Mixed – Active — 1,180",
+      "Mixed – Lapsed — 709",
+      "UNC – No Primary — 4,661",
+      "UNC – Lapsed D — 729"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1385,
+          1180,
+          709,
+          4661,
+          729
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "GREENVILLE TWP (Darke Co.)",
+  "updated": "2026-05-10"
+}

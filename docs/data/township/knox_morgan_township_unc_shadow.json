@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 90",
+      "Mixed – Active — 62",
+      "Mixed – Lapsed — 80",
+      "UNC – No Primary — 211",
+      "UNC – Lapsed D — 45"
+    ],
+    "datasets": [
+      {
+        "data": [
+          90,
+          62,
+          80,
+          211,
+          45
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MORGAN TOWNSHIP (Knox Co.)",
+  "updated": "2026-05-10"
+}

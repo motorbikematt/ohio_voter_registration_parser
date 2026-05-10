@@ -81,6 +81,9 @@ Source: 4 split flat files (`SWVF_1_22.txt`, `SWVF_23_44.txt`, `SWVF_45_66.txt`,
 ### Jurisdictional aggregation keys
 `PRECINCT_NAME` (atomic unit, e.g. KETTERING 1-A), `PRECINCT_CODE`, `CONGRESSIONAL_DISTRICT`, `STATE_SENATE_DISTRICT`, `STATE_REPRESENTATIVE_DISTRICT`, `CITY`, `TOWNSHIP`, `VILLAGE`, `WARD`, `LOCAL_SCHOOL_DISTRICT`, `CITY_SCHOOL_DISTRICT`, `EXEMPTED_VILL_SCHOOL_DISTRICT`, `CAREER_CENTER`, `COUNTY_COURT_DISTRICT`, `MUNICIPAL_COURT_DISTRICT`, `COURT_OF_APPEALS`, `STATE_BOARD_OF_EDUCATION`, `EDU_SERVICE_CENTER_DISTRICT`, `LIBRARY`.
 
+### County-scoped types (collide on name across counties — composite key required)
+`TOWNSHIP`, `VILLAGE`, `MUNICIPAL_COURT_DISTRICT`. The same name denotes legally distinct entities in different counties (Washington Township in 23 counties, BELLEVUE municipal court in 3, etc.). Aggregation must use `(COUNTY_NUMBER, name)` as the composite key. `JURISDICTIONS[type]['county_scoped'] = True` triggers this in `jurisdictional_groupings.py`. Output slug becomes `{county_slug}_{name_slug}`. Display label becomes `{name} ({County} Co.)`.
+
 ### Election history (89 dynamic cols)
 Format `[TYPE]-[MM/DD/YYYY]`, TYPE ∈ {PRIMARY, GENERAL, SPECIAL}. Range 03/07/2000 → 02/03/2026. Values: `R`/`D` (party primary ballot), `X` (non-partisan), empty (didn't vote). 2 calendar years of blanks → supplemental list maintenance → CONFIRMATION. High CONFIRMATION + sparse recent history = anomaly signal (Ohio EOM Ch.4). No `_TYPE` suffixes (absentee/Eday) in SWVF — county files only.
 
@@ -99,13 +102,14 @@ Log malformed rows to `./working/errors/[county].log` and continue. Never halt o
 
 - **Phase 1 complete**. Parquet cache: 88 partitions, 7,892,613 rows × 135 cols.
 - **Directory layout** (2026-05-09 reorganization):
-  - Root: core engine + config only. `ohio_voter_pipeline.py` (menu driver), `ohio_voter_pipeline_wrapper.py`, `voter_data_cleaner_v2.py` (core, ~3,650 lines), `jurisdictional_groupings.py`, `state_configs/ohio.py`.
+  - Root: core engine + config only. `ohio_voter_pipeline.py` (menu driver), `ohio_voter_pipeline_wrapper.py`, `voter_data_cleaner_v2.py` (core, ~3,650 lines), `jurisdictional_groupings.py` (747 lines, county-scoped aggregator), `state_configs/ohio.py`.
   - `tools/`: utility scripts and exporters. `precinct_unc_export.py`, `precinct_party_export.py`, `export_unc_targets.py`, `precinct_key_manager.py` (merged scrape + aggregate functions), `clean_precinct_keys.py`, `run_city_groupings.py`, `test_jurisdiction_collisions.py`, `voter_lookup.py`, `voter_analysis.ipynb`. Precinct key CSVs are lean 3-col schema: county, precinct_code, precinct_label.
   - `tools/scoring/`: lean-prediction module. `mixed_lean_predictor.py`, `unc_lifetime_d_predictor.py`, `run_lean_predictor_all_cohorts.py`, `run_mixed_lean_predictor_all_counties.py`.
   - `docs/research/`: archived research logs and handoff notes.
 - **Active scripts**:
-  - `ohio_voter_pipeline.py` — menu driver
-  - `voter_data_cleaner_v2.py` — core engine. Module-level `COHORT_SLICES` + `COHORT_STACK_MAP`. `classify_all_voters_primary_history()` universal classifier; `clean_voter_data()` auto-attaches 15 cohort columns; `export_json()` + `export_precinct_charts()` write all 6 chart types.
+  - `ohio_voter_pipeline.py` — menu driver. Option 4 dispatches `jurisdictional_groupings.main()` with `--jurisdictions` filter.
+  - `voter_data_cleaner_v2.py` — core engine. Module-level `COHORT_SLICES`, `COHORT_STACK_MAP`, `OHIO_COUNTIES` (number→name, line 203). `classify_all_voters_primary_history()` universal classifier; `clean_voter_data()` auto-attaches 15 cohort columns; `export_json()` + `export_precinct_charts()` write all 6 chart types.
+  - `jurisdictional_groupings.py` — multi-jurisdiction aggregator. `JURISDICTIONS` dict with `column`, `display`, optional `county_scoped` flag. `aggregate_jurisdiction()` accepts optional `county_name` for slug + display qualification. `main()` branches on `county_scoped` for composite-key enumeration, partition, dispatch.
   - `tools/precinct_unc_export.py` — per-precinct cohort counts (pure_d/r, crossover, unc_lifetime, new_registrants).
   - `tools/precinct_party_export.py` — interactive 8-tab partisan-spectrum xlsx by county/precinct.
   - `tools/export_unc_targets.py` — cohort-segmented targeting CSVs.
@@ -113,8 +117,10 @@ Log malformed rows to `./working/errors/[county].log` and continue. Never halt o
 - **Dashboard**: GitHub Pages `/docs` — county + precinct scope, manifest-driven, Chart.js. Live: https://motorbikematt.github.io/ohio_voter_registration_parser/
   - Deep-link: `?county=Montgomery&geo=precinct-detail&precinct=DAYTON+8-B#decade-distribution`
   - 2026-05-07: deep-link bug fixed — `_populatePrecinctDropdown` in `docs/charts.js` now calls `_filterSections` + `_renderVisibleSections` + `_rebuildNav` after injecting precinct sections.
-- **Dashboard JSON status**: Current as of 2026-05-08. Regenerate with pipeline option 1 or 2 after any classifier change, then commit + push.
+  - **Pending Pass B**: dashboard renders no jurisdiction-level chart pages. Existing `geography:"city"` sections in `manifest.json` reference legacy `data/{county}_city_summary.json` table format, NOT the 6-chart bundle in `docs/data/city/`. New scope routing + filter UI in `charts.js` required to expose all 12 jurisdiction types.
+- **Dashboard JSON status**: Current as of 2026-05-08 for county/precinct. Townships, villages, municipal_court_districts re-run pending after Pass A patch (2026-05-10). Re-run command: `python jurisdictional_groupings.py --jurisdictions townships,villages,municipal_court_districts`. Delete old phantom-merged dirs first: `docs/data/township`, `docs/data/village`, `docs/data/municipal_court_district`.
 - **Cohort taxonomy** (2026-05-08): 7 public `cohort_family` values. No decay scoring. Pure means zero opposing-party primary history, lifetime. CROSSOVER_R/D preserved internally in `cohort` column for future proprietary analysis; map to `MIXED_ACTIVE` in `cohort_family`. `classify_unc_primary_history()` is a legacy wrapper delegating to `classify_all_voters_primary_history()` — pending caller audit before removal.
+- **County-scoping (2026-05-10, Pass A)**: Townships, villages, municipal_court_districts in `JURISDICTIONS` carry `county_scoped: True`. Slugs are `{county}_{name}` (e.g. `montgomery_washington_township`). Display labels are `{name} ({County} Co.)`. Resume sentinel files use the new naming. Cities, school districts, legislative/judicial districts remain non-scoped (multi-county multi-county-by-design or county-encoded names). Career_centers dropped from scope — administrative, no elected officials. Collision report at `collision_report.md`.
 
 ## Chart consistency contract
 
@@ -139,6 +145,7 @@ Doughnut tooltips are disabled and the legend renders `"<Cohort> — <count> (<p
 - `orjson` for JSON (GIL-releasing, ~3–5× stdlib). Falls back to stdlib if missing.
 - `psutil` RSS logging in every `_timer` exit. Peak RSS ~45 GB during Excel pass (two 7.9M-row frames).
 - Pre-classification: `classify_all_voters_primary_history()` runs once in main process; workers receive enriched slices with `cohort_family` attached. `_unc_classified_from_enriched_df()` fast path skips redundant decay math.
+- **Pending Pass B**: persistent enriched-parquet cache at `source/parquet_enriched/` to skip the ~80s `clean_voter_data()` cost on subsequent option 4 runs. Freshness check must compare cache mtime against `max(raw partition mtime, voter_data_cleaner_v2.py mtime)` to catch classifier-code changes; otherwise stale enriched frames silently serve.
 - Install: `.venv\Scripts\pip install orjson psutil`
 
 ## Git
@@ -149,4 +156,4 @@ Doughnut tooltips are disabled and the legend renders `"<Cohort> — <count> (<p
 
 ---
 
-*Last updated: 2026-05-09 (repo reorganization — tools/ hierarchy, precinct_key_manager merge, scoring/ module)*
+*Last updated: 2026-05-10 (Pass A: county-scoped slugs for townships/villages/municipal_court_districts in `jurisdictional_groupings.py`. Pass B pending: enriched-parquet cache + dashboard plumbing for all 12 jurisdiction types — see `HANDOFF_OPUS_PASS_B.md`.)*

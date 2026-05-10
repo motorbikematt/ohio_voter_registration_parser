@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 102",
+      "Mixed – Active — 133",
+      "Mixed – Lapsed — 128",
+      "UNC – No Primary — 1,137",
+      "UNC – Lapsed D — 343"
+    ],
+    "datasets": [
+      {
+        "data": [
+          102,
+          133,
+          128,
+          1137,
+          343
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "SHEFFIELD TOWNSHIP (Lorain Co.)",
+  "updated": "2026-05-10"
+}

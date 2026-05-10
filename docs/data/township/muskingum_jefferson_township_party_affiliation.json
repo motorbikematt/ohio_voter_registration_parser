@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 182 (16%)",
+      "UNC – Lapsed R — 161 (14%)",
+      "Mixed – Active — 77 (7%)",
+      "Mixed – Lapsed — 66 (6%)",
+      "UNC – No Primary — 493 (44%)",
+      "UNC – Lapsed D — 97 (9%)",
+      "Pure D — 43 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          182,
+          161,
+          77,
+          66,
+          493,
+          97,
+          43
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JEFFERSON TOWNSHIP (Muskingum Co.)",
+  "updated": "2026-05-10"
+}

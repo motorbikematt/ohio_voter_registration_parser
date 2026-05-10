@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 312 (23%)",
+      "UNC – Lapsed R — 105 (8%)",
+      "Mixed – Active — 151 (11%)",
+      "Mixed – Lapsed — 61 (5%)",
+      "UNC – No Primary — 521 (39%)",
+      "UNC – Lapsed D — 136 (10%)",
+      "Pure D — 61 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          312,
+          105,
+          151,
+          61,
+          521,
+          136,
+          61
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "NEWPORT TWP (Washington Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 105 (23%)",
+      "UNC – Lapsed R — 66 (15%)",
+      "Mixed – Active — 34 (8%)",
+      "Mixed – Lapsed — 29 (6%)",
+      "UNC – No Primary — 188 (42%)",
+      "UNC – Lapsed D — 22 (5%)",
+      "Pure D — 8 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          105,
+          66,
+          34,
+          29,
+          188,
+          22,
+          8
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JENNINGS TOWNSHIP (Van Wert Co.)",
+  "updated": "2026-05-10"
+}

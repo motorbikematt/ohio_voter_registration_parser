@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 126 (12%)",
+      "UNC – Lapsed R — 100 (9%)",
+      "Mixed – Active — 135 (13%)",
+      "Mixed – Lapsed — 82 (8%)",
+      "UNC – No Primary — 375 (35%)",
+      "UNC – Lapsed D — 146 (14%)",
+      "Pure D — 97 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          126,
+          100,
+          135,
+          82,
+          375,
+          146,
+          97
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SOUTH AMHERST VILLAGE (Lorain Co.)",
+  "updated": "2026-05-10"
+}

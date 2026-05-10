@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 264 (15%)",
+      "UNC – Lapsed R — 167 (9%)",
+      "Mixed – Active — 206 (11%)",
+      "Mixed – Lapsed — 141 (8%)",
+      "UNC – No Primary — 721 (40%)",
+      "UNC – Lapsed D — 194 (11%)",
+      "Pure D — 122 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          264,
+          167,
+          206,
+          141,
+          721,
+          194,
+          122
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FREEDOM TOWNSHIP (Portage Co.)",
+  "updated": "2026-05-10"
+}

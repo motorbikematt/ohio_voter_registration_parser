@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 7,082 (15%)",
+      "UNC – Lapsed R — 7,613 (17%)",
+      "Mixed – Active — 2,463 (5%)",
+      "Mixed – Lapsed — 3,936 (9%)",
+      "UNC – No Primary — 19,012 (41%)",
+      "UNC – Lapsed D — 4,166 (9%)",
+      "Pure D — 1,581 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          7082,
+          7613,
+          2463,
+          3936,
+          19012,
+          4166,
+          1581
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "GREEN TWP. (Hamilton Co.)",
+  "updated": "2026-05-10"
+}

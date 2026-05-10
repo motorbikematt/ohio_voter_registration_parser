@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 23 (32%)",
+      "UNC – Lapsed R — 10 (14%)",
+      "Mixed – Active — 13 (18%)",
+      "Mixed – Lapsed — 6 (8%)",
+      "UNC – No Primary — 12 (16%)",
+      "UNC – Lapsed D — 3 (4%)",
+      "Pure D — 6 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          23,
+          10,
+          13,
+          6,
+          12,
+          3,
+          6
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JEFFERSON TOWNSHIP (Guernsey Co.)",
+  "updated": "2026-05-10"
+}

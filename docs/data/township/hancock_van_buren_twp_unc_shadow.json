@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 86",
+      "Mixed – Active — 45",
+      "Mixed – Lapsed — 40",
+      "UNC – No Primary — 178",
+      "UNC – Lapsed D — 26"
+    ],
+    "datasets": [
+      {
+        "data": [
+          86,
+          45,
+          40,
+          178,
+          26
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "VAN BUREN TWP (Hancock Co.)",
+  "updated": "2026-05-10"
+}

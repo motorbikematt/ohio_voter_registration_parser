@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 102 (29%)",
+      "UNC – Lapsed R — 57 (16%)",
+      "Mixed – Active — 22 (6%)",
+      "Mixed – Lapsed — 30 (9%)",
+      "UNC – No Primary — 107 (31%)",
+      "UNC – Lapsed D — 19 (5%)",
+      "Pure D — 9 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          102,
+          57,
+          22,
+          30,
+          107,
+          19,
+          9
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "RICH HILL TOWNSHIP (Muskingum Co.)",
+  "updated": "2026-05-10"
+}

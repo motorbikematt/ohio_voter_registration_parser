@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 177 (20%)",
+      "UNC – Lapsed R — 135 (15%)",
+      "Mixed – Active — 54 (6%)",
+      "Mixed – Lapsed — 55 (6%)",
+      "UNC – No Primary — 362 (41%)",
+      "UNC – Lapsed D — 67 (8%)",
+      "Pure D — 23 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          177,
+          135,
+          54,
+          55,
+          362,
+          67,
+          23
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "UNION TWP (Mercer Co.)",
+  "updated": "2026-05-10"
+}

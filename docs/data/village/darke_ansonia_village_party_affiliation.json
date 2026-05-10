@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 149 (24%)",
+      "UNC – Lapsed R — 62 (10%)",
+      "Mixed – Active — 47 (8%)",
+      "Mixed – Lapsed — 20 (3%)",
+      "UNC – No Primary — 282 (45%)",
+      "UNC – Lapsed D — 40 (6%)",
+      "Pure D — 26 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          149,
+          62,
+          47,
+          20,
+          282,
+          40,
+          26
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ANSONIA VILLAGE (Darke Co.)",
+  "updated": "2026-05-10"
+}

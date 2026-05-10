@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 479",
+      "Mixed – Active — 214",
+      "Mixed – Lapsed — 165",
+      "UNC – No Primary — 1,054",
+      "UNC – Lapsed D — 123"
+    ],
+    "datasets": [
+      {
+        "data": [
+          479,
+          214,
+          165,
+          1054,
+          123
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "TWIN  TWP (Darke Co.)",
+  "updated": "2026-05-10"
+}

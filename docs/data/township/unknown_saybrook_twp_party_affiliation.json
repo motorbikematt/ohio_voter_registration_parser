@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 759 (11%)",
+      "UNC – Lapsed R — 503 (7%)",
+      "Mixed – Active — 768 (11%)",
+      "Mixed – Lapsed — 561 (8%)",
+      "UNC – No Primary — 2,381 (35%)",
+      "UNC – Lapsed D — 1,007 (15%)",
+      "Pure D — 751 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          759,
+          503,
+          768,
+          561,
+          2381,
+          1007,
+          751
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SAYBROOK TWP (Unknown Co.)",
+  "updated": "2026-05-10"
+}

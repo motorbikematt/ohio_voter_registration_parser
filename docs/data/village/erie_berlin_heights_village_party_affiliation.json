@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 67 (14%)",
+      "UNC – Lapsed R — 40 (9%)",
+      "Mixed – Active — 36 (8%)",
+      "Mixed – Lapsed — 56 (12%)",
+      "UNC – No Primary — 157 (34%)",
+      "UNC – Lapsed D — 68 (15%)",
+      "Pure D — 40 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          67,
+          40,
+          36,
+          56,
+          157,
+          68,
+          40
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BERLIN HEIGHTS VILLAGE (Erie Co.)",
+  "updated": "2026-05-10"
+}

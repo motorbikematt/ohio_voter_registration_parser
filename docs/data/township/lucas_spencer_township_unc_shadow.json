@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 82",
+      "Mixed – Active — 62",
+      "Mixed – Lapsed — 73",
+      "UNC – No Primary — 502",
+      "UNC – Lapsed D — 172"
+    ],
+    "datasets": [
+      {
+        "data": [
+          82,
+          62,
+          73,
+          502,
+          172
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "SPENCER TOWNSHIP (Lucas Co.)",
+  "updated": "2026-05-10"
+}

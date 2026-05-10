@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 517 (25%)",
+      "UNC – Lapsed R — 277 (13%)",
+      "Mixed – Active — 201 (10%)",
+      "Mixed – Lapsed — 134 (6%)",
+      "UNC – No Primary — 754 (36%)",
+      "UNC – Lapsed D — 142 (7%)",
+      "Pure D — 75 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          517,
+          277,
+          201,
+          134,
+          754,
+          142,
+          75
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BENNINGTON TOWNSHIP (Morrow Co.)",
+  "updated": "2026-05-10"
+}

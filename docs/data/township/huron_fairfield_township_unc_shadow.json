@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 81",
+      "Mixed – Active — 46",
+      "Mixed – Lapsed — 45",
+      "UNC – No Primary — 256",
+      "UNC – Lapsed D — 36"
+    ],
+    "datasets": [
+      {
+        "data": [
+          81,
+          46,
+          45,
+          256,
+          36
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "FAIRFIELD TOWNSHIP (Huron Co.)",
+  "updated": "2026-05-10"
+}

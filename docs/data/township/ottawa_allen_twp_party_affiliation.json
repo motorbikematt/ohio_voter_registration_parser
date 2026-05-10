@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 533 (21%)",
+      "UNC – Lapsed R — 191 (7%)",
+      "Mixed – Active — 234 (9%)",
+      "Mixed – Lapsed — 356 (14%)",
+      "UNC – No Primary — 742 (29%)",
+      "UNC – Lapsed D — 305 (12%)",
+      "Pure D — 237 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          533,
+          191,
+          234,
+          356,
+          742,
+          305,
+          237
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "ALLEN TWP (Ottawa Co.)",
+  "updated": "2026-05-10"
+}

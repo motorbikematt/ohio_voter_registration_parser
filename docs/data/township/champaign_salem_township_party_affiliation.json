@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 544 (31%)",
+      "UNC – Lapsed R — 224 (13%)",
+      "Mixed – Active — 180 (10%)",
+      "Mixed – Lapsed — 81 (5%)",
+      "UNC – No Primary — 588 (34%)",
+      "UNC – Lapsed D — 83 (5%)",
+      "Pure D — 54 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          544,
+          224,
+          180,
+          81,
+          588,
+          83,
+          54
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SALEM TOWNSHIP (Champaign Co.)",
+  "updated": "2026-05-10"
+}

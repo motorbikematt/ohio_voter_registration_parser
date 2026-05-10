@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 197 (16%)",
+      "UNC – Lapsed R — 131 (11%)",
+      "Mixed – Active — 90 (7%)",
+      "Mixed – Lapsed — 71 (6%)",
+      "UNC – No Primary — 517 (42%)",
+      "UNC – Lapsed D — 188 (15%)",
+      "Pure D — 44 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          197,
+          131,
+          90,
+          71,
+          517,
+          188,
+          44
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "VERNON TOWNSHIP (Scioto Co.)",
+  "updated": "2026-05-10"
+}

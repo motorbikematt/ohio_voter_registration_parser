@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 340 (12%)",
+      "UNC – Lapsed R — 243 (9%)",
+      "Mixed – Active — 227 (8%)",
+      "Mixed – Lapsed — 172 (6%)",
+      "UNC – No Primary — 1,358 (49%)",
+      "UNC – Lapsed D — 338 (12%)",
+      "Pure D — 103 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          340,
+          243,
+          227,
+          172,
+          1358,
+          338,
+          103
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "OXFORD TOWNSHIP (Tuscarawas Co.)",
+  "updated": "2026-05-10"
+}

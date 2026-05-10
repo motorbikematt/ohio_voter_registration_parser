@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 55 (24%)",
+      "UNC – Lapsed R — 25 (11%)",
+      "Mixed – Active — 25 (11%)",
+      "Mixed – Lapsed — 21 (9%)",
+      "UNC – No Primary — 77 (33%)",
+      "UNC – Lapsed D — 14 (6%)",
+      "Pure D — 14 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          55,
+          25,
+          25,
+          21,
+          77,
+          14,
+          14
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "ARCHER TOWNSHIP (Harrison Co.)",
+  "updated": "2026-05-10"
+}

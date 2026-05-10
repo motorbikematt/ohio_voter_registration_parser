@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 380",
+      "Mixed – Active — 199",
+      "Mixed – Lapsed — 202",
+      "UNC – No Primary — 1,019",
+      "UNC – Lapsed D — 228"
+    ],
+    "datasets": [
+      {
+        "data": [
+          380,
+          199,
+          202,
+          1019,
+          228
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "RUSHCREEK TWP (Fairfield Co.)",
+  "updated": "2026-05-10"
+}

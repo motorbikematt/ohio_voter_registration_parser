@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 150",
+      "Mixed – Active — 39",
+      "Mixed – Lapsed — 57",
+      "UNC – No Primary — 300",
+      "UNC – Lapsed D — 49"
+    ],
+    "datasets": [
+      {
+        "data": [
+          150,
+          39,
+          57,
+          300,
+          49
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BROWN TOWNSHIP (Miami Co.)",
+  "updated": "2026-05-10"
+}

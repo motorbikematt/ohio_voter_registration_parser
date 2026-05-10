@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 251 (14%)",
+      "UNC – Lapsed R — 200 (11%)",
+      "Mixed – Active — 168 (9%)",
+      "Mixed – Lapsed — 256 (14%)",
+      "UNC – No Primary — 629 (35%)",
+      "UNC – Lapsed D — 211 (12%)",
+      "Pure D — 105 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          251,
+          200,
+          168,
+          256,
+          629,
+          211,
+          105
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "STRASBURG VILLAGE (Tuscarawas Co.)",
+  "updated": "2026-05-10"
+}

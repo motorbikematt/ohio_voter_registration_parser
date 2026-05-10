@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 98",
+      "Mixed – Active — 61",
+      "Mixed – Lapsed — 75",
+      "UNC – No Primary — 238",
+      "UNC – Lapsed D — 62"
+    ],
+    "datasets": [
+      {
+        "data": [
+          98,
+          61,
+          75,
+          238,
+          62
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "NORWICH TOWNSHIP (Huron Co.)",
+  "updated": "2026-05-10"
+}

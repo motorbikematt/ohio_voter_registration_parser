@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 623 (19%)",
+      "UNC – Lapsed R — 447 (14%)",
+      "Mixed – Active — 167 (5%)",
+      "Mixed – Lapsed — 251 (8%)",
+      "UNC – No Primary — 1,379 (42%)",
+      "UNC – Lapsed D — 287 (9%)",
+      "Pure D — 109 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          623,
+          447,
+          167,
+          251,
+          1379,
+          287,
+          109
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CANAAN TOWNSHIP (Wayne Co.)",
+  "updated": "2026-05-10"
+}

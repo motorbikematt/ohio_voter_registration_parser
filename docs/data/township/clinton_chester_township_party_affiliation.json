@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 412 (26%)",
+      "UNC – Lapsed R — 286 (18%)",
+      "Mixed – Active — 108 (7%)",
+      "Mixed – Lapsed — 194 (12%)",
+      "UNC – No Primary — 443 (28%)",
+      "UNC – Lapsed D — 110 (7%)",
+      "Pure D — 53 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          412,
+          286,
+          108,
+          194,
+          443,
+          110,
+          53
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CHESTER TOWNSHIP (Clinton Co.)",
+  "updated": "2026-05-10"
+}

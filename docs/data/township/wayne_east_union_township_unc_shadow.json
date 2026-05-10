@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 402",
+      "Mixed – Active — 167",
+      "Mixed – Lapsed — 271",
+      "UNC – No Primary — 1,179",
+      "UNC – Lapsed D — 171"
+    ],
+    "datasets": [
+      {
+        "data": [
+          402,
+          167,
+          271,
+          1179,
+          171
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "EAST UNION TOWNSHIP (Wayne Co.)",
+  "updated": "2026-05-10"
+}

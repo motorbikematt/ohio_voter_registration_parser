@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 13",
+      "Mixed – Active — 28",
+      "Mixed – Lapsed — 14",
+      "UNC – No Primary — 65",
+      "UNC – Lapsed D — 41"
+    ],
+    "datasets": [
+      {
+        "data": [
+          13,
+          28,
+          14,
+          65,
+          41
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "WAYNE TOWNSHIP (Monroe Co.)",
+  "updated": "2026-05-10"
+}

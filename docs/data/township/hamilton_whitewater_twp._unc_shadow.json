@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 562",
+      "Mixed – Active — 161",
+      "Mixed – Lapsed — 291",
+      "UNC – No Primary — 2,368",
+      "UNC – Lapsed D — 254"
+    ],
+    "datasets": [
+      {
+        "data": [
+          562,
+          161,
+          291,
+          2368,
+          254
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "WHITEWATER TWP. (Hamilton Co.)",
+  "updated": "2026-05-10"
+}

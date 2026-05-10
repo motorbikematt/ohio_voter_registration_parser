@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 572 (20%)",
+      "UNC – Lapsed R — 291 (10%)",
+      "Mixed – Active — 286 (10%)",
+      "Mixed – Lapsed — 171 (6%)",
+      "UNC – No Primary — 1,114 (40%)",
+      "UNC – Lapsed D — 244 (9%)",
+      "Pure D — 123 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          572,
+          291,
+          286,
+          171,
+          1114,
+          244,
+          123
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CONCORD TWP (Ross Co.)",
+  "updated": "2026-05-10"
+}

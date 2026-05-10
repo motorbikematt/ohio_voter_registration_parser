@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 251 (24%)",
+      "UNC – Lapsed R — 176 (17%)",
+      "Mixed – Active — 74 (7%)",
+      "Mixed – Lapsed — 57 (6%)",
+      "UNC – No Primary — 398 (39%)",
+      "UNC – Lapsed D — 51 (5%)",
+      "Pure D — 21 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          251,
+          176,
+          74,
+          57,
+          398,
+          51,
+          21
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "LIBERTY TOWNSHIP (Van Wert Co.)",
+  "updated": "2026-05-10"
+}

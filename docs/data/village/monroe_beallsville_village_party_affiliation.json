@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 21 (12%)",
+      "UNC – Lapsed R — 13 (7%)",
+      "Mixed – Active — 17 (9%)",
+      "Mixed – Lapsed — 13 (7%)",
+      "UNC – No Primary — 76 (42%)",
+      "UNC – Lapsed D — 36 (20%)",
+      "Pure D — 4 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          21,
+          13,
+          17,
+          13,
+          76,
+          36,
+          4
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BEALLSVILLE VILLAGE (Monroe Co.)",
+  "updated": "2026-05-10"
+}

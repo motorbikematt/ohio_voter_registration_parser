@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 320 (12%)",
+      "UNC – Lapsed R — 217 (8%)",
+      "Mixed – Active — 277 (11%)",
+      "Mixed – Lapsed — 173 (7%)",
+      "UNC – No Primary — 1,144 (44%)",
+      "UNC – Lapsed D — 360 (14%)",
+      "Pure D — 134 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          320,
+          217,
+          277,
+          173,
+          1144,
+          360,
+          134
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "LIVERPOOL TWP (Columbiana Co.)",
+  "updated": "2026-05-10"
+}

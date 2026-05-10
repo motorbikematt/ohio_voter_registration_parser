@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 245",
+      "Mixed – Active — 174",
+      "Mixed – Lapsed — 95",
+      "UNC – No Primary — 623",
+      "UNC – Lapsed D — 93"
+    ],
+    "datasets": [
+      {
+        "data": [
+          245,
+          174,
+          95,
+          623,
+          93
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "JACKSON TOWNSHIP (Shelby Co.)",
+  "updated": "2026-05-10"
+}

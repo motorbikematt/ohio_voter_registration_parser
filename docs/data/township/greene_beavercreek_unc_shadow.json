@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 5,567",
+      "Mixed – Active — 3,512",
+      "Mixed – Lapsed — 5,000",
+      "UNC – No Primary — 13,816",
+      "UNC – Lapsed D — 3,600"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5567,
+          3512,
+          5000,
+          13816,
+          3600
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BEAVERCREEK (Greene Co.)",
+  "updated": "2026-05-10"
+}

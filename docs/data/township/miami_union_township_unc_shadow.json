@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 880",
+      "Mixed – Active — 590",
+      "Mixed – Lapsed — 571",
+      "UNC – No Primary — 2,422",
+      "UNC – Lapsed D — 427"
+    ],
+    "datasets": [
+      {
+        "data": [
+          880,
+          590,
+          571,
+          2422,
+          427
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "UNION TOWNSHIP (Miami Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 364 (30%)",
+      "UNC – Lapsed R — 173 (14%)",
+      "Mixed – Active — 122 (10%)",
+      "Mixed – Lapsed — 90 (8%)",
+      "UNC – No Primary — 303 (25%)",
+      "UNC – Lapsed D — 96 (8%)",
+      "Pure D — 47 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          364,
+          173,
+          122,
+          90,
+          303,
+          96,
+          47
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BROWN TWP (Delaware Co.)",
+  "updated": "2026-05-10"
+}

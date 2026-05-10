@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 284 (23%)",
+      "UNC – Lapsed R — 111 (9%)",
+      "Mixed – Active — 96 (8%)",
+      "Mixed – Lapsed — 101 (8%)",
+      "UNC – No Primary — 534 (43%)",
+      "UNC – Lapsed D — 76 (6%)",
+      "Pure D — 39 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          284,
+          111,
+          96,
+          101,
+          534,
+          76,
+          39
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JACKSON TOWNSHIP (Hardin Co.)",
+  "updated": "2026-05-10"
+}

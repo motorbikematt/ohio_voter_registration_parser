@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 693",
+      "Mixed – Active — 1,190",
+      "Mixed – Lapsed — 1,131",
+      "UNC – No Primary — 2,062",
+      "UNC – Lapsed D — 1,082"
+    ],
+    "datasets": [
+      {
+        "data": [
+          693,
+          1190,
+          1131,
+          2062,
+          1082
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "SAGAMORE HLS TWP (Summit Co.)",
+  "updated": "2026-05-10"
+}

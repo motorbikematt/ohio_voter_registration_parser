@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 68 (20%)",
+      "UNC – Lapsed R — 33 (10%)",
+      "Mixed – Active — 21 (6%)",
+      "Mixed – Lapsed — 47 (14%)",
+      "UNC – No Primary — 137 (40%)",
+      "UNC – Lapsed D — 25 (7%)",
+      "Pure D — 11 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          68,
+          33,
+          21,
+          47,
+          137,
+          25,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SHERMAN TOWNSHIP (Huron Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,034 (12%)",
+      "UNC – Lapsed R — 874 (10%)",
+      "Mixed – Active — 945 (11%)",
+      "Mixed – Lapsed — 954 (11%)",
+      "UNC – No Primary — 3,167 (35%)",
+      "UNC – Lapsed D — 1,387 (15%)",
+      "Pure D — 595 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1034,
+          874,
+          945,
+          954,
+          3167,
+          1387,
+          595
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "VERMILLION (Erie Co.)",
+  "updated": "2026-05-10"
+}

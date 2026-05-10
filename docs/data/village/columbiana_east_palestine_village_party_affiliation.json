@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 525 (18%)",
+      "UNC – Lapsed R — 212 (7%)",
+      "Mixed – Active — 330 (11%)",
+      "Mixed – Lapsed — 155 (5%)",
+      "UNC – No Primary — 1,388 (47%)",
+      "UNC – Lapsed D — 249 (8%)",
+      "Pure D — 118 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          525,
+          212,
+          330,
+          155,
+          1388,
+          249,
+          118
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "EAST PALESTINE VILLAGE (Columbiana Co.)",
+  "updated": "2026-05-10"
+}

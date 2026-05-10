@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,508 (22%)",
+      "UNC – Lapsed R — 672 (10%)",
+      "Mixed – Active — 894 (13%)",
+      "Mixed – Lapsed — 552 (8%)",
+      "UNC – No Primary — 2,204 (32%)",
+      "UNC – Lapsed D — 674 (10%)",
+      "Pure D — 278 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1508,
+          672,
+          894,
+          552,
+          2204,
+          674,
+          278
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FAIRFIELD TWP (Columbiana Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 366 (23%)",
+      "UNC – Lapsed R — 210 (13%)",
+      "Mixed – Active — 145 (9%)",
+      "Mixed – Lapsed — 137 (8%)",
+      "UNC – No Primary — 549 (34%)",
+      "UNC – Lapsed D — 130 (8%)",
+      "Pure D — 87 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          366,
+          210,
+          145,
+          137,
+          549,
+          130,
+          87
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "YORK TOWNSHIP (Sandusky Co.)",
+  "updated": "2026-05-10"
+}

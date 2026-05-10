@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 6,607",
+      "Mixed – Active — 9,016",
+      "Mixed – Lapsed — 7,484",
+      "UNC – No Primary — 32,684",
+      "UNC – Lapsed D — 11,879"
+    ],
+    "datasets": [
+      {
+        "data": [
+          6607,
+          9016,
+          7484,
+          32684,
+          11879
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "ELYRIA (Lorain Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 20 (5%)",
+      "UNC – Lapsed R — 28 (7%)",
+      "Mixed – Active — 51 (13%)",
+      "Mixed – Lapsed — 18 (5%)",
+      "UNC – No Primary — 171 (44%)",
+      "UNC – Lapsed D — 62 (16%)",
+      "Pure D — 37 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          20,
+          28,
+          51,
+          18,
+          171,
+          62,
+          37
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "YORKVILLE VILLAGE (Jefferson Co.)",
+  "updated": "2026-05-10"
+}

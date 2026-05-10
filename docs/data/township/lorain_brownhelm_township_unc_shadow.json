@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 540",
+      "Mixed – Active — 634",
+      "Mixed – Lapsed — 553",
+      "UNC – No Primary — 1,897",
+      "UNC – Lapsed D — 806"
+    ],
+    "datasets": [
+      {
+        "data": [
+          540,
+          634,
+          553,
+          1897,
+          806
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BROWNHELM TOWNSHIP (Lorain Co.)",
+  "updated": "2026-05-10"
+}

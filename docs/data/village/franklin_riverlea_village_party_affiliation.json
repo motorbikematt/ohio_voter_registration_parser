@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 49 (10%)",
+      "UNC – Lapsed R — 48 (10%)",
+      "Mixed – Active — 52 (11%)",
+      "Mixed – Lapsed — 43 (9%)",
+      "UNC – No Primary — 124 (25%)",
+      "UNC – Lapsed D — 97 (20%)",
+      "Pure D — 82 (17%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          49,
+          48,
+          52,
+          43,
+          124,
+          97,
+          82
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "RIVERLEA VILLAGE (Franklin Co.)",
+  "updated": "2026-05-10"
+}

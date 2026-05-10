@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 8 (6%)",
+      "UNC – Lapsed R — 13 (10%)",
+      "Mixed – Active — 4 (3%)",
+      "Mixed – Lapsed — 9 (7%)",
+      "UNC – No Primary — 73 (57%)",
+      "UNC – Lapsed D — 17 (13%)",
+      "Pure D — 3 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          8,
+          13,
+          4,
+          9,
+          73,
+          17,
+          3
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SOUTH SALEM VILLAGE (Ross Co.)",
+  "updated": "2026-05-10"
+}

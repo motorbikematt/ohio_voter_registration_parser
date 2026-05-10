@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 120 (29%)",
+      "UNC – Lapsed R — 34 (8%)",
+      "Mixed – Active — 51 (12%)",
+      "Mixed – Lapsed — 25 (6%)",
+      "UNC – No Primary — 150 (36%)",
+      "UNC – Lapsed D — 28 (7%)",
+      "Pure D — 12 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          120,
+          34,
+          51,
+          25,
+          150,
+          28,
+          12
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WARSAW VILLAGE (Coshocton Co.)",
+  "updated": "2026-05-10"
+}

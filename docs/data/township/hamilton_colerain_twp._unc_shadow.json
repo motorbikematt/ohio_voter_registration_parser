@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 4,392",
+      "Mixed – Active — 2,042",
+      "Mixed – Lapsed — 3,260",
+      "UNC – No Primary — 19,197",
+      "UNC – Lapsed D — 5,627"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4392,
+          2042,
+          3260,
+          19197,
+          5627
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "COLERAIN TWP. (Hamilton Co.)",
+  "updated": "2026-05-10"
+}

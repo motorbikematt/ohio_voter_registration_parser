@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 31 (6%)",
+      "UNC – Lapsed R — 87 (17%)",
+      "Mixed – Active — 20 (4%)",
+      "Mixed – Lapsed — 42 (8%)",
+      "UNC – No Primary — 282 (54%)",
+      "UNC – Lapsed D — 52 (10%)",
+      "Pure D — 11 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          31,
+          87,
+          20,
+          42,
+          282,
+          52,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ADDYSTON VILLAGE (Hamilton Co.)",
+  "updated": "2026-05-10"
+}

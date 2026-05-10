@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 263 (26%)",
+      "UNC – Lapsed R — 192 (19%)",
+      "Mixed – Active — 141 (14%)",
+      "Mixed – Lapsed — 85 (8%)",
+      "UNC – No Primary — 256 (25%)",
+      "UNC – Lapsed D — 51 (5%)",
+      "Pure D — 22 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          263,
+          192,
+          141,
+          85,
+          256,
+          51,
+          22
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "KALIDA VILLAGE (Putnam Co.)",
+  "updated": "2026-05-10"
+}

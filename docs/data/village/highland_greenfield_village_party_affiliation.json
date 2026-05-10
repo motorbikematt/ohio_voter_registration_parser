@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 321 (14%)",
+      "UNC – Lapsed R — 227 (10%)",
+      "Mixed – Active — 140 (6%)",
+      "Mixed – Lapsed — 123 (5%)",
+      "UNC – No Primary — 1,218 (52%)",
+      "UNC – Lapsed D — 231 (10%)",
+      "Pure D — 69 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          321,
+          227,
+          140,
+          123,
+          1218,
+          231,
+          69
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "GREENFIELD VILLAGE (Highland Co.)",
+  "updated": "2026-05-10"
+}

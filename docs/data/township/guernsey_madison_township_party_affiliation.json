@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 159 (27%)",
+      "UNC – Lapsed R — 63 (11%)",
+      "Mixed – Active — 47 (8%)",
+      "Mixed – Lapsed — 32 (5%)",
+      "UNC – No Primary — 246 (42%)",
+      "UNC – Lapsed D — 33 (6%)",
+      "Pure D — 12 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          159,
+          63,
+          47,
+          32,
+          246,
+          33,
+          12
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MADISON TOWNSHIP (Guernsey Co.)",
+  "updated": "2026-05-10"
+}

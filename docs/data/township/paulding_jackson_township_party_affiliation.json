@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 267 (22%)",
+      "UNC – Lapsed R — 178 (15%)",
+      "Mixed – Active — 82 (7%)",
+      "Mixed – Lapsed — 63 (5%)",
+      "UNC – No Primary — 472 (39%)",
+      "UNC – Lapsed D — 101 (8%)",
+      "Pure D — 45 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          267,
+          178,
+          82,
+          63,
+          472,
+          101,
+          45
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JACKSON TOWNSHIP (Paulding Co.)",
+  "updated": "2026-05-10"
+}

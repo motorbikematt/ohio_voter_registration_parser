@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 85",
+      "Mixed – Active — 79",
+      "Mixed – Lapsed — 62",
+      "UNC – No Primary — 321",
+      "UNC – Lapsed D — 72"
+    ],
+    "datasets": [
+      {
+        "data": [
+          85,
+          79,
+          62,
+          321,
+          72
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "PERRY TOWNSHIP (Morrow Co.)",
+  "updated": "2026-05-10"
+}

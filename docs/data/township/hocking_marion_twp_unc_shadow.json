@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 210",
+      "Mixed – Active — 182",
+      "Mixed – Lapsed — 92",
+      "UNC – No Primary — 572",
+      "UNC – Lapsed D — 175"
+    ],
+    "datasets": [
+      {
+        "data": [
+          210,
+          182,
+          92,
+          572,
+          175
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MARION TWP (Hocking Co.)",
+  "updated": "2026-05-10"
+}

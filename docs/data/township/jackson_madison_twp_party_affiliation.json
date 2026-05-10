@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 194 (14%)",
+      "UNC – Lapsed R — 271 (20%)",
+      "Mixed – Active — 61 (4%)",
+      "Mixed – Lapsed — 99 (7%)",
+      "UNC – No Primary — 621 (46%)",
+      "UNC – Lapsed D — 102 (7%)",
+      "Pure D — 13 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          194,
+          271,
+          61,
+          99,
+          621,
+          102,
+          13
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MADISON TWP (Jackson Co.)",
+  "updated": "2026-05-10"
+}

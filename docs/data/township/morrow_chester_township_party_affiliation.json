@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 324 (25%)",
+      "UNC – Lapsed R — 182 (14%)",
+      "Mixed – Active — 97 (7%)",
+      "Mixed – Lapsed — 84 (6%)",
+      "UNC – No Primary — 478 (37%)",
+      "UNC – Lapsed D — 91 (7%)",
+      "Pure D — 50 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          324,
+          182,
+          97,
+          84,
+          478,
+          91,
+          50
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CHESTER TOWNSHIP (Morrow Co.)",
+  "updated": "2026-05-10"
+}

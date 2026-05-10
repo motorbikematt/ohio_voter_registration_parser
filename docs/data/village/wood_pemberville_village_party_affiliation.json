@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 154 (16%)",
+      "UNC – Lapsed R — 116 (12%)",
+      "Mixed – Active — 91 (10%)",
+      "Mixed – Lapsed — 135 (14%)",
+      "UNC – No Primary — 276 (29%)",
+      "UNC – Lapsed D — 111 (12%)",
+      "Pure D — 54 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          154,
+          116,
+          91,
+          135,
+          276,
+          111,
+          54
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "PEMBERVILLE VILLAGE (Wood Co.)",
+  "updated": "2026-05-10"
+}

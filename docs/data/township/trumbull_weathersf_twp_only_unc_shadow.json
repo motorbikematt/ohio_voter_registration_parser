@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 323",
+      "Mixed – Active — 634",
+      "Mixed – Lapsed — 441",
+      "UNC – No Primary — 1,878",
+      "UNC – Lapsed D — 982"
+    ],
+    "datasets": [
+      {
+        "data": [
+          323,
+          634,
+          441,
+          1878,
+          982
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "WEATHERSF TWP ONLY (Trumbull Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,040 (24%)",
+      "UNC – Lapsed R — 558 (13%)",
+      "Mixed – Active — 320 (7%)",
+      "Mixed – Lapsed — 289 (7%)",
+      "UNC – No Primary — 1,673 (38%)",
+      "UNC – Lapsed D — 321 (7%)",
+      "Pure D — 199 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1040,
+          558,
+          320,
+          289,
+          1673,
+          321,
+          199
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "XENIA (Greene Co.)",
+  "updated": "2026-05-10"
+}

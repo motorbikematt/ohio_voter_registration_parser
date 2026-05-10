@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 147 (25%)",
+      "UNC – Lapsed R — 72 (12%)",
+      "Mixed – Active — 71 (12%)",
+      "Mixed – Lapsed — 35 (6%)",
+      "UNC – No Primary — 219 (37%)",
+      "UNC – Lapsed D — 35 (6%)",
+      "Pure D — 11 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          147,
+          72,
+          71,
+          35,
+          219,
+          35,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PERRY TOWNSHIP (Shelby Co.)",
+  "updated": "2026-05-10"
+}

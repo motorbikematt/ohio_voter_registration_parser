@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 693 (20%)",
+      "UNC – Lapsed R — 445 (13%)",
+      "Mixed – Active — 459 (13%)",
+      "Mixed – Lapsed — 312 (9%)",
+      "UNC – No Primary — 1,108 (32%)",
+      "UNC – Lapsed D — 297 (9%)",
+      "Pure D — 106 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          693,
+          445,
+          459,
+          312,
+          1108,
+          297,
+          106
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HAMBDEN TWP (Geauga Co.)",
+  "updated": "2026-05-10"
+}

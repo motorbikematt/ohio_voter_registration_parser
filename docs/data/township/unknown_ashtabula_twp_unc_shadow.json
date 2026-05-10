@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 564",
+      "Mixed – Active — 696",
+      "Mixed – Lapsed — 681",
+      "UNC – No Primary — 5,377",
+      "UNC – Lapsed D — 1,539"
+    ],
+    "datasets": [
+      {
+        "data": [
+          564,
+          696,
+          681,
+          5377,
+          1539
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "ASHTABULA TWP (Unknown Co.)",
+  "updated": "2026-05-10"
+}
