@@ -33,6 +33,10 @@ This directory contains standalone utilities, maintenance scripts, and specializ
 
 ## 🔍 Verification & Discovery
 
+### `voter_analysis.ipynb`
+*   **Purpose:** Active Jupyter notebook for exploratory data analysis (EDA) and prototyping.
+*   **Function:** Used for testing new classification logic and generating ad-hoc visualizations.
+
 ### `voter_lookup.py`
 *   **Purpose:** An interactive CLI utility to search for individual voters by name across the statewide data.
 *   **Usage:** `python tools/voter_lookup.py --first "Jane" --last "Smith"`
