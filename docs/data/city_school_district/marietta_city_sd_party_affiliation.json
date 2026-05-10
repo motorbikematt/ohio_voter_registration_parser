@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,685 (18%)",
+      "UNC – Lapsed R — 1,380 (9%)",
+      "Mixed – Active — 1,653 (11%)",
+      "Mixed – Lapsed — 1,044 (7%)",
+      "UNC – No Primary — 6,021 (40%)",
+      "UNC – Lapsed D — 1,495 (10%)",
+      "Pure D — 817 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2685,
+          1380,
+          1653,
+          1044,
+          6021,
+          1495,
+          817
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "MARIETTA CITY SD",
+  "updated": "2026-05-09"
+}

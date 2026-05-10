@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 29 (16%)",
+      "UNC – Lapsed R — 16 (9%)",
+      "Mixed – Active — 17 (9%)",
+      "Mixed – Lapsed — 11 (6%)",
+      "UNC – No Primary — 74 (41%)",
+      "UNC – Lapsed D — 18 (10%)",
+      "Pure D — 17 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          29,
+          16,
+          17,
+          11,
+          74,
+          18,
+          17
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "FREEPORT VILLAGE",
+  "updated": "2026-05-09"
+}

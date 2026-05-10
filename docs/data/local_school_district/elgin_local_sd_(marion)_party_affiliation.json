@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 878 (20%)",
+      "UNC – Lapsed R — 585 (13%)",
+      "Mixed – Active — 353 (8%)",
+      "Mixed – Lapsed — 343 (8%)",
+      "UNC – No Primary — 1,689 (38%)",
+      "UNC – Lapsed D — 402 (9%)",
+      "Pure D — 163 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          878,
+          585,
+          353,
+          343,
+          1689,
+          402,
+          163
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "ELGIN LOCAL SD (MARION)",
+  "updated": "2026-05-09"
+}

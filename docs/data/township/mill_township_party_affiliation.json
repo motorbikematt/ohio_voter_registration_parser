@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 206 (7%)",
+      "UNC – Lapsed R — 170 (6%)",
+      "Mixed – Active — 247 (9%)",
+      "Mixed – Lapsed — 170 (6%)",
+      "UNC – No Primary — 1,348 (48%)",
+      "UNC – Lapsed D — 484 (17%)",
+      "Pure D — 182 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          206,
+          170,
+          247,
+          170,
+          1348,
+          484,
+          182
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MILL TOWNSHIP",
+  "updated": "2026-05-09"
+}

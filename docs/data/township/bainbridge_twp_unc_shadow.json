@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,259",
+      "Mixed – Active — 1,138",
+      "Mixed – Lapsed — 1,160",
+      "UNC – No Primary — 3,104",
+      "UNC – Lapsed D — 1,097"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1259,
+          1138,
+          1160,
+          3104,
+          1097
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BAINBRIDGE TWP",
+  "updated": "2026-05-09"
+}

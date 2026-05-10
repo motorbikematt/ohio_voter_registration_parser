@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 304 (18%)",
+      "UNC – Lapsed R — 242 (14%)",
+      "Mixed – Active — 87 (5%)",
+      "Mixed – Lapsed — 170 (10%)",
+      "UNC – No Primary — 786 (45%)",
+      "UNC – Lapsed D — 105 (6%)",
+      "Pure D — 34 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          304,
+          242,
+          87,
+          170,
+          786,
+          105,
+          34
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SALT CREEK TOWNSHIP",
+  "updated": "2026-05-09"
+}

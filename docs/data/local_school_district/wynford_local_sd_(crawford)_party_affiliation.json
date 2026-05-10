@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,162 (27%)",
+      "UNC – Lapsed R — 608 (14%)",
+      "Mixed – Active — 291 (7%)",
+      "Mixed – Lapsed — 387 (9%)",
+      "UNC – No Primary — 1,497 (35%)",
+      "UNC – Lapsed D — 277 (6%)",
+      "Pure D — 101 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1162,
+          608,
+          291,
+          387,
+          1497,
+          277,
+          101
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "WYNFORD LOCAL SD (CRAWFORD)",
+  "updated": "2026-05-09"
+}

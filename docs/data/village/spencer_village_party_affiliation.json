@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 79 (20%)",
+      "UNC – Lapsed R — 49 (13%)",
+      "Mixed – Active — 30 (8%)",
+      "Mixed – Lapsed — 44 (11%)",
+      "UNC – No Primary — 134 (35%)",
+      "UNC – Lapsed D — 31 (8%)",
+      "Pure D — 19 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          79,
+          49,
+          30,
+          44,
+          134,
+          31,
+          19
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SPENCER VILLAGE",
+  "updated": "2026-05-09"
+}

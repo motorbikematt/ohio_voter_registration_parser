@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 257 (12%)",
+      "UNC – Lapsed R — 162 (7%)",
+      "Mixed – Active — 216 (10%)",
+      "Mixed – Lapsed — 166 (7%)",
+      "UNC – No Primary — 858 (38%)",
+      "UNC – Lapsed D — 335 (15%)",
+      "Pure D — 240 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          257,
+          162,
+          216,
+          166,
+          858,
+          335,
+          240
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "ELYRIA TOWNSHIP",
+  "updated": "2026-05-09"
+}

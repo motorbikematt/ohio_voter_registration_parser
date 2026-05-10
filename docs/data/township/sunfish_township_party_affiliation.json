@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 96 (13%)",
+      "UNC – Lapsed R — 80 (11%)",
+      "Mixed – Active — 46 (6%)",
+      "Mixed – Lapsed — 46 (6%)",
+      "UNC – No Primary — 326 (45%)",
+      "UNC – Lapsed D — 107 (15%)",
+      "Pure D — 19 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          96,
+          80,
+          46,
+          46,
+          326,
+          107,
+          19
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SUNFISH TOWNSHIP",
+  "updated": "2026-05-09"
+}

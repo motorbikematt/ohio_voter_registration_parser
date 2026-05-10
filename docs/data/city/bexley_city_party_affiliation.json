@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 624 (6%)",
+      "UNC – Lapsed R — 841 (9%)",
+      "Mixed – Active — 776 (8%)",
+      "Mixed – Lapsed — 763 (8%)",
+      "UNC – No Primary — 3,387 (35%)",
+      "UNC – Lapsed D — 1,644 (17%)",
+      "Pure D — 1,574 (16%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          624,
+          841,
+          776,
+          763,
+          3387,
+          1644,
+          1574
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "BEXLEY CITY",
+  "updated": "2026-05-09"
+}

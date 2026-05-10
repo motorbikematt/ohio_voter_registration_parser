@@ -1,0 +1,143 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          0,
+          9,
+          264,
+          1444,
+          2319,
+          3100,
+          2957,
+          1609,
+          510,
+          561
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          0,
+          19,
+          145,
+          551,
+          953,
+          1932,
+          2515,
+          1774,
+          1047,
+          205
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          0,
+          0,
+          97,
+          747,
+          1309,
+          1494,
+          1492,
+          891,
+          136,
+          39
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          0,
+          5,
+          94,
+          388,
+          664,
+          1195,
+          1925,
+          1331,
+          433,
+          351
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          1,
+          5,
+          147,
+          543,
+          1072,
+          2059,
+          4451,
+          6042,
+          6523,
+          9134
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          0,
+          3,
+          95,
+          350,
+          655,
+          1206,
+          1934,
+          1571,
+          992,
+          318
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          0,
+          5,
+          69,
+          517,
+          879,
+          883,
+          1422,
+          1388,
+          470,
+          549
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Local School District",
+  "jurisdiction_name": "OLENTANGY LOCAL SD (DELAWARE)",
+  "updated": "2026-05-09"
+}

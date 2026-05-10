@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,683 (22%)",
+      "UNC – Lapsed R — 1,214 (16%)",
+      "Mixed – Active — 578 (8%)",
+      "Mixed – Lapsed — 669 (9%)",
+      "UNC – No Primary — 2,670 (35%)",
+      "UNC – Lapsed D — 581 (8%)",
+      "Pure D — 253 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1683,
+          1214,
+          578,
+          669,
+          2670,
+          581,
+          253
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "TRIWAY LOCAL SD (WAYNE)",
+  "updated": "2026-05-09"
+}

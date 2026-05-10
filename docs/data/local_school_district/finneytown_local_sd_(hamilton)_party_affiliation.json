@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 680 (8%)",
+      "UNC – Lapsed R — 753 (9%)",
+      "Mixed – Active — 457 (5%)",
+      "Mixed – Lapsed — 613 (7%)",
+      "UNC – No Primary — 3,584 (42%)",
+      "UNC – Lapsed D — 1,596 (19%)",
+      "Pure D — 833 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          680,
+          753,
+          457,
+          613,
+          3584,
+          1596,
+          833
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "FINNEYTOWN LOCAL SD (HAMILTON)",
+  "updated": "2026-05-09"
+}

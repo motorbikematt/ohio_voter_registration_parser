@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 141 (22%)",
+      "UNC – Lapsed R — 126 (20%)",
+      "Mixed – Active — 33 (5%)",
+      "Mixed – Lapsed — 61 (9%)",
+      "UNC – No Primary — 221 (34%)",
+      "UNC – Lapsed D — 48 (7%)",
+      "Pure D — 14 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          141,
+          126,
+          33,
+          61,
+          221,
+          48,
+          14
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CHESTERFIELD TWP",
+  "updated": "2026-05-09"
+}

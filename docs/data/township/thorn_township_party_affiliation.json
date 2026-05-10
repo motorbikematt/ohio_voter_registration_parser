@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 880 (27%)",
+      "UNC – Lapsed R — 387 (12%)",
+      "Mixed – Active — 352 (11%)",
+      "Mixed – Lapsed — 213 (7%)",
+      "UNC – No Primary — 999 (31%)",
+      "UNC – Lapsed D — 224 (7%)",
+      "Pure D — 191 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          880,
+          387,
+          352,
+          213,
+          999,
+          224,
+          191
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "THORN TOWNSHIP",
+  "updated": "2026-05-09"
+}

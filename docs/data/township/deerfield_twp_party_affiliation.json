@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 130 (21%)",
+      "UNC – Lapsed R — 59 (10%)",
+      "Mixed – Active — 54 (9%)",
+      "Mixed – Lapsed — 47 (8%)",
+      "UNC – No Primary — 243 (40%)",
+      "UNC – Lapsed D — 47 (8%)",
+      "Pure D — 25 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          130,
+          59,
+          54,
+          47,
+          243,
+          47,
+          25
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "DEERFIELD TWP",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,001 (21%)",
+      "UNC – Lapsed R — 450 (9%)",
+      "Mixed – Active — 543 (11%)",
+      "Mixed – Lapsed — 379 (8%)",
+      "UNC – No Primary — 1,673 (35%)",
+      "UNC – Lapsed D — 470 (10%)",
+      "Pure D — 251 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1001,
+          450,
+          543,
+          379,
+          1673,
+          470,
+          251
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "ONTARIO CITY",
+  "updated": "2026-05-09"
+}

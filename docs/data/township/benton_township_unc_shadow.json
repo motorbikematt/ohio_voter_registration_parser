@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 182",
+      "Mixed – Active — 152",
+      "Mixed – Lapsed — 97",
+      "UNC – No Primary — 885",
+      "UNC – Lapsed D — 212"
+    ],
+    "datasets": [
+      {
+        "data": [
+          182,
+          152,
+          97,
+          885,
+          212
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BENTON TOWNSHIP",
+  "updated": "2026-05-09"
+}

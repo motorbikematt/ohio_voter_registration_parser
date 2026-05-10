@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 414 (11%)",
+      "UNC – Lapsed R — 206 (6%)",
+      "Mixed – Active — 524 (14%)",
+      "Mixed – Lapsed — 227 (6%)",
+      "UNC – No Primary — 1,363 (37%)",
+      "UNC – Lapsed D — 550 (15%)",
+      "Pure D — 409 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          414,
+          206,
+          524,
+          227,
+          1363,
+          550,
+          409
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HUBBARD TWP ONLY",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 3,324",
+      "Mixed – Active — 2,243",
+      "Mixed – Lapsed — 2,051",
+      "UNC – No Primary — 14,642",
+      "UNC – Lapsed D — 3,241"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3324,
+          2243,
+          2051,
+          14642,
+          3241
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "NEWARK CITY",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,218 (21%)",
+      "UNC – Lapsed R — 892 (15%)",
+      "Mixed – Active — 425 (7%)",
+      "Mixed – Lapsed — 587 (10%)",
+      "UNC – No Primary — 2,036 (35%)",
+      "UNC – Lapsed D — 484 (8%)",
+      "Pure D — 171 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1218,
+          892,
+          425,
+          587,
+          2036,
+          484,
+          171
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "AMANDA-CLEARCREEK LOCAL SD (FAIRFIELD)",
+  "updated": "2026-05-09"
+}

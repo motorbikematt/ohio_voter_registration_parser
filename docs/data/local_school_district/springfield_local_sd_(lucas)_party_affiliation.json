@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,239 (11%)",
+      "UNC – Lapsed R — 1,754 (8%)",
+      "Mixed – Active — 1,343 (6%)",
+      "Mixed – Lapsed — 1,869 (9%)",
+      "UNC – No Primary — 9,207 (43%)",
+      "UNC – Lapsed D — 3,006 (14%)",
+      "Pure D — 1,892 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2239,
+          1754,
+          1343,
+          1869,
+          9207,
+          3006,
+          1892
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "SPRINGFIELD LOCAL SD (LUCAS)",
+  "updated": "2026-05-09"
+}

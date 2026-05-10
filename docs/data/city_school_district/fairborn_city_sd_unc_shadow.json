@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 3,097",
+      "Mixed – Active — 1,433",
+      "Mixed – Lapsed — 1,791",
+      "UNC – No Primary — 12,982",
+      "UNC – Lapsed D — 2,752"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3097,
+          1433,
+          1791,
+          12982,
+          2752
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "FAIRBORN CITY SD",
+  "updated": "2026-05-09"
+}

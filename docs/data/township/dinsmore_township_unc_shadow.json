@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 380",
+      "Mixed – Active — 262",
+      "Mixed – Lapsed — 139",
+      "UNC – No Primary — 883",
+      "UNC – Lapsed D — 126"
+    ],
+    "datasets": [
+      {
+        "data": [
+          380,
+          262,
+          139,
+          883,
+          126
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "DINSMORE TOWNSHIP",
+  "updated": "2026-05-09"
+}

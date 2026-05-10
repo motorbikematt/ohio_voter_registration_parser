@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 492 (7%)",
+      "UNC – Lapsed R — 483 (7%)",
+      "Mixed – Active — 313 (4%)",
+      "Mixed – Lapsed — 443 (6%)",
+      "UNC – No Primary — 3,910 (53%)",
+      "UNC – Lapsed D — 1,192 (16%)",
+      "Pure D — 567 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          492,
+          483,
+          313,
+          443,
+          3910,
+          1192,
+          567
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "REYNOLDSBURG CITY SD",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,450 (32%)",
+      "UNC – Lapsed R — 552 (12%)",
+      "Mixed – Active — 315 (7%)",
+      "Mixed – Lapsed — 526 (11%)",
+      "UNC – No Primary — 1,295 (28%)",
+      "UNC – Lapsed D — 270 (6%)",
+      "Pure D — 174 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1450,
+          552,
+          315,
+          526,
+          1295,
+          270,
+          174
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "HILLSDALE LOCAL SD (ASHLAND)",
+  "updated": "2026-05-09"
+}

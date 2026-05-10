@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 11,468",
+      "Mixed – Active — 6,116",
+      "Mixed – Lapsed — 8,750",
+      "UNC – No Primary — 31,354",
+      "UNC – Lapsed D — 7,566"
+    ],
+    "datasets": [
+      {
+        "data": [
+          11468,
+          6116,
+          8750,
+          31354,
+          7566
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "State Representative District",
+  "jurisdiction_name": "70",
+  "updated": "2026-05-09"
+}

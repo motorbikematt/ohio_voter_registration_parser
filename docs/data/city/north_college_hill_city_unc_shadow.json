@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 280",
+      "Mixed – Active — 185",
+      "Mixed – Lapsed — 300",
+      "UNC – No Primary — 3,622",
+      "UNC – Lapsed D — 1,423"
+    ],
+    "datasets": [
+      {
+        "data": [
+          280,
+          185,
+          300,
+          3622,
+          1423
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "NORTH COLLEGE HILL CITY",
+  "updated": "2026-05-09"
+}

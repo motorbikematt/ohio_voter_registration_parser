@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 12 (8%)",
+      "UNC – Lapsed R — 17 (11%)",
+      "Mixed – Active — 4 (3%)",
+      "Mixed – Lapsed — 11 (7%)",
+      "UNC – No Primary — 89 (60%)",
+      "UNC – Lapsed D — 12 (8%)",
+      "Pure D — 3 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          12,
+          17,
+          4,
+          11,
+          89,
+          12,
+          3
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SCOTT VILLAGE",
+  "updated": "2026-05-09"
+}

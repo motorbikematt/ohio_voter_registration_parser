@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 199 (15%)",
+      "UNC – Lapsed R — 174 (13%)",
+      "Mixed – Active — 69 (5%)",
+      "Mixed – Lapsed — 111 (8%)",
+      "UNC – No Primary — 614 (46%)",
+      "UNC – Lapsed D — 134 (10%)",
+      "Pure D — 47 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          199,
+          174,
+          69,
+          111,
+          614,
+          134,
+          47
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "CRESTON VILLAGE",
+  "updated": "2026-05-09"
+}

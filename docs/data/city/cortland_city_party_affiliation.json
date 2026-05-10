@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 814 (16%)",
+      "UNC – Lapsed R — 339 (6%)",
+      "Mixed – Active — 863 (17%)",
+      "Mixed – Lapsed — 385 (7%)",
+      "UNC – No Primary — 1,520 (29%)",
+      "UNC – Lapsed D — 575 (11%)",
+      "Pure D — 722 (14%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          814,
+          339,
+          863,
+          385,
+          1520,
+          575,
+          722
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "CORTLAND CITY",
+  "updated": "2026-05-09"
+}

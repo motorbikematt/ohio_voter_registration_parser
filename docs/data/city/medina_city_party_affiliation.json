@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,867 (16%)",
+      "UNC – Lapsed R — 1,573 (9%)",
+      "Mixed – Active — 1,423 (8%)",
+      "Mixed – Lapsed — 1,567 (9%)",
+      "UNC – No Primary — 7,001 (39%)",
+      "UNC – Lapsed D — 1,670 (9%)",
+      "Pure D — 1,650 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2867,
+          1573,
+          1423,
+          1567,
+          7001,
+          1670,
+          1650
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "MEDINA CITY",
+  "updated": "2026-05-09"
+}

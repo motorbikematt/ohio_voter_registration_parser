@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,041 (19%)",
+      "UNC – Lapsed R — 1,482 (14%)",
+      "Mixed – Active — 986 (9%)",
+      "Mixed – Lapsed — 1,018 (10%)",
+      "UNC – No Primary — 3,621 (34%)",
+      "UNC – Lapsed D — 958 (9%)",
+      "Pure D — 399 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2041,
+          1482,
+          986,
+          1018,
+          3621,
+          958,
+          399
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "LAKEWOOD LOCAL LOCAL  SD (LICKING)",
+  "updated": "2026-05-09"
+}

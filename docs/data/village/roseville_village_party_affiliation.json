@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 76 (9%)",
+      "UNC – Lapsed R — 67 (8%)",
+      "Mixed – Active — 44 (5%)",
+      "Mixed – Lapsed — 40 (5%)",
+      "UNC – No Primary — 475 (59%)",
+      "UNC – Lapsed D — 85 (11%)",
+      "Pure D — 21 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          76,
+          67,
+          44,
+          40,
+          475,
+          85,
+          21
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ROSEVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

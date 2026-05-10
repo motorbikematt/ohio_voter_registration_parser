@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,122 (20%)",
+      "UNC – Lapsed R — 765 (14%)",
+      "Mixed – Active — 416 (8%)",
+      "Mixed – Lapsed — 380 (7%)",
+      "UNC – No Primary — 2,285 (42%)",
+      "UNC – Lapsed D — 375 (7%)",
+      "Pure D — 138 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1122,
+          765,
+          416,
+          380,
+          2285,
+          375,
+          138
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "EATON CITY",
+  "updated": "2026-05-09"
+}

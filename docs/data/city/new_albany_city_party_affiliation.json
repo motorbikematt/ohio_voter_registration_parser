@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,024 (12%)",
+      "UNC – Lapsed R — 1,174 (14%)",
+      "Mixed – Active — 492 (6%)",
+      "Mixed – Lapsed — 690 (8%)",
+      "UNC – No Primary — 3,770 (44%)",
+      "UNC – Lapsed D — 945 (11%)",
+      "Pure D — 485 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1024,
+          1174,
+          492,
+          690,
+          3770,
+          945,
+          485
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "NEW ALBANY CITY",
+  "updated": "2026-05-09"
+}

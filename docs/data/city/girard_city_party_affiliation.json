@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 188 (3%)",
+      "UNC – Lapsed R — 175 (3%)",
+      "Mixed – Active — 693 (11%)",
+      "Mixed – Lapsed — 226 (4%)",
+      "UNC – No Primary — 2,257 (37%)",
+      "UNC – Lapsed D — 911 (15%)",
+      "Pure D — 1,594 (26%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          188,
+          175,
+          693,
+          226,
+          2257,
+          911,
+          1594
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "GIRARD CITY",
+  "updated": "2026-05-09"
+}

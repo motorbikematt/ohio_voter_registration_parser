@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 185 (31%)",
+      "UNC – Lapsed R — 93 (16%)",
+      "Mixed – Active — 45 (8%)",
+      "Mixed – Lapsed — 36 (6%)",
+      "UNC – No Primary — 195 (32%)",
+      "UNC – Lapsed D — 35 (6%)",
+      "Pure D — 11 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          185,
+          93,
+          45,
+          36,
+          195,
+          35,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MCDONALD TOWNSHIP",
+  "updated": "2026-05-09"
+}

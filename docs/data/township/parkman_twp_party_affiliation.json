@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 269 (17%)",
+      "UNC – Lapsed R — 247 (15%)",
+      "Mixed – Active — 147 (9%)",
+      "Mixed – Lapsed — 226 (14%)",
+      "UNC – No Primary — 594 (37%)",
+      "UNC – Lapsed D — 95 (6%)",
+      "Pure D — 39 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          269,
+          247,
+          147,
+          226,
+          594,
+          95,
+          39
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PARKMAN TWP",
+  "updated": "2026-05-09"
+}

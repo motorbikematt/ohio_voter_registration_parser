@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 103 (23%)",
+      "UNC – Lapsed R — 91 (21%)",
+      "Mixed – Active — 36 (8%)",
+      "Mixed – Lapsed — 31 (7%)",
+      "UNC – No Primary — 139 (32%)",
+      "UNC – Lapsed D — 29 (7%)",
+      "Pure D — 10 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          103,
+          91,
+          36,
+          31,
+          139,
+          29,
+          10
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "RACINE VILLAGE",
+  "updated": "2026-05-09"
+}

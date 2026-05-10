@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 272",
+      "Mixed – Active — 219",
+      "Mixed – Lapsed — 443",
+      "UNC – No Primary — 580",
+      "UNC – Lapsed D — 245"
+    ],
+    "datasets": [
+      {
+        "data": [
+          272,
+          219,
+          443,
+          580,
+          245
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "Litchfield TWP",
+  "updated": "2026-05-09"
+}

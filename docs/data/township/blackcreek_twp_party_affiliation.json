@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 68 (18%)",
+      "UNC – Lapsed R — 59 (15%)",
+      "Mixed – Active — 24 (6%)",
+      "Mixed – Lapsed — 42 (11%)",
+      "UNC – No Primary — 157 (41%)",
+      "UNC – Lapsed D — 21 (5%)",
+      "Pure D — 11 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          68,
+          59,
+          24,
+          42,
+          157,
+          21,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BLACKCREEK TWP",
+  "updated": "2026-05-09"
+}

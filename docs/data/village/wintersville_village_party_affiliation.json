@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 242 (9%)",
+      "UNC – Lapsed R — 236 (9%)",
+      "Mixed – Active — 311 (11%)",
+      "Mixed – Lapsed — 201 (7%)",
+      "UNC – No Primary — 980 (36%)",
+      "UNC – Lapsed D — 494 (18%)",
+      "Pure D — 246 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          242,
+          236,
+          311,
+          201,
+          980,
+          494,
+          246
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WINTERSVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

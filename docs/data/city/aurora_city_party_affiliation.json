@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,911 (14%)",
+      "UNC – Lapsed R — 1,646 (12%)",
+      "Mixed – Active — 1,282 (10%)",
+      "Mixed – Lapsed — 1,535 (12%)",
+      "UNC – No Primary — 4,360 (33%)",
+      "UNC – Lapsed D — 1,632 (12%)",
+      "Pure D — 935 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1911,
+          1646,
+          1282,
+          1535,
+          4360,
+          1632,
+          935
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "AURORA CITY",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,045 (27%)",
+      "UNC – Lapsed R — 542 (14%)",
+      "Mixed – Active — 251 (7%)",
+      "Mixed – Lapsed — 356 (9%)",
+      "UNC – No Primary — 1,302 (34%)",
+      "UNC – Lapsed D — 205 (5%)",
+      "Pure D — 116 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1045,
+          542,
+          251,
+          356,
+          1302,
+          205,
+          116
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SUGAR CREEK TOWNSHIP",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 234 (20%)",
+      "UNC – Lapsed R — 116 (10%)",
+      "Mixed – Active — 103 (9%)",
+      "Mixed – Lapsed — 60 (5%)",
+      "UNC – No Primary — 585 (49%)",
+      "UNC – Lapsed D — 79 (7%)",
+      "Pure D — 22 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          234,
+          116,
+          103,
+          60,
+          585,
+          79,
+          22
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BUCK TOWNSHIP",
+  "updated": "2026-05-09"
+}

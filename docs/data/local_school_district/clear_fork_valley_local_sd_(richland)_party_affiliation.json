@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,044 (28%)",
+      "UNC – Lapsed R — 1,015 (14%)",
+      "Mixed – Active — 534 (7%)",
+      "Mixed – Lapsed — 487 (7%)",
+      "UNC – No Primary — 2,292 (32%)",
+      "UNC – Lapsed D — 526 (7%)",
+      "Pure D — 292 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2044,
+          1015,
+          534,
+          487,
+          2292,
+          526,
+          292
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "CLEAR FORK VALLEY LOCAL SD (RICHLAND)",
+  "updated": "2026-05-09"
+}

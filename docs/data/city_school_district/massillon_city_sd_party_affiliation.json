@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,563 (9%)",
+      "UNC – Lapsed R — 1,149 (7%)",
+      "Mixed – Active — 1,535 (9%)",
+      "Mixed – Lapsed — 986 (6%)",
+      "UNC – No Primary — 7,800 (46%)",
+      "UNC – Lapsed D — 2,444 (14%)",
+      "Pure D — 1,500 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1563,
+          1149,
+          1535,
+          986,
+          7800,
+          2444,
+          1500
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "MASSILLON CITY SD",
+  "updated": "2026-05-09"
+}

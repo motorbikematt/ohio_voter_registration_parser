@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,356 (19%)",
+      "UNC – Lapsed R — 714 (10%)",
+      "Mixed – Active — 715 (10%)",
+      "Mixed – Lapsed — 554 (8%)",
+      "UNC – No Primary — 3,235 (44%)",
+      "UNC – Lapsed D — 520 (7%)",
+      "Pure D — 198 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1356,
+          714,
+          715,
+          554,
+          3235,
+          520,
+          198
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "BUCYRUS CITY",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 82 (14%)",
+      "UNC – Lapsed R — 67 (11%)",
+      "Mixed – Active — 62 (10%)",
+      "Mixed – Lapsed — 45 (8%)",
+      "UNC – No Primary — 198 (33%)",
+      "UNC – Lapsed D — 90 (15%)",
+      "Pure D — 56 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          82,
+          67,
+          62,
+          45,
+          198,
+          90,
+          56
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SHAWNEE HILLS VILLAGE",
+  "updated": "2026-05-09"
+}

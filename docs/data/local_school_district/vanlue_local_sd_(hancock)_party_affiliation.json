@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 378 (34%)",
+      "UNC – Lapsed R — 164 (15%)",
+      "Mixed – Active — 76 (7%)",
+      "Mixed – Lapsed — 79 (7%)",
+      "UNC – No Primary — 321 (29%)",
+      "UNC – Lapsed D — 53 (5%)",
+      "Pure D — 25 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          378,
+          164,
+          76,
+          79,
+          321,
+          53,
+          25
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "VANLUE LOCAL SD (HANCOCK)",
+  "updated": "2026-05-09"
+}

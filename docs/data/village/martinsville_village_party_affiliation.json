@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 62 (28%)",
+      "UNC – Lapsed R — 15 (7%)",
+      "Mixed – Active — 17 (8%)",
+      "Mixed – Lapsed — 10 (4%)",
+      "UNC – No Primary — 99 (44%)",
+      "UNC – Lapsed D — 18 (8%)",
+      "Pure D — 4 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          62,
+          15,
+          17,
+          10,
+          99,
+          18,
+          4
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "MARTINSVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,987 (11%)",
+      "UNC – Lapsed R — 2,670 (10%)",
+      "Mixed – Active — 1,649 (6%)",
+      "Mixed – Lapsed — 2,498 (9%)",
+      "UNC – No Primary — 12,860 (46%)",
+      "UNC – Lapsed D — 3,598 (13%)",
+      "Pure D — 1,816 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2987,
+          2670,
+          1649,
+          2498,
+          12860,
+          3598,
+          1816
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "HUBER HEIGHTS CITY SD",
+  "updated": "2026-05-09"
+}

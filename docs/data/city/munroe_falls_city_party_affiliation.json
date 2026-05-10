@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 474 (13%)",
+      "UNC – Lapsed R — 313 (9%)",
+      "Mixed – Active — 384 (10%)",
+      "Mixed – Lapsed — 313 (9%)",
+      "UNC – No Primary — 1,265 (34%)",
+      "UNC – Lapsed D — 522 (14%)",
+      "Pure D — 404 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          474,
+          313,
+          384,
+          313,
+          1265,
+          522,
+          404
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "MUNROE FALLS CITY",
+  "updated": "2026-05-09"
+}

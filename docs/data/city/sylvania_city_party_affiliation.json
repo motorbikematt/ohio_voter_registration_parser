@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,434 (10%)",
+      "UNC – Lapsed R — 1,529 (11%)",
+      "Mixed – Active — 907 (7%)",
+      "Mixed – Lapsed — 1,195 (9%)",
+      "UNC – No Primary — 5,428 (40%)",
+      "UNC – Lapsed D — 2,040 (15%)",
+      "Pure D — 1,176 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1434,
+          1529,
+          907,
+          1195,
+          5428,
+          2040,
+          1176
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "SYLVANIA CITY",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 291 (23%)",
+      "UNC – Lapsed R — 159 (12%)",
+      "Mixed – Active — 106 (8%)",
+      "Mixed – Lapsed — 89 (7%)",
+      "UNC – No Primary — 488 (38%)",
+      "UNC – Lapsed D — 91 (7%)",
+      "Pure D — 57 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          291,
+          159,
+          106,
+          89,
+          488,
+          91,
+          57
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "JAMESTOWN VILLAGE",
+  "updated": "2026-05-09"
+}

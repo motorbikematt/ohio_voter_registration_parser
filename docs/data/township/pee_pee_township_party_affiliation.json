@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 289 (13%)",
+      "UNC – Lapsed R — 224 (10%)",
+      "Mixed – Active — 170 (8%)",
+      "Mixed – Lapsed — 162 (7%)",
+      "UNC – No Primary — 1,003 (44%)",
+      "UNC – Lapsed D — 316 (14%)",
+      "Pure D — 91 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          289,
+          224,
+          170,
+          162,
+          1003,
+          316,
+          91
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PEE PEE TOWNSHIP",
+  "updated": "2026-05-09"
+}

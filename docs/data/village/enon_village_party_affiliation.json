@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 401 (21%)",
+      "UNC – Lapsed R — 230 (12%)",
+      "Mixed – Active — 213 (11%)",
+      "Mixed – Lapsed — 177 (9%)",
+      "UNC – No Primary — 610 (32%)",
+      "UNC – Lapsed D — 170 (9%)",
+      "Pure D — 102 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          401,
+          230,
+          213,
+          177,
+          610,
+          170,
+          102
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ENON VILLAGE",
+  "updated": "2026-05-09"
+}

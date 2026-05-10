@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 912",
+      "Mixed – Active — 858",
+      "Mixed – Lapsed — 680",
+      "UNC – No Primary — 3,144",
+      "UNC – Lapsed D — 933"
+    ],
+    "datasets": [
+      {
+        "data": [
+          912,
+          858,
+          680,
+          3144,
+          933
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "GOSHEN TOWNSHIP",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 49 (26%)",
+      "UNC – Lapsed R — 25 (14%)",
+      "Mixed – Active — 21 (11%)",
+      "Mixed – Lapsed — 14 (8%)",
+      "UNC – No Primary — 50 (27%)",
+      "UNC – Lapsed D — 19 (10%)",
+      "Pure D — 7 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          49,
+          25,
+          21,
+          14,
+          50,
+          19,
+          7
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "NORTHMOR LOCAL SD (MORROW)",
+  "updated": "2026-05-09"
+}

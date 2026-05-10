@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 702 (13%)",
+      "UNC – Lapsed R — 511 (9%)",
+      "Mixed – Active — 393 (7%)",
+      "Mixed – Lapsed — 324 (6%)",
+      "UNC – No Primary — 2,762 (50%)",
+      "UNC – Lapsed D — 583 (11%)",
+      "Pure D — 265 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          702,
+          511,
+          393,
+          324,
+          2762,
+          583,
+          265
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "CAMBRIDGE CITY",
+  "updated": "2026-05-09"
+}

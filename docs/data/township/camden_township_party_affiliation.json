@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 189 (18%)",
+      "UNC – Lapsed R — 99 (9%)",
+      "Mixed – Active — 142 (13%)",
+      "Mixed – Lapsed — 96 (9%)",
+      "UNC – No Primary — 351 (33%)",
+      "UNC – Lapsed D — 108 (10%)",
+      "Pure D — 93 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          189,
+          99,
+          142,
+          96,
+          351,
+          108,
+          93
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CAMDEN TOWNSHIP",
+  "updated": "2026-05-09"
+}

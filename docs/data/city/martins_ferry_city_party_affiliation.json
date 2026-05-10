@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 194 (5%)",
+      "UNC – Lapsed R — 146 (4%)",
+      "Mixed – Active — 360 (10%)",
+      "Mixed – Lapsed — 238 (6%)",
+      "UNC – No Primary — 1,970 (53%)",
+      "UNC – Lapsed D — 548 (15%)",
+      "Pure D — 290 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          194,
+          146,
+          360,
+          238,
+          1970,
+          548,
+          290
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "MARTINS FERRY CITY",
+  "updated": "2026-05-09"
+}

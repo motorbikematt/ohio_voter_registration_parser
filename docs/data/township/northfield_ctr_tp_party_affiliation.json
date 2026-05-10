@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 653 (16%)",
+      "UNC – Lapsed R — 284 (7%)",
+      "Mixed – Active — 530 (13%)",
+      "Mixed – Lapsed — 570 (14%)",
+      "UNC – No Primary — 1,121 (27%)",
+      "UNC – Lapsed D — 570 (14%)",
+      "Pure D — 424 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          653,
+          284,
+          530,
+          570,
+          1121,
+          570,
+          424
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "NORTHFIELD CTR TP",
+  "updated": "2026-05-09"
+}

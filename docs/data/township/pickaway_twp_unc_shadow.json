@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 187",
+      "Mixed – Active — 230",
+      "Mixed – Lapsed — 127",
+      "UNC – No Primary — 438",
+      "UNC – Lapsed D — 158"
+    ],
+    "datasets": [
+      {
+        "data": [
+          187,
+          230,
+          127,
+          438,
+          158
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "PICKAWAY TWP",
+  "updated": "2026-05-09"
+}

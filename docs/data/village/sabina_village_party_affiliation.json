@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 226 (16%)",
+      "UNC – Lapsed R — 184 (13%)",
+      "Mixed – Active — 98 (7%)",
+      "Mixed – Lapsed — 62 (4%)",
+      "UNC – No Primary — 730 (51%)",
+      "UNC – Lapsed D — 104 (7%)",
+      "Pure D — 27 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          226,
+          184,
+          98,
+          62,
+          730,
+          104,
+          27
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SABINA VILLAGE",
+  "updated": "2026-05-09"
+}

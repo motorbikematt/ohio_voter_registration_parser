@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 972 (41%)",
+      "UNC – Lapsed R — 283 (12%)",
+      "Mixed – Active — 160 (7%)",
+      "Mixed – Lapsed — 181 (8%)",
+      "UNC – No Primary — 633 (27%)",
+      "UNC – Lapsed D — 97 (4%)",
+      "Pure D — 53 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          972,
+          283,
+          160,
+          181,
+          633,
+          97,
+          53
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "ARLINGTON LOCAL SD (HANCOCK)",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,177 (5%)",
+      "UNC – Lapsed R — 1,139 (4%)",
+      "Mixed – Active — 1,819 (7%)",
+      "Mixed – Lapsed — 1,448 (6%)",
+      "UNC – No Primary — 10,066 (39%)",
+      "UNC – Lapsed D — 5,548 (21%)",
+      "Pure D — 4,725 (18%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1177,
+          1139,
+          1819,
+          1448,
+          10066,
+          5548,
+          4725
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "SOUTH EUCLID-LYNDHURST CITY SD",
+  "updated": "2026-05-09"
+}

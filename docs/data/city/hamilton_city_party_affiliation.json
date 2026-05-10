@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,281 (12%)",
+      "UNC – Lapsed R — 3,564 (10%)",
+      "Mixed – Active — 1,450 (4%)",
+      "Mixed – Lapsed — 2,173 (6%)",
+      "UNC – No Primary — 19,040 (54%)",
+      "UNC – Lapsed D — 3,823 (11%)",
+      "Pure D — 1,228 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4281,
+          3564,
+          1450,
+          2173,
+          19040,
+          3823,
+          1228
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "HAMILTON CITY",
+  "updated": "2026-05-09"
+}

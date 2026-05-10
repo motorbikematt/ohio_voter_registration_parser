@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 480 (7%)",
+      "UNC – Lapsed R — 661 (9%)",
+      "Mixed – Active — 525 (7%)",
+      "Mixed – Lapsed — 508 (7%)",
+      "UNC – No Primary — 2,850 (40%)",
+      "UNC – Lapsed D — 1,015 (14%)",
+      "Pure D — 1,015 (14%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          480,
+          661,
+          525,
+          508,
+          2850,
+          1015,
+          1015
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "GRANDVIEW HEIGHTS CITY",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,441 (6%)",
+      "UNC – Lapsed R — 1,268 (5%)",
+      "Mixed – Active — 2,756 (11%)",
+      "Mixed – Lapsed — 1,689 (7%)",
+      "UNC – No Primary — 9,183 (38%)",
+      "UNC – Lapsed D — 5,189 (21%)",
+      "Pure D — 2,667 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1441,
+          1268,
+          2756,
+          1689,
+          9183,
+          5189,
+          2667
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "AUSTINTOWN TWP",
+  "updated": "2026-05-09"
+}

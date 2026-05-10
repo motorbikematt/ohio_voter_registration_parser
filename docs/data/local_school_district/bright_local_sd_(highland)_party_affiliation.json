@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 753 (25%)",
+      "UNC – Lapsed R — 407 (13%)",
+      "Mixed – Active — 235 (8%)",
+      "Mixed – Lapsed — 160 (5%)",
+      "UNC – No Primary — 1,256 (41%)",
+      "UNC – Lapsed D — 176 (6%)",
+      "Pure D — 80 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          753,
+          407,
+          235,
+          160,
+          1256,
+          176,
+          80
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "BRIGHT LOCAL SD (HIGHLAND)",
+  "updated": "2026-05-09"
+}

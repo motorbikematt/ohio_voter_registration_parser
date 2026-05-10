@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 392",
+      "Mixed – Active — 601",
+      "Mixed – Lapsed — 482",
+      "UNC – No Primary — 1,499",
+      "UNC – Lapsed D — 448"
+    ],
+    "datasets": [
+      {
+        "data": [
+          392,
+          601,
+          482,
+          1499,
+          448
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "EATON TOWNSHIP",
+  "updated": "2026-05-09"
+}

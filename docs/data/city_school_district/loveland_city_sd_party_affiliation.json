@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,338 (16%)",
+      "UNC – Lapsed R — 3,594 (17%)",
+      "Mixed – Active — 1,363 (6%)",
+      "Mixed – Lapsed — 3,240 (15%)",
+      "UNC – No Primary — 6,716 (31%)",
+      "UNC – Lapsed D — 2,303 (11%)",
+      "Pure D — 962 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3338,
+          3594,
+          1363,
+          3240,
+          6716,
+          2303,
+          962
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "LOVELAND CITY SD",
+  "updated": "2026-05-09"
+}

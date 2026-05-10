@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,311 (11%)",
+      "UNC – Lapsed R — 1,870 (9%)",
+      "Mixed – Active — 1,375 (7%)",
+      "Mixed – Lapsed — 2,373 (12%)",
+      "UNC – No Primary — 8,110 (40%)",
+      "UNC – Lapsed D — 2,690 (13%)",
+      "Pure D — 1,423 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2311,
+          1870,
+          1375,
+          2373,
+          8110,
+          2690,
+          1423
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "BOWLING GREEN CITY SD",
+  "updated": "2026-05-09"
+}

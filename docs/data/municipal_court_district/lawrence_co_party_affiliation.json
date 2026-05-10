@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,293 (18%)",
+      "UNC – Lapsed R — 2,937 (12%)",
+      "Mixed – Active — 1,866 (8%)",
+      "Mixed – Lapsed — 1,033 (4%)",
+      "UNC – No Primary — 11,217 (46%)",
+      "UNC – Lapsed D — 1,938 (8%)",
+      "Pure D — 861 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4293,
+          2937,
+          1866,
+          1033,
+          11217,
+          1938,
+          861
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "LAWRENCE-CO",
+  "updated": "2026-05-09"
+}

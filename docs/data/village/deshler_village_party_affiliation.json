@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 205 (21%)",
+      "UNC – Lapsed R — 138 (14%)",
+      "Mixed – Active — 80 (8%)",
+      "Mixed – Lapsed — 78 (8%)",
+      "UNC – No Primary — 373 (38%)",
+      "UNC – Lapsed D — 73 (8%)",
+      "Pure D — 26 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          205,
+          138,
+          80,
+          78,
+          373,
+          73,
+          26
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "DESHLER VILLAGE",
+  "updated": "2026-05-09"
+}

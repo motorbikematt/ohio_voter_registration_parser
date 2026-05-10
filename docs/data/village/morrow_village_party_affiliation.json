@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 208 (11%)",
+      "UNC – Lapsed R — 287 (15%)",
+      "Mixed – Active — 75 (4%)",
+      "Mixed – Lapsed — 124 (7%)",
+      "UNC – No Primary — 1,026 (54%)",
+      "UNC – Lapsed D — 128 (7%)",
+      "Pure D — 40 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          208,
+          287,
+          75,
+          124,
+          1026,
+          128,
+          40
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "MORROW VILLAGE",
+  "updated": "2026-05-09"
+}

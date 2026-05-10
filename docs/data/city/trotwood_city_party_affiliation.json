@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 448 (3%)",
+      "UNC – Lapsed R — 400 (3%)",
+      "Mixed – Active — 447 (3%)",
+      "Mixed – Lapsed — 518 (3%)",
+      "UNC – No Primary — 7,372 (48%)",
+      "UNC – Lapsed D — 3,599 (23%)",
+      "Pure D — 2,630 (17%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          448,
+          400,
+          447,
+          518,
+          7372,
+          3599,
+          2630
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "TROTWOOD CITY",
+  "updated": "2026-05-09"
+}

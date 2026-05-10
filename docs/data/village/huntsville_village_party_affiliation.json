@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 58 (21%)",
+      "UNC – Lapsed R — 38 (14%)",
+      "Mixed – Active — 23 (8%)",
+      "Mixed – Lapsed — 9 (3%)",
+      "UNC – No Primary — 130 (46%)",
+      "UNC – Lapsed D — 17 (6%)",
+      "Pure D — 5 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          58,
+          38,
+          23,
+          9,
+          130,
+          17,
+          5
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "HUNTSVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 715 (23%)",
+      "UNC – Lapsed R — 479 (16%)",
+      "Mixed – Active — 223 (7%)",
+      "Mixed – Lapsed — 273 (9%)",
+      "UNC – No Primary — 985 (32%)",
+      "UNC – Lapsed D — 255 (8%)",
+      "Pure D — 118 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          715,
+          479,
+          223,
+          273,
+          985,
+          255,
+          118
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WOOSTER TOWNSHIP",
+  "updated": "2026-05-09"
+}

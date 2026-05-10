@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 385",
+      "Mixed – Active — 209",
+      "Mixed – Lapsed — 146",
+      "UNC – No Primary — 710",
+      "UNC – Lapsed D — 132"
+    ],
+    "datasets": [
+      {
+        "data": [
+          385,
+          209,
+          146,
+          710,
+          132
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "STAUNTON TOWNSHIP",
+  "updated": "2026-05-09"
+}

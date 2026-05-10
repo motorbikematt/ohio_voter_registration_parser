@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 124",
+      "Mixed – Active — 390",
+      "Mixed – Lapsed — 175",
+      "UNC – No Primary — 2,301",
+      "UNC – Lapsed D — 1,110"
+    ],
+    "datasets": [
+      {
+        "data": [
+          124,
+          390,
+          175,
+          2301,
+          1110
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "CAMPBELL CITY",
+  "updated": "2026-05-09"
+}

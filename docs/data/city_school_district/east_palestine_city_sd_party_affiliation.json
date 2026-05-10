@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 982 (19%)",
+      "UNC – Lapsed R — 386 (7%)",
+      "Mixed – Active — 602 (12%)",
+      "Mixed – Lapsed — 271 (5%)",
+      "UNC – No Primary — 2,318 (45%)",
+      "UNC – Lapsed D — 433 (8%)",
+      "Pure D — 183 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          982,
+          386,
+          602,
+          271,
+          2318,
+          433,
+          183
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "EAST PALESTINE CITY SD",
+  "updated": "2026-05-09"
+}

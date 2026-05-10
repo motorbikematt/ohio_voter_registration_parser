@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 193 (20%)",
+      "UNC – Lapsed R — 92 (10%)",
+      "Mixed – Active — 98 (10%)",
+      "Mixed – Lapsed — 66 (7%)",
+      "UNC – No Primary — 389 (41%)",
+      "UNC – Lapsed D — 73 (8%)",
+      "Pure D — 37 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          193,
+          92,
+          98,
+          66,
+          389,
+          73,
+          37
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HARTSGROVE TWP",
+  "updated": "2026-05-09"
+}

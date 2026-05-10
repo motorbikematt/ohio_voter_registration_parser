@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,432 (10%)",
+      "UNC – Lapsed R — 1,092 (8%)",
+      "Mixed – Active — 1,112 (8%)",
+      "Mixed – Lapsed — 1,698 (12%)",
+      "UNC – No Primary — 4,773 (34%)",
+      "UNC – Lapsed D — 2,591 (19%)",
+      "Pure D — 1,214 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1432,
+          1092,
+          1112,
+          1698,
+          4773,
+          2591,
+          1214
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "TWINSBURG CITY",
+  "updated": "2026-05-09"
+}

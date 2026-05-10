@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,239 (20%)",
+      "UNC – Lapsed R — 966 (16%)",
+      "Mixed – Active — 512 (8%)",
+      "Mixed – Lapsed — 737 (12%)",
+      "UNC – No Primary — 2,034 (33%)",
+      "UNC – Lapsed D — 446 (7%)",
+      "Pure D — 145 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1239,
+          966,
+          512,
+          737,
+          2034,
+          446,
+          145
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "PREBLE SHAWNEE LOCAL SD (PREBLE)",
+  "updated": "2026-05-09"
+}

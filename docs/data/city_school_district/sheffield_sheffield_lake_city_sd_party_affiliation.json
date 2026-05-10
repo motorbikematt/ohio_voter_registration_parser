@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 874 (10%)",
+      "UNC – Lapsed R — 755 (8%)",
+      "Mixed – Active — 878 (10%)",
+      "Mixed – Lapsed — 862 (9%)",
+      "UNC – No Primary — 3,447 (38%)",
+      "UNC – Lapsed D — 1,459 (16%)",
+      "Pure D — 914 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          874,
+          755,
+          878,
+          862,
+          3447,
+          1459,
+          914
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "SHEFFIELD-SHEFFIELD LAKE CITY SD",
+  "updated": "2026-05-09"
+}

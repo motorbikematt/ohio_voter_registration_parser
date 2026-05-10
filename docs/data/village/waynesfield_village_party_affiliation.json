@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 91 (20%)",
+      "UNC – Lapsed R — 62 (13%)",
+      "Mixed – Active — 19 (4%)",
+      "Mixed – Lapsed — 23 (5%)",
+      "UNC – No Primary — 228 (49%)",
+      "UNC – Lapsed D — 22 (5%)",
+      "Pure D — 16 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          91,
+          62,
+          19,
+          23,
+          228,
+          22,
+          16
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WAYNESFIELD VILLAGE",
+  "updated": "2026-05-09"
+}

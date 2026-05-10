@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 226 (18%)",
+      "UNC – Lapsed R — 106 (8%)",
+      "Mixed – Active — 172 (14%)",
+      "Mixed – Lapsed — 95 (8%)",
+      "UNC – No Primary — 385 (31%)",
+      "UNC – Lapsed D — 155 (12%)",
+      "Pure D — 114 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          226,
+          106,
+          172,
+          95,
+          385,
+          155,
+          114
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JOHNSTON TWP ONLY",
+  "updated": "2026-05-09"
+}

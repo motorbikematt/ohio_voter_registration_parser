@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 156 (15%)",
+      "UNC – Lapsed R — 78 (7%)",
+      "Mixed – Active — 132 (12%)",
+      "Mixed – Lapsed — 72 (7%)",
+      "UNC – No Primary — 432 (40%)",
+      "UNC – Lapsed D — 122 (11%)",
+      "Pure D — 80 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          156,
+          78,
+          132,
+          72,
+          432,
+          122,
+          80
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CHARLESTOWN TOWNSHIP",
+  "updated": "2026-05-09"
+}

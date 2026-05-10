@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 995 (21%)",
+      "UNC – Lapsed R — 790 (17%)",
+      "Mixed – Active — 328 (7%)",
+      "Mixed – Lapsed — 342 (7%)",
+      "UNC – No Primary — 1,729 (37%)",
+      "UNC – Lapsed D — 348 (7%)",
+      "Pure D — 143 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          995,
+          790,
+          328,
+          342,
+          1729,
+          348,
+          143
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MILFORD TOWNSHIP",
+  "updated": "2026-05-09"
+}

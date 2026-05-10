@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 37 (7%)",
+      "UNC – Lapsed R — 33 (6%)",
+      "Mixed – Active — 17 (3%)",
+      "Mixed – Lapsed — 32 (6%)",
+      "UNC – No Primary — 308 (60%)",
+      "UNC – Lapsed D — 74 (14%)",
+      "Pure D — 15 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          37,
+          33,
+          17,
+          32,
+          308,
+          74,
+          15
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ARLINGTON HEIGHTS VILLAGE",
+  "updated": "2026-05-09"
+}

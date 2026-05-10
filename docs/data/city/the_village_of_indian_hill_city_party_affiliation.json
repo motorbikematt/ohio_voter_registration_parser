@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,013 (19%)",
+      "UNC – Lapsed R — 955 (18%)",
+      "Mixed – Active — 386 (7%)",
+      "Mixed – Lapsed — 532 (10%)",
+      "UNC – No Primary — 1,881 (35%)",
+      "UNC – Lapsed D — 431 (8%)",
+      "Pure D — 159 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1013,
+          955,
+          386,
+          532,
+          1881,
+          431,
+          159
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "THE VILLAGE OF INDIAN HILL CITY",
+  "updated": "2026-05-09"
+}

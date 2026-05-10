@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,790 (19%)",
+      "UNC – Lapsed R — 1,853 (12%)",
+      "Mixed – Active — 1,338 (9%)",
+      "Mixed – Lapsed — 1,427 (10%)",
+      "UNC – No Primary — 5,638 (38%)",
+      "UNC – Lapsed D — 1,294 (9%)",
+      "Pure D — 550 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2790,
+          1853,
+          1338,
+          1427,
+          5638,
+          1294,
+          550
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BETHEL TOWNSHIP",
+  "updated": "2026-05-09"
+}

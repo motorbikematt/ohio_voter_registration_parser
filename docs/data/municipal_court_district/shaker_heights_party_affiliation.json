@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,599 (3%)",
+      "UNC – Lapsed R — 2,144 (4%)",
+      "Mixed – Active — 4,387 (9%)",
+      "Mixed – Lapsed — 3,296 (7%)",
+      "UNC – No Primary — 17,308 (36%)",
+      "UNC – Lapsed D — 8,746 (18%)",
+      "Pure D — 10,215 (21%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1599,
+          2144,
+          4387,
+          3296,
+          17308,
+          8746,
+          10215
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "SHAKER-HEIGHTS",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,829 (13%)",
+      "UNC – Lapsed R — 3,969 (13%)",
+      "Mixed – Active — 1,942 (7%)",
+      "Mixed – Lapsed — 2,200 (7%)",
+      "UNC – No Primary — 12,452 (42%)",
+      "UNC – Lapsed D — 3,184 (11%)",
+      "Pure D — 2,000 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3829,
+          3969,
+          1942,
+          2200,
+          12452,
+          3184,
+          2000
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "Washington Township",
+  "updated": "2026-05-09"
+}

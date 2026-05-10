@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 113 (18%)",
+      "UNC – Lapsed R — 71 (11%)",
+      "Mixed – Active — 56 (9%)",
+      "Mixed – Lapsed — 49 (8%)",
+      "UNC – No Primary — 250 (39%)",
+      "UNC – Lapsed D — 62 (10%)",
+      "Pure D — 39 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          113,
+          71,
+          56,
+          49,
+          250,
+          62,
+          39
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ANDOVER VILLAGE",
+  "updated": "2026-05-09"
+}

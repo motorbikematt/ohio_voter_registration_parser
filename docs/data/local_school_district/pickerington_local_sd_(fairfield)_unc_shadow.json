@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 4,200",
+      "Mixed – Active — 1,818",
+      "Mixed – Lapsed — 3,462",
+      "UNC – No Primary — 18,402",
+      "UNC – Lapsed D — 5,740"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4200,
+          1818,
+          3462,
+          18402,
+          5740
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Local School District",
+  "jurisdiction_name": "PICKERINGTON LOCAL SD (FAIRFIELD)",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,276 (12%)",
+      "UNC – Lapsed R — 2,770 (10%)",
+      "Mixed – Active — 2,918 (11%)",
+      "Mixed – Lapsed — 3,335 (13%)",
+      "UNC – No Primary — 8,867 (33%)",
+      "UNC – Lapsed D — 3,281 (12%)",
+      "Pure D — 2,031 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3276,
+          2770,
+          2918,
+          3335,
+          8867,
+          3281,
+          2031
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "NORTH ROYALTON CITY SD",
+  "updated": "2026-05-09"
+}

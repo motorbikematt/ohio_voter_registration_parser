@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 45 (30%)",
+      "UNC – Lapsed R — 21 (14%)",
+      "Mixed – Active — 10 (7%)",
+      "Mixed – Lapsed — 7 (5%)",
+      "UNC – No Primary — 57 (39%)",
+      "UNC – Lapsed D — 5 (3%)",
+      "Pure D — 3 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          45,
+          21,
+          10,
+          7,
+          57,
+          5,
+          3
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "UNIONVILLE CENTER VILLAGE",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 804",
+      "Mixed – Active — 540",
+      "Mixed – Lapsed — 412",
+      "UNC – No Primary — 2,418",
+      "UNC – Lapsed D — 743"
+    ],
+    "datasets": [
+      {
+        "data": [
+          804,
+          540,
+          412,
+          2418,
+          743
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "PORTER TOWNSHIP",
+  "updated": "2026-05-09"
+}

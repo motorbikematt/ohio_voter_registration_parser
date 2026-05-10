@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 10 (13%)",
+      "UNC – Lapsed R — 11 (15%)",
+      "Mixed – Active — 6 (8%)",
+      "Mixed – Lapsed — 3 (4%)",
+      "UNC – No Primary — 34 (45%)",
+      "UNC – Lapsed D — 8 (11%)",
+      "Pure D — 3 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          10,
+          11,
+          6,
+          3,
+          34,
+          8,
+          3
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "KIRBY VILLAGE",
+  "updated": "2026-05-09"
+}

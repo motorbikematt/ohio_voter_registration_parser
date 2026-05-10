@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3 (7%)",
+      "UNC – Lapsed R — 3 (7%)",
+      "Mixed – Active — 5 (11%)",
+      "Mixed – Lapsed — 6 (14%)",
+      "UNC – No Primary — 12 (27%)",
+      "UNC – Lapsed D — 6 (14%)",
+      "Pure D — 9 (20%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3,
+          3,
+          5,
+          6,
+          12,
+          6,
+          9
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ANTIOCH VILLAGE",
+  "updated": "2026-05-09"
+}

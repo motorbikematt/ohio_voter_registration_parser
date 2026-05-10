@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 101 (22%)",
+      "UNC – Lapsed R — 68 (15%)",
+      "Mixed – Active — 48 (11%)",
+      "Mixed – Lapsed — 47 (10%)",
+      "UNC – No Primary — 117 (26%)",
+      "UNC – Lapsed D — 46 (10%)",
+      "Pure D — 22 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          101,
+          68,
+          48,
+          47,
+          117,
+          46,
+          22
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WAITE HILL VILLAGE",
+  "updated": "2026-05-09"
+}

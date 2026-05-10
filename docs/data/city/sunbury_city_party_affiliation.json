@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 806 (15%)",
+      "UNC – Lapsed R — 821 (16%)",
+      "Mixed – Active — 319 (6%)",
+      "Mixed – Lapsed — 454 (9%)",
+      "UNC – No Primary — 2,133 (41%)",
+      "UNC – Lapsed D — 486 (9%)",
+      "Pure D — 215 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          806,
+          821,
+          319,
+          454,
+          2133,
+          486,
+          215
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "SUNBURY CITY",
+  "updated": "2026-05-09"
+}

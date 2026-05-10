@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 12 (10%)",
+      "UNC – Lapsed R — 16 (14%)",
+      "Mixed – Active — 5 (4%)",
+      "Mixed – Lapsed — 5 (4%)",
+      "UNC – No Primary — 67 (57%)",
+      "UNC – Lapsed D — 10 (8%)",
+      "Pure D — 3 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          12,
+          16,
+          5,
+          5,
+          67,
+          10,
+          3
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WEST LEIPSIC VILLAGE",
+  "updated": "2026-05-09"
+}

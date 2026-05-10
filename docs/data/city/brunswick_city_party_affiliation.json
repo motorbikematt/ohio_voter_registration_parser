@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,143 (13%)",
+      "UNC – Lapsed R — 2,175 (9%)",
+      "Mixed – Active — 2,049 (9%)",
+      "Mixed – Lapsed — 4,430 (19%)",
+      "UNC – No Primary — 7,317 (31%)",
+      "UNC – Lapsed D — 2,850 (12%)",
+      "Pure D — 1,766 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3143,
+          2175,
+          2049,
+          4430,
+          7317,
+          2850,
+          1766
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "BRUNSWICK CITY",
+  "updated": "2026-05-09"
+}

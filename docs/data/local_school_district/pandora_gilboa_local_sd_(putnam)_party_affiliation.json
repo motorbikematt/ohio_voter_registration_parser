@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 620 (26%)",
+      "UNC – Lapsed R — 486 (20%)",
+      "Mixed – Active — 177 (7%)",
+      "Mixed – Lapsed — 137 (6%)",
+      "UNC – No Primary — 812 (34%)",
+      "UNC – Lapsed D — 113 (5%)",
+      "Pure D — 60 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          620,
+          486,
+          177,
+          137,
+          812,
+          113,
+          60
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "PANDORA-GILBOA LOCAL SD (PUTNAM)",
+  "updated": "2026-05-09"
+}

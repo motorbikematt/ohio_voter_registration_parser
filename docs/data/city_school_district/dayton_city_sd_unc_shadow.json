@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 3,574",
+      "Mixed – Active — 3,079",
+      "Mixed – Lapsed — 3,456",
+      "UNC – No Primary — 47,195",
+      "UNC – Lapsed D — 14,937"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3574,
+          3079,
+          3456,
+          47195,
+          14937
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "DAYTON CITY SD",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,500 (11%)",
+      "UNC – Lapsed R — 1,459 (10%)",
+      "Mixed – Active — 956 (7%)",
+      "Mixed – Lapsed — 900 (6%)",
+      "UNC – No Primary — 7,097 (50%)",
+      "UNC – Lapsed D — 1,714 (12%)",
+      "Pure D — 616 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1500,
+          1459,
+          956,
+          900,
+          7097,
+          1714,
+          616
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "ZANESVILLE CITY SD",
+  "updated": "2026-05-09"
+}

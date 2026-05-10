@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 60",
+      "Mixed – Active — 59",
+      "Mixed – Lapsed — 86",
+      "UNC – No Primary — 247",
+      "UNC – Lapsed D — 70"
+    ],
+    "datasets": [
+      {
+        "data": [
+          60,
+          59,
+          86,
+          247,
+          70
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "MANTUA VILLAGE",
+  "updated": "2026-05-09"
+}

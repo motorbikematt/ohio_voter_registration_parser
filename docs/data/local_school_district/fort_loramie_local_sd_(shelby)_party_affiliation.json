@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 828 (30%)",
+      "UNC – Lapsed R — 309 (11%)",
+      "Mixed – Active — 427 (15%)",
+      "Mixed – Lapsed — 205 (7%)",
+      "UNC – No Primary — 827 (30%)",
+      "UNC – Lapsed D — 107 (4%)",
+      "Pure D — 75 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          828,
+          309,
+          427,
+          205,
+          827,
+          107,
+          75
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "FORT LORAMIE LOCAL SD (SHELBY)",
+  "updated": "2026-05-09"
+}

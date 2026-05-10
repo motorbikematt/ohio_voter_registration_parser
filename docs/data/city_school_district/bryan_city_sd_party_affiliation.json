@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,659 (19%)",
+      "UNC – Lapsed R — 1,156 (13%)",
+      "Mixed – Active — 860 (10%)",
+      "Mixed – Lapsed — 620 (7%)",
+      "UNC – No Primary — 3,467 (40%)",
+      "UNC – Lapsed D — 668 (8%)",
+      "Pure D — 254 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1659,
+          1156,
+          860,
+          620,
+          3467,
+          668,
+          254
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "BRYAN CITY SD",
+  "updated": "2026-05-09"
+}

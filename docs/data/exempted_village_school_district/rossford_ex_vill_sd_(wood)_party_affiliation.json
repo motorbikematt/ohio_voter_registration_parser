@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 854 (9%)",
+      "UNC – Lapsed R — 918 (9%)",
+      "Mixed – Active — 663 (7%)",
+      "Mixed – Lapsed — 833 (9%)",
+      "UNC – No Primary — 4,379 (45%)",
+      "UNC – Lapsed D — 1,344 (14%)",
+      "Pure D — 702 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          854,
+          918,
+          663,
+          833,
+          4379,
+          1344,
+          702
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "ROSSFORD EX VILL SD (WOOD)",
+  "updated": "2026-05-09"
+}

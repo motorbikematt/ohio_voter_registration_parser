@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,297 (14%)",
+      "UNC – Lapsed R — 3,260 (11%)",
+      "Mixed – Active — 2,270 (7%)",
+      "Mixed – Lapsed — 1,990 (6%)",
+      "UNC – No Primary — 14,367 (47%)",
+      "UNC – Lapsed D — 3,199 (10%)",
+      "Pure D — 1,440 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4297,
+          3260,
+          2270,
+          1990,
+          14367,
+          3199,
+          1440
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "NEWARK CITY SD",
+  "updated": "2026-05-09"
+}

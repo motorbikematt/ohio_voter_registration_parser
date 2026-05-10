@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,176 (19%)",
+      "UNC – Lapsed R — 1,271 (20%)",
+      "Mixed – Active — 98 (2%)",
+      "Mixed – Lapsed — 369 (6%)",
+      "UNC – No Primary — 3,189 (51%)",
+      "UNC – Lapsed D — 84 (1%)",
+      "Pure D — 52 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1176,
+          1271,
+          98,
+          369,
+          3189,
+          84,
+          52
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "EAST HOLMES LOCAL SD (HOLMES)",
+  "updated": "2026-05-09"
+}

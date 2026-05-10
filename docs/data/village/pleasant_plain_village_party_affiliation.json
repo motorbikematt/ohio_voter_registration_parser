@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 22 (26%)",
+      "UNC – Lapsed R — 11 (13%)",
+      "Mixed – Active — 3 (4%)",
+      "Mixed – Lapsed — 6 (7%)",
+      "UNC – No Primary — 36 (42%)",
+      "UNC – Lapsed D — 3 (4%)",
+      "Pure D — 4 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          22,
+          11,
+          3,
+          6,
+          36,
+          3,
+          4
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "PLEASANT PLAIN VILLAGE",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,164 (15%)",
+      "UNC – Lapsed R — 799 (10%)",
+      "Mixed – Active — 694 (9%)",
+      "Mixed – Lapsed — 1,500 (19%)",
+      "UNC – No Primary — 2,115 (27%)",
+      "UNC – Lapsed D — 882 (11%)",
+      "Pure D — 550 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1164,
+          799,
+          694,
+          1500,
+          2115,
+          882,
+          550
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "Brunswick Hills TWP",
+  "updated": "2026-05-09"
+}

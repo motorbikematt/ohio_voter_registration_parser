@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,382 (27%)",
+      "UNC – Lapsed R — 778 (15%)",
+      "Mixed – Active — 320 (6%)",
+      "Mixed – Lapsed — 476 (9%)",
+      "UNC – No Primary — 1,687 (33%)",
+      "UNC – Lapsed D — 266 (5%)",
+      "Pure D — 133 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1382,
+          778,
+          320,
+          476,
+          1687,
+          266,
+          133
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "LIBERTY-BENTON LOCAL SD (HANCOCK)",
+  "updated": "2026-05-09"
+}

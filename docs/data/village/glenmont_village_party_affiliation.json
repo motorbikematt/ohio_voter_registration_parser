@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 21 (15%)",
+      "UNC – Lapsed R — 18 (13%)",
+      "Mixed – Active — 12 (9%)",
+      "Mixed – Lapsed — 9 (7%)",
+      "UNC – No Primary — 64 (47%)",
+      "UNC – Lapsed D — 11 (8%)",
+      "Pure D — 2 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          21,
+          18,
+          12,
+          9,
+          64,
+          11,
+          2
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "GLENMONT VILLAGE",
+  "updated": "2026-05-09"
+}

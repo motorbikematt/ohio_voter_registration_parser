@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 7,092",
+      "Mixed – Active — 3,715",
+      "Mixed – Lapsed — 4,392",
+      "UNC – No Primary — 17,916",
+      "UNC – Lapsed D — 4,668"
+    ],
+    "datasets": [
+      {
+        "data": [
+          7092,
+          3715,
+          4392,
+          17916,
+          4668
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "XENIA",
+  "updated": "2026-05-09"
+}

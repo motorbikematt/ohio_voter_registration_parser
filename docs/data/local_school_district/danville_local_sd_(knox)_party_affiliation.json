@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 648 (31%)",
+      "UNC – Lapsed R — 248 (12%)",
+      "Mixed – Active — 164 (8%)",
+      "Mixed – Lapsed — 120 (6%)",
+      "UNC – No Primary — 764 (36%)",
+      "UNC – Lapsed D — 111 (5%)",
+      "Pure D — 55 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          648,
+          248,
+          164,
+          120,
+          764,
+          111,
+          55
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "DANVILLE LOCAL SD (KNOX)",
+  "updated": "2026-05-09"
+}

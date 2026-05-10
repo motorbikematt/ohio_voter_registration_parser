@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 4,529",
+      "Mixed – Active — 2,383",
+      "Mixed – Lapsed — 3,455",
+      "UNC – No Primary — 14,551",
+      "UNC – Lapsed D — 3,928"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4529,
+          2383,
+          3455,
+          14551,
+          3928
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "Jackson Township",
+  "updated": "2026-05-09"
+}

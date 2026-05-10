@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 12 (11%)",
+      "UNC – Lapsed R — 12 (11%)",
+      "Mixed – Active — 5 (5%)",
+      "Mixed – Lapsed — 14 (13%)",
+      "UNC – No Primary — 49 (45%)",
+      "UNC – Lapsed D — 14 (13%)",
+      "Pure D — 2 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          12,
+          12,
+          5,
+          14,
+          49,
+          14,
+          2
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "CUSTAR VILLAGE",
+  "updated": "2026-05-09"
+}

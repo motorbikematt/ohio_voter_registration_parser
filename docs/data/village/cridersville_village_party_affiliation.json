@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 252 (22%)",
+      "UNC – Lapsed R — 141 (12%)",
+      "Mixed – Active — 88 (8%)",
+      "Mixed – Lapsed — 66 (6%)",
+      "UNC – No Primary — 482 (42%)",
+      "UNC – Lapsed D — 79 (7%)",
+      "Pure D — 33 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          252,
+          141,
+          88,
+          66,
+          482,
+          79,
+          33
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "CRIDERSVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

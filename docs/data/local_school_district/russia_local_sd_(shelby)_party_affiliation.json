@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 390 (32%)",
+      "UNC – Lapsed R — 198 (16%)",
+      "Mixed – Active — 155 (13%)",
+      "Mixed – Lapsed — 75 (6%)",
+      "UNC – No Primary — 355 (29%)",
+      "UNC – Lapsed D — 40 (3%)",
+      "Pure D — 10 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          390,
+          198,
+          155,
+          75,
+          355,
+          40,
+          10
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "RUSSIA LOCAL SD (SHELBY)",
+  "updated": "2026-05-09"
+}

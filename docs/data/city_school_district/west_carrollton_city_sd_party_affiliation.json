@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,892 (10%)",
+      "UNC – Lapsed R — 1,929 (11%)",
+      "Mixed – Active — 1,106 (6%)",
+      "Mixed – Lapsed — 1,150 (6%)",
+      "UNC – No Primary — 8,899 (49%)",
+      "UNC – Lapsed D — 2,195 (12%)",
+      "Pure D — 900 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1892,
+          1929,
+          1106,
+          1150,
+          8899,
+          2195,
+          900
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "WEST CARROLLTON CITY SD",
+  "updated": "2026-05-09"
+}

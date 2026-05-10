@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 122 (20%)",
+      "UNC – Lapsed R — 69 (12%)",
+      "Mixed – Active — 57 (10%)",
+      "Mixed – Lapsed — 58 (10%)",
+      "UNC – No Primary — 241 (40%)",
+      "UNC – Lapsed D — 26 (4%)",
+      "Pure D — 24 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          122,
+          69,
+          57,
+          58,
+          241,
+          26,
+          24
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "NEW WASHINGTON VILLAGE",
+  "updated": "2026-05-09"
+}

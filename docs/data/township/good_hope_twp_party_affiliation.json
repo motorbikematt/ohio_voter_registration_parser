@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 179 (20%)",
+      "UNC – Lapsed R — 120 (13%)",
+      "Mixed – Active — 86 (10%)",
+      "Mixed – Lapsed — 59 (7%)",
+      "UNC – No Primary — 311 (35%)",
+      "UNC – Lapsed D — 88 (10%)",
+      "Pure D — 55 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          179,
+          120,
+          86,
+          59,
+          311,
+          88,
+          55
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "GOOD HOPE TWP",
+  "updated": "2026-05-09"
+}

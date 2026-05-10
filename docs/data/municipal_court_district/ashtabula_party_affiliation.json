@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,786 (10%)",
+      "UNC – Lapsed R — 1,176 (6%)",
+      "Mixed – Active — 1,616 (9%)",
+      "Mixed – Lapsed — 1,336 (7%)",
+      "UNC – No Primary — 8,222 (44%)",
+      "UNC – Lapsed D — 2,731 (15%)",
+      "Pure D — 1,726 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1786,
+          1176,
+          1616,
+          1336,
+          8222,
+          2731,
+          1726
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "ASHTABULA",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 900 (31%)",
+      "UNC – Lapsed R — 458 (16%)",
+      "Mixed – Active — 180 (6%)",
+      "Mixed – Lapsed — 155 (5%)",
+      "UNC – No Primary — 1,108 (38%)",
+      "UNC – Lapsed D — 76 (3%)",
+      "Pure D — 35 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          900,
+          458,
+          180,
+          155,
+          1108,
+          76,
+          35
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "FORT RECOVERY LOCAL SD (MERCER)",
+  "updated": "2026-05-09"
+}

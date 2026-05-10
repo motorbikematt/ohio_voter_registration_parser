@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 357 (10%)",
+      "UNC – Lapsed R — 348 (9%)",
+      "Mixed – Active — 219 (6%)",
+      "Mixed – Lapsed — 331 (9%)",
+      "UNC – No Primary — 1,668 (45%)",
+      "UNC – Lapsed D — 565 (15%)",
+      "Pure D — 255 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          357,
+          348,
+          219,
+          331,
+          1668,
+          565,
+          255
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "PORT CLINTON CITY",
+  "updated": "2026-05-09"
+}

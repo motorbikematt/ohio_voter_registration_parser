@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 340 (3%)",
+      "UNC – Lapsed R — 363 (3%)",
+      "Mixed – Active — 311 (3%)",
+      "Mixed – Lapsed — 494 (4%)",
+      "UNC – No Primary — 6,437 (52%)",
+      "UNC – Lapsed D — 2,873 (23%)",
+      "Pure D — 1,465 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          340,
+          363,
+          311,
+          494,
+          6437,
+          2873,
+          1465
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "FOREST PARK CITY",
+  "updated": "2026-05-09"
+}

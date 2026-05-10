@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,247",
+      "Mixed – Active — 649",
+      "Mixed – Lapsed — 1,260",
+      "UNC – No Primary — 10,021",
+      "UNC – Lapsed D — 2,225"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1247,
+          649,
+          1260,
+          10021,
+          2225
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "LIMA CITY",
+  "updated": "2026-05-09"
+}

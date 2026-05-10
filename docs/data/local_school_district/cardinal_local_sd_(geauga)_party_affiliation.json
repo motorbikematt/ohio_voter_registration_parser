@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,154 (18%)",
+      "UNC – Lapsed R — 913 (14%)",
+      "Mixed – Active — 574 (9%)",
+      "Mixed – Lapsed — 800 (12%)",
+      "UNC – No Primary — 2,392 (37%)",
+      "UNC – Lapsed D — 452 (7%)",
+      "Pure D — 204 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1154,
+          913,
+          574,
+          800,
+          2392,
+          452,
+          204
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "CARDINAL LOCAL SD (GEAUGA)",
+  "updated": "2026-05-09"
+}

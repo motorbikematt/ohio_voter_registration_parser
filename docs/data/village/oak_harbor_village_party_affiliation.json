@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 235 (12%)",
+      "UNC – Lapsed R — 224 (12%)",
+      "Mixed – Active — 118 (6%)",
+      "Mixed – Lapsed — 293 (15%)",
+      "UNC – No Primary — 737 (38%)",
+      "UNC – Lapsed D — 201 (10%)",
+      "Pure D — 108 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          235,
+          224,
+          118,
+          293,
+          737,
+          201,
+          108
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "OAK HARBOR VILLAGE",
+  "updated": "2026-05-09"
+}

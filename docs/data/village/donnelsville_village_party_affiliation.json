@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 39 (20%)",
+      "UNC – Lapsed R — 13 (7%)",
+      "Mixed – Active — 19 (10%)",
+      "Mixed – Lapsed — 25 (13%)",
+      "UNC – No Primary — 59 (31%)",
+      "UNC – Lapsed D — 23 (12%)",
+      "Pure D — 15 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          39,
+          13,
+          19,
+          25,
+          59,
+          23,
+          15
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "DONNELSVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

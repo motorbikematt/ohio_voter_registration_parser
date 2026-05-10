@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,086 (10%)",
+      "UNC – Lapsed R — 698 (6%)",
+      "Mixed – Active — 2,206 (19%)",
+      "Mixed – Lapsed — 936 (8%)",
+      "UNC – No Primary — 3,376 (30%)",
+      "UNC – Lapsed D — 1,651 (15%)",
+      "Pure D — 1,433 (13%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1086,
+          698,
+          2206,
+          936,
+          3376,
+          1651,
+          1433
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "POLAND LOCAL SD (MAHONING)",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,540 (7%)",
+      "UNC – Lapsed R — 2,524 (7%)",
+      "Mixed – Active — 3,600 (10%)",
+      "Mixed – Lapsed — 3,298 (9%)",
+      "UNC – No Primary — 13,728 (39%)",
+      "UNC – Lapsed D — 6,036 (17%)",
+      "Pure D — 3,770 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2540,
+          2524,
+          3600,
+          3298,
+          13728,
+          6036,
+          3770
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "BEREA CITY SD",
+  "updated": "2026-05-09"
+}

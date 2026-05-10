@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 43 (10%)",
+      "UNC – Lapsed R — 34 (8%)",
+      "Mixed – Active — 29 (6%)",
+      "Mixed – Lapsed — 28 (6%)",
+      "UNC – No Primary — 205 (46%)",
+      "UNC – Lapsed D — 52 (12%)",
+      "Pure D — 59 (13%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          43,
+          34,
+          29,
+          28,
+          205,
+          52,
+          59
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "VALLEY VIEW VILLAGE",
+  "updated": "2026-05-09"
+}

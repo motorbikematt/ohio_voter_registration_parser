@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 218 (12%)",
+      "UNC – Lapsed R — 261 (15%)",
+      "Mixed – Active — 92 (5%)",
+      "Mixed – Lapsed — 151 (9%)",
+      "UNC – No Primary — 763 (43%)",
+      "UNC – Lapsed D — 200 (11%)",
+      "Pure D — 71 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          218,
+          261,
+          92,
+          151,
+          763,
+          200,
+          71
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "LITHOPOLIS VILLAGE",
+  "updated": "2026-05-09"
+}

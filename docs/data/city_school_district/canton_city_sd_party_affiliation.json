@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,463 (5%)",
+      "UNC – Lapsed R — 1,357 (4%)",
+      "Mixed – Active — 1,820 (6%)",
+      "Mixed – Lapsed — 1,183 (4%)",
+      "UNC – No Primary — 17,640 (56%)",
+      "UNC – Lapsed D — 4,736 (15%)",
+      "Pure D — 3,563 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1463,
+          1357,
+          1820,
+          1183,
+          17640,
+          4736,
+          3563
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "CANTON CITY SD",
+  "updated": "2026-05-09"
+}

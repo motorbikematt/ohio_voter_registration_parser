@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,212 (23%)",
+      "UNC – Lapsed R — 1,387 (14%)",
+      "Mixed – Active — 740 (8%)",
+      "Mixed – Lapsed — 668 (7%)",
+      "UNC – No Primary — 3,739 (39%)",
+      "UNC – Lapsed D — 620 (6%)",
+      "Pure D — 237 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2212,
+          1387,
+          740,
+          668,
+          3739,
+          620,
+          237
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "EATON COMMUNITY SCHOOLS CITY SD",
+  "updated": "2026-05-09"
+}

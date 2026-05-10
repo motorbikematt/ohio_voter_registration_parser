@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,374 (24%)",
+      "UNC – Lapsed R — 1,485 (15%)",
+      "Mixed – Active — 847 (9%)",
+      "Mixed – Lapsed — 562 (6%)",
+      "UNC – No Primary — 3,862 (39%)",
+      "UNC – Lapsed D — 538 (5%)",
+      "Pure D — 248 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2374,
+          1485,
+          847,
+          562,
+          3862,
+          538,
+          248
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "WEST HOLMES LOCAL SD (HOLMES)",
+  "updated": "2026-05-09"
+}

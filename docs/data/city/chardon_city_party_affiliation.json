@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 651 (16%)",
+      "UNC – Lapsed R — 507 (13%)",
+      "Mixed – Active — 416 (10%)",
+      "Mixed – Lapsed — 383 (10%)",
+      "UNC – No Primary — 1,408 (36%)",
+      "UNC – Lapsed D — 436 (11%)",
+      "Pure D — 162 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          651,
+          507,
+          416,
+          383,
+          1408,
+          436,
+          162
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "CHARDON CITY",
+  "updated": "2026-05-09"
+}

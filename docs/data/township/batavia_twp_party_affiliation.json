@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,780 (14%)",
+      "UNC – Lapsed R — 2,743 (14%)",
+      "Mixed – Active — 860 (4%)",
+      "Mixed – Lapsed — 2,080 (11%)",
+      "UNC – No Primary — 8,920 (45%)",
+      "UNC – Lapsed D — 1,734 (9%)",
+      "Pure D — 519 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2780,
+          2743,
+          860,
+          2080,
+          8920,
+          1734,
+          519
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BATAVIA TWP",
+  "updated": "2026-05-09"
+}

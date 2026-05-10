@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 411 (9%)",
+      "UNC – Lapsed R — 392 (9%)",
+      "Mixed – Active — 388 (9%)",
+      "Mixed – Lapsed — 464 (10%)",
+      "UNC – No Primary — 1,694 (38%)",
+      "UNC – Lapsed D — 717 (16%)",
+      "Pure D — 451 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          411,
+          392,
+          388,
+          464,
+          1694,
+          717,
+          451
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "ROSSFORD CITY",
+  "updated": "2026-05-09"
+}

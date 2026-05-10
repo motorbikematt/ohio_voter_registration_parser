@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 194 (27%)",
+      "UNC – Lapsed R — 65 (9%)",
+      "Mixed – Active — 82 (11%)",
+      "Mixed – Lapsed — 49 (7%)",
+      "UNC – No Primary — 233 (32%)",
+      "UNC – Lapsed D — 64 (9%)",
+      "Pure D — 45 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          194,
+          65,
+          82,
+          49,
+          233,
+          64,
+          45
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "THORNVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

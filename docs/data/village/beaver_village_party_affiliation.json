@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 31 (14%)",
+      "UNC – Lapsed R — 35 (15%)",
+      "Mixed – Active — 13 (6%)",
+      "Mixed – Lapsed — 11 (5%)",
+      "UNC – No Primary — 96 (42%)",
+      "UNC – Lapsed D — 31 (14%)",
+      "Pure D — 11 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          31,
+          35,
+          13,
+          11,
+          96,
+          31,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BEAVER VILLAGE",
+  "updated": "2026-05-09"
+}

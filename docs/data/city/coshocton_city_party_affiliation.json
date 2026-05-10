@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,391 (21%)",
+      "UNC – Lapsed R — 553 (8%)",
+      "Mixed – Active — 796 (12%)",
+      "Mixed – Lapsed — 470 (7%)",
+      "UNC – No Primary — 2,614 (39%)",
+      "UNC – Lapsed D — 615 (9%)",
+      "Pure D — 335 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1391,
+          553,
+          796,
+          470,
+          2614,
+          615,
+          335
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "COSHOCTON CITY",
+  "updated": "2026-05-09"
+}

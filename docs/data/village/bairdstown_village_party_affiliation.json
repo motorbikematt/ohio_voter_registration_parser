@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2 (3%)",
+      "UNC – Lapsed R — 6 (10%)",
+      "Mixed – Active — 0 (0%)",
+      "Mixed – Lapsed — 4 (6%)",
+      "UNC – No Primary — 43 (68%)",
+      "UNC – Lapsed D — 8 (13%)",
+      "Pure D — 0 (0%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2,
+          6,
+          0,
+          4,
+          43,
+          8,
+          0
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BAIRDSTOWN VILLAGE",
+  "updated": "2026-05-09"
+}

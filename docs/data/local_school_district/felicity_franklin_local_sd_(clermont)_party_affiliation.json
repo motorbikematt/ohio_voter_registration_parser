@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 800 (25%)",
+      "UNC – Lapsed R — 272 (8%)",
+      "Mixed – Active — 253 (8%)",
+      "Mixed – Lapsed — 148 (5%)",
+      "UNC – No Primary — 1,412 (44%)",
+      "UNC – Lapsed D — 212 (7%)",
+      "Pure D — 112 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          800,
+          272,
+          253,
+          148,
+          1412,
+          212,
+          112
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "FELICITY-FRANKLIN LOCAL SD (CLERMONT)",
+  "updated": "2026-05-09"
+}

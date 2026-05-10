@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 34 (23%)",
+      "UNC – Lapsed R — 17 (11%)",
+      "Mixed – Active — 11 (7%)",
+      "Mixed – Lapsed — 15 (10%)",
+      "UNC – No Primary — 43 (29%)",
+      "UNC – Lapsed D — 25 (17%)",
+      "Pure D — 5 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          34,
+          17,
+          11,
+          15,
+          43,
+          25,
+          5
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "TARLTON VILLAGE",
+  "updated": "2026-05-09"
+}

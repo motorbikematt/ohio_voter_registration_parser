@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 32 (11%)",
+      "UNC – Lapsed R — 51 (17%)",
+      "Mixed – Active — 10 (3%)",
+      "Mixed – Lapsed — 13 (4%)",
+      "UNC – No Primary — 158 (54%)",
+      "UNC – Lapsed D — 22 (8%)",
+      "Pure D — 6 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          32,
+          51,
+          10,
+          13,
+          158,
+          22,
+          6
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "THURSTON VILLAGE",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 21 (18%)",
+      "UNC – Lapsed R — 9 (8%)",
+      "Mixed – Active — 12 (10%)",
+      "Mixed – Lapsed — 7 (6%)",
+      "UNC – No Primary — 46 (39%)",
+      "UNC – Lapsed D — 17 (14%)",
+      "Pure D — 7 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          21,
+          9,
+          12,
+          7,
+          46,
+          17,
+          7
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ORANGEVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

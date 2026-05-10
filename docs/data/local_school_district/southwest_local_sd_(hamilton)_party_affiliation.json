@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,237 (16%)",
+      "UNC – Lapsed R — 3,169 (15%)",
+      "Mixed – Active — 1,047 (5%)",
+      "Mixed – Lapsed — 1,570 (8%)",
+      "UNC – No Primary — 9,845 (48%)",
+      "UNC – Lapsed D — 1,382 (7%)",
+      "Pure D — 357 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3237,
+          3169,
+          1047,
+          1570,
+          9845,
+          1382,
+          357
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "SOUTHWEST LOCAL SD (HAMILTON)",
+  "updated": "2026-05-09"
+}

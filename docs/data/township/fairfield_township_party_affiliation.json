@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,363 (20%)",
+      "UNC – Lapsed R — 2,655 (12%)",
+      "Mixed – Active — 1,409 (6%)",
+      "Mixed – Lapsed — 1,511 (7%)",
+      "UNC – No Primary — 8,954 (41%)",
+      "UNC – Lapsed D — 2,046 (9%)",
+      "Pure D — 1,098 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4363,
+          2655,
+          1409,
+          1511,
+          8954,
+          2046,
+          1098
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FAIRFIELD TOWNSHIP",
+  "updated": "2026-05-09"
+}

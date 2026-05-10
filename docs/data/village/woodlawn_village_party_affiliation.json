@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 28 (1%)",
+      "UNC – Lapsed R — 59 (2%)",
+      "Mixed – Active — 68 (3%)",
+      "Mixed – Lapsed — 117 (5%)",
+      "UNC – No Primary — 1,309 (50%)",
+      "UNC – Lapsed D — 686 (26%)",
+      "Pure D — 330 (13%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          28,
+          59,
+          68,
+          117,
+          1309,
+          686,
+          330
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WOODLAWN VILLAGE",
+  "updated": "2026-05-09"
+}

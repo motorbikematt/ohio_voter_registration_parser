@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,121 (10%)",
+      "UNC – Lapsed R — 1,018 (9%)",
+      "Mixed – Active — 1,219 (10%)",
+      "Mixed – Lapsed — 1,189 (10%)",
+      "UNC – No Primary — 4,525 (38%)",
+      "UNC – Lapsed D — 1,920 (16%)",
+      "Pure D — 783 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1121,
+          1018,
+          1219,
+          1189,
+          4525,
+          1920,
+          783
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "EASTLAKE CITY",
+  "updated": "2026-05-09"
+}

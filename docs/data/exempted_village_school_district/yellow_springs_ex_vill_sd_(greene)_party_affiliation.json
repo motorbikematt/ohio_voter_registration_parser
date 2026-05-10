@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 132 (3%)",
+      "UNC – Lapsed R — 143 (4%)",
+      "Mixed – Active — 372 (10%)",
+      "Mixed – Lapsed — 296 (8%)",
+      "UNC – No Primary — 961 (25%)",
+      "UNC – Lapsed D — 905 (24%)",
+      "Pure D — 975 (26%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          132,
+          143,
+          372,
+          296,
+          961,
+          905,
+          975
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "YELLOW SPRINGS EX VILL SD (GREENE)",
+  "updated": "2026-05-09"
+}

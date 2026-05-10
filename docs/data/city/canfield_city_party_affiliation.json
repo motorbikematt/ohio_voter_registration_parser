@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 839 (14%)",
+      "UNC – Lapsed R — 389 (7%)",
+      "Mixed – Active — 1,162 (20%)",
+      "Mixed – Lapsed — 352 (6%)",
+      "UNC – No Primary — 1,609 (27%)",
+      "UNC – Lapsed D — 683 (12%)",
+      "Pure D — 820 (14%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          839,
+          389,
+          1162,
+          352,
+          1609,
+          683,
+          820
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "CANFIELD CITY",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 140 (15%)",
+      "UNC – Lapsed R — 91 (10%)",
+      "Mixed – Active — 78 (9%)",
+      "Mixed – Lapsed — 50 (6%)",
+      "UNC – No Primary — 385 (42%)",
+      "UNC – Lapsed D — 111 (12%)",
+      "Pure D — 54 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          140,
+          91,
+          78,
+          50,
+          385,
+          111,
+          54
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "AUGLAIZE TOWNSHIP",
+  "updated": "2026-05-09"
+}

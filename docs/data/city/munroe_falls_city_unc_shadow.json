@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 313",
+      "Mixed – Active — 384",
+      "Mixed – Lapsed — 313",
+      "UNC – No Primary — 1,265",
+      "UNC – Lapsed D — 522"
+    ],
+    "datasets": [
+      {
+        "data": [
+          313,
+          384,
+          313,
+          1265,
+          522
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "MUNROE FALLS CITY",
+  "updated": "2026-05-09"
+}

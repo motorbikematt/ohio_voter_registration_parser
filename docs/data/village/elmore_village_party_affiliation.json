@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 159 (16%)",
+      "UNC – Lapsed R — 125 (12%)",
+      "Mixed – Active — 54 (5%)",
+      "Mixed – Lapsed — 142 (14%)",
+      "UNC – No Primary — 326 (33%)",
+      "UNC – Lapsed D — 143 (14%)",
+      "Pure D — 52 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          159,
+          125,
+          54,
+          142,
+          326,
+          143,
+          52
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ELMORE VILLAGE",
+  "updated": "2026-05-09"
+}

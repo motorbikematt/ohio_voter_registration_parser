@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 320",
+      "Mixed – Active — 626",
+      "Mixed – Lapsed — 638",
+      "UNC – No Primary — 3,170",
+      "UNC – Lapsed D — 1,332"
+    ],
+    "datasets": [
+      {
+        "data": [
+          320,
+          626,
+          638,
+          3170,
+          1332
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "BROOKLYN CITY SD",
+  "updated": "2026-05-09"
+}

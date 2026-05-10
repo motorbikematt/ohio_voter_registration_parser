@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,612",
+      "Mixed – Active — 2,449",
+      "Mixed – Lapsed — 1,832",
+      "UNC – No Primary — 14,428",
+      "UNC – Lapsed D — 4,881"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1612,
+          2449,
+          1832,
+          14428,
+          4881
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "ELYRIA CITY SD",
+  "updated": "2026-05-09"
+}

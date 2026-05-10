@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 276 (11%)",
+      "UNC – Lapsed R — 208 (9%)",
+      "Mixed – Active — 183 (8%)",
+      "Mixed – Lapsed — 243 (10%)",
+      "UNC – No Primary — 1,053 (44%)",
+      "UNC – Lapsed D — 313 (13%)",
+      "Pure D — 139 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          276,
+          208,
+          183,
+          243,
+          1053,
+          313,
+          139
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BARNESVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

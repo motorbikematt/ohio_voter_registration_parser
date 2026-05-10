@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,527 (15%)",
+      "UNC – Lapsed R — 1,524 (15%)",
+      "Mixed – Active — 500 (5%)",
+      "Mixed – Lapsed — 767 (7%)",
+      "UNC – No Primary — 4,766 (46%)",
+      "UNC – Lapsed D — 955 (9%)",
+      "Pure D — 310 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1527,
+          1524,
+          500,
+          767,
+          4766,
+          955,
+          310
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "MONROE CITY",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 516 (5%)",
+      "UNC – Lapsed R — 462 (4%)",
+      "Mixed – Active — 368 (3%)",
+      "Mixed – Lapsed — 485 (4%)",
+      "UNC – No Primary — 7,037 (62%)",
+      "UNC – Lapsed D — 1,611 (14%)",
+      "Pure D — 784 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          516,
+          462,
+          368,
+          485,
+          7037,
+          1611,
+          784
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "WHITEHALL CITY",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 19 (15%)",
+      "UNC – Lapsed R — 12 (9%)",
+      "Mixed – Active — 12 (9%)",
+      "Mixed – Lapsed — 11 (8%)",
+      "UNC – No Primary — 57 (44%)",
+      "UNC – Lapsed D — 14 (11%)",
+      "Pure D — 6 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          19,
+          12,
+          12,
+          11,
+          57,
+          14,
+          6
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ROGERS VILLAGE",
+  "updated": "2026-05-09"
+}

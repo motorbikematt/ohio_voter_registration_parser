@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,750 (13%)",
+      "UNC – Lapsed R — 1,064 (8%)",
+      "Mixed – Active — 1,728 (13%)",
+      "Mixed – Lapsed — 1,235 (9%)",
+      "UNC – No Primary — 4,538 (33%)",
+      "UNC – Lapsed D — 1,840 (14%)",
+      "Pure D — 1,434 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1750,
+          1064,
+          1728,
+          1235,
+          4538,
+          1840,
+          1434
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "TALLMADGE CITY",
+  "updated": "2026-05-09"
+}

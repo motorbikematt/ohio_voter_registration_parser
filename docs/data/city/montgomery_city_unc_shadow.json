@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,389",
+      "Mixed – Active — 768",
+      "Mixed – Lapsed — 792",
+      "UNC – No Primary — 3,006",
+      "UNC – Lapsed D — 1,026"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1389,
+          768,
+          792,
+          3006,
+          1026
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "MONTGOMERY CITY",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 559 (21%)",
+      "UNC – Lapsed R — 352 (14%)",
+      "Mixed – Active — 189 (7%)",
+      "Mixed – Lapsed — 178 (7%)",
+      "UNC – No Primary — 1,049 (40%)",
+      "UNC – Lapsed D — 206 (8%)",
+      "Pure D — 68 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          559,
+          352,
+          189,
+          178,
+          1049,
+          206,
+          68
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "UPPER SCIOTO VALLEY LOCAL SD (HARDIN)",
+  "updated": "2026-05-09"
+}

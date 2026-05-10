@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 100 (7%)",
+      "UNC – Lapsed R — 95 (7%)",
+      "Mixed – Active — 187 (14%)",
+      "Mixed – Lapsed — 96 (7%)",
+      "UNC – No Primary — 469 (35%)",
+      "UNC – Lapsed D — 262 (20%)",
+      "Pure D — 130 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          100,
+          95,
+          187,
+          96,
+          469,
+          262,
+          130
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WOODSFIELD VILLAGE",
+  "updated": "2026-05-09"
+}

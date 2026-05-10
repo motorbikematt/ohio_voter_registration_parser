@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,957 (16%)",
+      "UNC – Lapsed R — 1,841 (10%)",
+      "Mixed – Active — 1,552 (8%)",
+      "Mixed – Lapsed — 1,925 (10%)",
+      "UNC – No Primary — 7,099 (38%)",
+      "UNC – Lapsed D — 1,745 (9%)",
+      "Pure D — 1,534 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2957,
+          1841,
+          1552,
+          1925,
+          7099,
+          1745,
+          1534
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "PERRYSBURG CITY",
+  "updated": "2026-05-09"
+}
