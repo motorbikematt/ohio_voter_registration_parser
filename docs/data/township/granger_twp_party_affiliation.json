@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 758 (21%)",
+      "UNC – Lapsed R — 552 (15%)",
+      "Mixed – Active — 281 (8%)",
+      "Mixed – Lapsed — 506 (14%)",
+      "UNC – No Primary — 976 (27%)",
+      "UNC – Lapsed D — 323 (9%)",
+      "Pure D — 187 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          758,
+          552,
+          281,
+          506,
+          976,
+          323,
+          187
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "Granger TWP",
+  "updated": "2026-05-09"
+}

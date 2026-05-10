@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 46 (20%)",
+      "UNC – Lapsed R — 26 (11%)",
+      "Mixed – Active — 12 (5%)",
+      "Mixed – Lapsed — 15 (6%)",
+      "UNC – No Primary — 99 (42%)",
+      "UNC – Lapsed D — 27 (12%)",
+      "Pure D — 8 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          46,
+          26,
+          12,
+          15,
+          99,
+          27,
+          8
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "JERRY CITY VILLAGE",
+  "updated": "2026-05-09"
+}

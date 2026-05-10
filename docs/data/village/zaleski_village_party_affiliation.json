@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 31 (18%)",
+      "UNC – Lapsed R — 14 (8%)",
+      "Mixed – Active — 15 (9%)",
+      "Mixed – Lapsed — 9 (5%)",
+      "UNC – No Primary — 67 (39%)",
+      "UNC – Lapsed D — 13 (8%)",
+      "Pure D — 21 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          31,
+          14,
+          15,
+          9,
+          67,
+          13,
+          21
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ZALESKI VILLAGE",
+  "updated": "2026-05-09"
+}

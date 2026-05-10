@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 728",
+      "Mixed – Active — 970",
+      "Mixed – Lapsed — 509",
+      "UNC – No Primary — 3,337",
+      "UNC – Lapsed D — 767"
+    ],
+    "datasets": [
+      {
+        "data": [
+          728,
+          970,
+          509,
+          3337,
+          767
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "YAMARICK",
+  "updated": "2026-05-09"
+}

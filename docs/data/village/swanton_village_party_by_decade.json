@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          1,
+          7,
+          72,
+          82,
+          76,
+          60,
+          46,
+          21,
+          14
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          1,
+          8,
+          19,
+          29,
+          50,
+          52,
+          38,
+          38,
+          5
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          0,
+          9,
+          41,
+          77,
+          53,
+          38,
+          28,
+          5,
+          0
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          1,
+          7,
+          29,
+          48,
+          59,
+          59,
+          30,
+          19,
+          5
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          0,
+          4,
+          21,
+          46,
+          85,
+          114,
+          208,
+          263,
+          259
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          1,
+          17,
+          30,
+          63,
+          66,
+          46,
+          46,
+          27,
+          3
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          1,
+          9,
+          26,
+          54,
+          23,
+          25,
+          15,
+          6,
+          10
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "SWANTON VILLAGE",
+  "updated": "2026-05-09"
+}

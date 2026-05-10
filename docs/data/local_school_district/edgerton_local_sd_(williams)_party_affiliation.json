@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 494 (19%)",
+      "UNC – Lapsed R — 440 (17%)",
+      "Mixed – Active — 189 (7%)",
+      "Mixed – Lapsed — 200 (8%)",
+      "UNC – No Primary — 1,059 (41%)",
+      "UNC – Lapsed D — 173 (7%)",
+      "Pure D — 51 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          494,
+          440,
+          189,
+          200,
+          1059,
+          173,
+          51
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "EDGERTON LOCAL SD (WILLIAMS)",
+  "updated": "2026-05-09"
+}

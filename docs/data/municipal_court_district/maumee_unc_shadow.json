@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 4,031",
+      "Mixed – Active — 3,160",
+      "Mixed – Lapsed — 3,619",
+      "UNC – No Primary — 13,147",
+      "UNC – Lapsed D — 4,654"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4031,
+          3160,
+          3619,
+          13147,
+          4654
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "MAUMEE",
+  "updated": "2026-05-09"
+}

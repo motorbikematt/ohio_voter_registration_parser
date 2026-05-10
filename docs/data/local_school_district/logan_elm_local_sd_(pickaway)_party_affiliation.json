@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,061 (23%)",
+      "UNC – Lapsed R — 1,004 (11%)",
+      "Mixed – Active — 1,094 (12%)",
+      "Mixed – Lapsed — 701 (8%)",
+      "UNC – No Primary — 2,830 (32%)",
+      "UNC – Lapsed D — 804 (9%)",
+      "Pure D — 386 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2061,
+          1004,
+          1094,
+          701,
+          2830,
+          804,
+          386
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "LOGAN ELM LOCAL SD (PICKAWAY)",
+  "updated": "2026-05-09"
+}

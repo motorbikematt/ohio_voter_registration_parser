@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 246 (25%)",
+      "UNC – Lapsed R — 117 (12%)",
+      "Mixed – Active — 117 (12%)",
+      "Mixed – Lapsed — 59 (6%)",
+      "UNC – No Primary — 341 (34%)",
+      "UNC – Lapsed D — 80 (8%)",
+      "Pure D — 39 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          246,
+          117,
+          117,
+          59,
+          341,
+          80,
+          39
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WILLS TOWNSHIP",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,621 (17%)",
+      "UNC – Lapsed R — 1,906 (20%)",
+      "Mixed – Active — 638 (7%)",
+      "Mixed – Lapsed — 836 (9%)",
+      "UNC – No Primary — 3,764 (39%)",
+      "UNC – Lapsed D — 812 (8%)",
+      "Pure D — 194 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1621,
+          1906,
+          638,
+          836,
+          3764,
+          812,
+          194
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "JACKSON CITY SD",
+  "updated": "2026-05-09"
+}

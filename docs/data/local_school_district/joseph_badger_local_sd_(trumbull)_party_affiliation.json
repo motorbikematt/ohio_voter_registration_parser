@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 718 (17%)",
+      "UNC – Lapsed R — 319 (8%)",
+      "Mixed – Active — 599 (14%)",
+      "Mixed – Lapsed — 275 (7%)",
+      "UNC – No Primary — 1,392 (33%)",
+      "UNC – Lapsed D — 483 (12%)",
+      "Pure D — 388 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          718,
+          319,
+          599,
+          275,
+          1392,
+          483,
+          388
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "JOSEPH BADGER LOCAL SD (TRUMBULL)",
+  "updated": "2026-05-09"
+}

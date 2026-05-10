@@ -1,0 +1,39 @@
+{
+  "title": "Voter Age Distribution by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          13,
+          211,
+          785,
+          1418,
+          1482,
+          1075,
+          1119,
+          912,
+          752
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "CHESTER TWP",
+  "updated": "2026-05-09"
+}

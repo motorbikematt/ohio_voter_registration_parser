@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 5,398 (23%)",
+      "UNC – Lapsed R — 3,002 (13%)",
+      "Mixed – Active — 1,699 (7%)",
+      "Mixed – Lapsed — 1,173 (5%)",
+      "UNC – No Primary — 10,154 (43%)",
+      "UNC – Lapsed D — 1,534 (7%)",
+      "Pure D — 504 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5398,
+          3002,
+          1699,
+          1173,
+          10154,
+          1534,
+          504
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "HILLSBORO",
+  "updated": "2026-05-09"
+}

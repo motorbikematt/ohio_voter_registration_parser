@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 8,425 (20%)",
+      "UNC – Lapsed R — 5,567 (13%)",
+      "Mixed – Active — 3,512 (8%)",
+      "Mixed – Lapsed — 5,000 (12%)",
+      "UNC – No Primary — 13,816 (33%)",
+      "UNC – Lapsed D — 3,600 (9%)",
+      "Pure D — 2,339 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          8425,
+          5567,
+          3512,
+          5000,
+          13816,
+          3600,
+          2339
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BEAVERCREEK",
+  "updated": "2026-05-09"
+}

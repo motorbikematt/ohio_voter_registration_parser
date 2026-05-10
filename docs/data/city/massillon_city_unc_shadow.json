@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,409",
+      "Mixed – Active — 1,975",
+      "Mixed – Lapsed — 1,224",
+      "UNC – No Primary — 8,620",
+      "UNC – Lapsed D — 2,800"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1409,
+          1975,
+          1224,
+          8620,
+          2800
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "MASSILLON CITY",
+  "updated": "2026-05-09"
+}

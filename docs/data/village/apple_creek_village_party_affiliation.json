@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 164 (23%)",
+      "UNC – Lapsed R — 94 (13%)",
+      "Mixed – Active — 49 (7%)",
+      "Mixed – Lapsed — 73 (10%)",
+      "UNC – No Primary — 282 (39%)",
+      "UNC – Lapsed D — 47 (6%)",
+      "Pure D — 16 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          164,
+          94,
+          49,
+          73,
+          282,
+          47,
+          16
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "APPLE CREEK VILLAGE",
+  "updated": "2026-05-09"
+}

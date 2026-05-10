@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 839 (17%)",
+      "UNC – Lapsed R — 847 (17%)",
+      "Mixed – Active — 270 (5%)",
+      "Mixed – Lapsed — 395 (8%)",
+      "UNC – No Primary — 2,212 (44%)",
+      "UNC – Lapsed D — 339 (7%)",
+      "Pure D — 111 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          839,
+          847,
+          270,
+          395,
+          2212,
+          339,
+          111
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "GARAWAY LOCAL SD (TUSC)",
+  "updated": "2026-05-09"
+}

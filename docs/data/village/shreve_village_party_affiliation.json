@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 118 (14%)",
+      "UNC – Lapsed R — 115 (14%)",
+      "Mixed – Active — 48 (6%)",
+      "Mixed – Lapsed — 71 (8%)",
+      "UNC – No Primary — 397 (47%)",
+      "UNC – Lapsed D — 66 (8%)",
+      "Pure D — 22 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          118,
+          115,
+          48,
+          71,
+          397,
+          66,
+          22
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SHREVE VILLAGE",
+  "updated": "2026-05-09"
+}

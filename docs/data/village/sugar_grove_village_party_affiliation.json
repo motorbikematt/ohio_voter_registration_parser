@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 48 (18%)",
+      "UNC – Lapsed R — 28 (10%)",
+      "Mixed – Active — 18 (7%)",
+      "Mixed – Lapsed — 21 (8%)",
+      "UNC – No Primary — 105 (39%)",
+      "UNC – Lapsed D — 29 (11%)",
+      "Pure D — 20 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          48,
+          28,
+          18,
+          21,
+          105,
+          29,
+          20
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SUGAR GROVE VILLAGE",
+  "updated": "2026-05-09"
+}

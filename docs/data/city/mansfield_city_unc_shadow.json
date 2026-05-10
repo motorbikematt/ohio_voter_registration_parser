@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,892",
+      "Mixed – Active — 1,865",
+      "Mixed – Lapsed — 1,426",
+      "UNC – No Primary — 12,277",
+      "UNC – Lapsed D — 3,140"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1892,
+          1865,
+          1426,
+          12277,
+          3140
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "MANSFIELD CITY",
+  "updated": "2026-05-09"
+}

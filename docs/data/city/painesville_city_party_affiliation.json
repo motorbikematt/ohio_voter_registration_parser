@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 724 (7%)",
+      "UNC – Lapsed R — 577 (6%)",
+      "Mixed – Active — 578 (6%)",
+      "Mixed – Lapsed — 560 (6%)",
+      "UNC – No Primary — 5,460 (54%)",
+      "UNC – Lapsed D — 1,556 (15%)",
+      "Pure D — 673 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          724,
+          577,
+          578,
+          560,
+          5460,
+          1556,
+          673
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "PAINESVILLE CITY",
+  "updated": "2026-05-09"
+}

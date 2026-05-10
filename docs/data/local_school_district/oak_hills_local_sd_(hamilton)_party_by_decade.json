@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          17,
+          354,
+          1221,
+          2108,
+          1684,
+          750,
+          467,
+          308,
+          205
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          28,
+          311,
+          633,
+          1288,
+          1776,
+          1307,
+          1321,
+          909,
+          61
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          9,
+          93,
+          477,
+          804,
+          493,
+          296,
+          209,
+          60,
+          7
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          12,
+          172,
+          468,
+          777,
+          954,
+          859,
+          627,
+          358,
+          109
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          8,
+          89,
+          386,
+          1112,
+          1913,
+          2573,
+          4333,
+          5573,
+          4666
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          5,
+          98,
+          283,
+          626,
+          699,
+          744,
+          955,
+          541,
+          60
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          5,
+          54,
+          253,
+          348,
+          203,
+          166,
+          229,
+          180,
+          78
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Local School District",
+  "jurisdiction_name": "OAK HILLS LOCAL SD (HAMILTON)",
+  "updated": "2026-05-09"
+}

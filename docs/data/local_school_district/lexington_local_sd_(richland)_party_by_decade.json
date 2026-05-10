@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          1,
+          124,
+          453,
+          738,
+          566,
+          369,
+          299,
+          167,
+          93
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          3,
+          51,
+          127,
+          229,
+          276,
+          284,
+          287,
+          192,
+          19
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          4,
+          47,
+          207,
+          323,
+          226,
+          132,
+          73,
+          27,
+          3
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          0,
+          30,
+          94,
+          136,
+          143,
+          135,
+          150,
+          63,
+          18
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          2,
+          30,
+          119,
+          277,
+          390,
+          491,
+          734,
+          941,
+          980
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          2,
+          36,
+          125,
+          185,
+          186,
+          152,
+          190,
+          78,
+          10
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          1,
+          21,
+          134,
+          211,
+          111,
+          89,
+          64,
+          30,
+          19
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Local School District",
+  "jurisdiction_name": "LEXINGTON LOCAL SD (RICHLAND)",
+  "updated": "2026-05-09"
+}

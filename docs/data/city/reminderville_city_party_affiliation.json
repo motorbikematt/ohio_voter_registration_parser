@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 310 (9%)",
+      "UNC – Lapsed R — 258 (8%)",
+      "Mixed – Active — 229 (7%)",
+      "Mixed – Lapsed — 385 (11%)",
+      "UNC – No Primary — 1,416 (41%)",
+      "UNC – Lapsed D — 586 (17%)",
+      "Pure D — 252 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          310,
+          258,
+          229,
+          385,
+          1416,
+          586,
+          252
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "REMINDERVILLE CITY",
+  "updated": "2026-05-09"
+}

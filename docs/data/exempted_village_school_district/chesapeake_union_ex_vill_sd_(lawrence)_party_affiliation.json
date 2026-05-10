@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 822 (17%)",
+      "UNC – Lapsed R — 587 (12%)",
+      "Mixed – Active — 318 (7%)",
+      "Mixed – Lapsed — 217 (5%)",
+      "UNC – No Primary — 2,309 (48%)",
+      "UNC – Lapsed D — 372 (8%)",
+      "Pure D — 151 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          822,
+          587,
+          318,
+          217,
+          2309,
+          372,
+          151
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "CHESAPEAKE UNION EX VILL SD (LAWRENCE)",
+  "updated": "2026-05-09"
+}

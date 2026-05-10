@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          1,
+          62,
+          165,
+          288,
+          215,
+          92,
+          60,
+          33,
+          15
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          7,
+          49,
+          136,
+          185,
+          223,
+          155,
+          134,
+          106,
+          2
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          3,
+          38,
+          122,
+          218,
+          145,
+          42,
+          42,
+          9,
+          1
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          7,
+          39,
+          94,
+          157,
+          181,
+          133,
+          128,
+          76,
+          21
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          5,
+          32,
+          162,
+          497,
+          907,
+          1109,
+          1783,
+          2367,
+          1672
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          9,
+          77,
+          278,
+          552,
+          721,
+          661,
+          687,
+          327,
+          34
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          4,
+          55,
+          283,
+          401,
+          299,
+          181,
+          120,
+          85,
+          36
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "MT HEALTHY CITY SD",
+  "updated": "2026-05-09"
+}

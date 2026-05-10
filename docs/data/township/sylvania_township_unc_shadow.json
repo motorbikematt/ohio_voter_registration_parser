@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 4,112",
+      "Mixed – Active — 2,508",
+      "Mixed – Lapsed — 3,346",
+      "UNC – No Primary — 15,316",
+      "UNC – Lapsed D — 5,525"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4112,
+          2508,
+          3346,
+          15316,
+          5525
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "SYLVANIA TOWNSHIP",
+  "updated": "2026-05-09"
+}

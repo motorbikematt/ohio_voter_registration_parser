@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,588 (9%)",
+      "UNC – Lapsed R — 1,725 (10%)",
+      "Mixed – Active — 1,649 (10%)",
+      "Mixed – Lapsed — 1,856 (11%)",
+      "UNC – No Primary — 6,156 (36%)",
+      "UNC – Lapsed D — 2,637 (15%)",
+      "Pure D — 1,647 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1588,
+          1725,
+          1649,
+          1856,
+          6156,
+          2637,
+          1647
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "OLMSTED FALLS CITY SD",
+  "updated": "2026-05-09"
+}

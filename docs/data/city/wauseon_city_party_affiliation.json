@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,068 (23%)",
+      "UNC – Lapsed R — 430 (9%)",
+      "Mixed – Active — 407 (9%)",
+      "Mixed – Lapsed — 367 (8%)",
+      "UNC – No Primary — 1,845 (40%)",
+      "UNC – Lapsed D — 292 (6%)",
+      "Pure D — 217 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1068,
+          430,
+          407,
+          367,
+          1845,
+          292,
+          217
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "WAUSEON CITY",
+  "updated": "2026-05-09"
+}

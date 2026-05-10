@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,346 (23%)",
+      "UNC – Lapsed R — 1,800 (12%)",
+      "Mixed – Active — 1,425 (10%)",
+      "Mixed – Lapsed — 865 (6%)",
+      "UNC – No Primary — 5,743 (40%)",
+      "UNC – Lapsed D — 908 (6%)",
+      "Pure D — 392 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3346,
+          1800,
+          1425,
+          865,
+          5743,
+          908,
+          392
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "GREENVILLE CITY SD",
+  "updated": "2026-05-09"
+}

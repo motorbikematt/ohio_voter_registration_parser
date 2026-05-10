@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 66 (10%)",
+      "UNC – Lapsed R — 61 (9%)",
+      "Mixed – Active — 52 (8%)",
+      "Mixed – Lapsed — 46 (7%)",
+      "UNC – No Primary — 294 (44%)",
+      "UNC – Lapsed D — 101 (15%)",
+      "Pure D — 45 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          66,
+          61,
+          52,
+          46,
+          294,
+          101,
+          45
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SCIOTO TOWNSHIP",
+  "updated": "2026-05-09"
+}

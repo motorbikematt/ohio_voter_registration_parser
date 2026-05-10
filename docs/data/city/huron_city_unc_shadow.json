@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 510",
+      "Mixed – Active — 655",
+      "Mixed – Lapsed — 645",
+      "UNC – No Primary — 1,482",
+      "UNC – Lapsed D — 698"
+    ],
+    "datasets": [
+      {
+        "data": [
+          510,
+          655,
+          645,
+          1482,
+          698
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "HURON CITY",
+  "updated": "2026-05-09"
+}

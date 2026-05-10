@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2 (15%)",
+      "UNC – Lapsed R — 0 (0%)",
+      "Mixed – Active — 2 (15%)",
+      "Mixed – Lapsed — 0 (0%)",
+      "UNC – No Primary — 4 (31%)",
+      "UNC – Lapsed D — 4 (31%)",
+      "Pure D — 1 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2,
+          0,
+          2,
+          0,
+          4,
+          4,
+          1
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "RENDVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

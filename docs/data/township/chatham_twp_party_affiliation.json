@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 393 (23%)",
+      "UNC – Lapsed R — 202 (12%)",
+      "Mixed – Active — 173 (10%)",
+      "Mixed – Lapsed — 254 (15%)",
+      "UNC – No Primary — 443 (26%)",
+      "UNC – Lapsed D — 137 (8%)",
+      "Pure D — 74 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          393,
+          202,
+          173,
+          254,
+          443,
+          137,
+          74
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "Chatham TWP",
+  "updated": "2026-05-09"
+}

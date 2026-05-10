@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          7,
+          55,
+          190,
+          330,
+          179,
+          131,
+          137,
+          70,
+          40
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          6,
+          43,
+          71,
+          87,
+          123,
+          82,
+          89,
+          58,
+          6
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          0,
+          39,
+          179,
+          260,
+          122,
+          83,
+          57,
+          13,
+          3
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          2,
+          32,
+          73,
+          103,
+          102,
+          92,
+          72,
+          24,
+          6
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          2,
+          21,
+          93,
+          175,
+          224,
+          232,
+          333,
+          418,
+          455
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          2,
+          37,
+          69,
+          141,
+          151,
+          116,
+          103,
+          64,
+          9
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          0,
+          17,
+          72,
+          103,
+          50,
+          22,
+          26,
+          16,
+          14
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "COLUMBIANA EX VILL SD (COLUMBIANA)",
+  "updated": "2026-05-09"
+}

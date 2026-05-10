@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 72 (10%)",
+      "UNC – Lapsed R — 39 (6%)",
+      "Mixed – Active — 77 (11%)",
+      "Mixed – Lapsed — 71 (10%)",
+      "UNC – No Primary — 257 (37%)",
+      "UNC – Lapsed D — 110 (16%)",
+      "Pure D — 69 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          72,
+          39,
+          77,
+          71,
+          257,
+          110,
+          69
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "CRAIG BEACH VILLAGE",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 20 (12%)",
+      "UNC – Lapsed R — 12 (7%)",
+      "Mixed – Active — 26 (15%)",
+      "Mixed – Lapsed — 7 (4%)",
+      "UNC – No Primary — 41 (24%)",
+      "UNC – Lapsed D — 20 (12%)",
+      "Pure D — 47 (27%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          20,
+          12,
+          26,
+          7,
+          41,
+          20,
+          47
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "STRATTON VILLAGE",
+  "updated": "2026-05-09"
+}

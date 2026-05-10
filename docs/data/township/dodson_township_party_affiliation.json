@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 386 (23%)",
+      "UNC – Lapsed R — 217 (13%)",
+      "Mixed – Active — 103 (6%)",
+      "Mixed – Lapsed — 85 (5%)",
+      "UNC – No Primary — 772 (45%)",
+      "UNC – Lapsed D — 112 (7%)",
+      "Pure D — 32 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          386,
+          217,
+          103,
+          85,
+          772,
+          112,
+          32
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "DODSON TOWNSHIP",
+  "updated": "2026-05-09"
+}

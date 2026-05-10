@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          0,
+          26,
+          111,
+          188,
+          210,
+          141,
+          116,
+          67,
+          32
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          0,
+          9,
+          30,
+          71,
+          152,
+          115,
+          81,
+          68,
+          7
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          0,
+          4,
+          38,
+          103,
+          70,
+          49,
+          13,
+          5,
+          1
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          1,
+          4,
+          17,
+          38,
+          57,
+          67,
+          32,
+          7,
+          10
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          0,
+          4,
+          30,
+          95,
+          168,
+          200,
+          292,
+          381,
+          330
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          1,
+          5,
+          26,
+          47,
+          56,
+          69,
+          37,
+          19,
+          2
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          0,
+          4,
+          23,
+          19,
+          15,
+          8,
+          8,
+          5,
+          6
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Local School District",
+  "jurisdiction_name": "TRIAD LOCAL SD (CHAMPAIGN)",
+  "updated": "2026-05-09"
+}

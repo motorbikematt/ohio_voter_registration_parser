@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 418 (16%)",
+      "UNC – Lapsed R — 211 (8%)",
+      "Mixed – Active — 320 (12%)",
+      "Mixed – Lapsed — 205 (8%)",
+      "UNC – No Primary — 787 (30%)",
+      "UNC – Lapsed D — 370 (14%)",
+      "Pure D — 290 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          418,
+          211,
+          320,
+          205,
+          787,
+          370,
+          290
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "LEE TOWNSHIP",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 2,378",
+      "Mixed – Active — 824",
+      "Mixed – Lapsed — 1,024",
+      "UNC – No Primary — 6,957",
+      "UNC – Lapsed D — 1,448"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2378,
+          824,
+          1024,
+          6957,
+          1448
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "DUBLIN CITY SD",
+  "updated": "2026-05-09"
+}

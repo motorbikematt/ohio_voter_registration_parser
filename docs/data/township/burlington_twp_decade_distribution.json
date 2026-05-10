@@ -1,0 +1,37 @@
+{
+  "title": "Voter Age Distribution by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          28,
+          80,
+          147,
+          178,
+          138,
+          126,
+          137,
+          96
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BURLINGTON TWP",
+  "updated": "2026-05-09"
+}

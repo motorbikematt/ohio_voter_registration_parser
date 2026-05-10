@@ -1,0 +1,41 @@
+{
+  "title": "Voter Age Distribution by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          3,
+          249,
+          2605,
+          10141,
+          22974,
+          29567,
+          32744,
+          44665,
+          58013,
+          29989
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "State Senate District",
+  "jurisdiction_name": "15",
+  "updated": "2026-05-09"
+}

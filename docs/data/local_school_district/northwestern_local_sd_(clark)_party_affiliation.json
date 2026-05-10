@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,707 (23%)",
+      "UNC – Lapsed R — 959 (13%)",
+      "Mixed – Active — 764 (10%)",
+      "Mixed – Lapsed — 542 (7%)",
+      "UNC – No Primary — 2,667 (35%)",
+      "UNC – Lapsed D — 615 (8%)",
+      "Pure D — 300 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1707,
+          959,
+          764,
+          542,
+          2667,
+          615,
+          300
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "NORTHWESTERN LOCAL SD (CLARK)",
+  "updated": "2026-05-09"
+}

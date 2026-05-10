@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 783 (27%)",
+      "UNC – Lapsed R — 573 (19%)",
+      "Mixed – Active — 230 (8%)",
+      "Mixed – Lapsed — 257 (9%)",
+      "UNC – No Primary — 921 (31%)",
+      "UNC – Lapsed D — 142 (5%)",
+      "Pure D — 46 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          783,
+          573,
+          230,
+          257,
+          921,
+          142,
+          46
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "NEW BREMEN LOCAL SD (AUGLAIZE)",
+  "updated": "2026-05-09"
+}

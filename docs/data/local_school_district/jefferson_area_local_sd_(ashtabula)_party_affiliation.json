@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,266 (16%)",
+      "UNC – Lapsed R — 769 (10%)",
+      "Mixed – Active — 775 (10%)",
+      "Mixed – Lapsed — 622 (8%)",
+      "UNC – No Primary — 3,049 (40%)",
+      "UNC – Lapsed D — 769 (10%)",
+      "Pure D — 447 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1266,
+          769,
+          775,
+          622,
+          3049,
+          769,
+          447
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "JEFFERSON AREA LOCAL SD (ASHTABULA)",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 240",
+      "Mixed – Active — 215",
+      "Mixed – Lapsed — 145",
+      "UNC – No Primary — 738",
+      "UNC – Lapsed D — 199"
+    ],
+    "datasets": [
+      {
+        "data": [
+          240,
+          215,
+          145,
+          738,
+          199
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "LOUDON TWP",
+  "updated": "2026-05-09"
+}

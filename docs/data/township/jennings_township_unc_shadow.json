@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 66",
+      "Mixed – Active — 34",
+      "Mixed – Lapsed — 29",
+      "UNC – No Primary — 188",
+      "UNC – Lapsed D — 22"
+    ],
+    "datasets": [
+      {
+        "data": [
+          66,
+          34,
+          29,
+          188,
+          22
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "JENNINGS TOWNSHIP",
+  "updated": "2026-05-09"
+}

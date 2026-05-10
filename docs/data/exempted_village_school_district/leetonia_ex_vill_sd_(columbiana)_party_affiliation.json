@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 474 (16%)",
+      "UNC – Lapsed R — 243 (8%)",
+      "Mixed – Active — 371 (13%)",
+      "Mixed – Lapsed — 169 (6%)",
+      "UNC – No Primary — 1,170 (41%)",
+      "UNC – Lapsed D — 317 (11%)",
+      "Pure D — 131 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          474,
+          243,
+          371,
+          169,
+          1170,
+          317,
+          131
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "LEETONIA EX VILL SD (COLUMBIANA)",
+  "updated": "2026-05-09"
+}

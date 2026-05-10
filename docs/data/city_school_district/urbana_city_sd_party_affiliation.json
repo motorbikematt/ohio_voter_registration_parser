@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,836 (19%)",
+      "UNC – Lapsed R — 1,149 (12%)",
+      "Mixed – Active — 778 (8%)",
+      "Mixed – Lapsed — 626 (7%)",
+      "UNC – No Primary — 3,907 (41%)",
+      "UNC – Lapsed D — 862 (9%)",
+      "Pure D — 289 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1836,
+          1149,
+          778,
+          626,
+          3907,
+          862,
+          289
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "URBANA CITY SD",
+  "updated": "2026-05-09"
+}

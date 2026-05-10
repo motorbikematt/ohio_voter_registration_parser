@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,702 (19%)",
+      "UNC – Lapsed R — 1,351 (15%)",
+      "Mixed – Active — 783 (9%)",
+      "Mixed – Lapsed — 727 (8%)",
+      "UNC – No Primary — 3,144 (35%)",
+      "UNC – Lapsed D — 1,022 (11%)",
+      "Pure D — 367 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1702,
+          1351,
+          783,
+          727,
+          3144,
+          1022,
+          367
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "WEST MUSKINGUM LOCAL SD (MUSK)",
+  "updated": "2026-05-09"
+}

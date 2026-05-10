@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          7,
+          113,
+          597,
+          1082,
+          1072,
+          740,
+          502,
+          226,
+          167
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          3,
+          66,
+          246,
+          472,
+          759,
+          660,
+          501,
+          386,
+          44
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          1,
+          82,
+          589,
+          825,
+          669,
+          393,
+          232,
+          44,
+          5
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          3,
+          109,
+          457,
+          890,
+          1280,
+          1452,
+          1297,
+          422,
+          265
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          2,
+          35,
+          186,
+          388,
+          794,
+          992,
+          1642,
+          2782,
+          2909
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          8,
+          106,
+          380,
+          715,
+          759,
+          720,
+          680,
+          433,
+          57
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          3,
+          82,
+          396,
+          605,
+          340,
+          358,
+          345,
+          156,
+          90
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "BRUNSWICK CITY SD",
+  "updated": "2026-05-09"
+}

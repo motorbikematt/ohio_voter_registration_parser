@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,485 (15%)",
+      "UNC – Lapsed R — 906 (9%)",
+      "Mixed – Active — 714 (7%)",
+      "Mixed – Lapsed — 776 (8%)",
+      "UNC – No Primary — 4,687 (46%)",
+      "UNC – Lapsed D — 1,031 (10%)",
+      "Pure D — 560 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1485,
+          906,
+          714,
+          776,
+          4687,
+          1031,
+          560
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "NORWALK CITY",
+  "updated": "2026-05-09"
+}

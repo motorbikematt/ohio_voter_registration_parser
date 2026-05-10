@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          2,
+          29,
+          137,
+          230,
+          189,
+          89,
+          77,
+          57,
+          30
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          3,
+          17,
+          31,
+          64,
+          72,
+          63,
+          69,
+          54,
+          10
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          2,
+          10,
+          87,
+          135,
+          81,
+          45,
+          31,
+          5,
+          1
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          2,
+          5,
+          18,
+          53,
+          42,
+          44,
+          43,
+          20,
+          5
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          0,
+          5,
+          22,
+          57,
+          104,
+          144,
+          178,
+          240,
+          237
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          0,
+          8,
+          23,
+          64,
+          59,
+          44,
+          50,
+          22,
+          2
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          0,
+          12,
+          47,
+          50,
+          15,
+          21,
+          16,
+          6,
+          8
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MUSKINGUM TWP",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 378 (15%)",
+      "UNC – Lapsed R — 261 (11%)",
+      "Mixed – Active — 176 (7%)",
+      "Mixed – Lapsed — 212 (9%)",
+      "UNC – No Primary — 1,057 (43%)",
+      "UNC – Lapsed D — 252 (10%)",
+      "Pure D — 103 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          378,
+          261,
+          176,
+          212,
+          1057,
+          252,
+          103
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "NORTH BALTIMORE LOCAL SD (WOOD)",
+  "updated": "2026-05-09"
+}

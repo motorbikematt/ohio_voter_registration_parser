@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 580",
+      "Mixed – Active — 435",
+      "Mixed – Lapsed — 339",
+      "UNC – No Primary — 1,630",
+      "UNC – Lapsed D — 471"
+    ],
+    "datasets": [
+      {
+        "data": [
+          580,
+          435,
+          339,
+          1630,
+          471
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MILTON TWP",
+  "updated": "2026-05-09"
+}

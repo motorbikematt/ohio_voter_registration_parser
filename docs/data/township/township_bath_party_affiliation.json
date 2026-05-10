@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,451 (24%)",
+      "UNC – Lapsed R — 711 (12%)",
+      "Mixed – Active — 405 (7%)",
+      "Mixed – Lapsed — 424 (7%)",
+      "UNC – No Primary — 2,570 (42%)",
+      "UNC – Lapsed D — 357 (6%)",
+      "Pure D — 238 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1451,
+          711,
+          405,
+          424,
+          2570,
+          357,
+          238
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "Township Bath",
+  "updated": "2026-05-09"
+}

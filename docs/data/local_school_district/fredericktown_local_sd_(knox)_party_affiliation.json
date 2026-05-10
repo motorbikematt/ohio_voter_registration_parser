@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,513 (30%)",
+      "UNC – Lapsed R — 629 (13%)",
+      "Mixed – Active — 394 (8%)",
+      "Mixed – Lapsed — 298 (6%)",
+      "UNC – No Primary — 1,705 (34%)",
+      "UNC – Lapsed D — 316 (6%)",
+      "Pure D — 167 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1513,
+          629,
+          394,
+          298,
+          1705,
+          316,
+          167
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "FREDERICKTOWN LOCAL SD (KNOX)",
+  "updated": "2026-05-09"
+}

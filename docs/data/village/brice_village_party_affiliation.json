@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 8 (12%)",
+      "UNC – Lapsed R — 6 (9%)",
+      "Mixed – Active — 5 (8%)",
+      "Mixed – Lapsed — 3 (5%)",
+      "UNC – No Primary — 33 (50%)",
+      "UNC – Lapsed D — 7 (11%)",
+      "Pure D — 4 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          8,
+          6,
+          5,
+          3,
+          33,
+          7,
+          4
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BRICE VILLAGE",
+  "updated": "2026-05-09"
+}

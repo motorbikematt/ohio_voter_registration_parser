@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          18,
+          272,
+          828,
+          1167,
+          1069,
+          541,
+          461,
+          470,
+          130
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          26,
+          206,
+          437,
+          857,
+          1445,
+          1229,
+          1654,
+          1836,
+          110
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          11,
+          156,
+          744,
+          1242,
+          845,
+          554,
+          525,
+          252,
+          7
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          23,
+          144,
+          422,
+          877,
+          1063,
+          1005,
+          1112,
+          1236,
+          349
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          17,
+          147,
+          638,
+          1870,
+          3133,
+          4431,
+          8552,
+          17149,
+          8088
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          32,
+          309,
+          967,
+          2108,
+          2411,
+          2800,
+          3648,
+          3035,
+          370
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          29,
+          265,
+          1214,
+          2195,
+          1418,
+          1151,
+          1452,
+          1242,
+          310
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "State Representative District",
+  "jurisdiction_name": "26",
+  "updated": "2026-05-09"
+}

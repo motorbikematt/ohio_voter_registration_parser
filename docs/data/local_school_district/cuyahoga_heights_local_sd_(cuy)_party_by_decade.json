@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          0,
+          7,
+          52,
+          114,
+          115,
+          90,
+          53,
+          37,
+          30
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          1,
+          6,
+          13,
+          25,
+          48,
+          62,
+          36,
+          45,
+          1
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          1,
+          13,
+          100,
+          164,
+          123,
+          62,
+          36,
+          8,
+          0
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          1,
+          14,
+          30,
+          63,
+          60,
+          65,
+          56,
+          28,
+          20
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          0,
+          4,
+          8,
+          36,
+          68,
+          88,
+          119,
+          210,
+          232
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          1,
+          13,
+          21,
+          56,
+          74,
+          76,
+          45,
+          39,
+          4
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          2,
+          8,
+          49,
+          88,
+          64,
+          41,
+          44,
+          29,
+          17
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Local School District",
+  "jurisdiction_name": "CUYAHOGA HEIGHTS LOCAL SD (CUY)",
+  "updated": "2026-05-09"
+}

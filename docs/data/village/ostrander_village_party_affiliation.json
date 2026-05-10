@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 175 (18%)",
+      "UNC – Lapsed R — 150 (16%)",
+      "Mixed – Active — 74 (8%)",
+      "Mixed – Lapsed — 71 (7%)",
+      "UNC – No Primary — 357 (37%)",
+      "UNC – Lapsed D — 86 (9%)",
+      "Pure D — 52 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          175,
+          150,
+          74,
+          71,
+          357,
+          86,
+          52
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "OSTRANDER VILLAGE",
+  "updated": "2026-05-09"
+}

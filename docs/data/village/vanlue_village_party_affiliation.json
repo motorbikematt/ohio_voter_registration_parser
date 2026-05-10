@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 81 (37%)",
+      "UNC – Lapsed R — 26 (12%)",
+      "Mixed – Active — 17 (8%)",
+      "Mixed – Lapsed — 15 (7%)",
+      "UNC – No Primary — 66 (30%)",
+      "UNC – Lapsed D — 9 (4%)",
+      "Pure D — 5 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          81,
+          26,
+          17,
+          15,
+          66,
+          9,
+          5
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "VANLUE VILLAGE",
+  "updated": "2026-05-09"
+}

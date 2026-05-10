@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 415 (18%)",
+      "UNC – Lapsed R — 296 (13%)",
+      "Mixed – Active — 185 (8%)",
+      "Mixed – Lapsed — 236 (10%)",
+      "UNC – No Primary — 796 (34%)",
+      "UNC – Lapsed D — 299 (13%)",
+      "Pure D — 125 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          415,
+          296,
+          185,
+          236,
+          796,
+          299,
+          125
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WOODVILLE TOWNSHIP",
+  "updated": "2026-05-09"
+}

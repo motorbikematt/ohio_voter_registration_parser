@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 155 (3%)",
+      "UNC – Lapsed R — 124 (2%)",
+      "Mixed – Active — 390 (8%)",
+      "Mixed – Lapsed — 175 (3%)",
+      "UNC – No Primary — 2,301 (46%)",
+      "UNC – Lapsed D — 1,110 (22%)",
+      "Pure D — 768 (15%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          155,
+          124,
+          390,
+          175,
+          2301,
+          1110,
+          768
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "CAMPBELL CITY",
+  "updated": "2026-05-09"
+}

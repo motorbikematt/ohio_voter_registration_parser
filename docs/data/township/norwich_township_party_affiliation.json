@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,643 (12%)",
+      "UNC – Lapsed R — 3,330 (11%)",
+      "Mixed – Active — 2,423 (8%)",
+      "Mixed – Lapsed — 2,857 (10%)",
+      "UNC – No Primary — 11,449 (39%)",
+      "UNC – Lapsed D — 3,294 (11%)",
+      "Pure D — 2,424 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3643,
+          3330,
+          2423,
+          2857,
+          11449,
+          3294,
+          2424
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "Norwich Township",
+  "updated": "2026-05-09"
+}

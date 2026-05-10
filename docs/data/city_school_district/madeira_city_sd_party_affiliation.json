@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,062 (15%)",
+      "UNC – Lapsed R — 1,238 (17%)",
+      "Mixed – Active — 568 (8%)",
+      "Mixed – Lapsed — 588 (8%)",
+      "UNC – No Primary — 2,533 (35%)",
+      "UNC – Lapsed D — 741 (10%)",
+      "Pure D — 511 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1062,
+          1238,
+          568,
+          588,
+          2533,
+          741,
+          511
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "MADEIRA CITY SD",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 169 (20%)",
+      "UNC – Lapsed R — 110 (13%)",
+      "Mixed – Active — 55 (7%)",
+      "Mixed – Lapsed — 71 (9%)",
+      "UNC – No Primary — 369 (45%)",
+      "UNC – Lapsed D — 41 (5%)",
+      "Pure D — 13 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          169,
+          110,
+          55,
+          71,
+          369,
+          41,
+          13
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "DEGRAFF VILLAGE",
+  "updated": "2026-05-09"
+}

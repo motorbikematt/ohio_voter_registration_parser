@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          5,
+          58,
+          462,
+          901,
+          983,
+          453,
+          248,
+          120,
+          108
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          7,
+          48,
+          148,
+          429,
+          927,
+          820,
+          698,
+          437,
+          80
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          0,
+          27,
+          200,
+          423,
+          334,
+          233,
+          107,
+          34,
+          5
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          4,
+          26,
+          117,
+          336,
+          557,
+          702,
+          768,
+          331,
+          399
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          2,
+          19,
+          96,
+          272,
+          459,
+          646,
+          1214,
+          1861,
+          2147
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          0,
+          21,
+          84,
+          277,
+          367,
+          567,
+          535,
+          367,
+          85
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          1,
+          5,
+          106,
+          189,
+          176,
+          156,
+          153,
+          77,
+          99
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "LOVELAND CITY SD",
+  "updated": "2026-05-09"
+}

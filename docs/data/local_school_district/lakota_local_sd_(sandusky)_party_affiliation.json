@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 814 (19%)",
+      "UNC – Lapsed R — 492 (12%)",
+      "Mixed – Active — 374 (9%)",
+      "Mixed – Lapsed — 311 (7%)",
+      "UNC – No Primary — 1,607 (38%)",
+      "UNC – Lapsed D — 402 (10%)",
+      "Pure D — 199 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          814,
+          492,
+          374,
+          311,
+          1607,
+          402,
+          199
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "LAKOTA LOCAL SD (SANDUSKY)",
+  "updated": "2026-05-09"
+}

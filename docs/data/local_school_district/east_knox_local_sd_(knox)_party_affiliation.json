@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,706 (26%)",
+      "UNC – Lapsed R — 967 (14%)",
+      "Mixed – Active — 542 (8%)",
+      "Mixed – Lapsed — 491 (7%)",
+      "UNC – No Primary — 2,259 (34%)",
+      "UNC – Lapsed D — 481 (7%)",
+      "Pure D — 244 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1706,
+          967,
+          542,
+          491,
+          2259,
+          481,
+          244
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "EAST KNOX LOCAL SD (KNOX)",
+  "updated": "2026-05-09"
+}

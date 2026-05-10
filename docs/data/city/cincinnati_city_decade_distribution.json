@@ -1,0 +1,39 @@
+{
+  "title": "Voter Age Distribution by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          320,
+          2920,
+          10492,
+          23616,
+          27995,
+          28658,
+          41485,
+          56285,
+          26476
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "CINCINNATI CITY",
+  "updated": "2026-05-09"
+}

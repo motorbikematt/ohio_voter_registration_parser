@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 413 (23%)",
+      "UNC – Lapsed R — 224 (13%)",
+      "Mixed – Active — 230 (13%)",
+      "Mixed – Lapsed — 150 (8%)",
+      "UNC – No Primary — 564 (32%)",
+      "UNC – Lapsed D — 123 (7%)",
+      "Pure D — 69 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          413,
+          224,
+          230,
+          150,
+          564,
+          123,
+          69
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BURTON TWP",
+  "updated": "2026-05-09"
+}

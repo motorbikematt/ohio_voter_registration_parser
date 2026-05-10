@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,032 (11%)",
+      "UNC – Lapsed R — 725 (8%)",
+      "Mixed – Active — 1,206 (13%)",
+      "Mixed – Lapsed — 768 (8%)",
+      "UNC – No Primary — 3,103 (33%)",
+      "UNC – Lapsed D — 1,268 (14%)",
+      "Pure D — 1,256 (13%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1032,
+          725,
+          1206,
+          768,
+          3103,
+          1268,
+          1256
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "AMHERST CITY",
+  "updated": "2026-05-09"
+}

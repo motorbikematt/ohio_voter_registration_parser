@@ -1,0 +1,143 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          0,
+          23,
+          248,
+          884,
+          1433,
+          1103,
+          601,
+          476,
+          264,
+          137
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          1,
+          20,
+          195,
+          387,
+          746,
+          1018,
+          815,
+          851,
+          717,
+          52
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          0,
+          12,
+          171,
+          690,
+          1049,
+          678,
+          399,
+          261,
+          98,
+          8
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          0,
+          12,
+          105,
+          301,
+          535,
+          577,
+          516,
+          427,
+          229,
+          77
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          0,
+          8,
+          78,
+          357,
+          952,
+          1421,
+          1910,
+          3223,
+          5098,
+          3792
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          0,
+          13,
+          116,
+          358,
+          671,
+          707,
+          820,
+          1077,
+          770,
+          85
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          0,
+          13,
+          111,
+          470,
+          792,
+          491,
+          449,
+          513,
+          476,
+          161
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "KETTERING CITY SD",
+  "updated": "2026-05-09"
+}

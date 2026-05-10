@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 27 (11%)",
+      "UNC – Lapsed R — 21 (8%)",
+      "Mixed – Active — 21 (8%)",
+      "Mixed – Lapsed — 18 (7%)",
+      "UNC – No Primary — 129 (51%)",
+      "UNC – Lapsed D — 23 (9%)",
+      "Pure D — 13 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          27,
+          21,
+          21,
+          18,
+          129,
+          23,
+          13
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "COLLEGE CORNER VILLAGE",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,048 (18%)",
+      "UNC – Lapsed R — 1,353 (12%)",
+      "Mixed – Active — 862 (8%)",
+      "Mixed – Lapsed — 589 (5%)",
+      "UNC – No Primary — 5,139 (46%)",
+      "UNC – Lapsed D — 844 (8%)",
+      "Pure D — 277 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2048,
+          1353,
+          862,
+          589,
+          5139,
+          844,
+          277
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "WESTERN BROWN LOCAL SD (BROWN)",
+  "updated": "2026-05-09"
+}

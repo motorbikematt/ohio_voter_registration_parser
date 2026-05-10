@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 109 (18%)",
+      "UNC – Lapsed R — 57 (9%)",
+      "Mixed – Active — 55 (9%)",
+      "Mixed – Lapsed — 45 (7%)",
+      "UNC – No Primary — 208 (34%)",
+      "UNC – Lapsed D — 72 (12%)",
+      "Pure D — 72 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          109,
+          57,
+          55,
+          45,
+          208,
+          72,
+          72
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ALBANY VILLAGE",
+  "updated": "2026-05-09"
+}

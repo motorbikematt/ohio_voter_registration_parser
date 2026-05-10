@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,858 (24%)",
+      "UNC – Lapsed R — 1,608 (13%)",
+      "Mixed – Active — 749 (6%)",
+      "Mixed – Lapsed — 937 (8%)",
+      "UNC – No Primary — 4,584 (38%)",
+      "UNC – Lapsed D — 858 (7%)",
+      "Pure D — 530 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2858,
+          1608,
+          749,
+          937,
+          4584,
+          858,
+          530
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "SHAWNEE LOCAL SD (ALLEN)",
+  "updated": "2026-05-09"
+}

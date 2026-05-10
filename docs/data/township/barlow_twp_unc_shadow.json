@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 227",
+      "Mixed – Active — 224",
+      "Mixed – Lapsed — 219",
+      "UNC – No Primary — 596",
+      "UNC – Lapsed D — 129"
+    ],
+    "datasets": [
+      {
+        "data": [
+          227,
+          224,
+          219,
+          596,
+          129
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BARLOW TWP",
+  "updated": "2026-05-09"
+}

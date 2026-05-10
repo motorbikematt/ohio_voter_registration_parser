@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          13,
+          198,
+          540,
+          896,
+          983,
+          522,
+          233,
+          105,
+          119
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          13,
+          98,
+          225,
+          417,
+          936,
+          760,
+          474,
+          319,
+          60
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          3,
+          51,
+          199,
+          344,
+          332,
+          221,
+          77,
+          18,
+          7
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          7,
+          46,
+          153,
+          275,
+          530,
+          600,
+          289,
+          112,
+          90
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          5,
+          63,
+          224,
+          503,
+          957,
+          1595,
+          1779,
+          1894,
+          2865
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          1,
+          54,
+          109,
+          265,
+          436,
+          607,
+          425,
+          292,
+          118
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          5,
+          39,
+          132,
+          194,
+          203,
+          254,
+          164,
+          83,
+          115
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "MASON CITY",
+  "updated": "2026-05-09"
+}

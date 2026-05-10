@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 344 (15%)",
+      "UNC – Lapsed R — 286 (12%)",
+      "Mixed – Active — 190 (8%)",
+      "Mixed – Lapsed — 235 (10%)",
+      "UNC – No Primary — 853 (36%)",
+      "UNC – Lapsed D — 290 (12%)",
+      "Pure D — 171 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          344,
+          286,
+          190,
+          235,
+          853,
+          290,
+          171
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BENTON TWP",
+  "updated": "2026-05-09"
+}

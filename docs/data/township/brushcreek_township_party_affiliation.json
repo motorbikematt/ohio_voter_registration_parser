@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 181 (22%)",
+      "UNC – Lapsed R — 146 (18%)",
+      "Mixed – Active — 49 (6%)",
+      "Mixed – Lapsed — 51 (6%)",
+      "UNC – No Primary — 332 (41%)",
+      "UNC – Lapsed D — 38 (5%)",
+      "Pure D — 16 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          181,
+          146,
+          49,
+          51,
+          332,
+          38,
+          16
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BRUSHCREEK TOWNSHIP",
+  "updated": "2026-05-09"
+}

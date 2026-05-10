@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 242 (35%)",
+      "UNC – Lapsed R — 65 (10%)",
+      "Mixed – Active — 72 (11%)",
+      "Mixed – Lapsed — 15 (2%)",
+      "UNC – No Primary — 232 (34%)",
+      "UNC – Lapsed D — 46 (7%)",
+      "Pure D — 11 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          242,
+          65,
+          72,
+          15,
+          232,
+          46,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "OLIVER TOWNSHIP",
+  "updated": "2026-05-09"
+}

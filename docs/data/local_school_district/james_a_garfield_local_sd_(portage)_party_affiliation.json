@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 832 (15%)",
+      "UNC – Lapsed R — 522 (9%)",
+      "Mixed – Active — 632 (11%)",
+      "Mixed – Lapsed — 430 (7%)",
+      "UNC – No Primary — 2,319 (40%)",
+      "UNC – Lapsed D — 636 (11%)",
+      "Pure D — 365 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          832,
+          522,
+          632,
+          430,
+          2319,
+          636,
+          365
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "JAMES A GARFIELD LOCAL SD (PORTAGE)",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 128 (26%)",
+      "UNC – Lapsed R — 76 (16%)",
+      "Mixed – Active — 22 (5%)",
+      "Mixed – Lapsed — 7 (1%)",
+      "UNC – No Primary — 219 (45%)",
+      "UNC – Lapsed D — 25 (5%)",
+      "Pure D — 7 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          128,
+          76,
+          22,
+          7,
+          219,
+          25,
+          7
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HOAGLIN TOWNSHIP",
+  "updated": "2026-05-09"
+}

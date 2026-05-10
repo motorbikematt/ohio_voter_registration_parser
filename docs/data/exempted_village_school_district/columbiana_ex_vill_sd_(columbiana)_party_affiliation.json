@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,139 (19%)",
+      "UNC – Lapsed R — 565 (10%)",
+      "Mixed – Active — 756 (13%)",
+      "Mixed – Lapsed — 506 (9%)",
+      "UNC – No Primary — 1,953 (33%)",
+      "UNC – Lapsed D — 692 (12%)",
+      "Pure D — 320 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1139,
+          565,
+          756,
+          506,
+          1953,
+          692,
+          320
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "COLUMBIANA EX VILL SD (COLUMBIANA)",
+  "updated": "2026-05-09"
+}

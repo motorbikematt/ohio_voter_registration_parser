@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 354",
+      "Mixed – Active — 662",
+      "Mixed – Lapsed — 564",
+      "UNC – No Primary — 2,950",
+      "UNC – Lapsed D — 1,005"
+    ],
+    "datasets": [
+      {
+        "data": [
+          354,
+          662,
+          564,
+          2950,
+          1005
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "RAVENNA CITY",
+  "updated": "2026-05-09"
+}

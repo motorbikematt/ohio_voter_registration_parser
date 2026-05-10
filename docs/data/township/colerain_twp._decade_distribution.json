@@ -1,0 +1,39 @@
+{
+  "title": "Voter Age Distribution by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Registered Voters",
+        "data": [
+          63,
+          810,
+          3040,
+          5966,
+          7092,
+          6087,
+          7007,
+          7410,
+          4349
+        ],
+        "backgroundColor": "#3b82f6",
+        "borderRadius": 4
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "COLERAIN TWP.",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 5,330",
+      "Mixed – Active — 4,002",
+      "Mixed – Lapsed — 7,106",
+      "UNC – No Primary — 72,395",
+      "UNC – Lapsed D — 24,720"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5330,
+          4002,
+          7106,
+          72395,
+          24720
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "TOLEDO CITY SD",
+  "updated": "2026-05-09"
+}

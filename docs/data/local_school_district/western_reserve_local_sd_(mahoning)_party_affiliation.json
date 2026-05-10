@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 401 (14%)",
+      "UNC – Lapsed R — 261 (9%)",
+      "Mixed – Active — 509 (17%)",
+      "Mixed – Lapsed — 242 (8%)",
+      "UNC – No Primary — 947 (32%)",
+      "UNC – Lapsed D — 434 (15%)",
+      "Pure D — 151 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          401,
+          261,
+          509,
+          242,
+          947,
+          434,
+          151
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "WESTERN RESERVE LOCAL SD (MAHONING)",
+  "updated": "2026-05-09"
+}

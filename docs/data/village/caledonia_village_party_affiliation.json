@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 53 (14%)",
+      "UNC – Lapsed R — 27 (7%)",
+      "Mixed – Active — 42 (11%)",
+      "Mixed – Lapsed — 34 (9%)",
+      "UNC – No Primary — 167 (43%)",
+      "UNC – Lapsed D — 47 (12%)",
+      "Pure D — 16 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          53,
+          27,
+          42,
+          34,
+          167,
+          47,
+          16
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "CALEDONIA VILLAGE",
+  "updated": "2026-05-09"
+}

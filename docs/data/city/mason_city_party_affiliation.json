@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,609 (15%)",
+      "UNC – Lapsed R — 3,302 (14%)",
+      "Mixed – Active — 1,252 (5%)",
+      "Mixed – Lapsed — 2,102 (9%)",
+      "UNC – No Primary — 9,885 (42%)",
+      "UNC – Lapsed D — 2,307 (10%)",
+      "Pure D — 1,189 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3609,
+          3302,
+          1252,
+          2102,
+          9885,
+          2307,
+          1189
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "MASON CITY",
+  "updated": "2026-05-09"
+}

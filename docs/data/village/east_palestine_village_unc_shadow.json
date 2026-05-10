@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 212",
+      "Mixed – Active — 330",
+      "Mixed – Lapsed — 155",
+      "UNC – No Primary — 1,388",
+      "UNC – Lapsed D — 249"
+    ],
+    "datasets": [
+      {
+        "data": [
+          212,
+          330,
+          155,
+          1388,
+          249
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "EAST PALESTINE VILLAGE",
+  "updated": "2026-05-09"
+}

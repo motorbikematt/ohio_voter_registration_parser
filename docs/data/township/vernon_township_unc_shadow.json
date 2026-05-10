@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 570",
+      "Mixed – Active — 284",
+      "Mixed – Lapsed — 334",
+      "UNC – No Primary — 1,434",
+      "UNC – Lapsed D — 339"
+    ],
+    "datasets": [
+      {
+        "data": [
+          570,
+          284,
+          334,
+          1434,
+          339
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "VERNON TOWNSHIP",
+  "updated": "2026-05-09"
+}

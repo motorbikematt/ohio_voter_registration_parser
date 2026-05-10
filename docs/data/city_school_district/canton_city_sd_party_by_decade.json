@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          6,
+          74,
+          185,
+          476,
+          288,
+          195,
+          122,
+          80,
+          37
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          4,
+          34,
+          107,
+          240,
+          285,
+          267,
+          221,
+          175,
+          24
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          7,
+          75,
+          333,
+          584,
+          436,
+          202,
+          137,
+          40,
+          6
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          3,
+          31,
+          124,
+          225,
+          231,
+          239,
+          199,
+          105,
+          26
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          4,
+          62,
+          283,
+          1142,
+          1957,
+          2555,
+          3679,
+          4760,
+          3198
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          9,
+          97,
+          360,
+          852,
+          962,
+          986,
+          937,
+          488,
+          45
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          7,
+          130,
+          509,
+          1009,
+          758,
+          503,
+          345,
+          208,
+          94
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "CANTON CITY SD",
+  "updated": "2026-05-09"
+}

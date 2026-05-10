@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,421 (15%)",
+      "UNC – Lapsed R — 595 (6%)",
+      "Mixed – Active — 1,530 (17%)",
+      "Mixed – Lapsed — 616 (7%)",
+      "UNC – No Primary — 2,768 (30%)",
+      "UNC – Lapsed D — 1,032 (11%)",
+      "Pure D — 1,254 (14%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1421,
+          595,
+          1530,
+          616,
+          2768,
+          1032,
+          1254
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "LAKEVIEW LOCAL SD (TRUMBULL)",
+  "updated": "2026-05-09"
+}

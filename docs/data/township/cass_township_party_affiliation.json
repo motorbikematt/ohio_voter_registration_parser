@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 182 (16%)",
+      "UNC – Lapsed R — 158 (14%)",
+      "Mixed – Active — 80 (7%)",
+      "Mixed – Lapsed — 61 (6%)",
+      "UNC – No Primary — 480 (43%)",
+      "UNC – Lapsed D — 111 (10%)",
+      "Pure D — 34 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          182,
+          158,
+          80,
+          61,
+          480,
+          111,
+          34
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CASS TOWNSHIP",
+  "updated": "2026-05-09"
+}

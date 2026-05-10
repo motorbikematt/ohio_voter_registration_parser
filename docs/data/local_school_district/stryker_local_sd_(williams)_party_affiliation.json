@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 422 (22%)",
+      "UNC – Lapsed R — 321 (17%)",
+      "Mixed – Active — 140 (7%)",
+      "Mixed – Lapsed — 131 (7%)",
+      "UNC – No Primary — 721 (38%)",
+      "UNC – Lapsed D — 125 (7%)",
+      "Pure D — 54 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          422,
+          321,
+          140,
+          131,
+          721,
+          125,
+          54
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "STRYKER LOCAL SD (WILLIAMS)",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,050 (9%)",
+      "UNC – Lapsed R — 986 (8%)",
+      "Mixed – Active — 911 (8%)",
+      "Mixed – Lapsed — 1,349 (11%)",
+      "UNC – No Primary — 4,875 (40%)",
+      "UNC – Lapsed D — 2,051 (17%)",
+      "Pure D — 845 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1050,
+          986,
+          911,
+          1349,
+          4875,
+          2051,
+          845
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "STREETSBORO CITY",
+  "updated": "2026-05-09"
+}

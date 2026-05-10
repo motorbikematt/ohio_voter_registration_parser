@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,626",
+      "Mixed – Active — 440",
+      "Mixed – Lapsed — 947",
+      "UNC – No Primary — 4,022",
+      "UNC – Lapsed D — 960"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1626,
+          440,
+          947,
+          4022,
+          960
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "JEROME TOWNSHIP",
+  "updated": "2026-05-09"
+}

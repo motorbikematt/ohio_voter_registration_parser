@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          6,
+          178,
+          807,
+          1455,
+          1285,
+          890,
+          709,
+          322,
+          183
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          15,
+          111,
+          362,
+          604,
+          970,
+          780,
+          682,
+          463,
+          44
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          4,
+          106,
+          594,
+          969,
+          683,
+          458,
+          293,
+          49,
+          4
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          7,
+          112,
+          378,
+          696,
+          786,
+          721,
+          508,
+          255,
+          156
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          4,
+          95,
+          372,
+          789,
+          1201,
+          1734,
+          2280,
+          3262,
+          3410
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          14,
+          123,
+          477,
+          874,
+          932,
+          909,
+          789,
+          472,
+          64
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          10,
+          112,
+          638,
+          986,
+          524,
+          372,
+          365,
+          165,
+          100
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "MAUMEE",
+  "updated": "2026-05-09"
+}

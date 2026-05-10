@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 378 (7%)",
+      "UNC – Lapsed R — 347 (6%)",
+      "Mixed – Active — 227 (4%)",
+      "Mixed – Lapsed — 383 (7%)",
+      "UNC – No Primary — 3,259 (59%)",
+      "UNC – Lapsed D — 594 (11%)",
+      "Pure D — 298 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          378,
+          347,
+          227,
+          383,
+          3259,
+          594,
+          298
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "Franklin Township",
+  "updated": "2026-05-09"
+}

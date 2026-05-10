@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,418 (16%)",
+      "UNC – Lapsed R — 1,389 (15%)",
+      "Mixed – Active — 768 (8%)",
+      "Mixed – Lapsed — 792 (9%)",
+      "UNC – No Primary — 3,006 (33%)",
+      "UNC – Lapsed D — 1,026 (11%)",
+      "Pure D — 666 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1418,
+          1389,
+          768,
+          792,
+          3006,
+          1026,
+          666
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "MONTGOMERY CITY",
+  "updated": "2026-05-09"
+}

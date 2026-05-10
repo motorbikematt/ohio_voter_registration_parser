@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,638 (13%)",
+      "UNC – Lapsed R — 3,810 (11%)",
+      "Mixed – Active — 3,606 (10%)",
+      "Mixed – Lapsed — 3,199 (9%)",
+      "UNC – No Primary — 12,557 (36%)",
+      "UNC – Lapsed D — 4,986 (14%)",
+      "Pure D — 2,321 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4638,
+          3810,
+          3606,
+          3199,
+          12557,
+          4986,
+          2321
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "MENTOR CITY",
+  "updated": "2026-05-09"
+}

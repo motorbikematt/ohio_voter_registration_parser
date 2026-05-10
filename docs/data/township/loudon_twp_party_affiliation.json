@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 401 (20%)",
+      "UNC – Lapsed R — 240 (12%)",
+      "Mixed – Active — 215 (11%)",
+      "Mixed – Lapsed — 145 (7%)",
+      "UNC – No Primary — 738 (37%)",
+      "UNC – Lapsed D — 199 (10%)",
+      "Pure D — 67 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          401,
+          240,
+          215,
+          145,
+          738,
+          199,
+          67
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "LOUDON TWP",
+  "updated": "2026-05-09"
+}

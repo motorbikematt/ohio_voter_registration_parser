@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,808 (3%)",
+      "UNC – Lapsed R — 4,911 (4%)",
+      "Mixed – Active — 7,080 (6%)",
+      "Mixed – Lapsed — 4,494 (4%)",
+      "UNC – No Primary — 61,619 (52%)",
+      "UNC – Lapsed D — 19,479 (16%)",
+      "Pure D — 18,044 (15%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3808,
+          4911,
+          7080,
+          4494,
+          61619,
+          19479,
+          18044
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "AKRON CITY",
+  "updated": "2026-05-09"
+}

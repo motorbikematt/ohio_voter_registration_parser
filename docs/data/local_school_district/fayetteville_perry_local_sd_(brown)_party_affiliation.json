@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 622 (20%)",
+      "UNC – Lapsed R — 481 (15%)",
+      "Mixed – Active — 282 (9%)",
+      "Mixed – Lapsed — 222 (7%)",
+      "UNC – No Primary — 1,190 (38%)",
+      "UNC – Lapsed D — 237 (8%)",
+      "Pure D — 78 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          622,
+          481,
+          282,
+          222,
+          1190,
+          237,
+          78
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "FAYETTEVILLE-PERRY LOCAL SD (BROWN)",
+  "updated": "2026-05-09"
+}

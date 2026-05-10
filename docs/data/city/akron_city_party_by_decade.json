@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          8,
+          143,
+          612,
+          1048,
+          911,
+          440,
+          306,
+          239,
+          101
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          21,
+          115,
+          431,
+          791,
+          1143,
+          817,
+          753,
+          768,
+          72
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          16,
+          280,
+          1237,
+          2351,
+          1570,
+          812,
+          563,
+          236,
+          15
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          17,
+          139,
+          391,
+          809,
+          1001,
+          754,
+          667,
+          548,
+          168
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          16,
+          148,
+          1017,
+          3481,
+          6218,
+          8183,
+          11759,
+          18135,
+          12662
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          57,
+          474,
+          1387,
+          3122,
+          3965,
+          3732,
+          3860,
+          2604,
+          278
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          50,
+          547,
+          2421,
+          4543,
+          3288,
+          2385,
+          2394,
+          1793,
+          623
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "AKRON CITY",
+  "updated": "2026-05-09"
+}

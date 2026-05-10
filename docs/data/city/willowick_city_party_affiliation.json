@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 875 (9%)",
+      "UNC – Lapsed R — 782 (8%)",
+      "Mixed – Active — 833 (9%)",
+      "Mixed – Lapsed — 941 (10%)",
+      "UNC – No Primary — 3,706 (39%)",
+      "UNC – Lapsed D — 1,660 (18%)",
+      "Pure D — 667 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          875,
+          782,
+          833,
+          941,
+          3706,
+          1660,
+          667
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "WILLOWICK CITY",
+  "updated": "2026-05-09"
+}

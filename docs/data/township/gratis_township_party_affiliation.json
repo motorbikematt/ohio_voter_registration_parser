@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 592 (20%)",
+      "UNC – Lapsed R — 484 (17%)",
+      "Mixed – Active — 267 (9%)",
+      "Mixed – Lapsed — 349 (12%)",
+      "UNC – No Primary — 924 (32%)",
+      "UNC – Lapsed D — 235 (8%)",
+      "Pure D — 61 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          592,
+          484,
+          267,
+          349,
+          924,
+          235,
+          61
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "GRATIS TOWNSHIP",
+  "updated": "2026-05-09"
+}

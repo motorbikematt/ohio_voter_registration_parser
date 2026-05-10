@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 8 (15%)",
+      "UNC – Lapsed R — 3 (6%)",
+      "Mixed – Active — 3 (6%)",
+      "Mixed – Lapsed — 2 (4%)",
+      "UNC – No Primary — 27 (51%)",
+      "UNC – Lapsed D — 8 (15%)",
+      "Pure D — 2 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          8,
+          3,
+          3,
+          2,
+          27,
+          8,
+          2
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BELMORE VILLAGE",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,221 (10%)",
+      "UNC – Lapsed R — 813 (6%)",
+      "Mixed – Active — 1,732 (14%)",
+      "Mixed – Lapsed — 788 (6%)",
+      "UNC – No Primary — 4,049 (32%)",
+      "UNC – Lapsed D — 2,020 (16%)",
+      "Pure D — 1,912 (15%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1221,
+          813,
+          1732,
+          788,
+          4049,
+          2020,
+          1912
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HOWLAND TWP ONLY",
+  "updated": "2026-05-09"
+}

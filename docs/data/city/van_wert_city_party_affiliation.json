@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,500 (20%)",
+      "UNC – Lapsed R — 1,020 (14%)",
+      "Mixed – Active — 540 (7%)",
+      "Mixed – Lapsed — 388 (5%)",
+      "UNC – No Primary — 3,460 (46%)",
+      "UNC – Lapsed D — 412 (5%)",
+      "Pure D — 186 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1500,
+          1020,
+          540,
+          388,
+          3460,
+          412,
+          186
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "VAN WERT CITY",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 31 (14%)",
+      "UNC – Lapsed R — 21 (9%)",
+      "Mixed – Active — 20 (9%)",
+      "Mixed – Lapsed — 31 (14%)",
+      "UNC – No Primary — 71 (32%)",
+      "UNC – Lapsed D — 24 (11%)",
+      "Pure D — 25 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          31,
+          21,
+          20,
+          31,
+          71,
+          24,
+          25
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BERKEY VILLAGE",
+  "updated": "2026-05-09"
+}

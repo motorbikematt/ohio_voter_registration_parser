@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 305",
+      "Mixed – Active — 210",
+      "Mixed – Lapsed — 352",
+      "UNC – No Primary — 1,435",
+      "UNC – Lapsed D — 630"
+    ],
+    "datasets": [
+      {
+        "data": [
+          305,
+          210,
+          352,
+          1435,
+          630
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "NORTHWOOD CITY",
+  "updated": "2026-05-09"
+}

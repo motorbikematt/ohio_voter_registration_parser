@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 15 (15%)",
+      "UNC – Lapsed R — 12 (12%)",
+      "Mixed – Active — 7 (7%)",
+      "Mixed – Lapsed — 4 (4%)",
+      "UNC – No Primary — 50 (51%)",
+      "UNC – Lapsed D — 8 (8%)",
+      "Pure D — 2 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          15,
+          12,
+          7,
+          4,
+          50,
+          8,
+          2
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ADAMSVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

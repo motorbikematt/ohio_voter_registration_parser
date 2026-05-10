@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,862 (13%)",
+      "UNC – Lapsed R — 3,752 (13%)",
+      "Mixed – Active — 2,543 (9%)",
+      "Mixed – Lapsed — 2,656 (9%)",
+      "UNC – No Primary — 9,820 (33%)",
+      "UNC – Lapsed D — 3,959 (13%)",
+      "Pure D — 2,743 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3862,
+          3752,
+          2543,
+          2656,
+          9820,
+          3959,
+          2743
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "WESTERVILLE CITY ",
+  "updated": "2026-05-09"
+}

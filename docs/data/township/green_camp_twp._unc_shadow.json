@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 99",
+      "Mixed – Active — 64",
+      "Mixed – Lapsed — 74",
+      "UNC – No Primary — 255",
+      "UNC – Lapsed D — 83"
+    ],
+    "datasets": [
+      {
+        "data": [
+          99,
+          64,
+          74,
+          255,
+          83
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "GREEN CAMP TWP.",
+  "updated": "2026-05-09"
+}

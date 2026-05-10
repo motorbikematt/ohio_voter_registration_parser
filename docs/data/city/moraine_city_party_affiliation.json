@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 290 (7%)",
+      "UNC – Lapsed R — 407 (10%)",
+      "Mixed – Active — 158 (4%)",
+      "Mixed – Lapsed — 265 (7%)",
+      "UNC – No Primary — 2,182 (54%)",
+      "UNC – Lapsed D — 564 (14%)",
+      "Pure D — 195 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          290,
+          407,
+          158,
+          265,
+          2182,
+          564,
+          195
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "MORAINE CITY",
+  "updated": "2026-05-09"
+}

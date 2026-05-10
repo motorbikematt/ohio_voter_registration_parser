@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 108 (1%)",
+      "UNC – Lapsed R — 126 (1%)",
+      "Mixed – Active — 334 (4%)",
+      "Mixed – Lapsed — 179 (2%)",
+      "UNC – No Primary — 4,413 (49%)",
+      "UNC – Lapsed D — 1,923 (21%)",
+      "Pure D — 1,913 (21%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          108,
+          126,
+          334,
+          179,
+          4413,
+          1923,
+          1913
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "OBERLIN CITY",
+  "updated": "2026-05-09"
+}

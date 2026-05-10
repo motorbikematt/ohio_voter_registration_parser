@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 527 (7%)",
+      "UNC – Lapsed R — 545 (8%)",
+      "Mixed – Active — 344 (5%)",
+      "Mixed – Lapsed — 527 (7%)",
+      "UNC – No Primary — 3,204 (45%)",
+      "UNC – Lapsed D — 1,342 (19%)",
+      "Pure D — 671 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          527,
+          545,
+          344,
+          527,
+          3204,
+          1342,
+          671
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "SPRINGDALE CITY",
+  "updated": "2026-05-09"
+}

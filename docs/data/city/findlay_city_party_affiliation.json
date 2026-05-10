@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 6,069 (24%)",
+      "UNC – Lapsed R — 2,633 (10%)",
+      "Mixed – Active — 2,161 (8%)",
+      "Mixed – Lapsed — 1,705 (7%)",
+      "UNC – No Primary — 10,468 (41%)",
+      "UNC – Lapsed D — 1,814 (7%)",
+      "Pure D — 747 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          6069,
+          2633,
+          2161,
+          1705,
+          10468,
+          1814,
+          747
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "FINDLAY CITY",
+  "updated": "2026-05-09"
+}

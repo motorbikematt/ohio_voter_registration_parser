@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 224 (14%)",
+      "UNC – Lapsed R — 218 (13%)",
+      "Mixed – Active — 124 (8%)",
+      "Mixed – Lapsed — 172 (11%)",
+      "UNC – No Primary — 673 (42%)",
+      "UNC – Lapsed D — 162 (10%)",
+      "Pure D — 48 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          224,
+          218,
+          124,
+          172,
+          673,
+          162,
+          48
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BUCKEYE LAKE VILLAGE",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 674 (28%)",
+      "UNC – Lapsed R — 295 (12%)",
+      "Mixed – Active — 185 (8%)",
+      "Mixed – Lapsed — 137 (6%)",
+      "UNC – No Primary — 928 (38%)",
+      "UNC – Lapsed D — 137 (6%)",
+      "Pure D — 81 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          674,
+          295,
+          185,
+          137,
+          928,
+          137,
+          81
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "MCCOMB LOCAL SD (HANCOCK)",
+  "updated": "2026-05-09"
+}

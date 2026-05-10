@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 239 (13%)",
+      "UNC – Lapsed R — 157 (9%)",
+      "Mixed – Active — 146 (8%)",
+      "Mixed – Lapsed — 161 (9%)",
+      "UNC – No Primary — 735 (40%)",
+      "UNC – Lapsed D — 238 (13%)",
+      "Pure D — 160 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          239,
+          157,
+          146,
+          161,
+          735,
+          238,
+          160
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SWANTON TOWNSHIP",
+  "updated": "2026-05-09"
+}

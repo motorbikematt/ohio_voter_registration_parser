@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 715",
+      "Mixed – Active — 350",
+      "Mixed – Lapsed — 552",
+      "UNC – No Primary — 2,715",
+      "UNC – Lapsed D — 487"
+    ],
+    "datasets": [
+      {
+        "data": [
+          715,
+          350,
+          552,
+          2715,
+          487
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "WILLARD CITY SD",
+  "updated": "2026-05-09"
+}

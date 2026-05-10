@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 110 (13%)",
+      "UNC – Lapsed R — 133 (16%)",
+      "Mixed – Active — 46 (6%)",
+      "Mixed – Lapsed — 63 (8%)",
+      "UNC – No Primary — 376 (45%)",
+      "UNC – Lapsed D — 76 (9%)",
+      "Pure D — 31 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          110,
+          133,
+          46,
+          63,
+          376,
+          76,
+          31
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "POMEROY VILLAGE",
+  "updated": "2026-05-09"
+}

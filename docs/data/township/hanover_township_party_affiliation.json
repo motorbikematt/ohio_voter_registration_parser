@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,388 (23%)",
+      "UNC – Lapsed R — 856 (14%)",
+      "Mixed – Active — 324 (5%)",
+      "Mixed – Lapsed — 501 (8%)",
+      "UNC – No Primary — 2,233 (38%)",
+      "UNC – Lapsed D — 446 (8%)",
+      "Pure D — 176 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1388,
+          856,
+          324,
+          501,
+          2233,
+          446,
+          176
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HANOVER TOWNSHIP",
+  "updated": "2026-05-09"
+}

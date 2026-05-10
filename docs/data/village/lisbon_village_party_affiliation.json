@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 235 (15%)",
+      "UNC – Lapsed R — 131 (8%)",
+      "Mixed – Active — 177 (11%)",
+      "Mixed – Lapsed — 105 (6%)",
+      "UNC – No Primary — 738 (46%)",
+      "UNC – Lapsed D — 162 (10%)",
+      "Pure D — 68 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          235,
+          131,
+          177,
+          105,
+          738,
+          162,
+          68
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "LISBON VILLAGE",
+  "updated": "2026-05-09"
+}

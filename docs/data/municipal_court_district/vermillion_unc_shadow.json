@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,414",
+      "Mixed – Active — 1,579",
+      "Mixed – Lapsed — 1,507",
+      "UNC – No Primary — 5,064",
+      "UNC – Lapsed D — 2,193"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1414,
+          1579,
+          1507,
+          5064,
+          2193
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "VERMILLION",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 19 (11%)",
+      "UNC – Lapsed R — 17 (10%)",
+      "Mixed – Active — 6 (3%)",
+      "Mixed – Lapsed — 14 (8%)",
+      "UNC – No Primary — 98 (56%)",
+      "UNC – Lapsed D — 17 (10%)",
+      "Pure D — 5 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          19,
+          17,
+          6,
+          14,
+          98,
+          17,
+          5
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "NEW BLOOMINGTON VILLAGE",
+  "updated": "2026-05-09"
+}

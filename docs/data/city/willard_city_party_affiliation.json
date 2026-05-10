@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 408 (13%)",
+      "UNC – Lapsed R — 302 (10%)",
+      "Mixed – Active — 144 (5%)",
+      "Mixed – Lapsed — 280 (9%)",
+      "UNC – No Primary — 1,619 (52%)",
+      "UNC – Lapsed D — 262 (8%)",
+      "Pure D — 126 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          408,
+          302,
+          144,
+          280,
+          1619,
+          262,
+          126
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "WILLARD CITY",
+  "updated": "2026-05-09"
+}

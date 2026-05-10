@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 502 (14%)",
+      "UNC – Lapsed R — 310 (8%)",
+      "Mixed – Active — 464 (12%)",
+      "Mixed – Lapsed — 284 (8%)",
+      "UNC – No Primary — 1,376 (37%)",
+      "UNC – Lapsed D — 466 (13%)",
+      "Pure D — 315 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          502,
+          310,
+          464,
+          284,
+          1376,
+          466,
+          315
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "ST. CLAIRSVILLE CITY",
+  "updated": "2026-05-09"
+}

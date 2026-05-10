@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 59 (9%)",
+      "UNC – Lapsed R — 71 (11%)",
+      "Mixed – Active — 34 (5%)",
+      "Mixed – Lapsed — 44 (7%)",
+      "UNC – No Primary — 361 (57%)",
+      "UNC – Lapsed D — 54 (8%)",
+      "Pure D — 15 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          59,
+          71,
+          34,
+          44,
+          361,
+          54,
+          15
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "JEFFERSONVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

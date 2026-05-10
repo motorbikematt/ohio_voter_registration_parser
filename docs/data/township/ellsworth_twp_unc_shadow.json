@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 148",
+      "Mixed – Active — 312",
+      "Mixed – Lapsed — 132",
+      "UNC – No Primary — 503",
+      "UNC – Lapsed D — 230"
+    ],
+    "datasets": [
+      {
+        "data": [
+          148,
+          312,
+          132,
+          503,
+          230
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "ELLSWORTH TWP",
+  "updated": "2026-05-09"
+}

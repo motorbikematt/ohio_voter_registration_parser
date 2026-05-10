@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,184",
+      "Mixed – Active — 1,124",
+      "Mixed – Lapsed — 950",
+      "UNC – No Primary — 2,612",
+      "UNC – Lapsed D — 939"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1184,
+          1124,
+          950,
+          2612,
+          939
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MOOREFIELD TOWNSHIP",
+  "updated": "2026-05-09"
+}

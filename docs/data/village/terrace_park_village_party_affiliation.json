@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 274 (14%)",
+      "UNC – Lapsed R — 342 (18%)",
+      "Mixed – Active — 203 (11%)",
+      "Mixed – Lapsed — 136 (7%)",
+      "UNC – No Primary — 666 (35%)",
+      "UNC – Lapsed D — 165 (9%)",
+      "Pure D — 136 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          274,
+          342,
+          203,
+          136,
+          666,
+          165,
+          136
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "TERRACE PARK VILLAGE",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 732 (10%)",
+      "UNC – Lapsed R — 1,056 (15%)",
+      "Mixed – Active — 486 (7%)",
+      "Mixed – Lapsed — 577 (8%)",
+      "UNC – No Primary — 2,893 (41%)",
+      "UNC – Lapsed D — 776 (11%)",
+      "Pure D — 465 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          732,
+          1056,
+          486,
+          577,
+          2893,
+          776,
+          465
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "MARIEMONT CITY SD",
+  "updated": "2026-05-09"
+}

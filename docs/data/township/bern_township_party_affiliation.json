@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 31 (10%)",
+      "UNC – Lapsed R — 17 (5%)",
+      "Mixed – Active — 28 (9%)",
+      "Mixed – Lapsed — 17 (5%)",
+      "UNC – No Primary — 102 (33%)",
+      "UNC – Lapsed D — 68 (22%)",
+      "Pure D — 49 (16%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          31,
+          17,
+          28,
+          17,
+          102,
+          68,
+          49
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BERN TOWNSHIP",
+  "updated": "2026-05-09"
+}

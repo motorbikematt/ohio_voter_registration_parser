@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,052 (18%)",
+      "UNC – Lapsed R — 1,380 (12%)",
+      "Mixed – Active — 1,111 (10%)",
+      "Mixed – Lapsed — 1,059 (9%)",
+      "UNC – No Primary — 3,712 (33%)",
+      "UNC – Lapsed D — 901 (8%)",
+      "Pure D — 962 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2052,
+          1380,
+          1111,
+          1059,
+          3712,
+          901,
+          962
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "POWELL CITY",
+  "updated": "2026-05-09"
+}

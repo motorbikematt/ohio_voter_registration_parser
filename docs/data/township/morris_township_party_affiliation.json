@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 451 (31%)",
+      "UNC – Lapsed R — 173 (12%)",
+      "Mixed – Active — 109 (8%)",
+      "Mixed – Lapsed — 104 (7%)",
+      "UNC – No Primary — 469 (32%)",
+      "UNC – Lapsed D — 87 (6%)",
+      "Pure D — 57 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          451,
+          173,
+          109,
+          104,
+          469,
+          87,
+          57
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MORRIS TOWNSHIP",
+  "updated": "2026-05-09"
+}

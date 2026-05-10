@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 20 (12%)",
+      "UNC – Lapsed R — 9 (5%)",
+      "Mixed – Active — 18 (10%)",
+      "Mixed – Lapsed — 9 (5%)",
+      "UNC – No Primary — 90 (52%)",
+      "UNC – Lapsed D — 19 (11%)",
+      "Pure D — 8 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          20,
+          9,
+          18,
+          9,
+          90,
+          19,
+          8
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "HOLLOWAY VILLAGE",
+  "updated": "2026-05-09"
+}

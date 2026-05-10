@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 633 (22%)",
+      "UNC – Lapsed R — 402 (14%)",
+      "Mixed – Active — 167 (6%)",
+      "Mixed – Lapsed — 271 (9%)",
+      "UNC – No Primary — 1,179 (41%)",
+      "UNC – Lapsed D — 171 (6%)",
+      "Pure D — 80 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          633,
+          402,
+          167,
+          271,
+          1179,
+          171,
+          80
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "EAST UNION TOWNSHIP",
+  "updated": "2026-05-09"
+}

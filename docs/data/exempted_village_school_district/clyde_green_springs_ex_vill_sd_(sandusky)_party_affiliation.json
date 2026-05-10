@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,796 (22%)",
+      "UNC – Lapsed R — 825 (10%)",
+      "Mixed – Active — 655 (8%)",
+      "Mixed – Lapsed — 744 (9%)",
+      "UNC – No Primary — 2,990 (37%)",
+      "UNC – Lapsed D — 580 (7%)",
+      "Pure D — 395 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1796,
+          825,
+          655,
+          744,
+          2990,
+          580,
+          395
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "CLYDE-GREEN SPRINGS EX VILL SD (SANDUSKY)",
+  "updated": "2026-05-09"
+}

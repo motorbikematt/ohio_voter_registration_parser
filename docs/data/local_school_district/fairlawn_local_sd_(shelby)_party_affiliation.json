@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,814 (21%)",
+      "UNC – Lapsed R — 1,038 (12%)",
+      "Mixed – Active — 745 (9%)",
+      "Mixed – Lapsed — 345 (4%)",
+      "UNC – No Primary — 3,714 (43%)",
+      "UNC – Lapsed D — 576 (7%)",
+      "Pure D — 325 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1814,
+          1038,
+          745,
+          345,
+          3714,
+          576,
+          325
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "FAIRLAWN LOCAL SD (SHELBY)",
+  "updated": "2026-05-09"
+}

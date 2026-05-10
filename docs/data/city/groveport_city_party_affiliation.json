@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 494 (11%)",
+      "UNC – Lapsed R — 446 (10%)",
+      "Mixed – Active — 264 (6%)",
+      "Mixed – Lapsed — 418 (9%)",
+      "UNC – No Primary — 1,869 (42%)",
+      "UNC – Lapsed D — 638 (14%)",
+      "Pure D — 363 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          494,
+          446,
+          264,
+          418,
+          1869,
+          638,
+          363
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "GROVEPORT CITY",
+  "updated": "2026-05-09"
+}

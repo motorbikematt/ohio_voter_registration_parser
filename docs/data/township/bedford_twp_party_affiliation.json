@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 93 (24%)",
+      "UNC – Lapsed R — 52 (14%)",
+      "Mixed – Active — 44 (12%)",
+      "Mixed – Lapsed — 33 (9%)",
+      "UNC – No Primary — 129 (34%)",
+      "UNC – Lapsed D — 22 (6%)",
+      "Pure D — 7 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          93,
+          52,
+          44,
+          33,
+          129,
+          22,
+          7
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BEDFORD TWP",
+  "updated": "2026-05-09"
+}

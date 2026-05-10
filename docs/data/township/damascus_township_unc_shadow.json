@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 115",
+      "Mixed – Active — 132",
+      "Mixed – Lapsed — 71",
+      "UNC – No Primary — 411",
+      "UNC – Lapsed D — 95"
+    ],
+    "datasets": [
+      {
+        "data": [
+          115,
+          132,
+          71,
+          411,
+          95
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "DAMASCUS TOWNSHIP",
+  "updated": "2026-05-09"
+}

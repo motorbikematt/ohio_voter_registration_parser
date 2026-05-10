@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          5,
+          105,
+          481,
+          843,
+          928,
+          529,
+          382,
+          215,
+          165
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          4,
+          63,
+          177,
+          269,
+          430,
+          317,
+          240,
+          220,
+          15
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          6,
+          114,
+          603,
+          942,
+          761,
+          376,
+          197,
+          52,
+          4
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          8,
+          91,
+          255,
+          441,
+          673,
+          629,
+          566,
+          383,
+          272
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          5,
+          52,
+          230,
+          474,
+          712,
+          734,
+          1042,
+          1724,
+          1627
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          15,
+          120,
+          345,
+          566,
+          726,
+          643,
+          575,
+          341,
+          45
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          5,
+          98,
+          411,
+          623,
+          437,
+          323,
+          296,
+          163,
+          73
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "NORDONIA HILLS CITY SD",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 97 (4%)",
+      "UNC – Lapsed R — 119 (5%)",
+      "Mixed – Active — 165 (7%)",
+      "Mixed – Lapsed — 169 (8%)",
+      "UNC – No Primary — 1,148 (51%)",
+      "UNC – Lapsed D — 323 (14%)",
+      "Pure D — 212 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          97,
+          119,
+          165,
+          169,
+          1148,
+          323,
+          212
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "NELSONVILLE CITY",
+  "updated": "2026-05-09"
+}

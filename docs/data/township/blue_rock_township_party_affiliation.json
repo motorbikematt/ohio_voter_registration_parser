@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 67 (15%)",
+      "UNC – Lapsed R — 82 (19%)",
+      "Mixed – Active — 42 (10%)",
+      "Mixed – Lapsed — 22 (5%)",
+      "UNC – No Primary — 182 (41%)",
+      "UNC – Lapsed D — 37 (8%)",
+      "Pure D — 10 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          67,
+          82,
+          42,
+          22,
+          182,
+          37,
+          10
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BLUE ROCK TOWNSHIP",
+  "updated": "2026-05-09"
+}

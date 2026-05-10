@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 95 (6%)",
+      "UNC – Lapsed R — 76 (5%)",
+      "Mixed – Active — 144 (9%)",
+      "Mixed – Lapsed — 74 (4%)",
+      "UNC – No Primary — 938 (56%)",
+      "UNC – Lapsed D — 276 (16%)",
+      "Pure D — 81 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          95,
+          76,
+          144,
+          74,
+          938,
+          276,
+          81
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WELLSVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

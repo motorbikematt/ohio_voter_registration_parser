@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,499 (13%)",
+      "UNC – Lapsed R — 3,657 (13%)",
+      "Mixed – Active — 1,946 (7%)",
+      "Mixed – Lapsed — 2,274 (8%)",
+      "UNC – No Primary — 11,177 (40%)",
+      "UNC – Lapsed D — 3,483 (12%)",
+      "Pure D — 1,876 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3499,
+          3657,
+          1946,
+          2274,
+          11177,
+          3483,
+          1876
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "SYCAMORE COMMUNITY CITY SD",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 106 (5%)",
+      "UNC – Lapsed R — 131 (6%)",
+      "Mixed – Active — 56 (3%)",
+      "Mixed – Lapsed — 145 (7%)",
+      "UNC – No Primary — 1,286 (60%)",
+      "UNC – Lapsed D — 320 (15%)",
+      "Pure D — 94 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          106,
+          131,
+          56,
+          145,
+          1286,
+          320,
+          94
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "LOCKLAND VILLAGE",
+  "updated": "2026-05-09"
+}

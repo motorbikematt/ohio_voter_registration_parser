@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 650 (21%)",
+      "UNC – Lapsed R — 299 (9%)",
+      "Mixed – Active — 271 (9%)",
+      "Mixed – Lapsed — 251 (8%)",
+      "UNC – No Primary — 1,274 (40%)",
+      "UNC – Lapsed D — 279 (9%)",
+      "Pure D — 133 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          650,
+          299,
+          271,
+          251,
+          1274,
+          279,
+          133
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ASHVILLE VILLAGE",
+  "updated": "2026-05-09"
+}

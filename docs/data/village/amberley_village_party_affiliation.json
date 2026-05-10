@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 413 (13%)",
+      "UNC – Lapsed R — 355 (11%)",
+      "Mixed – Active — 329 (10%)",
+      "Mixed – Lapsed — 286 (9%)",
+      "UNC – No Primary — 1,041 (32%)",
+      "UNC – Lapsed D — 478 (15%)",
+      "Pure D — 360 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          413,
+          355,
+          329,
+          286,
+          1041,
+          478,
+          360
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "AMBERLEY VILLAGE",
+  "updated": "2026-05-09"
+}

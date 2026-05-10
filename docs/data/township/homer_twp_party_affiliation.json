@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 159 (22%)",
+      "UNC – Lapsed R — 69 (10%)",
+      "Mixed – Active — 62 (9%)",
+      "Mixed – Lapsed — 70 (10%)",
+      "UNC – No Primary — 240 (34%)",
+      "UNC – Lapsed D — 64 (9%)",
+      "Pure D — 43 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          159,
+          69,
+          62,
+          70,
+          240,
+          64,
+          43
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "Homer TWP",
+  "updated": "2026-05-09"
+}

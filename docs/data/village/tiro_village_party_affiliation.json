@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 12 (11%)",
+      "UNC – Lapsed R — 13 (12%)",
+      "Mixed – Active — 5 (4%)",
+      "Mixed – Lapsed — 8 (7%)",
+      "UNC – No Primary — 55 (49%)",
+      "UNC – Lapsed D — 18 (16%)",
+      "Pure D — 1 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          12,
+          13,
+          5,
+          8,
+          55,
+          18,
+          1
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "TIRO VILLAGE",
+  "updated": "2026-05-09"
+}

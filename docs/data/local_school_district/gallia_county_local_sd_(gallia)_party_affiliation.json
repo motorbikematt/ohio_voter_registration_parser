@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,060 (23%)",
+      "UNC – Lapsed R — 1,134 (13%)",
+      "Mixed – Active — 867 (10%)",
+      "Mixed – Lapsed — 390 (4%)",
+      "UNC – No Primary — 3,558 (39%)",
+      "UNC – Lapsed D — 758 (8%)",
+      "Pure D — 299 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2060,
+          1134,
+          867,
+          390,
+          3558,
+          758,
+          299
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "GALLIA COUNTY LOCAL SD (GALLIA)",
+  "updated": "2026-05-09"
+}

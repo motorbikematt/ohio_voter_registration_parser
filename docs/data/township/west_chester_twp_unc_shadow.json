@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 5,967",
+      "Mixed – Active — 2,192",
+      "Mixed – Lapsed — 3,406",
+      "UNC – No Primary — 18,700",
+      "UNC – Lapsed D — 4,381"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5967,
+          2192,
+          3406,
+          18700,
+          4381
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "WEST CHESTER TWP",
+  "updated": "2026-05-09"
+}

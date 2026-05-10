@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,199 (14%)",
+      "UNC – Lapsed R — 830 (10%)",
+      "Mixed – Active — 988 (12%)",
+      "Mixed – Lapsed — 692 (8%)",
+      "UNC – No Primary — 2,798 (33%)",
+      "UNC – Lapsed D — 1,158 (14%)",
+      "Pure D — 725 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1199,
+          830,
+          988,
+          692,
+          2798,
+          1158,
+          725
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "FIRELANDS LOCAL SD (LORAIN)",
+  "updated": "2026-05-09"
+}

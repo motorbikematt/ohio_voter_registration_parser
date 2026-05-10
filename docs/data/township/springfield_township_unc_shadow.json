@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,219",
+      "Mixed – Active — 1,243",
+      "Mixed – Lapsed — 884",
+      "UNC – No Primary — 4,697",
+      "UNC – Lapsed D — 1,241"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1219,
+          1243,
+          884,
+          4697,
+          1241
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "SPRINGFIELD TOWNSHIP",
+  "updated": "2026-05-09"
+}

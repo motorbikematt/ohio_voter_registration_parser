@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 368 (18%)",
+      "UNC – Lapsed R — 249 (12%)",
+      "Mixed – Active — 211 (10%)",
+      "Mixed – Lapsed — 248 (12%)",
+      "UNC – No Primary — 676 (33%)",
+      "UNC – Lapsed D — 181 (9%)",
+      "Pure D — 87 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          368,
+          249,
+          211,
+          248,
+          676,
+          181,
+          87
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "MIDDLEFIELD VILLAGE",
+  "updated": "2026-05-09"
+}

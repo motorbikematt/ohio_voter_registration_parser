@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 204 (21%)",
+      "UNC – Lapsed R — 119 (12%)",
+      "Mixed – Active — 53 (6%)",
+      "Mixed – Lapsed — 38 (4%)",
+      "UNC – No Primary — 468 (49%)",
+      "UNC – Lapsed D — 62 (6%)",
+      "Pure D — 16 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          204,
+          119,
+          53,
+          38,
+          468,
+          62,
+          16
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "LYNCHBURG VILLAGE",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 440 (13%)",
+      "UNC – Lapsed R — 467 (14%)",
+      "Mixed – Active — 152 (4%)",
+      "Mixed – Lapsed — 297 (9%)",
+      "UNC – No Primary — 1,637 (47%)",
+      "UNC – Lapsed D — 334 (10%)",
+      "Pure D — 131 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          440,
+          467,
+          152,
+          297,
+          1637,
+          334,
+          131
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "MIDDLETOWN",
+  "updated": "2026-05-09"
+}

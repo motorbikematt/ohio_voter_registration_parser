@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 678 (21%)",
+      "UNC – Lapsed R — 259 (8%)",
+      "Mixed – Active — 343 (11%)",
+      "Mixed – Lapsed — 252 (8%)",
+      "UNC – No Primary — 1,200 (37%)",
+      "UNC – Lapsed D — 307 (9%)",
+      "Pure D — 218 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          678,
+          259,
+          343,
+          252,
+          1200,
+          307,
+          218
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "LEXINGTON",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 13 (10%)",
+      "UNC – Lapsed R — 11 (9%)",
+      "Mixed – Active — 17 (13%)",
+      "Mixed – Lapsed — 12 (9%)",
+      "UNC – No Primary — 43 (34%)",
+      "UNC – Lapsed D — 20 (16%)",
+      "Pure D — 11 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          13,
+          11,
+          17,
+          12,
+          43,
+          20,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "PARRAL VILLAGE",
+  "updated": "2026-05-09"
+}

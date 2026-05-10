@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 62",
+      "Mixed – Active — 62",
+      "Mixed – Lapsed — 46",
+      "UNC – No Primary — 193",
+      "UNC – Lapsed D — 36"
+    ],
+    "datasets": [
+      {
+        "data": [
+          62,
+          62,
+          46,
+          193,
+          36
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "ROCHESTER TWP & VIL",
+  "updated": "2026-05-09"
+}

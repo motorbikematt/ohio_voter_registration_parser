@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 35 (13%)",
+      "UNC – Lapsed R — 38 (14%)",
+      "Mixed – Active — 20 (7%)",
+      "Mixed – Lapsed — 9 (3%)",
+      "UNC – No Primary — 145 (54%)",
+      "UNC – Lapsed D — 12 (4%)",
+      "Pure D — 9 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          35,
+          38,
+          20,
+          9,
+          145,
+          12,
+          9
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "GETTYSBURG VILLAGE",
+  "updated": "2026-05-09"
+}

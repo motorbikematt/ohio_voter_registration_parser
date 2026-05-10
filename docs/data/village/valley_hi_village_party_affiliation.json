@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 11 (9%)",
+      "UNC – Lapsed R — 11 (9%)",
+      "Mixed – Active — 3 (3%)",
+      "Mixed – Lapsed — 6 (5%)",
+      "UNC – No Primary — 73 (61%)",
+      "UNC – Lapsed D — 13 (11%)",
+      "Pure D — 2 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          11,
+          11,
+          3,
+          6,
+          73,
+          13,
+          2
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "VALLEY-HI VILLAGE",
+  "updated": "2026-05-09"
+}

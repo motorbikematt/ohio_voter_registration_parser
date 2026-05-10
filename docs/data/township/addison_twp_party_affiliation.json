@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 298 (22%)",
+      "UNC – Lapsed R — 144 (11%)",
+      "Mixed – Active — 151 (11%)",
+      "Mixed – Lapsed — 63 (5%)",
+      "UNC – No Primary — 548 (41%)",
+      "UNC – Lapsed D — 84 (6%)",
+      "Pure D — 48 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          298,
+          144,
+          151,
+          63,
+          548,
+          84,
+          48
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "ADDISON TWP",
+  "updated": "2026-05-09"
+}

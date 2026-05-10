@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,920 (19%)",
+      "UNC – Lapsed R — 1,468 (15%)",
+      "Mixed – Active — 583 (6%)",
+      "Mixed – Lapsed — 770 (8%)",
+      "UNC – No Primary — 4,248 (42%)",
+      "UNC – Lapsed D — 775 (8%)",
+      "Pure D — 320 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1920,
+          1468,
+          583,
+          770,
+          4248,
+          775,
+          320
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "NEW RICHMOND EX VILL SD (CLERMONT)",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 290 (16%)",
+      "UNC – Lapsed R — 144 (8%)",
+      "Mixed – Active — 188 (10%)",
+      "Mixed – Lapsed — 132 (7%)",
+      "UNC – No Primary — 775 (43%)",
+      "UNC – Lapsed D — 176 (10%)",
+      "Pure D — 101 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          290,
+          144,
+          188,
+          132,
+          775,
+          176,
+          101
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "NELSON TOWNSHIP",
+  "updated": "2026-05-09"
+}

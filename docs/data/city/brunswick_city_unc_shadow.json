@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 2,175",
+      "Mixed – Active — 2,049",
+      "Mixed – Lapsed — 4,430",
+      "UNC – No Primary — 7,317",
+      "UNC – Lapsed D — 2,850"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2175,
+          2049,
+          4430,
+          7317,
+          2850
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "BRUNSWICK CITY",
+  "updated": "2026-05-09"
+}

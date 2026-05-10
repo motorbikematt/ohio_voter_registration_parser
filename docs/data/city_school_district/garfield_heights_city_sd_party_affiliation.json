@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 430 (3%)",
+      "UNC – Lapsed R — 455 (3%)",
+      "Mixed – Active — 777 (5%)",
+      "Mixed – Lapsed — 1,102 (7%)",
+      "UNC – No Primary — 8,016 (48%)",
+      "UNC – Lapsed D — 3,889 (23%)",
+      "Pure D — 1,998 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          430,
+          455,
+          777,
+          1102,
+          8016,
+          3889,
+          1998
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "GARFIELD HEIGHTS CITY SD",
+  "updated": "2026-05-09"
+}

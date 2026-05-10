@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,142 (27%)",
+      "UNC – Lapsed R — 470 (11%)",
+      "Mixed – Active — 314 (7%)",
+      "Mixed – Lapsed — 488 (11%)",
+      "UNC – No Primary — 1,427 (33%)",
+      "UNC – Lapsed D — 295 (7%)",
+      "Pure D — 143 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1142,
+          470,
+          314,
+          488,
+          1427,
+          295,
+          143
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "MAPLETON LOCAL SD (ASHLAND)",
+  "updated": "2026-05-09"
+}

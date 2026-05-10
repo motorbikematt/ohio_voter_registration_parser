@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 2,121",
+      "Mixed – Active — 2,235",
+      "Mixed – Lapsed — 2,023",
+      "UNC – No Primary — 9,355",
+      "UNC – Lapsed D — 4,050"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2121,
+          2235,
+          2023,
+          9355,
+          4050
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "MAYFIELD CITY SD",
+  "updated": "2026-05-09"
+}

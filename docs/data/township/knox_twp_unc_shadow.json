@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 533",
+      "Mixed – Active — 662",
+      "Mixed – Lapsed — 411",
+      "UNC – No Primary — 2,010",
+      "UNC – Lapsed D — 635"
+    ],
+    "datasets": [
+      {
+        "data": [
+          533,
+          662,
+          411,
+          2010,
+          635
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "KNOX TWP",
+  "updated": "2026-05-09"
+}

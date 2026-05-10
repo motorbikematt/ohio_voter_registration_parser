@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,375 (22%)",
+      "UNC – Lapsed R — 1,024 (16%)",
+      "Mixed – Active — 478 (8%)",
+      "Mixed – Lapsed — 534 (8%)",
+      "UNC – No Primary — 2,343 (37%)",
+      "UNC – Lapsed D — 384 (6%)",
+      "Pure D — 170 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1375,
+          1024,
+          478,
+          534,
+          2343,
+          384,
+          170
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City School District",
+  "jurisdiction_name": "DELPHOS CITY SD",
+  "updated": "2026-05-09"
+}

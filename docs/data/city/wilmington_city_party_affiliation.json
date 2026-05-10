@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,515 (21%)",
+      "UNC – Lapsed R — 755 (10%)",
+      "Mixed – Active — 651 (9%)",
+      "Mixed – Lapsed — 340 (5%)",
+      "UNC – No Primary — 3,344 (46%)",
+      "UNC – Lapsed D — 471 (7%)",
+      "Pure D — 160 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1515,
+          755,
+          651,
+          340,
+          3344,
+          471,
+          160
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "WILMINGTON CITY",
+  "updated": "2026-05-09"
+}

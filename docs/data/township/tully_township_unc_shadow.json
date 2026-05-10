@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 225",
+      "Mixed – Active — 83",
+      "Mixed – Lapsed — 87",
+      "UNC – No Primary — 660",
+      "UNC – Lapsed D — 73"
+    ],
+    "datasets": [
+      {
+        "data": [
+          225,
+          83,
+          87,
+          660,
+          73
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "TULLY TOWNSHIP",
+  "updated": "2026-05-09"
+}

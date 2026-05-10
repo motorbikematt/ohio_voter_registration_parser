@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 64 (12%)",
+      "UNC – Lapsed R — 63 (12%)",
+      "Mixed – Active — 71 (13%)",
+      "Mixed – Lapsed — 47 (9%)",
+      "UNC – No Primary — 211 (40%)",
+      "UNC – Lapsed D — 47 (9%)",
+      "Pure D — 25 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          64,
+          63,
+          71,
+          47,
+          211,
+          47,
+          25
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BELOIT VILLAGE",
+  "updated": "2026-05-09"
+}

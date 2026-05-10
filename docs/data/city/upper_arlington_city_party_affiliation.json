@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,050 (14%)",
+      "UNC – Lapsed R — 3,528 (12%)",
+      "Mixed – Active — 2,789 (10%)",
+      "Mixed – Lapsed — 2,801 (10%)",
+      "UNC – No Primary — 8,998 (31%)",
+      "UNC – Lapsed D — 3,253 (11%)",
+      "Pure D — 3,455 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4050,
+          3528,
+          2789,
+          2801,
+          8998,
+          3253,
+          3455
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "UPPER ARLINGTON CITY",
+  "updated": "2026-05-09"
+}

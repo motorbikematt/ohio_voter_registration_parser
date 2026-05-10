@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 14,408 (17%)",
+      "UNC – Lapsed R — 11,468 (14%)",
+      "Mixed – Active — 6,116 (7%)",
+      "Mixed – Lapsed — 8,750 (10%)",
+      "UNC – No Primary — 31,354 (37%)",
+      "UNC – Lapsed D — 7,566 (9%)",
+      "Pure D — 4,092 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          14408,
+          11468,
+          6116,
+          8750,
+          31354,
+          7566,
+          4092
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "State Representative District",
+  "jurisdiction_name": "70",
+  "updated": "2026-05-09"
+}

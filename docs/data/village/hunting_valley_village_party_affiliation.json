@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 25 (21%)",
+      "UNC – Lapsed R — 24 (20%)",
+      "Mixed – Active — 15 (12%)",
+      "Mixed – Lapsed — 3 (2%)",
+      "UNC – No Primary — 42 (35%)",
+      "UNC – Lapsed D — 9 (7%)",
+      "Pure D — 3 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          25,
+          24,
+          15,
+          3,
+          42,
+          9,
+          3
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "HUNTING VALLEY VILLAGE",
+  "updated": "2026-05-09"
+}

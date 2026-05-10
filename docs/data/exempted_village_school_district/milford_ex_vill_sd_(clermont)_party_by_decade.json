@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          10,
+          229,
+          957,
+          1602,
+          1400,
+          761,
+          496,
+          197,
+          161
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          19,
+          150,
+          401,
+          787,
+          1180,
+          977,
+          825,
+          532,
+          59
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          1,
+          53,
+          334,
+          562,
+          378,
+          239,
+          148,
+          41,
+          5
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          7,
+          66,
+          260,
+          467,
+          699,
+          860,
+          698,
+          281,
+          89
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          7,
+          77,
+          295,
+          647,
+          987,
+          1326,
+          2216,
+          2876,
+          3183
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          5,
+          60,
+          277,
+          474,
+          530,
+          714,
+          657,
+          380,
+          66
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          4,
+          46,
+          236,
+          364,
+          182,
+          185,
+          169,
+          90,
+          81
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "MILFORD EX VILL SD (CLERMONT)",
+  "updated": "2026-05-09"
+}

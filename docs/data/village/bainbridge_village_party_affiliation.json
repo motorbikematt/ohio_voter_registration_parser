@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 68 (15%)",
+      "UNC – Lapsed R — 45 (10%)",
+      "Mixed – Active — 36 (8%)",
+      "Mixed – Lapsed — 25 (5%)",
+      "UNC – No Primary — 209 (46%)",
+      "UNC – Lapsed D — 52 (11%)",
+      "Pure D — 23 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          68,
+          45,
+          36,
+          25,
+          209,
+          52,
+          23
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BAINBRIDGE VILLAGE",
+  "updated": "2026-05-09"
+}

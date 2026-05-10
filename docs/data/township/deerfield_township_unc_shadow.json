@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 3,718",
+      "Mixed – Active — 1,900",
+      "Mixed – Lapsed — 2,617",
+      "UNC – No Primary — 12,223",
+      "UNC – Lapsed D — 2,908"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3718,
+          1900,
+          2617,
+          12223,
+          2908
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "DEERFIELD TOWNSHIP",
+  "updated": "2026-05-09"
+}

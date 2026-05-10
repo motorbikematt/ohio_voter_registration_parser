@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 57 (9%)",
+      "UNC – Lapsed R — 58 (9%)",
+      "Mixed – Active — 78 (12%)",
+      "Mixed – Lapsed — 63 (10%)",
+      "UNC – No Primary — 214 (34%)",
+      "UNC – Lapsed D — 102 (16%)",
+      "Pure D — 55 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          57,
+          58,
+          78,
+          63,
+          214,
+          102,
+          55
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MALAGA TOWNSHIP",
+  "updated": "2026-05-09"
+}

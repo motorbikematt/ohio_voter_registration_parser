@@ -1,0 +1,143 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          0,
+          9,
+          86,
+          421,
+          1011,
+          1029,
+          491,
+          354,
+          361,
+          108
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          0,
+          9,
+          62,
+          270,
+          732,
+          1025,
+          830,
+          891,
+          1096,
+          64
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          1,
+          19,
+          248,
+          1120,
+          2056,
+          1795,
+          781,
+          596,
+          303,
+          12
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          1,
+          27,
+          191,
+          713,
+          1811,
+          2259,
+          1857,
+          2104,
+          1609,
+          457
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          3,
+          34,
+          388,
+          1959,
+          7512,
+          14067,
+          17562,
+          27585,
+          42800,
+          24029
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          7,
+          141,
+          1218,
+          3046,
+          8048,
+          9945,
+          8389,
+          8846,
+          5992,
+          481
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          0,
+          102,
+          1230,
+          4034,
+          8163,
+          5874,
+          3187,
+          3169,
+          2753,
+          606
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City School District",
+  "jurisdiction_name": "CLEVELAND MUNICIPAL CITY SD",
+  "updated": "2026-05-09"
+}

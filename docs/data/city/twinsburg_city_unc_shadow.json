@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,092",
+      "Mixed – Active — 1,112",
+      "Mixed – Lapsed — 1,698",
+      "UNC – No Primary — 4,773",
+      "UNC – Lapsed D — 2,591"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1092,
+          1112,
+          1698,
+          4773,
+          2591
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "TWINSBURG CITY",
+  "updated": "2026-05-09"
+}

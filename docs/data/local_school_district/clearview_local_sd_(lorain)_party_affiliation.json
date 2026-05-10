@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 159 (5%)",
+      "UNC – Lapsed R — 151 (4%)",
+      "Mixed – Active — 245 (7%)",
+      "Mixed – Lapsed — 169 (5%)",
+      "UNC – No Primary — 1,725 (51%)",
+      "UNC – Lapsed D — 540 (16%)",
+      "Pure D — 424 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          159,
+          151,
+          245,
+          169,
+          1725,
+          540,
+          424
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "CLEARVIEW LOCAL SD (LORAIN)",
+  "updated": "2026-05-09"
+}

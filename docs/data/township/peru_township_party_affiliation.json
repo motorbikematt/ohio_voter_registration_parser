@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 436 (24%)",
+      "UNC – Lapsed R — 261 (14%)",
+      "Mixed – Active — 120 (7%)",
+      "Mixed – Lapsed — 170 (9%)",
+      "UNC – No Primary — 616 (34%)",
+      "UNC – Lapsed D — 150 (8%)",
+      "Pure D — 85 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          436,
+          261,
+          120,
+          170,
+          616,
+          150,
+          85
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PERU TOWNSHIP",
+  "updated": "2026-05-09"
+}

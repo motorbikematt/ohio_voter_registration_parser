@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 610 (5%)",
+      "UNC – Lapsed R — 1,255 (9%)",
+      "Mixed – Active — 485 (4%)",
+      "Mixed – Lapsed — 858 (6%)",
+      "UNC – No Primary — 7,539 (57%)",
+      "UNC – Lapsed D — 1,841 (14%)",
+      "Pure D — 713 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          610,
+          1255,
+          485,
+          858,
+          7539,
+          1841,
+          713
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "NORWOOD CITY",
+  "updated": "2026-05-09"
+}

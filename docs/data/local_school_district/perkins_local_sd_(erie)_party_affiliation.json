@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,068 (11%)",
+      "UNC – Lapsed R — 954 (10%)",
+      "Mixed – Active — 1,165 (12%)",
+      "Mixed – Lapsed — 1,292 (13%)",
+      "UNC – No Primary — 3,247 (33%)",
+      "UNC – Lapsed D — 1,501 (15%)",
+      "Pure D — 710 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1068,
+          954,
+          1165,
+          1292,
+          3247,
+          1501,
+          710
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "PERKINS LOCAL SD (ERIE)",
+  "updated": "2026-05-09"
+}

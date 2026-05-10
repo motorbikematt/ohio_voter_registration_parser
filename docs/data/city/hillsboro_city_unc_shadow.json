@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 410",
+      "Mixed – Active — 302",
+      "Mixed – Lapsed — 214",
+      "UNC – No Primary — 1,970",
+      "UNC – Lapsed D — 308"
+    ],
+    "datasets": [
+      {
+        "data": [
+          410,
+          302,
+          214,
+          1970,
+          308
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "HILLSBORO CITY",
+  "updated": "2026-05-09"
+}

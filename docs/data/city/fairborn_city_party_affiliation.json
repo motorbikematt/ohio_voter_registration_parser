@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,394 (11%)",
+      "UNC – Lapsed R — 2,693 (12%)",
+      "Mixed – Active — 1,190 (5%)",
+      "Mixed – Lapsed — 1,580 (7%)",
+      "UNC – No Primary — 11,281 (50%)",
+      "UNC – Lapsed D — 2,407 (11%)",
+      "Pure D — 978 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2394,
+          2693,
+          1190,
+          1580,
+          11281,
+          2407,
+          978
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "FAIRBORN CITY",
+  "updated": "2026-05-09"
+}

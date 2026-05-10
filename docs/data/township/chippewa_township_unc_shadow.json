@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 748",
+      "Mixed – Active — 702",
+      "Mixed – Lapsed — 592",
+      "UNC – No Primary — 2,371",
+      "UNC – Lapsed D — 690"
+    ],
+    "datasets": [
+      {
+        "data": [
+          748,
+          702,
+          592,
+          2371,
+          690
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "CHIPPEWA TOWNSHIP",
+  "updated": "2026-05-09"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 808 (13%)",
+      "UNC – Lapsed R — 739 (12%)",
+      "Mixed – Active — 350 (5%)",
+      "Mixed – Lapsed — 663 (10%)",
+      "UNC – No Primary — 2,962 (46%)",
+      "UNC – Lapsed D — 624 (10%)",
+      "Pure D — 250 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          808,
+          739,
+          350,
+          663,
+          2962,
+          624,
+          250
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "GALION CITY",
+  "updated": "2026-05-09"
+}

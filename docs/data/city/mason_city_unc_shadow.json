@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 3,302",
+      "Mixed – Active — 1,252",
+      "Mixed – Lapsed — 2,102",
+      "UNC – No Primary — 9,885",
+      "UNC – Lapsed D — 2,307"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3302,
+          1252,
+          2102,
+          9885,
+          2307
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file",
+  "geography": "City",
+  "jurisdiction_name": "MASON CITY",
+  "updated": "2026-05-09"
+}

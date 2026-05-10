@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,221 (13%)",
+      "UNC – Lapsed R — 624 (7%)",
+      "Mixed – Active — 1,067 (12%)",
+      "Mixed – Lapsed — 1,310 (14%)",
+      "UNC – No Primary — 2,501 (28%)",
+      "UNC – Lapsed D — 1,365 (15%)",
+      "Pure D — 979 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1221,
+          624,
+          1067,
+          1310,
+          2501,
+          1365,
+          979
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "MACEDONIA CITY",
+  "updated": "2026-05-09"
+}
