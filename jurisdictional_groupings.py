@@ -483,15 +483,21 @@ def main(
     logger.info(f'Processing {len(jurisdictions_to_process)} jurisdiction types: {jurisdictions_to_process}')
     logger.info(f'Output format: {output_format}')
 
-    # Load enriched parquet
-    logger.info('Loading enriched voter parquet...')
+    # Load raw parquet cache (Hive-partitioned by COUNTY_NUMBER)
+    logger.info('Loading voter parquet cache...')
     try:
-        df = pl.read_parquet(str(PARQUET_DIR))
-        logger.info(f'Loaded {df.height:,} rows × {df.width} columns')
+        df = pl.read_parquet(str(PARQUET_DIR) + '/**/*.parquet', hive_partitioning=True)
+        logger.info(f'Loaded {df.height:,} rows x {df.width} columns')
     except FileNotFoundError:
-        logger.error(f'Enriched parquet not found at {PARQUET_DIR}')
-        logger.error('Run voter_data_cleaner_v2.py (option 1) to generate it.')
+        logger.error(f'Parquet cache not found at {PARQUET_DIR}')
+        logger.error('Run ohio_voter_pipeline.py option 1 to generate it.')
         return False
+
+    # Enrich: attach cohort_family, Decade, Generation and all cohort columns
+    logger.info('Enriching voter data (cohort classification + demographics)...')
+    import voter_data_cleaner_v2 as _v2
+    df = _v2.clean_voter_data(df, logger)
+    logger.info(f'Enriched: {df.height:,} rows x {df.width} columns')
 
     # Get election columns (any column matching PRIMARY-*, GENERAL-*, SPECIAL-* pattern)
     election_cols = [col for col in df.columns if col.split('-')[0] in ['PRIMARY', 'GENERAL', 'SPECIAL']]

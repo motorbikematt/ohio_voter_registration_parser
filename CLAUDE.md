@@ -98,12 +98,18 @@ Log malformed rows to `./working/errors/[county].log` and continue. Never halt o
 ## Project state
 
 - **Phase 1 complete**. Parquet cache: 88 partitions, 7,892,613 rows × 135 cols.
+- **Directory layout** (2026-05-09 reorganization):
+  - Root: core engine + config only. `ohio_voter_pipeline.py` (menu driver), `ohio_voter_pipeline_wrapper.py`, `voter_data_cleaner_v2.py` (core, ~3,650 lines), `jurisdictional_groupings.py`, `state_configs/ohio.py`.
+  - `tools/`: utility scripts and exporters. `precinct_unc_export.py`, `precinct_party_export.py`, `export_unc_targets.py`, `precinct_key_manager.py` (merged scrape + aggregate functions), `clean_precinct_keys.py`, `run_city_groupings.py`, `test_jurisdiction_collisions.py`, `voter_lookup.py`, `voter_analysis.ipynb`. Precinct key CSVs are lean 3-col schema: county, precinct_code, precinct_label.
+  - `tools/scoring/`: lean-prediction module. `mixed_lean_predictor.py`, `unc_lifetime_d_predictor.py`, `run_lean_predictor_all_cohorts.py`, `run_mixed_lean_predictor_all_counties.py`.
+  - `docs/research/`: archived research logs and handoff notes.
 - **Active scripts**:
   - `ohio_voter_pipeline.py` — menu driver
-  - `voter_data_cleaner_v2.py` — core engine (~3,650 lines). Module-level `COHORT_SLICES` + `COHORT_STACK_MAP`. `classify_all_voters_primary_history()` universal classifier; `clean_voter_data()` auto-attaches 15 cohort columns; `export_json()` + `export_precinct_charts()` write all 6 chart types.
-  - `precinct_unc_export.py` — per-precinct cohort counts (pure_d/r, crossover, unc_lifetime, new_registrants).
-  - `precinct_party_export.py` — interactive 8-tab partisan-spectrum xlsx by county/precinct.
-  - `export_unc_targets.py` — cohort-segmented targeting CSVs.
+  - `voter_data_cleaner_v2.py` — core engine. Module-level `COHORT_SLICES` + `COHORT_STACK_MAP`. `classify_all_voters_primary_history()` universal classifier; `clean_voter_data()` auto-attaches 15 cohort columns; `export_json()` + `export_precinct_charts()` write all 6 chart types.
+  - `tools/precinct_unc_export.py` — per-precinct cohort counts (pure_d/r, crossover, unc_lifetime, new_registrants).
+  - `tools/precinct_party_export.py` — interactive 8-tab partisan-spectrum xlsx by county/precinct.
+  - `tools/export_unc_targets.py` — cohort-segmented targeting CSVs.
+  - `tools/precinct_key_manager.py` — interactive precinct key manager (merged from scrape_vtrapp_precincts + aggregate_precinct_keys).
 - **Dashboard**: GitHub Pages `/docs` — county + precinct scope, manifest-driven, Chart.js. Live: https://motorbikematt.github.io/ohio_voter_registration_parser/
   - Deep-link: `?county=Montgomery&geo=precinct-detail&precinct=DAYTON+8-B#decade-distribution`
   - 2026-05-07: deep-link bug fixed — `_populatePrecinctDropdown` in `docs/charts.js` now calls `_filterSections` + `_renderVisibleSections` + `_rebuildNav` after injecting precinct sections.
@@ -143,4 +149,4 @@ Doughnut tooltips are disabled and the legend renders `"<Cohort> — <count> (<p
 
 ---
 
-*Last updated: 2026-05-08 (7-cohort schema, Mixed-Active/Lapsed split)*
+*Last updated: 2026-05-09 (repo reorganization — tools/ hierarchy, precinct_key_manager merge, scoring/ module)*
