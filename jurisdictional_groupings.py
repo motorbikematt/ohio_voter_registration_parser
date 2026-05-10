@@ -507,7 +507,6 @@ def main(
     jurisdiction_results = {}
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
-        futures = {}
 
         for jurisdiction_type_key in jurisdictions_to_process:
             if jurisdiction_type_key not in JURISDICTIONS:
@@ -523,35 +522,66 @@ def main(
                 logger.warning(f'Column {column} not in dataframe; skipping {jurisdiction_type_key}')
                 continue
 
-            logger.info(f'Aggregating {jurisdiction_type_key} ({column})...')
+            # Collect valid jurisdiction names.
+            # Filters: nulls, floats, blank strings, and single-character artifacts
+            # (e.g. "/" values that appear in the SWVF for rural voters with no
+            # assigned city — these are not real jurisdictions and cause timeouts).
+            raw_values = df[column].unique().to_list()
+            jurisdictions = sorted([
+                j for j in raw_values
+                if j is not None
+                and not isinstance(j, float)
+                and len(str(j).strip()) > 1
+            ])
 
-            # Get unique jurisdictions for this type
-            jurisdictions = sorted([j for j in df[column].unique().to_list()
-                                  if j is not None and not (isinstance(j, float))])
+            logger.info(f'Aggregating {jurisdiction_type_key} ({column}): {len(jurisdictions)} jurisdictions')
 
-            logger.info(f'  {len(jurisdictions)} unique {jurisdiction_type_key}')
+            # Pre-partition the full dataframe into per-jurisdiction slices before
+            # spawning workers. Without this, each worker scans all 7.9M rows to
+            # filter its own slice — under 8 concurrent threads that compounds into
+            # severe memory pressure and causes multi-minute stalls or timeouts.
+            print(f'  Pre-partitioning {len(jurisdictions)} {jurisdiction_type_key}...', flush=True)
+            partition_map = {
+                name: df.filter(pl.col(column) == name)
+                for name in jurisdictions
+            }
 
-            # Submit aggregation tasks
+            # Submit one task per jurisdiction; each worker receives its pre-sliced
+            # frame so its internal filter is a trivial no-op on a small subset.
             futures_for_type = {}
             for jurisdiction_name in jurisdictions:
                 future = executor.submit(
                     aggregate_jurisdiction,
-                    df, column, jurisdiction_name, display, election_cols, today, logger
+                    partition_map[jurisdiction_name],
+                    column, jurisdiction_name, display, election_cols, today, logger,
                 )
                 futures_for_type[jurisdiction_name] = future
 
-            # Collect results as they complete
+            # Collect results and print a rolling progress counter so the terminal
+            # does not appear frozen during long aggregation passes.
             results = []
-            for jurisdiction_name in jurisdictions:
+            total = len(jurisdictions)
+            for idx, jurisdiction_name in enumerate(jurisdictions, 1):
+                print(
+                    f'\r  [{idx:>5}/{total}] {jurisdiction_type_key}: '
+                    f'{str(jurisdiction_name)[:45]:<45}',
+                    end='', flush=True,
+                )
                 try:
-                    result = futures_for_type[jurisdiction_name].result(timeout=300)
+                    result = futures_for_type[jurisdiction_name].result(timeout=120)
                     if result:
                         result['today'] = today
                         results.append(result)
                 except concurrent.futures.TimeoutError:
-                    logger.error(f'Timeout aggregating {jurisdiction_type_key} / {jurisdiction_name}')
+                    logger.error(
+                        f'Timeout (>120s) aggregating {jurisdiction_type_key} / {jurisdiction_name}'
+                    )
                 except Exception as e:
-                    logger.error(f'Error aggregating {jurisdiction_type_key} / {jurisdiction_name}: {e}')
+                    logger.error(
+                        f'Error aggregating {jurisdiction_type_key} / {jurisdiction_name}: {e}'
+                    )
+            print()  # newline after rolling progress line
+            logger.info(f'  {jurisdiction_type_key}: {len(results)}/{total} aggregated successfully')
 
             jurisdiction_results[jurisdiction_type_key] = {
                 'config': config,
