@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 24 (13%)",
+      "UNC – Lapsed R — 25 (14%)",
+      "Mixed – Active — 11 (6%)",
+      "Mixed – Lapsed — 16 (9%)",
+      "UNC – No Primary — 86 (48%)",
+      "UNC – Lapsed D — 13 (7%)",
+      "Pure D — 4 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          24,
+          25,
+          11,
+          16,
+          86,
+          13,
+          4
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SOUTH SOLON VILLAGE (Madison Co.)",
+  "updated": "2026-05-10"
+}

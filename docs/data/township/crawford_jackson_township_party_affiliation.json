@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 42 (15%)",
+      "UNC – Lapsed R — 24 (9%)",
+      "Mixed – Active — 22 (8%)",
+      "Mixed – Lapsed — 22 (8%)",
+      "UNC – No Primary — 126 (46%)",
+      "UNC – Lapsed D — 22 (8%)",
+      "Pure D — 14 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          42,
+          24,
+          22,
+          22,
+          126,
+          22,
+          14
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JACKSON TOWNSHIP (Crawford Co.)",
+  "updated": "2026-05-10"
+}

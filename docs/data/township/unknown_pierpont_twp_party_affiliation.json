@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 134 (20%)",
+      "UNC – Lapsed R — 52 (8%)",
+      "Mixed – Active — 68 (10%)",
+      "Mixed – Lapsed — 54 (8%)",
+      "UNC – No Primary — 265 (40%)",
+      "UNC – Lapsed D — 42 (6%)",
+      "Pure D — 43 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          134,
+          52,
+          68,
+          54,
+          265,
+          42,
+          43
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PIERPONT TWP (Unknown Co.)",
+  "updated": "2026-05-10"
+}

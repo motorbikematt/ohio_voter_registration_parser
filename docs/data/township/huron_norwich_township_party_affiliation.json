@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 138 (20%)",
+      "UNC – Lapsed R — 98 (14%)",
+      "Mixed – Active — 61 (9%)",
+      "Mixed – Lapsed — 75 (11%)",
+      "UNC – No Primary — 238 (34%)",
+      "UNC – Lapsed D — 62 (9%)",
+      "Pure D — 21 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          138,
+          98,
+          61,
+          75,
+          238,
+          62,
+          21
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "NORWICH TOWNSHIP (Huron Co.)",
+  "updated": "2026-05-10"
+}

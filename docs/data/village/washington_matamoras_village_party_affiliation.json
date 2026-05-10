@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 61 (12%)",
+      "UNC – Lapsed R — 32 (6%)",
+      "Mixed – Active — 50 (10%)",
+      "Mixed – Lapsed — 21 (4%)",
+      "UNC – No Primary — 255 (51%)",
+      "UNC – Lapsed D — 48 (10%)",
+      "Pure D — 33 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          61,
+          32,
+          50,
+          21,
+          255,
+          48,
+          33
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "MATAMORAS VILLAGE (Washington Co.)",
+  "updated": "2026-05-10"
+}

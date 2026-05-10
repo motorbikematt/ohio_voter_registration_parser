@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,420 (20%)",
+      "UNC – Lapsed R — 3,180 (14%)",
+      "Mixed – Active — 1,834 (8%)",
+      "Mixed – Lapsed — 1,467 (7%)",
+      "UNC – No Primary — 9,120 (41%)",
+      "UNC – Lapsed D — 1,695 (8%)",
+      "Pure D — 496 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4420,
+          3180,
+          1834,
+          1467,
+          9120,
+          1695,
+          496
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CONCORD TOWNSHIP (Miami Co.)",
+  "updated": "2026-05-10"
+}

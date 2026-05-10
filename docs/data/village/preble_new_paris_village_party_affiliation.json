@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 118 (12%)",
+      "UNC – Lapsed R — 103 (11%)",
+      "Mixed – Active — 49 (5%)",
+      "Mixed – Lapsed — 61 (6%)",
+      "UNC – No Primary — 512 (54%)",
+      "UNC – Lapsed D — 87 (9%)",
+      "Pure D — 19 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          118,
+          103,
+          49,
+          61,
+          512,
+          87,
+          19
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "NEW PARIS VILLAGE (Preble Co.)",
+  "updated": "2026-05-10"
+}

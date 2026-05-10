@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 30 (14%)",
+      "UNC – Lapsed R — 28 (14%)",
+      "Mixed – Active — 13 (6%)",
+      "Mixed – Lapsed — 20 (10%)",
+      "UNC – No Primary — 80 (39%)",
+      "UNC – Lapsed D — 29 (14%)",
+      "Pure D — 7 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          30,
+          28,
+          13,
+          20,
+          80,
+          29,
+          7
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "MORRAL VILLAGE (Marion Co.)",
+  "updated": "2026-05-10"
+}

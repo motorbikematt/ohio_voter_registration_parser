@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 59",
+      "Mixed – Active — 68",
+      "Mixed – Lapsed — 117",
+      "UNC – No Primary — 1,309",
+      "UNC – Lapsed D — 686"
+    ],
+    "datasets": [
+      {
+        "data": [
+          59,
+          68,
+          117,
+          1309,
+          686
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "WOODLAWN VILLAGE (Hamilton Co.)",
+  "updated": "2026-05-10"
+}

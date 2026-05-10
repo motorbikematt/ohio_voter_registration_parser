@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,029",
+      "Mixed – Active — 1,149",
+      "Mixed – Lapsed — 1,182",
+      "UNC – No Primary — 3,303",
+      "UNC – Lapsed D — 1,330"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1029,
+          1149,
+          1182,
+          3303,
+          1330
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "ERIE-CO (Erie Co.)",
+  "updated": "2026-05-10"
+}

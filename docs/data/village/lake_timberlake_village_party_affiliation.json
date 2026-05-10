@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 80 (16%)",
+      "UNC – Lapsed R — 49 (10%)",
+      "Mixed – Active — 74 (15%)",
+      "Mixed – Lapsed — 50 (10%)",
+      "UNC – No Primary — 129 (26%)",
+      "UNC – Lapsed D — 76 (15%)",
+      "Pure D — 42 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          80,
+          49,
+          74,
+          50,
+          129,
+          76,
+          42
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "TIMBERLAKE VILLAGE (Lake Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,476 (15%)",
+      "UNC – Lapsed R — 1,259 (13%)",
+      "Mixed – Active — 1,138 (12%)",
+      "Mixed – Lapsed — 1,160 (12%)",
+      "UNC – No Primary — 3,104 (32%)",
+      "UNC – Lapsed D — 1,097 (11%)",
+      "Pure D — 594 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1476,
+          1259,
+          1138,
+          1160,
+          3104,
+          1097,
+          594
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BAINBRIDGE TWP (Geauga Co.)",
+  "updated": "2026-05-10"
+}

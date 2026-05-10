@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 469 (25%)",
+      "UNC – Lapsed R — 230 (12%)",
+      "Mixed – Active — 150 (8%)",
+      "Mixed – Lapsed — 119 (6%)",
+      "UNC – No Primary — 713 (38%)",
+      "UNC – Lapsed D — 154 (8%)",
+      "Pure D — 59 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          469,
+          230,
+          150,
+          119,
+          713,
+          154,
+          59
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MONROE TOWNSHIP (Knox Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 738 (25%)",
+      "UNC – Lapsed R — 526 (18%)",
+      "Mixed – Active — 230 (8%)",
+      "Mixed – Lapsed — 259 (9%)",
+      "UNC – No Primary — 990 (34%)",
+      "UNC – Lapsed D — 122 (4%)",
+      "Pure D — 54 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          738,
+          526,
+          230,
+          259,
+          990,
+          122,
+          54
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JACKSON TOWNSHIP (Unknown Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 146 (24%)",
+      "UNC – Lapsed R — 89 (14%)",
+      "Mixed – Active — 58 (9%)",
+      "Mixed – Lapsed — 26 (4%)",
+      "UNC – No Primary — 248 (40%)",
+      "UNC – Lapsed D — 33 (5%)",
+      "Pure D — 19 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          146,
+          89,
+          58,
+          26,
+          248,
+          33,
+          19
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HARRISON TWP (Gallia Co.)",
+  "updated": "2026-05-10"
+}

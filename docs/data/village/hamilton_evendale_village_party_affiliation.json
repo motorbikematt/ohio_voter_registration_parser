@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 434 (19%)",
+      "UNC – Lapsed R — 365 (16%)",
+      "Mixed – Active — 201 (9%)",
+      "Mixed – Lapsed — 250 (11%)",
+      "UNC – No Primary — 622 (27%)",
+      "UNC – Lapsed D — 252 (11%)",
+      "Pure D — 165 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          434,
+          365,
+          201,
+          250,
+          622,
+          252,
+          165
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "EVENDALE VILLAGE (Hamilton Co.)",
+  "updated": "2026-05-10"
+}

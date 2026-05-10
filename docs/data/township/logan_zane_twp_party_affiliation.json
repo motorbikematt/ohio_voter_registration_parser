@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 187 (21%)",
+      "UNC – Lapsed R — 161 (18%)",
+      "Mixed – Active — 60 (7%)",
+      "Mixed – Lapsed — 49 (6%)",
+      "UNC – No Primary — 325 (37%)",
+      "UNC – Lapsed D — 64 (7%)",
+      "Pure D — 32 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          187,
+          161,
+          60,
+          49,
+          325,
+          64,
+          32
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "ZANE TWP (Logan Co.)",
+  "updated": "2026-05-10"
+}

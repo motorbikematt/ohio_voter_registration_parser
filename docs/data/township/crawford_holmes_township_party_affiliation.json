@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 261 (30%)",
+      "UNC – Lapsed R — 120 (14%)",
+      "Mixed – Active — 67 (8%)",
+      "Mixed – Lapsed — 58 (7%)",
+      "UNC – No Primary — 284 (32%)",
+      "UNC – Lapsed D — 63 (7%)",
+      "Pure D — 23 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          261,
+          120,
+          67,
+          58,
+          284,
+          63,
+          23
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HOLMES TOWNSHIP (Crawford Co.)",
+  "updated": "2026-05-10"
+}

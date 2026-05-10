@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 14 (21%)",
+      "UNC – Lapsed R — 9 (13%)",
+      "Mixed – Active — 6 (9%)",
+      "Mixed – Lapsed — 6 (9%)",
+      "UNC – No Primary — 25 (37%)",
+      "UNC – Lapsed D — 7 (10%)",
+      "Pure D — 0 (0%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          14,
+          9,
+          6,
+          6,
+          25,
+          7,
+          0
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BROUGHTON VILLAGE (Paulding Co.)",
+  "updated": "2026-05-10"
+}

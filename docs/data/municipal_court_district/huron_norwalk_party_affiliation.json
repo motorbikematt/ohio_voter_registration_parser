@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 5,660 (17%)",
+      "UNC – Lapsed R — 3,370 (10%)",
+      "Mixed – Active — 2,181 (7%)",
+      "Mixed – Lapsed — 2,752 (8%)",
+      "UNC – No Primary — 13,977 (43%)",
+      "UNC – Lapsed D — 2,952 (9%)",
+      "Pure D — 1,530 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5660,
+          3370,
+          2181,
+          2752,
+          13977,
+          2952,
+          1530
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "NORWALK (Huron Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 72 (21%)",
+      "UNC – Lapsed R — 54 (15%)",
+      "Mixed – Active — 32 (9%)",
+      "Mixed – Lapsed — 26 (7%)",
+      "UNC – No Primary — 95 (27%)",
+      "UNC – Lapsed D — 55 (16%)",
+      "Pure D — 15 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          72,
+          54,
+          32,
+          26,
+          95,
+          55,
+          15
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MARION TOWNSHIP (Noble Co.)",
+  "updated": "2026-05-10"
+}

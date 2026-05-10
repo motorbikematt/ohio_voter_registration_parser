@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 41 (19%)",
+      "UNC – Lapsed R — 16 (8%)",
+      "Mixed – Active — 6 (3%)",
+      "Mixed – Lapsed — 14 (7%)",
+      "UNC – No Primary — 112 (53%)",
+      "UNC – Lapsed D — 23 (11%)",
+      "Pure D — 1 (0%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          41,
+          16,
+          6,
+          14,
+          112,
+          23,
+          1
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "AURELIUS TWP (Washington Co.)",
+  "updated": "2026-05-10"
+}

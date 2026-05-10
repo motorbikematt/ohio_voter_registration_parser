@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 75 (11%)",
+      "UNC – Lapsed R — 115 (17%)",
+      "Mixed – Active — 46 (7%)",
+      "Mixed – Lapsed — 53 (8%)",
+      "UNC – No Primary — 325 (48%)",
+      "UNC – Lapsed D — 54 (8%)",
+      "Pure D — 15 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          75,
+          115,
+          46,
+          53,
+          325,
+          54,
+          15
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BRADFORD VILLAGE (Miami Co.)",
+  "updated": "2026-05-10"
+}

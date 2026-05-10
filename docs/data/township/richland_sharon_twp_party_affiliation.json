@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 814 (15%)",
+      "UNC – Lapsed R — 760 (14%)",
+      "Mixed – Active — 395 (7%)",
+      "Mixed – Lapsed — 493 (9%)",
+      "UNC – No Primary — 2,285 (42%)",
+      "UNC – Lapsed D — 437 (8%)",
+      "Pure D — 229 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          814,
+          760,
+          395,
+          493,
+          2285,
+          437,
+          229
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SHARON TWP (Richland Co.)",
+  "updated": "2026-05-10"
+}

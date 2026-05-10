@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 286",
+      "Mixed – Active — 261",
+      "Mixed – Lapsed — 296",
+      "UNC – No Primary — 1,052",
+      "UNC – Lapsed D — 230"
+    ],
+    "datasets": [
+      {
+        "data": [
+          286,
+          261,
+          296,
+          1052,
+          230
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BELPRE TWP (Washington Co.)",
+  "updated": "2026-05-10"
+}

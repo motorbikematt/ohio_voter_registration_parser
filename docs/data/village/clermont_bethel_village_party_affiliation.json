@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 252 (16%)",
+      "UNC – Lapsed R — 150 (10%)",
+      "Mixed – Active — 77 (5%)",
+      "Mixed – Lapsed — 137 (9%)",
+      "UNC – No Primary — 781 (50%)",
+      "UNC – Lapsed D — 120 (8%)",
+      "Pure D — 37 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          252,
+          150,
+          77,
+          137,
+          781,
+          120,
+          37
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BETHEL VILLAGE (Clermont Co.)",
+  "updated": "2026-05-10"
+}

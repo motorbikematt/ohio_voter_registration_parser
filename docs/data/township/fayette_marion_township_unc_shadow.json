@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 89",
+      "Mixed – Active — 43",
+      "Mixed – Lapsed — 39",
+      "UNC – No Primary — 165",
+      "UNC – Lapsed D — 21"
+    ],
+    "datasets": [
+      {
+        "data": [
+          89,
+          43,
+          39,
+          165,
+          21
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MARION TOWNSHIP (Fayette Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 31 (13%)",
+      "UNC – Lapsed R — 18 (8%)",
+      "Mixed – Active — 19 (8%)",
+      "Mixed – Lapsed — 9 (4%)",
+      "UNC – No Primary — 120 (51%)",
+      "UNC – Lapsed D — 28 (12%)",
+      "Pure D — 11 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          31,
+          18,
+          19,
+          9,
+          120,
+          28,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "CORNING VILLAGE (Perry Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 19 (13%)",
+      "UNC – Lapsed R — 14 (9%)",
+      "Mixed – Active — 24 (16%)",
+      "Mixed – Lapsed — 9 (6%)",
+      "UNC – No Primary — 40 (27%)",
+      "UNC – Lapsed D — 20 (13%)",
+      "Pure D — 24 (16%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          19,
+          14,
+          24,
+          9,
+          40,
+          20,
+          24
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "KIPTON VILLAGE (Lorain Co.)",
+  "updated": "2026-05-10"
+}

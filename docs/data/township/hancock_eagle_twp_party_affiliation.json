@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 382 (47%)",
+      "UNC – Lapsed R — 133 (16%)",
+      "Mixed – Active — 42 (5%)",
+      "Mixed – Lapsed — 45 (6%)",
+      "UNC – No Primary — 182 (22%)",
+      "UNC – Lapsed D — 18 (2%)",
+      "Pure D — 11 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          382,
+          133,
+          42,
+          45,
+          182,
+          18,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "EAGLE TWP (Hancock Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 190 (24%)",
+      "UNC – Lapsed R — 68 (9%)",
+      "Mixed – Active — 63 (8%)",
+      "Mixed – Lapsed — 41 (5%)",
+      "UNC – No Primary — 333 (43%)",
+      "UNC – Lapsed D — 54 (7%)",
+      "Pure D — 34 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          190,
+          68,
+          63,
+          41,
+          333,
+          54,
+          34
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MADISON TOWNSHIP (Perry Co.)",
+  "updated": "2026-05-10"
+}

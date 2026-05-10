@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 433",
+      "Mixed – Active — 386",
+      "Mixed – Lapsed — 321",
+      "UNC – No Primary — 1,002",
+      "UNC – Lapsed D — 338"
+    ],
+    "datasets": [
+      {
+        "data": [
+          433,
+          386,
+          321,
+          1002,
+          338
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "SOUTH RUSSELL VILLAGE (Geauga Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 329 (15%)",
+      "UNC – Lapsed R — 233 (10%)",
+      "Mixed – Active — 201 (9%)",
+      "Mixed – Lapsed — 155 (7%)",
+      "UNC – No Primary — 924 (41%)",
+      "UNC – Lapsed D — 286 (13%)",
+      "Pure D — 119 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          329,
+          233,
+          201,
+          155,
+          924,
+          286,
+          119
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CLAY TOWNSHIP (Scioto Co.)",
+  "updated": "2026-05-10"
+}

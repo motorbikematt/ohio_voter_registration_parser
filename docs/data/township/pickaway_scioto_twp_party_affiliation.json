@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,444 (23%)",
+      "UNC – Lapsed R — 716 (11%)",
+      "Mixed – Active — 536 (8%)",
+      "Mixed – Lapsed — 642 (10%)",
+      "UNC – No Primary — 2,175 (34%)",
+      "UNC – Lapsed D — 495 (8%)",
+      "Pure D — 307 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1444,
+          716,
+          536,
+          642,
+          2175,
+          495,
+          307
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SCIOTO TWP (Pickaway Co.)",
+  "updated": "2026-05-10"
+}

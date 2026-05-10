@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 149 (26%)",
+      "UNC – Lapsed R — 63 (11%)",
+      "Mixed – Active — 57 (10%)",
+      "Mixed – Lapsed — 24 (4%)",
+      "UNC – No Primary — 213 (38%)",
+      "UNC – Lapsed D — 45 (8%)",
+      "Pure D — 13 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          149,
+          63,
+          57,
+          24,
+          213,
+          45,
+          13
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "OHIO TWP (Gallia Co.)",
+  "updated": "2026-05-10"
+}

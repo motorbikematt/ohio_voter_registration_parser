@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 43 (16%)",
+      "UNC – Lapsed R — 37 (14%)",
+      "Mixed – Active — 25 (9%)",
+      "Mixed – Lapsed — 13 (5%)",
+      "UNC – No Primary — 99 (37%)",
+      "UNC – Lapsed D — 38 (14%)",
+      "Pure D — 10 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          43,
+          37,
+          25,
+          13,
+          99,
+          38,
+          10
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "GREENFIELD TWP (Gallia Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 194 (15%)",
+      "UNC – Lapsed R — 95 (7%)",
+      "Mixed – Active — 180 (14%)",
+      "Mixed – Lapsed — 96 (7%)",
+      "UNC – No Primary — 497 (38%)",
+      "UNC – Lapsed D — 163 (13%)",
+      "Pure D — 72 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          194,
+          95,
+          180,
+          96,
+          497,
+          163,
+          72
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "YELLOW CREEK TWP (Columbiana Co.)",
+  "updated": "2026-05-10"
+}

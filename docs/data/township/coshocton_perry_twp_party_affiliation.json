@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 92 (21%)",
+      "UNC – Lapsed R — 66 (15%)",
+      "Mixed – Active — 48 (11%)",
+      "Mixed – Lapsed — 28 (6%)",
+      "UNC – No Primary — 157 (36%)",
+      "UNC – Lapsed D — 31 (7%)",
+      "Pure D — 11 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          92,
+          66,
+          48,
+          28,
+          157,
+          31,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PERRY TWP (Coshocton Co.)",
+  "updated": "2026-05-10"
+}

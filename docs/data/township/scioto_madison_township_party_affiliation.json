@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 491 (20%)",
+      "UNC – Lapsed R — 312 (13%)",
+      "Mixed – Active — 245 (10%)",
+      "Mixed – Lapsed — 129 (5%)",
+      "UNC – No Primary — 928 (38%)",
+      "UNC – Lapsed D — 249 (10%)",
+      "Pure D — 89 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          491,
+          312,
+          245,
+          129,
+          928,
+          249,
+          89
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MADISON TOWNSHIP (Scioto Co.)",
+  "updated": "2026-05-10"
+}

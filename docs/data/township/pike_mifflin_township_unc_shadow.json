@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 74",
+      "Mixed – Active — 39",
+      "Mixed – Lapsed — 38",
+      "UNC – No Primary — 303",
+      "UNC – Lapsed D — 83"
+    ],
+    "datasets": [
+      {
+        "data": [
+          74,
+          39,
+          38,
+          303,
+          83
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MIFFLIN TOWNSHIP (Pike Co.)",
+  "updated": "2026-05-10"
+}

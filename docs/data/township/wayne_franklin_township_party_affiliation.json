@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 441 (21%)",
+      "UNC – Lapsed R — 358 (17%)",
+      "Mixed – Active — 153 (7%)",
+      "Mixed – Lapsed — 232 (11%)",
+      "UNC – No Primary — 720 (35%)",
+      "UNC – Lapsed D — 118 (6%)",
+      "Pure D — 55 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          441,
+          358,
+          153,
+          232,
+          720,
+          118,
+          55
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FRANKLIN TOWNSHIP (Wayne Co.)",
+  "updated": "2026-05-10"
+}

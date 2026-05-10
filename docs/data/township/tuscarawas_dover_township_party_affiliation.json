@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 458 (15%)",
+      "UNC – Lapsed R — 410 (13%)",
+      "Mixed – Active — 328 (11%)",
+      "Mixed – Lapsed — 360 (12%)",
+      "UNC – No Primary — 1,023 (33%)",
+      "UNC – Lapsed D — 378 (12%)",
+      "Pure D — 147 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          458,
+          410,
+          328,
+          360,
+          1023,
+          378,
+          147
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "DOVER TOWNSHIP (Tuscarawas Co.)",
+  "updated": "2026-05-10"
+}

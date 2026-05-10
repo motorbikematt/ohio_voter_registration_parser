@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 165 (31%)",
+      "UNC – Lapsed R — 110 (20%)",
+      "Mixed – Active — 25 (5%)",
+      "Mixed – Lapsed — 30 (6%)",
+      "UNC – No Primary — 186 (35%)",
+      "UNC – Lapsed D — 19 (4%)",
+      "Pure D — 3 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          165,
+          110,
+          25,
+          30,
+          186,
+          19,
+          3
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "YORK TOWNSHIP (Van Wert Co.)",
+  "updated": "2026-05-10"
+}

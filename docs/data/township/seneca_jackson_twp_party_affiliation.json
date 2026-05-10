@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 201 (21%)",
+      "UNC – Lapsed R — 97 (10%)",
+      "Mixed – Active — 75 (8%)",
+      "Mixed – Lapsed — 61 (6%)",
+      "UNC – No Primary — 385 (40%)",
+      "UNC – Lapsed D — 101 (10%)",
+      "Pure D — 52 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          201,
+          97,
+          75,
+          61,
+          385,
+          101,
+          52
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JACKSON TWP (Seneca Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 466",
+      "Mixed – Active — 588",
+      "Mixed – Lapsed — 466",
+      "UNC – No Primary — 1,846",
+      "UNC – Lapsed D — 716"
+    ],
+    "datasets": [
+      {
+        "data": [
+          466,
+          588,
+          466,
+          1846,
+          716
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "CARLISLE TOWNSHIP (Lorain Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 19",
+      "Mixed – Active — 19",
+      "Mixed – Lapsed — 21",
+      "UNC – No Primary — 90",
+      "UNC – Lapsed D — 44"
+    ],
+    "datasets": [
+      {
+        "data": [
+          19,
+          19,
+          21,
+          90,
+          44
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "AMSTERDAM VILLAGE (Jefferson Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 61 (22%)",
+      "UNC – Lapsed R — 28 (10%)",
+      "Mixed – Active — 21 (8%)",
+      "Mixed – Lapsed — 19 (7%)",
+      "UNC – No Primary — 118 (43%)",
+      "UNC – Lapsed D — 19 (7%)",
+      "Pure D — 10 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          61,
+          28,
+          21,
+          19,
+          118,
+          19,
+          10
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "EDISON VILLAGE (Morrow Co.)",
+  "updated": "2026-05-10"
+}

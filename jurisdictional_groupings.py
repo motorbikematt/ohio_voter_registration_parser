@@ -158,10 +158,12 @@ JURISDICTIONS = {
     'townships': {
         'column': 'TOWNSHIP',
         'display': 'Township',
+        'county_scoped': True,  # 152/810 names collide across counties (Washington Twp x23)
     },
     'villages': {
         'column': 'VILLAGE',
         'display': 'Village',
+        'county_scoped': True,  # 37/645 names collide across counties
     },
     'local_school_districts': {
         'column': 'LOCAL_SCHOOL_DISTRICT',
@@ -194,6 +196,7 @@ JURISDICTIONS = {
     'municipal_court_districts': {
         'column': 'MUNICIPAL_COURT_DISTRICT',
         'display': 'Municipal Court District',
+        'county_scoped': True,  # BELLEVUE (22/39/72), VERMILLION (22/47) — distinct courts
     },
     'court_of_appeals': {
         'column': 'COURT_OF_APPEALS',
@@ -233,6 +236,7 @@ def aggregate_jurisdiction(
     election_cols: list[str],
     today: str,
     logger: logging.Logger,
+    county_name: str | None = None,
 ) -> dict:
     """
     Aggregate voter data for a single jurisdiction and return chart data.
@@ -244,20 +248,34 @@ def aggregate_jurisdiction(
     if jurisdiction_name is None or (isinstance(jurisdiction_name, float)):
         return {}
 
-    slug = _slugify(jurisdiction_name)
+    # County-scoped types (townships, villages, municipal courts) prefix the
+    # slug with county and qualify the display name.  Required because the
+    # same name denotes legally distinct entities across counties (e.g. 23
+    # Washington Townships in Ohio).  Non-scoped callers pass county_name=None
+    # and behave exactly as before.
+    if county_name:
+        slug         = f'{_slugify(county_name)}_{_slugify(jurisdiction_name)}'
+        display_name = f'{jurisdiction_name} ({county_name} Co.)'
+    else:
+        slug         = _slugify(jurisdiction_name)
+        display_name = str(jurisdiction_name)
+
     note = f'Analysis run {today} — Ohio Secretary of State SWVF voter file'
 
-    # Subset to this jurisdiction
+    # Subset to this jurisdiction.  When called via the county-scoped path,
+    # the caller has already pre-filtered the partition to a single
+    # (county, name) slice, so this filter is a no-op on the correct subset.
     subset = df.filter(pl.col(jurisdiction_key) == jurisdiction_name)
     if subset.height == 0:
-        logger.warning(f'Empty subset: {jurisdiction_type} {jurisdiction_name}')
+        logger.warning(f'Empty subset: {jurisdiction_type} {display_name}')
         return {}
 
     result = {
-        'slug': slug,
+        'slug':              slug,
         'jurisdiction_type': jurisdiction_type,
-        'jurisdiction_name': str(jurisdiction_name),
-        'voter_count': subset.height,
+        'jurisdiction_name': display_name,
+        'county':            county_name,
+        'voter_count':       subset.height,
     }
 
     # ── Party affiliation (doughnut) ──────────────────────────────────────────
@@ -513,40 +531,62 @@ def main(
                 logger.warning(f'Unknown jurisdiction type: {jurisdiction_type_key}')
                 continue
 
-            config = JURISDICTIONS[jurisdiction_type_key]
-            column = config['column']
-            display = config['display']
+            config        = JURISDICTIONS[jurisdiction_type_key]
+            column        = config['column']
+            display       = config['display']
+            county_scoped = config.get('county_scoped', False)
 
             # Skip if column not in dataframe
             if column not in df.columns:
                 logger.warning(f'Column {column} not in dataframe; skipping {jurisdiction_type_key}')
                 continue
 
-            # Collect valid jurisdiction names.
-            # Filters: nulls, floats, blank strings, and single-character artifacts
-            # (e.g. "/" values that appear in the SWVF for rural voters with no
-            # assigned city — these are not real jurisdictions and cause timeouts).
-            raw_values = df[column].unique().to_list()
-            jurisdictions = sorted([
-                j for j in raw_values
-                if j is not None
-                and not isinstance(j, float)
-                and len(str(j).strip()) > 1
-            ])
+            # ── Collect valid jurisdiction keys ──────────────────────────────
+            # Filters: nulls, floats, blank strings, and single-character
+            # artifacts (e.g. "/" rural-voter placeholders that cause timeouts).
+            #
+            # County-scoped types build composite (county_number, name) keys
+            # so that "Washington Township" in 23 different counties is treated
+            # as 23 distinct jurisdictions rather than merged into one phantom.
+            if county_scoped:
+                pairs_df = (
+                    df.select(['COUNTY_NUMBER', column])
+                      .filter(pl.col(column).is_not_null())
+                      .unique()
+                )
+                jurisdictions = sorted([
+                    (str(row[0]), row[1]) for row in pairs_df.iter_rows()
+                    if row[1] is not None
+                    and not isinstance(row[1], float)
+                    and len(str(row[1]).strip()) > 1
+                ])
+            else:
+                raw_values = df[column].unique().to_list()
+                jurisdictions = sorted([
+                    j for j in raw_values
+                    if j is not None
+                    and not isinstance(j, float)
+                    and len(str(j).strip()) > 1
+                ])
 
             logger.info(f'Aggregating {jurisdiction_type_key} ({column}): {len(jurisdictions)} jurisdictions')
 
-            # ── Resume: skip jurisdictions already exported ─────────────────────
-            # Sentinel file: {slug}_party_affiliation.json.  If it exists, all
-            # other chart files for that jurisdiction were written in the same call
-            # (they are written together atomically in export_jurisdiction_json),
-            # so the whole jurisdiction can safely be skipped on re-run.
+            # ── Resume: skip jurisdictions already exported ──────────────────
+            # Sentinel file: {slug}_party_affiliation.json.  Exists ⇒ all other
+            # chart files for that jurisdiction were written in the same call
+            # (export_jurisdiction_json writes the bundle together), so the
+            # whole jurisdiction can safely be skipped on re-run.
             type_dir = DATA_DIR / display.lower().replace(' ', '_')
+
+            def _sentinel_for(jur_key) -> Path:
+                if county_scoped:
+                    cn, jn = jur_key
+                    cname  = _v2.OHIO_COUNTIES.get(cn, 'unknown')
+                    return type_dir / f'{_slugify(cname)}_{_slugify(str(jn))}_party_affiliation.json'
+                return type_dir / f'{_slugify(str(jur_key))}_party_affiliation.json'
+
             if type_dir.exists():
-                already_done = {
-                    name for name in jurisdictions
-                    if (type_dir / f'{_slugify(str(name))}_party_affiliation.json').exists()
-                }
+                already_done = {j for j in jurisdictions if _sentinel_for(j).exists()}
                 if already_done:
                     logger.info(
                         f'  Resume: {len(already_done)}/{len(jurisdictions)} '
@@ -558,57 +598,86 @@ def main(
                 logger.info(f'  {jurisdiction_type_key}: fully exported, skipping')
                 continue
 
-            # ── Pre-partition: single pass via partition_by ───────────────────────
-            # partition_by splits the full frame in one vectorized scan rather than
-            # running len(jurisdictions) individual filter calls.  For 212 cities
-            # on 7.9 M rows this reduces pre-partitioning from minutes to ~5 s and
-            # eliminates the repeated full-frame scan that caused memory stalls.
+            # ── Pre-partition: single pass via partition_by ──────────────────
+            # County-scoped types partition by [COUNTY_NUMBER, column] so each
+            # slice contains exactly the voters of one (county, name) pair.
             print(f'  Pre-partitioning {len(jurisdictions)} {jurisdiction_type_key}...', flush=True)
-            _raw_parts = df.partition_by(column, maintain_order=False, include_key=True)
-            _all_parts: dict = {}
-            for _frame in _raw_parts:
-                _key = _frame[column][0]  # the unique value for this partition
-                if _key is not None and not isinstance(_key, float):
-                    _all_parts[str(_key)] = _frame
-            partition_map = {
-                name: _all_parts[str(name)]
-                for name in jurisdictions
-                if str(name) in _all_parts
-            }
+            if county_scoped:
+                _raw_parts = df.partition_by(['COUNTY_NUMBER', column], maintain_order=False, include_key=True)
+                _all_parts: dict = {}
+                for _frame in _raw_parts:
+                    _cn   = _frame['COUNTY_NUMBER'][0]
+                    _name = _frame[column][0]
+                    if _name is not None and not isinstance(_name, float):
+                        _all_parts[(str(_cn), _name)] = _frame
+                partition_map = {
+                    pair: _all_parts[pair]
+                    for pair in jurisdictions
+                    if pair in _all_parts
+                }
+            else:
+                _raw_parts = df.partition_by(column, maintain_order=False, include_key=True)
+                _all_parts: dict = {}
+                for _frame in _raw_parts:
+                    _key = _frame[column][0]
+                    if _key is not None and not isinstance(_key, float):
+                        _all_parts[str(_key)] = _frame
+                partition_map = {
+                    name: _all_parts[str(name)]
+                    for name in jurisdictions
+                    if str(name) in _all_parts
+                }
 
-            # Submit one task per jurisdiction; each worker receives its pre-sliced
-            # frame so its internal filter is a trivial no-op on a small subset.
+            # ── Submit one task per jurisdiction ─────────────────────────────
+            # Workers receive their pre-sliced frame and (for scoped types) the
+            # county_name needed to construct county-qualified slugs and labels.
             futures_for_type = {}
-            for jurisdiction_name in jurisdictions:
-                future = executor.submit(
-                    aggregate_jurisdiction,
-                    partition_map[jurisdiction_name],
-                    column, jurisdiction_name, display, election_cols, today, logger,
-                )
-                futures_for_type[jurisdiction_name] = future
+            for jur_key in jurisdictions:
+                if county_scoped:
+                    cn, jn      = jur_key
+                    county_name = _v2.OHIO_COUNTIES.get(cn, 'Unknown')
+                    future = executor.submit(
+                        aggregate_jurisdiction,
+                        partition_map[jur_key],
+                        column, jn, display, election_cols, today, logger,
+                        county_name,
+                    )
+                else:
+                    future = executor.submit(
+                        aggregate_jurisdiction,
+                        partition_map[jur_key],
+                        column, jur_key, display, election_cols, today, logger,
+                        None,
+                    )
+                futures_for_type[jur_key] = future
 
-            # Collect results and print a rolling progress counter so the terminal
-            # does not appear frozen during long aggregation passes.
+            # Collect results and print a rolling progress counter so the
+            # terminal does not appear frozen during long aggregation passes.
             results = []
             total = len(jurisdictions)
-            for idx, jurisdiction_name in enumerate(jurisdictions, 1):
+            for idx, jur_key in enumerate(jurisdictions, 1):
+                if county_scoped:
+                    cn, jn       = jur_key
+                    progress_lbl = f'{_v2.OHIO_COUNTIES.get(cn, "?")}/{jn}'
+                else:
+                    progress_lbl = str(jur_key)
                 print(
                     f'\r  [{idx:>5}/{total}] {jurisdiction_type_key}: '
-                    f'{str(jurisdiction_name)[:45]:<45}',
+                    f'{progress_lbl[:45]:<45}',
                     end='', flush=True,
                 )
                 try:
-                    result = futures_for_type[jurisdiction_name].result(timeout=120)
+                    result = futures_for_type[jur_key].result(timeout=120)
                     if result:
                         result['today'] = today
                         results.append(result)
                 except concurrent.futures.TimeoutError:
                     logger.error(
-                        f'Timeout (>120s) aggregating {jurisdiction_type_key} / {jurisdiction_name}'
+                        f'Timeout (>120s) aggregating {jurisdiction_type_key} / {jur_key}'
                     )
                 except Exception as e:
                     logger.error(
-                        f'Error aggregating {jurisdiction_type_key} / {jurisdiction_name}: {e}'
+                        f'Error aggregating {jurisdiction_type_key} / {jur_key}: {e}'
                     )
             print()  # newline after rolling progress line
             logger.info(f'  {jurisdiction_type_key}: {len(results)}/{total} aggregated successfully')

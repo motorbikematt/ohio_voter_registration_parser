@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 154 (20%)",
+      "UNC – Lapsed R — 110 (14%)",
+      "Mixed – Active — 105 (13%)",
+      "Mixed – Lapsed — 63 (8%)",
+      "UNC – No Primary — 211 (27%)",
+      "UNC – Lapsed D — 109 (14%)",
+      "Pure D — 27 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          154,
+          110,
+          105,
+          63,
+          211,
+          109,
+          27
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CENTER TOWNSHIP (Noble Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 396",
+      "Mixed – Active — 191",
+      "Mixed – Lapsed — 364",
+      "UNC – No Primary — 1,082",
+      "UNC – Lapsed D — 305"
+    ],
+    "datasets": [
+      {
+        "data": [
+          396,
+          191,
+          364,
+          1082,
+          305
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "Harrisville TWP (Medina Co.)",
+  "updated": "2026-05-10"
+}

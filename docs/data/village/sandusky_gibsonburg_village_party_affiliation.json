@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 247 (16%)",
+      "UNC – Lapsed R — 187 (12%)",
+      "Mixed – Active — 83 (5%)",
+      "Mixed – Lapsed — 157 (10%)",
+      "UNC – No Primary — 633 (40%)",
+      "UNC – Lapsed D — 189 (12%)",
+      "Pure D — 79 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          247,
+          187,
+          83,
+          157,
+          633,
+          189,
+          79
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "GIBSONBURG VILLAGE (Sandusky Co.)",
+  "updated": "2026-05-10"
+}

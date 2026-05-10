@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 37 (28%)",
+      "UNC – Lapsed R — 21 (16%)",
+      "Mixed – Active — 12 (9%)",
+      "Mixed – Lapsed — 8 (6%)",
+      "UNC – No Primary — 46 (35%)",
+      "UNC – Lapsed D — 7 (5%)",
+      "Pure D — 0 (0%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          37,
+          21,
+          12,
+          8,
+          46,
+          7,
+          0
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BURKETTSVILLE VILLAGE (Mercer Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 447",
+      "Mixed – Active — 167",
+      "Mixed – Lapsed — 251",
+      "UNC – No Primary — 1,379",
+      "UNC – Lapsed D — 287"
+    ],
+    "datasets": [
+      {
+        "data": [
+          447,
+          167,
+          251,
+          1379,
+          287
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "CANAAN TOWNSHIP (Wayne Co.)",
+  "updated": "2026-05-10"
+}

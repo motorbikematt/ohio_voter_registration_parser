@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,317 (15%)",
+      "UNC – Lapsed R — 673 (7%)",
+      "Mixed – Active — 1,089 (12%)",
+      "Mixed – Lapsed — 1,059 (12%)",
+      "UNC – No Primary — 3,126 (34%)",
+      "UNC – Lapsed D — 1,042 (11%)",
+      "Pure D — 758 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1317,
+          673,
+          1089,
+          1059,
+          3126,
+          1042,
+          758
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SPRINGFIELD TWP (Summit Co.)",
+  "updated": "2026-05-10"
+}

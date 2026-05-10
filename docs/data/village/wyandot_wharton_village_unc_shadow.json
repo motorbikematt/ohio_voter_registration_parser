@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 24",
+      "Mixed – Active — 12",
+      "Mixed – Lapsed — 8",
+      "UNC – No Primary — 73",
+      "UNC – Lapsed D — 12"
+    ],
+    "datasets": [
+      {
+        "data": [
+          24,
+          12,
+          8,
+          73,
+          12
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "WHARTON VILLAGE (Wyandot Co.)",
+  "updated": "2026-05-10"
+}

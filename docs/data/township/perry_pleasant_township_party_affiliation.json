@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 149 (24%)",
+      "UNC – Lapsed R — 53 (9%)",
+      "Mixed – Active — 64 (10%)",
+      "Mixed – Lapsed — 41 (7%)",
+      "UNC – No Primary — 217 (35%)",
+      "UNC – Lapsed D — 67 (11%)",
+      "Pure D — 32 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          149,
+          53,
+          64,
+          41,
+          217,
+          67,
+          32
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PLEASANT TOWNSHIP (Perry Co.)",
+  "updated": "2026-05-10"
+}

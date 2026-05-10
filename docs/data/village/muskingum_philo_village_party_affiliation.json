@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 53 (13%)",
+      "UNC – Lapsed R — 58 (14%)",
+      "Mixed – Active — 18 (4%)",
+      "Mixed – Lapsed — 35 (8%)",
+      "UNC – No Primary — 192 (46%)",
+      "UNC – Lapsed D — 45 (11%)",
+      "Pure D — 13 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          53,
+          58,
+          18,
+          35,
+          192,
+          45,
+          13
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "PHILO VILLAGE (Muskingum Co.)",
+  "updated": "2026-05-10"
+}

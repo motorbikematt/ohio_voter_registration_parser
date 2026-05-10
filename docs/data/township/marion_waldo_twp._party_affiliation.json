@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 172 (21%)",
+      "UNC – Lapsed R — 115 (14%)",
+      "Mixed – Active — 77 (10%)",
+      "Mixed – Lapsed — 72 (9%)",
+      "UNC – No Primary — 256 (32%)",
+      "UNC – Lapsed D — 79 (10%)",
+      "Pure D — 36 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          172,
+          115,
+          77,
+          72,
+          256,
+          79,
+          36
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WALDO TWP. (Marion Co.)",
+  "updated": "2026-05-10"
+}

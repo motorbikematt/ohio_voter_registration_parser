@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 110",
+      "Mixed – Active — 97",
+      "Mixed – Lapsed — 99",
+      "UNC – No Primary — 546",
+      "UNC – Lapsed D — 91"
+    ],
+    "datasets": [
+      {
+        "data": [
+          110,
+          97,
+          99,
+          546,
+          91
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "UTICA VILLAGE (Licking Co.)",
+  "updated": "2026-05-10"
+}

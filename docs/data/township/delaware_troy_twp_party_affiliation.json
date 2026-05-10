@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 316 (18%)",
+      "UNC – Lapsed R — 268 (15%)",
+      "Mixed – Active — 142 (8%)",
+      "Mixed – Lapsed — 145 (8%)",
+      "UNC – No Primary — 653 (37%)",
+      "UNC – Lapsed D — 147 (8%)",
+      "Pure D — 84 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          316,
+          268,
+          142,
+          145,
+          653,
+          147,
+          84
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "TROY TWP (Delaware Co.)",
+  "updated": "2026-05-10"
+}

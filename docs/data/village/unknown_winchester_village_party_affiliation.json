@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 200 (33%)",
+      "UNC – Lapsed R — 67 (11%)",
+      "Mixed – Active — 38 (6%)",
+      "Mixed – Lapsed — 25 (4%)",
+      "UNC – No Primary — 236 (38%)",
+      "UNC – Lapsed D — 38 (6%)",
+      "Pure D — 9 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          200,
+          67,
+          38,
+          25,
+          236,
+          38,
+          9
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WINCHESTER VILLAGE (Unknown Co.)",
+  "updated": "2026-05-10"
+}

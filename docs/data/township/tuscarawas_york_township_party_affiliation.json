@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 176 (20%)",
+      "UNC – Lapsed R — 94 (11%)",
+      "Mixed – Active — 105 (12%)",
+      "Mixed – Lapsed — 110 (13%)",
+      "UNC – No Primary — 234 (27%)",
+      "UNC – Lapsed D — 106 (12%)",
+      "Pure D — 43 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          176,
+          94,
+          105,
+          110,
+          234,
+          106,
+          43
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "YORK TOWNSHIP (Tuscarawas Co.)",
+  "updated": "2026-05-10"
+}

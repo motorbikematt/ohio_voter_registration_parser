@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 262 (20%)",
+      "UNC – Lapsed R — 195 (15%)",
+      "Mixed – Active — 112 (9%)",
+      "Mixed – Lapsed — 60 (5%)",
+      "UNC – No Primary — 545 (42%)",
+      "UNC – Lapsed D — 100 (8%)",
+      "Pure D — 38 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          262,
+          195,
+          112,
+          60,
+          545,
+          100,
+          38
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WINDSOR TWP. (Lawrence Co.)",
+  "updated": "2026-05-10"
+}

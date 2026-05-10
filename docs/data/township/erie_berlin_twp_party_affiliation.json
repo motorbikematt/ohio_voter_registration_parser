@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 315 (13%)",
+      "UNC – Lapsed R — 230 (10%)",
+      "Mixed – Active — 268 (11%)",
+      "Mixed – Lapsed — 300 (13%)",
+      "UNC – No Primary — 781 (33%)",
+      "UNC – Lapsed D — 336 (14%)",
+      "Pure D — 151 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          315,
+          230,
+          268,
+          300,
+          781,
+          336,
+          151
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BERLIN TWP (Erie Co.)",
+  "updated": "2026-05-10"
+}

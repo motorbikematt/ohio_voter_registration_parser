@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 5,046 (18%)",
+      "UNC – Lapsed R — 4,949 (18%)",
+      "Mixed – Active — 1,729 (6%)",
+      "Mixed – Lapsed — 2,624 (9%)",
+      "UNC – No Primary — 10,327 (37%)",
+      "UNC – Lapsed D — 2,310 (8%)",
+      "Pure D — 857 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5046,
+          4949,
+          1729,
+          2624,
+          10327,
+          2310,
+          857
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CLEARCREEK TOWNSHIP (Warren Co.)",
+  "updated": "2026-05-10"
+}

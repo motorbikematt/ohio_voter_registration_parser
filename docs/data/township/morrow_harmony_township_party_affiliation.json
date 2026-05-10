@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 451 (24%)",
+      "UNC – Lapsed R — 242 (13%)",
+      "Mixed – Active — 153 (8%)",
+      "Mixed – Lapsed — 136 (7%)",
+      "UNC – No Primary — 708 (37%)",
+      "UNC – Lapsed D — 142 (8%)",
+      "Pure D — 59 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          451,
+          242,
+          153,
+          136,
+          708,
+          142,
+          59
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HARMONY TOWNSHIP (Morrow Co.)",
+  "updated": "2026-05-10"
+}

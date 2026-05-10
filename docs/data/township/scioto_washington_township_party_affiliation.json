@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 343 (12%)",
+      "UNC – Lapsed R — 264 (9%)",
+      "Mixed – Active — 244 (8%)",
+      "Mixed – Lapsed — 190 (6%)",
+      "UNC – No Primary — 1,446 (49%)",
+      "UNC – Lapsed D — 356 (12%)",
+      "Pure D — 114 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          343,
+          264,
+          244,
+          190,
+          1446,
+          356,
+          114
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WASHINGTON TOWNSHIP (Scioto Co.)",
+  "updated": "2026-05-10"
+}

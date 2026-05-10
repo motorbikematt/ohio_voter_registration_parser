@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 247",
+      "Mixed – Active — 147",
+      "Mixed – Lapsed — 226",
+      "UNC – No Primary — 594",
+      "UNC – Lapsed D — 95"
+    ],
+    "datasets": [
+      {
+        "data": [
+          247,
+          147,
+          226,
+          594,
+          95
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "PARKMAN TWP (Geauga Co.)",
+  "updated": "2026-05-10"
+}

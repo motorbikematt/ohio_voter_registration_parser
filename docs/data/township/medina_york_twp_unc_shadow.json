@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 396",
+      "Mixed – Active — 346",
+      "Mixed – Lapsed — 580",
+      "UNC – No Primary — 832",
+      "UNC – Lapsed D — 317"
+    ],
+    "datasets": [
+      {
+        "data": [
+          396,
+          346,
+          580,
+          832,
+          317
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "York TWP (Medina Co.)",
+  "updated": "2026-05-10"
+}

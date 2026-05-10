@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 150 (32%)",
+      "UNC – Lapsed R — 74 (16%)",
+      "Mixed – Active — 30 (6%)",
+      "Mixed – Lapsed — 27 (6%)",
+      "UNC – No Primary — 137 (30%)",
+      "UNC – Lapsed D — 29 (6%)",
+      "Pure D — 16 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          150,
+          74,
+          30,
+          27,
+          137,
+          29,
+          16
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "RICHFIELD TOWNSHIP (Henry Co.)",
+  "updated": "2026-05-10"
+}

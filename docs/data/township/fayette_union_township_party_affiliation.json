@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 479 (23%)",
+      "UNC – Lapsed R — 294 (14%)",
+      "Mixed – Active — 170 (8%)",
+      "Mixed – Lapsed — 129 (6%)",
+      "UNC – No Primary — 883 (42%)",
+      "UNC – Lapsed D — 118 (6%)",
+      "Pure D — 50 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          479,
+          294,
+          170,
+          129,
+          883,
+          118,
+          50
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "UNION TOWNSHIP (Fayette Co.)",
+  "updated": "2026-05-10"
+}

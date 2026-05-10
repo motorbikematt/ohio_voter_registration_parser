@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 511",
+      "Mixed – Active — 597",
+      "Mixed – Lapsed — 348",
+      "UNC – No Primary — 2,146",
+      "UNC – Lapsed D — 605"
+    ],
+    "datasets": [
+      {
+        "data": [
+          511,
+          597,
+          348,
+          2146,
+          605
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "ST CLAIR TWP (Columbiana Co.)",
+  "updated": "2026-05-10"
+}

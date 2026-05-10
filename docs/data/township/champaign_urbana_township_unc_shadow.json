@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,105",
+      "Mixed – Active — 730",
+      "Mixed – Lapsed — 605",
+      "UNC – No Primary — 3,804",
+      "UNC – Lapsed D — 826"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1105,
+          730,
+          605,
+          3804,
+          826
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "URBANA TOWNSHIP (Champaign Co.)",
+  "updated": "2026-05-10"
+}

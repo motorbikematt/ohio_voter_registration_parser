@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 37",
+      "Mixed – Active — 47",
+      "Mixed – Lapsed — 23",
+      "UNC – No Primary — 114",
+      "UNC – Lapsed D — 25"
+    ],
+    "datasets": [
+      {
+        "data": [
+          37,
+          47,
+          23,
+          114,
+          25
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "STOCK TOWNSHIP (Harrison Co.)",
+  "updated": "2026-05-10"
+}

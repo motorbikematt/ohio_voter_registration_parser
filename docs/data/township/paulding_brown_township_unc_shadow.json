@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 149",
+      "Mixed – Active — 91",
+      "Mixed – Lapsed — 55",
+      "UNC – No Primary — 528",
+      "UNC – Lapsed D — 112"
+    ],
+    "datasets": [
+      {
+        "data": [
+          149,
+          91,
+          55,
+          528,
+          112
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BROWN TOWNSHIP (Paulding Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 0",
+      "Mixed – Active — 2",
+      "Mixed – Lapsed — 1",
+      "UNC – No Primary — 19",
+      "UNC – Lapsed D — 4"
+    ],
+    "datasets": [
+      {
+        "data": [
+          0,
+          2,
+          1,
+          19,
+          4
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "CHILO VILLAGE (Clermont Co.)",
+  "updated": "2026-05-10"
+}

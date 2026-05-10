@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 680 (28%)",
+      "UNC – Lapsed R — 459 (19%)",
+      "Mixed – Active — 180 (7%)",
+      "Mixed – Lapsed — 171 (7%)",
+      "UNC – No Primary — 761 (31%)",
+      "UNC – Lapsed D — 137 (6%)",
+      "Pure D — 55 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          680,
+          459,
+          180,
+          171,
+          761,
+          137,
+          55
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "NEWTON TOWNSHIP (Miami Co.)",
+  "updated": "2026-05-10"
+}

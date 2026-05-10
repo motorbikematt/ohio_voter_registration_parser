@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 302",
+      "Mixed – Active — 329",
+      "Mixed – Lapsed — 156",
+      "UNC – No Primary — 801",
+      "UNC – Lapsed D — 162"
+    ],
+    "datasets": [
+      {
+        "data": [
+          302,
+          329,
+          156,
+          801,
+          162
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BUTLER TWP (Columbiana Co.)",
+  "updated": "2026-05-10"
+}

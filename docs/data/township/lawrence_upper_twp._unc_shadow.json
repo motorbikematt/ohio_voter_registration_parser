@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,231",
+      "Mixed – Active — 737",
+      "Mixed – Lapsed — 557",
+      "UNC – No Primary — 3,898",
+      "UNC – Lapsed D — 1,000"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1231,
+          737,
+          557,
+          3898,
+          1000
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "UPPER TWP. (Lawrence Co.)",
+  "updated": "2026-05-10"
+}

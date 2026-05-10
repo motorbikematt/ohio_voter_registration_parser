@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 282 (24%)",
+      "UNC – Lapsed R — 115 (10%)",
+      "Mixed – Active — 132 (11%)",
+      "Mixed – Lapsed — 71 (6%)",
+      "UNC – No Primary — 411 (35%)",
+      "UNC – Lapsed D — 95 (8%)",
+      "Pure D — 62 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          282,
+          115,
+          132,
+          71,
+          411,
+          95,
+          62
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "DAMASCUS TOWNSHIP (Henry Co.)",
+  "updated": "2026-05-10"
+}

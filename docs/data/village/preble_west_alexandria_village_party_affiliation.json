@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 176 (20%)",
+      "UNC – Lapsed R — 141 (16%)",
+      "Mixed – Active — 63 (7%)",
+      "Mixed – Lapsed — 67 (7%)",
+      "UNC – No Primary — 369 (41%)",
+      "UNC – Lapsed D — 67 (7%)",
+      "Pure D — 14 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          176,
+          141,
+          63,
+          67,
+          369,
+          67,
+          14
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WEST ALEXANDRIA VILLAGE (Preble Co.)",
+  "updated": "2026-05-10"
+}

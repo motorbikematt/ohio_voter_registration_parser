@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 5 (8%)",
+      "UNC – Lapsed R — 5 (8%)",
+      "Mixed – Active — 2 (3%)",
+      "Mixed – Lapsed — 3 (5%)",
+      "UNC – No Primary — 36 (60%)",
+      "UNC – Lapsed D — 6 (10%)",
+      "Pure D — 3 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5,
+          5,
+          2,
+          3,
+          36,
+          6,
+          3
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SCOTT VILLAGE (Paulding Co.)",
+  "updated": "2026-05-10"
+}

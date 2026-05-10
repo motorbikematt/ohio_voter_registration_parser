@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,690 (19%)",
+      "UNC – Lapsed R — 1,965 (8%)",
+      "Mixed – Active — 2,321 (10%)",
+      "Mixed – Lapsed — 1,558 (6%)",
+      "UNC – No Primary — 9,794 (40%)",
+      "UNC – Lapsed D — 2,497 (10%)",
+      "Pure D — 1,539 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4690,
+          1965,
+          2321,
+          1558,
+          9794,
+          2497,
+          1539
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "ALLIANCE (Stark Co.)",
+  "updated": "2026-05-10"
+}

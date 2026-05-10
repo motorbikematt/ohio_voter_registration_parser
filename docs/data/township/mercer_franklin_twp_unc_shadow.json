@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 228",
+      "Mixed – Active — 224",
+      "Mixed – Lapsed — 158",
+      "UNC – No Primary — 578",
+      "UNC – Lapsed D — 125"
+    ],
+    "datasets": [
+      {
+        "data": [
+          228,
+          224,
+          158,
+          578,
+          125
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "FRANKLIN TWP (Mercer Co.)",
+  "updated": "2026-05-10"
+}

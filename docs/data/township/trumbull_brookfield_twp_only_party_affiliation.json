@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 581 (10%)",
+      "UNC – Lapsed R — 299 (5%)",
+      "Mixed – Active — 579 (10%)",
+      "Mixed – Lapsed — 380 (7%)",
+      "UNC – No Primary — 2,267 (41%)",
+      "UNC – Lapsed D — 833 (15%)",
+      "Pure D — 653 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          581,
+          299,
+          579,
+          380,
+          2267,
+          833,
+          653
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BROOKFIELD TWP ONLY (Trumbull Co.)",
+  "updated": "2026-05-10"
+}

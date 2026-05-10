@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 260",
+      "Mixed – Active — 100",
+      "Mixed – Lapsed — 100",
+      "UNC – No Primary — 437",
+      "UNC – Lapsed D — 59"
+    ],
+    "datasets": [
+      {
+        "data": [
+          260,
+          100,
+          100,
+          437,
+          59
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MOULTON TOWNSHIP (Unknown Co.)",
+  "updated": "2026-05-10"
+}

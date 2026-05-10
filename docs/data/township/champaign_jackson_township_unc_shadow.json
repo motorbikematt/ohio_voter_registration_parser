@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 191",
+      "Mixed – Active — 202",
+      "Mixed – Lapsed — 122",
+      "UNC – No Primary — 538",
+      "UNC – Lapsed D — 92"
+    ],
+    "datasets": [
+      {
+        "data": [
+          191,
+          202,
+          122,
+          538,
+          92
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "JACKSON TOWNSHIP (Champaign Co.)",
+  "updated": "2026-05-10"
+}

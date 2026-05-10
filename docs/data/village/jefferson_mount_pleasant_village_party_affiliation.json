@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 24 (9%)",
+      "UNC – Lapsed R — 20 (8%)",
+      "Mixed – Active — 34 (13%)",
+      "Mixed – Lapsed — 17 (6%)",
+      "UNC – No Primary — 92 (35%)",
+      "UNC – Lapsed D — 52 (20%)",
+      "Pure D — 23 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          24,
+          20,
+          34,
+          17,
+          92,
+          52,
+          23
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "MOUNT PLEASANT VILLAGE (Jefferson Co.)",
+  "updated": "2026-05-10"
+}

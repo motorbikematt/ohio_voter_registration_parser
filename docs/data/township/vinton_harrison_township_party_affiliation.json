@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 125 (19%)",
+      "UNC – Lapsed R — 91 (14%)",
+      "Mixed – Active — 61 (9%)",
+      "Mixed – Lapsed — 44 (7%)",
+      "UNC – No Primary — 257 (39%)",
+      "UNC – Lapsed D — 59 (9%)",
+      "Pure D — 26 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          125,
+          91,
+          61,
+          44,
+          257,
+          59,
+          26
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HARRISON TOWNSHIP (Vinton Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 152",
+      "Mixed – Active — 177",
+      "Mixed – Lapsed — 117",
+      "UNC – No Primary — 553",
+      "UNC – Lapsed D — 167"
+    ],
+    "datasets": [
+      {
+        "data": [
+          152,
+          177,
+          117,
+          553,
+          167
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "PERRY TWP (Hocking Co.)",
+  "updated": "2026-05-10"
+}

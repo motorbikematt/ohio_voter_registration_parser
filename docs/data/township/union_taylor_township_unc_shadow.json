@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 180",
+      "Mixed – Active — 87",
+      "Mixed – Lapsed — 156",
+      "UNC – No Primary — 328",
+      "UNC – Lapsed D — 71"
+    ],
+    "datasets": [
+      {
+        "data": [
+          180,
+          87,
+          156,
+          328,
+          71
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "TAYLOR TOWNSHIP (Union Co.)",
+  "updated": "2026-05-10"
+}

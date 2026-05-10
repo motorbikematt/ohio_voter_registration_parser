@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 226 (30%)",
+      "UNC – Lapsed R — 103 (14%)",
+      "Mixed – Active — 120 (16%)",
+      "Mixed – Lapsed — 52 (7%)",
+      "UNC – No Primary — 188 (25%)",
+      "UNC – Lapsed D — 37 (5%)",
+      "Pure D — 19 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          226,
+          103,
+          120,
+          52,
+          188,
+          37,
+          19
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "GLANDORF VILLAGE (Putnam Co.)",
+  "updated": "2026-05-10"
+}

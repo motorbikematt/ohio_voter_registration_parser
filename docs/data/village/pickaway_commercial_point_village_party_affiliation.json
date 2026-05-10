@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 544 (20%)",
+      "UNC – Lapsed R — 305 (11%)",
+      "Mixed – Active — 157 (6%)",
+      "Mixed – Lapsed — 324 (12%)",
+      "UNC – No Primary — 1,014 (37%)",
+      "UNC – Lapsed D — 217 (8%)",
+      "Pure D — 149 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          544,
+          305,
+          157,
+          324,
+          1014,
+          217,
+          149
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "COMMERCIAL POINT VILLAGE (Pickaway Co.)",
+  "updated": "2026-05-10"
+}

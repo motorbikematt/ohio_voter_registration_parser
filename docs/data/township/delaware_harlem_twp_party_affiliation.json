@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 841 (24%)",
+      "UNC – Lapsed R — 540 (16%)",
+      "Mixed – Active — 312 (9%)",
+      "Mixed – Lapsed — 274 (8%)",
+      "UNC – No Primary — 1,112 (32%)",
+      "UNC – Lapsed D — 248 (7%)",
+      "Pure D — 155 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          841,
+          540,
+          312,
+          274,
+          1112,
+          248,
+          155
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "HARLEM TWP (Delaware Co.)",
+  "updated": "2026-05-10"
+}

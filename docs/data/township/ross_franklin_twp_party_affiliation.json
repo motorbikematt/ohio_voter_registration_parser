@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 136 (16%)",
+      "UNC – Lapsed R — 110 (13%)",
+      "Mixed – Active — 58 (7%)",
+      "Mixed – Lapsed — 42 (5%)",
+      "UNC – No Primary — 396 (46%)",
+      "UNC – Lapsed D — 95 (11%)",
+      "Pure D — 31 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          136,
+          110,
+          58,
+          42,
+          396,
+          95,
+          31
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FRANKLIN TWP (Ross Co.)",
+  "updated": "2026-05-10"
+}

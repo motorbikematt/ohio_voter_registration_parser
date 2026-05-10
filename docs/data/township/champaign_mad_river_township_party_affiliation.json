@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 676 (33%)",
+      "UNC – Lapsed R — 198 (10%)",
+      "Mixed – Active — 227 (11%)",
+      "Mixed – Lapsed — 143 (7%)",
+      "UNC – No Primary — 596 (29%)",
+      "UNC – Lapsed D — 115 (6%)",
+      "Pure D — 96 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          676,
+          198,
+          227,
+          143,
+          596,
+          115,
+          96
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MAD RIVER TOWNSHIP (Champaign Co.)",
+  "updated": "2026-05-10"
+}

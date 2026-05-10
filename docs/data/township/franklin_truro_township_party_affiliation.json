@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,444 (7%)",
+      "UNC – Lapsed R — 1,456 (7%)",
+      "Mixed – Active — 974 (5%)",
+      "Mixed – Lapsed — 1,159 (6%)",
+      "UNC – No Primary — 10,243 (52%)",
+      "UNC – Lapsed D — 2,870 (14%)",
+      "Pure D — 1,694 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1444,
+          1456,
+          974,
+          1159,
+          10243,
+          2870,
+          1694
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "Truro Township (Franklin Co.)",
+  "updated": "2026-05-10"
+}

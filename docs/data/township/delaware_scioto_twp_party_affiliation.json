@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 723 (22%)",
+      "UNC – Lapsed R — 517 (16%)",
+      "Mixed – Active — 289 (9%)",
+      "Mixed – Lapsed — 230 (7%)",
+      "UNC – No Primary — 1,038 (32%)",
+      "UNC – Lapsed D — 282 (9%)",
+      "Pure D — 143 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          723,
+          517,
+          289,
+          230,
+          1038,
+          282,
+          143
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SCIOTO TWP (Delaware Co.)",
+  "updated": "2026-05-10"
+}

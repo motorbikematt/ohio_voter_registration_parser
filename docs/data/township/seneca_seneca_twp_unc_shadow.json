@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 146",
+      "Mixed – Active — 113",
+      "Mixed – Lapsed — 66",
+      "UNC – No Primary — 311",
+      "UNC – Lapsed D — 92"
+    ],
+    "datasets": [
+      {
+        "data": [
+          146,
+          113,
+          66,
+          311,
+          92
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "SENECA TWP (Seneca Co.)",
+  "updated": "2026-05-10"
+}

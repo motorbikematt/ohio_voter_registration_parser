@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 696 (29%)",
+      "UNC – Lapsed R — 200 (8%)",
+      "Mixed – Active — 382 (16%)",
+      "Mixed – Lapsed — 193 (8%)",
+      "UNC – No Primary — 625 (26%)",
+      "UNC – Lapsed D — 145 (6%)",
+      "Pure D — 181 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          696,
+          200,
+          382,
+          193,
+          625,
+          145,
+          181
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "LEROY TOWNSHIP (Lake Co.)",
+  "updated": "2026-05-10"
+}

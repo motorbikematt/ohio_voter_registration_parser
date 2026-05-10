@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 65",
+      "Mixed – Active — 19",
+      "Mixed – Lapsed — 22",
+      "UNC – No Primary — 121",
+      "UNC – Lapsed D — 11"
+    ],
+    "datasets": [
+      {
+        "data": [
+          65,
+          19,
+          22,
+          121,
+          11
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "SALEM TOWNSHIP (Unknown Co.)",
+  "updated": "2026-05-10"
+}

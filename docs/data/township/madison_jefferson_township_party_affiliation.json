@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 923 (18%)",
+      "UNC – Lapsed R — 705 (14%)",
+      "Mixed – Active — 351 (7%)",
+      "Mixed – Lapsed — 428 (9%)",
+      "UNC – No Primary — 2,013 (40%)",
+      "UNC – Lapsed D — 440 (9%)",
+      "Pure D — 152 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          923,
+          705,
+          351,
+          428,
+          2013,
+          440,
+          152
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JEFFERSON TOWNSHIP (Madison Co.)",
+  "updated": "2026-05-10"
+}

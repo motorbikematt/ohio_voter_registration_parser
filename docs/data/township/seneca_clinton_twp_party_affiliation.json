@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 776 (27%)",
+      "UNC – Lapsed R — 338 (12%)",
+      "Mixed – Active — 433 (15%)",
+      "Mixed – Lapsed — 218 (8%)",
+      "UNC – No Primary — 798 (28%)",
+      "UNC – Lapsed D — 199 (7%)",
+      "Pure D — 110 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          776,
+          338,
+          433,
+          218,
+          798,
+          199,
+          110
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CLINTON TWP (Seneca Co.)",
+  "updated": "2026-05-10"
+}

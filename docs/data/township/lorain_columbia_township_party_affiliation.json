@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 744 (12%)",
+      "UNC – Lapsed R — 823 (13%)",
+      "Mixed – Active — 604 (9%)",
+      "Mixed – Lapsed — 801 (12%)",
+      "UNC – No Primary — 2,244 (35%)",
+      "UNC – Lapsed D — 890 (14%)",
+      "Pure D — 326 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          744,
+          823,
+          604,
+          801,
+          2244,
+          890,
+          326
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "COLUMBIA TOWNSHIP (Lorain Co.)",
+  "updated": "2026-05-10"
+}

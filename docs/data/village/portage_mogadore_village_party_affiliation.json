@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 120 (16%)",
+      "UNC – Lapsed R — 62 (8%)",
+      "Mixed – Active — 107 (14%)",
+      "Mixed – Lapsed — 116 (16%)",
+      "UNC – No Primary — 178 (24%)",
+      "UNC – Lapsed D — 84 (11%)",
+      "Pure D — 81 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          120,
+          62,
+          107,
+          116,
+          178,
+          84,
+          81
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "MOGADORE VILLAGE (Portage Co.)",
+  "updated": "2026-05-10"
+}

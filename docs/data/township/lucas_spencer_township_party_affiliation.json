@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 113 (10%)",
+      "UNC – Lapsed R — 82 (7%)",
+      "Mixed – Active — 62 (6%)",
+      "Mixed – Lapsed — 73 (7%)",
+      "UNC – No Primary — 502 (46%)",
+      "UNC – Lapsed D — 172 (16%)",
+      "Pure D — 98 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          113,
+          82,
+          62,
+          73,
+          502,
+          172,
+          98
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SPENCER TOWNSHIP (Lucas Co.)",
+  "updated": "2026-05-10"
+}

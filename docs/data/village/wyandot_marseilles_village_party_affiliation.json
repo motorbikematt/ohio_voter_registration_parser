@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 10 (16%)",
+      "UNC – Lapsed R — 9 (15%)",
+      "Mixed – Active — 7 (11%)",
+      "Mixed – Lapsed — 2 (3%)",
+      "UNC – No Primary — 27 (44%)",
+      "UNC – Lapsed D — 4 (6%)",
+      "Pure D — 3 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          10,
+          9,
+          7,
+          2,
+          27,
+          4,
+          3
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "MARSEILLES VILLAGE (Wyandot Co.)",
+  "updated": "2026-05-10"
+}

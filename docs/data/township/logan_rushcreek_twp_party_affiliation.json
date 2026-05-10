@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 390 (27%)",
+      "UNC – Lapsed R — 232 (16%)",
+      "Mixed – Active — 97 (7%)",
+      "Mixed – Lapsed — 75 (5%)",
+      "UNC – No Primary — 559 (38%)",
+      "UNC – Lapsed D — 78 (5%)",
+      "Pure D — 22 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          390,
+          232,
+          97,
+          75,
+          559,
+          78,
+          22
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "RUSHCREEK TWP (Logan Co.)",
+  "updated": "2026-05-10"
+}

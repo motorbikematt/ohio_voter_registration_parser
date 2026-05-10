@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 706",
+      "Mixed – Active — 396",
+      "Mixed – Lapsed — 530",
+      "UNC – No Primary — 3,036",
+      "UNC – Lapsed D — 1,054"
+    ],
+    "datasets": [
+      {
+        "data": [
+          706,
+          396,
+          530,
+          3036,
+          1054
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "Blendon Township (Franklin Co.)",
+  "updated": "2026-05-10"
+}

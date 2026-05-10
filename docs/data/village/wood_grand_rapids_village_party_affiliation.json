@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 119 (18%)",
+      "UNC – Lapsed R — 72 (11%)",
+      "Mixed – Active — 49 (7%)",
+      "Mixed – Lapsed — 60 (9%)",
+      "UNC – No Primary — 237 (35%)",
+      "UNC – Lapsed D — 76 (11%)",
+      "Pure D — 65 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          119,
+          72,
+          49,
+          60,
+          237,
+          76,
+          65
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "GRAND RAPIDS VILLAGE (Wood Co.)",
+  "updated": "2026-05-10"
+}

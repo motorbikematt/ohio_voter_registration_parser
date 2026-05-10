@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 389",
+      "Mixed – Active — 229",
+      "Mixed – Lapsed — 193",
+      "UNC – No Primary — 1,702",
+      "UNC – Lapsed D — 327"
+    ],
+    "datasets": [
+      {
+        "data": [
+          389,
+          229,
+          193,
+          1702,
+          327
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MADISON TOWNSHIP (Highland Co.)",
+  "updated": "2026-05-10"
+}

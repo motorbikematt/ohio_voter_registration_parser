@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 387 (31%)",
+      "UNC – Lapsed R — 153 (12%)",
+      "Mixed – Active — 105 (8%)",
+      "Mixed – Lapsed — 65 (5%)",
+      "UNC – No Primary — 419 (33%)",
+      "UNC – Lapsed D — 74 (6%)",
+      "Pure D — 52 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          387,
+          153,
+          105,
+          65,
+          419,
+          74,
+          52
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BERLIN TOWNSHIP (Knox Co.)",
+  "updated": "2026-05-10"
+}

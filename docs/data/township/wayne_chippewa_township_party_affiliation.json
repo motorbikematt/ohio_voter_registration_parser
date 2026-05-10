@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,348 (20%)",
+      "UNC – Lapsed R — 748 (11%)",
+      "Mixed – Active — 702 (10%)",
+      "Mixed – Lapsed — 592 (9%)",
+      "UNC – No Primary — 2,371 (35%)",
+      "UNC – Lapsed D — 690 (10%)",
+      "Pure D — 414 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1348,
+          748,
+          702,
+          592,
+          2371,
+          690,
+          414
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CHIPPEWA TOWNSHIP (Wayne Co.)",
+  "updated": "2026-05-10"
+}

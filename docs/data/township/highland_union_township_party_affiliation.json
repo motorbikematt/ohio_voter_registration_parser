@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 235 (19%)",
+      "UNC – Lapsed R — 187 (15%)",
+      "Mixed – Active — 83 (7%)",
+      "Mixed – Lapsed — 54 (4%)",
+      "UNC – No Primary — 577 (47%)",
+      "UNC – Lapsed D — 83 (7%)",
+      "Pure D — 20 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          235,
+          187,
+          83,
+          54,
+          577,
+          83,
+          20
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "UNION TOWNSHIP (Highland Co.)",
+  "updated": "2026-05-10"
+}

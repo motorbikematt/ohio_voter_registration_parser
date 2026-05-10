@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 906 (28%)",
+      "UNC – Lapsed R — 262 (8%)",
+      "Mixed – Active — 324 (10%)",
+      "Mixed – Lapsed — 102 (3%)",
+      "UNC – No Primary — 1,335 (41%)",
+      "UNC – Lapsed D — 208 (6%)",
+      "Pure D — 155 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          906,
+          262,
+          324,
+          102,
+          1335,
+          208,
+          155
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "TIFFIN TOWNSHIP (Unknown Co.)",
+  "updated": "2026-05-10"
+}

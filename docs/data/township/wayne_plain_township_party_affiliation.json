@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 486 (24%)",
+      "UNC – Lapsed R — 343 (17%)",
+      "Mixed – Active — 151 (7%)",
+      "Mixed – Lapsed — 185 (9%)",
+      "UNC – No Primary — 663 (32%)",
+      "UNC – Lapsed D — 158 (8%)",
+      "Pure D — 67 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          486,
+          343,
+          151,
+          185,
+          663,
+          158,
+          67
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PLAIN TOWNSHIP (Wayne Co.)",
+  "updated": "2026-05-10"
+}

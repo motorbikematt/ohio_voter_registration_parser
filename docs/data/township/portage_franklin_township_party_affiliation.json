@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 334 (8%)",
+      "UNC – Lapsed R — 303 (7%)",
+      "Mixed – Active — 431 (10%)",
+      "Mixed – Lapsed — 318 (7%)",
+      "UNC – No Primary — 1,694 (39%)",
+      "UNC – Lapsed D — 756 (17%)",
+      "Pure D — 491 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          334,
+          303,
+          431,
+          318,
+          1694,
+          756,
+          491
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FRANKLIN TOWNSHIP (Portage Co.)",
+  "updated": "2026-05-10"
+}

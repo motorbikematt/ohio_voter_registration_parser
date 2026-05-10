@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 6,263 (16%)",
+      "UNC – Lapsed R — 4,360 (11%)",
+      "Mixed – Active — 3,101 (8%)",
+      "Mixed – Lapsed — 4,075 (10%)",
+      "UNC – No Primary — 15,222 (38%)",
+      "UNC – Lapsed D — 4,772 (12%)",
+      "Pure D — 2,590 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          6263,
+          4360,
+          3101,
+          4075,
+          15222,
+          4772,
+          2590
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "BOWLING-GREEN (Wood Co.)",
+  "updated": "2026-05-10"
+}

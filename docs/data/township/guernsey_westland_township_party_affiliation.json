@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 331 (23%)",
+      "UNC – Lapsed R — 169 (12%)",
+      "Mixed – Active — 129 (9%)",
+      "Mixed – Lapsed — 115 (8%)",
+      "UNC – No Primary — 516 (36%)",
+      "UNC – Lapsed D — 111 (8%)",
+      "Pure D — 46 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          331,
+          169,
+          129,
+          115,
+          516,
+          111,
+          46
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WESTLAND TOWNSHIP (Guernsey Co.)",
+  "updated": "2026-05-10"
+}

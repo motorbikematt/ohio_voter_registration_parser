@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 463 (15%)",
+      "UNC – Lapsed R — 258 (9%)",
+      "Mixed – Active — 187 (6%)",
+      "Mixed – Lapsed — 313 (10%)",
+      "UNC – No Primary — 1,332 (44%)",
+      "UNC – Lapsed D — 306 (10%)",
+      "Pure D — 170 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          463,
+          258,
+          187,
+          313,
+          1332,
+          306,
+          170
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "BELLEVUE (Huron Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 426 (22%)",
+      "UNC – Lapsed R — 276 (15%)",
+      "Mixed – Active — 278 (15%)",
+      "Mixed – Lapsed — 138 (7%)",
+      "UNC – No Primary — 637 (34%)",
+      "UNC – Lapsed D — 95 (5%)",
+      "Pure D — 45 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          426,
+          276,
+          278,
+          138,
+          637,
+          95,
+          45
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "VERSAILLES VILLAGE (Darke Co.)",
+  "updated": "2026-05-10"
+}

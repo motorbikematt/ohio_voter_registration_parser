@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 125 (20%)",
+      "UNC – Lapsed R — 75 (12%)",
+      "Mixed – Active — 49 (8%)",
+      "Mixed – Lapsed — 38 (6%)",
+      "UNC – No Primary — 251 (41%)",
+      "UNC – Lapsed D — 50 (8%)",
+      "Pure D — 24 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          125,
+          75,
+          49,
+          38,
+          251,
+          50,
+          24
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FOX TWP (Carroll Co.)",
+  "updated": "2026-05-10"
+}

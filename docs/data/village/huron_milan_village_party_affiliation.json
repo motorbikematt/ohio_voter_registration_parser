@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 44 (17%)",
+      "UNC – Lapsed R — 26 (10%)",
+      "Mixed – Active — 19 (7%)",
+      "Mixed – Lapsed — 34 (13%)",
+      "UNC – No Primary — 100 (39%)",
+      "UNC – Lapsed D — 23 (9%)",
+      "Pure D — 9 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          44,
+          26,
+          19,
+          34,
+          100,
+          23,
+          9
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "MILAN VILLAGE (Huron Co.)",
+  "updated": "2026-05-10"
+}

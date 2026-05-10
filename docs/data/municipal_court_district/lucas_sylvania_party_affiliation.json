@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 6,328 (11%)",
+      "UNC – Lapsed R — 5,890 (10%)",
+      "Mixed – Active — 3,859 (7%)",
+      "Mixed – Lapsed — 5,213 (9%)",
+      "UNC – No Primary — 23,959 (41%)",
+      "UNC – Lapsed D — 8,378 (14%)",
+      "Pure D — 4,939 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          6328,
+          5890,
+          3859,
+          5213,
+          23959,
+          8378,
+          4939
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "SYLVANIA (Lucas Co.)",
+  "updated": "2026-05-10"
+}

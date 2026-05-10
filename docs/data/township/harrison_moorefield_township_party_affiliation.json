@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 57 (20%)",
+      "UNC – Lapsed R — 33 (12%)",
+      "Mixed – Active — 33 (12%)",
+      "Mixed – Lapsed — 17 (6%)",
+      "UNC – No Primary — 96 (34%)",
+      "UNC – Lapsed D — 20 (7%)",
+      "Pure D — 24 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          57,
+          33,
+          33,
+          17,
+          96,
+          20,
+          24
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MOOREFIELD TOWNSHIP (Harrison Co.)",
+  "updated": "2026-05-10"
+}

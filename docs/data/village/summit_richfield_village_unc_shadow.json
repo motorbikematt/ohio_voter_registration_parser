@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 404",
+      "Mixed – Active — 308",
+      "Mixed – Lapsed — 382",
+      "UNC – No Primary — 990",
+      "UNC – Lapsed D — 409"
+    ],
+    "datasets": [
+      {
+        "data": [
+          404,
+          308,
+          382,
+          990,
+          409
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Village",
+  "jurisdiction_name": "RICHFIELD VILLAGE (Summit Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 49 (35%)",
+      "UNC – Lapsed R — 24 (17%)",
+      "Mixed – Active — 4 (3%)",
+      "Mixed – Lapsed — 6 (4%)",
+      "UNC – No Primary — 53 (38%)",
+      "UNC – Lapsed D — 4 (3%)",
+      "Pure D — 1 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          49,
+          24,
+          4,
+          6,
+          53,
+          4,
+          1
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MEIGS TOWNSHIP (Muskingum Co.)",
+  "updated": "2026-05-10"
+}

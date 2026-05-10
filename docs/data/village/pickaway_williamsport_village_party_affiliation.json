@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 104 (18%)",
+      "UNC – Lapsed R — 34 (6%)",
+      "Mixed – Active — 76 (13%)",
+      "Mixed – Lapsed — 23 (4%)",
+      "UNC – No Primary — 258 (46%)",
+      "UNC – Lapsed D — 40 (7%)",
+      "Pure D — 31 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          104,
+          34,
+          76,
+          23,
+          258,
+          40,
+          31
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WILLIAMSPORT VILLAGE (Pickaway Co.)",
+  "updated": "2026-05-10"
+}

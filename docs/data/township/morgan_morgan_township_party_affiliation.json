@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 410 (29%)",
+      "UNC – Lapsed R — 211 (15%)",
+      "Mixed – Active — 124 (9%)",
+      "Mixed – Lapsed — 57 (4%)",
+      "UNC – No Primary — 448 (32%)",
+      "UNC – Lapsed D — 90 (6%)",
+      "Pure D — 57 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          410,
+          211,
+          124,
+          57,
+          448,
+          90,
+          57
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MORGAN TOWNSHIP (Morgan Co.)",
+  "updated": "2026-05-10"
+}

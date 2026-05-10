@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 64 (18%)",
+      "UNC – Lapsed R — 36 (10%)",
+      "Mixed – Active — 23 (7%)",
+      "Mixed – Lapsed — 27 (8%)",
+      "UNC – No Primary — 159 (45%)",
+      "UNC – Lapsed D — 33 (9%)",
+      "Pure D — 11 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          64,
+          36,
+          23,
+          27,
+          159,
+          33,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "LYONS VILLAGE (Fulton Co.)",
+  "updated": "2026-05-10"
+}

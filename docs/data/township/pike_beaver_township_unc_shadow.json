@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 98",
+      "Mixed – Active — 66",
+      "Mixed – Lapsed — 46",
+      "UNC – No Primary — 346",
+      "UNC – Lapsed D — 109"
+    ],
+    "datasets": [
+      {
+        "data": [
+          98,
+          66,
+          46,
+          346,
+          109
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BEAVER TOWNSHIP (Pike Co.)",
+  "updated": "2026-05-10"
+}

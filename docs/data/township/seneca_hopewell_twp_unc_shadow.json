@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 209",
+      "Mixed – Active — 248",
+      "Mixed – Lapsed — 135",
+      "UNC – No Primary — 509",
+      "UNC – Lapsed D — 152"
+    ],
+    "datasets": [
+      {
+        "data": [
+          209,
+          248,
+          135,
+          509,
+          152
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "HOPEWELL TWP (Seneca Co.)",
+  "updated": "2026-05-10"
+}

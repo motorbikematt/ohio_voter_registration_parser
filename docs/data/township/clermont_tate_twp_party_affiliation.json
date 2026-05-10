@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,261 (20%)",
+      "UNC – Lapsed R — 784 (12%)",
+      "Mixed – Active — 369 (6%)",
+      "Mixed – Lapsed — 628 (10%)",
+      "UNC – No Primary — 2,695 (43%)",
+      "UNC – Lapsed D — 437 (7%)",
+      "Pure D — 130 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1261,
+          784,
+          369,
+          628,
+          2695,
+          437,
+          130
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "TATE TWP (Clermont Co.)",
+  "updated": "2026-05-10"
+}

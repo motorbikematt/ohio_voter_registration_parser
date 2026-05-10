@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 650 (33%)",
+      "UNC – Lapsed R — 301 (15%)",
+      "Mixed – Active — 166 (9%)",
+      "Mixed – Lapsed — 116 (6%)",
+      "UNC – No Primary — 572 (29%)",
+      "UNC – Lapsed D — 85 (4%)",
+      "Pure D — 62 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          650,
+          301,
+          166,
+          116,
+          572,
+          85,
+          62
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "NEW JASPER (Greene Co.)",
+  "updated": "2026-05-10"
+}

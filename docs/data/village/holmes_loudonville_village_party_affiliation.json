@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 6 (11%)",
+      "UNC – Lapsed R — 6 (11%)",
+      "Mixed – Active — 10 (19%)",
+      "Mixed – Lapsed — 9 (17%)",
+      "UNC – No Primary — 6 (11%)",
+      "UNC – Lapsed D — 12 (22%)",
+      "Pure D — 5 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          6,
+          6,
+          10,
+          9,
+          6,
+          12,
+          5
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "LOUDONVILLE VILLAGE (Holmes Co.)",
+  "updated": "2026-05-10"
+}

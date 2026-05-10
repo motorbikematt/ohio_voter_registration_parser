@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 636",
+      "Mixed – Active — 186",
+      "Mixed – Lapsed — 494",
+      "UNC – No Primary — 1,228",
+      "UNC – Lapsed D — 309"
+    ],
+    "datasets": [
+      {
+        "data": [
+          636,
+          186,
+          494,
+          1228,
+          309
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "DARBY TOWNSHIP (Madison Co.)",
+  "updated": "2026-05-10"
+}

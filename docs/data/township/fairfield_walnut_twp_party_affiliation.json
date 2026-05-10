@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 968 (21%)",
+      "UNC – Lapsed R — 714 (15%)",
+      "Mixed – Active — 316 (7%)",
+      "Mixed – Lapsed — 459 (10%)",
+      "UNC – No Primary — 1,567 (34%)",
+      "UNC – Lapsed D — 410 (9%)",
+      "Pure D — 206 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          968,
+          714,
+          316,
+          459,
+          1567,
+          410,
+          206
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WALNUT TWP (Fairfield Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 400",
+      "Mixed – Active — 181",
+      "Mixed – Lapsed — 288",
+      "UNC – No Primary — 946",
+      "UNC – Lapsed D — 251"
+    ],
+    "datasets": [
+      {
+        "data": [
+          400,
+          181,
+          288,
+          946,
+          251
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "CLEARCREEK TWP (Fairfield Co.)",
+  "updated": "2026-05-10"
+}

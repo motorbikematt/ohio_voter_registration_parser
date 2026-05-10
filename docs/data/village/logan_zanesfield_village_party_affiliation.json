@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 32 (21%)",
+      "UNC – Lapsed R — 25 (17%)",
+      "Mixed – Active — 10 (7%)",
+      "Mixed – Lapsed — 14 (9%)",
+      "UNC – No Primary — 50 (34%)",
+      "UNC – Lapsed D — 13 (9%)",
+      "Pure D — 5 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          32,
+          25,
+          10,
+          14,
+          50,
+          13,
+          5
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "ZANESFIELD VILLAGE (Logan Co.)",
+  "updated": "2026-05-10"
+}

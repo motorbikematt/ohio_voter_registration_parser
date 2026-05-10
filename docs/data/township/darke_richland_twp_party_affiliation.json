@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 158 (30%)",
+      "UNC – Lapsed R — 73 (14%)",
+      "Mixed – Active — 63 (12%)",
+      "Mixed – Lapsed — 25 (5%)",
+      "UNC – No Primary — 167 (32%)",
+      "UNC – Lapsed D — 25 (5%)",
+      "Pure D — 8 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          158,
+          73,
+          63,
+          25,
+          167,
+          25,
+          8
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "RICHLAND TWP (Darke Co.)",
+  "updated": "2026-05-10"
+}

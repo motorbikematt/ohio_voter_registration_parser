@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 343 (31%)",
+      "UNC – Lapsed R — 136 (12%)",
+      "Mixed – Active — 65 (6%)",
+      "Mixed – Lapsed — 85 (8%)",
+      "UNC – No Primary — 340 (31%)",
+      "UNC – Lapsed D — 71 (7%)",
+      "Pure D — 50 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          343,
+          136,
+          65,
+          85,
+          340,
+          71,
+          50
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BROWN TOWNSHIP (Knox Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,233 (20%)",
+      "UNC – Lapsed R — 780 (12%)",
+      "Mixed – Active — 536 (9%)",
+      "Mixed – Lapsed — 535 (9%)",
+      "UNC – No Primary — 2,150 (34%)",
+      "UNC – Lapsed D — 691 (11%)",
+      "Pure D — 368 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1233,
+          780,
+          536,
+          535,
+          2150,
+          691,
+          368
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BUTLER TOWNSHIP (Montgomery Co.)",
+  "updated": "2026-05-10"
+}

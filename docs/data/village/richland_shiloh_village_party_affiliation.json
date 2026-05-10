@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 51 (16%)",
+      "UNC – Lapsed R — 34 (10%)",
+      "Mixed – Active — 21 (6%)",
+      "Mixed – Lapsed — 26 (8%)",
+      "UNC – No Primary — 151 (46%)",
+      "UNC – Lapsed D — 31 (10%)",
+      "Pure D — 11 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          51,
+          34,
+          21,
+          26,
+          151,
+          31,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SHILOH VILLAGE (Richland Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 80 (24%)",
+      "UNC – Lapsed R — 37 (11%)",
+      "Mixed – Active — 42 (12%)",
+      "Mixed – Lapsed — 26 (8%)",
+      "UNC – No Primary — 117 (35%)",
+      "UNC – Lapsed D — 28 (8%)",
+      "Pure D — 9 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          80,
+          37,
+          42,
+          26,
+          117,
+          28,
+          9
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "KNOX TOWNSHIP (Guernsey Co.)",
+  "updated": "2026-05-10"
+}

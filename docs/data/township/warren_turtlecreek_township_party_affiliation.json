@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,630 (22%)",
+      "UNC – Lapsed R — 2,253 (19%)",
+      "Mixed – Active — 694 (6%)",
+      "Mixed – Lapsed — 941 (8%)",
+      "UNC – No Primary — 4,286 (36%)",
+      "UNC – Lapsed D — 787 (7%)",
+      "Pure D — 334 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2630,
+          2253,
+          694,
+          941,
+          4286,
+          787,
+          334
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "TURTLECREEK TOWNSHIP (Warren Co.)",
+  "updated": "2026-05-10"
+}

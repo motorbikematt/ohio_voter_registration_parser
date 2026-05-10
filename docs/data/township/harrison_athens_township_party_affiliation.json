@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 41 (12%)",
+      "UNC – Lapsed R — 20 (6%)",
+      "Mixed – Active — 57 (17%)",
+      "Mixed – Lapsed — 21 (6%)",
+      "UNC – No Primary — 112 (34%)",
+      "UNC – Lapsed D — 40 (12%)",
+      "Pure D — 38 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          41,
+          20,
+          57,
+          21,
+          112,
+          40,
+          38
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "ATHENS TOWNSHIP (Harrison Co.)",
+  "updated": "2026-05-10"
+}

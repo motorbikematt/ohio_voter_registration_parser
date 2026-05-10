@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 433 (29%)",
+      "UNC – Lapsed R — 201 (13%)",
+      "Mixed – Active — 141 (9%)",
+      "Mixed – Lapsed — 221 (15%)",
+      "UNC – No Primary — 368 (24%)",
+      "UNC – Lapsed D — 100 (7%)",
+      "Pure D — 40 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          433,
+          201,
+          141,
+          221,
+          368,
+          100,
+          40
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "LIBERTY TOWNSHIP (Union Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,456 (6%)",
+      "UNC – Lapsed R — 3,035 (5%)",
+      "Mixed – Active — 4,010 (7%)",
+      "Mixed – Lapsed — 4,427 (8%)",
+      "UNC – No Primary — 23,032 (42%)",
+      "UNC – Lapsed D — 10,928 (20%)",
+      "Pure D — 6,562 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3456,
+          3035,
+          4010,
+          4427,
+          23032,
+          10928,
+          6562
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "GARFIELD-HEIGHTS (Cuyahoga Co.)",
+  "updated": "2026-05-10"
+}

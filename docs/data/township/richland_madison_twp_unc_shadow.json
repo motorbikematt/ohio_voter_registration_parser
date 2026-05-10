@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 690",
+      "Mixed – Active — 499",
+      "Mixed – Lapsed — 511",
+      "UNC – No Primary — 3,277",
+      "UNC – Lapsed D — 673"
+    ],
+    "datasets": [
+      {
+        "data": [
+          690,
+          499,
+          511,
+          3277,
+          673
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MADISON TWP (Richland Co.)",
+  "updated": "2026-05-10"
+}

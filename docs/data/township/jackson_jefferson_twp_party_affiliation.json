@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 263 (13%)",
+      "UNC – Lapsed R — 337 (17%)",
+      "Mixed – Active — 117 (6%)",
+      "Mixed – Lapsed — 161 (8%)",
+      "UNC – No Primary — 938 (47%)",
+      "UNC – Lapsed D — 174 (9%)",
+      "Pure D — 11 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          263,
+          337,
+          117,
+          161,
+          938,
+          174,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JEFFERSON TWP (Jackson Co.)",
+  "updated": "2026-05-10"
+}

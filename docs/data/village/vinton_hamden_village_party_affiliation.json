@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 67 (14%)",
+      "UNC – Lapsed R — 52 (11%)",
+      "Mixed – Active — 43 (9%)",
+      "Mixed – Lapsed — 15 (3%)",
+      "UNC – No Primary — 231 (47%)",
+      "UNC – Lapsed D — 51 (10%)",
+      "Pure D — 30 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          67,
+          52,
+          43,
+          15,
+          231,
+          51,
+          30
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "HAMDEN VILLAGE (Vinton Co.)",
+  "updated": "2026-05-10"
+}

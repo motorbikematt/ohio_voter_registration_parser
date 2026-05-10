@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 210",
+      "Mixed – Active — 145",
+      "Mixed – Lapsed — 137",
+      "UNC – No Primary — 549",
+      "UNC – Lapsed D — 130"
+    ],
+    "datasets": [
+      {
+        "data": [
+          210,
+          145,
+          137,
+          549,
+          130
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "YORK TOWNSHIP (Sandusky Co.)",
+  "updated": "2026-05-10"
+}

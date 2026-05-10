@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 108 (21%)",
+      "UNC – Lapsed R — 107 (21%)",
+      "Mixed – Active — 46 (9%)",
+      "Mixed – Lapsed — 43 (8%)",
+      "UNC – No Primary — 158 (31%)",
+      "UNC – Lapsed D — 46 (9%)",
+      "Pure D — 9 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          108,
+          107,
+          46,
+          43,
+          158,
+          46,
+          9
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "VERNON TOWNSHIP (Crawford Co.)",
+  "updated": "2026-05-10"
+}

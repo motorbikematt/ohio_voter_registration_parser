@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 122 (26%)",
+      "UNC – Lapsed R — 55 (12%)",
+      "Mixed – Active — 35 (7%)",
+      "Mixed – Lapsed — 41 (9%)",
+      "UNC – No Primary — 177 (38%)",
+      "UNC – Lapsed D — 26 (6%)",
+      "Pure D — 12 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          122,
+          55,
+          35,
+          41,
+          177,
+          26,
+          12
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "RIPLEY TOWNSHIP (Huron Co.)",
+  "updated": "2026-05-10"
+}

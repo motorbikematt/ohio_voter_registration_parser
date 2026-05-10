@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 197 (14%)",
+      "UNC – Lapsed R — 216 (15%)",
+      "Mixed – Active — 75 (5%)",
+      "Mixed – Lapsed — 169 (12%)",
+      "UNC – No Primary — 617 (44%)",
+      "UNC – Lapsed D — 91 (6%)",
+      "Pure D — 36 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          197,
+          216,
+          75,
+          169,
+          617,
+          91,
+          36
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MIDDLEFIELD TWP (Geauga Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,268",
+      "Mixed – Active — 2,756",
+      "Mixed – Lapsed — 1,689",
+      "UNC – No Primary — 9,183",
+      "UNC – Lapsed D — 5,189"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1268,
+          2756,
+          1689,
+          9183,
+          5189
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "AUSTINTOWN TWP (Mahoning Co.)",
+  "updated": "2026-05-10"
+}

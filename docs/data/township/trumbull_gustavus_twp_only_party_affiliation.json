@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 110 (19%)",
+      "UNC – Lapsed R — 34 (6%)",
+      "Mixed – Active — 84 (14%)",
+      "Mixed – Lapsed — 37 (6%)",
+      "UNC – No Primary — 174 (30%)",
+      "UNC – Lapsed D — 69 (12%)",
+      "Pure D — 72 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          110,
+          34,
+          84,
+          37,
+          174,
+          69,
+          72
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "GUSTAVUS TWP ONLY (Trumbull Co.)",
+  "updated": "2026-05-10"
+}

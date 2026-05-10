@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 2,934",
+      "Mixed – Active — 1,860",
+      "Mixed – Lapsed — 2,589",
+      "UNC – No Primary — 10,555",
+      "UNC – Lapsed D — 4,154"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2934,
+          1860,
+          2589,
+          10555,
+          4154
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "Mifflin Township (Franklin Co.)",
+  "updated": "2026-05-10"
+}

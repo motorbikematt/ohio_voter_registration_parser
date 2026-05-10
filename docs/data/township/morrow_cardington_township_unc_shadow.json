@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 230",
+      "Mixed – Active — 165",
+      "Mixed – Lapsed — 150",
+      "UNC – No Primary — 827",
+      "UNC – Lapsed D — 146"
+    ],
+    "datasets": [
+      {
+        "data": [
+          230,
+          165,
+          150,
+          827,
+          146
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "CARDINGTON TOWNSHIP (Morrow Co.)",
+  "updated": "2026-05-10"
+}

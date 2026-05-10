@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 96",
+      "Mixed – Active — 125",
+      "Mixed – Lapsed — 77",
+      "UNC – No Primary — 382",
+      "UNC – Lapsed D — 125"
+    ],
+    "datasets": [
+      {
+        "data": [
+          96,
+          125,
+          77,
+          382,
+          125
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "CARTHAGE TOWNSHIP (Unknown Co.)",
+  "updated": "2026-05-10"
+}

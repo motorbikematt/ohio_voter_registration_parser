@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 28 (7%)",
+      "UNC – Lapsed R — 19 (5%)",
+      "Mixed – Active — 71 (18%)",
+      "Mixed – Lapsed — 23 (6%)",
+      "UNC – No Primary — 168 (43%)",
+      "UNC – Lapsed D — 53 (13%)",
+      "Pure D — 33 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          28,
+          19,
+          71,
+          23,
+          168,
+          53,
+          33
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BROOKSIDE VILLAGE (Unknown Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,077 (19%)",
+      "UNC – Lapsed R — 827 (15%)",
+      "Mixed – Active — 403 (7%)",
+      "Mixed – Lapsed — 511 (9%)",
+      "UNC – No Primary — 2,106 (37%)",
+      "UNC – Lapsed D — 537 (9%)",
+      "Pure D — 195 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1077,
+          827,
+          403,
+          511,
+          2106,
+          537,
+          195
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MONROE TWP (Licking Co.)",
+  "updated": "2026-05-10"
+}

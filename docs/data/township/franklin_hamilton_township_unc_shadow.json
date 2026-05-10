@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 716",
+      "Mixed – Active — 347",
+      "Mixed – Lapsed — 601",
+      "UNC – No Primary — 3,972",
+      "UNC – Lapsed D — 868"
+    ],
+    "datasets": [
+      {
+        "data": [
+          716,
+          347,
+          601,
+          3972,
+          868
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "Hamilton Township (Franklin Co.)",
+  "updated": "2026-05-10"
+}

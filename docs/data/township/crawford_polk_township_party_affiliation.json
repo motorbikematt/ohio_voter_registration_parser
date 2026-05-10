@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 294 (20%)",
+      "UNC – Lapsed R — 234 (16%)",
+      "Mixed – Active — 93 (6%)",
+      "Mixed – Lapsed — 154 (11%)",
+      "UNC – No Primary — 493 (34%)",
+      "UNC – Lapsed D — 126 (9%)",
+      "Pure D — 64 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          294,
+          234,
+          93,
+          154,
+          493,
+          126,
+          64
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "POLK TOWNSHIP (Crawford Co.)",
+  "updated": "2026-05-10"
+}

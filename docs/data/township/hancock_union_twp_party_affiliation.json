@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 417 (36%)",
+      "UNC – Lapsed R — 146 (13%)",
+      "Mixed – Active — 79 (7%)",
+      "Mixed – Lapsed — 42 (4%)",
+      "UNC – No Primary — 386 (33%)",
+      "UNC – Lapsed D — 57 (5%)",
+      "Pure D — 35 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          417,
+          146,
+          79,
+          42,
+          386,
+          57,
+          35
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "UNION TWP (Hancock Co.)",
+  "updated": "2026-05-10"
+}

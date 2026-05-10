@@ -1228,6 +1228,9 @@ def build_precinct_summary(df: pl.DataFrame) -> pl.DataFrame:
 # Each pattern requires a SEPARATOR (whitespace or hyphen) before the ID token so
 # we never strip into the city's own letters. Order matters — most specific first.
 _PRECINCT_SUFFIX_PATTERNS = [
+    # Explicit WARD or COUNCIL suffixes (e.g. " WARD 9", " COUNCIL DISTRICT 7")
+    re.compile(r'[\s\-]+(?:WARD|COUNCIL(?: DISTRICT)?)\s*\d+[A-Z]?\s*$', re.IGNORECASE),
+
     # "DAYTON 3-E", "DAYTON 03-D", "CLEVELAND 18-A"   → city + space + digits + sep + letter
     re.compile(r'[\s\-]+\d+\s*[\-\s]\s*[A-Z]\s*$', re.IGNORECASE),
     # "TROTWOOD-A", "W CARROLLTON-G"                  → city + dash + single letter

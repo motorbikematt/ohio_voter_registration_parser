@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 95 (22%)",
+      "UNC – Lapsed R — 74 (17%)",
+      "Mixed – Active — 28 (7%)",
+      "Mixed – Lapsed — 31 (7%)",
+      "UNC – No Primary — 154 (36%)",
+      "UNC – Lapsed D — 38 (9%)",
+      "Pure D — 8 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          95,
+          74,
+          28,
+          31,
+          154,
+          38,
+          8
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "WASHINGTON TOWNSHIP (Paulding Co.)",
+  "updated": "2026-05-10"
+}

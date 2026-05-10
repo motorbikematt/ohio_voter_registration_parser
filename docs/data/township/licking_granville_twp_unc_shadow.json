@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 821",
+      "Mixed – Active — 765",
+      "Mixed – Lapsed — 745",
+      "UNC – No Primary — 2,578",
+      "UNC – Lapsed D — 816"
+    ],
+    "datasets": [
+      {
+        "data": [
+          821,
+          765,
+          745,
+          2578,
+          816
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "GRANVILLE TWP (Licking Co.)",
+  "updated": "2026-05-10"
+}

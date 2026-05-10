@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 535 (25%)",
+      "UNC – Lapsed R — 315 (15%)",
+      "Mixed – Active — 130 (6%)",
+      "Mixed – Lapsed — 159 (8%)",
+      "UNC – No Primary — 815 (39%)",
+      "UNC – Lapsed D — 113 (5%)",
+      "Pure D — 47 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          535,
+          315,
+          130,
+          159,
+          815,
+          113,
+          47
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "JACKSON TWP (Clermont Co.)",
+  "updated": "2026-05-10"
+}

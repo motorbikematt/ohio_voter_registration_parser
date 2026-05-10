@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 5,835 (15%)",
+      "UNC – Lapsed R — 4,031 (11%)",
+      "Mixed – Active — 3,160 (8%)",
+      "Mixed – Lapsed — 3,619 (10%)",
+      "UNC – No Primary — 13,147 (35%)",
+      "UNC – Lapsed D — 4,654 (12%)",
+      "Pure D — 3,272 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5835,
+          4031,
+          3160,
+          3619,
+          13147,
+          4654,
+          3272
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "MAUMEE (Lucas Co.)",
+  "updated": "2026-05-10"
+}

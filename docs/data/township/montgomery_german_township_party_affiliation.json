@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,229 (20%)",
+      "UNC – Lapsed R — 1,051 (17%)",
+      "Mixed – Active — 617 (10%)",
+      "Mixed – Lapsed — 718 (11%)",
+      "UNC – No Primary — 1,955 (31%)",
+      "UNC – Lapsed D — 517 (8%)",
+      "Pure D — 207 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1229,
+          1051,
+          617,
+          718,
+          1955,
+          517,
+          207
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "GERMAN TOWNSHIP (Montgomery Co.)",
+  "updated": "2026-05-10"
+}

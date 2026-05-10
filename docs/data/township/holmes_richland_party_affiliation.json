@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 139 (23%)",
+      "UNC – Lapsed R — 79 (13%)",
+      "Mixed – Active — 59 (10%)",
+      "Mixed – Lapsed — 35 (6%)",
+      "UNC – No Primary — 247 (41%)",
+      "UNC – Lapsed D — 32 (5%)",
+      "Pure D — 12 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          139,
+          79,
+          59,
+          35,
+          247,
+          32,
+          12
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "RICHLAND (Holmes Co.)",
+  "updated": "2026-05-10"
+}

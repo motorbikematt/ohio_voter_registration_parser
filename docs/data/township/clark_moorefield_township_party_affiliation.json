@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,946 (21%)",
+      "UNC – Lapsed R — 1,151 (13%)",
+      "Mixed – Active — 1,091 (12%)",
+      "Mixed – Lapsed — 933 (10%)",
+      "UNC – No Primary — 2,516 (28%)",
+      "UNC – Lapsed D — 919 (10%)",
+      "Pure D — 544 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1946,
+          1151,
+          1091,
+          933,
+          2516,
+          919,
+          544
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MOOREFIELD TOWNSHIP (Clark Co.)",
+  "updated": "2026-05-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 772",
+      "Mixed – Active — 1,190",
+      "Mixed – Lapsed — 962",
+      "UNC – No Primary — 4,666",
+      "UNC – Lapsed D — 1,550"
+    ],
+    "datasets": [
+      {
+        "data": [
+          772,
+          1190,
+          962,
+          4666,
+          1550
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "CONNEAUT (Unknown Co.)",
+  "updated": "2026-05-10"
+}

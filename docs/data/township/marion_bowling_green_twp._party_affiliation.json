@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 77 (21%)",
+      "UNC – Lapsed R — 44 (12%)",
+      "Mixed – Active — 38 (10%)",
+      "Mixed – Lapsed — 21 (6%)",
+      "UNC – No Primary — 146 (39%)",
+      "UNC – Lapsed D — 31 (8%)",
+      "Pure D — 16 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          77,
+          44,
+          38,
+          21,
+          146,
+          31,
+          16
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "BOWLING GREEN TWP. (Marion Co.)",
+  "updated": "2026-05-10"
+}

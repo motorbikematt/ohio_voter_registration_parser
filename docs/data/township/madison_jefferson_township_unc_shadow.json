@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 705",
+      "Mixed – Active — 351",
+      "Mixed – Lapsed — 428",
+      "UNC – No Primary — 2,013",
+      "UNC – Lapsed D — 440"
+    ],
+    "datasets": [
+      {
+        "data": [
+          705,
+          351,
+          428,
+          2013,
+          440
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "JEFFERSON TOWNSHIP (Madison Co.)",
+  "updated": "2026-05-10"
+}

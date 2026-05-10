@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 239 (21%)",
+      "UNC – Lapsed R — 130 (11%)",
+      "Mixed – Active — 89 (8%)",
+      "Mixed – Lapsed — 90 (8%)",
+      "UNC – No Primary — 498 (43%)",
+      "UNC – Lapsed D — 79 (7%)",
+      "Pure D — 40 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          239,
+          130,
+          89,
+          90,
+          498,
+          79,
+          40
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PLYMOUTH TWP (Richland Co.)",
+  "updated": "2026-05-10"
+}

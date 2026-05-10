@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 64",
+      "Mixed – Active — 107",
+      "Mixed – Lapsed — 55",
+      "UNC – No Primary — 246",
+      "UNC – Lapsed D — 114"
+    ],
+    "datasets": [
+      {
+        "data": [
+          64,
+          107,
+          55,
+          246,
+          114
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "SHORTCREEK TOWNSHIP (Harrison Co.)",
+  "updated": "2026-05-10"
+}

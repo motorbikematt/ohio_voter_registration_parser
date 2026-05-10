@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 245 (26%)",
+      "UNC – Lapsed R — 121 (13%)",
+      "Mixed – Active — 99 (10%)",
+      "Mixed – Lapsed — 111 (12%)",
+      "UNC – No Primary — 229 (24%)",
+      "UNC – Lapsed D — 79 (8%)",
+      "Pure D — 62 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          245,
+          121,
+          99,
+          111,
+          229,
+          79,
+          62
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WESTFIELD CENTER VILLAGE (Medina Co.)",
+  "updated": "2026-05-10"
+}

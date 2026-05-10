@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 14 (16%)",
+      "UNC – Lapsed R — 6 (7%)",
+      "Mixed – Active — 4 (4%)",
+      "Mixed – Lapsed — 7 (8%)",
+      "UNC – No Primary — 37 (42%)",
+      "UNC – Lapsed D — 18 (20%)",
+      "Pure D — 3 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          14,
+          6,
+          4,
+          7,
+          37,
+          18,
+          3
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "WEST MILTON VILLAGE (Wood Co.)",
+  "updated": "2026-05-10"
+}

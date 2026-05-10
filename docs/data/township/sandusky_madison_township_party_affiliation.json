@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 439 (18%)",
+      "UNC – Lapsed R — 284 (12%)",
+      "Mixed – Active — 135 (6%)",
+      "Mixed – Lapsed — 247 (10%)",
+      "UNC – No Primary — 902 (38%)",
+      "UNC – Lapsed D — 267 (11%)",
+      "Pure D — 104 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          439,
+          284,
+          135,
+          247,
+          902,
+          267,
+          104
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MADISON TOWNSHIP (Sandusky Co.)",
+  "updated": "2026-05-10"
+}

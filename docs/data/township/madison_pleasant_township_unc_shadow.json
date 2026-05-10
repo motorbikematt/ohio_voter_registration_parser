@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 250",
+      "Mixed – Active — 152",
+      "Mixed – Lapsed — 170",
+      "UNC – No Primary — 776",
+      "UNC – Lapsed D — 155"
+    ],
+    "datasets": [
+      {
+        "data": [
+          250,
+          152,
+          170,
+          776,
+          155
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "PLEASANT TOWNSHIP (Madison Co.)",
+  "updated": "2026-05-10"
+}

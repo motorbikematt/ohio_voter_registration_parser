@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 527",
+      "Mixed – Active — 317",
+      "Mixed – Lapsed — 285",
+      "UNC – No Primary — 1,094",
+      "UNC – Lapsed D — 247"
+    ],
+    "datasets": [
+      {
+        "data": [
+          527,
+          317,
+          285,
+          1094,
+          247
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "BETHEL TOWNSHIP (Miami Co.)",
+  "updated": "2026-05-10"
+}

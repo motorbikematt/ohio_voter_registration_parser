@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 500 (21%)",
+      "UNC – Lapsed R — 272 (11%)",
+      "Mixed – Active — 219 (9%)",
+      "Mixed – Lapsed — 443 (19%)",
+      "UNC – No Primary — 580 (24%)",
+      "UNC – Lapsed D — 245 (10%)",
+      "Pure D — 114 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          500,
+          272,
+          219,
+          443,
+          580,
+          245,
+          114
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: registered + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "Litchfield TWP (Medina Co.)",
+  "updated": "2026-05-10"
+}
