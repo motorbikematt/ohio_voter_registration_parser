@@ -301,16 +301,17 @@ def prompt_next_step(txt_files: list[Path]) -> tuple[str, bool, list[str] | None
     print("="*60)
     print()
     print("  Next step:")
-    print("  [1]  Full Ohio (88 counties) → web dashboard JSON only  (default; press Enter)")
-    print("  [2]  Full Ohio (88 counties) → web dashboard JSON + Excel workbook")
-    print("  [3]  Selected counties only  → web dashboard JSON")
-    print("  [4]  Generate jurisdictional groupings (cities, townships, etc.)")
+    print("  [1]  Full rebuild — counties + precincts + all jurisdictions → JSON  (default)")
+    print("  [2]  Full rebuild → JSON + Excel workbook")
+    print("  [3]  Counties + precincts only → JSON  (skip jurisdictional groupings)")
+    print("  [4]  Jurisdictional groupings only → JSON  (cities, townships, districts, etc.)")
+    print("  [5]  Selected counties only → JSON")
     print("  [L]  List all 88 counties with official state numbers")
     print("  [0]  Exit")
     print()
 
     while True:
-        choice = input("  Choice (1/2/3/L/0) [1]: ").strip().upper() or "1"
+        choice = input("  Choice (1/2/3/4/5/L/0) [1]: ").strip().upper() or "1"
 
         if choice == "L":
             print_county_list()
@@ -320,21 +321,29 @@ def prompt_next_step(txt_files: list[Path]) -> tuple[str, bool, list[str] | None
             return "0", False, None
 
         if choice in ("1", "2"):
+            # Full rebuild: county + precinct + all jurisdictions
             include_precincts = prompt_precinct_charts()
             return choice, include_precincts, None
 
         if choice == "3":
+            # Counties + precincts only — no jurisdictional groupings
+            include_precincts = prompt_precinct_charts()
+            return "3", include_precincts, None
+
+        if choice == "4":
+            # Jurisdictional groupings only — all 12 types
+            return "4", False, None
+
+        if choice == "5":
+            # Selected counties only
             county_nums = prompt_county_selection()
             if county_nums is None:
                 # User cancelled — re-show main menu
                 continue
             include_precincts = prompt_precinct_charts()
-            return "3", include_precincts, county_nums
+            return "5", include_precincts, county_nums
 
-        if choice == "4":
-            return "4", False, None
-
-        print("  Invalid choice. Enter 1, 2, 3, 4, L, or 0.")
+        print("  Invalid choice. Enter 1, 2, 3, 4, 5, L, or 0.")
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -435,22 +444,56 @@ def _dispatch(
     include_precincts: bool            = False,
     county_nums:       list[str] | None = None,
 ):
+    """Route the user's menu choice to the appropriate analysis functions.
+
+    "1" — Full rebuild: county/precinct JSON then all 12 jurisdictional groupings.
+    "2" — Same as "1" plus an Excel workbook export.
+    "3" — Counties + precincts only; jurisdictional groupings not run.
+    "4" — Jurisdictional groupings only (all 12 types); county rebuild skipped.
+    "5" — Selected counties + precincts; no jurisdictional groupings.
+    """
     import voter_data_cleaner_v2 as v2
 
     _log     = v2.setup_logging('pipeline')
     src_date = v2.get_source_date(_log)
 
-    if choice == "1":
+    if choice in ("1", "2"):
+        # Step A — build county + precinct chart JSON for all 88 counties.
         v2.run_ohio_analysis(txt_files, use_parquet=True,
                              include_precinct_charts=include_precincts)
 
-    elif choice == "2":
+        # Step B — build chart JSON for all 12 jurisdictional types:
+        #   cities, townships, villages, local/city/exempted school districts,
+        #   state senate/rep/congressional districts, county/municipal court
+        #   districts, and court of appeals.
+        #   jurisdictions_to_process=None means all 12 types run in sequence.
+        import jurisdictional_groupings as jg
+        jg_logger, _ = jg.setup_logger()
+        jg_logger.info("Running jurisdictional groupings — all 12 types...")
+        jg.main(jurisdictions_to_process=None, output_format='json', logger=jg_logger)
+
+        if choice == "2":
+            # Optional Excel workbook (large — peaks at ~45 GB RSS during export).
+            out = BASE_DIR / f"ohio_analysis_src{src_date}.xlsx"
+            v2.run_ohio_excel(txt_files, output_path=out, use_parquet=True)
+
+    elif choice == "3":
+        # Counties + precincts only — identical to the county pass in option 1
+        # but jurisdictional_groupings.py is not invoked.
         v2.run_ohio_analysis(txt_files, use_parquet=True,
                              include_precinct_charts=include_precincts)
-        out = BASE_DIR / f"ohio_analysis_src{src_date}.xlsx"
-        v2.run_ohio_excel(txt_files, output_path=out, use_parquet=True)
 
-    elif choice == "3" and county_nums:
+    elif choice == "4":
+        # Jurisdictional groupings only — useful when county JSON is already
+        # up-to-date and only city/township/district data needs refreshing.
+        import jurisdictional_groupings as jg
+        logger, _ = jg.setup_logger()
+        logger.info("Running jurisdictional groupings — all 12 types...")
+        jg.main(jurisdictions_to_process=None, output_format='json', logger=logger)
+
+    elif choice == "5" and county_nums:
+        # Targeted run for one or more counties.  Useful for spot-checking a
+        # county after a classifier change without rebuilding all 88.
         v2.run_county_subset(
             txt_files,
             county_numbers=county_nums,
@@ -458,8 +501,5 @@ def _dispatch(
             include_precinct_charts=include_precincts,
         )
 
-    elif choice == "4":
-        import jurisdictional_groupings as jg
-        logger, _ = jg.setup_logger()
-        logger.info("Running jurisdictional groupings for cities...")
-        jg.main(jurisdictions_to_process=['cities'], output_format='json', logger=logger)
+if __name__ == '__main__':
+    main()
