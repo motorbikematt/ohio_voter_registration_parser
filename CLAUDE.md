@@ -158,6 +158,36 @@ Doughnut tooltips are disabled and the legend renders `"<Cohort> — <count> (<p
 - GitHub Pages: `/docs` on `main`. Actions build ~40s.
 - Pending cleanup: `git rm --cached` for `GEMINI.md`, old `voter_data_cleaner.py` (v1), two stray `.png` files.
 
+# Git Push Rule — MCP vs Manual
+
+## CRITICAL: Never push docs/data/ via MCP
+
+The `docs/data/` directory contains ~65,000 JSON files. Attempting to push
+this tree via the GitHub MCP (push_files) in a prior session consumed the
+entire account token budget. Do not repeat this under any circumstances.
+
+## Decision rule
+
+| Scenario | Method |
+|---|---|
+| Code changes this session (Python, JS, config, markdown) | MCP push_files — content already in context, zero extra token cost |
+| Pipeline regenerated docs/data/ JSON files | **User runs `git push` from PowerShell or VSCode** |
+| Binary files or files > 50 MB | **User runs `git push` from PowerShell or VSCode** |
+
+## Implementation
+
+When pushing via MCP, batch all changed code files into a single push_files
+call. Never iterate file-by-file in a loop — each call is a separate commit
+and compounds token cost.
+
+When handing off to user for manual push, provide the exact commands; user will decide to use Powershell or copy the commit message into VScode UI:
+
+```powershell
+cd "D:\vibe\election-data"
+git add <specific files or -A>
+git commit -m "<message>"
+git push
+```
 ---
 
-*Last updated: 2026-05-13 (Pass C: UI consolidation — dead geo buttons removed, City tab aliased to Jurisdictions/Cities, county-select hidden in Jurisdictions scope, hash scrollspy, city data-gap flagging with 19 `available:false` index entries, optgroup dropdown, unavailability panel, persistent info note, CSS for both panels with dark-mode support. Backup: `CLAUDE.md.bak.2026-05-13`.)*
+*Last updated: 2026-05-13 (Pass C: UI consolidation — dead geo buttons removed, City tab aliased to Jurisdictions/Cities, county-select hidden in Jurisdictions scope, hash scrollspy, city data-gap flagging with 19 `available:false` index entries, optgroup dropdown, unavailability panel, persistent info note, CSS for both panels with dark-mode support. Added MCP vs Manual rule Backup: `CLAUDE.md.bak.2026-05-13`.)*
