@@ -59,7 +59,11 @@ BASE_DIR    = Path(__file__).parent
 DOCS_DIR    = BASE_DIR / "docs"
 DATA_DIR    = DOCS_DIR / "data"
 LOGS_DIR    = BASE_DIR / "logs"
-PARQUET_DIR = BASE_DIR / "source" / "parquet"
+PARQUET_DIR          = BASE_DIR / "source" / "parquet"
+PARQUET_ENRICHED_DIR = BASE_DIR / "source" / "parquet_enriched"
+PARQUET_ENRICHED_DIR.mkdir(parents=True, exist_ok=True)
+ENRICHED_CACHE       = PARQUET_ENRICHED_DIR / "enriched_voters.parquet"
+CLASSIFIER_SRC       = BASE_DIR / "voter_data_cleaner_v2.py"
 OUTPUT_DIR  = BASE_DIR / "output"
 
 LOGS_DIR.mkdir(exist_ok=True)
@@ -472,6 +476,85 @@ def export_jurisdiction_json(
                 _dump_json(chart_data, filepath, logger)
 
 
+
+def _cache_is_fresh() -> bool:
+    """Return True iff enriched cache is newer than raw partitions AND classifier."""
+    if not ENRICHED_CACHE.exists():
+        return False
+    cache_mt = ENRICHED_CACHE.stat().st_mtime
+    raw_partitions = list(PARQUET_DIR.glob("COUNTY_NUMBER=*"))
+    if not raw_partitions:
+        return False
+    latest_raw    = max(p.stat().st_mtime for p in raw_partitions)
+    classifier_mt = CLASSIFIER_SRC.stat().st_mtime
+    return cache_mt > max(latest_raw, classifier_mt)
+
+
+def _write_cache_atomic(df, logger) -> None:
+    """Atomic tmp-then-replace write so a crash cannot corrupt the cache."""
+    tmp = ENRICHED_CACHE.with_suffix(".parquet.tmp")
+    df.write_parquet(tmp, compression="zstd")
+    tmp.replace(ENRICHED_CACHE)
+    logger.info("Enriched cache written: %s", ENRICHED_CACHE)
+
+
+
+def export_jurisdiction_index(results, jurisdiction_type_key, logger):
+    """Write docs/data/{type}/index.json listing all slugs + metadata for the type.
+    Called from main() after the JSON export loop so the dashboard can populate
+    its filter dropdowns without re-running the full aggregation.
+    """
+    import re
+    config     = JURISDICTIONS.get(jurisdiction_type_key, {})
+    type_dir   = DATA_DIR / config.get('display', jurisdiction_type_key).lower().replace(' ', '_')
+    PRIMARY_SUFFIX = '_party_affiliation.json'
+    CHART_TYPES    = ['party_affiliation', 'decade_distribution', 'party_by_decade', 'unc_shadow']
+
+    entries = []
+    if not type_dir.exists():
+        logger.warning(f'Index export: dir not found {type_dir}')
+        return
+
+    pa_files = sorted(f for f in type_dir.iterdir() if f.name.endswith(PRIMARY_SUFFIX))
+    for fpath in pa_files:
+        slug = fpath.name[:-len(PRIMARY_SUFFIX)]
+        import json as _json
+        d = _json.loads(fpath.read_text(encoding='utf-8'))
+        display_name = d.get('jurisdiction_name') or slug
+        try:
+            voter_count = sum(d['chartConfig']['datasets'][0]['data'])
+        except Exception:
+            voter_count = 0
+
+        county = None
+        county_slug = None
+        if config.get('county_scoped'):
+            m = re.search(r'\((\w[\w\s]+)\s+Co\.\)$', display_name)
+            if m:
+                county = m.group(1)
+                county_slug = county.lower()
+        bare_name = re.sub(r'\s*\(\w[\w\s]+\s+Co\.\)$', '', display_name).strip()
+        available = [ct for ct in CHART_TYPES if (type_dir / f'{slug}_{ct}.json').exists()]
+
+        entries.append({
+            'slug':         slug,
+            'name':         bare_name,
+            'display_name': display_name,
+            'county':       county,
+            'county_slug':  county_slug,
+            'voter_count':  voter_count,
+            'charts':       available,
+        })
+
+    if config.get('county_scoped'):
+        entries.sort(key=lambda e: (e['county'] or '', e['name']))
+    else:
+        entries.sort(key=lambda e: e['name'])
+
+    _dump_json(entries, type_dir / 'index.json', logger)
+    logger.info(f'index.json written: {len(entries)} entries for {jurisdiction_type_key}')
+
+
 def main(
     jurisdictions_to_process: list[str] | None = None,
     output_format: str = 'json',
@@ -501,21 +584,25 @@ def main(
     logger.info(f'Processing {len(jurisdictions_to_process)} jurisdiction types: {jurisdictions_to_process}')
     logger.info(f'Output format: {output_format}')
 
-    # Load raw parquet cache (Hive-partitioned by COUNTY_NUMBER)
-    logger.info('Loading voter parquet cache...')
-    try:
+    # Load enriched voter data -- use persistent cache when fresh
+    import voter_data_cleaner_v2 as _v2
+    if _cache_is_fresh():
+        logger.info('Loading enriched voter data from persistent cache...')
+        df = pl.read_parquet(ENRICHED_CACHE)
+        logger.info(f'Loaded from cache: {df.height:,} rows x {df.width} columns')
+    else:
+        if not PARQUET_DIR.exists():
+            logger.error(f'Parquet cache not found at {PARQUET_DIR}')
+            logger.error('Run ohio_voter_pipeline.py option 1 to generate it.')
+            return False
+        logger.info('Loading voter parquet cache...')
         df = pl.read_parquet(str(PARQUET_DIR) + '/**/*.parquet', hive_partitioning=True)
         logger.info(f'Loaded {df.height:,} rows x {df.width} columns')
-    except FileNotFoundError:
-        logger.error(f'Parquet cache not found at {PARQUET_DIR}')
-        logger.error('Run ohio_voter_pipeline.py option 1 to generate it.')
-        return False
-
-    # Enrich: attach cohort_family, Decade, Generation and all cohort columns
-    logger.info('Enriching voter data (cohort classification + demographics)...')
-    import voter_data_cleaner_v2 as _v2
-    df = _v2.clean_voter_data(df, logger)
-    logger.info(f'Enriched: {df.height:,} rows x {df.width} columns')
+        logger.info('Enriching voter data (cohort classification + demographics)...')
+        df = _v2.clean_voter_data(df, logger)
+        logger.info(f'Enriched: {df.height:,} rows x {df.width} columns')
+        logger.info('Writing enriched voter data to persistent cache...')
+        _write_cache_atomic(df, logger)
 
     # Get election columns (any column matching PRIMARY-*, GENERAL-*, SPECIAL-* pattern)
     election_cols = [col for col in df.columns if col.split('-')[0] in ['PRIMARY', 'GENERAL', 'SPECIAL']]
@@ -694,6 +781,7 @@ def main(
             config = data['config']
             results = data['results']
             export_jurisdiction_json(results, config['display'], logger)
+            export_jurisdiction_index(results, jurisdiction_type_key, logger)
         logger.info('JSON export complete')
 
     elapsed = time.time() - start_time

@@ -16,6 +16,10 @@ const ChartDashboard = (() => {
   let activePrecinct = null;   // null = no precinct selected; string = selected precinct name
   let activeScope    = 'county'; // county | precinct | city
   const instances    = {};
+  let activeJurType   = null;   // key from jurisdictionScopes
+  let activeJurCounty = null;   // county for county-scoped types
+  let activeJurName   = null;   // slug of selected jurisdiction
+  const jurIndexCache = {};     // typeKey -> index array
 
   // ── Entry point ──────────────────────────────────────────────────────────
   async function init(config) {
@@ -33,6 +37,7 @@ const ChartDashboard = (() => {
     }
 
     _applyUrlState();
+    _setupJurisdictionControls();
     _populateCountyDropdown();
     _syncGeoButtonsToActiveGeo();
     _syncScopeTabsToActiveScope();
@@ -47,9 +52,12 @@ const ChartDashboard = (() => {
   function _readUrlParams() {
     var params = new URLSearchParams(window.location.search);
     return {
-      county:   params.get('county'),
-      geo:      params.get('geo'),
-      precinct: params.get('precinct'),
+      county:    params.get('county'),
+      geo:       params.get('geo'),
+      precinct:  params.get('precinct'),
+      jurType:   params.get('jurType'),
+      jurCounty: params.get('jurCounty'),
+      jurName:   params.get('jurName'),
     };
   }
 
@@ -76,6 +84,12 @@ const ChartDashboard = (() => {
     } else if (params.geo === 'city') {
       activeScope = 'city';
       activeGeo   = 'city';
+    } else if (params.geo === 'jurisdiction') {
+      activeScope     = 'jurisdiction';
+      activeGeo       = 'jurisdiction';
+      activeJurType   = params.jurType   || null;
+      activeJurCounty = params.jurCounty || null;
+      activeJurName   = params.jurName   || null;
     } else {
       var validGeos = ['all', 'county', 'city', 'city-precinct', 'precinct', 'congressional'];
       if (params.geo && validGeos.indexOf(params.geo) >= 0) {
@@ -108,6 +122,9 @@ const ChartDashboard = (() => {
       url.hash = opts.hash ? opts.hash : '';
       changed = true;
     }
+    if (opts && 'jurType'   in opts) { opts.jurType   ? url.searchParams.set('jurType',   opts.jurType)   : url.searchParams.delete('jurType');   changed = true; }
+    if (opts && 'jurCounty' in opts) { opts.jurCounty ? url.searchParams.set('jurCounty', opts.jurCounty) : url.searchParams.delete('jurCounty'); changed = true; }
+    if (opts && 'jurName'   in opts) { opts.jurName   ? url.searchParams.set('jurName',   opts.jurName)   : url.searchParams.delete('jurName');   changed = true; }
     if (changed) history.replaceState(null, '', url.toString());
   }
 
@@ -127,6 +144,14 @@ const ChartDashboard = (() => {
     var geoGroup      = document.getElementById(cfg.geoFilterGroupId);
     var precinctCtrl  = document.getElementById(cfg.precinctControlId);
 
+    var jurControls = document.getElementById(cfg.jurControlsId);
+    var mainCtr     = document.getElementById(cfg.containerId);
+    var jurCtr      = document.getElementById(cfg.jurChartsContainerId);
+    if (activeScope !== 'jurisdiction') {
+      if (jurControls) jurControls.style.display = 'none';
+      if (mainCtr)     mainCtr.style.display     = '';
+      if (jurCtr)      jurCtr.style.display      = 'none';
+    }
     if (activeScope === 'county') {
       if (geoGroup)     geoGroup.style.display     = '';
       if (precinctCtrl) precinctCtrl.style.display  = 'none';
@@ -136,6 +161,15 @@ const ChartDashboard = (() => {
     } else if (activeScope === 'city') {
       if (geoGroup)     geoGroup.style.display     = 'none';
       if (precinctCtrl) precinctCtrl.style.display  = 'none';
+    } else if (activeScope === 'jurisdiction') {
+      if (geoGroup)     geoGroup.style.display     = 'none';
+      if (precinctCtrl) precinctCtrl.style.display  = 'none';
+      var jurControls = document.getElementById(cfg.jurControlsId);
+      var mainCtr     = document.getElementById(cfg.containerId);
+      var jurCtr      = document.getElementById(cfg.jurChartsContainerId);
+      if (jurControls) jurControls.style.display = '';
+      if (mainCtr)     mainCtr.style.display     = 'none';
+      if (jurCtr)      jurCtr.style.display      = '';
     }
   }
 
@@ -327,9 +361,18 @@ const ChartDashboard = (() => {
         activeGeo      = 'city';
         activePrecinct = null;
         _resetPrecinctDropdown();
+      } else if (scope === 'jurisdiction') {
+        activeGeo       = 'jurisdiction';
+        activePrecinct  = null;
+        activeJurType   = null;
+        activeJurCounty = null;
+        activeJurName   = null;
+        _resetPrecinctDropdown();
+        _clearJurisdictionCharts();
+        _resetJurisdictionSelects();
       }
 
-      _writeUrlState({ geo: activeGeo, precinct: activePrecinct });
+      _writeUrlState({ geo: activeGeo, precinct: activePrecinct, jurType: activeJurType, jurCounty: activeJurCounty, jurName: activeJurName });
       _syncScopeTabsToActiveScope();
       _syncGeoButtonsToActiveGeo();
       _filterSections();
@@ -644,6 +687,7 @@ const ChartDashboard = (() => {
 
   function _sectionVisible(s) {
     if (s.geography === 'precinct-index') return false;
+    if (activeScope === 'jurisdiction') return false;
 
     const countyMatch = s.county === activeCounty;
     if (!countyMatch) return false;
@@ -1217,6 +1261,197 @@ const ChartDashboard = (() => {
     } catch (e) {
       _showError(opts.containerId, 'Could not load ' + opts.dataUrl + ': ' + e.message);
     }
+  }
+
+
+  // ── Jurisdiction scope ───────────────────────────────────────────────────
+
+  function _resetJurisdictionSelects() {
+    var ts = document.getElementById(cfg.jurTypeSelectId);
+    var cs = document.getElementById(cfg.jurCountySelectId);
+    var ns = document.getElementById(cfg.jurNameSelectId);
+    var cg = document.getElementById(cfg.jurCountyGroupId);
+    if (ts) ts.value = '';
+    if (cs) { cs.innerHTML = '<option value="">-- select county --</option>'; cs.value = ''; }
+    if (ns) { ns.innerHTML = '<option value="">-- select --</option>'; ns.value = ''; }
+    if (cg) cg.style.display = 'none';
+  }
+
+  function _clearJurisdictionCharts() {
+    var jc = document.getElementById(cfg.jurChartsContainerId);
+    if (jc) jc.innerHTML = '';
+    _rebuildNav();
+  }
+
+  function _setupJurisdictionControls() {
+    var typeSelect   = document.getElementById(cfg.jurTypeSelectId);
+    var countySelect = document.getElementById(cfg.jurCountySelectId);
+    var nameSelect   = document.getElementById(cfg.jurNameSelectId);
+    var countyGroup  = document.getElementById(cfg.jurCountyGroupId);
+    if (!typeSelect || !nameSelect) return;
+
+    // Populate type dropdown from manifest.jurisdictionScopes
+    typeSelect.innerHTML = '<option value="">-- select type --</option>';
+    (manifest.jurisdictionScopes || []).forEach(function(sc) {
+      typeSelect.appendChild(_el('option', { value: sc.key, textContent: sc.displayPlural }));
+    });
+
+    // Restore type from URL state if present
+    if (activeJurType) {
+      typeSelect.value = activeJurType;
+      _onJurTypeChange(true);
+    }
+
+    typeSelect.addEventListener('change', function() {
+      activeJurType   = typeSelect.value || null;
+      activeJurCounty = null;
+      activeJurName   = null;
+      _clearJurisdictionCharts();
+      _writeUrlState({ geo: 'jurisdiction', jurType: activeJurType, jurCounty: null, jurName: null });
+      _onJurTypeChange(false);
+    });
+
+    if (countySelect) {
+      countySelect.addEventListener('change', function() {
+        activeJurCounty = countySelect.value || null;
+        activeJurName   = null;
+        _clearJurisdictionCharts();
+        _writeUrlState({ geo: 'jurisdiction', jurType: activeJurType, jurCounty: activeJurCounty, jurName: null });
+        _loadJurTypeIndex(activeJurType).then(function(idx) {
+          var filtered = idx.filter(function(e) { return e.county === activeJurCounty; });
+          _populateJurNameSelect(filtered);
+        });
+      });
+    }
+
+    nameSelect.addEventListener('change', function() {
+      activeJurName = nameSelect.value || null;
+      _writeUrlState({ geo: 'jurisdiction', jurType: activeJurType, jurCounty: activeJurCounty, jurName: activeJurName });
+      if (activeJurName) {
+        _renderJurisdictionCharts();
+      } else {
+        _clearJurisdictionCharts();
+      }
+    });
+  }
+
+  function _onJurTypeChange(restoreState) {
+    var countyGroup  = document.getElementById(cfg.jurCountyGroupId);
+    var countySelect = document.getElementById(cfg.jurCountySelectId);
+    var nameSelect   = document.getElementById(cfg.jurNameSelectId);
+    if (!activeJurType) {
+      if (countyGroup)  countyGroup.style.display = 'none';
+      if (nameSelect)   nameSelect.innerHTML = '<option value="">-- select --</option>';
+      return;
+    }
+    var scopeCfg = (manifest.jurisdictionScopes || []).find(function(s) { return s.key === activeJurType; });
+    if (!scopeCfg) return;
+
+    _loadJurTypeIndex(activeJurType).then(function(idx) {
+      if (scopeCfg.countyScoped) {
+        if (countyGroup)  countyGroup.style.display = '';
+        var counties = [];
+        idx.forEach(function(e) { if (e.county && counties.indexOf(e.county) < 0) counties.push(e.county); });
+        counties.sort();
+        if (countySelect) {
+          countySelect.innerHTML = '<option value="">-- select county --</option>';
+          counties.forEach(function(c) {
+            countySelect.appendChild(_el('option', { value: c, textContent: c }));
+          });
+          if (restoreState && activeJurCounty) {
+            countySelect.value = activeJurCounty;
+            var filtered = idx.filter(function(e) { return e.county === activeJurCounty; });
+            _populateJurNameSelect(filtered);
+            if (restoreState && activeJurName) {
+              var ns = document.getElementById(cfg.jurNameSelectId);
+              if (ns) ns.value = activeJurName;
+              _renderJurisdictionCharts();
+            }
+          }
+        }
+        if (!restoreState) {
+          if (nameSelect) nameSelect.innerHTML = '<option value="">-- select county first --</option>';
+        }
+      } else {
+        if (countyGroup) countyGroup.style.display = 'none';
+        _populateJurNameSelect(idx);
+        if (restoreState && activeJurName) {
+          var ns = document.getElementById(cfg.jurNameSelectId);
+          if (ns) ns.value = activeJurName;
+          _renderJurisdictionCharts();
+        }
+      }
+    });
+  }
+
+  function _populateJurNameSelect(entries) {
+    var nameSelect = document.getElementById(cfg.jurNameSelectId);
+    if (!nameSelect) return;
+    nameSelect.innerHTML = '<option value="">-- select --</option>';
+    entries.forEach(function(e) {
+      nameSelect.appendChild(_el('option', { value: e.slug, textContent: e.display_name + (e.voter_count ? ' (' + e.voter_count.toLocaleString() + ')' : '') }));
+    });
+  }
+
+  async function _loadJurTypeIndex(typeKey) {
+    if (jurIndexCache[typeKey]) return jurIndexCache[typeKey];
+    var scopeCfg = (manifest.jurisdictionScopes || []).find(function(s) { return s.key === typeKey; });
+    if (!scopeCfg) return [];
+    var idx = await _fetchJSON('data/' + scopeCfg.dirName + '/index.json');
+    jurIndexCache[typeKey] = idx;
+    return idx;
+  }
+
+  function _renderJurisdictionCharts() {
+    if (!activeJurType || !activeJurName) return;
+    var scopeCfg = (manifest.jurisdictionScopes || []).find(function(s) { return s.key === activeJurType; });
+    if (!scopeCfg) return;
+    var jc = document.getElementById(cfg.jurChartsContainerId);
+    if (!jc) return;
+    jc.innerHTML = '';
+
+    var chartTypes = ['party_affiliation', 'decade_distribution', 'party_by_decade', 'unc_shadow'];
+    var slug = activeJurName;
+
+    chartTypes.forEach(function(ct) {
+      var sectionId = 'jur-section-' + ct;
+      var dataUrl   = 'data/' + scopeCfg.dirName + '/' + slug + '_' + ct + '.json';
+      var section   = document.createElement('section');
+      section.className    = 'chart-section';
+      section.id           = sectionId;
+      section.dataset.geo  = 'jurisdiction';
+
+      section.innerHTML =
+        '<div class="section-header">' +
+          '<div class="section-meta">' +
+            '<span class="geo-tag">' + scopeCfg.display + '</span>' +
+          '</div>' +
+          '<h2 class="section-title" id="jur-title-' + ct + '">Loading&hellip;</h2>' +
+        '</div>' +
+        '<div class="chart-wrapper" id="jur-chart-wrapper-' + ct + '">' +
+          '<div class="chart-loading">Loading chart data&hellip;</div>' +
+        '</div>' +
+        '<div class="section-footer">' +
+          '<span class="updated-label" id="jur-updated-' + ct + '"></span>' +
+          '<a class="data-link" href="' + dataUrl + '" target="_blank" rel="noopener">View raw JSON &nearr;</a>' +
+        '</div>';
+
+      jc.appendChild(section);
+
+      _fetchJSON(dataUrl).then(function(data) {
+        var titleEl   = document.getElementById('jur-title-'        + ct);
+        var updEl     = document.getElementById('jur-updated-'      + ct);
+        var chartWrap = document.getElementById('jur-chart-wrapper-' + ct);
+        if (titleEl)          titleEl.textContent = data.title || ct;
+        if (updEl && data.updated) updEl.textContent = 'Updated ' + data.updated;
+        if (chartWrap) _renderToWrapper(chartWrap, data, 'jur-' + ct);
+      }).catch(function(e) {
+        var chartWrap = document.getElementById('jur-chart-wrapper-' + ct);
+        if (chartWrap) chartWrap.innerHTML = '<p class="error">Could not load ' + dataUrl + '<br><small>' + e.message + '</small></p>';
+      });
+    });
+
+    _rebuildNav();
   }
 
   return { init: init, renderSingle: renderSingle };
