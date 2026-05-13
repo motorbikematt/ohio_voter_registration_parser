@@ -139,8 +139,8 @@ Once patched and validated, the user needs to run a full statewide JSON build (p
 
 ## Environment
 
-- Python `.venv` at `D:\vibe\election-data (1)\.venv`
-- Main script: `D:\vibe\election-data (1)\voter_data_cleaner_v2.py`
-- Dashboard JSON output: `D:\vibe\election-data (1)\docs\data\`
-- Parquet cache: `D:\vibe\election-data (1)\` (partitioned by county)
+- Python `.venv` at `D:\vibe\election-data\.venv`
+- Main script: `D:\vibe\election-data\voter_data_cleaner_v2.py`
+- Dashboard JSON output: `D:\vibe\election-data\docs\data\`
+- Parquet cache: `D:\vibe\election-data\` (partitioned by county)
 - Polars, orjson, psutil are installed in the venv

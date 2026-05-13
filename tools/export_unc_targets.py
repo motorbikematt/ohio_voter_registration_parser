@@ -29,9 +29,9 @@ Usage
     python export_unc_targets.py \\
         --county 57 \\
         --county-name montgomery \\
-        --input "D:/vibe/election-data/source/SWVF_45_66.txt" \\
-        [--input "D:/vibe/election-data/source/SWVF_1_22.txt" ...] \\
-        [--output-dir "D:/vibe/election-data (1)/UNC_Exports"]
+        --input "source/State Voter Files/SWVF_45_66.txt" \\
+        [--input "source/State Voter Files/SWVF_1_22.txt" ...] \\
+        [--output-dir "UNC_Exports"]
 
     --county        Zero-padded county number (e.g. 57 for Montgomery).
     --county-name   Slug used in output filenames (e.g. montgomery).

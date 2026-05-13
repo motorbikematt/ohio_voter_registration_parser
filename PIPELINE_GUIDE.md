@@ -9,7 +9,7 @@
 
 1. **Python venv** — activate before every run:
    ```powershell
-   cd "D:\vibe\election-data (1)"
+   cd [project-root]
    .\.venv\Scripts\activate
    ```
 
@@ -35,7 +35,7 @@
 ## Running the pipeline
 
 ```powershell
-cd "D:\vibe\election-data (1)"
+cd [project-root]
 .\.venv\Scripts\activate
 python ohio_voter_pipeline.py
 ```
@@ -169,7 +169,7 @@ If something fails, the log will say where. Common entries to look for:
 | `Enriched parquet not found` | Cache not yet built or path wrong | Run option 1 or 3 first |
 | `ModuleNotFoundError: polars` | Running outside venv | `.\.venv\Scripts\activate` |
 | `WinError 1450` during Excel pass | Insufficient handles (ThreadPoolExecutor leak) | Restart Python; reduce `max_workers` in v2 |
-| `git: cannot lock ref` | Stale index.lock from a failed commit | `Remove-Item "D:\vibe\election-data (1)\.git\index.lock" -Force` |
+| `git: cannot lock ref` | Stale index.lock from a failed commit | `Remove-Item ".git\index.lock" -Force` |
 | A jurisdiction type shows 0/N success | Enriched Parquet missing `cohort_family` column | Ensure `clean_voter_data()` is called before aggregation |
 
 ---
@@ -179,7 +179,7 @@ If something fails, the log will say where. Common entries to look for:
 After a successful run:
 
 ```powershell
-cd "D:\vibe\election-data (1)"
+cd [project-root]
 git add docs/data/ manifest.json
 git commit -m "Rebuild dashboard JSON — $(Get-Date -Format 'yyyy-MM-dd')"
 git push origin main

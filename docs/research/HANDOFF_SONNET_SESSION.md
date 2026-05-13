@@ -48,8 +48,8 @@ The Ohio voter registration dashboard is not rendering city-level data. Users ca
 ## Files to Know
 
 ### Core Data
-- **Source**: `D:\vibe\election-data (1)\source\SWVF_*.txt` (4 split SWVF files, 7.9M voters)
-- **Enriched cache**: `D:\vibe\election-data (1)\voter_data_enriched_v2.parquet` (partitioned by county)
+- **Source**: `D:\vibe\election-data\source\SWVF_*.txt` (4 split SWVF files, 7.9M voters)
+- **Enriched cache**: `D:\vibe\election-data\voter_data_enriched_v2.parquet` (partitioned by county)
   - Contains 135 columns including 15 cohort columns + all registration/election history.
   - Pre-classified with `COHORT_FAMILY` (PURE_R, UNC_LAPSED_R, MIXED_ACTIVE, MIXED_LAPSED, UNC_NO_PRIMARY, UNC_LAPSED_D, PURE_D).
 
@@ -105,7 +105,7 @@ The Ohio voter registration dashboard is not rendering city-level data. Users ca
 ### Step 1: Generate City Chart JSON Files (Windows Python)
 
 ```powershell
-cd D:\vibe\election-data (1)
+cd D:\vibe\election-data
 .\.venv\Scripts\activate
 python ohio_voter_pipeline.py
 # Select option 4: "Generate jurisdictional groupings (cities, townships, etc.)"
@@ -169,7 +169,7 @@ Apply this pattern to all 89 city sections (one per Ohio county).
 ### Step 3: Commit & Push to GitHub
 
 ```powershell
-cd D:\vibe\election-data (1)
+cd D:\vibe\election-data
 git add docs/data/*_city_*.json manifest.json
 git commit -m "Generate city-level chart data and update manifest (cities now render 6-chart format)"
 git push origin main
@@ -241,7 +241,7 @@ Each city chart JSON follows this pattern (e.g., `montgomery_city_party_affiliat
 - **OS**: Windows 11
 - **Python venv**: `C:\Users\motorbikematt\.venv\Scripts\activate`
 - **Key packages**: polars, xlsxwriter, openpyxl, psutil, orjson
-- **Data directory**: `D:\vibe\election-data (1)`
+- **Data directory**: `D:\vibe\election-data`
 - **Dashboard**: GitHub Pages, `/docs` on main branch
 - **GitHub repo**: https://github.com/motorbikematt/ohio_voter_registration_parser
 
@@ -249,7 +249,7 @@ Each city chart JSON follows this pattern (e.g., `montgomery_city_party_affiliat
 
 ## Log References
 
-- **Pipeline log** (latest): `D:\vibe\election-data (1)\logs\voter_analysis_20260509_104511_pipeline.log`
+- **Pipeline log** (latest): `D:\vibe\election-data\logs\voter_analysis_20260509_104511_pipeline.log`
   - Shows: "download_manifest.json not found — falling back to today's date"
   - Indicates script was attempting to load manifest but source file missing (expected behavior).
 
@@ -258,7 +258,7 @@ Each city chart JSON follows this pattern (e.g., `montgomery_city_party_affiliat
 ## Known Issues & Gotchas
 
 1. **File editing protocol**: For files > 150 lines, use Python patch scripts, not the Edit tool. Edit tool truncates silently at ~950 lines.
-2. **Git index.lock**: If git fails, delete `D:\vibe\election-data (1)\.git\index.lock` and retry from PowerShell.
+2. **Git index.lock**: If git fails, delete `D:\vibe\election-data\.git\index.lock` and retry from PowerShell.
 3. **ThreadPoolExecutor**: Uses 8 workers, shared memory (no IPC). Peak RSS ~45 GB during Excel export.
 4. **Parquet schema**: Enriched file has 135 columns; never load raw SWVF files into Excel.
 

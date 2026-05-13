@@ -4,7 +4,7 @@
 **Status**: Data pipeline running. Design decisions needed before dashboard integration.  
 **Repo**: https://github.com/motorbikematt/ohio_voter_registration_parser  
 **Dashboard**: https://motorbikematt.github.io/ohio_voter_registration_parser/  
-**Data dir**: `D:\vibe\election-data (1)`
+**Data dir**: `D:\vibe\election-data`
 
 ---
 
@@ -100,7 +100,7 @@ The collision counts from the test run:
 - Townships: 152/810 collide — all incorrect (distinct entities, same name)
 - Villages: similar collision rate (not yet quantified precisely)
 
-The test script lives at `D:\vibe\election-data (1)\test_jurisdiction_collisions.py`.
+The test script lives at `D:\vibe\election-data\test_jurisdiction_collisions.py`.
 
 ---
 
@@ -196,7 +196,7 @@ After every patch: `python3 -c "import ast; ast.parse(open('path').read())"` for
 - Python venv: `C:\Users\motorbikematt\.venv\Scripts\activate`
 - Key packages: polars, xlsxwriter, openpyxl, psutil, orjson
 - Bash sandbox has system Python3 — no polars. Run scripts via PowerShell or pipeline menu.
-- Git index.lock cleanup if needed: `Remove-Item "D:\vibe\election-data (1)\.git\index.lock" -Force`
+- Git index.lock cleanup if needed: `Remove-Item "D:\vibe\election-data\.git\index.lock" -Force`
 - GitHub Pages: `/docs` on `main`, builds in ~40s
 
 ---
