@@ -587,3 +587,127 @@ a:hover { color: var(--accent-hover); }
     font-size: .66rem;
   }
 }
+
+/* ============================================================
+   Jurisdiction — data-gap note + unavailability panel
+   ============================================================ */
+
+/* Persistent info banner shown whenever type = Cities */
+#jur-data-note {
+  margin-bottom: 1.25rem;
+}
+
+.jur-data-note-inner {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: .85rem 1.1rem;
+  font-size: .875rem;
+  color: var(--text);
+  line-height: 1.55;
+}
+
+.jur-data-note-inner code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: .82em;
+  background: #dbeafe;
+  color: #1e40af;
+  padding: .1em .35em;
+  border-radius: 3px;
+}
+
+.jur-data-note-inner details {
+  margin-top: .5rem;
+}
+
+.jur-data-note-inner summary {
+  cursor: pointer;
+  font-size: .8rem;
+  color: var(--accent);
+  font-weight: 600;
+  user-select: none;
+}
+
+.jur-data-note-inner details[open] summary {
+  margin-bottom: .35rem;
+}
+
+.jur-data-note-inner details span {
+  display: block;
+  font-size: .82rem;
+  color: var(--text-muted);
+  padding-left: .75rem;
+  border-left: 2px solid var(--border);
+  line-height: 1.7;
+}
+
+/* Dark mode overrides for the info note */
+[data-theme="dark"] .jur-data-note-inner {
+  background: #0f2040;
+  border-color: #1e3a5f;
+  border-left-color: var(--accent);
+  color: var(--text);
+}
+[data-theme="dark"] .jur-data-note-inner code {
+  background: #1e3a5f;
+  color: var(--accent);
+}
+
+/* Panel rendered when a gap-county entry is selected from the dropdown */
+.jur-unavailable-panel {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-left: 4px solid #f59e0b;
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  margin-top: .5rem;
+}
+
+.jur-unavailable-panel h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: .65rem;
+  color: var(--text);
+}
+
+.jur-unavailable-panel p {
+  font-size: .875rem;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: .55rem;
+}
+
+.jur-unavailable-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.jur-unavailable-panel code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: .82em;
+  background: #fde68a;
+  color: #92400e;
+  padding: .1em .35em;
+  border-radius: 3px;
+}
+
+.jur-unavailable-note {
+  font-size: .8rem !important;
+  color: var(--text-muted) !important;
+  font-style: italic;
+}
+
+/* Dark mode overrides for the warning panel */
+[data-theme="dark"] .jur-unavailable-panel {
+  background: #1c1407;
+  border-color: #78350f;
+  border-left-color: #f59e0b;
+}
+[data-theme="dark"] .jur-unavailable-panel h3,
+[data-theme="dark"] .jur-unavailable-panel p {
+  color: var(--text);
+}
+[data-theme="dark"] .jur-unavailable-panel code {
+  background: #451a03;
+  color: #fbbf24;
+}
