@@ -57,8 +57,8 @@ Bottom-up geospatial pipeline converting raw Ohio SWVF data into precinct → wa
 
 ## File locations
 
-- Raw: `source/`
-- Working / final: `./`
+- Raw: `D:\vibe\election-data\source\`
+- Working / final: `D:\vibe\election-data\`
 
 ## Schema reference
 
@@ -80,9 +80,6 @@ Source: 4 split flat files (`SWVF_1_22.txt`, `SWVF_23_44.txt`, `SWVF_45_66.txt`,
 
 ### Jurisdictional aggregation keys
 `PRECINCT_NAME` (atomic unit, e.g. KETTERING 1-A), `PRECINCT_CODE`, `CONGRESSIONAL_DISTRICT`, `STATE_SENATE_DISTRICT`, `STATE_REPRESENTATIVE_DISTRICT`, `CITY`, `TOWNSHIP`, `VILLAGE`, `WARD`, `LOCAL_SCHOOL_DISTRICT`, `CITY_SCHOOL_DISTRICT`, `EXEMPTED_VILL_SCHOOL_DISTRICT`, `CAREER_CENTER`, `COUNTY_COURT_DISTRICT`, `MUNICIPAL_COURT_DISTRICT`, `COURT_OF_APPEALS`, `STATE_BOARD_OF_EDUCATION`, `EDU_SERVICE_CENTER_DISTRICT`, `LIBRARY`.
-
-### CITY column data gap
-The `CITY` column is entirely blank for 19 counties in the SWVF (Cuyahoga, Holmes, Sandusky, and 16 others — confirmed via parquet scan 2026-05-13). Most remaining counties are 40–95% blank (unincorporated voters with no CITY value). City aggregations in `jurisdictional_groupings.py` silently skip these voters. Cleveland and all other Cuyahoga cities are absent from `docs/data/city/` for this reason. Resolution path: join precinct → municipality from Ohio SOS precinct canvass files (P3 task).
 
 ### County-scoped types (collide on name across counties — composite key required)
 `TOWNSHIP`, `VILLAGE`, `MUNICIPAL_COURT_DISTRICT`. The same name denotes legally distinct entities in different counties (Washington Township in 23 counties, BELLEVUE municipal court in 3, etc.). Aggregation must use `(COUNTY_NUMBER, name)` as the composite key. `JURISDICTIONS[type]['county_scoped'] = True` triggers this in `jurisdictional_groupings.py`. Output slug becomes `{county_slug}_{name_slug}`. Display label becomes `{name} ({County} Co.)`.
@@ -121,7 +118,6 @@ Log malformed rows to `./working/errors/[county].log` and continue. Never halt o
   - Deep-link: `?county=Montgomery&geo=precinct-detail&precinct=DAYTON+8-B#decade-distribution`
   - 2026-05-07: deep-link bug fixed — `_populatePrecinctDropdown` in `docs/charts.js` now calls `_filterSections` + `_renderVisibleSections` + `_rebuildNav` after injecting precinct sections.
   - **Pass B complete (2026-05-12)**: Jurisdictions tab added. All 12 jurisdiction types routable via `?geo=jurisdiction&jurType=X&jurCounty=Y&jurName=Z`. Cascade type→county→name selectors; county picker shown only for county-scoped types. Legacy `geography:"city"` sections in `manifest.json` retained with comment flagging future removal; they reference old table-format JSON, not the 6-chart bundle.
-  - **Pass C complete (2026-05-13)**: UI consolidated. Dead geo sub-filter buttons removed (City Precincts, Congress — no data). "County" sub-filter renamed to "Analysis". City scope tab aliased to Jurisdictions > Cities (full 6-chart bundle; legacy city table route retired). Main county-select hidden in Jurisdictions scope. IntersectionObserver hash scrollspy added. `docs/data/city/index.json` extended with 19 `available:false` gap entries for counties with blank SWVF CITY column (Cuyahoga, Holmes, Sandusky, etc.). Gap entries render in a separate `<optgroup>` in the dropdown; selecting one shows an amber unavailability panel with voter count and source explanation. Persistent collapsible info note shown whenever type=Cities. CSS added for both panels with full dark-mode support (`docs/assets/style.css`).
 - **Dashboard JSON status**: County/precinct current as of 2026-05-08. Per-type `docs/data/{type}/index.json` files built 2026-05-12 for all 12 types (1272 townships, 683 villages, 366 local school districts, 212 cities, etc.). Townships/villages/municipal_court_districts require re-run of `python jurisdictional_groupings.py --jurisdictions townships,villages,municipal_court_districts` after deleting old phantom-merged dirs (`docs/data/township`, `docs/data/village`, `docs/data/municipal_court_district`) — county-scoped slug format changed in Pass A.
 - **Cohort taxonomy** (2026-05-08): 7 public `cohort_family` values. No decay scoring. Pure means zero opposing-party primary history, lifetime. CROSSOVER_R/D preserved internally in `cohort` column for future proprietary analysis; map to `MIXED_ACTIVE` in `cohort_family`. `classify_unc_primary_history()` is a legacy wrapper delegating to `classify_all_voters_primary_history()` — pending caller audit before removal.
 - **County-scoping (2026-05-10, Pass A)**: Townships, villages, municipal_court_districts in `JURISDICTIONS` carry `county_scoped: True`. Slugs are `{county}_{name}` (e.g. `montgomery_washington_township`). Display labels are `{name} ({County} Co.)`. Resume sentinel files use the new naming. Cities, school districts, legislative/judicial districts remain non-scoped (multi-county multi-county-by-design or county-encoded names). Career_centers dropped from scope — administrative, no elected officials. Collision report at `collision_report.md`.
@@ -154,10 +150,10 @@ Doughnut tooltips are disabled and the legend renders `"<Cohort> — <count> (<p
 
 ## Git
 
-- `.git/index.lock` from failed sandbox git ops: `Remove-Item ".git\index.lock" -Force`, then commit from PowerShell or VS Code.
+- `.git/index.lock` from failed sandbox git ops: `Remove-Item "D:\vibe\election-data\.git\index.lock" -Force`, then commit from PowerShell or VS Code.
 - GitHub Pages: `/docs` on `main`. Actions build ~40s.
 - Pending cleanup: `git rm --cached` for `GEMINI.md`, old `voter_data_cleaner.py` (v1), two stray `.png` files.
 
 ---
 
-*Last updated: 2026-05-13 (Pass C: UI consolidation — dead geo buttons removed, City tab aliased to Jurisdictions/Cities, county-select hidden in Jurisdictions scope, hash scrollspy, city data-gap flagging with 19 `available:false` index entries, optgroup dropdown, unavailability panel, persistent info note, CSS for both panels with dark-mode support. Backup: `CLAUDE.md.bak.2026-05-13`.)*
+*Last updated: 2026-05-12 (Pass B: enriched-parquet cache in `voter_data_cleaner_v2.py` and `jurisdictional_groupings.py`; Jurisdictions tab in dashboard with all 12 types; `jurisdictionScopes` registry in `manifest.json`; per-type `docs/data/{type}/index.json` files; `export_jurisdiction_index()` in `jurisdictional_groupings.py`; pytest suite `tests/test_pass_b_*.py` — 171 passed, 21 skipped.)*

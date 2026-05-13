@@ -57,8 +57,8 @@ Bottom-up geospatial pipeline converting raw Ohio SWVF data into precinct → wa
 
 ## File locations
 
-- Raw: `D:\vibe\election-data (1)\source\`
-- Working / final: `D:\vibe\election-data (1)\`
+- Raw: `D:\vibe\election-data\source\`
+- Working / final: `D:\vibe\election-data\`
 
 ## Schema reference
 
@@ -143,7 +143,7 @@ Doughnut tooltips are disabled and the legend renders `"<Cohort> — <count> (<p
 
 ## Git
 
-- `.git/index.lock` from failed sandbox git ops: `Remove-Item "D:\vibe\election-data (1)\.git\index.lock" -Force`, then commit from PowerShell or VS Code.
+- `.git/index.lock` from failed sandbox git ops: `Remove-Item "D:\vibe\election-data\.git\index.lock" -Force`, then commit from PowerShell or VS Code.
 - GitHub Pages: `/docs` on `main`. Actions build ~40s.
 - Pending cleanup: `git rm --cached` for `GEMINI.md`, old `voter_data_cleaner.py` (v1), two stray `.png` files.
 
