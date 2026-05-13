@@ -33,13 +33,33 @@
           <select id="precinct-select" aria-label="Select precinct"></select>
         </div>
 
+        <div id="jurisdiction-controls" style="display:none">
+          <div class="control-group">
+            <label for="jur-type-select">Type</label>
+            <select id="jur-type-select" aria-label="Select jurisdiction type">
+              <option value="">-- select type --</option>
+            </select>
+          </div>
+          <div class="control-group" id="jur-county-group" style="display:none">
+            <label for="jur-county-select">County</label>
+            <select id="jur-county-select" aria-label="Select county">
+              <option value="">-- select county --</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label for="jur-name-select">Jurisdiction</label>
+            <select id="jur-name-select" aria-label="Select jurisdiction">
+              <option value="">-- select --</option>
+            </select>
+          </div>
+        </div>
+
         <div class="control-group scope-control-group">
           <div class="scope-tabs" id="scope-tabs">
             <button class="scope-tab active" data-scope="county">County</button>
             <button class="scope-tab" data-scope="precinct">Precinct</button>
             <button class="scope-tab" data-scope="city">City</button>
-            <button class="scope-tab disabled" data-scope="ward" title="Coming in Phase 3" disabled>Ward</button>
-            <button class="scope-tab disabled" data-scope="district" title="Coming in Phase 3" disabled>District</button>
+            <button class="scope-tab" data-scope="jurisdiction">Jurisdictions</button>
           </div>
           <div class="geo-filter-group" id="geo-filter-group">
             <button class="geo-btn active" data-geo="all">All</button>
@@ -69,6 +89,10 @@
       <!-- populated by charts.js -->
     </div>
 
+    <div id="jurisdiction-charts-container" style="display:none">
+      <!-- populated by charts.js when jurisdiction scope is active -->
+    </div>
+
     <footer class="site-footer">
       <p>Data sourced from Ohio Secretary of State voter registration files &mdash; Montgomery County Board of Elections.
          Analysis pipeline: <a href="https://github.com/motorbikematt/ohio_voter_registration_parser" target="_blank" rel="noopener">ohio_voter_registration_parser</a>.
@@ -90,7 +114,13 @@
       themeToggleId:       'theme-toggle',
       precinctControlId:   'precinct-control',
       precinctSelectId:    'precinct-select',
-      scopeTabsId:         'scope-tabs'
+      scopeTabsId:             'scope-tabs',
+      jurControlsId:           'jurisdiction-controls',
+      jurCountyGroupId:        'jur-county-group',
+      jurTypeSelectId:         'jur-type-select',
+      jurCountySelectId:       'jur-county-select',
+      jurNameSelectId:         'jur-name-select',
+      jurChartsContainerId:    'jurisdiction-charts-container'
     });
   </script>
 

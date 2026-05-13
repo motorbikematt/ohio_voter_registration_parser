@@ -92,7 +92,11 @@ BASE_DIR     = Path(__file__).parent
 DOCS_DIR     = BASE_DIR / "docs"
 DATA_DIR     = DOCS_DIR / "data"
 LOGS_DIR     = BASE_DIR / "logs"
-PARQUET_DIR  = BASE_DIR / "source" / "parquet"
+PARQUET_DIR          = BASE_DIR / "source" / "parquet"
+PARQUET_ENRICHED_DIR = BASE_DIR / "source" / "parquet_enriched"
+PARQUET_ENRICHED_DIR.mkdir(parents=True, exist_ok=True)
+ENRICHED_CACHE       = PARQUET_ENRICHED_DIR / "enriched_voters.parquet"
+CLASSIFIER_SRC       = Path(__file__)
 
 # Voter frequency thresholds (fraction of eligible elections in which voter participated).
 FREQ_HIGH = 0.75   # ≥75% → "Frequent"
@@ -143,6 +147,28 @@ _TITLE_BG  = '#D9E1F2'
 ELEC_RE = re.compile(r'^(PRIMARY|GENERAL|SPECIAL)-(\d{2}/\d{2}/\d{4})$')
 
 MANIFEST_PATH = BASE_DIR / 'download_manifest.json'
+
+
+
+def _cache_is_fresh() -> bool:
+    """Return True iff enriched cache is newer than raw partitions AND classifier."""
+    if not ENRICHED_CACHE.exists():
+        return False
+    cache_mt = ENRICHED_CACHE.stat().st_mtime
+    raw_partitions = list(PARQUET_DIR.glob("COUNTY_NUMBER=*"))
+    if not raw_partitions:
+        return False
+    latest_raw    = max(p.stat().st_mtime for p in raw_partitions)
+    classifier_mt = CLASSIFIER_SRC.stat().st_mtime
+    return cache_mt > max(latest_raw, classifier_mt)
+
+
+def _write_cache_atomic(df: pl.DataFrame, logger: logging.Logger) -> None:
+    """Atomic tmp-then-replace write so a crash cannot corrupt the cache."""
+    tmp = ENRICHED_CACHE.with_suffix(".parquet.tmp")
+    df.write_parquet(tmp, compression="zstd")
+    tmp.replace(ENRICHED_CACHE)
+    logger.info("Enriched cache written: %s", ENRICHED_CACHE)
 
 
 def get_source_date(logger: logging.Logger) -> str:
@@ -3465,9 +3491,15 @@ def run_ohio_analysis(
             with _timer(logger, 'loading voter files (CSV)'):
                 df = load_voter_files(txt_files, logger=logger)
 
-        # ── 2. Clean + enrich ─────────────────────────────────────────────────
-        with _timer(logger, 'cleaning voter data'):
-            df = clean_voter_data(df, logger)
+        # ── 2. Clean + enrich ─────────────────────────────────────────────────────────────────────
+        if _cache_is_fresh():
+            logger.info('Loading enriched voter data from persistent cache...')
+            df = pl.read_parquet(ENRICHED_CACHE)
+        else:
+            with _timer(logger, 'cleaning voter data'):
+                df = clean_voter_data(df, logger)
+            logger.info('Writing enriched voter data to persistent cache...')
+            _write_cache_atomic(df, logger)
 
         election_cols = identify_election_cols(df)
         logger.info('%d election columns: %s to %s',
