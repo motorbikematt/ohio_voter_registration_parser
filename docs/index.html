@@ -63,11 +63,9 @@
           </div>
           <div class="geo-filter-group" id="geo-filter-group">
             <button class="geo-btn active" data-geo="all">All</button>
-            <button class="geo-btn" data-geo="county">County</button>
+            <button class="geo-btn" data-geo="county">Analysis</button>
             <button class="geo-btn" data-geo="city">City</button>
-            <button class="geo-btn" data-geo="city-precinct">City Precincts</button>
             <button class="geo-btn" data-geo="precinct">Precinct</button>
-            <button class="geo-btn" data-geo="congressional">Congress</button>
           </div>
         </div>
       </div>
@@ -87,6 +85,10 @@
 
     <div id="charts-container">
       <!-- populated by charts.js -->
+    </div>
+
+    <div id="jur-data-note" style="display:none">
+      <!-- populated by charts.js when type=cities is active -->
     </div>
 
     <div id="jurisdiction-charts-container" style="display:none">

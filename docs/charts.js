@@ -42,6 +42,7 @@ const ChartDashboard = (() => {
     _syncGeoButtonsToActiveGeo();
     _syncScopeTabsToActiveScope();
     _renderAllSections();
+    _setupScrollSpy();
     _updatePageDescription();
 
     var hashSuffix = _readHashSuffix();
@@ -82,8 +83,10 @@ const ChartDashboard = (() => {
       activeGeo      = params.geo;
       if (params.precinct) activePrecinct = params.precinct;
     } else if (params.geo === 'city') {
-      activeScope = 'city';
-      activeGeo   = 'city';
+      // Legacy deep-link: treat as Jurisdictions > Cities
+      activeScope   = 'jurisdiction';
+      activeGeo     = 'jurisdiction';
+      activeJurType = 'cities';
     } else if (params.geo === 'jurisdiction') {
       activeScope     = 'jurisdiction';
       activeGeo       = 'jurisdiction';
@@ -152,6 +155,11 @@ const ChartDashboard = (() => {
       if (mainCtr)     mainCtr.style.display     = '';
       if (jurCtr)      jurCtr.style.display      = 'none';
     }
+    // Show/hide the main county selector (irrelevant in Jurisdictions scope)
+    var countyCtrl = document.getElementById(cfg.countySelectId);
+    var countyCtrlGroup = countyCtrl ? countyCtrl.closest('.control-group') : null;
+    if (countyCtrlGroup) countyCtrlGroup.style.display = (activeScope === 'jurisdiction') ? 'none' : '';
+
     if (activeScope === 'county') {
       if (geoGroup)     geoGroup.style.display     = '';
       if (precinctCtrl) precinctCtrl.style.display  = 'none';
@@ -274,6 +282,7 @@ const ChartDashboard = (() => {
       _filterSections();
       _renderVisibleSections();
       _rebuildNav();
+      _setupScrollSpy();
 
       // Load precinct index for new county if in precinct scope
       if (activeScope === 'precinct') {
@@ -358,9 +367,18 @@ const ChartDashboard = (() => {
         activeGeo      = activePrecinct ? 'precinct-detail' : 'precinct';
         _loadPrecinctIndex();
       } else if (scope === 'city') {
-        activeGeo      = 'city';
-        activePrecinct = null;
+        // City tab is an alias for Jurisdictions > Cities
+        activeScope     = 'jurisdiction';
+        activeJurType   = 'cities';
+        activeJurCounty = null;
+        activeJurName   = null;
+        activeGeo       = 'jurisdiction';
+        activePrecinct  = null;
         _resetPrecinctDropdown();
+        _clearJurisdictionCharts();
+        var ts = document.getElementById(cfg.jurTypeSelectId);
+        if (ts) ts.value = 'cities';
+        // _onJurTypeChange called after _syncScopeTabsToActiveScope below
       } else if (scope === 'jurisdiction') {
         activeGeo       = 'jurisdiction';
         activePrecinct  = null;
@@ -379,6 +397,10 @@ const ChartDashboard = (() => {
       _renderVisibleSections();
       _rebuildNav();
       _updateHeaderLabel();
+      // If city alias fired, now populate the jurisdiction controls
+      if (scope === 'city') {
+        _onJurTypeChange(false);
+      }
     });
   }
 
@@ -397,6 +419,7 @@ const ChartDashboard = (() => {
       _filterSections();
       _renderVisibleSections();
       _rebuildNav();
+      _setupScrollSpy();
 
       if (anchorSuffix) {
         var newSlug = (activeCounty || '').toLowerCase().replace(/ /g, '_');
@@ -1339,6 +1362,28 @@ const ChartDashboard = (() => {
     var countyGroup  = document.getElementById(cfg.jurCountyGroupId);
     var countySelect = document.getElementById(cfg.jurCountySelectId);
     var nameSelect   = document.getElementById(cfg.jurNameSelectId);
+
+    // Show/hide the persistent city data-gap note panel
+    var noteEl = document.getElementById('jur-data-note');
+    if (noteEl) {
+      if (activeJurType === 'cities') {
+        noteEl.style.display = '';
+        noteEl.innerHTML =
+          '<div class="jur-data-note-inner">' +
+            '<strong>City data availability:</strong> ' +
+            'City-level records are unavailable for 19 Ohio counties because the ' +
+            '<code>CITY</code> field is not populated in those counties\' Ohio SOS voter file submissions. ' +
+            '<details><summary>Show affected counties</summary>' +
+            '<span>Adams, Brown, Carroll, Cuyahoga, Gallia, Harrison, Holmes, Meigs, Monroe, ' +
+            'Morgan, Morrow, Noble, Paulding, Perry, Pike, Putnam, Sandusky, Vinton, Wyandot</span>' +
+            '</details>' +
+          '</div>';
+      } else {
+        noteEl.style.display = 'none';
+        noteEl.innerHTML = '';
+      }
+    }
+
     if (!activeJurType) {
       if (countyGroup)  countyGroup.style.display = 'none';
       if (nameSelect)   nameSelect.innerHTML = '<option value="">-- select --</option>';
@@ -1388,9 +1433,28 @@ const ChartDashboard = (() => {
     var nameSelect = document.getElementById(cfg.jurNameSelectId);
     if (!nameSelect) return;
     nameSelect.innerHTML = '<option value="">-- select --</option>';
-    entries.forEach(function(e) {
-      nameSelect.appendChild(_el('option', { value: e.slug, textContent: e.display_name + (e.voter_count ? ' (' + e.voter_count.toLocaleString() + ')' : '') }));
+
+    var available   = entries.filter(function(e) { return e.available !== false; });
+    var unavailable = entries.filter(function(e) { return e.available === false; });
+
+    available.forEach(function(e) {
+      nameSelect.appendChild(_el('option', {
+        value:       e.slug,
+        textContent: e.display_name + (e.voter_count ? ' (' + e.voter_count.toLocaleString() + ')' : '')
+      }));
     });
+
+    if (unavailable.length > 0) {
+      var grp = document.createElement('optgroup');
+      grp.label = 'Data unavailable';
+      unavailable.forEach(function(e) {
+        grp.appendChild(_el('option', {
+          value:       e.slug,
+          textContent: e.display_name + (e.voter_count ? ' — ' + e.voter_count.toLocaleString() + ' voters (no source data)' : '')
+        }));
+      });
+      nameSelect.appendChild(grp);
+    }
   }
 
   async function _loadJurTypeIndex(typeKey) {
@@ -1409,6 +1473,27 @@ const ChartDashboard = (() => {
     var jc = document.getElementById(cfg.jurChartsContainerId);
     if (!jc) return;
     jc.innerHTML = '';
+
+    // Check if selected entry is flagged as unavailable
+    var cachedIdx = jurIndexCache[activeJurType] || [];
+    var selEntry  = cachedIdx.find(function(e) { return e.slug === activeJurName; });
+    if (selEntry && selEntry.available === false) {
+      jc.innerHTML =
+        '<div class="jur-unavailable-panel">' +
+          '<h3>' + selEntry.display_name + '</h3>' +
+          '<p>City-level voter data is not available for <strong>' + selEntry.name +
+          '</strong> in the Ohio Secretary of State Statewide Voter File. ' +
+          'The <code>CITY</code> field is blank for every voter record submitted by this county\'s Board of Elections.</p>' +
+          (selEntry.voter_count
+            ? '<p>This county has approximately <strong>' + selEntry.voter_count.toLocaleString() +
+              '</strong> registered voters whose city affiliation is unknown in the source data.</p>'
+            : '') +
+          '<p class="jur-unavailable-note">Once the source data is corrected or a supplemental mapping is built ' +
+          '(e.g., from precinct canvass files), this county\'s cities will appear here automatically.</p>' +
+        '</div>';
+      _rebuildNav();
+      return;
+    }
 
     var chartTypes = ['party_affiliation', 'decade_distribution', 'party_by_decade', 'unc_shadow'];
     var slug = activeJurName;
@@ -1452,6 +1537,31 @@ const ChartDashboard = (() => {
     });
 
     _rebuildNav();
+  }
+
+
+  // ── Hash scrollspy ───────────────────────────────────────────────────────
+  var _scrollSpy = null;
+
+  function _setupScrollSpy() {
+    if (_scrollSpy) { _scrollSpy.disconnect(); _scrollSpy = null; }
+    if (!('IntersectionObserver' in window)) return;
+    _scrollSpy = new IntersectionObserver(function(entries) {
+      if (activeScope === 'jurisdiction') return; // jurisdiction has no suffix-based hash
+      var best = null, bestRatio = 0;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && entry.intersectionRatio > bestRatio) {
+          best = entry.target; bestRatio = entry.intersectionRatio;
+        }
+      });
+      if (!best) return;
+      var suffix = _slugSuffix(best.id, activeCounty);
+      if (suffix) _writeUrlState({ hash: suffix });
+    }, { threshold: [0.1, 0.3], rootMargin: '-80px 0px 0px 0px' });
+
+    document.querySelectorAll('.chart-section').forEach(function(el) {
+      if (el.style.display !== 'none') _scrollSpy.observe(el);
+    });
   }
 
   return { init: init, renderSingle: renderSingle };
