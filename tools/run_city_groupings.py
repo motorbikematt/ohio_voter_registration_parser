@@ -2,8 +2,9 @@
 """Direct runner for city groupings — bypasses pipeline menu."""
 import sys
 import os
+from pathlib import Path
 
-os.chdir(r'D:\vibe\election-data (1)')
+os.chdir(Path(__file__).resolve().parent.parent)
 sys.path.insert(0, '.')
 
 import jurisdictional_groupings as jg

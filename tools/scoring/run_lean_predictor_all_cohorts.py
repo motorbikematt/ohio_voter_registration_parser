@@ -39,7 +39,7 @@ from pathlib import Path
 import polars as pl
 
 # --- CONFIG --------------------------------------------------------------
-PROJECT_ROOT = Path(r"D:\vibe\election-data (1)")
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 PREDICTOR = PROJECT_ROOT / "tools" / "scoring" / "mixed_lean_predictor.py"
 EXPORT_ROOT = PROJECT_ROOT / "UNC_Exports"
 STATEWIDE_DIR = EXPORT_ROOT / "_Statewide"

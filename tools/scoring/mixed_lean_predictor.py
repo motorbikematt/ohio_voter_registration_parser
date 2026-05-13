@@ -32,17 +32,20 @@ from pathlib import Path
 import polars as pl
 
 # --- CONFIG ---------------------------------------------------------------
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+_MIXED_DIR = _PROJECT_ROOT / "UNC_Exports" / "Mixed"
+
 INPUT_CSV = Path(os.environ.get(
     "MIXED_INPUT_CSV",
-    r"D:\vibe\election-data (1)\UNC_Exports\Mixed\montgomery_MIXED_targets.csv",
+    str(_MIXED_DIR / "montgomery_MIXED_targets.csv"),
 ))
 OUTPUT_CSV = Path(os.environ.get(
     "MIXED_OUTPUT_CSV",
-    r"D:\vibe\election-data (1)\UNC_Exports\Mixed\montgomery_MIXED_scored.csv",
+    str(_MIXED_DIR / "montgomery_MIXED_scored.csv"),
 ))
 SUMMARY_CSV = Path(os.environ.get(
     "MIXED_SUMMARY_CSV",
-    r"D:\vibe\election-data (1)\UNC_Exports\Mixed\montgomery_MIXED_summary.csv",
+    str(_MIXED_DIR / "montgomery_MIXED_summary.csv"),
 ))
 
 AS_OF_DATE: date = date(2026, 5, 5)
