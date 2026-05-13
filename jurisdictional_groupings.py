@@ -220,6 +220,16 @@ def _slugify(name: str) -> str:
     return str(name).lower().replace(' ', '_').replace('/', '_').replace('-', '_')
 
 
+def _cn_key(county_number) -> str:
+    """Normalize COUNTY_NUMBER to zero-padded 2-char string for OHIO_COUNTIES lookup.
+
+    Hive-partitioned parquet exposes COUNTY_NUMBER as Int64 (e.g. 1), but
+    OHIO_COUNTIES uses zero-padded string keys ('01').  Always route through
+    this helper rather than calling str() directly.
+    """
+    return str(county_number).zfill(2)
+
+
 def _dump_json(data: dict, filepath: Path, logger: logging.Logger):
     """Write JSON with orjson if available, else stdlib json."""
     filepath.parent.mkdir(parents=True, exist_ok=True)
@@ -642,7 +652,7 @@ def main(
                       .unique()
                 )
                 jurisdictions = sorted([
-                    (str(row[0]), row[1]) for row in pairs_df.iter_rows()
+                    (_cn_key(row[0]), row[1]) for row in pairs_df.iter_rows()
                     if row[1] is not None
                     and not isinstance(row[1], float)
                     and len(str(row[1]).strip()) > 1
@@ -696,7 +706,7 @@ def main(
                     _cn   = _frame['COUNTY_NUMBER'][0]
                     _name = _frame[column][0]
                     if _name is not None and not isinstance(_name, float):
-                        _all_parts[(str(_cn), _name)] = _frame
+                        _all_parts[(_cn_key(_cn), _name)] = _frame
                 partition_map = {
                     pair: _all_parts[pair]
                     for pair in jurisdictions
