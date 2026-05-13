@@ -16,7 +16,7 @@ def run_global_raw_search(term: str = None, raw_dir: str = None):
     script_dir = Path(__file__).parent.resolve()
     project_root = script_dir.parent
     if raw_dir is None:
-        raw_path = Path(r"D:\vibe\election-data (1)\source\State Voter Files")
+        raw_path = project_root / "source" / "State Voter Files"
     else:
         raw_path = Path(raw_dir).resolve()
 
