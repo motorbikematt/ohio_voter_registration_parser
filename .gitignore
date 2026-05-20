@@ -32,6 +32,11 @@ collision_report.md
 *.ps1
 *.code-workspace
 
+# ─── Stray local backups at repo root (use docs/archive/ instead) ───
+/CLAUDE.md.bak*
+/CLAUDE.md.bak.*
+/*.bak
+
 # ─── Raw voter file formats ────────────────────────────────
 # The decompressed state voter files are plain .txt.  This rule
 # is intentionally broad — it excludes ALL .txt files, not just
