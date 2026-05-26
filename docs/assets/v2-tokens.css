@@ -1,0 +1,214 @@
+/* ============================================================
+   Precincts.info V2 — Design tokens
+   Two visual styles share the same surface API:
+     [data-style="current"]   → Tailwind slate/blue + system-ui  (matches live site)
+     [data-style="editorial"] → Geist + Source Serif + cream paper
+   Both honor [data-theme="light|dark"] and [data-density="comfortable|compact"].
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+
+/* ---- Party / cohort colors are CANONICAL: do not theme. ----
+   These come from the data files (chartConfig.backgroundColor) and must
+   stay consistent across charts, legends, map, and the spark ribbon.    */
+:root {
+  --c-pure-r:        #ef4444;
+  --c-lapsed-r:      #fca5a5;
+  --c-mixed-active:  #f59e0b;
+  --c-mixed-lapsed:  #a78bfa;
+  --c-no-primary:    #9ca3af;
+  --c-lapsed-d:      #93c5fd;
+  --c-pure-d:        #3b82f6;
+  --c-dem:           #3b82f6;
+  --c-rep:           #ef4444;
+  --c-unc:           #9ca3af;
+  --c-mixed:         #a78bfa;
+}
+
+/* ============================================================
+   STYLE A — "current" (live precincts.info today)
+   ============================================================ */
+[data-style="current"] {
+  --ff-sans:  system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ff-serif: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ff-mono:  'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  /* Headlines reuse the sans face but heavier; no serif feel */
+  --display-weight: 700;
+  --display-tracking: -0.02em;
+  --display-feature: normal;
+
+  --r-sm: 4px;
+  --r:    8px;
+  --r-lg: 12px;
+}
+[data-style="current"][data-theme="light"] {
+  --bg:           #f8fafc;
+  --bg-grain:     transparent;
+  --surface:      #ffffff;
+  --surface-2:    #f1f5f9;
+  --surface-3:    #e2e8f0;
+  --rule:         #e2e8f0;
+  --rule-2:       #cbd5e1;
+  --ink:          #1a202c;
+  --ink-2:        #334155;
+  --muted:        #64748b;
+  --muted-2:      #94a3b8;
+  --accent:       #2563eb;
+  --accent-2:     #1d4ed8;
+  --accent-soft:  #dbeafe;
+  --selected-bg:  #dbeafe;
+  --selected-ink: #1e40af;
+  --shadow-1:     0 1px 3px rgba(15,23,42,.08), 0 1px 2px rgba(15,23,42,.05);
+  --shadow-2:     0 4px 12px -2px rgba(15,23,42,.10), 0 2px 4px rgba(15,23,42,.05);
+}
+[data-style="current"][data-theme="dark"] {
+  --bg:           #0f172a;
+  --bg-grain:     transparent;
+  --surface:      #1e293b;
+  --surface-2:    #0f172a;
+  --surface-3:    #334155;
+  --rule:         #334155;
+  --rule-2:       #475569;
+  --ink:          #e2e8f0;
+  --ink-2:        #cbd5e1;
+  --muted:        #94a3b8;
+  --muted-2:      #64748b;
+  --accent:       #60a5fa;
+  --accent-2:     #93c5fd;
+  --accent-soft:  #1e3a5f;
+  --selected-bg:  #1e3a5f;
+  --selected-ink: #93c5fd;
+  --shadow-1:     0 1px 3px rgba(0,0,0,.3);
+  --shadow-2:     0 4px 12px rgba(0,0,0,.4);
+}
+
+/* ============================================================
+   STYLE B — "editorial" (Geist + Source Serif, cream paper / warm dark)
+   ============================================================ */
+[data-style="editorial"] {
+  --ff-sans:  'Geist', ui-sans-serif, system-ui, sans-serif;
+  --ff-serif: 'Source Serif 4', Georgia, serif;
+  --ff-mono:  'Geist Mono', ui-monospace, 'SF Mono', monospace;
+
+  --display-weight: 400;
+  --display-tracking: -0.025em;
+  --display-feature: 'ss01', 'cv11';
+
+  --r-sm: 3px;
+  --r:    6px;
+  --r-lg: 10px;
+}
+[data-style="editorial"][data-theme="light"] {
+  --bg:           #f4efe4;
+  --bg-grain:     #efe8d8;
+  --surface:      #fbf8f1;
+  --surface-2:    #ebe4d3;
+  --surface-3:    #ddd5bf;
+  --rule:         #d8d1bf;
+  --rule-2:       #c4baa3;
+  --ink:          #14161a;
+  --ink-2:        #3b3a36;
+  --muted:        #7a7468;
+  --muted-2:      #a7a094;
+  --accent:       #1e3a8a;
+  --accent-2:     #2563eb;
+  --accent-soft:  #dde3f4;
+  --selected-bg:  #e7ddc4;
+  --selected-ink: #14161a;
+  --shadow-1:     0 1px 0 rgba(20,22,26,.04), 0 1px 2px rgba(20,22,26,.05);
+  --shadow-2:     0 2px 4px rgba(20,22,26,.06), 0 8px 24px -8px rgba(20,22,26,.12);
+}
+[data-style="editorial"][data-theme="dark"] {
+  --bg:           #0c0d10;
+  --bg-grain:     #111317;
+  --surface:      #16181d;
+  --surface-2:    #1d2026;
+  --surface-3:    #2a2d33;
+  --rule:         #2a2d33;
+  --rule-2:       #3a3e46;
+  --ink:          #ece6d4;
+  --ink-2:        #c5bfae;
+  --muted:        #8a8474;
+  --muted-2:      #5f5b51;
+  --accent:       #d4a64a;
+  --accent-2:     #f0c674;
+  --accent-soft:  #2a2410;
+  --selected-bg:  #2a2410;
+  --selected-ink: #f0c674;
+  --shadow-1:     0 1px 0 rgba(0,0,0,.3);
+  --shadow-2:     0 4px 14px rgba(0,0,0,.4), 0 12px 40px -8px rgba(0,0,0,.6);
+}
+
+/* ============================================================
+   DENSITY — scales gaps and pads, not type sizes
+   ============================================================ */
+[data-density="comfortable"] {
+  --pad-pane:     22px;
+  --pad-card:     20px;
+  --gap-stack:    18px;
+  --gap-row:      14px;
+  --row-h:        34px;
+  --tree-row-pad: 7px 10px;
+}
+[data-density="compact"] {
+  --pad-pane:     14px;
+  --pad-card:     14px;
+  --gap-stack:    10px;
+  --gap-row:      8px;
+  --row-h:        28px;
+  --tree-row-pad: 4px 8px;
+}
+
+/* ============================================================
+   GLOBAL RESETS
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  font-family: var(--ff-sans);
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body {
+  font-size: 14px;
+  line-height: 1.5;
+  font-feature-settings: var(--display-feature, normal);
+}
+[data-style="editorial"] body {
+  background-image:
+    radial-gradient(circle at 18% 0%, var(--bg-grain) 0%, transparent 55%),
+    radial-gradient(circle at 82% 100%, var(--bg-grain) 0%, transparent 45%);
+}
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+input, select { font: inherit; color: inherit; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-2); }
+
+/* ============================================================
+   SHARED PRIMITIVES
+   ============================================================ */
+.eyebrow {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+.display {
+  font-family: var(--ff-serif);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  font-optical-sizing: auto;
+}
+.mono { font-family: var(--ff-mono); }
+.muted { color: var(--muted); }
+
+/* Scrollbar styling (subtle) */
+.scroll-y { overflow-y: auto; scrollbar-width: thin; }
+.scroll-y::-webkit-scrollbar { width: 8px; }
+.scroll-y::-webkit-scrollbar-thumb { background: var(--rule-2); border-radius: 4px; }
+.scroll-y::-webkit-scrollbar-track { background: transparent; }
