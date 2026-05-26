@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-style="editorial" data-theme="dark" data-density="comfortable" data-layout="3col" data-view="geo">
+<head>
+  <meta charset="utf-8" />
+  <title>Precincts.info — V2 Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="stylesheet" href="assets/v2-tokens.css" />
+  <link rel="stylesheet" href="assets/v2.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#center-pane" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px">Skip to dashboard</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="wordmark"><span class="dot"></span>Precincts<small>info</small></div>
+    </div>
+    <div class="topbar-search">
+      <input type="search" id="global-search" placeholder="Search counties, precincts, districts…" aria-label="Search" />
+    </div>
+    <div class="topbar-actions">
+      <button class="action-chip" id="compare-toggle" title="Compare two jurisdictions side-by-side">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h7M3 18h7M21 6h-7M21 18h-7M14 12l-4-3v6z"/></svg>
+        <span>Compare</span>
+      </button>
+      <button class="action-chip" id="theme-toggle" title="Toggle light/dark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 109 9 7 7 0 01-9-9z"/></svg>
+        <span>Theme</span>
+      </button>
+      <button class="action-chip" id="tweaks-toggle" title="Open Tweaks panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
+        <span>Tweaks</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="layout" id="layout">
+
+    <aside class="left-pane" id="left-pane" aria-label="Jurisdictional hierarchy">
+      <div class="view-toggle">
+        <button class="active" data-tweak="view" data-val="geo" onclick="this.click=null;document.documentElement.dispatchEvent(new CustomEvent('view-set',{detail:'geo'}))">Geography</button>
+        <button data-tweak="view" data-val="district" onclick="document.documentElement.dispatchEvent(new CustomEvent('view-set',{detail:'district'}))">Districts</button>
+      </div>
+      <div class="hierarchy scroll-y" id="hierarchy"></div>
+    </aside>
+
+    <section class="center-pane scroll-y" id="center-pane">
+      <!-- Built by JS: breadcrumb, hero, chart cards -->
+    </section>
+
+    <aside class="right-pane" id="right-pane" aria-label="Map and selection summary">
+      <div class="map-section">
+        <span class="eyebrow">Ohio · 88 counties · party lean</span>
+        <div class="map-container" id="map"></div>
+        <div class="map-legend">
+          <span><span class="swatch" style="background:#ef4444"></span>Strong R</span>
+          <span><span class="swatch" style="background:#f87171"></span>Lean R</span>
+          <span><span class="swatch" style="background:#9ca3af"></span>Mixed</span>
+          <span><span class="swatch" style="background:#60a5fa"></span>Lean D</span>
+          <span><span class="swatch" style="background:#2563eb"></span>Strong D</span>
+        </div>
+      </div>
+      <div class="map-selection" id="map-selection">
+        <span class="eyebrow">Selection</span>
+        <div class="mname muted">—</div>
+      </div>
+    </aside>
+
+  </main>
+
+  <div class="drawer-backdrop"></div>
+
+  <button class="drawer-toggle" data-drawer="left" aria-label="Open hierarchy">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg>
+  </button>
+  <button class="drawer-toggle right" data-drawer="right" aria-label="Open map">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15M15 6v15"/></svg>
+  </button>
+
+  <aside class="tweaks-panel hidden" id="tweaks-panel" aria-label="Design tweaks"></aside>
+
+  <script src="assets/v2-hex-map.js"></script>
+  <script src="assets/v2.js"></script>
+  <script>
+    // View toggle wiring (the toggle buttons sit OUTSIDE the dynamically-rendered hierarchy,
+    // so we wire them once on load and they dispatch a custom event handled by v2.js).
+    (function () {
+      const btns = document.querySelectorAll('.view-toggle button[data-tweak="view"]');
+      btns.forEach(b => {
+        b.onclick = () => {
+          const v = b.getAttribute('data-val');
+          const p = new URLSearchParams(location.search);
+          p.set('view', v);
+          history.replaceState(null, '', location.pathname + '?' + p);
+          location.reload();
+        };
+      });
+    })();
+  </script>
+
+</body>
+</html>
