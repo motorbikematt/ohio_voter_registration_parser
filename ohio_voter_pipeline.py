@@ -462,6 +462,16 @@ def _dispatch(
         v2.run_ohio_analysis(txt_files, use_parquet=True,
                              include_precinct_charts=include_precincts)
 
+        # Narrative phase A: generate county (+ precinct) narrative JSONs
+        # immediately after the county chart-JSON export completes.
+        # include_precincts mirrors the user's choice from the prompt.
+        _narrative_phase(
+            levels=['county', 'precinct'] if include_precincts else ['county'],
+            v2=v2,
+            county_names=None,  # all 88 counties
+            logger=_log,
+        )
+
         # Step B — build chart JSON for all 12 jurisdictional types:
         #   cities, townships, villages, local/city/exempted school districts,
         #   state senate/rep/congressional districts, county/municipal court
@@ -477,11 +487,29 @@ def _dispatch(
             out = BASE_DIR / f"ohio_analysis_src{src_date}.xlsx"
             v2.run_ohio_excel(txt_files, output_path=out, use_parquet=True)
 
+        # Narrative phase B: generate narratives for all 12 jurisdictional
+        # grouping levels after jg.main() has written their chart JSON.
+        # NON_COUNTY_LEVELS excludes 'county' and 'precinct' (handled above).
+        # tools/ has no __init__.py; insert onto sys.path before importing.
+        import sys as _sys
+        if str(BASE_DIR / 'tools') not in _sys.path:
+            _sys.path.insert(0, str(BASE_DIR / 'tools'))
+        from generate_narratives import NON_COUNTY_LEVELS as _NCL
+        _narrative_phase(levels=_NCL, v2=v2, county_names=None, logger=_log)
+
     elif choice == "3":
         # Counties + precincts only — identical to the county pass in option 1
         # but jurisdictional_groupings.py is not invoked.
         v2.run_ohio_analysis(txt_files, use_parquet=True,
                              include_precinct_charts=include_precincts)
+
+        # Narrative phase: county (+ precinct) only — no jurisdictional groupings.
+        _narrative_phase(
+            levels=['county', 'precinct'] if include_precincts else ['county'],
+            v2=v2,
+            county_names=None,
+            logger=_log,
+        )
 
     elif choice == "4":
         # Jurisdictional groupings only — useful when county JSON is already
@@ -490,6 +518,16 @@ def _dispatch(
         logger, _ = jg.setup_logger()
         logger.info("Running jurisdictional groupings — all 12 types...")
         jg.main(jurisdictions_to_process=None, output_format='json', logger=logger)
+
+        # Narrative phase: all non-county, non-precinct levels.
+        # County/precinct narratives are not regenerated here because the
+        # county chart JSON was not rebuilt in this branch.
+        # tools/ has no __init__.py; insert onto sys.path before importing.
+        import sys as _sys
+        if str(BASE_DIR / 'tools') not in _sys.path:
+            _sys.path.insert(0, str(BASE_DIR / 'tools'))
+        from generate_narratives import NON_COUNTY_LEVELS as _NCL
+        _narrative_phase(levels=_NCL, v2=v2, county_names=None, logger=_log)
 
     elif choice == "5" and county_nums:
         # Targeted run for one or more counties.  Useful for spot-checking a
@@ -500,6 +538,71 @@ def _dispatch(
             use_parquet=True,
             include_precinct_charts=include_precincts,
         )
+
+        # Narrative phase: only the selected counties (+ their precincts).
+        # county_nums are zero-padded number strings; resolve to names via
+        # v2.OHIO_COUNTIES (dict[str, str], e.g. {'57': 'Montgomery', ...}).
+        selected_names = [
+            v2.OHIO_COUNTIES[n] for n in county_nums if n in v2.OHIO_COUNTIES
+        ]
+        _narrative_phase(
+            levels=['county', 'precinct'] if include_precincts else ['county'],
+            v2=v2,
+            county_names=selected_names,
+            logger=_log,
+        )
+
+# ── Narrative phase ───────────────────────────────────────────────────────────
+
+def _narrative_phase(
+    levels: list[str],
+    v2,
+    county_names: list[str] | None = None,
+    logger=None,
+) -> None:
+    """
+    Generate templated prose narrative JSON files for the given levels.
+
+    Called at the end of each _dispatch() branch after the chart-JSON export
+    has completed.  Uses the same _timer + psutil RSS logging pattern as the
+    rest of the pipeline so performance is visible in the run log.
+
+    Args:
+        levels:       List of LEVELS values to generate, e.g. ['county', 'precinct'].
+        v2:           The voter_data_cleaner_v2 module (already imported by _dispatch).
+        county_names: Optional list of county names (proper-cased) to restrict
+                      county/precinct enumeration.  None means all 88 counties.
+        logger:       Logger instance.  Defaults to a pipeline logger if None.
+
+    Design notes:
+        - tools/ has no __init__.py, so we insert it onto sys.path and import
+          generate_narratives directly.  The import is deferred to first call.
+        - Failures are loud (raise), not silently swallowed, per
+          feedback_pipeline_safety.md.  The narrative stage is non-critical
+          for the voter-file analysis itself, so we log the error and continue
+          rather than aborting the entire pipeline run.
+        - The LLM API path is Workstream 2; only the template registry is used.
+    """
+    import sys as _sys
+    _tools = BASE_DIR / 'tools'
+    if str(_tools) not in _sys.path:
+        _sys.path.insert(0, str(_tools))
+    import generate_narratives as _gn  # deferred; only loaded when needed
+
+    _log = logger or v2.setup_logging('narrative')
+    level_label = ', '.join(levels)
+
+    with v2._timer(_log, f'narrative generation ({level_label})'):
+        ok, skipped, failed = _gn.run_for_levels(
+            levels=levels,
+            filter_names=county_names,
+            overwrite=False,  # cache-skip: only regenerate when metrics change
+        )
+    _log.info(
+        '[narrative] %s — ok:%d  skipped:%d  failed:%d',
+        level_label, ok, skipped, failed,
+    )
+
 
 if __name__ == '__main__':
     main()
