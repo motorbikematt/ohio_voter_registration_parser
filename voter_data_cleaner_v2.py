@@ -1365,7 +1365,7 @@ def _dump_json(obj: dict, path: Path, logger: logging.Logger):
 # ─────────────────────────────────────────────────────────────────────────────
 
 # UNC shadow classification colors — intentionally lighter than the full-
-# saturation party colors so the visual distinction between "registered" and
+# saturation party colors so the visual distinction between "affiliated" and
 # "behaviorally inferred" is immediately apparent.
 UNC_SHADOW_COLORS = {
     'LIFETIME_D':   '#60a5fa',   # blue-400  — lighter tint of DEM #3b82f6 (blue-500)
@@ -2025,7 +2025,7 @@ def export_json(
         pa_labels = [lbl   for _, lbl, _ in COHORT_SLICES]
         pa_colors = [color for _, _, color in COHORT_SLICES]
         pa_counts = [int(cmap.get(fam, 0)) for fam, _, _ in COHORT_SLICES]
-        pa_note   = note + ' — partisan spectrum: registered + behavioral cohorts.'
+        pa_note   = note + ' — partisan spectrum: affiliated + behavioral cohorts.'
 
         # New-registrant counts by family (for dashboard meta block)
         if 'is_new_registrant' in df.columns:
@@ -2962,7 +2962,7 @@ def _update_manifest(
             'id':          f'{slug}-party-affiliation',
             'title':       'Party Affiliation Breakdown',
             'navLabel':    'Party',
-            'description': 'Distribution of registered voters by party affiliation.',
+            'description': 'Distribution of voters by party affiliation.',
             'county':      county_name,
             'geography':   'county',
             'dataUrl':     f'data/{slug}_party_affiliation.json',
@@ -3147,7 +3147,7 @@ def _sections_for_county(county_name: str, slug: str) -> list[dict]:
             'id':          f'{slug}-party-affiliation',
             'title':       'Party Affiliation Breakdown',
             'navLabel':    'Party',
-            'description': 'Distribution of registered voters by party affiliation.',
+            'description': 'Distribution of voters by party affiliation.',
             'county':      county_name,
             'geography':   'county',
             'dataUrl':     f'data/{slug}_party_affiliation.json',

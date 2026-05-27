@@ -105,14 +105,14 @@ Precinct drill-down shows per-precinct cohort composition for every precinct in 
 
 `PARTY_AFFILIATION` in the SWVF is behavior-derived and lagged — it reflects only the past two calendar years of primary participation, not lifetime history. The universal classifier (`classify_all_voters_primary_history`) applies the full 26-year election history to every voter and assigns a cohort and cohort_family.
 
-### Affiliated voters (registered R or D)
+### Affiliated voters (affiliated R or D)
 
 | Cohort family | Definition | Dashboard color |
 |---|---|---|
-| `PURE_R` | Registered R + zero D primary ballots ever | `#ef4444` |
-| `CROSSOVER_R` | Registered R + has voted both primaries historically | `#f87171` |
-| `PURE_D` | Registered D + zero R primary ballots ever | `#3b82f6` |
-| `CROSSOVER_D` | Registered D + has voted both primaries historically | `#60a5fa` |
+| `PURE_R` | Affiliated R + zero D primary ballots ever | `#ef4444` |
+| `CROSSOVER_R` | Affiliated R + has voted both primaries historically | `#f87171` |
+| `PURE_D` | Affiliated D + zero R primary ballots ever | `#3b82f6` |
+| `CROSSOVER_D` | Affiliated D + has voted both primaries historically | `#60a5fa` |
 
 `R_NEW` / `D_NEW` (registered within ~2 years, no primary history) roll into `PURE_R` / `PURE_D` with `is_new_registrant = True`.
 

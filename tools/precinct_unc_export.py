@@ -3,7 +3,7 @@ precinct_unc_export.py
 ──────────────────────
 For every precinct in all 88 Ohio counties, compute:
   - total registered voters
-  - registered D count
+  - affiliated D count
   - UNC Lifetime-D count  (unaffiliated voters whose entire primary history is D ballots)
   - combined D + UNC Lifetime-D count and percentage of precinct total
 
@@ -58,7 +58,7 @@ def build_precinct_summary(
     Return a DataFrame with one row per (COUNTY_NUMBER, PRECINCT_NAME):
 
         county_number | county_name | precinct_name
-        total | registered_d | unc_lifetime_d | d_plus_unc | pct_d_plus_unc
+        total | affiliated_d | unc_lifetime_d | d_plus_unc | pct_d_plus_unc
     """
     # ── Universal classifier (all voters, not just UNC) ──────────────────
     classify_all = v2.classify_all_voters_primary_history

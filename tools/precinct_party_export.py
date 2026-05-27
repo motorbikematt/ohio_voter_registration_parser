@@ -5,13 +5,13 @@ Export a multi-tab Excel workbook of voter names + addresses + all source
 columns, split by partisan cohort, for a chosen county or a single precinct.
 
 Tab layout (7-tab partisan spectrum — colours match dashboard doughnut):
-  Pure_R          #ef4444   registered R, zero D primary ballots ever
+  Pure_R          #ef4444   affiliated R, zero D primary ballots ever
   UNC_Lapsed_R    #fca5a5   unaffiliated, all primaries were R ballots
   Mixed_Active    #f59e0b   currently affiliated crossover voters
   Mixed_Lapsed    #a78bfa   unaffiliated, mixed or X-only primary history
   UNC_No_Primary  #9ca3af   unaffiliated, no primary participation ever
   UNC_Lapsed_D    #93c5fd   unaffiliated, all primaries were D ballots
-  Pure_D          #3b82f6   registered D, zero R primary ballots ever
+  Pure_D          #3b82f6   affiliated D, zero R primary ballots ever
   Summary         #1e293b   row counts per tab
 
 Cohort assignment uses classify_all_voters_primary_history() (voter_data_cleaner_v2).
