@@ -13,7 +13,8 @@ Usage:
 
 Destination layout:
     docs/archive/<filename>.<YYYY-MM-DDTHHMM>.md            -- project files (CLAUDE.md, repo-local .md)
-    docs/archive/memory/<filename>.<YYYY-MM-DDTHHMM>.md     -- memory files (path contains a 'memory' segment)
+    docs/archive/memory/<filename>.<YYYY-MM-DDTHHMM>.md     -- memory files (any ancestor dir contains 'memory'
+                                                               as a substring, e.g. 'memory/' or '.auto-memory/')
 
 Prints the archive path (project-relative) on stdout. Exits 0 on success;
 1 on missing source or bad argument. Loud failures preferred -- this script
@@ -39,7 +40,11 @@ def archive(src: Path) -> Path:
         sys.exit(1)
 
     ts = datetime.now().strftime("%Y-%m-%dT%H%M")
-    in_memory = "memory" in {p.lower() for p in src.parts}
+    # Match 'memory' as a substring of any ancestor directory so both
+    # '.../memory/...' and '.../.auto-memory/...' route correctly. Excludes
+    # the filename itself so e.g. 'memory_routing.md' in an unrelated dir
+    # is not misrouted.
+    in_memory = any("memory" in p.lower() for p in src.parent.parts)
     dest_dir = ARCHIVE_ROOT / "memory" if in_memory else ARCHIVE_ROOT
     dest_dir.mkdir(parents=True, exist_ok=True)
 
