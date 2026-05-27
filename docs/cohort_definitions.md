@@ -9,8 +9,8 @@ This document explains the seven voter cohorts (groups) used to analyze Ohio vot
 
 *   **Affiliated Voters** (Voters who have participated in a primary within the past two calendar years, establishing an official party status):
     *   **Purists** (Consistent party primary voters who have never voted in the opposing party's primary):
-        *   **Pure D:** Democratic-affiliated voters who have never voted in a Republican primary (includes inactive voters who have never crossed over).
-        *   **Pure R:** Republican-affiliated voters who have never voted in a Democratic primary (includes inactive voters who have never crossed over).
+        *   **Pure D:** Democratic-affiliated voters who have never voted in a Republican primary (includes low-frequency primary voters who have never crossed over).
+        *   **Pure R:** Republican-affiliated voters who have never voted in a Democratic primary (includes low-frequency primary voters who have never crossed over).
     *   **Mixed – Active:** Affiliated voters (Republican or Democratic) who have crossed over to participate in both party primaries historically.
 *   **Unaffiliated Voters (UNC)** (Voters with no official party status under R.C. 3513.19 because they did not vote in a partisan primary during the current and preceding two calendar years, or have never voted in a primary):
     *   **Lapsed Purists** (Behavioral partisans who are currently unaffiliated, but have only voted in one party's primary historically):
@@ -33,7 +33,7 @@ When you register to vote in Ohio, you are registering only as a general voter, 
 
 Under Ohio law, party affiliation **only** happens at the polling station on primary election day. You affiliate with a party by showing up to vote in a primary and requesting that party's ballot (for example, asking for the Republican primary ballot). You cannot choose a party online or on your voter registration form.
 
-Furthermore, this party affiliation does not last forever. Under **Ohio Revised Code (R.C.) Sections 3513.19 and 3513.05**, a voter's party affiliation is legally determined by their primary voting history in the **current calendar year and the two immediately preceding calendar years**. 
+Furthermore, this party affiliation does not last forever. Under **Ohio Revised Code (R.C.) Sections 3513.19 and 3513.05**, a voter's party affiliation is legally determined by the **most recent partisan primary ballot they requested** within the current calendar year or the two immediately preceding calendar years. 
 
 If you do not vote in a partisan primary during this three-year window, your party affiliation automatically drops off, and you return to being officially unaffiliated. Because of this, looking only at a voter's current, official status gives a very incomplete picture of how they actually behave.
 
