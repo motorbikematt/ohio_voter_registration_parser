@@ -51,6 +51,11 @@ collision_report.md
 # timestamps that are machine-specific — not useful in git.
 download_manifest.json
 
+# ─── Claude Code local settings ───────────────────────────
+# settings.local.json holds machine-specific permissions and
+# preferences — not shared across contributors.
+.claude/settings.local.json
+
 # ─── Logs ─────────────────────────────────────────────────
 logs/
 
