@@ -198,12 +198,17 @@
       add('partyDecade', `data/${cs}_precinct_${ps}_party_by_decade.json`);
       add('partyGen',    `data/${cs}_precinct_${ps}_party_by_generation.json`);
       add('uncShadow',   `data/${cs}_precinct_${ps}_unc.json`);
+      // Narrative card: silently 404s for precincts not yet generated;
+      // renderNarrative() hides the card when bag.narrative is absent.
+      add('narrative',   `data/${cs}_precinct_${ps}_narrative.json`);
     } else if (level === 'district') {
       const t = S.district_type || 'state_senate_district';
       add('party',       `data/${t}/${id}_party_affiliation.json`);
       add('decade',      `data/${t}/${id}_decade_distribution.json`);
       add('partyDecade', `data/${t}/${id}_party_by_decade.json`);
       add('uncShadow',   `data/${t}/${id}_unc_shadow.json`);
+      // Narrative card: partial rollout safe — card hides when file absent.
+      add('narrative',   `data/${t}/${id}_narrative.json`);
     }
 
     await Promise.all(tries.map(async t => {
