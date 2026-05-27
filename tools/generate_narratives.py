@@ -6,7 +6,8 @@ for every jurisdiction at the specified level(s).
 
 Prose is produced by the per-level template registry in
 tools/narrative/templates.py -- deterministic, hallucination-proof, and fast.
-The LLM API path is Workstream 2 and is not implemented here.
+After template generation, optional LLM enrichment (--llm / --llm-batch)
+writes a plain-English captain briefing via tools/narrative/llm_enricher.py.
 
 Cache-skip strategy
 ───────────────────
@@ -39,6 +40,15 @@ Usage (CLI)
   # Force regeneration despite unchanged metrics
   python tools/generate_narratives.py --templated --overwrite
 
+  # Template + LLM sync enrichment (one API call per jurisdiction)
+  python tools/generate_narratives.py Hamilton --templated --llm
+
+  # Template + LLM Batch API enrichment (50% cheaper, waits for completion)
+  python tools/generate_narratives.py --all-levels --templated --llm-batch
+
+  # Force re-enrich even if captain_metrics_hash is current
+  python tools/generate_narratives.py Hamilton --templated --llm --llm-force
+
 Usage (programmatic -- called by ohio_voter_pipeline.py)
 ────────────────────────────────────────────────────────
   from tools.generate_narratives import run_for_levels
@@ -69,6 +79,13 @@ from narrative.templates import (   # noqa: E402  (import after sys.path mutatio
     build_metrics_for_level,
     build_narrative,
     metrics_hash as _metrics_hash,
+)
+from narrative.llm_enricher import (  # noqa: E402  gracefully no-ops if key absent
+    captain_hash as _captain_hash,
+    enrich_one as _enrich_one,
+    enrich_batch as _enrich_batch,
+    write_captain_narrative as _write_captain_narrative,
+    is_captain_fresh as _is_captain_fresh,
 )
 
 # ---- Paths -------------------------------------------------------------------
@@ -306,6 +323,8 @@ def _process_one(
     out_path:      Path,
     overwrite:     bool,
     dry_run:       bool,
+    llm:           bool = False,
+    llm_force:     bool = False,
 ) -> str:
     """
     Build and write (or print) the narrative JSON for one jurisdiction.
@@ -316,8 +335,8 @@ def _process_one(
       2. Compute metrics_hash.  Skip if it matches the existing file.
       3. Generate prose via build_narrative() (template registry; deterministic).
       4. Write output JSON (or print to stdout in --dry-run mode).
+      5. If llm=True, call enrich_one() and append narrative_captain to the file.
 
-    Note: the LLM API path is Workstream 2 -- only the template path is active.
     Officeholders are not yet sourced; all office slots render placeholders.
     """
     # 1. Assemble level-aware metrics from raw chart JSON.
@@ -368,6 +387,19 @@ def _process_one(
         encoding='utf-8',
     )
     log.info('Wrote %s', out_path.name)
+
+    # 5. Optional LLM sync enrichment.
+    if llm and not dry_run:
+        if not llm_force and _is_captain_fresh(out, metrics):
+            log.info('Skip LLM (captain_hash unchanged) %s', out_path.name)
+        else:
+            captain_text = _enrich_one(metrics)
+            if captain_text:
+                _write_captain_narrative(out_path, out, captain_text, metrics)
+                log.info('LLM enriched %s', out_path.name)
+            else:
+                log.warning('LLM enrichment returned None for %s', out_path.name)
+
     return 'ok'
 
 
@@ -377,6 +409,8 @@ def _run_county(
     filter_names: list[str] | None,
     overwrite: bool,
     dry_run: bool,
+    llm: bool = False,
+    llm_force: bool = False,
 ) -> tuple[int, int, int]:
     """Generate narrative JSONs for all (or filtered) counties."""
     ok = skipped = failed = 0
@@ -393,6 +427,7 @@ def _run_county(
             parent_county=None,
             out_path=out_path_for('county', slug),
             overwrite=overwrite, dry_run=dry_run,
+            llm=llm, llm_force=llm_force,
         )
         ok      += result == 'ok'
         skipped += result == 'skipped'
@@ -404,6 +439,8 @@ def _run_precinct(
     filter_counties: list[str] | None,
     overwrite: bool,
     dry_run: bool,
+    llm: bool = False,
+    llm_force: bool = False,
 ) -> tuple[int, int, int]:
     """
     Generate narrative JSONs for all precincts across all (or filtered) counties.
@@ -423,6 +460,7 @@ def _run_precinct(
             parent_county=entry['county'],
             out_path=out_path_for('precinct', entry['slug']),
             overwrite=overwrite, dry_run=dry_run,
+            llm=llm, llm_force=llm_force,
         )
         ok      += result == 'ok'
         skipped += result == 'skipped'
@@ -434,6 +472,8 @@ def _run_level(
     level: str,
     overwrite: bool,
     dry_run: bool,
+    llm: bool = False,
+    llm_force: bool = False,
 ) -> tuple[int, int, int]:
     """Generate narrative JSONs for all jurisdictions at a district/city/etc. level."""
     ok = skipped = failed = 0
@@ -450,6 +490,7 @@ def _run_level(
             parent_county=None,
             out_path=out_path_for(level, slug),
             overwrite=overwrite, dry_run=dry_run,
+            llm=llm, llm_force=llm_force,
         )
         ok      += result == 'ok'
         skipped += result == 'skipped'
@@ -462,13 +503,91 @@ def _dispatch_level(
     filter_names: list[str] | None,
     overwrite: bool,
     dry_run: bool,
+    llm: bool = False,
+    llm_force: bool = False,
 ) -> tuple[int, int, int]:
     """Route a single level string to its runner function."""
     if level == 'county':
-        return _run_county(filter_names, overwrite, dry_run)
+        return _run_county(filter_names, overwrite, dry_run, llm=llm, llm_force=llm_force)
     if level == 'precinct':
-        return _run_precinct(filter_names, overwrite, dry_run)
-    return _run_level(level, overwrite, dry_run)
+        return _run_precinct(filter_names, overwrite, dry_run, llm=llm, llm_force=llm_force)
+    return _run_level(level, overwrite, dry_run, llm=llm, llm_force=llm_force)
+
+
+# ---- Batch LLM enrichment (post-template pass) --------------------------------
+
+def _run_llm_batch(
+    levels: list[str],
+    filter_names: list[str] | None,
+    llm_force: bool,
+) -> None:
+    """
+    Collect metrics for all jurisdictions across the given levels, submit one
+    Anthropic Batch API call, poll until complete, and write results.
+
+    This path collects all work first, submits once, then writes results in a
+    second pass -- giving 50% cost reduction vs the per-jurisdiction sync path.
+    """
+    pending: list[dict] = []
+
+    def _collect(level, slug, party_json, gen_json, pd_json, parent_county, out_path):
+        metrics = build_metrics_for_level(
+            level=level, party_json=party_json,
+            decade_json=None, generation_json=gen_json,
+            party_decade_json=pd_json, parent_county=parent_county,
+        )
+        if metrics is None:
+            return
+        existing = _load_json(out_path) or {}
+        if not llm_force and _is_captain_fresh(existing, metrics):
+            log.info('Skip LLM batch (captain_hash unchanged) %s', out_path.name)
+            return
+        metrics['slug'] = slug
+        metrics['_out_path'] = out_path
+        pending.append(metrics)
+
+    for level in levels:
+        if level == 'county':
+            for entry in enumerate_county(filter_names):
+                slug = entry['slug']
+                party, gen, pd = _load_county_jsons(slug)
+                if party:
+                    _collect(level, slug, party, gen, pd, None, out_path_for(level, slug))
+        elif level == 'precinct':
+            for entry in enumerate_precinct(filter_names):
+                party, gen, pd = _load_precinct_jsons(entry)
+                if party:
+                    _collect(level, entry['slug'], party, gen, pd,
+                             entry['county'], out_path_for(level, entry['slug']))
+        else:
+            for entry in enumerate_level(level):
+                slug = entry['slug']
+                party, gen, pd = _load_level_jsons(level, slug)
+                if party:
+                    _collect(level, slug, party, gen, pd, None, out_path_for(level, slug))
+
+    if not pending:
+        log.info('[llm-batch] Nothing to enrich.')
+        return
+
+    log.info('[llm-batch] Submitting %d jurisdictions to Batch API...', len(pending))
+
+    # Strip internal path key before sending to API (not JSON-serialisable).
+    path_map = {m['slug']: m.pop('_out_path') for m in pending}
+    results = _enrich_batch(pending)
+
+    written = 0
+    for m in pending:
+        slug = m['slug']
+        captain_text = results.get(slug)
+        if not captain_text:
+            continue
+        out_path = path_map[slug]
+        existing = _load_json(out_path) or {}
+        _write_captain_narrative(out_path, existing, captain_text, m)
+        written += 1
+
+    log.info('[llm-batch] Wrote %d captain narratives.', written)
 
 
 # ---- Public API (for pipeline import) ----------------------------------------
@@ -477,30 +596,40 @@ def run_for_levels(
     levels: list[str],
     filter_names: list[str] | None = None,
     overwrite: bool = False,
+    llm: bool = False,
+    llm_batch: bool = False,
+    llm_force: bool = False,
 ) -> tuple[int, int, int]:
     """
     Programmatic entry point called by ohio_voter_pipeline.py._narrative_phase().
 
-    Runs the templated narrative generator for each specified level without
-    touching sys.argv.  filter_names restricts county/precinct enumeration to
-    those county names (proper-cased as they appear in manifest.json).
+    Runs the templated narrative generator for each level, then optionally
+    enriches with LLM captain briefings (sync or batch).
 
     Args:
         levels:       List of level strings from LEVELS, e.g. ['county', 'precinct'].
         filter_names: County names to process; None means all 88 counties.
         overwrite:    If True, regenerate even when metrics_hash is unchanged.
+        llm:          Enrich each jurisdiction synchronously after templating.
+        llm_batch:    Collect all jurisdictions and submit one Batch API call
+                      after templating completes (50% cheaper; waits for completion).
+        llm_force:    Re-enrich even when captain_metrics_hash is current.
 
     Returns:
         (total_ok, total_skipped, total_failed) summed across all levels.
 
     Example:
-        # At end of pipeline county-export phase:
         from tools.generate_narratives import run_for_levels
-        ok, sk, fa = run_for_levels(['county', 'precinct'], filter_names=['Hamilton'])
+        ok, sk, fa = run_for_levels(['county', 'precinct'], filter_names=['Hamilton'],
+                                    llm=True)
     """
     total_ok = total_skipped = total_failed = 0
     for level in levels:
-        ok, sk, fa = _dispatch_level(level, filter_names, overwrite, dry_run=False)
+        ok, sk, fa = _dispatch_level(
+            level, filter_names, overwrite, dry_run=False,
+            llm=llm and not llm_batch,
+            llm_force=llm_force,
+        )
         log.info(
             '[narrative] %-35s  ok:%-5d  skipped:%-5d  failed:%d',
             level, ok, sk, fa,
@@ -508,6 +637,10 @@ def run_for_levels(
         total_ok      += ok
         total_skipped += sk
         total_failed  += fa
+
+    if llm_batch:
+        _run_llm_batch(levels, filter_names, llm_force)
+
     return total_ok, total_skipped, total_failed
 
 
@@ -543,8 +676,31 @@ def main() -> None:
         '--templated', action='store_true',
         help=(
             'Use the deterministic template registry to generate prose.  '
-            'Required for offline / no-API-key runs.  '
-            '(LLM API path is Workstream 2 -- not yet implemented.)'
+            'Required for offline / no-API-key runs.'
+        ),
+    )
+    parser.add_argument(
+        '--llm', action='store_true',
+        help=(
+            'After templating, enrich each jurisdiction with an LLM captain '
+            'briefing (synchronous, one API call per jurisdiction).  '
+            'Requires ANTHROPIC_API_KEY.'
+        ),
+    )
+    parser.add_argument(
+        '--llm-batch', action='store_true',
+        help=(
+            'After templating, submit all jurisdictions to the Anthropic '
+            'Batch API in one call (50%% cheaper than --llm; waits for '
+            'completion before exiting).  Requires ANTHROPIC_API_KEY.'
+        ),
+    )
+    parser.add_argument(
+        '--llm-force', action='store_true',
+        help=(
+            'Re-enrich with LLM even when captain_metrics_hash is current.  '
+            'Normally not needed -- bump ENRICHER_VERSION in llm_enricher.py '
+            'to auto-invalidate statewide.'
         ),
     )
     parser.add_argument(
@@ -561,28 +717,34 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    # Guard: --templated is required.  The LLM API path (Workstream 2) is not
-    # yet implemented.  This prevents silent no-ops if someone forgets the flag.
+    # Guard: --templated is required for any file-writing run.
     if not args.templated and not args.dry_run:
         parser.error(
             '--templated is required.  '
-            'The LLM API path (Workstream 2) is not yet implemented.  '
-            'Run with --templated to use the deterministic template registry.'
+            'Run with --templated [--llm | --llm-batch] to generate narratives.'
         )
 
     levels = list(LEVELS) if args.all_levels else [args.level]
     filter_names = args.names or None
 
+    llm_sync  = getattr(args, 'llm', False) and not getattr(args, 'llm_batch', False)
+    llm_batch = getattr(args, 'llm_batch', False)
+    llm_force = getattr(args, 'llm_force', False)
+
     for level in levels:
         log.info('=== level: %s ===', level)
         ok, skipped, failed = _dispatch_level(
             level, filter_names, args.overwrite, args.dry_run,
+            llm=llm_sync, llm_force=llm_force,
         )
         if not args.dry_run:
             log.info(
                 '[%s] done -- ok:%d  skipped:%d  failed:%d',
                 level, ok, skipped, failed,
             )
+
+    if llm_batch and not args.dry_run:
+        _run_llm_batch(levels, filter_names, llm_force)
 
 
 if __name__ == '__main__':
