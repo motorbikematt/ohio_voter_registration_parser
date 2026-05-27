@@ -317,7 +317,7 @@ def aggregate_jurisdiction(
                     'backgroundColor': pa_colors,
                 }],
             },
-            'note': note + ' — partisan spectrum: registered + behavioral cohorts.',
+            'note': note + ' — partisan spectrum: affiliated + behavioral cohorts.',
         }
 
         result['cohort_counts'] = {fam: int(cmap.get(fam, 0)) for fam, _, _ in COHORT_SLICES}
