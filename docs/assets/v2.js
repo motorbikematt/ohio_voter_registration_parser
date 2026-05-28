@@ -173,6 +173,93 @@
   }
 
   // ── Data: load all chartConfigs for a jurisdiction ─────────
+  // ── City-level chart aggregation ──────────────────────────
+  // Fetches all precinct-level chart JSONs for a city in parallel and sums
+  // the data arrays element-wise, producing county-compatible chartConfig objects.
+  async function aggregateCityCharts(countySlug, cityName, precinctIndex) {
+    const allPrecincts = (precinctIndex && precinctIndex.precincts) ? precinctIndex.precincts : [];
+    const upper = cityName.toUpperCase();
+    const cityPrecincts = allPrecincts.filter(prec => {
+      const pn = prec.name.toUpperCase();
+      return pn === upper || pn.startsWith(upper + ' ') || pn.startsWith(upper);
+    });
+    if (cityPrecincts.length === 0) return {};
+
+    // Fetch all 6 chart types for every precinct in parallel
+    const results = await Promise.all(cityPrecincts.map(async prec => {
+      const ps = prec.safe_name;
+      const [party, decade, gen, partyDecade, partyGen, unc] = await Promise.all([
+        fetchJSON(`data/${countySlug}_precinct_${ps}_party.json`).catch(() => null),
+        fetchJSON(`data/${countySlug}_precinct_${ps}_decade.json`).catch(() => null),
+        fetchJSON(`data/${countySlug}_precinct_${ps}_generation.json`).catch(() => null),
+        fetchJSON(`data/${countySlug}_precinct_${ps}_party_by_decade.json`).catch(() => null),
+        fetchJSON(`data/${countySlug}_precinct_${ps}_party_by_generation.json`).catch(() => null),
+        fetchJSON(`data/${countySlug}_precinct_${ps}_unc.json`).catch(() => null),
+      ]);
+      return { party, decade, gen, partyDecade, partyGen, unc };
+    }));
+
+    function sumArrays(arrays) {
+      if (!arrays.length) return [];
+      const len = Math.max(...arrays.map(a => a.length));
+      const out = new Array(len).fill(0);
+      for (const arr of arrays) for (let i = 0; i < arr.length; i++) out[i] += Number(arr[i] || 0);
+      return out;
+    }
+    function aggSingle(key) {
+      const valid = results.map(r => r[key]).filter(d => d && d.chartConfig);
+      if (!valid.length) return null;
+      const base = JSON.parse(JSON.stringify(valid[0].chartConfig));
+      const canonLabels = base.labels;
+      const arrays = valid.map(d => {
+        const dLabels = d.chartConfig.labels;
+        return canonLabels.map(l => {
+          const idx = dLabels.indexOf(l);
+          return idx >= 0 ? Number(d.chartConfig.datasets[0].data[idx] || 0) : 0;
+        });
+      });
+      base.datasets[0].data = sumArrays(arrays);
+      return { chartConfig: base };
+    }
+    function aggStacked(key) {
+      const valid = results.map(r => r[key]).filter(d => d && d.chartConfig);
+      if (!valid.length) return null;
+      const base = JSON.parse(JSON.stringify(valid[0].chartConfig));
+      const canonLabels = base.labels;
+      base.datasets = base.datasets.map((ds, dsIdx) => {
+        const arrays = valid.map(d => {
+          const dLabels = d.chartConfig.labels;
+          return canonLabels.map(l => {
+            const idx = dLabels.indexOf(l);
+            return idx >= 0 ? Number(((d.chartConfig.datasets[dsIdx] || {}).data || [])[idx] || 0) : 0;
+          });
+        });
+        ds.data = sumArrays(arrays);
+        return ds;
+      });
+      return { chartConfig: base };
+    }
+    function aggUnc() {
+      const valid = results.map(r => r.unc).filter(d => d && d.chartConfig);
+      if (!valid.length) return null;
+      const base = JSON.parse(JSON.stringify(valid[0].chartConfig));
+      base.datasets = base.datasets.map((ds, i) => {
+        ds.data = [valid.reduce((acc, d) => acc + Number(((d.chartConfig.datasets[i] || {}).data || [0])[0] || 0), 0)];
+        return ds;
+      });
+      return { chartConfig: base };
+    }
+
+    return {
+      party:       aggSingle('party'),
+      decade:      aggSingle('decade'),
+      gen:         aggSingle('gen'),
+      partyDecade: aggStacked('partyDecade'),
+      partyGen:    aggStacked('partyGen'),
+      uncShadow:   aggUnc(),
+    };
+  }
+
   // Returns: { total, party, decade, partyDecade, gen, partyGen, uncShadow, citySummary, precinctIndex, missing[] }
   async function loadJurisdiction(level, id, county) {
     const bag = { level, id, county, missing: [] };
@@ -221,6 +308,12 @@
       catch (e) { bag.missing.push(t.key); }
     }));
 
+    // For city level, aggregate chart data from individual precinct files
+    if (level === 'city' && bag.precinctIndex) {
+      const cs = countyToSlug(county || S.id || '');
+      const cityCharts = await aggregateCityCharts(cs, id, bag.precinctIndex);
+      Object.assign(bag, cityCharts);
+    }
     if (bag.party && bag.party.chartConfig) {
       bag.total = bag.party.chartConfig.datasets[0].data.reduce((a, b) => a + Number(b || 0), 0);
     }
@@ -778,18 +871,49 @@
     if (bag && bag.level === 'city') {
       const cityRow = bag.citySummary && bag.citySummary.rows
         ? bag.citySummary.rows.find(r => r[1] === bag.displayName) : null;
-      if (cityRow) {
+      const precinctCount = cityRow ? cityRow[5] : '?';
+      if (bag.party && bag.party.chartConfig) {
+        // Full hero with ribbon (same layout as county)
+        const labels = bag.party.chartConfig.labels.map(l => String(l).split(' \u2014 ')[0]);
+        const data   = bag.party.chartConfig.datasets[0].data;
+        const colors = bag.party.chartConfig.datasets[0].backgroundColor || COHORT_COLORS;
+        const total  = data.reduce((a, b) => a + Number(b || 0), 0);
+        const r   = data[0] + data[1];
+        const unc = data[2] + data[3] + data[4];
+        const dd  = data[5] + data[6];
+        container.innerHTML =
+          '<div class="hero-headline">' +
+            '<div class="eyebrow">Total registered voters</div>' +
+            '<div class="hero-number">' + total.toLocaleString() + '</div>' +
+            '<div class="hero-subtitle">' +
+              bag.displayName + ' \u00b7 ' + precinctCount + ' precincts \u00b7 ' +
+              '<b>' + (r / total * 100).toFixed(1) + '%</b> Republican-leaning, ' +
+              '<b>' + (unc / total * 100).toFixed(1) + '%</b> unaffiliated, ' +
+              '<b>' + (dd / total * 100).toFixed(1) + '%</b> Democratic-leaning' +
+            '</div>' +
+          '</div>' +
+          '<div class="hero-ribbon-wrap">' +
+            '<div class="hero-ribbon-label"><span>7-cohort partisan spectrum</span></div>' +
+            '<div class="hero-ribbon">' + labels.map((l, i) => {
+              const pct = (data[i] / total * 100).toFixed(2);
+              return '<div class="hero-ribbon-seg" style="width:' + pct + '%;background:' + colors[i] + '" title="' + l + ': ' + data[i].toLocaleString() + ' (' + pct + '%)"></div>';
+            }).join('') + '</div>' +
+            '<div class="hero-legend">' + labels.map((l, i) => {
+              return '<div class="legend-item"><span class="sw" style="background:' + colors[i] + '"></span><span class="lbl">' + l + '</span><span class="val">' + (data[i] / total * 100).toFixed(1) + '%</span></div>';
+            }).join('') + '</div>' +
+          '</div>';
+      } else if (cityRow) {
         container.innerHTML =
           '<div class="hero-headline">' +
             '<div class="eyebrow">Total registered voters</div>' +
             '<div class="hero-number">' + cityRow[4] + '</div>' +
             '<div class="hero-subtitle">' + bag.displayName + ' \u00b7 ' +
-              cityRow[5] + ' precincts \u00b7 ' +
+              precinctCount + ' precincts \u00b7 ' +
               cityRow[2] + ' active, ' + cityRow[3] + ' confirmation' +
             '</div>' +
           '</div>' +
           '<div class="hero-ribbon-wrap">' +
-            '<div class="hero-ribbon-label"><span>Select a precinct in the left panel for detailed charts</span></div>' +
+            '<div class="hero-ribbon-label"><span>Aggregating precinct data\u2026</span></div>' +
           '</div>';
       } else {
         container.innerHTML = '<div class="hero-headline"><div class="eyebrow">' + bag.displayName + '</div><div class="hero-number">\u2014</div><div class="hero-subtitle muted">No summary data found.</div></div><div></div>';
