@@ -25,8 +25,6 @@ source/
 
 # ─── Project Specific Artifacts ───────────────────────────
 working/
-tests/
-collision_report.md
 .ipynb_checkpoints/
 *.bat
 *.ps1
@@ -58,26 +56,25 @@ download_manifest.json
 
 # ─── Logs ─────────────────────────────────────────────────
 logs/
+command_history.log
 
 # ─── UNC target list exports (PII — never commit) ─────────
 UNC_Exports/
 
-# ─── Instructions
-JUPYTER_QUICKSTART.md
-RUN_LOCALLY.md
-*.PDF*.png
-*.PNG
-LEGEND_EXPLORATION.md
-LEGEND_AND_TOOLTIP_STRATEGY.md
-CHARTJS_PLUGINS_RESEARCH.md
-GEMINI_backup_20260509_2355.md
-.gitignore
+# ─── Tool-specific local directories ──────────────────────
+.antigravitycli/
+
+# ─── One-shot patch scripts (use patches/ directory, not root) ────
+patches/
+
+# ─── Private agent instructions / internal research ───────
 GEMINI.md
-HANDOFF_OPUS_PASS_B.md
 docs/research/CLAUDE_md_review.md
 docs/research/PIPELINE_GUIDE.md
 
 # ─── State Archive Files ──────────────────────────────────
 docs/archive/
 
-HANDOFF_NARRATIVE_BUILD.md
+# ─── Image artifacts ──────────────────────────────────────
+*.PDF*.png
+*.PNG

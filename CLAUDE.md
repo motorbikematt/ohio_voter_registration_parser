@@ -24,6 +24,8 @@ p.write_text(src.replace(old, new), encoding='utf-8')
 
 For payloads >50 lines, use `Path.write_text(content)` from inside a Python invocation — never `cat << 'EOF' >> file`. After every patch validate: Python `python3 -c "import ast; ast.parse(open('path').read())"`, JavaScript `node --check path/to/file.js`.
 
+**Patch script location.** One-shot patch scripts go in `patches/` (gitignored), never at repo root. Check `patches/` at the start of each session and delete any script whose target patch has already been applied.
+
 ## Processing principles
 
 - **Polars or DuckDB**, not Pandas — out-of-core, vectorized, all 88 counties.
