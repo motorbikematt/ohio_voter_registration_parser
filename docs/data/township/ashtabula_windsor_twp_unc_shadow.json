@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 75",
+      "Mixed – Active — 91",
+      "Mixed – Lapsed — 70",
+      "UNC – No Primary — 291",
+      "UNC – Lapsed D — 64"
+    ],
+    "datasets": [
+      {
+        "data": [
+          75,
+          91,
+          70,
+          291,
+          64
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "WINDSOR TWP (Ashtabula Co.)",
+  "updated": "2026-05-28"
+}

@@ -3,8 +3,8 @@
   "county": "Columbiana",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "15",
-      "PRECINCT SALEM CITY",
+      "SALEM",
       "6,105",
       "1,254",
       "7,359",
@@ -26,7 +26,7 @@
     ],
     [
       "15",
-      "PRECINCT E LIVERPOOL",
+      "EAST LIVERPOOL",
       "3,760",
       "1,229",
       "4,989",
@@ -35,7 +35,7 @@
     ],
     [
       "15",
-      "PRECINCT COLUMBIANA CITY",
+      "COLUMBIANA",
       "3,642",
       "456",
       "4,098",
@@ -215,18 +215,18 @@
     ],
     [
       "15",
-      "PRECINCT UNITY TWP NORTH",
-      "770",
-      "104",
+      "PRECINCT LISBON VIL SOUTH",
+      "729",
+      "145",
       "874",
       "1",
       "N/A"
     ],
     [
       "15",
-      "PRECINCT LISBON VIL SOUTH",
-      "729",
-      "145",
+      "PRECINCT UNITY TWP NORTH",
+      "770",
+      "104",
       "874",
       "1",
       "N/A"

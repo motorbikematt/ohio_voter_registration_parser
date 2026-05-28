@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,391",
+      "Mixed – Active — 442",
+      "Mixed – Lapsed — 693",
+      "UNC – No Primary — 4,977",
+      "UNC – Lapsed D — 919"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1391,
+          442,
+          693,
+          4977,
+          919
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "LEMON TOWNSHIP (Butler Co.)",
+  "updated": "2026-05-28"
+}

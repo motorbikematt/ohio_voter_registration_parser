@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 41 (23%)",
+      "UNC – Lapsed R — 20 (11%)",
+      "Mixed – Active — 7 (4%)",
+      "Mixed – Lapsed — 17 (9%)",
+      "UNC – No Primary — 79 (44%)",
+      "UNC – Lapsed D — 15 (8%)",
+      "Pure D — 2 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          41,
+          20,
+          7,
+          17,
+          79,
+          15,
+          2
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "BEAVERDAM VILLAGE (Allen Co.)",
+  "updated": "2026-05-28"
+}

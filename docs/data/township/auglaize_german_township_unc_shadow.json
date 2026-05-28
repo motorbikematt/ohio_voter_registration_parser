@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 503",
+      "Mixed – Active — 194",
+      "Mixed – Lapsed — 236",
+      "UNC – No Primary — 857",
+      "UNC – Lapsed D — 137"
+    ],
+    "datasets": [
+      {
+        "data": [
+          503,
+          194,
+          236,
+          857,
+          137
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "GERMAN TOWNSHIP (Auglaize Co.)",
+  "updated": "2026-05-28"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 429 (23%)",
+      "UNC – Lapsed R — 259 (14%)",
+      "Mixed – Active — 68 (4%)",
+      "Mixed – Lapsed — 111 (6%)",
+      "UNC – No Primary — 832 (45%)",
+      "UNC – Lapsed D — 96 (5%)",
+      "Pure D — 44 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          429,
+          259,
+          68,
+          111,
+          832,
+          96,
+          44
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "Township Spencer (Allen Co.)",
+  "updated": "2026-05-28"
+}

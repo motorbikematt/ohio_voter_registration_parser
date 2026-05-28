@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 440 (16%)",
+      "UNC – Lapsed R — 266 (10%)",
+      "Mixed – Active — 248 (9%)",
+      "Mixed – Lapsed — 131 (5%)",
+      "UNC – No Primary — 1,250 (47%)",
+      "UNC – Lapsed D — 231 (9%)",
+      "Pure D — 118 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          440,
+          266,
+          248,
+          131,
+          1250,
+          231,
+          118
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "GEORGETOWN VILLAGE (Brown Co.)",
+  "updated": "2026-05-28"
+}

@@ -3,8 +3,8 @@
   "county": "Noble",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -35,7 +35,7 @@
     ],
     [
       "61",
-      "OLIVE/DEXTER CITY",
+      "OLIVE/DEXTER",
       "546",
       "65",
       "611",
@@ -116,18 +116,18 @@
     ],
     [
       "61",
-      "JACKSON/DEXTER CITY",
-      "299",
-      "50",
+      "MARION/SUMMERFIELD",
+      "306",
+      "43",
       "349",
       "1",
       "N/A"
     ],
     [
       "61",
-      "MARION/SUMMERFIELD",
-      "306",
-      "43",
+      "JACKSON/DEXTER",
+      "299",
+      "50",
       "349",
       "1",
       "N/A"
@@ -179,7 +179,7 @@
     ],
     [
       "61",
-      "JEFFERSON/DEXTER CITY",
+      "JEFFERSON/DEXTER",
       "128",
       "20",
       "148",

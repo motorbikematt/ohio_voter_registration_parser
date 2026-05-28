@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,190",
+      "Mixed – Active — 533",
+      "Mixed – Lapsed — 683",
+      "UNC – No Primary — 2,903",
+      "UNC – Lapsed D — 482"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1190,
+          533,
+          683,
+          2903,
+          482
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "ST MARYS TOWNSHIP (Auglaize Co.)",
+  "updated": "2026-05-28"
+}

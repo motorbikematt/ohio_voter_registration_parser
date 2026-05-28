@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 254",
+      "Mixed – Active — 161",
+      "Mixed – Lapsed — 230",
+      "UNC – No Primary — 849",
+      "UNC – Lapsed D — 178"
+    ],
+    "datasets": [
+      {
+        "data": [
+          254,
+          161,
+          230,
+          849,
+          178
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "JACKSON-COMBINED (Ashland Co.)",
+  "updated": "2026-05-28"
+}

@@ -3,8 +3,8 @@
   "county": "Jefferson",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,16 @@
   "rows": [
     [
       "41",
-      "PRECINCT TORONTO",
+      "STEUBENVILLE",
+      "8,432",
+      "2,427",
+      "10,859",
+      "14",
+      "N/A"
+    ],
+    [
+      "41",
+      "TORONTO",
       "2,802",
       "580",
       "3,382",
@@ -35,24 +44,6 @@
     ],
     [
       "41",
-      "PRECINCT STEUBENVILLE 6",
-      "2,060",
-      "369",
-      "2,429",
-      "3",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT STEUBENVILLE 5",
-      "1,999",
-      "355",
-      "2,354",
-      "3",
-      "N/A"
-    ],
-    [
-      "41",
       "PRECINCT MINGO",
       "1,733",
       "368",
@@ -62,46 +53,10 @@
     ],
     [
       "41",
-      "PRECINCT STEUBENVILLE 2",
-      "1,418",
-      "425",
-      "1,843",
-      "2",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT STEUBENVILLE 3",
-      "1,386",
-      "430",
-      "1,816",
-      "2",
-      "N/A"
-    ],
-    [
-      "41",
       "PRECINCT PLEASANT HILL",
       "1,371",
       "203",
       "1,574",
-      "2",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT STEUBENVILLE 4",
-      "752",
-      "466",
-      "1,218",
-      "2",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT STEUBENVILLE 1",
-      "817",
-      "382",
-      "1,199",
       "2",
       "N/A"
     ],

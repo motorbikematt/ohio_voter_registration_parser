@@ -3,8 +3,8 @@
   "county": "Auglaize",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,20 +17,29 @@
   "rows": [
     [
       "06",
-      "PRECINCT ST. MARYS",
-      "6,664",
-      "1,088",
-      "7,752",
-      "9",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT WAPAKONETA",
+      "WAPAKONETA",
       "5,513",
       "904",
       "6,417",
       "8",
+      "N/A"
+    ],
+    [
+      "06",
+      "ST. MARYS",
+      "4,523",
+      "811",
+      "5,334",
+      "6",
+      "N/A"
+    ],
+    [
+      "06",
+      "PRECINCT ST. MARYS",
+      "2,141",
+      "277",
+      "2,418",
+      "3",
       "N/A"
     ],
     [
@@ -152,18 +161,18 @@
     ],
     [
       "06",
-      "PRECINCT WAYNE",
-      "491",
-      "55",
+      "PRECINCT CLAY",
+      "497",
+      "49",
       "546",
       "1",
       "N/A"
     ],
     [
       "06",
-      "PRECINCT CLAY",
-      "497",
-      "49",
+      "PRECINCT WAYNE",
+      "491",
+      "55",
       "546",
       "1",
       "N/A"

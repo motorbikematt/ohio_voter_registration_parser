@@ -3,8 +3,8 @@
   "county": "Portage",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "67",
-      "PRECINCT KENT",
+      "KENT",
       "11,342",
       "2,628",
       "13,970",
@@ -26,7 +26,7 @@
     ],
     [
       "67",
-      "PRECINCT AURORA",
+      "AURORA",
       "11,887",
       "1,414",
       "13,301",
@@ -35,7 +35,7 @@
     ],
     [
       "67",
-      "PRECINCT STREETSBORO",
+      "STREETSBORO",
       "10,351",
       "1,716",
       "12,067",
@@ -45,15 +45,15 @@
     [
       "67",
       "PRECINCT BRIMFIELD",
-      "7,272",
-      "1,087",
-      "8,359",
+      "7,087",
+      "1,066",
+      "8,153",
       "7",
       "N/A"
     ],
     [
       "67",
-      "PRECINCT RAVENNA",
+      "RAVENNA",
       "5,769",
       "1,176",
       "6,945",
@@ -117,9 +117,9 @@
     [
       "67",
       "PRECINCT MANTUA TWP",
-      "3,041",
+      "3,042",
       "326",
-      "3,367",
+      "3,368",
       "4",
       "N/A"
     ],
@@ -233,7 +233,7 @@
     ],
     [
       "67",
-      "PRECINCT MOGADORE VILLAGE",
+      "PRECINCT MOGADORE",
       "686",
       "62",
       "748",
@@ -242,7 +242,7 @@
     ],
     [
       "67",
-      "PRECINCT MANTUA VILLAGE",
+      "PRECINCT MANTUA",
       "594",
       "81",
       "675",
@@ -251,10 +251,19 @@
     ],
     [
       "67",
-      "PRECINCT HIRAM VILLAGE",
+      "PRECINCT HIRAM",
       "281",
       "109",
       "390",
+      "1",
+      "N/A"
+    ],
+    [
+      "67",
+      "TALLMADGE",
+      "185",
+      "21",
+      "206",
       "1",
       "N/A"
     ],

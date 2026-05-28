@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,756 (15%)",
+      "UNC – Lapsed R — 772 (6%)",
+      "Mixed – Active — 1,190 (10%)",
+      "Mixed – Lapsed — 962 (8%)",
+      "UNC – No Primary — 4,666 (39%)",
+      "UNC – Lapsed D — 1,550 (13%)",
+      "Pure D — 1,057 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1756,
+          772,
+          1190,
+          962,
+          4666,
+          1550,
+          1057
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Municipal Court District",
+  "jurisdiction_name": "CONNEAUT (Ashtabula Co.)",
+  "updated": "2026-05-28"
+}

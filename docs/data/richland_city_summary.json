@@ -3,8 +3,8 @@
   "county": "Richland",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,10 +17,10 @@
   "rows": [
     [
       "70",
-      "PRECINCT MAN",
-      "20,751",
-      "5,180",
-      "25,931",
+      "MANSFIELD",
+      "20,694",
+      "5,175",
+      "25,869",
       "28",
       "N/A"
     ],
@@ -35,7 +35,7 @@
     ],
     [
       "70",
-      "PRECINCT SHL",
+      "SHELBY",
       "4,856",
       "781",
       "5,637",
@@ -44,7 +44,7 @@
     ],
     [
       "70",
-      "PRECINCT ONT",
+      "ONTARIO",
       "4,117",
       "650",
       "4,767",
@@ -210,6 +210,15 @@
       "344",
       "74",
       "418",
+      "1",
+      "N/A"
+    ],
+    [
+      "70",
+      "PRECINCT MAN",
+      "57",
+      "5",
+      "62",
       "1",
       "N/A"
     ]

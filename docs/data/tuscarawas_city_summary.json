@@ -3,8 +3,8 @@
   "county": "Tuscarawas",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "79",
-      "PRECINCT NEW PHILA",
+      "NEW PHILADELPHIA",
       "8,824",
       "1,434",
       "10,258",
@@ -26,7 +26,7 @@
     ],
     [
       "79",
-      "PRECINCT DOVER",
+      "DOVER",
       "6,925",
       "1,002",
       "7,927",
@@ -35,7 +35,16 @@
     ],
     [
       "79",
-      "PRECINCT DENNISON VILLAGE",
+      "UHRICHSVILLE",
+      "2,150",
+      "600",
+      "2,750",
+      "4",
+      "N/A"
+    ],
+    [
+      "79",
+      "PRECINCT DENNISON",
       "1,252",
       "267",
       "1,519",
@@ -197,15 +206,6 @@
     ],
     [
       "79",
-      "PRECINCT UHRICHSVILLE #4",
-      "641",
-      "146",
-      "787",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
       "PRECINCT DOVER TWP #1",
       "675",
       "97",
@@ -251,15 +251,6 @@
     ],
     [
       "79",
-      "PRECINCT UHRICHSVILLE #3",
-      "541",
-      "184",
-      "725",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
       "PRECINCT SALEM TWP",
       "638",
       "68",
@@ -296,7 +287,7 @@
     ],
     [
       "79",
-      "PRECINCT TUSCARAWAS VILLAGE",
+      "PRECINCT TUSCARAWAS",
       "573",
       "101",
       "674",
@@ -323,15 +314,6 @@
     ],
     [
       "79",
-      "PRECINCT UHRICHSVILLE #2",
-      "459",
-      "177",
-      "636",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
       "PRECINCT STONECREEK/JEFF TWP",
       "570",
       "58",
@@ -350,15 +332,6 @@
     ],
     [
       "79",
-      "PRECINCT BOLIVAR VILLAGE",
-      "556",
-      "60",
-      "616",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
       "PRECINCT DOVER TWP #4/PARRAL",
       "539",
       "77",
@@ -368,10 +341,10 @@
     ],
     [
       "79",
-      "PRECINCT UHRICHSVILLE #1",
-      "509",
-      "93",
-      "602",
+      "PRECINCT BOLIVAR",
+      "556",
+      "60",
+      "616",
       "1",
       "N/A"
     ],
@@ -449,7 +422,7 @@
     ],
     [
       "79",
-      "PRECINCT MIDVALE VILLAGE",
+      "PRECINCT MIDVALE",
       "312",
       "93",
       "405",
@@ -458,7 +431,7 @@
     ],
     [
       "79",
-      "PRECINCT BALTIC VILLAGE",
+      "PRECINCT BALTIC",
       "300",
       "54",
       "354",
@@ -467,7 +440,7 @@
     ],
     [
       "79",
-      "PRECINCT MINERAL CITY",
+      "PRECINCT MINERAL",
       "271",
       "77",
       "348",

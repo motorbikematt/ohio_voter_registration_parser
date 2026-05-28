@@ -3,8 +3,8 @@
   "county": "Morrow",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -53,7 +53,7 @@
     ],
     [
       "59",
-      "CARDINGTON VILLAGE",
+      "CARDINGTON",
       "1,116",
       "209",
       "1,325",
@@ -107,7 +107,7 @@
     ],
     [
       "59",
-      "MT GILEAD VILLAGE",
+      "MT GILEAD",
       "851",
       "135",
       "986",
@@ -242,7 +242,7 @@
     ],
     [
       "59",
-      "EDISON VILLAGE",
+      "EDISON",
       "229",
       "47",
       "276",

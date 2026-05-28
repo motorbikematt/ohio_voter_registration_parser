@@ -3,8 +3,8 @@
   "county": "Logan",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,29 +17,11 @@
   "rows": [
     [
       "46",
-      "PRECINCT SECOND WARD",
-      "2,058",
-      "343",
-      "2,401",
-      "2",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT FIRST WARD",
-      "1,866",
-      "389",
-      "2,255",
-      "2",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT FOURTH WARD",
-      "1,666",
-      "438",
-      "2,104",
-      "2",
+      "BELLEFONTAINE",
+      "6,849",
+      "1,672",
+      "8,521",
+      "8",
       "N/A"
     ],
     [
@@ -57,15 +39,6 @@
       "1,719",
       "218",
       "1,937",
-      "2",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT THIRD WARD",
-      "1,259",
-      "502",
-      "1,761",
       "2",
       "N/A"
     ],

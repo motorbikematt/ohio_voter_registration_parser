@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 67 (8%)",
+      "UNC – Lapsed R — 36 (4%)",
+      "Mixed – Active — 95 (11%)",
+      "Mixed – Lapsed — 75 (9%)",
+      "UNC – No Primary — 368 (42%)",
+      "UNC – Lapsed D — 143 (16%)",
+      "Pure D — 88 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          67,
+          36,
+          95,
+          75,
+          368,
+          143,
+          88
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "POWHATAN POINT VILLAGE (Belmont Co.)",
+  "updated": "2026-05-28"
+}

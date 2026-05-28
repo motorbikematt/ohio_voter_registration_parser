@@ -3,8 +3,8 @@
   "county": "Wood",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,37 +18,37 @@
     [
       "87",
       "PERRYSBURG",
-      "16,256",
+      "16,258",
       "2,395",
-      "18,651",
-      "20",
+      "18,653",
+      "22",
       "N/A"
     ],
     [
       "87",
       "BOWLING GREEN",
-      "13,272",
+      "13,273",
       "3,129",
-      "16,401",
-      "19",
+      "16,402",
+      "20",
       "N/A"
     ],
     [
       "87",
       "ROSSFORD",
       "3,860",
-      "656",
-      "4,516",
-      "5",
+      "657",
+      "4,517",
+      "6",
       "N/A"
     ],
     [
       "87",
       "NORTHWOOD",
-      "2,817",
+      "2,818",
       "589",
-      "3,406",
-      "3",
+      "3,407",
+      "4",
       "N/A"
     ],
     [
@@ -63,9 +63,9 @@
     [
       "87",
       "LAKE TWP WALBRIDGE VILL",
-      "1,655",
+      "1,654",
       "275",
-      "1,930",
+      "1,929",
       "2",
       "N/A"
     ],
@@ -108,18 +108,18 @@
     [
       "87",
       "MIDDLETON TWP NORTH",
-      "1,106",
+      "1,105",
       "99",
-      "1,205",
+      "1,204",
       "1",
       "N/A"
     ],
     [
       "87",
       "LAKE TWP LATCHA",
-      "1,072",
+      "1,071",
       "130",
-      "1,202",
+      "1,201",
       "1",
       "N/A"
     ],
@@ -224,18 +224,18 @@
     ],
     [
       "87",
-      "PERRYSBURG TWP FORD",
-      "845",
-      "101",
+      "PRBG TWP FALLEN TIMBERS",
+      "729",
+      "217",
       "946",
       "1",
       "N/A"
     ],
     [
       "87",
-      "PRBG TWP FALLEN TIMBERS",
-      "729",
-      "217",
+      "PERRYSBURG TWP FORD",
+      "845",
+      "101",
       "946",
       "1",
       "N/A"
@@ -253,8 +253,8 @@
       "87",
       "TROY TWP NORTH",
       "771",
-      "159",
-      "930",
+      "158",
+      "929",
       "1",
       "N/A"
     ],
@@ -297,9 +297,9 @@
     [
       "87",
       "CENTER TOWNSHIP",
-      "777",
+      "776",
       "75",
-      "852",
+      "851",
       "1",
       "N/A"
     ],
@@ -413,7 +413,7 @@
     ],
     [
       "87",
-      "FOSTORIA CITY",
+      "FOSTORIA",
       "501",
       "109",
       "610",

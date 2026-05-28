@@ -3,8 +3,8 @@
   "county": "Fairfield",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,25 +17,16 @@
   "rows": [
     [
       "23",
-      "LANCASTER CITY",
+      "LANCASTER",
       "21,283",
-      "4,028",
-      "25,311",
+      "4,029",
+      "25,312",
       "26",
       "N/A"
     ],
     [
       "23",
-      "VIOLET",
-      "16,211",
-      "2,107",
-      "18,318",
-      "18",
-      "N/A"
-    ],
-    [
-      "23",
-      "PICKERINGTON CITY",
+      "PICKERINGTON",
       "14,925",
       "2,505",
       "17,430",
@@ -44,7 +35,16 @@
     ],
     [
       "23",
-      "COLUMBUS CITY",
+      "VIOLET",
+      "14,704",
+      "1,742",
+      "16,446",
+      "18",
+      "N/A"
+    ],
+    [
+      "23",
+      "COLUMBUS",
       "4,885",
       "1,431",
       "6,316",
@@ -54,9 +54,9 @@
     [
       "23",
       "BLOOM",
-      "5,703",
-      "515",
-      "6,218",
+      "5,438",
+      "481",
+      "5,919",
       "5",
       "N/A"
     ],
@@ -64,8 +64,8 @@
       "23",
       "PLEASANT",
       "4,360",
-      "502",
-      "4,862",
+      "503",
+      "4,863",
       "6",
       "N/A"
     ],
@@ -125,7 +125,7 @@
     ],
     [
       "23",
-      "BALTIMORE VILLAGE",
+      "BALTIMORE",
       "1,647",
       "233",
       "1,880",
@@ -152,11 +152,20 @@
     ],
     [
       "23",
-      "LITHOPOLIS VILLAGE",
+      "LITHOPOLIS",
       "1,517",
       "200",
       "1,717",
       "2",
+      "N/A"
+    ],
+    [
+      "23",
+      "CANAL WINCHESTER",
+      "1,368",
+      "263",
+      "1,631",
+      "3",
       "N/A"
     ],
     [
@@ -179,7 +188,7 @@
     ],
     [
       "23",
-      "BREMEN VILLAGE",
+      "BREMEN",
       "778",
       "136",
       "914",
@@ -192,6 +201,15 @@
       "552",
       "56",
       "608",
+      "1",
+      "N/A"
+    ],
+    [
+      "23",
+      "REYNOLDSBURG",
+      "404",
+      "136",
+      "540",
       "1",
       "N/A"
     ]

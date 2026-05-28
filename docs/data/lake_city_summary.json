@@ -3,8 +3,8 @@
   "county": "Lake",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "43",
-      "PRECINCT MENTOR CITY",
+      "MENTOR",
       "31,775",
       "3,342",
       "35,117",
@@ -26,7 +26,7 @@
     ],
     [
       "43",
-      "PRECINCT WILLOUGHBY CITY",
+      "WILLOUGHBY",
       "14,724",
       "2,042",
       "16,766",
@@ -53,7 +53,7 @@
     ],
     [
       "43",
-      "PRECINCT EASTLAKE CITY",
+      "EASTLAKE",
       "10,151",
       "1,624",
       "11,775",
@@ -62,7 +62,7 @@
     ],
     [
       "43",
-      "PRECINCT PAINESVILLE CITY",
+      "PAINESVILLE",
       "8,100",
       "2,028",
       "10,128",
@@ -71,7 +71,7 @@
     ],
     [
       "43",
-      "PRECINCT WILLOWICK CITY",
+      "WILLOWICK",
       "8,238",
       "1,226",
       "9,464",
@@ -89,7 +89,7 @@
     ],
     [
       "43",
-      "PRECINCT WICKLIFFE CITY",
+      "WICKLIFFE",
       "7,608",
       "1,074",
       "8,682",
@@ -98,7 +98,16 @@
     ],
     [
       "43",
-      "PRECINCT KIRTLAND",
+      "WILLOUGHBY HILLS",
+      "5,914",
+      "979",
+      "6,893",
+      "7",
+      "N/A"
+    ],
+    [
+      "43",
+      "KIRTLAND",
       "4,813",
       "493",
       "5,306",
@@ -107,7 +116,7 @@
     ],
     [
       "43",
-      "MENTOR-ON-THE-LAKE CITY",
+      "MENTOR-ON-THE-LAKE",
       "4,103",
       "632",
       "4,735",
@@ -143,24 +152,6 @@
     ],
     [
       "43",
-      "PRECINCT WILLOUGHBY HILLS CITY CC",
-      "1,032",
-      "193",
-      "1,225",
-      "1",
-      "N/A"
-    ],
-    [
-      "43",
-      "PRECINCT WILLOUGHBY HILLS CITY DD",
-      "917",
-      "243",
-      "1,160",
-      "1",
-      "N/A"
-    ],
-    [
-      "43",
       "PRECINCT MADISON VILLAGE BB",
       "1,037",
       "110",
@@ -188,55 +179,10 @@
     ],
     [
       "43",
-      "PRECINCT WILLOUGHBY HILLS CITY AA",
-      "968",
-      "92",
-      "1,060",
-      "1",
-      "N/A"
-    ],
-    [
-      "43",
-      "PRECINCT WILLOUGHBY HILLS CITY GG",
-      "736",
-      "239",
-      "975",
-      "1",
-      "N/A"
-    ],
-    [
-      "43",
       "PRECINCT FAIRPORT HBR BB",
       "818",
       "146",
       "964",
-      "1",
-      "N/A"
-    ],
-    [
-      "43",
-      "PRECINCT WILLOUGHBY HILLS CITY BB",
-      "834",
-      "66",
-      "900",
-      "1",
-      "N/A"
-    ],
-    [
-      "43",
-      "PRECINCT WILLOUGHBY HILLS CITY EE",
-      "722",
-      "75",
-      "797",
-      "1",
-      "N/A"
-    ],
-    [
-      "43",
-      "PRECINCT WILLOUGHBY HILLS CITY FF",
-      "705",
-      "71",
-      "776",
       "1",
       "N/A"
     ],

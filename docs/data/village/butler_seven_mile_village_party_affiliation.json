@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 77 (18%)",
+      "UNC – Lapsed R — 70 (16%)",
+      "Mixed – Active — 18 (4%)",
+      "Mixed – Lapsed — 57 (13%)",
+      "UNC – No Primary — 171 (39%)",
+      "UNC – Lapsed D — 35 (8%)",
+      "Pure D — 11 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          77,
+          70,
+          18,
+          57,
+          171,
+          35,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "SEVEN MILE VILLAGE (Butler Co.)",
+  "updated": "2026-05-28"
+}

@@ -3,8 +3,8 @@
   "county": "Henry",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,11 +17,11 @@
   "rows": [
     [
       "35",
-      "NAPOLEON CITY 04.0",
-      "1,109",
-      "231",
-      "1,340",
-      "1",
+      "NAPOLEON",
+      "4,987",
+      "877",
+      "5,864",
+      "6",
       "N/A"
     ],
     [
@@ -39,24 +39,6 @@
       "1,032",
       "136",
       "1,168",
-      "1",
-      "N/A"
-    ],
-    [
-      "35",
-      "NAPOLEON CITY 05.0",
-      "949",
-      "205",
-      "1,154",
-      "1",
-      "N/A"
-    ],
-    [
-      "35",
-      "NAPOLEON CITY 03.0",
-      "977",
-      "119",
-      "1,096",
       "1",
       "N/A"
     ],
@@ -98,15 +80,6 @@
     ],
     [
       "35",
-      "NAPOLEON CITY 06.0",
-      "737",
-      "56",
-      "793",
-      "1",
-      "N/A"
-    ],
-    [
-      "35",
       "RIDGEVILLE TWP 22.0",
       "706",
       "75",
@@ -120,24 +93,6 @@
       "678",
       "76",
       "754",
-      "1",
-      "N/A"
-    ],
-    [
-      "35",
-      "NAPOLEON CITY 01.1",
-      "613",
-      "136",
-      "749",
-      "1",
-      "N/A"
-    ],
-    [
-      "35",
-      "NAPOLEON CITY 02.0",
-      "602",
-      "130",
-      "732",
       "1",
       "N/A"
     ],

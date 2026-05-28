@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 98 (32%)",
+      "UNC – Lapsed R — 28 (9%)",
+      "Mixed – Active — 16 (5%)",
+      "Mixed – Lapsed — 31 (10%)",
+      "UNC – No Primary — 101 (33%)",
+      "UNC – Lapsed D — 16 (5%)",
+      "Pure D — 19 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          98,
+          28,
+          16,
+          31,
+          101,
+          16,
+          19
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "HAYESVILLE VILLAGE (Ashland Co.)",
+  "updated": "2026-05-28"
+}

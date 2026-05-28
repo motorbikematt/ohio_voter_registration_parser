@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 94 (26%)",
+      "UNC – Lapsed R — 24 (7%)",
+      "Mixed – Active — 25 (7%)",
+      "Mixed – Lapsed — 14 (4%)",
+      "UNC – No Primary — 151 (42%)",
+      "UNC – Lapsed D — 35 (10%)",
+      "Pure D — 16 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          94,
+          24,
+          25,
+          14,
+          151,
+          35,
+          16
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "GREEN TOWNSHIP (Adams Co.)",
+  "updated": "2026-05-28"
+}

@@ -3,8 +3,8 @@
   "county": "Warren",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,28 +17,28 @@
   "rows": [
     [
       "83",
-      "DEERFIELD TWP",
-      "20,402",
+      "MASON",
+      "20,754",
       "3,308",
-      "23,710",
-      "25",
+      "24,062",
+      "27",
       "N/A"
     ],
     [
       "83",
-      "MASON CITY",
-      "19,854",
-      "3,144",
-      "22,998",
+      "DEERFIELD TWP",
+      "19,871",
+      "3,210",
+      "23,081",
       "25",
       "N/A"
     ],
     [
       "83",
       "HAMILTON TWP",
-      "19,553",
-      "2,358",
-      "21,911",
+      "18,543",
+      "2,219",
+      "20,762",
       "22",
       "N/A"
     ],
@@ -46,14 +46,14 @@
       "83",
       "CLEARCREEK TWP",
       "13,070",
-      "1,403",
-      "14,473",
+      "1,404",
+      "14,474",
       "15",
       "N/A"
     ],
     [
       "83",
-      "LEBANON CITY",
+      "LEBANON",
       "12,465",
       "1,873",
       "14,338",
@@ -62,7 +62,7 @@
     ],
     [
       "83",
-      "SPRINGBORO CITY",
+      "SPRINGBORO",
       "12,157",
       "1,556",
       "13,713",
@@ -72,28 +72,37 @@
     [
       "83",
       "TURTLECREEK TWP",
-      "10,880",
-      "1,293",
-      "12,173",
-      "14",
+      "9,550",
+      "1,058",
+      "10,608",
+      "13",
       "N/A"
     ],
     [
       "83",
       "FRANKLIN TWP",
-      "8,964",
-      "1,230",
-      "10,194",
-      "11",
+      "7,208",
+      "880",
+      "8,088",
+      "10",
       "N/A"
     ],
     [
       "83",
-      "FRANKLIN CITY",
-      "5,939",
-      "1,209",
-      "7,148",
-      "8",
+      "FRANKLIN",
+      "6,057",
+      "1,218",
+      "7,275",
+      "9",
+      "N/A"
+    ],
+    [
+      "83",
+      "SOUTH LEBANON",
+      "4,023",
+      "692",
+      "4,715",
+      "7",
       "N/A"
     ],
     [
@@ -107,16 +116,7 @@
     ],
     [
       "83",
-      "SOUTH LEBANON CITY",
-      "3,801",
-      "654",
-      "4,455",
-      "4",
-      "N/A"
-    ],
-    [
-      "83",
-      "CARLISLE CITY",
+      "CARLISLE",
       "3,777",
       "512",
       "4,289",
@@ -134,11 +134,11 @@
     ],
     [
       "83",
-      "UNION TWP",
-      "2,306",
-      "241",
-      "2,547",
-      "2",
+      "MIDDLETOWN",
+      "2,897",
+      "561",
+      "3,458",
+      "5",
       "N/A"
     ],
     [
@@ -161,7 +161,16 @@
     ],
     [
       "83",
-      "WAYNESVILLE VILLAGE",
+      "UNION TWP",
+      "1,937",
+      "175",
+      "2,112",
+      "2",
+      "N/A"
+    ],
+    [
+      "83",
+      "WAYNESVILLE",
       "1,754",
       "242",
       "1,996",
@@ -170,7 +179,7 @@
     ],
     [
       "83",
-      "MORROW VILLAGE",
+      "MORROW",
       "1,625",
       "263",
       "1,888",
@@ -224,11 +233,29 @@
     ],
     [
       "83",
-      "MAINEVILLE VILLAGE",
+      "LOVELAND",
+      "788",
+      "101",
+      "889",
+      "1",
+      "N/A"
+    ],
+    [
+      "83",
+      "MAINEVILLE",
       "676",
       "100",
       "776",
       "1",
+      "N/A"
+    ],
+    [
+      "83",
+      "MONROE",
+      "71",
+      "16",
+      "87",
+      "2",
       "N/A"
     ]
   ]

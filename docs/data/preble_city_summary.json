@@ -3,8 +3,8 @@
   "county": "Preble",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "68",
-      "PRECINCT EATON",
+      "EATON",
       "4,617",
       "864",
       "5,481",
@@ -44,7 +44,7 @@
     ],
     [
       "68",
-      "PRECINCT CAMDEN VILLAGE",
+      "PRECINCT CAMDEN",
       "915",
       "225",
       "1,140",
@@ -107,20 +107,20 @@
     ],
     [
       "68",
-      "PRECINCT HARRISON TWP SOUTHEAST",
-      "651",
-      "72",
-      "723",
-      "2",
-      "N/A"
-    ],
-    [
-      "68",
       "PRECINCT MONROE TWP",
       "648",
       "75",
       "723",
       "1",
+      "N/A"
+    ],
+    [
+      "68",
+      "PRECINCT HARRISON TWP SOUTHEAST",
+      "651",
+      "72",
+      "723",
+      "2",
       "N/A"
     ],
     [
@@ -161,18 +161,18 @@
     ],
     [
       "68",
-      "PRECINCT SOMERS TWP WEST",
-      "517",
-      "81",
+      "PRECINCT HARRISON TWP WEST",
+      "533",
+      "65",
       "598",
       "2",
       "N/A"
     ],
     [
       "68",
-      "PRECINCT HARRISON TWP WEST",
-      "533",
-      "65",
+      "PRECINCT SOMERS TWP WEST",
+      "517",
+      "81",
       "598",
       "2",
       "N/A"
@@ -215,7 +215,7 @@
     ],
     [
       "68",
-      "PRECINCT GRATIS VILLAGE",
+      "PRECINCT GRATIS",
       "459",
       "81",
       "540",
@@ -260,7 +260,7 @@
     ],
     [
       "68",
-      "PRECINCT ELDORADO VILLAGE",
+      "PRECINCT ELDORADO",
       "282",
       "39",
       "321",
@@ -287,7 +287,7 @@
     ],
     [
       "68",
-      "PRECINCT WEST MANCHESTER VILLAGE",
+      "PRECINCT WEST MANCHESTER",
       "229",
       "31",
       "260",
@@ -296,7 +296,7 @@
     ],
     [
       "68",
-      "PRECINCT VERONA VILLAGE",
+      "PRECINCT VERONA",
       "195",
       "39",
       "234",
@@ -314,7 +314,7 @@
     ],
     [
       "68",
-      "PRECINCT COLLEGE CORNER VILLAGE",
+      "PRECINCT COLLEGE CORNER",
       "122",
       "28",
       "150",
@@ -323,7 +323,7 @@
     ],
     [
       "68",
-      "PRECINCT WEST ELKTON VILLAGE",
+      "PRECINCT WEST ELKTON",
       "78",
       "14",
       "92",

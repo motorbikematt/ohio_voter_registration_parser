@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 137",
+      "Mixed – Active — 43",
+      "Mixed – Lapsed — 51",
+      "UNC – No Primary — 275",
+      "UNC – Lapsed D — 43"
+    ],
+    "datasets": [
+      {
+        "data": [
+          137,
+          43,
+          51,
+          275,
+          43
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "LOGAN TOWNSHIP (Auglaize Co.)",
+  "updated": "2026-05-28"
+}

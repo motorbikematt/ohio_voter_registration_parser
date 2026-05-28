@@ -3,8 +3,8 @@
   "county": "Delaware",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "21",
-      "PRECINCT DELAWARE CITY",
+      "DELAWARE",
       "26,196",
       "4,059",
       "30,255",
@@ -53,7 +53,7 @@
     ],
     [
       "21",
-      "PRECINCT POWELL CITY",
+      "POWELL",
       "10,056",
       "1,121",
       "11,177",
@@ -71,7 +71,7 @@
     ],
     [
       "21",
-      "PRECINCT COLUMBUS CITY",
+      "COLUMBUS",
       "6,013",
       "1,560",
       "7,573",
@@ -80,7 +80,7 @@
     ],
     [
       "21",
-      "PRECINCT WESTERVILLE CITY",
+      "WESTERVILLE",
       "6,586",
       "767",
       "7,353",
@@ -98,7 +98,7 @@
     ],
     [
       "21",
-      "PRECINCT SUNBURY CITY",
+      "SUNBURY",
       "4,683",
       "551",
       "5,234",
@@ -125,7 +125,7 @@
     ],
     [
       "21",
-      "PRECINCT DUBLIN CITY",
+      "DUBLIN",
       "3,081",
       "295",
       "3,376",

@@ -3,8 +3,8 @@
   "county": "Mahoning",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,10 +17,19 @@
   "rows": [
     [
       "50",
+      "YOUNGSTOWN",
+      "25,903",
+      "8,373",
+      "34,276",
+      "45",
+      "N/A"
+    ],
+    [
+      "50",
       "PRECINCT BDM",
       "24,523",
-      "3,993",
-      "28,516",
+      "3,994",
+      "28,517",
       "37",
       "N/A"
     ],
@@ -53,16 +62,16 @@
     ],
     [
       "50",
-      "PRECINCT YGN5",
-      "4,991",
-      "927",
-      "5,918",
-      "6",
+      "STRUTHERS",
+      "5,238",
+      "1,085",
+      "6,323",
+      "12",
       "N/A"
     ],
     [
       "50",
-      "PRECINCT CNF",
+      "CANFIELD",
       "5,307",
       "547",
       "5,854",
@@ -71,20 +80,11 @@
     ],
     [
       "50",
-      "PRECINCT BVT",
-      "5,070",
-      "540",
-      "5,610",
-      "7",
-      "N/A"
-    ],
-    [
-      "50",
-      "PRECINCT YGN4",
-      "3,850",
-      "1,148",
-      "4,998",
-      "6",
+      "CAMPBELL",
+      "3,976",
+      "1,047",
+      "5,023",
+      "9",
       "N/A"
     ],
     [
@@ -98,55 +98,19 @@
     ],
     [
       "50",
-      "PRECINCT YGN3",
-      "3,657",
-      "1,216",
-      "4,873",
-      "6",
-      "N/A"
-    ],
-    [
-      "50",
-      "PRECINCT YGN6",
-      "3,500",
-      "1,325",
-      "4,825",
-      "8",
-      "N/A"
-    ],
-    [
-      "50",
-      "PRECINCT YGN7",
-      "3,588",
-      "1,217",
-      "4,805",
-      "6",
-      "N/A"
-    ],
-    [
-      "50",
-      "PRECINCT YGN1",
-      "3,117",
-      "1,331",
-      "4,448",
+      "PRECINCT BVT",
+      "4,364",
+      "464",
+      "4,828",
       "7",
-      "N/A"
-    ],
-    [
-      "50",
-      "PRECINCT YGN2",
-      "3,199",
-      "1,207",
-      "4,406",
-      "6",
       "N/A"
     ],
     [
       "50",
       "PRECINCT SBC",
       "2,069",
-      "401",
-      "2,470",
+      "402",
+      "2,471",
       "4",
       "N/A"
     ],
@@ -163,17 +127,17 @@
       "50",
       "PRECINCT GOT",
       "1,851",
-      "246",
-      "2,097",
+      "247",
+      "2,098",
       "3",
       "N/A"
     ],
     [
       "50",
       "PRECINCT SMT",
-      "1,725",
-      "261",
-      "1,986",
+      "1,706",
+      "259",
+      "1,965",
       "4",
       "N/A"
     ],
@@ -197,47 +161,11 @@
     ],
     [
       "50",
-      "PRECINCT STR4",
-      "1,627",
-      "230",
-      "1,857",
-      "3",
-      "N/A"
-    ],
-    [
-      "50",
-      "PRECINCT STR2",
-      "1,378",
-      "385",
-      "1,763",
-      "3",
-      "N/A"
-    ],
-    [
-      "50",
       "PRECINCT ELT",
       "1,518",
       "133",
       "1,651",
       "2",
-      "N/A"
-    ],
-    [
-      "50",
-      "PRECINCT CMP2",
-      "1,348",
-      "265",
-      "1,613",
-      "3",
-      "N/A"
-    ],
-    [
-      "50",
-      "PRECINCT STR3",
-      "1,352",
-      "231",
-      "1,583",
-      "3",
       "N/A"
     ],
     [
@@ -260,46 +188,10 @@
     ],
     [
       "50",
-      "PRECINCT CMP4",
-      "1,041",
-      "244",
-      "1,285",
-      "2",
-      "N/A"
-    ],
-    [
-      "50",
-      "PRECINCT STR1",
-      "881",
-      "238",
-      "1,119",
-      "3",
-      "N/A"
-    ],
-    [
-      "50",
-      "PRECINCT CMP3",
-      "875",
-      "211",
-      "1,086",
-      "2",
-      "N/A"
-    ],
-    [
-      "50",
       "PRECINCT NMV",
       "950",
       "120",
       "1,070",
-      "2",
-      "N/A"
-    ],
-    [
-      "50",
-      "PRECINCT CMP1",
-      "712",
-      "327",
-      "1,039",
       "2",
       "N/A"
     ],
@@ -310,6 +202,15 @@
       "113",
       "960",
       "2",
+      "N/A"
+    ],
+    [
+      "50",
+      "COLUMBIANA",
+      "706",
+      "76",
+      "782",
+      "1",
       "N/A"
     ],
     [
@@ -345,6 +246,15 @@
       "164",
       "50",
       "214",
+      "1",
+      "N/A"
+    ],
+    [
+      "50",
+      "ALLIANCE",
+      "19",
+      "3",
+      "22",
       "1",
       "N/A"
     ]

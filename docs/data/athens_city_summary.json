@@ -3,8 +3,8 @@
   "county": "Athens",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,38 +17,11 @@
   "rows": [
     [
       "05",
-      "ATHENS 3",
-      "2,017",
-      "712",
-      "2,729",
-      "5",
-      "N/A"
-    ],
-    [
-      "05",
-      "ATHENS 1",
-      "1,904",
-      "722",
-      "2,626",
-      "4",
-      "N/A"
-    ],
-    [
-      "05",
-      "ATHENS 4",
-      "1,935",
-      "534",
-      "2,469",
-      "5",
-      "N/A"
-    ],
-    [
-      "05",
-      "ATHENS 2",
-      "1,870",
-      "520",
-      "2,390",
-      "3",
+      "ATHENS",
+      "7,726",
+      "2,488",
+      "10,214",
+      "17",
       "N/A"
     ],
     [
@@ -161,7 +134,7 @@
     ],
     [
       "05",
-      "GLOUSTER VILLAGE",
+      "GLOUSTER",
       "753",
       "182",
       "935",
@@ -233,7 +206,7 @@
     ],
     [
       "05",
-      "ALBANY VILLAGE",
+      "ALBANY",
       "504",
       "114",
       "618",
@@ -269,7 +242,7 @@
     ],
     [
       "05",
-      "COOLVILLE VILLAGE",
+      "COOLVILLE",
       "265",
       "48",
       "313",
@@ -296,7 +269,7 @@
     ],
     [
       "05",
-      "TRIMBLE VILLAGE",
+      "TRIMBLE",
       "121",
       "32",
       "153",

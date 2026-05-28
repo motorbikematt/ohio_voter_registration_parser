@@ -3,8 +3,8 @@
   "county": "Ashtabula",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "04",
-      "PRECINCT ASHTABULA",
+      "ASHTABULA",
       "7,388",
       "2,059",
       "9,447",
@@ -26,7 +26,7 @@
     ],
     [
       "04",
-      "PRECINCT CONNEAUT",
+      "CONNEAUT",
       "5,450",
       "1,061",
       "6,511",
@@ -44,7 +44,7 @@
     ],
     [
       "04",
-      "PRECINCT GENEVA",
+      "GENEVA",
       "3,033",
       "589",
       "3,622",
@@ -125,7 +125,7 @@
     ],
     [
       "04",
-      "PRECINCT ROAMING SHORES VILLAGE",
+      "PRECINCT ROAMING SHORES",
       "1,073",
       "154",
       "1,227",
@@ -206,7 +206,7 @@
     ],
     [
       "04",
-      "PRECINCT ORWELL VILLAGE",
+      "PRECINCT ORWELL",
       "719",
       "151",
       "870",
@@ -226,8 +226,8 @@
       "04",
       "PRECINCT ORWELL TWP.",
       "573",
-      "111",
-      "684",
+      "112",
+      "685",
       "1",
       "N/A"
     ],
@@ -235,8 +235,8 @@
       "04",
       "PRECINCT PIERPONT TWP.",
       "571",
-      "87",
-      "658",
+      "88",
+      "659",
       "1",
       "N/A"
     ],
@@ -251,7 +251,7 @@
     ],
     [
       "04",
-      "PRECINCT ANDOVER VILLAGE",
+      "PRECINCT ANDOVER",
       "552",
       "88",
       "640",
@@ -315,9 +315,9 @@
     [
       "04",
       "PRECINCT COLEBROOK TWP.",
-      "418",
+      "419",
       "72",
-      "490",
+      "491",
       "1",
       "N/A"
     ],
@@ -341,7 +341,7 @@
     ],
     [
       "04",
-      "PRECINCT ROCK CREEK VILLAGE",
+      "PRECINCT ROCK CREEK",
       "351",
       "81",
       "432",

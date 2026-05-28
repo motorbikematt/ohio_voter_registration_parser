@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 14 (5%)",
+      "UNC – Lapsed R — 13 (5%)",
+      "Mixed – Active — 20 (7%)",
+      "Mixed – Lapsed — 17 (6%)",
+      "UNC – No Primary — 109 (39%)",
+      "UNC – Lapsed D — 80 (28%)",
+      "Pure D — 30 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          14,
+          13,
+          20,
+          17,
+          109,
+          80,
+          30
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "JACKSONVILLE VILLAGE (Athens Co.)",
+  "updated": "2026-05-28"
+}
