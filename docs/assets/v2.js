@@ -90,6 +90,7 @@
       id:      p.get('id')      || 'hamilton',
       county:  p.get('county')  || null,
       district_type: p.get('type') || null,
+      city:    p.get('city')    || null,
       compare: compare ? compare.split(',').slice(0, 2) : null
     };
   }
@@ -201,6 +202,10 @@
       // Narrative card: silently 404s for precincts not yet generated;
       // renderNarrative() hides the card when bag.narrative is absent.
       add('narrative',   `data/${cs}_precinct_${ps}_narrative.json`);
+    } else if (level === 'city') {
+      const cs = countyToSlug(county || S.id || '');
+      add('citySummary',   `data/${cs}_city_summary.json`);
+      add('precinctIndex', `data/${cs}_precinct_index.json`);
     } else if (level === 'district') {
       const t = S.district_type || 'state_senate_district';
       add('party',       `data/${t}/${id}_party_affiliation.json`);
@@ -433,8 +438,11 @@
       counties.forEach(c => {
         const slug = countyToSlug(c);
         const isSel = S.level === 'county' && S.id === slug;
+        const isExpanded = isSel ||
+          (S.level === 'city' && S.id === slug) ||
+          (S.level === 'precinct' && countyToSlug(S.county || '') === slug);
         html.push('<div class="hier-row depth-0 ' + (isSel ? 'is-selected' : '') + '" data-action="select-county" data-county="' + slug + '" data-county-name="' + c + '"><span class="twirl">▸</span><span class="label">' + c + '</span><span class="count">—</span></div>');
-        if (isSel) {
+        if (isExpanded) {
           html.push('<div class="hier-children is-open" data-county-children="' + slug + '"></div>');
         }
       });
@@ -442,11 +450,9 @@
       root.innerHTML = html.join('');
 
       // If a county is open, lazy-load its city/precinct list
-      if (S.level === 'county' || S.level === 'precinct') {
-        const cs = S.level === 'precinct' ? countyToSlug(S.county) : S.id;
+      if (S.level === 'county' || S.level === 'precinct' || S.level === 'city') {
+        const cs = S.level === 'precinct' ? countyToSlug(S.county || '') : S.id;
         await populateCountyChildren(cs);
-      } else if (S.level === 'precinct' && S.county) {
-        await populateCountyChildren(countyToSlug(S.county));
       }
     } else {
       // Districts view
@@ -513,8 +519,9 @@
       const cityPrecincts = buckets[c.name] || [];
       if (cityPrecincts.length === 0) return;
       const ck = countySlug + '_' + c.name.toLowerCase().replace(/[^a-z0-9]+/g, '_');
+      const isCitySel = S.level === 'city' && S.city === c.name;
       html.push(
-        '<div class="hier-row depth-1" data-action="toggle-city" data-city-key="' + ck + '">' +
+        '<div class="hier-row depth-1 ' + (isCitySel ? 'is-selected' : '') + '" data-action="toggle-city" data-city-key="' + ck + '" data-city-name="' + c.name + '" data-county="' + countySlug + '">' +
           '<span class="twirl">▸</span>' +
           '<span class="label">' + c.name + '</span>' +
           '<span class="count">' + cityPrecincts.length + '</span>' +
@@ -558,14 +565,39 @@
 
     wrap.innerHTML = html.join('');
 
-    // Toggle handlers on city rows (twirl rotates via .is-open)
+    // Toggle handlers on city rows: expand tree AND navigate to city view
     wrap.querySelectorAll('[data-action="toggle-city"]').forEach(el => {
-      el.onclick = (e) => {
+      el.onclick = async (e) => {
         e.stopPropagation();
         const key = el.getAttribute('data-city-key');
+        const cityName = el.getAttribute('data-city-name');
+        const cs = el.getAttribute('data-county');
         const isOpen = el.classList.toggle('is-open');
         const children = wrap.querySelector('[data-city-children="' + key + '"]');
         if (children) children.classList.toggle('is-open', isOpen);
+        // Navigate to city view for named cities (not 'Other precincts')
+        if (cityName && cs) {
+          wrap.querySelectorAll('[data-action="toggle-city"].is-selected').forEach(r => r.classList.remove('is-selected'));
+          el.classList.add('is-selected');
+          S.level = 'city'; S.city = cityName; S.id = cs; S.county = cs;
+          writeState({ level: 'city', city: cityName, id: cs, county: cs, type: null });
+          emit('select_jurisdiction', { level: 'city', city: cityName, county: cs });
+          await refreshView();
+        }
+      };
+    });
+
+    // Wire precinct click handlers (depth-2 rows are excluded from wireHierarchyEvents)
+    wrap.querySelectorAll('[data-action="select-precinct"]').forEach(el => {
+      el.onclick = async (e) => {
+        e.stopPropagation();
+        const county = el.getAttribute('data-county');
+        const precinct = el.getAttribute('data-precinct');
+        const name = el.getAttribute('data-precinct-name');
+        S.level = 'precinct'; S.id = precinct; S.county = county; S.city = null;
+        writeState({ level: 'precinct', id: precinct, county: county, city: null, type: null });
+        emit('select_jurisdiction', { level: 'precinct', id: precinct, county, name });
+        await refreshView();
       };
     });
 
@@ -581,6 +613,14 @@
           ch.classList.add('is-open');
         }
       }
+    }
+    // Auto-expand the active city when at city view
+    if (S.level === 'city' && S.city) {
+      const cityKey = countySlug + '_' + S.city.toLowerCase().replace(/[^a-z0-9]+/g, '_');
+      const cityRow = wrap.querySelector('[data-city-key="' + cityKey + '"]');
+      const cityChildren = wrap.querySelector('[data-city-children="' + cityKey + '"]');
+      if (cityRow && !cityRow.classList.contains('is-open')) { cityRow.classList.add('is-open'); }
+      if (cityChildren) cityChildren.classList.add('is-open');
     }
   }
 
@@ -735,6 +775,27 @@
   }
 
   function renderHero(container, bag) {
+    if (bag && bag.level === 'city') {
+      const cityRow = bag.citySummary && bag.citySummary.rows
+        ? bag.citySummary.rows.find(r => r[1] === bag.displayName) : null;
+      if (cityRow) {
+        container.innerHTML =
+          '<div class="hero-headline">' +
+            '<div class="eyebrow">Total registered voters</div>' +
+            '<div class="hero-number">' + cityRow[4] + '</div>' +
+            '<div class="hero-subtitle">' + bag.displayName + ' \u00b7 ' +
+              cityRow[5] + ' precincts \u00b7 ' +
+              cityRow[2] + ' active, ' + cityRow[3] + ' confirmation' +
+            '</div>' +
+          '</div>' +
+          '<div class="hero-ribbon-wrap">' +
+            '<div class="hero-ribbon-label"><span>Select a precinct in the left panel for detailed charts</span></div>' +
+          '</div>';
+      } else {
+        container.innerHTML = '<div class="hero-headline"><div class="eyebrow">' + bag.displayName + '</div><div class="hero-number">\u2014</div><div class="hero-subtitle muted">No summary data found.</div></div><div></div>';
+      }
+      return;
+    }
     if (!bag || !bag.party || !bag.party.chartConfig) {
       container.innerHTML = '<div class="hero-headline"><div class="eyebrow">Total registered voters</div><div class="hero-number">—</div><div class="hero-subtitle muted">Data has not yet been processed for this jurisdiction.</div></div><div></div>';
       return;
@@ -827,7 +888,9 @@
       renderChart('chart-unc', 'bar', bag.uncShadow.chartConfig, { stacked: true });
     } else { setPlaceholder('chart-unc-wrap', 'UNC shadow not yet processed'); }
 
-    if (bag.citySummary && bag.citySummary.rows) {
+    if (bag.level === 'city') {
+      setPlaceholder('city-table-wrap', 'Precinct-level charts above \u2014 select a precinct for detailed data');
+    } else if (bag.citySummary && bag.citySummary.rows) {
       renderTable($('city-table-wrap'), bag.citySummary);
     } else if ($('city-table-wrap')) {
       setPlaceholder('city-table-wrap', S.level === 'county' ? 'City/township summary not yet processed' : 'Not applicable at this scope');
@@ -896,6 +959,9 @@
     if (!root) return;
     const parts = [{ label: 'Ohio', action: 'state' }];
     if (bag.level === 'county') {
+      parts.push({ label: bag.displayName, here: true });
+    } else if (bag.level === 'city') {
+      parts.push({ label: slugToCountyName(bag.county || S.id || ''), action: 'county', county: bag.county || S.id });
       parts.push({ label: bag.displayName, here: true });
     } else if (bag.level === 'precinct') {
       parts.push({ label: slugToCountyName(bag.county), action: 'county', county: bag.county });
@@ -1172,6 +1238,10 @@
       if (S.level === 'county') {
         bag = await loadJurisdiction('county', S.id, null);
         bag.displayName = slugToCountyName(S.id);
+      } else if (S.level === 'city') {
+        bag = await loadJurisdiction('city', S.city, S.id);
+        bag.displayName = S.city || '';
+        bag.county = S.id;
       } else if (S.level === 'precinct') {
         bag = await loadJurisdiction('precinct', S.id, S.county || 'hamilton');
         bag.displayName = (bag.party && bag.party.precinct) || S.id.replace(/_/g, ' ').toUpperCase();
@@ -1223,6 +1293,7 @@
     } else {
       if (mapEyebrow) mapEyebrow.textContent = 'Ohio · 88 counties · party lean';
       const name = S.level === 'county' ? slugToCountyName(S.id) :
+                   S.level === 'city' ? slugToCountyName(S.id) :
                    S.level === 'precinct' ? slugToCountyName(S.county || '') : null;
       renderHexMap(window._leans, name, null);
     }
@@ -1455,6 +1526,7 @@
           renderHexMap(leans, null, [aN, bN].filter(Boolean));
         } else {
           const name = S.level === 'county' ? slugToCountyName(S.id) :
+                       S.level === 'city' ? slugToCountyName(S.id) :
                        S.level === 'precinct' ? slugToCountyName(S.county || '') : null;
           renderHexMap(leans, name, null);
         }
