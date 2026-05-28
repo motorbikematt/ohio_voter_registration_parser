@@ -1300,8 +1300,8 @@ def _extract_city(precinct_name: str) -> str:
 
 def build_city_summary(df: pl.DataFrame) -> pl.DataFrame:
     """
-    Aggregate voter registration to city/township level by extracting the
-    municipality from PRECINCT_NAME.
+    Aggregate voter registration to city/township level using the CITY column
+    (voter's registered address municipality) as the primary grouping key.
 
     COUNTY_NUMBER is preserved in the output so that when multiple counties are
     processed (Phase 3 statewide), cities that span county lines (e.g. Kettering
@@ -1321,11 +1321,20 @@ def build_city_summary(df: pl.DataFrame) -> pl.DataFrame:
         df.with_columns([
             pl.col('PRECINCT_NAME').fill_null('Unknown').str.strip_chars().alias('PRECINCT_NAME'),
             pl.col('COUNTY_NUMBER').fill_null('??').str.strip_chars().alias('COUNTY_NUMBER'),
+            pl.col('CITY').str.strip_chars().alias('CITY'),
         ])
         .with_columns(
-            pl.col('PRECINCT_NAME')
-              .map_elements(_extract_city, return_dtype=pl.Utf8)
-              .alias('City')
+            # Prefer CITY (registered-address municipality) over PRECINCT_NAME
+            # prefix-matching (physical precinct boundary). Fall back to
+            # prefix-matching only when CITY is absent (~19 blank counties).
+            pl.when(
+                pl.col('CITY').is_not_null() & pl.col('CITY').str.len_chars().gt(0)
+            )
+            .then(pl.col('CITY'))
+            .otherwise(
+                pl.col('PRECINCT_NAME').map_elements(_extract_city, return_dtype=pl.Utf8)
+            )
+            .alias('City')
         )
         .group_by(['COUNTY_NUMBER', 'City'])
         .agg([
