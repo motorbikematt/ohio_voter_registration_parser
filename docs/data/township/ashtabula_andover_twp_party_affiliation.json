@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 279 (16%)",
+      "UNC – Lapsed R — 177 (10%)",
+      "Mixed – Active — 146 (8%)",
+      "Mixed – Lapsed — 127 (7%)",
+      "UNC – No Primary — 745 (43%)",
+      "UNC – Lapsed D — 173 (10%)",
+      "Pure D — 89 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          279,
+          177,
+          146,
+          127,
+          745,
+          173,
+          89
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "ANDOVER TWP (Ashtabula Co.)",
+  "updated": "2026-05-28"
+}

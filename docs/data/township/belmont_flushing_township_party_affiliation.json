@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 187 (15%)",
+      "UNC – Lapsed R — 108 (9%)",
+      "Mixed – Active — 133 (11%)",
+      "Mixed – Lapsed — 80 (7%)",
+      "UNC – No Primary — 509 (42%)",
+      "UNC – Lapsed D — 124 (10%)",
+      "Pure D — 70 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          187,
+          108,
+          133,
+          80,
+          509,
+          124,
+          70
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FLUSHING TOWNSHIP (Belmont Co.)",
+  "updated": "2026-05-28"
+}

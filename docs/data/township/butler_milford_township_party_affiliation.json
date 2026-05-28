@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 499 (19%)",
+      "UNC – Lapsed R — 433 (17%)",
+      "Mixed – Active — 179 (7%)",
+      "Mixed – Lapsed — 208 (8%)",
+      "UNC – No Primary — 980 (38%)",
+      "UNC – Lapsed D — 207 (8%)",
+      "Pure D — 84 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          499,
+          433,
+          179,
+          208,
+          980,
+          207,
+          84
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MILFORD TOWNSHIP (Butler Co.)",
+  "updated": "2026-05-28"
+}

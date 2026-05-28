@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 315 (20%)",
+      "UNC – Lapsed R — 164 (10%)",
+      "Mixed – Active — 203 (13%)",
+      "Mixed – Lapsed — 137 (9%)",
+      "UNC – No Primary — 495 (31%)",
+      "UNC – Lapsed D — 167 (10%)",
+      "Pure D — 121 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          315,
+          164,
+          203,
+          137,
+          495,
+          167,
+          121
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "AUSTINBURG TWP (Ashtabula Co.)",
+  "updated": "2026-05-28"
+}

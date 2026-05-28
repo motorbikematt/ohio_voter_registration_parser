@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 339",
+      "Mixed – Active — 346",
+      "Mixed – Lapsed — 295",
+      "UNC – No Primary — 1,382",
+      "UNC – Lapsed D — 346"
+    ],
+    "datasets": [
+      {
+        "data": [
+          339,
+          346,
+          295,
+          1382,
+          346
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "JEFFERSON TWP (Ashtabula Co.)",
+  "updated": "2026-05-28"
+}

@@ -195,3 +195,81 @@ contains no individual voter records and is safe to publish.
 ## License
 
 MIT — Matthew F Reyes, 2026
+
+---
+
+## `voter_data_cleaner_v2.py` — core engine reference
+
+This module is not normally called directly. `ohio_voter_pipeline.py` is the intended entry point. The functions below are documented for scripted or programmatic use.
+
+### Smoke test
+
+```powershell
+python voter_data_cleaner_v2.py --test
+```
+
+Validates that `OHIO_COUNTIES` has all 88 entries and spot-checks county numbering. Exits with a non-zero code on failure.
+
+### Public entry points
+
+**`run_ohio_analysis(txt_files, use_parquet, max_workers, include_precinct_charts)`**
+
+Exports web dashboard JSON for all 88 counties. Writes to `docs/data/` and updates `docs/manifest.json`. Does not produce Excel output.
+
+- `txt_files` — list of `SWVF_*.txt` paths
+- `use_parquet` — build / reuse Hive-partitioned Parquet cache (default `True`; strongly recommended)
+- `max_workers` — thread-pool size; `0` = auto
+- `include_precinct_charts` — also write per-precinct party + UNC JSON files (significantly increases file count and run time; prompt `[Y]` in the pipeline menu)
+
+**`run_county_subset(txt_files, county_numbers, use_parquet, include_precinct_charts)`**
+
+Same pipeline as `run_ohio_analysis()` but loads only the requested Parquet partitions. Requires the Parquet cache to exist. `county_numbers` is a list of zero-padded strings, e.g. `['57', '29']`.
+
+**`run_ohio_excel(txt_files, output_path, use_parquet)`**
+
+Writes a summary Excel workbook for all of Ohio. Completely independent of the JSON / dashboard path — call only when the Excel deliverable is needed.
+
+**`run_county_analysis(txt_files, county_number, output_path, use_parquet)`**
+
+Single-county combined run: web dashboard JSON + Excel workbook. `county_number` is a zero-padded string or bare integer; the function normalises it.
+
+### Key build functions (importable)
+
+| Function | Input | Output |
+|---|---|---|
+| `build_city_summary(df)` | County-scoped Polars DataFrame | City / township aggregation using `CITY` column; falls back to precinct-name extraction for blank-CITY counties |
+| `build_county_summary(df)` | County-scoped DataFrame | Active / Confirmation totals and cohort breakdown |
+| `build_precinct_summary(df)` | County-scoped DataFrame | Per-precinct active / confirmation totals |
+| `build_parquet_cache(txt_files)` | SWVF `.txt` paths | Hive-partitioned Parquet at `source/parquet/COUNTY_NUMBER=NN/` |
+| `classify_all_voters_primary_history(df)` | Full statewide DataFrame | Adds `cohort_family`, `cohort`, `lean_score`, crossover columns |
+
+### Targeted post-pipeline utilities
+
+These scripts update specific outputs without rerunning the full pipeline:
+
+```powershell
+# Patch city field into all precinct index JSONs (run after a fresh Option 1)
+python tools/patch_precinct_index_city.py
+
+# Regenerate all *_city_summary.json from parquet (fast; skips chart generation)
+python tools/regen_city_summary.py
+```
+
+### Data flow
+
+```
+SWVF_*.txt.gz
+    └─▶ build_parquet_cache()   →  source/parquet/COUNTY_NUMBER=NN/
+            └─▶ load_voter_files_parquet()
+                    └─▶ clean_voter_data()
+                            └─▶ classify_all_voters_primary_history()
+                                    ├─▶ export_county_json()   →  docs/data/*.json
+                                    └─▶ build_workbook()       →  *.xlsx
+```
+
+### Important constraints
+
+- Uses **Polars**, not Pandas, for all core operations. Functions returning `pl.DataFrame` must not be passed to Pandas-expecting code without explicit conversion.
+- `COUNTY_NUMBER` is a **Hive partition key** in the Parquet layout, not a column inside the files. Add it back as a literal if needed: `df.with_columns(pl.lit('57').alias('COUNTY_NUMBER'))`.
+- `CITY` column in SWVF is blank for ~19 counties (Cuyahoga, Holmes, Sandusky, and others). `build_city_summary()` falls back to precinct-name prefix extraction for those counties.
+- Never call `build_city_summary()` using `PRECINCT_NAME` as a proxy for municipality. The CITY column is the authoritative source; precinct boundaries do not map 1:1 to municipal boundaries.

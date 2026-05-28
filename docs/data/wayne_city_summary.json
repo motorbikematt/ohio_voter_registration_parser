@@ -3,8 +3,8 @@
   "county": "Wayne",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "85",
-      "PRECINCT WOOSTER CITY",
+      "WOOSTER",
       "14,100",
       "2,796",
       "16,896",
@@ -26,7 +26,7 @@
     ],
     [
       "85",
-      "PRECINCT ORRVILLE CITY",
+      "ORRVILLE",
       "4,472",
       "701",
       "5,173",
@@ -36,15 +36,15 @@
     [
       "85",
       "PRECINCT CHIPPEWA TWP",
-      "4,166",
-      "567",
-      "4,733",
+      "4,164",
+      "566",
+      "4,730",
       "4",
       "N/A"
     ],
     [
       "85",
-      "PRECINCT RITTMAN CITY",
+      "RITTMAN",
       "3,191",
       "608",
       "3,799",
@@ -237,6 +237,15 @@
       "636",
       "188",
       "824",
+      "1",
+      "N/A"
+    ],
+    [
+      "85",
+      "NORTON",
+      "2",
+      "1",
+      "3",
       "1",
       "N/A"
     ]

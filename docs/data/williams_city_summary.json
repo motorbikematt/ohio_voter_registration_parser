@@ -3,8 +3,8 @@
   "county": "Williams",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -15,6 +15,15 @@
     "Est. Unregistered"
   ],
   "rows": [
+    [
+      "86",
+      "BRYAN",
+      "4,552",
+      "933",
+      "5,485",
+      "6",
+      "N/A"
+    ],
     [
       "86",
       "PRECINCT MONTPELIER",
@@ -53,37 +62,10 @@
     ],
     [
       "86",
-      "PRECINCT BRYAN D - WD3",
-      "1,098",
-      "133",
-      "1,231",
-      "1",
-      "N/A"
-    ],
-    [
-      "86",
       "PRECINCT CENTER NORTH",
       "1,056",
       "121",
       "1,177",
-      "1",
-      "N/A"
-    ],
-    [
-      "86",
-      "PRECINCT BRYAN A - WD1",
-      "881",
-      "243",
-      "1,124",
-      "1",
-      "N/A"
-    ],
-    [
-      "86",
-      "PRECINCT BRYAN B - WD2",
-      "907",
-      "216",
-      "1,123",
       "1",
       "N/A"
     ],
@@ -134,15 +116,6 @@
     ],
     [
       "86",
-      "PRECINCT BRYAN F - WD4",
-      "768",
-      "157",
-      "925",
-      "1",
-      "N/A"
-    ],
-    [
-      "86",
       "PRECINCT CENTER SOUTH",
       "776",
       "101",
@@ -188,15 +161,6 @@
     ],
     [
       "86",
-      "PRECINCT BRYAN E - WD4",
-      "470",
-      "136",
-      "606",
-      "1",
-      "N/A"
-    ],
-    [
-      "86",
       "PRECINCT SAINT JOSEPH",
       "515",
       "76",
@@ -228,15 +192,6 @@
       "440",
       "65",
       "505",
-      "1",
-      "N/A"
-    ],
-    [
-      "86",
-      "PRECINCT BRYAN C - WD3",
-      "428",
-      "48",
-      "476",
       "1",
       "N/A"
     ]

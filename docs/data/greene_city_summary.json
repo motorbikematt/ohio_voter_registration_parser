@@ -3,8 +3,8 @@
   "county": "Greene",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,24 +18,24 @@
     [
       "29",
       "BEAVERCREEK",
-      "36,572",
-      "5,181",
-      "41,753",
+      "36,402",
+      "5,170",
+      "41,572",
       "45",
       "N/A"
     ],
     [
       "29",
       "FAIRBORN",
-      "17,772",
-      "4,234",
-      "22,006",
-      "27",
+      "18,230",
+      "4,293",
+      "22,523",
+      "28",
       "N/A"
     ],
     [
       "29",
-      "XENIA CITY",
+      "XENIA",
       "13,446",
       "2,866",
       "16,312",
@@ -45,9 +45,9 @@
     [
       "29",
       "SUGARCREEK",
-      "8,079",
-      "1,075",
-      "9,154",
+      "7,493",
+      "981",
+      "8,474",
       "7",
       "N/A"
     ],
@@ -64,8 +64,8 @@
       "29",
       "XENIA TWP",
       "3,601",
-      "799",
-      "4,400",
+      "800",
+      "4,401",
       "8",
       "N/A"
     ],
@@ -179,11 +179,20 @@
     ],
     [
       "29",
-      "FAIRBVK",
-      "458",
-      "59",
-      "517",
-      "1",
+      "KETTERING",
+      "493",
+      "44",
+      "537",
+      "2",
+      "N/A"
+    ],
+    [
+      "29",
+      "CENTERVILLE",
+      "263",
+      "61",
+      "324",
+      "2",
       "N/A"
     ],
     [

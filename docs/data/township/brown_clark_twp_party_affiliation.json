@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 365 (20%)",
+      "UNC – Lapsed R — 177 (10%)",
+      "Mixed – Active — 167 (9%)",
+      "Mixed – Lapsed — 82 (5%)",
+      "UNC – No Primary — 820 (46%)",
+      "UNC – Lapsed D — 126 (7%)",
+      "Pure D — 55 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          365,
+          177,
+          167,
+          82,
+          820,
+          126,
+          55
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CLARK TWP (Brown Co.)",
+  "updated": "2026-05-28"
+}

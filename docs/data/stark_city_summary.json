@@ -3,8 +3,8 @@
   "county": "Stark",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,11 +17,11 @@
   "rows": [
     [
       "76",
-      "CANTON CITY",
-      "29,321",
+      "CANTON",
+      "29,324",
       "8,983",
-      "38,304",
-      "48",
+      "38,307",
+      "50",
       "N/A"
     ],
     [
@@ -45,9 +45,9 @@
     [
       "76",
       "LAKE",
-      "19,596",
+      "19,595",
       "2,261",
-      "21,857",
+      "21,856",
       "23",
       "N/A"
     ],
@@ -90,9 +90,9 @@
     [
       "76",
       "CANTON TWP",
-      "6,624",
+      "6,622",
       "1,106",
-      "7,730",
+      "7,728",
       "8",
       "N/A"
     ],

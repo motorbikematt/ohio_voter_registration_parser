@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 206 (6%)",
+      "UNC – Lapsed R — 212 (6%)",
+      "Mixed – Active — 321 (9%)",
+      "Mixed – Lapsed — 257 (7%)",
+      "UNC – No Primary — 1,708 (47%)",
+      "UNC – Lapsed D — 590 (16%)",
+      "Pure D — 356 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          206,
+          212,
+          321,
+          257,
+          1708,
+          590,
+          356
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "YORK TOWNSHIP (Athens Co.)",
+  "updated": "2026-05-28"
+}

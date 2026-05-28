@@ -3,8 +3,8 @@
   "county": "Fulton",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -15,6 +15,15 @@
     "Est. Unregistered"
   ],
   "rows": [
+    [
+      "26",
+      "WAUSEON",
+      "3,847",
+      "779",
+      "4,626",
+      "5",
+      "N/A"
+    ],
     [
       "26",
       "GORHAM / FAYETTE",
@@ -66,15 +75,6 @@
       "1,059",
       "185",
       "1,244",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "WAUSEON FIVE",
-      "1,009",
-      "204",
-      "1,213",
       "1",
       "N/A"
     ],
@@ -152,15 +152,6 @@
     ],
     [
       "26",
-      "WAUSEON TWO",
-      "786",
-      "162",
-      "948",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
       "GERMAN",
       "846",
       "101",
@@ -174,24 +165,6 @@
       "842",
       "102",
       "944",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "WAUSEON ONE",
-      "769",
-      "139",
-      "908",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "WAUSEON THREE",
-      "716",
-      "182",
-      "898",
       "1",
       "N/A"
     ],
@@ -228,15 +201,6 @@
       "700",
       "97",
       "797",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "WAUSEON FOUR",
-      "567",
-      "92",
-      "659",
       "1",
       "N/A"
     ],

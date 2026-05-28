@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 259",
+      "Mixed – Active — 68",
+      "Mixed – Lapsed — 111",
+      "UNC – No Primary — 832",
+      "UNC – Lapsed D — 96"
+    ],
+    "datasets": [
+      {
+        "data": [
+          259,
+          68,
+          111,
+          832,
+          96
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "Township Spencer (Allen Co.)",
+  "updated": "2026-05-28"
+}

@@ -3,8 +3,8 @@
   "county": "Lucas",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "48",
-      "PRECINCT TOLEDO",
+      "TOLEDO",
       "131,666",
       "35,771",
       "167,437",
@@ -44,19 +44,19 @@
     ],
     [
       "48",
-      "PRECINCT OREGON",
-      "11,836",
-      "1,887",
-      "13,723",
+      "SYLVANIA",
+      "11,889",
+      "1,820",
+      "13,709",
       "13",
       "N/A"
     ],
     [
       "48",
-      "PRECINCT SYLVANIA CITY",
-      "11,889",
-      "1,820",
-      "13,709",
+      "OREGON",
+      "11,788",
+      "1,875",
+      "13,663",
       "13",
       "N/A"
     ],
@@ -71,7 +71,7 @@
     ],
     [
       "48",
-      "PRECINCT MAUMEE",
+      "MAUMEE",
       "8,908",
       "1,280",
       "10,188",
@@ -80,7 +80,7 @@
     ],
     [
       "48",
-      "PRECINCT WATERVILLE CITY",
+      "WATERVILLE",
       "4,335",
       "507",
       "4,842",
@@ -89,7 +89,7 @@
     ],
     [
       "48",
-      "PRECINCT WHITEHOUSE VILLAGE",
+      "PRECINCT WHITEHOUSE",
       "3,370",
       "409",
       "3,779",
@@ -174,6 +174,15 @@
       "439",
       "55",
       "494",
+      "1",
+      "N/A"
+    ],
+    [
+      "48",
+      "PRECINCT OREGON",
+      "48",
+      "12",
+      "60",
       "1",
       "N/A"
     ]

@@ -3,8 +3,8 @@
   "county": "Clermont",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -71,7 +71,7 @@
     ],
     [
       "13",
-      "MILFORD CITY",
+      "MILFORD",
       "4,124",
       "696",
       "4,820",
@@ -125,7 +125,7 @@
     ],
     [
       "13",
-      "NEW RICHMOND VILLAGE",
+      "NEW RICHMOND",
       "1,799",
       "297",
       "2,096",
@@ -134,18 +134,18 @@
     ],
     [
       "13",
-      "FRANKLIN TOWNSHIP",
-      "1,736",
-      "274",
+      "LOVELAND",
+      "1,756",
+      "254",
       "2,010",
       "3",
       "N/A"
     ],
     [
       "13",
-      "LOVELAND CITY",
-      "1,756",
-      "254",
+      "FRANKLIN TOWNSHIP",
+      "1,736",
+      "274",
       "2,010",
       "3",
       "N/A"
@@ -161,7 +161,7 @@
     ],
     [
       "13",
-      "BATAVIA VILLAGE",
+      "BATAVIA",
       "1,400",
       "209",
       "1,609",
@@ -170,7 +170,7 @@
     ],
     [
       "13",
-      "WILLIAMSBURG VILLAGE",
+      "WILLIAMSBURG",
       "1,335",
       "243",
       "1,578",
@@ -179,7 +179,7 @@
     ],
     [
       "13",
-      "BETHEL VILLAGE",
+      "BETHEL",
       "1,272",
       "282",
       "1,554",
@@ -197,7 +197,7 @@
     ],
     [
       "13",
-      "OWENSVILLE VILLAGE",
+      "OWENSVILLE",
       "372",
       "79",
       "451",
@@ -206,7 +206,7 @@
     ],
     [
       "13",
-      "FELICITY VILLAGE",
+      "FELICITY",
       "251",
       "82",
       "333",

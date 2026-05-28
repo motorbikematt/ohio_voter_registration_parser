@@ -3,8 +3,8 @@
   "county": "Jackson",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,16 +17,16 @@
   "rows": [
     [
       "40",
-      "PRECINCT JACKSON",
-      "3,765",
-      "789",
-      "4,554",
-      "5",
+      "JACKSON",
+      "3,043",
+      "666",
+      "3,709",
+      "4",
       "N/A"
     ],
     [
       "40",
-      "PRECINCT WELLSTON",
+      "WELLSTON",
       "2,547",
       "515",
       "3,062",
@@ -48,6 +48,15 @@
       "748",
       "113",
       "861",
+      "1",
+      "N/A"
+    ],
+    [
+      "40",
+      "PRECINCT JACKSON",
+      "722",
+      "123",
+      "845",
       "1",
       "N/A"
     ],

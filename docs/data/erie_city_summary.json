@@ -3,8 +3,8 @@
   "county": "Erie",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "22",
-      "PRECINCT SAN",
+      "SANDUSKY",
       "12,109",
       "3,045",
       "15,154",
@@ -26,16 +26,16 @@
     ],
     [
       "22",
-      "PRECINCT HUR",
+      "HURON",
       "4,366",
-      "560",
-      "4,926",
-      "6",
+      "561",
+      "4,927",
+      "7",
       "N/A"
     ],
     [
       "22",
-      "PRECINCT VER",
+      "VERMILION",
       "2,930",
       "476",
       "3,406",
@@ -118,8 +118,8 @@
       "22",
       "PRECINCT HUR TWP #1",
       "949",
-      "124",
-      "1,073",
+      "123",
+      "1,072",
       "1",
       "N/A"
     ],
@@ -135,9 +135,9 @@
     [
       "22",
       "PRECINCT GRO TWP",
-      "841",
+      "839",
       "94",
-      "935",
+      "933",
       "1",
       "N/A"
     ],
@@ -354,6 +354,15 @@
       "153",
       "19",
       "172",
+      "1",
+      "N/A"
+    ],
+    [
+      "22",
+      "BELLEVUE",
+      "2",
+      "0",
+      "2",
       "1",
       "N/A"
     ]

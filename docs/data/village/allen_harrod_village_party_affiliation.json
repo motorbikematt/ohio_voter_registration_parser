@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 50 (21%)",
+      "UNC – Lapsed R — 31 (13%)",
+      "Mixed – Active — 20 (8%)",
+      "Mixed – Lapsed — 18 (7%)",
+      "UNC – No Primary — 104 (43%)",
+      "UNC – Lapsed D — 15 (6%)",
+      "Pure D — 4 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          50,
+          31,
+          20,
+          18,
+          104,
+          15,
+          4
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "HARROD VILLAGE (Allen Co.)",
+  "updated": "2026-05-28"
+}

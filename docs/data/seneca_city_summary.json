@@ -3,8 +3,8 @@
   "county": "Seneca",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "74",
-      "PRECINCT TIFFIN",
+      "TIFFIN",
       "8,219",
       "2,041",
       "10,260",
@@ -26,7 +26,7 @@
     ],
     [
       "74",
-      "PRECINCT FOSTORIA",
+      "FOSTORIA",
       "3,513",
       "1,308",
       "4,821",
@@ -143,7 +143,7 @@
     ],
     [
       "74",
-      "PRECINCT ATTICA VILLAGE",
+      "PRECINCT ATTICA",
       "484",
       "102",
       "586",
@@ -188,7 +188,7 @@
     ],
     [
       "74",
-      "PRECINCT BLOOMVILLE VILLAGE",
+      "PRECINCT BLOOMVILLE",
       "375",
       "112",
       "487",
@@ -206,7 +206,7 @@
     ],
     [
       "74",
-      "PRECINCT BETTSVILLE VILLAGE",
+      "PRECINCT BETTSVILLE",
       "332",
       "62",
       "394",
@@ -215,7 +215,7 @@
     ],
     [
       "74",
-      "PRECINCT GREEN SPRINGS VILLAGE",
+      "PRECINCT GREEN SPRINGS",
       "307",
       "85",
       "392",
@@ -233,7 +233,7 @@
     ],
     [
       "74",
-      "PRECINCT NEW RIEGEL VILLAGE",
+      "PRECINCT NEW RIEGEL",
       "147",
       "17",
       "164",

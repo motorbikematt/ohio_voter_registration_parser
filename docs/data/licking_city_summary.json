@@ -3,8 +3,8 @@
   "county": "Licking",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -71,7 +71,7 @@
     ],
     [
       "45",
-      "GRANVILLE VILLAGE",
+      "GRANVILLE",
       "3,268",
       "741",
       "4,009",
@@ -134,7 +134,7 @@
     ],
     [
       "45",
-      "HEBRON VILLAGE",
+      "HEBRON",
       "1,533",
       "274",
       "1,807",
@@ -153,9 +153,9 @@
     [
       "45",
       "JERSEY TOWNSHIP",
-      "1,507",
-      "181",
-      "1,688",
+      "1,487",
+      "165",
+      "1,652",
       "2",
       "N/A"
     ],
@@ -170,7 +170,7 @@
     ],
     [
       "45",
-      "BUCKEYE LAKE VILLAGE",
+      "BUCKEYE LAKE",
       "1,312",
       "297",
       "1,609",
@@ -233,15 +233,6 @@
     ],
     [
       "45",
-      "BOWLING GREEN TOWNSHIP",
-      "1,152",
-      "126",
-      "1,278",
-      "1",
-      "N/A"
-    ],
-    [
-      "45",
       "NEWTON TWP",
       "1,154",
       "124",
@@ -251,7 +242,16 @@
     ],
     [
       "45",
-      "UTICA VILLAGE",
+      "BOWLING GREEN TOWNSHIP",
+      "1,152",
+      "126",
+      "1,278",
+      "1",
+      "N/A"
+    ],
+    [
+      "45",
+      "UTICA",
       "1,053",
       "187",
       "1,240",
@@ -305,7 +305,7 @@
     ],
     [
       "45",
-      "HANOVER VILLAGE",
+      "HANOVER",
       "866",
       "99",
       "965",
@@ -346,6 +346,15 @@
       "65",
       "690",
       "1",
+      "N/A"
+    ],
+    [
+      "45",
+      "NEW ALBANY",
+      "20",
+      "16",
+      "36",
+      "2",
       "N/A"
     ]
   ]

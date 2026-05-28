@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,104 (19%)",
+      "UNC – Lapsed R — 1,912 (12%)",
+      "Mixed – Active — 924 (6%)",
+      "Mixed – Lapsed — 1,062 (7%)",
+      "UNC – No Primary — 6,789 (42%)",
+      "UNC – Lapsed D — 1,531 (9%)",
+      "Pure D — 915 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3104,
+          1912,
+          924,
+          1062,
+          6789,
+          1531,
+          915
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "FAIRFIELD TOWNSHIP (Butler Co.)",
+  "updated": "2026-05-28"
+}

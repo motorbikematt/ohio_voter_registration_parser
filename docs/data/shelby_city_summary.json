@@ -3,8 +3,8 @@
   "county": "Shelby",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,11 +17,11 @@
   "rows": [
     [
       "75",
-      "PRECINCT 0003 SIDNEY 1ST WARD",
-      "1,179",
-      "129",
-      "1,308",
-      "1",
+      "SIDNEY",
+      "10,513",
+      "2,241",
+      "12,754",
+      "14",
       "N/A"
     ],
     [
@@ -39,15 +39,6 @@
       "1,165",
       "100",
       "1,265",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "PRECINCT 0008 SIDNEY 3RD WARD",
-      "933",
-      "284",
-      "1,217",
       "1",
       "N/A"
     ],
@@ -71,15 +62,6 @@
     ],
     [
       "75",
-      "PRECINCT 0002 SIDNEY 1ST WARD",
-      "908",
-      "171",
-      "1,079",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
       "PRECINCT 0032 TURTLE CREEK",
       "937",
       "109",
@@ -93,24 +75,6 @@
       "905",
       "123",
       "1,028",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "PRECINCT 0007 SIDNEY 2ND WARD",
-      "841",
-      "170",
-      "1,011",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "PRECINCT 0009 SIDNEY 3RD WARD",
-      "798",
-      "204",
-      "1,002",
       "1",
       "N/A"
     ],
@@ -143,46 +107,10 @@
     ],
     [
       "75",
-      "PRECINCT 0010 SIDNEY 4TH WARD",
-      "696",
-      "253",
-      "949",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "PRECINCT 0001 SIDNEY 1ST WARD",
-      "741",
-      "197",
-      "938",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
       "PRECINCT 0034 VAN BUREN SOUTH",
       "853",
       "59",
       "912",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "PRECINCT 0013 SIDNEY 4TH WARD",
-      "787",
-      "109",
-      "896",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "PRECINCT 0004 SIDNEY 2ND WARD",
-      "651",
-      "193",
-      "844",
       "1",
       "N/A"
     ],
@@ -206,28 +134,10 @@
     ],
     [
       "75",
-      "PRECINCT 0012 SIDNEY 4TH WARD",
-      "688",
-      "120",
-      "808",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
       "PRECINCT 0030 SALEM",
       "691",
-      "107",
-      "798",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "PRECINCT 0005 SIDNEY 2ND WARD",
-      "680",
-      "100",
-      "780",
+      "108",
+      "799",
       "1",
       "N/A"
     ],
@@ -246,15 +156,6 @@
       "685",
       "77",
       "762",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "PRECINCT 0036 SIDNEY 3RD WARD",
-      "620",
-      "110",
-      "730",
       "1",
       "N/A"
     ],
@@ -296,15 +197,6 @@
     ],
     [
       "75",
-      "PRECINCT 0011 SIDNEY 4TH WARD",
-      "517",
-      "99",
-      "616",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
       "PRECINCT 0015 CYNTHIAN EAST",
       "566",
       "38",
@@ -316,8 +208,8 @@
       "75",
       "PRECINCT 0021 GREEN",
       "543",
-      "49",
-      "592",
+      "51",
+      "594",
       "1",
       "N/A"
     ],
@@ -327,15 +219,6 @@
       "527",
       "63",
       "590",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "PRECINCT 0006 SIDNEY 2ND WARD",
-      "474",
-      "95",
-      "569",
       "1",
       "N/A"
     ]

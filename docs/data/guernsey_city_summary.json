@@ -3,8 +3,8 @@
   "county": "Guernsey",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,11 +17,20 @@
   "rows": [
     [
       "30",
+      "CAMBRIDGE",
+      "4,443",
+      "1,097",
+      "5,540",
+      "8",
+      "N/A"
+    ],
+    [
+      "30",
       "PRECINCT CAMBRIDGE",
-      "6,734",
-      "1,434",
-      "8,168",
-      "11",
+      "2,291",
+      "337",
+      "2,628",
+      "3",
       "N/A"
     ],
     [
@@ -188,7 +197,7 @@
     ],
     [
       "30",
-      "PRECINCT LORE CITY",
+      "PRECINCT LORE",
       "139",
       "27",
       "166",

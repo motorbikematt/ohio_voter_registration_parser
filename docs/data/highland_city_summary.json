@@ -3,8 +3,8 @@
   "county": "Highland",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -15,6 +15,15 @@
     "Est. Unregistered"
   ],
   "rows": [
+    [
+      "36",
+      "HILLSBORO",
+      "3,382",
+      "741",
+      "4,123",
+      "5",
+      "N/A"
+    ],
     [
       "36",
       "GREENFIELD",
@@ -31,15 +40,6 @@
       "194",
       "1,527",
       "2",
-      "N/A"
-    ],
-    [
-      "36",
-      "HILLSBORO NW",
-      "1,047",
-      "299",
-      "1,346",
-      "1",
       "N/A"
     ],
     [
@@ -76,15 +76,6 @@
       "151",
       "1,181",
       "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "HILLSBORO SW",
-      "980",
-      "148",
-      "1,128",
-      "2",
       "N/A"
     ],
     [
@@ -134,15 +125,6 @@
     ],
     [
       "36",
-      "HILLSBORO NE",
-      "712",
-      "130",
-      "842",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
       "PAINT SE",
       "688",
       "144",
@@ -165,15 +147,6 @@
       "686",
       "127",
       "813",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "HILLSBORO SE",
-      "643",
-      "164",
-      "807",
       "1",
       "N/A"
     ],

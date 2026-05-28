@@ -3,8 +3,8 @@
   "county": "Trumbull",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,11 +17,11 @@
   "rows": [
     [
       "78",
-      "WARREN CITY",
-      "17,300",
+      "WARREN",
+      "17,301",
       "4,626",
-      "21,926",
-      "26",
+      "21,927",
+      "27",
       "N/A"
     ],
     [
@@ -35,7 +35,7 @@
     ],
     [
       "78",
-      "NILES CITY",
+      "NILES",
       "9,662",
       "1,955",
       "11,617",
@@ -62,7 +62,7 @@
     ],
     [
       "78",
-      "GIRARD CITY",
+      "GIRARD",
       "4,994",
       "1,050",
       "6,044",
@@ -80,7 +80,7 @@
     ],
     [
       "78",
-      "HUBBARD CITY",
+      "HUBBARD",
       "4,697",
       "710",
       "5,407",
@@ -89,11 +89,11 @@
     ],
     [
       "78",
-      "CORTLAND CITY",
-      "4,700",
+      "CORTLAND",
+      "4,701",
       "517",
-      "5,217",
-      "6",
+      "5,218",
+      "7",
       "N/A"
     ],
     [
@@ -126,15 +126,15 @@
     [
       "78",
       "VIENNA TWP",
-      "2,633",
+      "2,632",
       "355",
-      "2,988",
+      "2,987",
       "3",
       "N/A"
     ],
     [
       "78",
-      "NEWTON FALLS VILLAGE",
+      "NEWTON FALLS",
       "2,395",
       "553",
       "2,948",
@@ -144,9 +144,9 @@
     [
       "78",
       "WARREN TWP",
-      "2,449",
+      "2,448",
       "497",
-      "2,946",
+      "2,945",
       "4",
       "N/A"
     ],
@@ -161,7 +161,7 @@
     ],
     [
       "78",
-      "LORDSTOWN VILLAGE",
+      "LORDSTOWN",
       "2,114",
       "303",
       "2,417",
@@ -179,7 +179,7 @@
     ],
     [
       "78",
-      "MCDONALD VILLAGE",
+      "MCDONALD",
       "1,957",
       "240",
       "2,197",
@@ -287,15 +287,6 @@
     ],
     [
       "78",
-      "GREENE TWP",
-      "480",
-      "71",
-      "551",
-      "1",
-      "N/A"
-    ],
-    [
-      "78",
       "BLOOMFIELD TWP",
       "471",
       "80",
@@ -305,7 +296,16 @@
     ],
     [
       "78",
-      "WEST FARMINGTON VILLAGE",
+      "GREENE TWP",
+      "480",
+      "71",
+      "551",
+      "1",
+      "N/A"
+    ],
+    [
+      "78",
+      "WEST FARMINGTON",
       "236",
       "58",
       "294",

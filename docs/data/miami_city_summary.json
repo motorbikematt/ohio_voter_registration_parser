@@ -3,8 +3,8 @@
   "county": "Miami",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "55",
-      "PRECINCT TROY",
+      "TROY",
       "15,837",
       "2,785",
       "18,622",
@@ -26,7 +26,16 @@
     ],
     [
       "55",
-      "PRECINCT TIPP CITY",
+      "PIQUA",
+      "10,242",
+      "2,219",
+      "12,461",
+      "16",
+      "N/A"
+    ],
+    [
+      "55",
+      "TIPP",
       "6,870",
       "847",
       "7,717",
@@ -35,20 +44,11 @@
     ],
     [
       "55",
-      "PRECINCT PIQUA",
-      "6,127",
-      "1,151",
-      "7,278",
-      "9",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT HUBER HEIGHTS",
-      "3,553",
-      "779",
-      "4,332",
-      "4",
+      "HUBER HEIGHTS",
+      "3,562",
+      "783",
+      "4,345",
+      "5",
       "N/A"
     ],
     [
@@ -99,9 +99,9 @@
     [
       "55",
       "PRECINCT UNION EAST",
-      "1,000",
+      "995",
       "98",
-      "1,098",
+      "1,093",
       "1",
       "N/A"
     ],
@@ -224,15 +224,6 @@
     ],
     [
       "55",
-      "PRECINCT PIQUA 4-D/E",
-      "689",
-      "187",
-      "876",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
       "PRECINCT BETHEL SOUTH CENTRAL",
       "759",
       "94",
@@ -246,15 +237,6 @@
       "744",
       "104",
       "848",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT PIQUA 4-B/C",
-      "681",
-      "144",
-      "825",
       "1",
       "N/A"
     ],
@@ -296,46 +278,10 @@
     ],
     [
       "55",
-      "PRECINCT PIQUA 1-B/D",
-      "580",
-      "177",
-      "757",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
       "PRECINCT SPRINGCREEK EAST",
       "685",
       "63",
       "748",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT PIQUA 1-C/E",
-      "589",
-      "150",
-      "739",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT PIQUA 3-D/E",
-      "565",
-      "157",
-      "722",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT PIQUA 2-B/C",
-      "584",
-      "112",
-      "696",
       "1",
       "N/A"
     ],
@@ -351,9 +297,9 @@
     [
       "55",
       "PRECINCT BETHEL WEST",
-      "616",
-      "56",
-      "672",
+      "607",
+      "52",
+      "659",
       "1",
       "N/A"
     ],
@@ -387,9 +333,9 @@
     [
       "55",
       "PRECINCT UNION SOUTH CENTRAL",
-      "585",
+      "575",
       "43",
-      "628",
+      "618",
       "1",
       "N/A"
     ],
@@ -422,20 +368,20 @@
     ],
     [
       "55",
-      "PRECINCT PIQUA 3-B/C",
-      "427",
-      "141",
-      "568",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
       "PRECINCT NEWTON WEST",
       "510",
       "41",
       "551",
       "1",
+      "N/A"
+    ],
+    [
+      "55",
+      "UNION",
+      "15",
+      "0",
+      "15",
+      "2",
       "N/A"
     ]
   ]

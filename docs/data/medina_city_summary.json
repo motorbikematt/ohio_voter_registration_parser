@@ -3,8 +3,8 @@
   "county": "Medina",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "52",
-      "PRECINCT BRUNSWICK CITY",
+      "BRUNSWICK",
       "20,705",
       "3,025",
       "23,730",
@@ -26,20 +26,20 @@
     ],
     [
       "52",
-      "PRECINCT MEDINA CITY",
-      "15,146",
-      "2,593",
-      "17,739",
-      "16",
+      "MEDINA",
+      "15,156",
+      "2,595",
+      "17,751",
+      "18",
       "N/A"
     ],
     [
       "52",
-      "PRECINCT WADSWORTH CITY",
-      "13,914",
-      "2,010",
-      "15,924",
-      "15",
+      "WADSWORTH",
+      "14,287",
+      "2,037",
+      "16,324",
+      "18",
       "N/A"
     ],
     [
@@ -81,9 +81,9 @@
     [
       "52",
       "PRECINCT SHARON TP",
-      "4,568",
-      "426",
-      "4,994",
+      "4,331",
+      "405",
+      "4,736",
       "4",
       "N/A"
     ],
@@ -99,9 +99,9 @@
     [
       "52",
       "PRECINCT LAFAYETTE TP",
-      "4,177",
-      "466",
-      "4,643",
+      "4,176",
+      "465",
+      "4,641",
       "4",
       "N/A"
     ],
@@ -116,19 +116,19 @@
     ],
     [
       "52",
-      "PRECINCT WADSWORTH TP",
-      "3,008",
-      "361",
-      "3,369",
+      "PRECINCT YORK TP",
+      "3,029",
+      "266",
+      "3,295",
       "3",
       "N/A"
     ],
     [
       "52",
-      "PRECINCT YORK TP",
-      "3,038",
-      "267",
-      "3,305",
+      "PRECINCT WADSWORTH TP",
+      "2,872",
+      "356",
+      "3,228",
       "3",
       "N/A"
     ],
@@ -144,9 +144,9 @@
     [
       "52",
       "PRECINCT GUILFORD TP",
-      "2,146",
-      "213",
-      "2,359",
+      "2,067",
+      "196",
+      "2,263",
       "2",
       "N/A"
     ],
@@ -255,6 +255,15 @@
       "232",
       "35",
       "267",
+      "1",
+      "N/A"
+    ],
+    [
+      "52",
+      "RITTMAN",
+      "79",
+      "17",
+      "96",
       "1",
       "N/A"
     ]

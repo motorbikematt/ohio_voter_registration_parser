@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 132 (5%)",
+      "UNC – Lapsed R — 135 (6%)",
+      "Mixed – Active — 184 (8%)",
+      "Mixed – Lapsed — 123 (5%)",
+      "UNC – No Primary — 1,089 (45%)",
+      "UNC – Lapsed D — 551 (23%)",
+      "Pure D — 232 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          132,
+          135,
+          184,
+          123,
+          1089,
+          551,
+          232
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "TRIMBLE TOWNSHIP (Athens Co.)",
+  "updated": "2026-05-28"
+}

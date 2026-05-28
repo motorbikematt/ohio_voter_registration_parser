@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 47 (21%)",
+      "UNC – Lapsed R — 49 (22%)",
+      "Mixed – Active — 8 (4%)",
+      "Mixed – Lapsed — 11 (5%)",
+      "UNC – No Primary — 83 (37%)",
+      "UNC – Lapsed D — 17 (8%)",
+      "Pure D — 11 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          47,
+          49,
+          8,
+          11,
+          83,
+          17,
+          11
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "LAFAYETTE VILLAGE (Allen Co.)",
+  "updated": "2026-05-28"
+}

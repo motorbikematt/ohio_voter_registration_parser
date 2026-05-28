@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 52",
+      "Mixed – Active — 47",
+      "Mixed – Lapsed — 40",
+      "UNC – No Primary — 235",
+      "UNC – Lapsed D — 46"
+    ],
+    "datasets": [
+      {
+        "data": [
+          52,
+          47,
+          40,
+          235,
+          46
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "RICHMOND TWP (Ashtabula Co.)",
+  "updated": "2026-05-28"
+}

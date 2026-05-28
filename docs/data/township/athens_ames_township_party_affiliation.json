@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 89 (10%)",
+      "UNC – Lapsed R — 49 (6%)",
+      "Mixed – Active — 84 (10%)",
+      "Mixed – Lapsed — 52 (6%)",
+      "UNC – No Primary — 284 (33%)",
+      "UNC – Lapsed D — 158 (18%)",
+      "Pure D — 141 (16%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          89,
+          49,
+          84,
+          52,
+          284,
+          158,
+          141
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "AMES TOWNSHIP (Athens Co.)",
+  "updated": "2026-05-28"
+}

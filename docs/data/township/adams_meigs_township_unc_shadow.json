@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 199",
+      "Mixed – Active — 213",
+      "Mixed – Lapsed — 68",
+      "UNC – No Primary — 1,030",
+      "UNC – Lapsed D — 111"
+    ],
+    "datasets": [
+      {
+        "data": [
+          199,
+          213,
+          68,
+          1030,
+          111
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "MEIGS TOWNSHIP (Adams Co.)",
+  "updated": "2026-05-28"
+}

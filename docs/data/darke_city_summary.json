@@ -3,8 +3,8 @@
   "county": "Darke",
   "geography": "city",
   "type": "table",
-  "updated": "2026-05-09",
-  "note": "Analysis run 2026-05-09 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-05-28",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,7 +17,7 @@
   "rows": [
     [
       "19",
-      "PRECINCT GREENVILLE CITY",
+      "GREENVILLE",
       "7,078",
       "1,374",
       "8,452",
@@ -26,7 +26,7 @@
     ],
     [
       "19",
-      "PRECINCT VERSAILLES VILLAGE",
+      "PRECINCT VERSAILLES",
       "1,738",
       "157",
       "1,895",
@@ -35,7 +35,7 @@
     ],
     [
       "19",
-      "PRECINCT ARCANUM VILLAGE",
+      "PRECINCT ARCANUM",
       "1,480",
       "149",
       "1,629",
@@ -71,7 +71,7 @@
     ],
     [
       "19",
-      "PRECINCT BROWN TWP & ANSONIA VILLAGE",
+      "PRECINCT BROWN TWP & ANSONIA",
       "1,096",
       "135",
       "1,231",
@@ -89,7 +89,7 @@
     ],
     [
       "19",
-      "PRECINCT MONROE TWP & PITSBURG VILLAGE",
+      "PRECINCT MONROE TWP & PITSBURG",
       "1,030",
       "93",
       "1,123",
@@ -152,7 +152,7 @@
     ],
     [
       "19",
-      "PRECINCT BUTLER AND CASTINE VILLAGE",
+      "PRECINCT BUTLER AND CASTINE",
       "749",
       "89",
       "838",
@@ -161,7 +161,7 @@
     ],
     [
       "19",
-      "PRECINCT UNION CITY VILLAGE",
+      "PRECINCT UNION CITY",
       "556",
       "256",
       "812",
@@ -206,7 +206,7 @@
     ],
     [
       "19",
-      "PRECINCT WABASH AND NORTH STAR VILLAGE",
+      "PRECINCT WABASH AND NORTH STAR",
       "595",
       "39",
       "634",
@@ -242,7 +242,7 @@
     ],
     [
       "19",
-      "PRECINCT WAYNE LAKES VILLAGE",
+      "PRECINCT WAYNE LAKES",
       "448",
       "68",
       "516",
