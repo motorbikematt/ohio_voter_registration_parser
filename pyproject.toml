@@ -1,7 +1,7 @@
 [project]
 name = "election-data"
 version = "0.1.0"
-description = "Add your description here"
+description = "Ohio SOS statewide voter file ingest, cohort classifier, and dashboard pipeline."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
@@ -12,7 +12,7 @@ dependencies = [
     "ipykernel>=6.0.0",
     "openpyxl>=3.1.0",
     "orjson>=3.9.0",
-    "pandas>=2.0.0",
+    "pandas>=2.0.0",  # used in jurisdictional_groupings.py, ohio_voter_pipeline_wrapper.py, tools/scoring/unc_lifetime_d_predictor.py — predates polars mandate; migrate incrementally
     "polars>=1.0.0",
     "psutil>=5.9.0",
     "pyarrow>=14.0.0",

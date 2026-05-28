@@ -5,34 +5,57 @@ Outputs interactive web dashboard JSON for all 88 counties and optional Excel wo
 
 ## What's in this repo
 
+**Root engine**
+
 | File | Purpose |
 |---|---|
-| `ohio_voter_pipeline.py` | Main entry point — interactive menu to run statewide or targeted county analysis |
-| `voter_data_cleaner_v2.py` | Core analysis engine — Polars-based ingestion, cleaning, universal cohort classifier, participation metrics, JSON + Excel export |
+| `ohio_voter_pipeline.py` | Main entry point — interactive menu for statewide or targeted county analysis |
+| `voter_data_cleaner_v2.py` | Core engine — Polars ingestion, cohort classifier, participation metrics, JSON + Excel export |
+| `ohio_voter_pipeline_wrapper.py` | Programmatic wrapper around the pipeline for scripted runs |
+| `jurisdictional_groupings.py` | Aggregates all 12 jurisdiction types; handles county-scoped slug logic |
+
+**Utilities (`tools/`)**
+
+| File | Purpose |
+|---|---|
 | `precinct_unc_export.py` | Standalone export: partisan cohort counts per precinct, all 88 counties |
 | `precinct_party_export.py` | Interactive export: 8-tab partisan-spectrum Excel workbook by county or precinct |
 | `export_unc_targets.py` | Export cohort-segmented voter targeting CSVs (Pure R/D, Crossover, UNC subclasses) |
-| `voter_lookup.py` | Individual voter lookup utility |
+| `voter_lookup.py` | Parquet-backed individual voter lookup |
+| `raw_voter_lookup.py` | Raw text file voter lookup (pre-Parquet) |
+| `generate_narratives.py` | Render templated narrative cards for dashboard jurisdictions |
+| `archive_state.py` | Timestamped snapshot of CLAUDE.md / MEMORY.md before overwrite |
+
+**Scoring (`tools/scoring/`)**
+
+| File | Purpose |
+|---|---|
 | `mixed_lean_predictor.py` | Decay-weighted lean predictor for UNC MIXED cohort |
 | `run_lean_predictor_all_cohorts.py` | Batch runner — lean predictor across all cohorts |
 | `run_mixed_lean_predictor_all_counties.py` | Batch runner — lean predictor across all 88 counties |
-| `docs/` | Web dashboard (HTML + Chart.js) with county, city, and precinct drill-down scope tabs |
+| `unc_lifetime_d_predictor.py` | Lifetime Democratic lean predictor for UNC voters |
+
+**Dashboard**
+
+| Path | Purpose |
+|---|---|
+| `docs/` | Web dashboard (HTML + Chart.js) with county, city, and precinct drill-down |
+| `docs/data/` | ~65k pre-generated JSON payloads, one per geography |
+| `docs/manifest.json` | Dashboard index — geography list, cohort metadata, routing |
 
 ## Requirements
 
-- Python 3.11+
-- Dependencies: `pip install -r requirements.txt`
+- Python 3.14+
+- [uv](https://docs.astral.sh/uv/) for dependency management
 
-Key libraries: Polars (vectorized out-of-core processing), PyArrow (Parquet), xlsxwriter/openpyxl (Excel), requests/beautifulsoup4 (optional SOS scrape).
+Key libraries: Polars (vectorized out-of-core processing), PyArrow (Parquet), xlsxwriter/openpyxl (Excel), DuckDB, requests/beautifulsoup4 (optional SOS scrape).
 
 ## Quick start
 
 ### 1. Set up the environment
 
 ```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+uv sync
 ```
 
 ### 2. Obtain the source files
@@ -75,7 +98,7 @@ comma-separated multi-county selection are supported. Example: `57, greene, 76`.
 ### 4. Export a precinct or county voter workbook
 
 ```powershell
-python precinct_party_export.py
+python tools/precinct_party_export.py
 ```
 
 Interactive menu: choose county + precinct (single workbook) or whole county. Output lands in
@@ -83,8 +106,8 @@ Interactive menu: choose county + precinct (single workbook) or whole county. Ou
 
 ### 5. View the dashboard
 
-Open `docs/index.html` locally, or view the live dashboard on GitHub Pages:
-[https://motorbikematt.github.io/ohio_voter_registration_parser/](https://motorbikematt.github.io/ohio_voter_registration_parser/)
+Open `docs/index.html` locally, or view the live dashboard at:
+[https://precincts.info](https://precincts.info)
 
 The dashboard supports three scope tiers: **County** (default), **City**, and **Precinct**.
 Precinct drill-down shows per-precinct cohort composition for every precinct in the selected county.
