@@ -180,8 +180,14 @@
     const allPrecincts = (precinctIndex && precinctIndex.precincts) ? precinctIndex.precincts : [];
     const upper = cityName.toUpperCase();
     const cityPrecincts = allPrecincts.filter(prec => {
+      // Use the city field (populated from SWVF CITY column) when available.
+      // This correctly handles cross-county cities (e.g. Kettering spans
+      // Montgomery and Greene — the Greene precincts are SUGARCREEK 151 /
+      // BEAVERCREEK 090, not KETTERING-prefixed).
+      // Fall back to name-prefix matching for blank-CITY counties.
+      if (prec.city) return prec.city.toUpperCase() === upper;
       const pn = prec.name.toUpperCase();
-      return pn === upper || pn.startsWith(upper + ' ') || pn.startsWith(upper);
+      return pn === upper || pn.startsWith(upper + ' ');
     });
     if (cityPrecincts.length === 0) return {};
 

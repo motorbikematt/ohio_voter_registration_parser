@@ -1336,6 +1336,13 @@ def build_city_summary(df: pl.DataFrame) -> pl.DataFrame:
             )
             .alias('City')
         )
+        .with_columns(
+            # Strip Ohio municipal type suffixes so display names match
+            # existing city_summary format: 'KETTERING' not 'KETTERING CITY'.
+            pl.col('City')
+              .str.replace(r'\s+(?:CITY|VILLAGE|CITY CORP|CORP)\s*$', '', literal=False)
+              .alias('City')
+        )
         .group_by(['COUNTY_NUMBER', 'City'])
         .agg([
             pl.col('VOTER_STATUS').eq('ACTIVE').sum().cast(pl.Int64).alias('ACTIVE'),
