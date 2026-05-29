@@ -2368,6 +2368,66 @@ def _precinct_safe_name(precinct_name: str) -> str:
     return s.strip('_')
 
 
+_CITY_SUFFIX_RE = re.compile(r'\s+(?:CITY|VILLAGE|CITY CORP|CORP)$', re.IGNORECASE)
+
+
+def _normalize_city_name(name: str) -> str:
+    """Strip Ohio municipal-type suffixes so 'KETTERING CITY' -> 'KETTERING'."""
+    return _CITY_SUFFIX_RE.sub('', name.strip()).strip() if name else ''
+
+
+def _dominant_per_precinct(df: pl.DataFrame, value_col: str) -> dict:
+    """PRECINCT_NAME -> most-frequent non-blank value of value_col."""
+    work = (
+        df.select([
+            pl.col('PRECINCT_NAME'),
+            pl.col(value_col).str.strip_chars().alias('_v'),
+        ])
+        .filter(pl.col('_v').is_not_null() & (pl.col('_v').str.len_chars() > 0))
+    )
+    if work.is_empty():
+        return {}
+    dominant = (
+        work.group_by(['PRECINCT_NAME', '_v'])
+            .agg(pl.len().alias('n'))
+            .sort(['PRECINCT_NAME', 'n'], descending=[False, True])
+            .group_by('PRECINCT_NAME')
+            .first()
+    )
+    return {row['PRECINCT_NAME']: row['_v'] for row in dominant.iter_rows(named=True)}
+
+
+def _dominant_city_per_precinct(df: pl.DataFrame) -> dict:
+    """
+    Map PRECINCT_NAME -> normalized dominant municipality for one county's df.
+
+    Uses the dominant NON-BLANK CITY value per precinct — the registered-address
+    municipality (e.g. Greene's SUGARCREEK 151 carries 'KETTERING CITY' /
+    'CENTERVILLE CITY' for its incorporated voters even though most rows are
+    blank). RESIDENTIAL_CITY is used ONLY for precincts that have no CITY data at
+    all (the ~19 blank-CITY counties); it is the postal/mailing city, which is
+    coarser and differently named (e.g. it labels those same Greene precincts
+    'DAYTON'), so it must never override a real CITY value. This per-precinct
+    fallback — not a per-row coalesce — is what keeps cross-county cities like
+    Kettering intact while still covering blank-CITY counties like Cuyahoga.
+    Precincts with neither value are absent from the map (caller emits None).
+    """
+    cols = df.columns
+    if 'PRECINCT_NAME' not in cols or 'CITY' not in cols:
+        # No CITY column at all: fall back wholesale to RESIDENTIAL_CITY.
+        if 'PRECINCT_NAME' in cols and 'RESIDENTIAL_CITY' in cols:
+            return {k: _normalize_city_name(v)
+                    for k, v in _dominant_per_precinct(df, 'RESIDENTIAL_CITY').items()}
+        return {}
+
+    by_city = _dominant_per_precinct(df, 'CITY')
+    if 'RESIDENTIAL_CITY' in cols:
+        by_res = _dominant_per_precinct(df, 'RESIDENTIAL_CITY')
+        for pname, val in by_res.items():
+            by_city.setdefault(pname, val)  # only where CITY gave nothing
+    return {k: _normalize_city_name(v) for k, v in by_city.items()}
+
+
 def export_precinct_charts(
     county_name:    str,
     slug:           str,
@@ -2405,6 +2465,11 @@ def export_precinct_charts(
         ))
 
     index_entries = []
+
+    # Per-precinct municipality (CITY, RESIDENTIAL_CITY fallback). Drives the
+    # dashboard's city grouping and the cross-county city_county_map. Emitting
+    # it here makes a full rerun self-sufficient — no post-hoc index patch.
+    city_by_precinct = _dominant_city_per_precinct(df)
 
     for precinct_name in precinct_names:
         safe_name = _precinct_safe_name(precinct_name)
@@ -2843,6 +2908,7 @@ def export_precinct_charts(
         index_entries.append({
             'name':              precinct_name,
             'safe_name':         safe_name,
+            'city':              city_by_precinct.get(precinct_name) or None,
             'precinct_code':     (pdf['PRECINCT_CODE'][0]
                                   if 'PRECINCT_CODE' in pdf.columns and total
                                   else None),
