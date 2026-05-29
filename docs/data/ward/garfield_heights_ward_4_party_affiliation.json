@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 74 (3%)",
+      "UNC – Lapsed R — 59 (2%)",
+      "Mixed – Active — 117 (4%)",
+      "Mixed – Lapsed — 195 (7%)",
+      "UNC – No Primary — 1,398 (52%)",
+      "UNC – Lapsed D — 613 (23%)",
+      "Pure D — 258 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          74,
+          59,
+          117,
+          195,
+          1398,
+          613,
+          258
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "GARFIELD HEIGHTS WARD 4",
+  "updated": "2026-05-29"
+}

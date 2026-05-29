@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 311 (11%)",
+      "UNC – Lapsed R — 212 (8%)",
+      "Mixed – Active — 280 (10%)",
+      "Mixed – Lapsed — 332 (12%)",
+      "UNC – No Primary — 908 (33%)",
+      "UNC – Lapsed D — 500 (18%)",
+      "Pure D — 243 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          311,
+          212,
+          280,
+          332,
+          908,
+          500,
+          243
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "TWINSBURG WARD 2",
+  "updated": "2026-05-29"
+}

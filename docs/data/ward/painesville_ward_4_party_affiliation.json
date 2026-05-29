@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 244 (8%)",
+      "UNC – Lapsed R — 201 (6%)",
+      "Mixed – Active — 184 (6%)",
+      "Mixed – Lapsed — 201 (6%)",
+      "UNC – No Primary — 1,632 (51%)",
+      "UNC – Lapsed D — 504 (16%)",
+      "Pure D — 233 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          244,
+          201,
+          184,
+          201,
+          1632,
+          504,
+          233
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "PAINESVILLE WARD 4",
+  "updated": "2026-05-29"
+}

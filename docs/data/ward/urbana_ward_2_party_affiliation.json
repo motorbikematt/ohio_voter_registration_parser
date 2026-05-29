@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 469 (23%)",
+      "UNC – Lapsed R — 275 (13%)",
+      "Mixed – Active — 184 (9%)",
+      "Mixed – Lapsed — 151 (7%)",
+      "UNC – No Primary — 710 (34%)",
+      "UNC – Lapsed D — 208 (10%)",
+      "Pure D — 85 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          469,
+          275,
+          184,
+          151,
+          710,
+          208,
+          85
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "URBANA WARD 2",
+  "updated": "2026-05-29"
+}

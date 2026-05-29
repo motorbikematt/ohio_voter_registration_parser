@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 860 (13%)",
+      "UNC – Lapsed R — 527 (8%)",
+      "Mixed – Active — 706 (11%)",
+      "Mixed – Lapsed — 595 (9%)",
+      "UNC – No Primary — 2,396 (37%)",
+      "UNC – Lapsed D — 814 (13%)",
+      "Pure D — 550 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          860,
+          527,
+          706,
+          595,
+          2396,
+          814,
+          550
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "N. RIDGEVILLE WARD-2",
+  "updated": "2026-05-29"
+}

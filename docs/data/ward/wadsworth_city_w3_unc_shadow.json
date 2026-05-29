@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 338",
+      "Mixed – Active — 352",
+      "Mixed – Lapsed — 231",
+      "UNC – No Primary — 1,626",
+      "UNC – Lapsed D — 374"
+    ],
+    "datasets": [
+      {
+        "data": [
+          338,
+          352,
+          231,
+          1626,
+          374
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "Wadsworth City W3",
+  "updated": "2026-05-29"
+}

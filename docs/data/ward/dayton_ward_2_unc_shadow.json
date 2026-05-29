@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 187",
+      "Mixed – Active — 139",
+      "Mixed – Lapsed — 152",
+      "UNC – No Primary — 2,101",
+      "UNC – Lapsed D — 430"
+    ],
+    "datasets": [
+      {
+        "data": [
+          187,
+          139,
+          152,
+          2101,
+          430
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "DAYTON WARD 2",
+  "updated": "2026-05-29"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 122 (13%)",
+      "UNC – Lapsed R — 93 (10%)",
+      "Mixed – Active — 64 (7%)",
+      "Mixed – Lapsed — 77 (8%)",
+      "UNC – No Primary — 488 (51%)",
+      "UNC – Lapsed D — 81 (9%)",
+      "Pure D — 25 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          122,
+          93,
+          64,
+          77,
+          488,
+          81,
+          25
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "ST. MARYS WARD 4",
+  "updated": "2026-05-29"
+}

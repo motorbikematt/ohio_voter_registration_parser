@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 230 (10%)",
+      "UNC – Lapsed R — 163 (7%)",
+      "Mixed – Active — 163 (7%)",
+      "Mixed – Lapsed — 243 (10%)",
+      "UNC – No Primary — 1,140 (48%)",
+      "UNC – Lapsed D — 266 (11%)",
+      "Pure D — 151 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          230,
+          163,
+          163,
+          243,
+          1140,
+          266,
+          151
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "FREMONT CITY WARD 2",
+  "updated": "2026-05-29"
+}

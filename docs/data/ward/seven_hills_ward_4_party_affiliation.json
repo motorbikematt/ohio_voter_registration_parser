@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 248 (12%)",
+      "UNC – Lapsed R — 181 (9%)",
+      "Mixed – Active — 331 (16%)",
+      "Mixed – Lapsed — 293 (14%)",
+      "UNC – No Primary — 554 (27%)",
+      "UNC – Lapsed D — 281 (13%)",
+      "Pure D — 202 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          248,
+          181,
+          331,
+          293,
+          554,
+          281,
+          202
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "SEVEN HILLS WARD 4",
+  "updated": "2026-05-29"
+}

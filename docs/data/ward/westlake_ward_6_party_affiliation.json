@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 532 (12%)",
+      "UNC – Lapsed R — 521 (12%)",
+      "Mixed – Active — 490 (11%)",
+      "Mixed – Lapsed — 443 (10%)",
+      "UNC – No Primary — 1,508 (35%)",
+      "UNC – Lapsed D — 446 (10%)",
+      "Pure D — 378 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          532,
+          521,
+          490,
+          443,
+          1508,
+          446,
+          378
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "WESTLAKE WARD 6",
+  "updated": "2026-05-29"
+}

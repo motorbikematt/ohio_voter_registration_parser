@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 83 (11%)",
+      "UNC – Lapsed R — 81 (11%)",
+      "Mixed – Active — 52 (7%)",
+      "Mixed – Lapsed — 67 (9%)",
+      "UNC – No Primary — 353 (47%)",
+      "UNC – Lapsed D — 92 (12%)",
+      "Pure D — 30 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          83,
+          81,
+          52,
+          67,
+          353,
+          92,
+          30
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "WEST JEFFERSON WARD1",
+  "updated": "2026-05-29"
+}

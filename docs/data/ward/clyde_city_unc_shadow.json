@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 404",
+      "Mixed – Active — 288",
+      "Mixed – Lapsed — 382",
+      "UNC – No Primary — 1,603",
+      "UNC – Lapsed D — 282"
+    ],
+    "datasets": [
+      {
+        "data": [
+          404,
+          288,
+          382,
+          1603,
+          282
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "CLYDE CITY",
+  "updated": "2026-05-29"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 841 (6%)",
+      "UNC – Lapsed R — 1,093 (7%)",
+      "Mixed – Active — 1,890 (13%)",
+      "Mixed – Lapsed — 743 (5%)",
+      "UNC – No Primary — 5,116 (34%)",
+      "UNC – Lapsed D — 1,975 (13%)",
+      "Pure D — 3,441 (23%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          841,
+          1093,
+          1890,
+          743,
+          5116,
+          1975,
+          3441
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "AKRON WARD 8",
+  "updated": "2026-05-29"
+}

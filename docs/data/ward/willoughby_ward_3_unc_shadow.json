@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 311",
+      "Mixed – Active — 313",
+      "Mixed – Lapsed — 338",
+      "UNC – No Primary — 1,159",
+      "UNC – Lapsed D — 457"
+    ],
+    "datasets": [
+      {
+        "data": [
+          311,
+          313,
+          338,
+          1159,
+          457
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "WILLOUGHBY WARD 3",
+  "updated": "2026-05-29"
+}

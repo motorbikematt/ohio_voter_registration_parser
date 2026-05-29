@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 4",
+      "Mixed – Active — 5",
+      "Mixed – Lapsed — 23",
+      "UNC – No Primary — 724",
+      "UNC – Lapsed D — 255"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4,
+          5,
+          23,
+          724,
+          255
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "WARRENSVILLE HEIGHTS WARD 4",
+  "updated": "2026-05-29"
+}

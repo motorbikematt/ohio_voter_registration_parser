@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 445",
+      "Mixed – Active — 495",
+      "Mixed – Lapsed — 394",
+      "UNC – No Primary — 1,403",
+      "UNC – Lapsed D — 572"
+    ],
+    "datasets": [
+      {
+        "data": [
+          445,
+          495,
+          394,
+          1403,
+          572
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "WESTLAKE WARD 2",
+  "updated": "2026-05-29"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 3,279 (5%)",
+      "UNC – Lapsed R — 4,299 (6%)",
+      "Mixed – Active — 2,192 (3%)",
+      "Mixed – Lapsed — 3,397 (5%)",
+      "UNC – No Primary — 35,426 (52%)",
+      "UNC – Lapsed D — 10,546 (15%)",
+      "Pure D — 9,035 (13%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          3279,
+          4299,
+          2192,
+          3397,
+          35426,
+          10546,
+          9035
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "COLUMBUS COUNCIL DISTRICT 5",
+  "updated": "2026-05-29"
+}

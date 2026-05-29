@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 170 (10%)",
+      "UNC – Lapsed R — 130 (8%)",
+      "Mixed – Active — 174 (10%)",
+      "Mixed – Lapsed — 97 (6%)",
+      "UNC – No Primary — 839 (49%)",
+      "UNC – Lapsed D — 198 (12%)",
+      "Pure D — 110 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          170,
+          130,
+          174,
+          97,
+          839,
+          198,
+          110
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "MARIETTA SECOND WARD",
+  "updated": "2026-05-29"
+}

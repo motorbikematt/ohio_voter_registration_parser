@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 202 (12%)",
+      "UNC – Lapsed R — 108 (7%)",
+      "Mixed – Active — 142 (9%)",
+      "Mixed – Lapsed — 122 (7%)",
+      "UNC – No Primary — 822 (50%)",
+      "UNC – Lapsed D — 185 (11%)",
+      "Pure D — 78 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          202,
+          108,
+          142,
+          122,
+          822,
+          185,
+          78
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "SALEM CITY WARD 2",
+  "updated": "2026-05-29"
+}

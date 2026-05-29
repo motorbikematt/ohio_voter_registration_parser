@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 192 (11%)",
+      "UNC – Lapsed R — 171 (10%)",
+      "Mixed – Active — 215 (13%)",
+      "Mixed – Lapsed — 136 (8%)",
+      "UNC – No Primary — 601 (35%)",
+      "UNC – Lapsed D — 247 (14%)",
+      "Pure D — 145 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          192,
+          171,
+          215,
+          136,
+          601,
+          247,
+          145
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "VERMILION CITY WARD5",
+  "updated": "2026-05-29"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 502 (15%)",
+      "UNC – Lapsed R — 381 (12%)",
+      "Mixed – Active — 301 (9%)",
+      "Mixed – Lapsed — 264 (8%)",
+      "UNC – No Primary — 1,493 (46%)",
+      "UNC – Lapsed D — 227 (7%)",
+      "Pure D — 101 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          502,
+          381,
+          301,
+          264,
+          1493,
+          227,
+          101
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "SIDNEY CITY FOURTH W",
+  "updated": "2026-05-29"
+}

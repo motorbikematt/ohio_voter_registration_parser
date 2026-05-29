@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 414",
+      "Mixed – Active — 704",
+      "Mixed – Lapsed — 509",
+      "UNC – No Primary — 2,053",
+      "UNC – Lapsed D — 781"
+    ],
+    "datasets": [
+      {
+        "data": [
+          414,
+          704,
+          509,
+          2053,
+          781
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "NORTH OLMSTED WARD 3",
+  "updated": "2026-05-29"
+}

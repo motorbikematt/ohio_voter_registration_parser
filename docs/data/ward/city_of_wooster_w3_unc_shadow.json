@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 411",
+      "Mixed – Active — 505",
+      "Mixed – Lapsed — 404",
+      "UNC – No Primary — 1,453",
+      "UNC – Lapsed D — 426"
+    ],
+    "datasets": [
+      {
+        "data": [
+          411,
+          505,
+          404,
+          1453,
+          426
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "CITY OF WOOSTER W3",
+  "updated": "2026-05-29"
+}

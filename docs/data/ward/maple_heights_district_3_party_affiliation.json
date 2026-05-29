@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 24 (1%)",
+      "UNC – Lapsed R — 41 (2%)",
+      "Mixed – Active — 54 (2%)",
+      "Mixed – Lapsed — 105 (5%)",
+      "UNC – No Primary — 1,183 (54%)",
+      "UNC – Lapsed D — 545 (25%)",
+      "Pure D — 243 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          24,
+          41,
+          54,
+          105,
+          1183,
+          545,
+          243
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "MAPLE HEIGHTS DISTRICT 3",
+  "updated": "2026-05-29"
+}

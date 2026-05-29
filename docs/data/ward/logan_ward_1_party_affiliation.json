@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 160 (14%)",
+      "UNC – Lapsed R — 95 (8%)",
+      "Mixed – Active — 86 (8%)",
+      "Mixed – Lapsed — 58 (5%)",
+      "UNC – No Primary — 534 (47%)",
+      "UNC – Lapsed D — 107 (9%)",
+      "Pure D — 95 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          160,
+          95,
+          86,
+          58,
+          534,
+          107,
+          95
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "LOGAN WARD 1",
+  "updated": "2026-05-29"
+}

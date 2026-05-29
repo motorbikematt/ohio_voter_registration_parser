@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -143,20 +143,20 @@
     ],
     [
       "06",
-      "MENDON",
-      "37",
-      "3",
-      "40",
-      "2",
-      "N/A"
-    ],
-    [
-      "06",
       "HARROD",
       "36",
       "4",
       "40",
       "1",
+      "N/A"
+    ],
+    [
+      "06",
+      "MENDON",
+      "37",
+      "3",
+      "40",
+      "2",
       "N/A"
     ],
     [
@@ -170,7 +170,7 @@
     ],
     [
       "06",
-      "FORT LORAMIE",
+      "JACKSON CENTER",
       "18",
       "1",
       "19",
@@ -179,7 +179,7 @@
     ],
     [
       "06",
-      "JACKSON CENTER",
+      "FORT LORAMIE",
       "18",
       "1",
       "19",

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 63 (4%)",
+      "UNC – Lapsed R — 61 (4%)",
+      "Mixed – Active — 45 (3%)",
+      "Mixed – Lapsed — 74 (5%)",
+      "UNC – No Primary — 764 (54%)",
+      "UNC – Lapsed D — 261 (18%)",
+      "Pure D — 150 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          63,
+          61,
+          45,
+          74,
+          764,
+          261,
+          150
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "MT. HEALTHY WARD 1",
+  "updated": "2026-05-29"
+}

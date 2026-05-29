@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 600 (13%)",
+      "UNC – Lapsed R — 512 (11%)",
+      "Mixed – Active — 372 (8%)",
+      "Mixed – Lapsed — 324 (7%)",
+      "UNC – No Primary — 2,098 (45%)",
+      "UNC – Lapsed D — 518 (11%)",
+      "Pure D — 229 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          600,
+          512,
+          372,
+          324,
+          2098,
+          518,
+          229
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "CITY OF NEWARK  WD4",
+  "updated": "2026-05-29"
+}

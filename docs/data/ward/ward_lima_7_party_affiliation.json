@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 386 (13%)",
+      "UNC – Lapsed R — 273 (9%)",
+      "Mixed – Active — 131 (4%)",
+      "Mixed – Lapsed — 204 (7%)",
+      "UNC – No Primary — 1,472 (49%)",
+      "UNC – Lapsed D — 348 (12%)",
+      "Pure D — 185 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          386,
+          273,
+          131,
+          204,
+          1472,
+          348,
+          185
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "Ward Lima 7",
+  "updated": "2026-05-29"
+}
