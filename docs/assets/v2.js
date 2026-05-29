@@ -35,6 +35,17 @@
     return data;
   }
 
+  // Cross-county city map: { "CITY NAME": ["county_slug", ...] }.
+  // Built by the pipeline from every precinct index. Cached after first load;
+  // null if absent (older deploys) so callers can fall back to single-county.
+  let _cityCountyMap;
+  async function loadCityCountyMap() {
+    if (_cityCountyMap !== undefined) return _cityCountyMap;
+    try { _cityCountyMap = await fetchJSON('data/city_county_map.json'); }
+    catch (e) { _cityCountyMap = null; }
+    return _cityCountyMap;
+  }
+
   // ── URL state ──────────────────────────────────────────────
   // Old precincts.info URL params (?county=&geo=&precinct=&jurType=&jurName=)
   // get translated to the new scheme before any other code reads state, so
@@ -177,30 +188,52 @@
   // Fetches all precinct-level chart JSONs for a city in parallel and sums
   // the data arrays element-wise, producing county-compatible chartConfig objects.
   async function aggregateCityCharts(countySlug, cityName, precinctIndex) {
-    const allPrecincts = (precinctIndex && precinctIndex.precincts) ? precinctIndex.precincts : [];
     const upper = cityName.toUpperCase();
-    const cityPrecincts = allPrecincts.filter(prec => {
-      // Use the city field (populated from SWVF CITY column) when available.
-      // This correctly handles cross-county cities (e.g. Kettering spans
-      // Montgomery and Greene — the Greene precincts are SUGARCREEK 151 /
-      // BEAVERCREEK 090, not KETTERING-prefixed).
-      // Fall back to name-prefix matching for blank-CITY counties.
-      if (prec.city) return prec.city.toUpperCase() === upper;
-      const pn = prec.name.toUpperCase();
-      return pn === upper || pn.startsWith(upper + ' ');
+
+    // Determine which counties contain this city. The cross-county map lets a
+    // city like Kettering pull its Greene-side precincts (SUGARCREEK 151 /
+    // BEAVERCREEK 090) even when the tree was opened under Montgomery. Without
+    // the map we fall back to the single county whose tree was clicked.
+    const map = await loadCityCountyMap();
+    const counties = (map && map[upper] && map[upper].length) ? map[upper] : [countySlug];
+
+    // Load each county's precinct index (the clicked one is already in hand),
+    // then collect precincts whose .city matches — tagged with their own county
+    // slug so chart files are fetched from the right county's namespace.
+    const indexByCounty = {};
+    indexByCounty[countySlug] = precinctIndex;
+    await Promise.all(counties.map(async cs => {
+      if (indexByCounty[cs]) return;
+      indexByCounty[cs] = await fetchJSON(`data/${cs}_precinct_index.json`).catch(() => null);
+    }));
+
+    const cityPrecincts = [];
+    counties.forEach(cs => {
+      const idx = indexByCounty[cs];
+      const list = (idx && idx.precincts) ? idx.precincts : [];
+      list.forEach(prec => {
+        // Prefer the city field (SWVF CITY/RESIDENTIAL_CITY). Fall back to
+        // name-prefix matching only for indexes lacking a city field.
+        const match = prec.city
+          ? prec.city.toUpperCase() === upper
+          : (prec.name.toUpperCase() === upper || prec.name.toUpperCase().startsWith(upper + ' '));
+        if (match) cityPrecincts.push({ county: cs, safe_name: prec.safe_name });
+      });
     });
     if (cityPrecincts.length === 0) return {};
 
-    // Fetch all 6 chart types for every precinct in parallel
+    // Fetch all 6 chart types for every precinct in parallel, each from its
+    // own county's namespace.
     const results = await Promise.all(cityPrecincts.map(async prec => {
+      const cs = prec.county;
       const ps = prec.safe_name;
       const [party, decade, gen, partyDecade, partyGen, unc] = await Promise.all([
-        fetchJSON(`data/${countySlug}_precinct_${ps}_party.json`).catch(() => null),
-        fetchJSON(`data/${countySlug}_precinct_${ps}_decade.json`).catch(() => null),
-        fetchJSON(`data/${countySlug}_precinct_${ps}_generation.json`).catch(() => null),
-        fetchJSON(`data/${countySlug}_precinct_${ps}_party_by_decade.json`).catch(() => null),
-        fetchJSON(`data/${countySlug}_precinct_${ps}_party_by_generation.json`).catch(() => null),
-        fetchJSON(`data/${countySlug}_precinct_${ps}_unc.json`).catch(() => null),
+        fetchJSON(`data/${cs}_precinct_${ps}_party.json`).catch(() => null),
+        fetchJSON(`data/${cs}_precinct_${ps}_decade.json`).catch(() => null),
+        fetchJSON(`data/${cs}_precinct_${ps}_generation.json`).catch(() => null),
+        fetchJSON(`data/${cs}_precinct_${ps}_party_by_decade.json`).catch(() => null),
+        fetchJSON(`data/${cs}_precinct_${ps}_party_by_generation.json`).catch(() => null),
+        fetchJSON(`data/${cs}_precinct_${ps}_unc.json`).catch(() => null),
       ]);
       return { party, decade, gen, partyDecade, partyGen, unc };
     }));
@@ -593,17 +626,27 @@
       return;
     }
 
-    // Group precincts under cities by longest-prefix-match on city name.
-    // Wards/ward-precincts will slot in here once that mapping data lands.
+    // Group precincts under cities by the per-precinct `city` field (from the
+    // SWVF CITY/RESIDENTIAL_CITY column). This is authoritative and correctly
+    // handles precincts whose NAME does not contain the city (e.g. Greene's
+    // SUGARCREEK 151 belongs to Kettering). Fall back to longest-prefix-match
+    // on name only for precincts lacking a city field.
+    const cityByUpper = {};
+    cities.forEach(c => { cityByUpper[c.name.toUpperCase()] = c.name; });
     const citiesByLen = cities.slice().sort((a, b) => b.name.length - a.name.length);
     const buckets = {};
     const orphans = [];
     precincts.forEach(p => {
-      const upper = p.name.toUpperCase();
       let matched = null;
-      for (const c of citiesByLen) {
-        const cn = c.name.toUpperCase();
-        if (upper === cn || upper.startsWith(cn + ' ') || upper.startsWith(cn)) { matched = c.name; break; }
+      const pcity = (p.city || '').toUpperCase();
+      if (pcity && cityByUpper[pcity]) {
+        matched = cityByUpper[pcity];
+      } else if (!p.city) {
+        const upper = p.name.toUpperCase();
+        for (const c of citiesByLen) {
+          const cn = c.name.toUpperCase();
+          if (upper === cn || upper.startsWith(cn + ' ') || upper.startsWith(cn)) { matched = c.name; break; }
+        }
       }
       if (matched) (buckets[matched] = buckets[matched] || []).push(p);
       else orphans.push(p);
