@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 42",
+      "Mixed – Active — 94",
+      "Mixed – Lapsed — 92",
+      "UNC – No Primary — 739",
+      "UNC – Lapsed D — 400"
+    ],
+    "datasets": [
+      {
+        "data": [
+          42,
+          94,
+          92,
+          739,
+          400
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "RICHMOND HEIGHTS WARD 2",
+  "updated": "2026-05-29"
+}

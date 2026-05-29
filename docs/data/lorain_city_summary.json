@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,9 +18,9 @@
     [
       "47",
       "LORAIN",
-      "31,222",
-      "8,581",
-      "39,803",
+      "31,221",
+      "8,577",
+      "39,798",
       "50",
       "N/A"
     ],
@@ -28,8 +28,8 @@
       "47",
       "ELYRIA",
       "32,176",
-      "6,809",
-      "38,985",
+      "6,808",
+      "38,984",
       "43",
       "N/A"
     ],
@@ -64,8 +64,8 @@
       "47",
       "AMHERST",
       "12,891",
-      "1,580",
-      "14,471",
+      "1,579",
+      "14,470",
       "18",
       "N/A"
     ],
@@ -100,8 +100,8 @@
       "47",
       "WELLINGTON",
       "6,471",
-      "941",
-      "7,412",
+      "939",
+      "7,410",
       "11",
       "N/A"
     ],
@@ -109,8 +109,8 @@
       "47",
       "SHEFFIELD LAKE",
       "4,888",
-      "852",
-      "5,740",
+      "850",
+      "5,738",
       "4",
       "N/A"
     ],

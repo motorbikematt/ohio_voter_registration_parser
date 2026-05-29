@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 56 (12%)",
+      "UNC – Lapsed R — 36 (8%)",
+      "Mixed – Active — 54 (12%)",
+      "Mixed – Lapsed — 52 (12%)",
+      "UNC – No Primary — 158 (35%)",
+      "UNC – Lapsed D — 55 (12%)",
+      "Pure D — 38 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          56,
+          36,
+          54,
+          52,
+          158,
+          55,
+          38
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "GRAFTON VILL WARD-1",
+  "updated": "2026-05-29"
+}

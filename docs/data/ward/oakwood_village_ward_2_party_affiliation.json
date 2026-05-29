@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2 (0%)",
+      "UNC – Lapsed R — 7 (1%)",
+      "Mixed – Active — 14 (2%)",
+      "Mixed – Lapsed — 15 (2%)",
+      "UNC – No Primary — 173 (27%)",
+      "UNC – Lapsed D — 189 (30%)",
+      "Pure D — 239 (37%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2,
+          7,
+          14,
+          15,
+          173,
+          189,
+          239
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "OAKWOOD VILLAGE WARD 2",
+  "updated": "2026-05-29"
+}

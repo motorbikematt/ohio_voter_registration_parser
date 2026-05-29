@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -28,8 +28,8 @@
       "57",
       "CENTERVILLE",
       "43,656",
-      "5,881",
-      "49,537",
+      "5,880",
+      "49,536",
       "52",
       "N/A"
     ],
@@ -37,8 +37,8 @@
       "57",
       "KETTERING",
       "36,938",
-      "5,428",
-      "42,366",
+      "5,427",
+      "42,365",
       "44",
       "N/A"
     ],

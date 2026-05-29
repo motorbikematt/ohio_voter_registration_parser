@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 157",
+      "Mixed – Active — 315",
+      "Mixed – Lapsed — 157",
+      "UNC – No Primary — 2,392",
+      "UNC – Lapsed D — 698"
+    ],
+    "datasets": [
+      {
+        "data": [
+          157,
+          315,
+          157,
+          2392,
+          698
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "LORAIN CITY WARD-1",
+  "updated": "2026-05-29"
+}

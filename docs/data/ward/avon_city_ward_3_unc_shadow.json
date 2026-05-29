@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 599",
+      "Mixed – Active — 384",
+      "Mixed – Lapsed — 426",
+      "UNC – No Primary — 1,675",
+      "UNC – Lapsed D — 512"
+    ],
+    "datasets": [
+      {
+        "data": [
+          599,
+          384,
+          426,
+          1675,
+          512
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "AVON CITY WARD-3",
+  "updated": "2026-05-29"
+}

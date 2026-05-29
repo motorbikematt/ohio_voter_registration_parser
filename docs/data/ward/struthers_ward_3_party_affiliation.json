@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 41 (3%)",
+      "UNC – Lapsed R — 40 (3%)",
+      "Mixed – Active — 219 (14%)",
+      "Mixed – Lapsed — 100 (6%)",
+      "UNC – No Primary — 567 (36%)",
+      "UNC – Lapsed D — 353 (22%)",
+      "Pure D — 263 (17%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          41,
+          40,
+          219,
+          100,
+          567,
+          353,
+          263
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "STRUTHERS WARD 3",
+  "updated": "2026-05-29"
+}

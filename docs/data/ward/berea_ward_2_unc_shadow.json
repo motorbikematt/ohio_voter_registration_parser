@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 198",
+      "Mixed – Active — 208",
+      "Mixed – Lapsed — 279",
+      "UNC – No Primary — 1,018",
+      "UNC – Lapsed D — 431"
+    ],
+    "datasets": [
+      {
+        "data": [
+          198,
+          208,
+          279,
+          1018,
+          431
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "BEREA WARD 2",
+  "updated": "2026-05-29"
+}

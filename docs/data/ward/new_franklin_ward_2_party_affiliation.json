@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 373 (14%)",
+      "UNC – Lapsed R — 286 (11%)",
+      "Mixed – Active — 299 (12%)",
+      "Mixed – Lapsed — 306 (12%)",
+      "UNC – No Primary — 775 (30%)",
+      "UNC – Lapsed D — 347 (13%)",
+      "Pure D — 195 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          373,
+          286,
+          299,
+          306,
+          775,
+          347,
+          195
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "NEW FRANKLIN WARD 2",
+  "updated": "2026-05-29"
+}

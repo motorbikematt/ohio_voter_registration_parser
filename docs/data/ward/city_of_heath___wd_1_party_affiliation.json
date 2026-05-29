@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 351 (16%)",
+      "UNC – Lapsed R — 267 (12%)",
+      "Mixed – Active — 178 (8%)",
+      "Mixed – Lapsed — 155 (7%)",
+      "UNC – No Primary — 944 (42%)",
+      "UNC – Lapsed D — 216 (10%)",
+      "Pure D — 124 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          351,
+          267,
+          178,
+          155,
+          944,
+          216,
+          124
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "CITY OF HEATH - WD 1",
+  "updated": "2026-05-29"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 510",
+      "Mixed – Active — 654",
+      "Mixed – Lapsed — 689",
+      "UNC – No Primary — 3,463",
+      "UNC – Lapsed D — 1,649"
+    ],
+    "datasets": [
+      {
+        "data": [
+          510,
+          654,
+          689,
+          3463,
+          1649
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "LAKEWOOD WARD 3",
+  "updated": "2026-05-29"
+}

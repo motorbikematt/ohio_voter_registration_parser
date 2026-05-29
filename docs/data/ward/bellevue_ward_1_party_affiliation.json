@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 309 (18%)",
+      "UNC – Lapsed R — 181 (11%)",
+      "Mixed – Active — 145 (9%)",
+      "Mixed – Lapsed — 166 (10%)",
+      "UNC – No Primary — 654 (39%)",
+      "UNC – Lapsed D — 133 (8%)",
+      "Pure D — 106 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          309,
+          181,
+          145,
+          166,
+          654,
+          133,
+          106
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "BELLEVUE WARD 1",
+  "updated": "2026-05-29"
+}

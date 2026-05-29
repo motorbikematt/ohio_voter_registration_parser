@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 165 (7%)",
+      "UNC – Lapsed R — 180 (8%)",
+      "Mixed – Active — 202 (9%)",
+      "Mixed – Lapsed — 193 (8%)",
+      "UNC – No Primary — 935 (41%)",
+      "UNC – Lapsed D — 363 (16%)",
+      "Pure D — 248 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          165,
+          180,
+          202,
+          193,
+          935,
+          363,
+          248
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "SOLON WARD 7",
+  "updated": "2026-05-29"
+}

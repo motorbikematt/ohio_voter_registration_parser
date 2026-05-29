@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 380 (13%)",
+      "UNC – Lapsed R — 321 (11%)",
+      "Mixed – Active — 190 (6%)",
+      "Mixed – Lapsed — 242 (8%)",
+      "UNC – No Primary — 1,409 (47%)",
+      "UNC – Lapsed D — 312 (10%)",
+      "Pure D — 166 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          380,
+          321,
+          190,
+          242,
+          1409,
+          312,
+          166
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "CITY OF PATASKALA  2",
+  "updated": "2026-05-29"
+}

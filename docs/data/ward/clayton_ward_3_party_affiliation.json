@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 329 (10%)",
+      "UNC – Lapsed R — 250 (8%)",
+      "Mixed – Active — 239 (7%)",
+      "Mixed – Lapsed — 268 (8%)",
+      "UNC – No Primary — 1,198 (38%)",
+      "UNC – Lapsed D — 471 (15%)",
+      "Pure D — 437 (14%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          329,
+          250,
+          239,
+          268,
+          1198,
+          471,
+          437
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "CLAYTON WARD 3",
+  "updated": "2026-05-29"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 37",
+      "Mixed – Active — 17",
+      "Mixed – Lapsed — 41",
+      "UNC – No Primary — 750",
+      "UNC – Lapsed D — 241"
+    ],
+    "datasets": [
+      {
+        "data": [
+          37,
+          17,
+          41,
+          750,
+          241
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "HAMILTON CTY WARD 2",
+  "updated": "2026-05-29"
+}

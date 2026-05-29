@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 805",
+      "Mixed – Active — 950",
+      "Mixed – Lapsed — 982",
+      "UNC – No Primary — 2,876",
+      "UNC – Lapsed D — 940"
+    ],
+    "datasets": [
+      {
+        "data": [
+          805,
+          950,
+          982,
+          2876,
+          940
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "STRONGSVILLE WARD 4",
+  "updated": "2026-05-29"
+}

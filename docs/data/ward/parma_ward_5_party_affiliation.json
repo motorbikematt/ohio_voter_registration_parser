@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 553 (9%)",
+      "UNC – Lapsed R — 427 (7%)",
+      "Mixed – Active — 811 (13%)",
+      "Mixed – Lapsed — 698 (12%)",
+      "UNC – No Primary — 2,049 (34%)",
+      "UNC – Lapsed D — 870 (14%)",
+      "Pure D — 640 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          553,
+          427,
+          811,
+          698,
+          2049,
+          870,
+          640
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "PARMA WARD 5",
+  "updated": "2026-05-29"
+}

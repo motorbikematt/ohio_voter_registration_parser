@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 864 (20%)",
+      "UNC – Lapsed R — 578 (13%)",
+      "Mixed – Active — 389 (9%)",
+      "Mixed – Lapsed — 363 (8%)",
+      "UNC – No Primary — 1,596 (36%)",
+      "UNC – Lapsed D — 433 (10%)",
+      "Pure D — 195 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          864,
+          578,
+          389,
+          363,
+          1596,
+          433,
+          195
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "LANCASTER CITY WD 4",
+  "updated": "2026-05-29"
+}

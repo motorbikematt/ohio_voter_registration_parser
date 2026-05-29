@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 411 (9%)",
+      "UNC – Lapsed R — 372 (8%)",
+      "Mixed – Active — 237 (5%)",
+      "Mixed – Lapsed — 388 (9%)",
+      "UNC – No Primary — 2,258 (51%)",
+      "UNC – Lapsed D — 557 (13%)",
+      "Pure D — 226 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          411,
+          372,
+          237,
+          388,
+          2258,
+          557,
+          226
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "HUBER HTS WARD 5",
+  "updated": "2026-05-29"
+}

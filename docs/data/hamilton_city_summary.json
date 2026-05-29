@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -19,8 +19,8 @@
       "31",
       "CINCINNATI",
       "350,411",
-      "97,154",
-      "447,565",
+      "97,149",
+      "447,560",
       "420",
       "N/A"
     ],
@@ -28,8 +28,8 @@
       "31",
       "HARRISON",
       "13,604",
-      "2,892",
-      "16,496",
+      "2,890",
+      "16,494",
       "15",
       "N/A"
     ],
@@ -37,8 +37,8 @@
       "31",
       "NORWOOD",
       "9,885",
-      "3,417",
-      "13,302",
+      "3,416",
+      "13,301",
       "12",
       "N/A"
     ],
@@ -82,8 +82,8 @@
       "31",
       "MONTGOMERY",
       "7,951",
-      "1,115",
-      "9,066",
+      "1,114",
+      "9,065",
       "9",
       "N/A"
     ],
@@ -163,8 +163,8 @@
       "31",
       "MT. HEALTHY",
       "3,421",
-      "1,012",
-      "4,433",
+      "1,011",
+      "4,432",
       "4",
       "N/A"
     ],

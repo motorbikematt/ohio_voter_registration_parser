@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -161,15 +161,6 @@
     ],
     [
       "53",
-      "CHESTER",
-      "7",
-      "0",
-      "7",
-      "2",
-      "N/A"
-    ],
-    [
-      "53",
       "GUYSVILLE",
       "7",
       "0",
@@ -179,7 +170,16 @@
     ],
     [
       "53",
-      "EWINGTON",
+      "CHESTER",
+      "7",
+      "0",
+      "7",
+      "2",
+      "N/A"
+    ],
+    [
+      "53",
+      "BIDWELL",
       "2",
       "0",
       "2",
@@ -188,7 +188,7 @@
     ],
     [
       "53",
-      "BIDWELL",
+      "EWINGTON",
       "2",
       "0",
       "2",

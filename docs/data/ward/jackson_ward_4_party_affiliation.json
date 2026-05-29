@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 178 (19%)",
+      "UNC – Lapsed R — 178 (19%)",
+      "Mixed – Active — 67 (7%)",
+      "Mixed – Lapsed — 94 (10%)",
+      "UNC – No Primary — 356 (37%)",
+      "UNC – Lapsed D — 64 (7%)",
+      "Pure D — 19 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          178,
+          178,
+          67,
+          94,
+          356,
+          64,
+          19
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "JACKSON WARD 4",
+  "updated": "2026-05-29"
+}

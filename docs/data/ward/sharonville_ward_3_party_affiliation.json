@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 375 (16%)",
+      "UNC – Lapsed R — 291 (12%)",
+      "Mixed – Active — 156 (7%)",
+      "Mixed – Lapsed — 204 (9%)",
+      "UNC – No Primary — 967 (41%)",
+      "UNC – Lapsed D — 242 (10%)",
+      "Pure D — 121 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          375,
+          291,
+          156,
+          204,
+          967,
+          242,
+          121
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "SHARONVILLE WARD 3",
+  "updated": "2026-05-29"
+}

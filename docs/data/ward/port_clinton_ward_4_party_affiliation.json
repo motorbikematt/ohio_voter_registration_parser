@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 79 (9%)",
+      "UNC – Lapsed R — 83 (10%)",
+      "Mixed – Active — 42 (5%)",
+      "Mixed – Lapsed — 74 (9%)",
+      "UNC – No Primary — 398 (46%)",
+      "UNC – Lapsed D — 132 (15%)",
+      "Pure D — 56 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          79,
+          83,
+          42,
+          74,
+          398,
+          132,
+          56
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "PORT CLINTON WARD 4",
+  "updated": "2026-05-29"
+}

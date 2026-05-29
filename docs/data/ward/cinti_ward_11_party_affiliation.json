@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 48 (1%)",
+      "UNC – Lapsed R — 127 (3%)",
+      "Mixed – Active — 78 (2%)",
+      "Mixed – Lapsed — 189 (4%)",
+      "UNC – No Primary — 3,095 (71%)",
+      "UNC – Lapsed D — 606 (14%)",
+      "Pure D — 242 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          48,
+          127,
+          78,
+          189,
+          3095,
+          606,
+          242
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "CINTI WARD 11",
+  "updated": "2026-05-29"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 572 (14%)",
+      "UNC – Lapsed R — 455 (11%)",
+      "Mixed – Active — 473 (12%)",
+      "Mixed – Lapsed — 525 (13%)",
+      "UNC – No Primary — 1,215 (30%)",
+      "UNC – Lapsed D — 473 (12%)",
+      "Pure D — 299 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          572,
+          455,
+          473,
+          525,
+          1215,
+          473,
+          299
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "NORTH ROYALTON WARD 6",
+  "updated": "2026-05-29"
+}

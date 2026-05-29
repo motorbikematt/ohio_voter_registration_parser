@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 57 (4%)",
+      "UNC – Lapsed R — 102 (7%)",
+      "Mixed – Active — 42 (3%)",
+      "Mixed – Lapsed — 90 (7%)",
+      "UNC – No Primary — 782 (57%)",
+      "UNC – Lapsed D — 231 (17%)",
+      "Pure D — 60 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          57,
+          102,
+          42,
+          90,
+          782,
+          231,
+          60
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "MORAINE WARD 4",
+  "updated": "2026-05-29"
+}

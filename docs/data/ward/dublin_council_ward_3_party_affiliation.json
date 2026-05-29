@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 630 (15%)",
+      "UNC – Lapsed R — 600 (14%)",
+      "Mixed – Active — 275 (6%)",
+      "Mixed – Lapsed — 289 (7%)",
+      "UNC – No Primary — 1,858 (44%)",
+      "UNC – Lapsed D — 366 (9%)",
+      "Pure D — 226 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          630,
+          600,
+          275,
+          289,
+          1858,
+          366,
+          226
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-05-29 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "DUBLIN COUNCIL WARD 3",
+  "updated": "2026-05-29"
+}
