@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,342 +18,162 @@
     [
       "68",
       "EATON",
-      "4,617",
-      "864",
-      "5,481",
-      "8",
+      "9,119",
+      "1,440",
+      "10,559",
+      "29",
       "N/A"
     ],
     [
       "68",
-      "PRECINCT GASPER TWP",
-      "2,472",
-      "339",
-      "2,811",
+      "CAMDEN",
+      "3,304",
+      "548",
+      "3,852",
+      "18",
+      "N/A"
+    ],
+    [
+      "68",
+      "WEST ALEXANDRIA",
+      "3,037",
+      "433",
+      "3,470",
+      "12",
+      "N/A"
+    ],
+    [
+      "68",
+      "LEWISBURG",
+      "3,032",
+      "402",
+      "3,434",
+      "15",
+      "N/A"
+    ],
+    [
+      "68",
+      "NEW PARIS",
+      "2,054",
+      "397",
+      "2,451",
       "6",
       "N/A"
     ],
     [
       "68",
-      "PRECINCT GRATIS TWP SOUTH",
-      "1,101",
-      "127",
-      "1,228",
-      "1",
+      "SOMERVILLE",
+      "900",
+      "105",
+      "1,005",
+      "7",
       "N/A"
     ],
     [
       "68",
-      "PRECINCT CAMDEN",
-      "915",
-      "225",
-      "1,140",
-      "2",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT LANIER TWP SOUTHEAST",
-      "908",
-      "109",
-      "1,017",
-      "2",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT GRATIS TWP NORTH",
-      "905",
-      "106",
-      "1,011",
-      "3",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT LANIER TWP NORTHWEST",
-      "750",
-      "102",
-      "852",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT TWIN TWP WEST",
-      "728",
-      "97",
-      "825",
-      "3",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT JACKSON TWP",
-      "683",
-      "83",
-      "766",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT WASHINGTON TWP WEST",
-      "657",
-      "71",
-      "728",
-      "2",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT HARRISON TWP SOUTHEAST",
-      "651",
-      "72",
-      "723",
-      "2",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT MONROE TWP",
-      "648",
-      "75",
-      "723",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT TWIN TWP EAST",
-      "624",
-      "95",
-      "719",
-      "3",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT LEWISBURG VILLAGE NORTH",
-      "604",
-      "103",
-      "707",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT JEFFERSON TWP NORTH",
-      "606",
-      "85",
-      "691",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT ISRAEL TWP",
-      "572",
-      "92",
-      "664",
-      "3",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT HARRISON TWP WEST",
-      "533",
-      "65",
-      "598",
-      "2",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT SOMERS TWP WEST",
-      "517",
-      "81",
-      "598",
-      "2",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT WEST ALEXANDRIA VILLAGE SOUTH",
-      "500",
-      "77",
-      "577",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT SOMERS TWP EAST",
-      "483",
-      "63",
-      "546",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT NEW PARIS VILLAGE SOUTH",
-      "419",
-      "123",
-      "542",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT WASHINGTON TWP EAST",
-      "486",
-      "55",
-      "541",
-      "2",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT GRATIS",
-      "459",
-      "81",
-      "540",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT JEFFERSON TWP SOUTH",
-      "424",
-      "87",
-      "511",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT LEWISBURG VILLAGE SOUTH",
-      "399",
-      "54",
-      "453",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT NEW PARIS VILLAGE NORTH",
-      "329",
-      "78",
-      "407",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT DIXON TWP",
-      "375",
-      "29",
-      "404",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT ELDORADO",
-      "282",
-      "39",
-      "321",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT WEST ALEXANDRIA VILLAGE NORTH",
-      "277",
-      "43",
-      "320",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT HARRISON TWP NORTHEAST",
-      "245",
-      "33",
-      "278",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT WEST MANCHESTER",
-      "229",
-      "31",
-      "260",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT VERONA",
-      "195",
-      "39",
-      "234",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT SOMERS TWP EAST-TA",
-      "146",
-      "22",
-      "168",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT COLLEGE CORNER",
-      "122",
-      "28",
-      "150",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT WEST ELKTON",
-      "78",
-      "14",
-      "92",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT GRATIS TWP SOUTH-ED",
-      "37",
+      "WEST MANCHESTER",
+      "530",
+      "60",
+      "590",
       "4",
-      "41",
-      "1",
       "N/A"
     ],
     [
       "68",
-      "PRECINCT ISRAEL TWP 2-TA",
-      "8",
-      "0",
-      "8",
-      "1",
-      "N/A"
-    ],
-    [
-      "68",
-      "PRECINCT SOMERS TWP WEST-TA",
+      "ELDORADO",
+      "486",
+      "61",
+      "547",
       "3",
+      "N/A"
+    ],
+    [
+      "68",
+      "GRATIS",
+      "412",
+      "74",
+      "486",
+      "1",
+      "N/A"
+    ],
+    [
+      "68",
+      "COLLEGE CORNER",
+      "392",
+      "67",
+      "459",
+      "3",
+      "N/A"
+    ],
+    [
+      "68",
+      "MIDDLETOWN",
+      "276",
+      "32",
+      "308",
+      "3",
+      "N/A"
+    ],
+    [
+      "68",
+      "VERONA",
+      "173",
+      "39",
+      "212",
       "2",
-      "5",
+      "N/A"
+    ],
+    [
+      "68",
+      "WEST ELKTON",
+      "69",
+      "15",
+      "84",
+      "2",
+      "N/A"
+    ],
+    [
+      "68",
+      "GERMANTOWN",
+      "72",
+      "9",
+      "81",
+      "2",
+      "N/A"
+    ],
+    [
+      "68",
+      "BROOKVILLE",
+      "64",
+      "7",
+      "71",
+      "3",
+      "N/A"
+    ],
+    [
+      "68",
+      "ARCANUM",
+      "43",
+      "2",
+      "45",
+      "1",
+      "N/A"
+    ],
+    [
+      "68",
+      "OXFORD",
+      "14",
+      "1",
+      "15",
+      "3",
+      "N/A"
+    ],
+    [
+      "68",
+      "FARMERSVILLE",
+      "10",
+      "1",
+      "11",
       "1",
       "N/A"
     ]

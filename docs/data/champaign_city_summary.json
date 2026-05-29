@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,190 +18,172 @@
     [
       "11",
       "URBANA",
-      "5,988",
-      "1,118",
-      "7,106",
-      "8",
+      "11,440",
+      "1,859",
+      "13,299",
+      "20",
       "N/A"
     ],
     [
       "11",
-      "PRECINCT MAD RIVER",
-      "1,830",
-      "221",
-      "2,051",
+      "ST PARIS",
+      "3,487",
+      "499",
+      "3,986",
+      "7",
+      "N/A"
+    ],
+    [
+      "11",
+      "MECHANICSBURG",
+      "2,597",
+      "350",
+      "2,947",
+      "6",
+      "N/A"
+    ],
+    [
+      "11",
+      "NORTH LEWISBURG",
+      "1,352",
+      "216",
+      "1,568",
+      "3",
+      "N/A"
+    ],
+    [
+      "11",
+      "CABLE",
+      "1,207",
+      "126",
+      "1,333",
+      "4",
+      "N/A"
+    ],
+    [
+      "11",
+      "WEST LIBERTY",
+      "613",
+      "61",
+      "674",
+      "5",
+      "N/A"
+    ],
+    [
+      "11",
+      "WOODSTOCK",
+      "499",
+      "73",
+      "572",
       "2",
       "N/A"
     ],
     [
       "11",
-      "PRECINCT WAYNE",
-      "1,152",
-      "123",
-      "1,275",
+      "DEGRAFF",
+      "404",
+      "40",
+      "444",
+      "2",
+      "N/A"
+    ],
+    [
+      "11",
+      "CHRISTIANSBURG",
+      "296",
+      "53",
+      "349",
       "1",
       "N/A"
     ],
     [
       "11",
-      "PRECINCT ST PARIS",
-      "1,033",
-      "207",
-      "1,240",
+      "CONOVER",
+      "282",
+      "38",
+      "320",
+      "3",
+      "N/A"
+    ],
+    [
+      "11",
+      "SPRINGFIELD",
+      "261",
+      "21",
+      "282",
+      "4",
+      "N/A"
+    ],
+    [
+      "11",
+      "QUINCY",
+      "85",
+      "9",
+      "94",
       "1",
       "N/A"
     ],
     [
       "11",
-      "PRECINCT JOHNSON",
-      "1,012",
-      "144",
-      "1,156",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT URBANA SOUTH",
-      "932",
-      "180",
-      "1,112",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT NORTH LEWISBURG",
-      "891",
-      "166",
-      "1,057",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT CONCORD",
-      "942",
-      "103",
-      "1,045",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT MECHANICSBURG",
-      "813",
-      "140",
-      "953",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT URBANA NORTH",
-      "824",
-      "124",
-      "948",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT JACKSON WEST",
-      "755",
-      "112",
-      "867",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT SALEM SOUTH",
-      "748",
+      "ROSEWOOD",
       "73",
-      "821",
+      "12",
+      "85",
       "1",
       "N/A"
     ],
     [
       "11",
-      "PRECINCT UNION NORTH",
-      "724",
-      "80",
-      "804",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT SALEM NORTH",
-      "721",
-      "81",
-      "802",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT JACKSON EAST",
-      "712",
-      "73",
-      "785",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT RUSH",
-      "672",
-      "108",
-      "780",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT GOSHEN SOUTH",
-      "667",
-      "84",
-      "751",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT ADAMS",
-      "632",
-      "67",
-      "699",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT UNION SOUTH",
-      "608",
-      "57",
-      "665",
-      "1",
-      "N/A"
-    ],
-    [
-      "11",
-      "PRECINCT GOSHEN NORTH",
-      "573",
+      "NEW CARLISLE",
+      "63",
+      "5",
       "68",
-      "641",
       "1",
       "N/A"
     ],
     [
       "11",
-      "PRECINCT HARRISON",
-      "545",
-      "54",
-      "599",
+      "MILFORD CENTER",
+      "30",
+      "9",
+      "39",
       "1",
+      "N/A"
+    ],
+    [
+      "11",
+      "MINGO",
+      "27",
+      "8",
+      "35",
+      "1",
+      "N/A"
+    ],
+    [
+      "11",
+      "SIDNEY",
+      "22",
+      "2",
+      "24",
+      "1",
+      "N/A"
+    ],
+    [
+      "11",
+      "CASSTOWN",
+      "22",
+      "2",
+      "24",
+      "1",
+      "N/A"
+    ],
+    [
+      "11",
+      "WESTVILLE",
+      "14",
+      "0",
+      "14",
+      "2",
       "N/A"
     ]
   ]

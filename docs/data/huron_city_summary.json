@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,279 +18,135 @@
     [
       "39",
       "NORWALK",
-      "8,623",
-      "1,536",
-      "10,159",
-      "12",
+      "12,333",
+      "1,971",
+      "14,304",
+      "23",
       "N/A"
     ],
     [
       "39",
       "WILLARD",
-      "2,515",
-      "626",
-      "3,141",
-      "4",
+      "5,180",
+      "969",
+      "6,149",
+      "13",
       "N/A"
     ],
     [
       "39",
       "BELLEVUE",
-      "1,725",
-      "347",
-      "2,072",
+      "2,430",
+      "412",
+      "2,842",
+      "5",
+      "N/A"
+    ],
+    [
+      "39",
+      "NEW LONDON",
+      "2,321",
+      "398",
+      "2,719",
+      "7",
+      "N/A"
+    ],
+    [
+      "39",
+      "WAKEMAN",
+      "2,279",
+      "385",
+      "2,664",
+      "6",
+      "N/A"
+    ],
+    [
+      "39",
+      "MONROEVILLE",
+      "1,675",
+      "177",
+      "1,852",
+      "6",
+      "N/A"
+    ],
+    [
+      "39",
+      "GREENWICH",
+      "1,439",
+      "229",
+      "1,668",
+      "5",
+      "N/A"
+    ],
+    [
+      "39",
+      "COLLINS",
+      "942",
+      "113",
+      "1,055",
+      "3",
+      "N/A"
+    ],
+    [
+      "39",
+      "PLYMOUTH",
+      "773",
+      "128",
+      "901",
+      "3",
+      "N/A"
+    ],
+    [
+      "39",
+      "NORTH FAIRFIELD",
+      "695",
+      "84",
+      "779",
+      "6",
+      "N/A"
+    ],
+    [
+      "39",
+      "MILAN",
+      "229",
+      "31",
+      "260",
+      "1",
+      "N/A"
+    ],
+    [
+      "39",
+      "ATTICA",
+      "132",
+      "11",
+      "143",
+      "3",
+      "N/A"
+    ],
+    [
+      "39",
+      "NEW HAVEN",
+      "80",
+      "13",
+      "93",
+      "1",
+      "N/A"
+    ],
+    [
+      "39",
+      "SHILOH",
+      "19",
+      "2",
+      "21",
       "2",
       "N/A"
     ],
     [
       "39",
-      "PRECINCT TOWNSEND TWP",
-      "981",
-      "116",
-      "1,097",
+      "NEW WASHINGTON",
       "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT CLARKSFIELD TWP",
-      "950",
-      "126",
-      "1,076",
+      "0",
       "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT WAKEMAN TWP",
-      "868",
-      "167",
-      "1,035",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT NEW HAVEN TWP",
-      "861",
-      "148",
-      "1,009",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT GREENFIELD TWP",
-      "901",
-      "97",
-      "998",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT NORWALK TWP NORTH",
-      "816",
-      "118",
-      "934",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT GREENWICH",
-      "708",
-      "121",
-      "829",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT BRONSON TWP #2",
-      "716",
-      "58",
-      "774",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT MONROEVILLE",
-      "655",
-      "97",
-      "752",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT NORWALK-MILAN TWP",
-      "635",
-      "113",
-      "748",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT PERU TWP",
-      "680",
-      "61",
-      "741",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT NORWICH TWP",
-      "629",
-      "64",
-      "693",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT FAIRFIELD TWP",
-      "616",
-      "70",
-      "686",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT BRONSON TWP #1",
-      "619",
-      "66",
-      "685",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT NEW LONDON VILLAGE #2",
-      "555",
-      "126",
-      "681",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT NEW LONDON VILLAGE #1",
-      "547",
-      "133",
-      "680",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT HARTLAND TWP",
-      "589",
-      "84",
-      "673",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT FITCHVILLE TWP",
-      "574",
-      "82",
-      "656",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT RIDGEFIELD TWP",
-      "600",
-      "50",
-      "650",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT WAKEMAN",
-      "540",
-      "102",
-      "642",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT LYME TWP",
-      "571",
-      "44",
-      "615",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT RICHMOND TWP",
-      "540",
-      "73",
-      "613",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT NEW LONDON TWP",
-      "545",
-      "49",
-      "594",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT GREENWICH TWP",
-      "442",
-      "66",
-      "508",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT RIPLEY TWP",
-      "413",
-      "55",
-      "468",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT NORWALK TWP SOUTH",
-      "425",
-      "32",
-      "457",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT PLYMOUTH",
-      "379",
-      "64",
-      "443",
-      "1",
-      "N/A"
-    ],
-    [
-      "39",
-      "PRECINCT SHERMAN TWP",
-      "310",
-      "32",
-      "342",
       "1",
       "N/A"
     ]

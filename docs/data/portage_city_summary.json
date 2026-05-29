@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,262 +18,226 @@
     [
       "67",
       "KENT",
-      "11,342",
-      "2,628",
-      "13,970",
-      "18",
-      "N/A"
-    ],
-    [
-      "67",
-      "AURORA",
-      "11,887",
-      "1,414",
-      "13,301",
-      "13",
-      "N/A"
-    ],
-    [
-      "67",
-      "STREETSBORO",
-      "10,351",
-      "1,716",
-      "12,067",
-      "13",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT BRIMFIELD",
-      "7,087",
-      "1,066",
-      "8,153",
-      "7",
+      "20,586",
+      "4,121",
+      "24,707",
+      "33",
       "N/A"
     ],
     [
       "67",
       "RAVENNA",
-      "5,769",
-      "1,176",
-      "6,945",
-      "10",
+      "18,380",
+      "3,022",
+      "21,402",
+      "40",
       "N/A"
     ],
     [
       "67",
-      "PRECINCT ROOTSTOWN",
-      "5,466",
-      "690",
-      "6,156",
-      "7",
+      "AURORA",
+      "12,431",
+      "1,464",
+      "13,895",
+      "15",
       "N/A"
     ],
     [
       "67",
-      "PRECINCT RAVENNA TWP",
-      "4,778",
-      "849",
-      "5,627",
-      "7",
+      "STREETSBORO",
+      "10,794",
+      "1,794",
+      "12,588",
+      "16",
       "N/A"
     ],
     [
       "67",
-      "PRECINCT SUFFIELD",
-      "3,881",
-      "478",
-      "4,359",
+      "MOGADORE",
+      "6,057",
+      "754",
+      "6,811",
+      "14",
+      "N/A"
+    ],
+    [
+      "67",
+      "MANTUA",
+      "4,452",
+      "551",
+      "5,003",
+      "11",
+      "N/A"
+    ],
+    [
+      "67",
+      "GARRETTSVILLE",
+      "4,262",
+      "665",
+      "4,927",
+      "9",
+      "N/A"
+    ],
+    [
+      "67",
+      "ATWATER",
+      "4,068",
+      "459",
+      "4,527",
+      "11",
+      "N/A"
+    ],
+    [
+      "67",
+      "ROOTSTOWN",
+      "3,498",
+      "436",
+      "3,934",
+      "12",
+      "N/A"
+    ],
+    [
+      "67",
+      "WINDHAM",
+      "1,892",
+      "356",
+      "2,248",
+      "6",
+      "N/A"
+    ],
+    [
+      "67",
+      "HIRAM",
+      "1,450",
+      "232",
+      "1,682",
       "5",
       "N/A"
     ],
     [
       "67",
-      "PRECINCT FRANKLIN",
-      "3,736",
-      "591",
-      "4,327",
+      "DIAMOND",
+      "1,299",
+      "167",
+      "1,466",
       "5",
       "N/A"
     ],
     [
       "67",
-      "PRECINCT RANDOLPH",
-      "3,314",
-      "396",
-      "3,710",
+      "DEERFIELD",
+      "1,202",
+      "208",
+      "1,410",
+      "6",
+      "N/A"
+    ],
+    [
+      "67",
+      "NEWTON FALLS",
+      "461",
+      "59",
+      "520",
       "4",
       "N/A"
     ],
     [
       "67",
-      "PRECINCT SHALERSVILLE",
-      "2,957",
-      "432",
-      "3,389",
-      "4",
+      "HARTVILLE",
+      "386",
+      "36",
+      "422",
+      "5",
       "N/A"
     ],
     [
       "67",
-      "PRECINCT MANTUA TWP",
-      "3,042",
-      "326",
-      "3,368",
-      "4",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT PALMYRA",
-      "1,687",
-      "222",
-      "1,909",
-      "3",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT HIRAM TWP",
-      "1,669",
-      "184",
-      "1,853",
-      "2",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT EDINBURG",
-      "1,660",
-      "161",
-      "1,821",
-      "2",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT FREEDOM",
-      "1,613",
-      "202",
-      "1,815",
-      "2",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT NELSON",
-      "1,540",
-      "266",
-      "1,806",
-      "2",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT DEERFIELD",
-      "1,544",
-      "243",
-      "1,787",
-      "2",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT ATWATER",
-      "1,551",
-      "186",
-      "1,737",
-      "2",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT GARRETTSVILLE",
-      "1,511",
-      "220",
-      "1,731",
-      "2",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT WINDHAM TWP",
-      "1,014",
-      "175",
-      "1,189",
-      "2",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT PARIS",
-      "963",
-      "120",
-      "1,083",
-      "2",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT CHARLESTOWN",
-      "901",
-      "171",
-      "1,072",
-      "2",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT WINDHAM VIL",
-      "829",
-      "210",
-      "1,039",
-      "2",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT MOGADORE",
-      "686",
-      "62",
-      "748",
-      "1",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT MANTUA",
-      "594",
-      "81",
-      "675",
-      "1",
-      "N/A"
-    ],
-    [
-      "67",
-      "PRECINCT HIRAM",
-      "281",
-      "109",
-      "390",
+      "NORTH BENTON",
+      "337",
+      "32",
+      "369",
       "1",
       "N/A"
     ],
     [
       "67",
       "TALLMADGE",
-      "185",
-      "21",
-      "206",
+      "288",
+      "37",
+      "325",
       "1",
       "N/A"
     ],
     [
       "67",
-      "PRECINCT SUGAR BUSH KNOLLS",
-      "171",
-      "16",
-      "187",
+      "AKRON",
+      "44",
+      "4",
+      "48",
       "1",
+      "N/A"
+    ],
+    [
+      "67",
+      "LAKE MILTON",
+      "26",
+      "6",
+      "32",
+      "1",
+      "N/A"
+    ],
+    [
+      "67",
+      "WEST FARMINGTON",
+      "23",
+      "3",
+      "26",
+      "1",
+      "N/A"
+    ],
+    [
+      "67",
+      "STOW",
+      "25",
+      "1",
+      "26",
+      "1",
+      "N/A"
+    ],
+    [
+      "67",
+      "SOUTHINGTON",
+      "18",
+      "2",
+      "20",
+      "1",
+      "N/A"
+    ],
+    [
+      "67",
+      "ALLIANCE",
+      "13",
+      "1",
+      "14",
+      "3",
+      "N/A"
+    ],
+    [
+      "67",
+      "WAYLAND",
+      "10",
+      "0",
+      "10",
+      "1",
+      "N/A"
+    ],
+    [
+      "67",
+      "RANDOLPH",
+      "7",
+      "1",
+      "8",
+      "3",
       "N/A"
     ]
   ]

@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,189 +18,198 @@
     [
       "30",
       "CAMBRIDGE",
-      "4,443",
-      "1,097",
-      "5,540",
-      "8",
+      "10,124",
+      "1,899",
+      "12,023",
+      "24",
       "N/A"
     ],
     [
       "30",
-      "PRECINCT CAMBRIDGE",
-      "2,291",
-      "337",
-      "2,628",
+      "BYESVILLE",
+      "2,391",
+      "471",
+      "2,862",
+      "7",
+      "N/A"
+    ],
+    [
+      "30",
+      "KIMBOLTON",
+      "1,133",
+      "182",
+      "1,315",
+      "5",
+      "N/A"
+    ],
+    [
+      "30",
+      "SENECAVILLE",
+      "1,044",
+      "155",
+      "1,199",
+      "6",
+      "N/A"
+    ],
+    [
+      "30",
+      "LORE",
+      "976",
+      "142",
+      "1,118",
+      "6",
+      "N/A"
+    ],
+    [
+      "30",
+      "QUAKER",
+      "851",
+      "176",
+      "1,027",
+      "4",
+      "N/A"
+    ],
+    [
+      "30",
+      "CUMBERLAND",
+      "711",
+      "90",
+      "801",
+      "5",
+      "N/A"
+    ],
+    [
+      "30",
+      "SALESVILLE",
+      "693",
+      "94",
+      "787",
+      "5",
+      "N/A"
+    ],
+    [
+      "30",
+      "PLEASANT",
+      "576",
+      "93",
+      "669",
       "3",
       "N/A"
     ],
     [
       "30",
-      "PRECINCT JACKSON",
-      "1,465",
-      "252",
-      "1,717",
+      "NEW CONCORD",
+      "587",
+      "66",
+      "653",
+      "4",
+      "N/A"
+    ],
+    [
+      "30",
+      "FREEPORT",
+      "362",
+      "45",
+      "407",
       "2",
       "N/A"
     ],
     [
       "30",
-      "PRECINCT WESTLAND",
-      "1,261",
-      "156",
-      "1,417",
+      "BUFFALO",
+      "181",
+      "33",
+      "214",
       "2",
       "N/A"
     ],
     [
       "30",
-      "PRECINCT BYESVILLE",
-      "1,109",
-      "248",
-      "1,357",
+      "OLD WASHINGTON",
+      "113",
+      "23",
+      "136",
+      "1",
+      "N/A"
+    ],
+    [
+      "30",
+      "NEWCOMERSTOWN",
+      "101",
+      "16",
+      "117",
+      "1",
+      "N/A"
+    ],
+    [
+      "30",
+      "PIEDMONT",
+      "52",
+      "12",
+      "64",
+      "1",
+      "N/A"
+    ],
+    [
+      "30",
+      "KIPLING",
+      "48",
+      "11",
+      "59",
+      "1",
+      "N/A"
+    ],
+    [
+      "30",
+      "GUERNSEY",
+      "57",
+      "1",
+      "58",
       "2",
       "N/A"
     ],
     [
       "30",
-      "PRECINCT ADAMS",
-      "1,130",
-      "173",
-      "1,303",
+      "DERWENT",
+      "39",
+      "10",
+      "49",
+      "1",
+      "N/A"
+    ],
+    [
+      "30",
+      "PORT WASHINGTON",
+      "35",
+      "2",
+      "37",
       "2",
       "N/A"
     ],
     [
       "30",
-      "PRECINCT CENTER",
-      "1,008",
-      "119",
-      "1,127",
+      "TIPPECANOE",
+      "7",
+      "1",
+      "8",
+      "1",
+      "N/A"
+    ],
+    [
+      "30",
+      "CALDWELL",
+      "3",
+      "0",
+      "3",
+      "1",
+      "N/A"
+    ],
+    [
+      "30",
+      "FAIRVIEW",
       "2",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT RICHLAND",
-      "934",
-      "135",
-      "1,069",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT OLD WASHINGTON/WILLS",
-      "816",
-      "106",
-      "922",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT MONROE/WHEELING",
-      "722",
-      "109",
-      "831",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT CUMBERLAND/SPENCER",
-      "605",
-      "77",
-      "682",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT JEFFERSON/MADISON",
-      "578",
-      "87",
-      "665",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT VALLEY",
-      "554",
-      "83",
-      "637",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT LIBERTY",
-      "560",
-      "77",
-      "637",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT QUAKER CITY/MILLWOOD",
-      "537",
-      "99",
-      "636",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT LONDONDERRY/WASHINGTON",
-      "534",
-      "87",
-      "621",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT PLEASANT CITY/VALLEY",
-      "525",
-      "89",
-      "614",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT FAIRVIEW/OXFORD",
-      "369",
-      "86",
-      "455",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT KNOX",
-      "299",
-      "40",
-      "339",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT SENECAVILLE",
-      "207",
-      "38",
-      "245",
-      "1",
-      "N/A"
-    ],
-    [
-      "30",
-      "PRECINCT LORE",
-      "139",
-      "27",
-      "166",
+      "0",
+      "2",
       "1",
       "N/A"
     ]

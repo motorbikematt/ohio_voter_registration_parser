@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,189 +18,117 @@
     [
       "81",
       "VAN WERT",
-      "6,072",
-      "1,434",
-      "7,506",
-      "10",
+      "9,130",
+      "1,842",
+      "10,972",
+      "21",
       "N/A"
     ],
     [
       "81",
       "DELPHOS",
-      "1,595",
-      "328",
-      "1,923",
+      "2,453",
+      "385",
+      "2,838",
+      "7",
+      "N/A"
+    ],
+    [
+      "81",
+      "CONVOY",
+      "1,748",
+      "261",
+      "2,009",
+      "5",
+      "N/A"
+    ],
+    [
+      "81",
+      "OHIO",
+      "1,236",
+      "161",
+      "1,397",
+      "7",
+      "N/A"
+    ],
+    [
+      "81",
+      "MIDDLE POINT",
+      "696",
+      "113",
+      "809",
+      "5",
+      "N/A"
+    ],
+    [
+      "81",
+      "WILLSHIRE",
+      "518",
+      "88",
+      "606",
+      "2",
+      "N/A"
+    ],
+    [
+      "81",
+      "VENEDOCIA",
+      "424",
+      "51",
+      "475",
+      "2",
+      "N/A"
+    ],
+    [
+      "81",
+      "SPENCERVILLE",
+      "179",
+      "19",
+      "198",
+      "1",
+      "N/A"
+    ],
+    [
+      "81",
+      "SCOTT",
+      "131",
+      "28",
+      "159",
+      "2",
+      "N/A"
+    ],
+    [
+      "81",
+      "GROVER HILL",
+      "109",
+      "17",
+      "126",
+      "2",
+      "N/A"
+    ],
+    [
+      "81",
+      "WREN",
+      "98",
+      "13",
+      "111",
+      "1",
+      "N/A"
+    ],
+    [
+      "81",
+      "ROCKFORD",
+      "74",
+      "18",
+      "92",
       "3",
       "N/A"
     ],
     [
       "81",
-      "PRECINCT RIDGE",
-      "830",
-      "118",
-      "948",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT HARRISON",
-      "694",
-      "80",
-      "774",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT TULLY",
-      "632",
-      "86",
-      "718",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT UNION",
-      "580",
-      "90",
-      "670",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT CONVOY",
-      "561",
-      "106",
-      "667",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT WILLSHIRE",
-      "535",
-      "96",
-      "631",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT LIBERTY",
-      "519",
-      "70",
-      "589",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT PLEASANT NORTH",
-      "493",
-      "63",
-      "556",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT WASHINGTON EAST",
-      "503",
-      "36",
-      "539",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT YORK",
-      "485",
-      "53",
-      "538",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT HOAGLIN",
-      "414",
-      "70",
-      "484",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT WASHINGTON WEST",
-      "448",
-      "28",
-      "476",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT JENNINGS",
-      "410",
-      "42",
-      "452",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT OHIO",
-      "386",
-      "53",
-      "439",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT PLEASANT EAST",
-      "384",
-      "46",
-      "430",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT PLEASANT WEST",
-      "376",
-      "51",
-      "427",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT WREN",
-      "345",
-      "43",
-      "388",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT MIDDLE POINT",
-      "304",
-      "62",
-      "366",
-      "1",
-      "N/A"
-    ],
-    [
-      "81",
-      "PRECINCT JACKSON",
-      "296",
-      "44",
-      "340",
+      "FT JENNINGS",
+      "66",
+      "3",
+      "69",
       "1",
       "N/A"
     ]

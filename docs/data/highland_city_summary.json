@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,225 +18,135 @@
     [
       "36",
       "HILLSBORO",
-      "3,382",
-      "741",
-      "4,123",
-      "5",
+      "12,829",
+      "2,189",
+      "15,018",
+      "25",
       "N/A"
     ],
     [
       "36",
       "GREENFIELD",
-      "1,928",
-      "401",
-      "2,329",
-      "2",
-      "N/A"
-    ],
-    [
-      "36",
-      "FAIRFIELD",
-      "1,333",
-      "194",
-      "1,527",
-      "2",
-      "N/A"
-    ],
-    [
-      "36",
-      "NEW MARKET",
-      "1,151",
-      "165",
-      "1,316",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "UNION",
-      "1,055",
-      "184",
-      "1,239",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "PAINT SW",
-      "970",
-      "218",
-      "1,188",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "MADISON",
-      "1,030",
-      "151",
-      "1,181",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "LIBERTY",
-      "985",
-      "112",
-      "1,097",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "CLAY",
-      "874",
-      "147",
-      "1,021",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "PENN",
-      "865",
-      "111",
-      "976",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "LYNCHBURG",
-      "800",
-      "159",
-      "959",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "CONCORD",
-      "811",
-      "98",
-      "909",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "PAINT SE",
-      "688",
-      "144",
-      "832",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "WHITEOAK",
-      "725",
-      "104",
-      "829",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "BRUSHCREEK",
-      "686",
-      "127",
-      "813",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "LIBERTY NW",
-      "711",
-      "90",
-      "801",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "WASHINGTON",
-      "684",
-      "97",
-      "781",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "DODSON",
-      "647",
-      "101",
-      "748",
-      "1",
+      "3,063",
+      "568",
+      "3,631",
+      "6",
       "N/A"
     ],
     [
       "36",
       "LEESBURG",
-      "577",
+      "2,257",
+      "365",
+      "2,622",
+      "6",
+      "N/A"
+    ],
+    [
+      "36",
+      "LYNCHBURG",
+      "2,064",
+      "347",
+      "2,411",
+      "6",
+      "N/A"
+    ],
+    [
+      "36",
+      "SARDINIA",
+      "772",
+      "121",
+      "893",
+      "2",
+      "N/A"
+    ],
+    [
+      "36",
+      "NEW VIENNA",
+      "669",
+      "112",
+      "781",
+      "4",
+      "N/A"
+    ],
+    [
+      "36",
+      "MT ORAB",
+      "343",
+      "49",
+      "392",
+      "2",
+      "N/A"
+    ],
+    [
+      "36",
+      "BAINBRIDGE",
+      "242",
+      "39",
+      "281",
+      "2",
+      "N/A"
+    ],
+    [
+      "36",
+      "WINCHESTER",
+      "231",
+      "27",
+      "258",
+      "2",
+      "N/A"
+    ],
+    [
+      "36",
+      "MOWRYSTOWN",
+      "169",
+      "40",
+      "209",
+      "1",
+      "N/A"
+    ],
+    [
+      "36",
+      "HIGHLAND",
+      "119",
+      "18",
       "137",
-      "714",
       "1",
       "N/A"
     ],
     [
       "36",
-      "JACKSON",
-      "576",
+      "PEEBLES",
+      "95",
+      "9",
+      "104",
+      "2",
+      "N/A"
+    ],
+    [
+      "36",
+      "SEAMAN",
+      "89",
+      "11",
+      "100",
+      "2",
+      "N/A"
+    ],
+    [
+      "36",
+      "SINKING SPRING",
       "86",
-      "662",
+      "6",
+      "92",
       "1",
       "N/A"
     ],
     [
       "36",
-      "MARSHALL",
-      "591",
-      "66",
-      "657",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "PAINT",
-      "567",
-      "78",
-      "645",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "LIBERTY NE",
-      "546",
-      "77",
-      "623",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "SALEM",
-      "490",
-      "47",
-      "537",
-      "1",
-      "N/A"
-    ],
-    [
-      "36",
-      "HAMER",
-      "401",
-      "66",
-      "467",
+      "FAYETTEVILLE",
+      "45",
+      "0",
+      "45",
       "1",
       "N/A"
     ]

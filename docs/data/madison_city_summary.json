@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,162 +18,126 @@
     [
       "49",
       "LONDON",
-      "5,412",
-      "1,112",
-      "6,524",
-      "5",
+      "11,014",
+      "1,854",
+      "12,868",
+      "17",
+      "N/A"
+    ],
+    [
+      "49",
+      "PLAIN",
+      "4,774",
+      "525",
+      "5,299",
+      "6",
       "N/A"
     ],
     [
       "49",
       "WEST JEFFERSON",
-      "2,274",
-      "407",
-      "2,681",
-      "2",
-      "N/A"
-    ],
-    [
-      "49",
-      "JEFFERSON TWP",
-      "2,091",
-      "240",
-      "2,331",
-      "2",
-      "N/A"
-    ],
-    [
-      "49",
-      "PLAIN CITY WEST",
-      "1,813",
-      "154",
-      "1,967",
-      "1",
-      "N/A"
-    ],
-    [
-      "49",
-      "CANAAN",
-      "1,453",
-      "177",
-      "1,630",
-      "1",
-      "N/A"
-    ],
-    [
-      "49",
-      "PAINT / RANGE / STOKES",
-      "1,224",
-      "155",
-      "1,379",
-      "1",
-      "N/A"
-    ],
-    [
-      "49",
-      "MONROE / PIKE",
-      "1,085",
-      "199",
-      "1,284",
-      "1",
+      "4,197",
+      "626",
+      "4,823",
+      "8",
       "N/A"
     ],
     [
       "49",
       "MT STERLING",
-      "961",
-      "187",
-      "1,148",
+      "2,099",
+      "321",
+      "2,420",
+      "6",
+      "N/A"
+    ],
+    [
+      "49",
+      "GALLOWAY",
+      "445",
+      "62",
+      "507",
+      "3",
+      "N/A"
+    ],
+    [
+      "49",
+      "SOUTH SOLON",
+      "367",
+      "59",
+      "426",
       "1",
       "N/A"
     ],
     [
       "49",
-      "PLAIN CITY EAST",
-      "975",
-      "137",
-      "1,112",
+      "IRWIN",
+      "203",
+      "38",
+      "241",
       "1",
       "N/A"
     ],
     [
       "49",
-      "FAIRFIELD",
-      "936",
-      "111",
-      "1,047",
+      "SEDALIA",
+      "124",
+      "24",
+      "148",
       "1",
       "N/A"
     ],
     [
       "49",
-      "UNION",
-      "866",
-      "109",
-      "975",
-      "1",
+      "MECHANICSBURG",
+      "113",
+      "8",
+      "121",
+      "2",
       "N/A"
     ],
     [
       "49",
-      "CHOCTAW LAKE WEST",
-      "842",
-      "95",
-      "937",
-      "1",
-      "N/A"
-    ],
-    [
-      "49",
-      "PLEASANT",
-      "800",
-      "106",
-      "906",
-      "1",
-      "N/A"
-    ],
-    [
-      "49",
-      "SOMERFORD",
-      "680",
-      "81",
-      "761",
-      "1",
-      "N/A"
-    ],
-    [
-      "49",
-      "CHOCTAW LAKE EAST",
-      "666",
-      "75",
-      "741",
-      "1",
-      "N/A"
-    ],
-    [
-      "49",
-      "DEERCREEK",
-      "512",
-      "89",
-      "601",
-      "1",
-      "N/A"
-    ],
-    [
-      "49",
-      "DARBY",
-      "486",
+      "ORIENT",
       "50",
-      "536",
+      "5",
+      "55",
+      "2",
+      "N/A"
+    ],
+    [
+      "49",
+      "SOUTH VIENNA",
+      "35",
+      "2",
+      "37",
       "1",
       "N/A"
     ],
     [
       "49",
-      "OAK RUN",
-      "370",
-      "42",
-      "412",
+      "HILLIARD",
+      "17",
+      "2",
+      "19",
+      "1",
+      "N/A"
+    ],
+    [
+      "49",
+      "GROVE",
+      "5",
+      "0",
+      "5",
+      "1",
+      "N/A"
+    ],
+    [
+      "49",
+      "SOUTH CHARLESTON",
+      "3",
+      "0",
+      "3",
       "1",
       "N/A"
     ]

@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,333 +18,225 @@
     [
       "41",
       "STEUBENVILLE",
-      "8,432",
-      "2,427",
-      "10,859",
-      "14",
+      "10,148",
+      "2,707",
+      "12,855",
+      "19",
       "N/A"
     ],
     [
       "41",
       "TORONTO",
-      "2,802",
-      "580",
-      "3,382",
-      "4",
+      "5,155",
+      "954",
+      "6,109",
+      "12",
       "N/A"
     ],
     [
       "41",
-      "PRECINCT WINTERSVILLE",
-      "2,319",
-      "391",
-      "2,710",
+      "WINTERSVILLE",
+      "5,182",
+      "893",
+      "6,075",
+      "8",
+      "N/A"
+    ],
+    [
+      "41",
+      "MINGO JCT",
+      "2,681",
+      "576",
+      "3,257",
+      "5",
+      "N/A"
+    ],
+    [
+      "41",
+      "BLOOMINGDALE",
+      "2,163",
+      "248",
+      "2,411",
+      "8",
+      "N/A"
+    ],
+    [
+      "41",
+      "RAYLAND",
+      "1,763",
+      "255",
+      "2,018",
+      "7",
+      "N/A"
+    ],
+    [
+      "41",
+      "RICHMOND",
+      "1,496",
+      "181",
+      "1,677",
+      "8",
+      "N/A"
+    ],
+    [
+      "41",
+      "DILLONVALE",
+      "1,200",
+      "220",
+      "1,420",
+      "6",
+      "N/A"
+    ],
+    [
+      "41",
+      "ADENA",
+      "898",
+      "137",
+      "1,035",
+      "2",
+      "N/A"
+    ],
+    [
+      "41",
+      "BRILLIANT",
+      "727",
+      "164",
+      "891",
+      "2",
+      "N/A"
+    ],
+    [
+      "41",
+      "TILTONSVILLE",
+      "735",
+      "149",
+      "884",
+      "1",
+      "N/A"
+    ],
+    [
+      "41",
+      "BERGHOLZ",
+      "651",
+      "122",
+      "773",
       "3",
       "N/A"
     ],
     [
       "41",
-      "PRECINCT MINGO",
-      "1,733",
-      "368",
-      "2,101",
+      "AMSTERDAM",
+      "486",
+      "86",
+      "572",
       "2",
       "N/A"
     ],
     [
       "41",
-      "PRECINCT PLEASANT HILL",
-      "1,371",
-      "203",
-      "1,574",
-      "2",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT EMERSON",
-      "1,032",
-      "147",
-      "1,179",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT SHELLEY",
-      "1,030",
-      "121",
-      "1,151",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT TILTONSVILLE",
-      "957",
-      "183",
-      "1,140",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT BANTAM RIDGE",
-      "986",
-      "117",
-      "1,103",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT GLEN ROBBINS",
-      "940",
-      "147",
-      "1,087",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT ELK",
-      "858",
-      "155",
-      "1,013",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT WELLS",
-      "853",
-      "139",
-      "992",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT CROSS CREEK",
-      "768",
-      "151",
-      "919",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT NEW SOMERSET",
-      "744",
-      "136",
-      "880",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT WAYNE",
-      "773",
-      "104",
-      "877",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT WEST PARK",
-      "708",
-      "124",
-      "832",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT BRILLIANT",
-      "636",
-      "145",
-      "781",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT SALINE",
-      "663",
-      "100",
-      "763",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT PINEY FORK",
-      "629",
-      "127",
-      "756",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT BRENTWOOD",
-      "656",
-      "79",
-      "735",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT LINCOLN",
-      "613",
-      "116",
-      "729",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT PINE VALLEY",
-      "567",
-      "108",
-      "675",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT TWO RIDGE",
-      "505",
-      "167",
-      "672",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT ISLAND CREEK",
-      "570",
-      "86",
-      "656",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT BELVEDERE",
-      "526",
-      "62",
-      "588",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT SALEM",
-      "517",
-      "59",
-      "576",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT GRANT",
-      "497",
-      "71",
-      "568",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT MT TABOR",
-      "492",
-      "60",
-      "552",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT GEORGES RUN",
-      "368",
-      "86",
-      "454",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT ROSS",
-      "366",
-      "37",
-      "403",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT YORKVILLE",
-      "315",
-      "72",
-      "387",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT WINTRINGER",
-      "275",
+      "IRONDALE",
+      "469",
       "65",
-      "340",
+      "534",
+      "3",
+      "N/A"
+    ],
+    [
+      "41",
+      "HAMMONDSVILLE",
+      "396",
+      "51",
+      "447",
+      "3",
+      "N/A"
+    ],
+    [
+      "41",
+      "SMITHFIELD",
+      "339",
+      "89",
+      "428",
       "1",
       "N/A"
     ],
     [
       "41",
-      "PRECINCT RICHMOND",
-      "276",
-      "29",
-      "305",
+      "YORKVILLE",
+      "336",
+      "78",
+      "414",
+      "2",
+      "N/A"
+    ],
+    [
+      "41",
+      "MT PLEASANT",
+      "262",
+      "45",
+      "307",
       "1",
       "N/A"
     ],
     [
       "41",
-      "PRECINCT WELSMAR",
-      "229",
-      "36",
-      "265",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT BRUSH CREEK",
-      "227",
-      "29",
-      "256",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT AMSTERDAM",
-      "187",
-      "41",
-      "228",
-      "1",
-      "N/A"
-    ],
-    [
-      "41",
-      "PRECINCT STRATTON",
+      "STRATTON",
       "156",
       "17",
       "173",
+      "1",
+      "N/A"
+    ],
+    [
+      "41",
+      "EMPIRE",
+      "156",
+      "13",
+      "169",
+      "1",
+      "N/A"
+    ],
+    [
+      "41",
+      "SALINEVILLE",
+      "57",
+      "12",
+      "69",
+      "1",
+      "N/A"
+    ],
+    [
+      "41",
+      "CADIZ",
+      "56",
+      "7",
+      "63",
+      "2",
+      "N/A"
+    ],
+    [
+      "41",
+      "E SPRINGFIELD",
+      "52",
+      "8",
+      "60",
+      "2",
+      "N/A"
+    ],
+    [
+      "41",
+      "WOLF RUN",
+      "6",
+      "6",
+      "12",
+      "1",
+      "N/A"
+    ],
+    [
+      "41",
+      "HOPEDALE",
+      "6",
+      "2",
+      "8",
       "1",
       "N/A"
     ]

@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,234 +18,252 @@
     [
       "85",
       "WOOSTER",
-      "14,100",
-      "2,796",
-      "16,896",
-      "16",
+      "24,419",
+      "3,973",
+      "28,392",
+      "37",
       "N/A"
     ],
     [
       "85",
       "ORRVILLE",
-      "4,472",
-      "701",
-      "5,173",
-      "5",
+      "6,883",
+      "1,007",
+      "7,890",
+      "13",
       "N/A"
     ],
     [
       "85",
-      "PRECINCT CHIPPEWA TWP",
-      "4,164",
-      "566",
-      "4,730",
-      "4",
+      "DOYLESTOWN",
+      "4,751",
+      "688",
+      "5,439",
+      "6",
       "N/A"
     ],
     [
       "85",
       "RITTMAN",
-      "3,191",
-      "608",
-      "3,799",
+      "4,180",
+      "725",
+      "4,905",
+      "8",
+      "N/A"
+    ],
+    [
+      "85",
+      "DALTON",
+      "3,068",
+      "394",
+      "3,462",
+      "5",
+      "N/A"
+    ],
+    [
+      "85",
+      "WEST SALEM",
+      "2,525",
+      "367",
+      "2,892",
+      "5",
+      "N/A"
+    ],
+    [
+      "85",
+      "APPLE CREEK",
+      "2,231",
+      "417",
+      "2,648",
+      "7",
+      "N/A"
+    ],
+    [
+      "85",
+      "CRESTON",
+      "2,130",
+      "316",
+      "2,446",
+      "6",
+      "N/A"
+    ],
+    [
+      "85",
+      "SHREVE",
+      "1,964",
+      "303",
+      "2,267",
+      "5",
+      "N/A"
+    ],
+    [
+      "85",
+      "SMITHVILLE",
+      "1,618",
+      "191",
+      "1,809",
+      "6",
+      "N/A"
+    ],
+    [
+      "85",
+      "MARSHALLVILLE",
+      "1,493",
+      "155",
+      "1,648",
       "4",
       "N/A"
     ],
     [
       "85",
-      "PRECINCT CANAAN TWP",
-      "2,871",
-      "392",
-      "3,263",
-      "3",
+      "BURBANK",
+      "1,184",
+      "140",
+      "1,324",
+      "4",
       "N/A"
     ],
     [
       "85",
-      "PRECINCT WOOSTER TWP",
-      "2,681",
-      "363",
-      "3,044",
-      "3",
+      "STERLING",
+      "1,141",
+      "108",
+      "1,249",
+      "5",
       "N/A"
     ],
     [
       "85",
-      "PRECINCT EAST UNION TWP",
-      "2,493",
-      "410",
-      "2,903",
-      "3",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT WAYNE TWP",
-      "2,639",
-      "258",
-      "2,897",
-      "3",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT SUGAR CREEK TWP",
-      "2,296",
-      "293",
-      "2,589",
-      "2",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT GREEN TWP",
-      "2,051",
-      "227",
-      "2,278",
-      "2",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT BAUGHMAN TWP",
-      "2,064",
-      "207",
-      "2,271",
-      "2",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT FRANKLIN TWP",
-      "1,797",
-      "280",
-      "2,077",
-      "2",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT PLAIN TWP",
-      "1,860",
-      "193",
-      "2,053",
-      "2",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT CHESTER TWP",
-      "1,812",
-      "203",
-      "2,015",
-      "2",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT CONGRESS TWP",
-      "1,754",
+      "FREDERICKSBURG",
+      "885",
       "220",
-      "1,974",
+      "1,105",
+      "4",
+      "N/A"
+    ],
+    [
+      "85",
+      "NORTH LAWRENCE",
+      "273",
+      "30",
+      "303",
       "2",
       "N/A"
     ],
     [
       "85",
-      "PRECINCT MILTON TWP",
-      "1,667",
-      "182",
-      "1,849",
-      "2",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT SUGAR CREEK TWP 3 DALTON",
-      "1,081",
-      "147",
-      "1,228",
+      "DUNDEE",
+      "136",
+      "51",
+      "187",
       "1",
       "N/A"
     ],
     [
       "85",
-      "PRECINCT CHIPPEWA TWP 4 DTOWN",
-      "1,004",
-      "185",
-      "1,189",
+      "NAVARRE",
+      "138",
+      "32",
+      "170",
       "1",
       "N/A"
     ],
     [
       "85",
-      "PRECINCT CLINTON TWP",
-      "942",
-      "111",
-      "1,053",
-      "1",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT CHIPPEWA TWP 5 DTOWN",
-      "850",
-      "93",
-      "943",
-      "1",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT GREEN TWP 3 SMITHVILLE",
-      "836",
-      "98",
-      "934",
-      "1",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT SALT CREEK TWP",
-      "728",
-      "186",
-      "914",
-      "1",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT CONGRESS TWP 1 W SALEM",
-      "740",
-      "137",
-      "877",
-      "1",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT CLINTON TWP 2 SHREVE",
-      "682",
-      "155",
-      "837",
-      "1",
-      "N/A"
-    ],
-    [
-      "85",
-      "PRECINCT PAINT TWP",
-      "636",
-      "188",
-      "824",
+      "MT EATON",
+      "102",
+      "20",
+      "122",
       "1",
       "N/A"
     ],
     [
       "85",
       "NORTON",
-      "2",
+      "64",
+      "17",
+      "81",
       "1",
+      "N/A"
+    ],
+    [
+      "85",
+      "LAKEVILLE",
+      "44",
+      "8",
+      "52",
+      "1",
+      "N/A"
+    ],
+    [
+      "85",
+      "SEVILLE",
+      "42",
+      "10",
+      "52",
+      "1",
+      "N/A"
+    ],
+    [
+      "85",
+      "KIDRON",
+      "43",
+      "5",
+      "48",
+      "1",
+      "N/A"
+    ],
+    [
+      "85",
+      "BIG PRAIRIE",
+      "40",
+      "6",
+      "46",
+      "1",
+      "N/A"
+    ],
+    [
+      "85",
+      "CLINTON",
+      "30",
+      "10",
+      "40",
+      "1",
+      "N/A"
+    ],
+    [
+      "85",
+      "JEROMESVILLE",
+      "20",
+      "2",
+      "22",
+      "1",
+      "N/A"
+    ],
+    [
+      "85",
+      "WADSWORTH",
+      "4",
+      "4",
+      "8",
+      "1",
+      "N/A"
+    ],
+    [
+      "85",
+      "CANAL FULTON",
       "3",
+      "1",
+      "4",
+      "1",
+      "N/A"
+    ],
+    [
+      "85",
+      "HOMERVILLE",
+      "2",
+      "0",
+      "2",
       "1",
       "N/A"
     ]

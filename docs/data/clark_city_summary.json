@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,126 +18,162 @@
     [
       "12",
       "SPRINGFIELD",
-      "24,831",
-      "6,188",
-      "31,019",
-      "28",
-      "N/A"
-    ],
-    [
-      "12",
-      "PRECINCT MFLD",
-      "8,228",
-      "872",
-      "9,100",
-      "9",
-      "N/A"
-    ],
-    [
-      "12",
-      "PRECINCT",
-      "7,441",
-      "947",
-      "8,388",
-      "8",
-      "N/A"
-    ],
-    [
-      "12",
-      "PRECINCT BETH",
-      "6,833",
-      "1,038",
-      "7,871",
-      "6",
-      "N/A"
-    ],
-    [
-      "12",
-      "PRECINCT MR",
-      "5,418",
-      "712",
-      "6,130",
-      "6",
-      "N/A"
-    ],
-    [
-      "12",
-      "PRECINCT GERM",
-      "4,669",
-      "600",
-      "5,269",
-      "5",
+      "50,775",
+      "9,236",
+      "60,011",
+      "60",
       "N/A"
     ],
     [
       "12",
       "NEW CARLISLE",
-      "2,874",
-      "512",
-      "3,386",
+      "8,110",
+      "1,274",
+      "9,384",
+      "14",
+      "N/A"
+    ],
+    [
+      "12",
+      "ENON",
+      "3,292",
+      "423",
+      "3,715",
+      "7",
+      "N/A"
+    ],
+    [
+      "12",
+      "SOUTH CHARLESTON",
+      "2,770",
+      "345",
+      "3,115",
       "5",
       "N/A"
     ],
     [
       "12",
-      "PRECINCT PIKE",
-      "2,369",
-      "243",
-      "2,612",
+      "SOUTH VIENNA",
+      "2,119",
+      "261",
+      "2,380",
+      "5",
+      "N/A"
+    ],
+    [
+      "12",
+      "MEDWAY",
+      "1,994",
+      "329",
+      "2,323",
+      "5",
+      "N/A"
+    ],
+    [
+      "12",
+      "FAIRBORN",
+      "1,149",
+      "148",
+      "1,297",
+      "3",
+      "N/A"
+    ],
+    [
+      "12",
+      "MECHANICSBURG",
+      "389",
+      "44",
+      "433",
       "2",
       "N/A"
     ],
     [
       "12",
-      "PRECINCT HARM",
-      "2,232",
-      "256",
-      "2,488",
-      "2",
-      "N/A"
-    ],
-    [
-      "12",
-      "PRECINCT PLES",
-      "1,924",
-      "256",
-      "2,180",
-      "2",
-      "N/A"
-    ],
-    [
-      "12",
-      "PRECINCT GREE",
-      "1,821",
-      "200",
-      "2,021",
-      "2",
-      "N/A"
-    ],
-    [
-      "12",
-      "PRECINCT ENON",
-      "1,708",
-      "195",
-      "1,903",
-      "2",
-      "N/A"
-    ],
-    [
-      "12",
-      "PRECINCT CHAS",
-      "838",
-      "115",
-      "953",
+      "TREMONT",
+      "197",
+      "27",
+      "224",
       "1",
       "N/A"
     ],
     [
       "12",
-      "PRECINCT CHAS TWP",
-      "531",
-      "64",
-      "595",
+      "NORTH HAMPTON",
+      "202",
+      "18",
+      "220",
+      "1",
+      "N/A"
+    ],
+    [
+      "12",
+      "DONNELSVILLE",
+      "182",
+      "26",
+      "208",
+      "1",
+      "N/A"
+    ],
+    [
+      "12",
+      "YELLOW SPRINGS",
+      "164",
+      "24",
+      "188",
+      "3",
+      "N/A"
+    ],
+    [
+      "12",
+      "CATAWBA",
+      "163",
+      "16",
+      "179",
+      "1",
+      "N/A"
+    ],
+    [
+      "12",
+      "LONDON",
+      "68",
+      "16",
+      "84",
+      "3",
+      "N/A"
+    ],
+    [
+      "12",
+      "URBANA",
+      "48",
+      "8",
+      "56",
+      "2",
+      "N/A"
+    ],
+    [
+      "12",
+      "SOUTH SOLON",
+      "43",
+      "2",
+      "45",
+      "1",
+      "N/A"
+    ],
+    [
+      "12",
+      "CLIFTON",
+      "40",
+      "1",
+      "41",
+      "1",
+      "N/A"
+    ],
+    [
+      "12",
+      "CEDARVILLE",
+      "12",
+      "0",
+      "12",
       "1",
       "N/A"
     ]

@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,163 +18,100 @@
     [
       "29",
       "BEAVERCREEK",
-      "36,402",
-      "5,170",
-      "41,572",
-      "45",
-      "N/A"
-    ],
-    [
-      "29",
-      "FAIRBORN",
-      "18,230",
-      "4,293",
-      "22,523",
-      "28",
+      "32,174",
+      "4,692",
+      "36,866",
+      "44",
       "N/A"
     ],
     [
       "29",
       "XENIA",
-      "13,446",
-      "2,866",
-      "16,312",
-      "24",
+      "23,542",
+      "3,880",
+      "27,422",
+      "49",
       "N/A"
     ],
     [
       "29",
-      "SUGARCREEK",
-      "7,493",
-      "981",
-      "8,474",
-      "7",
+      "FAIRBORN",
+      "19,577",
+      "4,599",
+      "24,176",
+      "33",
       "N/A"
     ],
     [
       "29",
       "BELLBROOK",
-      "4,867",
-      "633",
-      "5,500",
+      "8,130",
+      "1,047",
+      "9,177",
+      "16",
+      "N/A"
+    ],
+    [
+      "29",
+      "JAMESTOWN",
+      "4,158",
+      "498",
+      "4,656",
+      "12",
+      "N/A"
+    ],
+    [
+      "29",
+      "YELLOW SPRINGS",
+      "3,934",
+      "414",
+      "4,348",
+      "9",
+      "N/A"
+    ],
+    [
+      "29",
+      "DAYTON",
+      "2,991",
+      "481",
+      "3,472",
       "7",
       "N/A"
     ],
     [
       "29",
-      "XENIA TWP",
-      "3,601",
-      "800",
-      "4,401",
-      "8",
+      "CEDARVILLE",
+      "2,363",
+      "467",
+      "2,830",
+      "6",
       "N/A"
     ],
     [
       "29",
-      "YEL SPG VLG",
-      "2,894",
-      "310",
-      "3,204",
+      "SPRING VALLEY",
+      "1,621",
+      "203",
+      "1,824",
+      "6",
+      "N/A"
+    ],
+    [
+      "29",
+      "CENTERVILLE",
+      "685",
+      "145",
+      "830",
       "4",
       "N/A"
     ],
     [
       "29",
-      "BATH TWP",
-      "2,251",
-      "578",
-      "2,829",
-      "4",
-      "N/A"
-    ],
-    [
-      "29",
-      "NEW JASPER",
-      "1,768",
-      "184",
-      "1,952",
+      "WILBERFORCE",
+      "368",
+      "421",
+      "789",
       "3",
-      "N/A"
-    ],
-    [
-      "29",
-      "SPG VLY TWP",
-      "1,545",
-      "156",
-      "1,701",
-      "2",
-      "N/A"
-    ],
-    [
-      "29",
-      "CEDAR VLG",
-      "975",
-      "359",
-      "1,334",
-      "2",
-      "N/A"
-    ],
-    [
-      "29",
-      "JAMESTOWN V",
-      "1,110",
-      "171",
-      "1,281",
-      "2",
-      "N/A"
-    ],
-    [
-      "29",
-      "CEDAR TWP",
-      "1,142",
-      "89",
-      "1,231",
-      "2",
-      "N/A"
-    ],
-    [
-      "29",
-      "SILVERCREEK",
-      "1,086",
-      "116",
-      "1,202",
-      "2",
-      "N/A"
-    ],
-    [
-      "29",
-      "MIAMI TWP",
-      "950",
-      "87",
-      "1,037",
-      "2",
-      "N/A"
-    ],
-    [
-      "29",
-      "CAESARSCREEK",
-      "802",
-      "80",
-      "882",
-      "2",
-      "N/A"
-    ],
-    [
-      "29",
-      "ROSS TWP",
-      "530",
-      "49",
-      "579",
-      "1",
-      "N/A"
-    ],
-    [
-      "29",
-      "JEFFERSN TW",
-      "538",
-      "41",
-      "579",
-      "1",
       "N/A"
     ],
     [
@@ -188,28 +125,91 @@
     ],
     [
       "29",
-      "CENTERVILLE",
-      "263",
-      "61",
-      "324",
-      "2",
-      "N/A"
-    ],
-    [
-      "29",
-      "SPG VLY VLG",
-      "255",
-      "39",
-      "294",
+      "WRIGHT PATTERSON AFB",
+      "233",
+      "183",
+      "416",
       "1",
       "N/A"
     ],
     [
       "29",
+      "WAYNESVILLE",
+      "212",
+      "14",
+      "226",
+      "3",
+      "N/A"
+    ],
+    [
+      "29",
       "BOWERSVILLE",
-      "113",
-      "24",
-      "137",
+      "117",
+      "23",
+      "140",
+      "2",
+      "N/A"
+    ],
+    [
+      "29",
+      "CLIFTON",
+      "60",
+      "8",
+      "68",
+      "1",
+      "N/A"
+    ],
+    [
+      "29",
+      "SABINA",
+      "42",
+      "5",
+      "47",
+      "2",
+      "N/A"
+    ],
+    [
+      "29",
+      "SOUTH CHARLESTON",
+      "34",
+      "4",
+      "38",
+      "1",
+      "N/A"
+    ],
+    [
+      "29",
+      "ALPHA",
+      "7",
+      "0",
+      "7",
+      "1",
+      "N/A"
+    ],
+    [
+      "29",
+      "SOUTH SOLON",
+      "4",
+      "2",
+      "6",
+      "1",
+      "N/A"
+    ],
+    [
+      "29",
+      "WILMINGTON",
+      "6",
+      "0",
+      "6",
+      "3",
+      "N/A"
+    ],
+    [
+      "29",
+      "JEFFERSONVILLE",
+      "3",
+      "1",
+      "4",
       "1",
       "N/A"
     ]

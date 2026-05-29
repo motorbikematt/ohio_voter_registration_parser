@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,118 +17,127 @@
   "rows": [
     [
       "58",
-      "PRECINCT STOCKPORT/WINDSOR",
-      "1,025",
-      "169",
-      "1,194",
+      "MCCONNELSVILLE",
+      "2,677",
+      "413",
+      "3,090",
+      "10",
+      "N/A"
+    ],
+    [
+      "58",
+      "MALTA",
+      "1,682",
+      "252",
+      "1,934",
+      "5",
+      "N/A"
+    ],
+    [
+      "58",
+      "STOCKPORT",
+      "1,334",
+      "205",
+      "1,539",
+      "5",
+      "N/A"
+    ],
+    [
+      "58",
+      "GLOUSTER",
+      "523",
+      "87",
+      "610",
       "1",
       "N/A"
     ],
     [
       "58",
-      "PRECINCT MALTA",
-      "936",
-      "157",
-      "1,093",
+      "CHESTERHILL",
+      "488",
+      "83",
+      "571",
+      "2",
+      "N/A"
+    ],
+    [
+      "58",
+      "CROOKSVILLE",
+      "410",
+      "55",
+      "465",
+      "2",
+      "N/A"
+    ],
+    [
+      "58",
+      "BEVERLY",
+      "374",
+      "39",
+      "413",
       "1",
       "N/A"
     ],
     [
       "58",
-      "PRECINCT HOMER/UNION",
-      "882",
-      "140",
-      "1,022",
+      "WATERFORD",
+      "35",
+      "6",
+      "41",
       "1",
       "N/A"
     ],
     [
       "58",
-      "PRECINCT MCCONN A/MORGAN",
-      "688",
-      "137",
-      "825",
-      "1",
+      "AMESVILLE",
+      "27",
+      "3",
+      "30",
+      "2",
       "N/A"
     ],
     [
       "58",
-      "PRECINCT W.BLOOM/DEERFIELD",
-      "588",
-      "79",
-      "667",
+      "CALDWELL",
+      "21",
       "1",
-      "N/A"
-    ],
-    [
-      "58",
-      "PRECINCT MEIGSVILLE TOWNSHIP",
-      "596",
-      "60",
-      "656",
-      "1",
-      "N/A"
-    ],
-    [
-      "58",
-      "PRECINCT CHESTERHILL/MARION",
-      "546",
-      "96",
-      "642",
-      "1",
-      "N/A"
-    ],
-    [
-      "58",
-      "PRECINCT MCCONN B/MCCONN",
-      "487",
-      "85",
-      "572",
-      "1",
-      "N/A"
-    ],
-    [
-      "58",
-      "PRECINCT YORK TOWNSHIP",
-      "427",
-      "58",
-      "485",
-      "1",
-      "N/A"
-    ],
-    [
-      "58",
-      "PRECINCT EAST BLOOM TOWNSHIP",
-      "426",
-      "50",
-      "476",
-      "1",
-      "N/A"
-    ],
-    [
-      "58",
-      "PRECINCT CENTER TOWNSHIP",
-      "417",
-      "40",
-      "457",
-      "1",
-      "N/A"
-    ],
-    [
-      "58",
-      "PRECINCT PENN TOWNSHIP",
-      "386",
-      "52",
-      "438",
-      "1",
-      "N/A"
-    ],
-    [
-      "58",
-      "PRECINCT BRISTOL/MANCHESTER",
-      "204",
       "22",
-      "226",
+      "2",
+      "N/A"
+    ],
+    [
+      "58",
+      "BLUE ROCK",
+      "19",
+      "1",
+      "20",
+      "3",
+      "N/A"
+    ],
+    [
+      "58",
+      "CORNING",
+      "13",
+      "0",
+      "13",
+      "2",
+      "N/A"
+    ],
+    [
+      "58",
+      "ROSEVILLE",
+      "4",
+      "0",
+      "4",
+      "1",
+      "N/A"
+    ],
+    [
+      "58",
+      "LOWELL",
+      "1",
+      "0",
+      "1",
       "1",
       "N/A"
     ]

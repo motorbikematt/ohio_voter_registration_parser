@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,27 +18,36 @@
     [
       "70",
       "MANSFIELD",
-      "20,694",
-      "5,175",
-      "25,869",
-      "28",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT MAD",
-      "5,847",
-      "1,093",
-      "6,940",
-      "6",
+      "38,869",
+      "7,734",
+      "46,603",
+      "59",
       "N/A"
     ],
     [
       "70",
       "SHELBY",
-      "4,856",
-      "781",
-      "5,637",
+      "7,542",
+      "1,075",
+      "8,617",
+      "17",
+      "N/A"
+    ],
+    [
+      "70",
+      "LEXINGTON",
+      "4,624",
+      "536",
+      "5,160",
+      "11",
+      "N/A"
+    ],
+    [
+      "70",
+      "BELLVILLE",
+      "4,374",
+      "465",
+      "4,839",
       "8",
       "N/A"
     ],
@@ -53,173 +62,92 @@
     ],
     [
       "70",
-      "PRECINCT WASH",
-      "4,214",
-      "441",
-      "4,655",
-      "5",
+      "LUCAS",
+      "1,614",
+      "160",
+      "1,774",
+      "6",
       "N/A"
     ],
     [
       "70",
-      "PRECINCT MIFF",
-      "3,793",
-      "494",
-      "4,287",
-      "5",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT JEFF",
-      "3,146",
-      "349",
-      "3,495",
+      "BUTLER",
+      "1,390",
+      "151",
+      "1,541",
       "3",
       "N/A"
     ],
     [
       "70",
-      "PRECINCT SPFLD",
-      "3,028",
-      "357",
-      "3,385",
+      "SHILOH",
+      "1,158",
+      "178",
+      "1,336",
+      "5",
+      "N/A"
+    ],
+    [
+      "70",
+      "PLYMOUTH",
+      "664",
+      "153",
+      "817",
+      "2",
+      "N/A"
+    ],
+    [
+      "70",
+      "CRESTLINE",
+      "452",
+      "67",
+      "519",
       "4",
       "N/A"
     ],
     [
       "70",
-      "PRECINCT LEX",
-      "3,005",
-      "370",
-      "3,375",
+      "PERRYSVILLE",
+      "453",
+      "39",
+      "492",
       "3",
       "N/A"
     ],
     [
       "70",
-      "PRECINCT TROY",
-      "1,820",
-      "186",
-      "2,006",
+      "GALION",
+      "346",
+      "43",
+      "389",
+      "3",
+      "N/A"
+    ],
+    [
+      "70",
+      "GREENWICH",
+      "269",
+      "64",
+      "333",
+      "3",
+      "N/A"
+    ],
+    [
+      "70",
+      "ASHLAND",
+      "218",
+      "16",
+      "234",
       "2",
       "N/A"
     ],
     [
       "70",
-      "PRECINCT MON",
-      "1,815",
-      "179",
-      "1,994",
+      "FREDERICKTOWN",
+      "63",
       "2",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT WORTH",
-      "1,756",
-      "181",
-      "1,937",
+      "65",
       "2",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT JACK",
-      "1,518",
-      "185",
-      "1,703",
-      "2",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT WELLER",
-      "1,120",
-      "116",
-      "1,236",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT PLY",
-      "979",
-      "182",
-      "1,161",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT FRANK",
-      "987",
-      "109",
-      "1,096",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT PERRY",
-      "776",
-      "89",
-      "865",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT SAND",
-      "634",
-      "97",
-      "731",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT CASS",
-      "580",
-      "100",
-      "680",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT SHARON",
-      "619",
-      "54",
-      "673",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT BLMG",
-      "448",
-      "66",
-      "514",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT BUTLER",
-      "344",
-      "74",
-      "418",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "PRECINCT MAN",
-      "57",
-      "5",
-      "62",
-      "1",
       "N/A"
     ]
   ]

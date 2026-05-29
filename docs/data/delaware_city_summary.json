@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,252 +18,189 @@
     [
       "21",
       "DELAWARE",
-      "26,196",
-      "4,059",
-      "30,255",
-      "35",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT ORANGE",
-      "19,603",
-      "2,393",
-      "21,996",
-      "23",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT GENOA",
-      "18,027",
-      "1,629",
-      "19,656",
-      "20",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT LIBERTY",
-      "14,502",
-      "1,705",
-      "16,207",
-      "16",
+      "39,853",
+      "5,425",
+      "45,278",
+      "66",
       "N/A"
     ],
     [
       "21",
       "POWELL",
-      "10,056",
-      "1,121",
-      "11,177",
-      "12",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT CONCORD",
-      "8,624",
-      "925",
-      "9,549",
-      "11",
-      "N/A"
-    ],
-    [
-      "21",
-      "COLUMBUS",
-      "6,013",
-      "1,560",
-      "7,573",
-      "7",
+      "28,186",
+      "3,201",
+      "31,387",
+      "39",
       "N/A"
     ],
     [
       "21",
       "WESTERVILLE",
-      "6,586",
-      "767",
-      "7,353",
-      "9",
+      "22,935",
+      "2,355",
+      "25,290",
+      "35",
       "N/A"
     ],
     [
       "21",
-      "PRECINCT BERLIN",
-      "6,231",
-      "645",
-      "6,876",
-      "7",
+      "LEWIS CENTER",
+      "16,405",
+      "2,127",
+      "18,532",
+      "22",
       "N/A"
     ],
     [
       "21",
       "SUNBURY",
-      "4,683",
-      "551",
-      "5,234",
-      "6",
+      "12,240",
+      "1,257",
+      "13,497",
+      "20",
       "N/A"
     ],
     [
       "21",
-      "PRECINCT BERKSHIRE",
-      "4,252",
-      "377",
-      "4,629",
-      "5",
+      "GALENA",
+      "10,857",
+      "949",
+      "11,806",
+      "22",
       "N/A"
     ],
     [
       "21",
-      "PRECINCT HARLEM",
-      "3,160",
-      "322",
-      "3,482",
-      "4",
+      "COLUMBUS",
+      "6,029",
+      "1,565",
+      "7,594",
+      "8",
       "N/A"
     ],
     [
       "21",
       "DUBLIN",
-      "3,081",
-      "295",
-      "3,376",
+      "4,999",
+      "503",
+      "5,502",
+      "8",
+      "N/A"
+    ],
+    [
+      "21",
+      "OSTRANDER",
+      "3,054",
+      "291",
+      "3,345",
+      "6",
+      "N/A"
+    ],
+    [
+      "21",
+      "ASHLEY",
+      "1,077",
+      "186",
+      "1,263",
       "4",
       "N/A"
     ],
     [
       "21",
-      "PRECINCT SCIOTO",
-      "2,070",
-      "187",
-      "2,257",
+      "RADNOR",
+      "923",
+      "72",
+      "995",
+      "4",
+      "N/A"
+    ],
+    [
+      "21",
+      "CENTERBURG",
+      "518",
+      "39",
+      "557",
+      "3",
+      "N/A"
+    ],
+    [
+      "21",
+      "JOHNSTOWN",
+      "360",
+      "32",
+      "392",
       "2",
       "N/A"
     ],
     [
       "21",
-      "PRECINCT KINGSTON",
-      "1,837",
-      "168",
-      "2,005",
-      "2",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT TRENTON",
-      "1,687",
+      "MARENGO",
+      "155",
+      "10",
       "165",
-      "1,852",
+      "1",
+      "N/A"
+    ],
+    [
+      "21",
+      "MARYSVILLE",
+      "91",
+      "12",
+      "103",
+      "3",
+      "N/A"
+    ],
+    [
+      "21",
+      "PROSPECT",
+      "74",
+      "5",
+      "79",
       "2",
       "N/A"
     ],
     [
       "21",
-      "PRECINCT PORTER",
-      "1,657",
-      "127",
-      "1,784",
+      "NEW ALBANY",
+      "65",
+      "5",
+      "70",
+      "1",
+      "N/A"
+    ],
+    [
+      "21",
+      "RICHWOOD",
+      "60",
+      "8",
+      "68",
+      "1",
+      "N/A"
+    ],
+    [
+      "21",
+      "WALDO",
+      "54",
+      "5",
+      "59",
+      "1",
+      "N/A"
+    ],
+    [
+      "21",
+      "PLAIN",
+      "34",
+      "12",
+      "46",
+      "1",
+      "N/A"
+    ],
+    [
+      "21",
+      "CROTON",
+      "10",
       "2",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT TROY",
-      "1,508",
-      "213",
-      "1,721",
-      "2",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT DELAWARE",
-      "1,536",
-      "160",
-      "1,696",
-      "2",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT RADNOR",
-      "1,226",
-      "89",
-      "1,315",
-      "1",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT BROWN",
-      "1,109",
-      "86",
-      "1,195",
-      "1",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT GALENA",
-      "1,046",
-      "123",
-      "1,169",
-      "1",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT OSTRANDER",
-      "875",
-      "90",
-      "965",
-      "1",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT OXFORD",
-      "601",
-      "84",
-      "685",
-      "1",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT ASHLEY",
-      "556",
-      "113",
-      "669",
-      "1",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT SHAWNEE HILLS",
-      "556",
-      "44",
-      "600",
-      "1",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT THOMPSON",
-      "488",
-      "48",
-      "536",
-      "1",
-      "N/A"
-    ],
-    [
-      "21",
-      "PRECINCT MARLBORO",
-      "213",
-      "15",
-      "228",
+      "12",
       "1",
       "N/A"
     ]

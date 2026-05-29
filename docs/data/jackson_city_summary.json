@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,207 +18,108 @@
     [
       "40",
       "JACKSON",
-      "3,043",
-      "666",
-      "3,709",
-      "4",
+      "8,384",
+      "1,523",
+      "9,907",
+      "18",
       "N/A"
     ],
     [
       "40",
       "WELLSTON",
-      "2,547",
-      "515",
-      "3,062",
-      "5",
+      "4,098",
+      "775",
+      "4,873",
+      "12",
       "N/A"
     ],
     [
       "40",
-      "PRECINCT LICK",
-      "758",
-      "139",
-      "897",
-      "1",
+      "OAK HILL",
+      "2,976",
+      "618",
+      "3,594",
+      "10",
       "N/A"
     ],
     [
       "40",
-      "PRECINCT COAL II",
-      "748",
-      "113",
-      "861",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT JACKSON",
-      "722",
-      "123",
-      "845",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT JEFFERSON II",
-      "642",
-      "165",
-      "807",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT FRANKLIN",
-      "718",
-      "72",
-      "790",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT LICK II",
-      "639",
-      "119",
-      "758",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT LIBERTY II",
-      "662",
-      "87",
-      "749",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT MILTON",
-      "611",
-      "111",
-      "722",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT BLOOMFIELD",
-      "577",
-      "142",
-      "719",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT FRANKLIN II",
-      "599",
-      "94",
-      "693",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT JEFFERSON",
-      "558",
-      "104",
-      "662",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT SCIOTO",
-      "505",
+      "RAY",
+      "487",
       "77",
-      "582",
+      "564",
       "1",
       "N/A"
     ],
     [
       "40",
-      "PRECINCT SCIOTO II",
-      "476",
-      "84",
-      "560",
-      "1",
+      "THURMAN",
+      "203",
+      "64",
+      "267",
+      "2",
       "N/A"
     ],
     [
       "40",
-      "PRECINCT MADISON II",
-      "464",
-      "82",
-      "546",
-      "1",
+      "COALTON",
+      "153",
+      "58",
+      "211",
+      "2",
       "N/A"
     ],
     [
       "40",
-      "PRECINCT OAK HILL II",
-      "432",
-      "100",
-      "532",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT WASHINGTON",
-      "416",
-      "75",
-      "491",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT MADISON",
-      "383",
-      "66",
-      "449",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT LIBERTY",
-      "350",
-      "55",
-      "405",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT HAMILTON",
-      "341",
-      "41",
-      "382",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT OAK HILL",
-      "285",
-      "81",
-      "366",
-      "1",
-      "N/A"
-    ],
-    [
-      "40",
-      "PRECINCT COAL",
+      "BEAVER",
       "164",
-      "61",
-      "225",
+      "31",
+      "195",
+      "2",
+      "N/A"
+    ],
+    [
+      "40",
+      "CHILLICOTHE",
+      "125",
+      "20",
+      "145",
+      "2",
+      "N/A"
+    ],
+    [
+      "40",
+      "VINTON",
+      "19",
+      "5",
+      "24",
+      "2",
+      "N/A"
+    ],
+    [
+      "40",
+      "SOUTH WEBSTER",
+      "12",
+      "1",
+      "13",
+      "1",
+      "N/A"
+    ],
+    [
+      "40",
+      "HAMDEN",
+      "11",
+      "0",
+      "11",
+      "1",
+      "N/A"
+    ],
+    [
+      "40",
+      "MINFORD",
+      "8",
+      "0",
+      "8",
       "1",
       "N/A"
     ]

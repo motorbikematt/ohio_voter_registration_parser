@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,253 +17,226 @@
   "rows": [
     [
       "52",
-      "BRUNSWICK",
-      "20,705",
-      "3,025",
-      "23,730",
-      "23",
+      "MEDINA",
+      "42,966",
+      "5,417",
+      "48,383",
+      "57",
       "N/A"
     ],
     [
       "52",
-      "MEDINA",
-      "15,156",
-      "2,595",
-      "17,751",
-      "18",
+      "BRUNSWICK",
+      "26,830",
+      "3,750",
+      "30,580",
+      "31",
       "N/A"
     ],
     [
       "52",
       "WADSWORTH",
-      "14,287",
-      "2,037",
-      "16,324",
-      "18",
+      "20,600",
+      "2,716",
+      "23,316",
+      "26",
       "N/A"
     ],
     [
       "52",
-      "PRECINCT MONTVILLE TP",
-      "8,072",
-      "938",
-      "9,010",
+      "HINCKLEY",
+      "5,935",
+      "591",
+      "6,526",
       "8",
       "N/A"
     ],
     [
       "52",
-      "PRECINCT BRHILLS TP",
-      "6,911",
-      "793",
-      "7,704",
-      "7",
+      "SEVILLE",
+      "4,789",
+      "504",
+      "5,293",
+      "9",
       "N/A"
     ],
     [
       "52",
-      "PRECINCT MEDINA TP",
-      "6,663",
-      "694",
-      "7,357",
-      "7",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT HINCKLEY TP",
-      "5,923",
-      "591",
-      "6,514",
-      "6",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT SHARON TP",
-      "4,331",
-      "405",
-      "4,736",
-      "4",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT LIVERPOOL TP",
-      "4,273",
-      "380",
-      "4,653",
-      "4",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT LAFAYETTE TP",
-      "4,176",
-      "465",
-      "4,641",
-      "4",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT GRANGER TP",
-      "3,281",
-      "302",
-      "3,583",
-      "4",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT YORK TP",
-      "3,029",
-      "266",
-      "3,295",
-      "3",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT WADSWORTH TP",
-      "2,872",
+      "VALLEY",
+      "3,954",
       "356",
-      "3,228",
+      "4,310",
+      "10",
+      "N/A"
+    ],
+    [
+      "52",
+      "LODI",
+      "2,850",
+      "404",
+      "3,254",
+      "10",
+      "N/A"
+    ],
+    [
+      "52",
+      "LITCHFIELD",
+      "2,094",
+      "211",
+      "2,305",
+      "5",
+      "N/A"
+    ],
+    [
+      "52",
+      "SPENCER",
+      "1,889",
+      "198",
+      "2,087",
+      "4",
+      "N/A"
+    ],
+    [
+      "52",
+      "CHIPPEWA LAKE",
+      "1,399",
+      "210",
+      "1,609",
+      "5",
+      "N/A"
+    ],
+    [
+      "52",
+      "HOMERVILLE",
+      "792",
+      "97",
+      "889",
       "3",
       "N/A"
     ],
     [
       "52",
-      "PRECINCT LITCHFIELD TP",
-      "2,175",
-      "198",
-      "2,373",
-      "2",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT GUILFORD TP",
-      "2,067",
-      "196",
-      "2,263",
-      "2",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT WESTFIELD TP",
-      "1,844",
-      "206",
-      "2,050",
-      "2",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT SEVILLE VIL",
-      "1,844",
-      "199",
-      "2,043",
-      "2",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT LODI VIL",
-      "1,448",
-      "261",
-      "1,709",
-      "2",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT CHATHAM TP",
-      "1,506",
-      "170",
-      "1,676",
-      "2",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT HARRISVL TP",
-      "1,161",
-      "126",
-      "1,287",
-      "1",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT SPENCER TP",
-      "1,105",
-      "119",
-      "1,224",
-      "1",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT MONTVILLE",
-      "963",
-      "86",
-      "1,049",
-      "1",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT WESTFIELD CENTER VIL",
-      "869",
-      "77",
-      "946",
-      "1",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT HOMER TWP",
-      "638",
-      "69",
-      "707",
-      "1",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT CHIPPEWA LAKE VIL",
-      "436",
-      "56",
-      "492",
-      "1",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT SPENCER VIL",
-      "342",
-      "44",
-      "386",
-      "1",
-      "N/A"
-    ],
-    [
-      "52",
-      "PRECINCT GLORIA GLENS PK VIL",
-      "232",
-      "35",
-      "267",
-      "1",
+      "WESTFIELD CENTER",
+      "746",
+      "50",
+      "796",
+      "3",
       "N/A"
     ],
     [
       "52",
       "RITTMAN",
-      "79",
-      "17",
-      "96",
+      "426",
+      "65",
+      "491",
+      "3",
+      "N/A"
+    ],
+    [
+      "52",
+      "DOYLESTOWN",
+      "260",
+      "31",
+      "291",
+      "1",
+      "N/A"
+    ],
+    [
+      "52",
+      "WEST SALEM",
+      "222",
+      "12",
+      "234",
+      "2",
+      "N/A"
+    ],
+    [
+      "52",
+      "CRESTON",
+      "186",
+      "27",
+      "213",
+      "1",
+      "N/A"
+    ],
+    [
+      "52",
+      "BURBANK",
+      "104",
+      "21",
+      "125",
+      "2",
+      "N/A"
+    ],
+    [
+      "52",
+      "AKRON",
+      "102",
+      "16",
+      "118",
+      "2",
+      "N/A"
+    ],
+    [
+      "52",
+      "NORTON",
+      "65",
+      "7",
+      "72",
+      "2",
+      "N/A"
+    ],
+    [
+      "52",
+      "STRONGSVILLE",
+      "58",
+      "6",
+      "64",
+      "1",
+      "N/A"
+    ],
+    [
+      "52",
+      "COPLEY",
+      "47",
+      "5",
+      "52",
+      "2",
+      "N/A"
+    ],
+    [
+      "52",
+      "WELLINGTON",
+      "35",
+      "4",
+      "39",
+      "1",
+      "N/A"
+    ],
+    [
+      "52",
+      "SULLIVAN",
+      "20",
+      "4",
+      "24",
+      "1",
+      "N/A"
+    ],
+    [
+      "52",
+      "COLUMBIA STATION",
+      "18",
+      "4",
+      "22",
+      "2",
+      "N/A"
+    ],
+    [
+      "52",
+      "GRAFTON",
+      "1",
+      "0",
+      "1",
       "1",
       "N/A"
     ]

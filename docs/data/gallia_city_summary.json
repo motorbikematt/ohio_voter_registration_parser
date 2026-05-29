@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,181 +17,118 @@
   "rows": [
     [
       "27",
-      "GREEN",
-      "2,939",
-      "532",
-      "3,471",
-      "4",
+      "GALLIPOLIS",
+      "7,623",
+      "1,430",
+      "9,053",
+      "21",
       "N/A"
     ],
     [
       "27",
-      "GALLIPOLIS",
-      "1,620",
-      "390",
-      "2,010",
+      "BIDWELL",
+      "2,369",
+      "493",
+      "2,862",
+      "9",
+      "N/A"
+    ],
+    [
+      "27",
+      "VINTON",
+      "1,293",
+      "321",
+      "1,614",
+      "5",
+      "N/A"
+    ],
+    [
+      "27",
+      "CROWN",
+      "1,313",
+      "253",
+      "1,566",
+      "5",
+      "N/A"
+    ],
+    [
+      "27",
+      "PATRIOT",
+      "1,117",
+      "195",
+      "1,312",
+      "5",
+      "N/A"
+    ],
+    [
+      "27",
+      "THURMAN",
+      "477",
+      "88",
+      "565",
       "3",
       "N/A"
     ],
     [
       "27",
-      "SPRINGFIELD",
-      "1,294",
-      "232",
-      "1,526",
+      "CHESHIRE",
+      "463",
+      "77",
+      "540",
+      "3",
+      "N/A"
+    ],
+    [
+      "27",
+      "RIO GRANDE",
+      "166",
+      "60",
+      "226",
       "2",
       "N/A"
     ],
     [
       "27",
-      "CLAY TWP",
-      "966",
-      "152",
-      "1,118",
-      "1",
+      "OAK HILL",
+      "125",
+      "41",
+      "166",
+      "3",
       "N/A"
     ],
     [
       "27",
-      "HUNTINGTON TWP",
-      "742",
-      "185",
-      "927",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "GALLIPOLIS TWP",
-      "769",
-      "157",
-      "926",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "MORGAN TWP",
-      "664",
-      "155",
-      "819",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "ADDISON TWP",
-      "645",
-      "106",
-      "751",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "PERRY TWP",
-      "637",
-      "94",
-      "731",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "RACCOON TWP",
-      "541",
-      "128",
-      "669",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "BIDWELL PCT",
-      "505",
-      "142",
-      "647",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "CENTERVILLE PCT",
-      "537",
-      "96",
-      "633",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "HARRISON TWP",
-      "531",
-      "88",
-      "619",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "ADDISON PCT",
-      "477",
-      "108",
-      "585",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "OHIO TWP",
-      "469",
-      "95",
-      "564",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "CHESHIRE TWP",
-      "480",
-      "82",
-      "562",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "GUYAN TWP",
-      "415",
-      "64",
-      "479",
-      "1",
-      "N/A"
-    ],
-    [
-      "27",
-      "WALNUT TWP",
-      "397",
+      "SCOTTOWN",
       "66",
-      "463",
+      "16",
+      "82",
+      "2",
+      "N/A"
+    ],
+    [
+      "27",
+      "WATERLOO",
+      "18",
+      "7",
+      "25",
       "1",
       "N/A"
     ],
     [
       "27",
-      "GREENFIELD TWP",
-      "204",
-      "61",
-      "265",
+      "MIDDLEPORT",
+      "6",
+      "2",
+      "8",
       "1",
       "N/A"
     ],
     [
       "27",
-      "GUYAN PCT",
-      "206",
-      "50",
-      "256",
+      "NORTHUP",
+      "2",
+      "0",
+      "2",
       "1",
       "N/A"
     ]

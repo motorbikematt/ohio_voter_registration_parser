@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,234 +18,171 @@
     [
       "46",
       "BELLEFONTAINE",
-      "6,849",
-      "1,672",
-      "8,521",
-      "8",
+      "10,843",
+      "2,124",
+      "12,967",
+      "21",
       "N/A"
     ],
     [
       "46",
-      "PRECINCT STOKES",
-      "1,785",
-      "314",
-      "2,099",
+      "LAKEVIEW",
+      "2,506",
+      "490",
+      "2,996",
+      "4",
+      "N/A"
+    ],
+    [
+      "46",
+      "WEST LIBERTY",
+      "2,475",
+      "286",
+      "2,761",
+      "6",
+      "N/A"
+    ],
+    [
+      "46",
+      "HUNTSVILLE",
+      "1,854",
+      "214",
+      "2,068",
+      "7",
+      "N/A"
+    ],
+    [
+      "46",
+      "DE GRAFF",
+      "1,609",
+      "241",
+      "1,850",
+      "6",
+      "N/A"
+    ],
+    [
+      "46",
+      "BELLE CENTER",
+      "1,470",
+      "186",
+      "1,656",
+      "4",
+      "N/A"
+    ],
+    [
+      "46",
+      "RUSSELLS POINT",
+      "1,027",
+      "208",
+      "1,235",
       "2",
       "N/A"
     ],
     [
       "46",
-      "PRECINCT JEFFERSON",
-      "1,719",
-      "218",
-      "1,937",
+      "ZANESFIELD",
+      "1,096",
+      "137",
+      "1,233",
+      "6",
+      "N/A"
+    ],
+    [
+      "46",
+      "WEST MANSFIELD",
+      "811",
+      "136",
+      "947",
+      "4",
+      "N/A"
+    ],
+    [
+      "46",
+      "RUSHSYLVANIA",
+      "774",
+      "149",
+      "923",
       "2",
       "N/A"
     ],
     [
       "46",
-      "PRECINCT RUSHCREEK",
-      "1,237",
-      "216",
-      "1,453",
-      "1",
+      "QUINCY",
+      "630",
+      "100",
+      "730",
+      "3",
       "N/A"
     ],
     [
       "46",
-      "PRECINCT WASHINGTON",
-      "1,183",
-      "168",
-      "1,351",
-      "2",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT RICHLAND",
-      "1,172",
-      "129",
-      "1,301",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT WEST LIBERTY",
-      "1,064",
-      "158",
-      "1,222",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT MONROE",
-      "1,088",
-      "116",
-      "1,204",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT HARRISON",
-      "1,044",
-      "127",
-      "1,171",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT McARTHUR",
-      "974",
-      "115",
-      "1,089",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT LIBERTY",
-      "890",
-      "66",
-      "956",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT ZANE",
-      "785",
-      "93",
-      "878",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT DeGRAFF",
-      "712",
-      "116",
-      "828",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT RUSSELLS POINT",
-      "669",
-      "151",
-      "820",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT LAKEVIEW",
-      "636",
-      "151",
-      "787",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT MIAMI / QUINCY",
-      "639",
-      "93",
-      "732",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT PERRY",
-      "629",
-      "72",
-      "701",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT UNION",
-      "525",
-      "56",
-      "581",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT BELLE CENTER",
-      "500",
+      "EAST LIBERTY",
+      "656",
       "73",
-      "573",
+      "729",
+      "2",
+      "N/A"
+    ],
+    [
+      "46",
+      "LEWISTOWN",
+      "525",
+      "63",
+      "588",
+      "5",
+      "N/A"
+    ],
+    [
+      "46",
+      "RIDGEWAY",
+      "228",
+      "29",
+      "257",
+      "2",
+      "N/A"
+    ],
+    [
+      "46",
+      "NORTH LEWISBURG",
+      "108",
+      "21",
+      "129",
       "1",
       "N/A"
     ],
     [
       "46",
-      "PRECINCT PLEASANT",
-      "479",
-      "82",
-      "561",
+      "MIDDLEBURG",
+      "76",
+      "17",
+      "93",
       "1",
       "N/A"
     ],
     [
       "46",
-      "PRECINCT WEST MANSFIELD",
-      "409",
-      "85",
-      "494",
+      "WAPAKONETA",
+      "44",
+      "5",
+      "49",
       "1",
       "N/A"
     ],
     [
       "46",
-      "PRECINCT STOKES SE",
-      "437",
-      "37",
-      "474",
-      "1",
+      "JACKSON CENTER",
+      "16",
+      "2",
+      "18",
+      "2",
       "N/A"
     ],
     [
       "46",
-      "PRECINCT LAKE",
-      "422",
-      "47",
-      "469",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT BOKESCREEK",
-      "399",
-      "52",
-      "451",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT BLOOMFIELD",
-      "270",
-      "28",
-      "298",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "PRECINCT HUNTSVILLE",
-      "234",
-      "46",
-      "280",
+      "RAYMOND",
+      "2",
+      "0",
+      "2",
       "1",
       "N/A"
     ]

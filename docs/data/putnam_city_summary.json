@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,207 +18,225 @@
     [
       "69",
       "OTTAWA",
-      "2,594",
-      "327",
-      "2,921",
-      "3",
-      "N/A"
-    ],
-    [
-      "69",
-      "JENNINGS TWP",
-      "1,340",
-      "72",
-      "1,412",
-      "1",
-      "N/A"
-    ],
-    [
-      "69",
-      "COL GROVE",
-      "1,184",
-      "153",
-      "1,337",
-      "1",
+      "6,410",
+      "595",
+      "7,005",
+      "14",
       "N/A"
     ],
     [
       "69",
       "LEIPSIC",
-      "1,116",
-      "208",
-      "1,324",
-      "1",
+      "2,802",
+      "347",
+      "3,149",
+      "6",
       "N/A"
     ],
     [
       "69",
-      "MONROE TWP/CONTINENTAL",
-      "1,168",
-      "147",
-      "1,315",
-      "1",
+      "COLUMBUS GROVE",
+      "2,787",
+      "253",
+      "3,040",
+      "6",
       "N/A"
     ],
     [
       "69",
-      "PLEASANT TWP",
-      "1,093",
-      "72",
-      "1,165",
-      "1",
+      "FT JENNINGS",
+      "2,055",
+      "112",
+      "2,167",
+      "5",
       "N/A"
     ],
     [
       "69",
-      "LIBERTY TWP",
-      "1,055",
-      "93",
-      "1,148",
-      "1",
-      "N/A"
-    ],
-    [
-      "69",
-      "UNION TWP",
-      "1,037",
-      "44",
-      "1,081",
-      "1",
-      "N/A"
-    ],
-    [
-      "69",
-      "OTTAWA TWP EAST",
-      "984",
-      "73",
-      "1,057",
-      "1",
-      "N/A"
-    ],
-    [
-      "69",
-      "GREENSBURG TWP",
-      "948",
-      "67",
-      "1,015",
-      "1",
-      "N/A"
-    ],
-    [
-      "69",
-      "KALIDA",
-      "949",
-      "61",
-      "1,010",
-      "1",
-      "N/A"
-    ],
-    [
-      "69",
-      "BLANCHARD TWP",
-      "791",
-      "73",
-      "864",
-      "1",
-      "N/A"
-    ],
-    [
-      "69",
-      "PALMER TWP",
-      "737",
-      "63",
-      "800",
-      "1",
-      "N/A"
-    ],
-    [
-      "69",
-      "MONTEREY TWP",
-      "758",
-      "40",
-      "798",
-      "1",
-      "N/A"
-    ],
-    [
-      "69",
-      "SUGAR CREEK TWP",
-      "717",
-      "63",
-      "780",
-      "1",
-      "N/A"
-    ],
-    [
-      "69",
-      "OTTAWA TWP. WEST",
-      "725",
-      "54",
-      "779",
-      "1",
+      "CONTINENTAL",
+      "1,737",
+      "197",
+      "1,934",
+      "4",
       "N/A"
     ],
     [
       "69",
       "PANDORA",
-      "684",
-      "87",
-      "771",
+      "1,293",
+      "148",
+      "1,441",
+      "3",
+      "N/A"
+    ],
+    [
+      "69",
+      "CLOVERDALE",
+      "1,236",
+      "108",
+      "1,344",
+      "5",
+      "N/A"
+    ],
+    [
+      "69",
+      "KALIDA",
+      "946",
+      "61",
+      "1,007",
       "1",
       "N/A"
     ],
     [
       "69",
       "GLANDORF",
-      "719",
-      "26",
-      "745",
-      "1",
-      "N/A"
-    ],
-    [
-      "69",
-      "RILEY TWP",
-      "678",
-      "67",
-      "745",
+      "716",
+      "25",
+      "741",
       "1",
       "N/A"
     ],
     [
       "69",
       "OTTOVILLE",
-      "631",
+      "633",
       "48",
-      "679",
+      "681",
+      "2",
+      "N/A"
+    ],
+    [
+      "69",
+      "DELPHOS",
+      "244",
+      "14",
+      "258",
+      "2",
+      "N/A"
+    ],
+    [
+      "69",
+      "VAUGHNSVILLE",
+      "130",
+      "26",
+      "156",
       "1",
       "N/A"
     ],
     [
       "69",
-      "PERRY TWP",
-      "580",
-      "95",
-      "675",
+      "DUPONT",
+      "116",
+      "22",
+      "138",
       "1",
       "N/A"
     ],
     [
       "69",
-      "JACKSON TWP",
-      "610",
-      "36",
-      "646",
+      "W LEIPSIC",
+      "91",
+      "27",
+      "118",
       "1",
       "N/A"
     ],
     [
       "69",
-      "VAN BUREN TWP",
-      "413",
-      "48",
-      "461",
+      "MILLER",
+      "89",
+      "9",
+      "98",
+      "1",
+      "N/A"
+    ],
+    [
+      "69",
+      "GILBOA",
+      "91",
+      "6",
+      "97",
+      "1",
+      "N/A"
+    ],
+    [
+      "69",
+      "BELMORE",
+      "42",
+      "12",
+      "54",
+      "1",
+      "N/A"
+    ],
+    [
+      "69",
+      "BLUFFTON",
+      "39",
+      "4",
+      "43",
+      "1",
+      "N/A"
+    ],
+    [
+      "69",
+      "MCCOMB",
+      "16",
+      "0",
+      "16",
+      "2",
+      "N/A"
+    ],
+    [
+      "69",
+      "DESHLER",
+      "9",
+      "2",
+      "11",
+      "1",
+      "N/A"
+    ],
+    [
+      "69",
+      "NEW BAVARIA",
+      "9",
+      "0",
+      "9",
+      "1",
+      "N/A"
+    ],
+    [
+      "69",
+      "GROVER HILL",
+      "8",
+      "0",
+      "8",
+      "1",
+      "N/A"
+    ],
+    [
+      "69",
+      "OAKWOOD",
+      "6",
+      "0",
+      "6",
+      "1",
+      "N/A"
+    ],
+    [
+      "69",
+      "MT CORY",
+      "5",
+      "1",
+      "6",
+      "2",
+      "N/A"
+    ],
+    [
+      "69",
+      "ELIDA",
+      "1",
+      "0",
+      "1",
       "1",
       "N/A"
     ]

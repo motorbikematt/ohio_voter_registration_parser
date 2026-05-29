@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,451 +18,244 @@
     [
       "79",
       "NEW PHILADELPHIA",
-      "8,824",
-      "1,434",
-      "10,258",
-      "16",
+      "13,395",
+      "2,043",
+      "15,438",
+      "32",
       "N/A"
     ],
     [
       "79",
       "DOVER",
-      "6,925",
-      "1,002",
-      "7,927",
-      "12",
+      "10,536",
+      "1,454",
+      "11,990",
+      "23",
       "N/A"
     ],
     [
       "79",
       "UHRICHSVILLE",
-      "2,150",
-      "600",
-      "2,750",
+      "3,549",
+      "842",
+      "4,391",
+      "11",
+      "N/A"
+    ],
+    [
+      "79",
+      "BOLIVAR",
+      "3,186",
+      "373",
+      "3,559",
+      "7",
+      "N/A"
+    ],
+    [
+      "79",
+      "NEWCOMERSTOWN",
+      "3,022",
+      "508",
+      "3,530",
+      "8",
+      "N/A"
+    ],
+    [
+      "79",
+      "STRASBURG",
+      "2,523",
+      "302",
+      "2,825",
+      "5",
+      "N/A"
+    ],
+    [
+      "79",
+      "DENNISON",
+      "2,351",
+      "401",
+      "2,752",
+      "6",
+      "N/A"
+    ],
+    [
+      "79",
+      "SUGARCREEK",
+      "2,289",
+      "305",
+      "2,594",
+      "6",
+      "N/A"
+    ],
+    [
+      "79",
+      "MINERAL",
+      "1,451",
+      "226",
+      "1,677",
+      "5",
+      "N/A"
+    ],
+    [
+      "79",
+      "GNADENHUTTEN",
+      "1,237",
+      "177",
+      "1,414",
+      "6",
+      "N/A"
+    ],
+    [
+      "79",
+      "DUNDEE",
+      "864",
+      "169",
+      "1,033",
+      "3",
+      "N/A"
+    ],
+    [
+      "79",
+      "PORT WASHINGTON",
+      "871",
+      "147",
+      "1,018",
+      "8",
+      "N/A"
+    ],
+    [
+      "79",
+      "STONE CREEK",
+      "660",
+      "76",
+      "736",
       "4",
       "N/A"
     ],
     [
       "79",
-      "PRECINCT DENNISON",
-      "1,252",
-      "267",
-      "1,519",
-      "2",
+      "TUSCARAWAS",
+      "553",
+      "95",
+      "648",
+      "3",
       "N/A"
     ],
     [
       "79",
-      "PRECINCT SUGARCREEK VLG",
-      "1,308",
-      "179",
-      "1,487",
-      "2",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT FRANKLIN TWP",
-      "1,229",
-      "161",
-      "1,390",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT MILL TOWNSHIP",
-      "1,157",
-      "186",
-      "1,343",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT LAWRENCE TWP #2",
-      "1,169",
-      "101",
-      "1,270",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT WAYNE TOWNSHIP",
-      "883",
-      "176",
-      "1,059",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT FAIRFIELD TWP",
-      "916",
-      "127",
-      "1,043",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT STRASBURG VILL #1",
-      "895",
-      "119",
-      "1,014",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT DOVER TWP #3",
-      "881",
-      "107",
-      "988",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT SUGARCREEK TOWNSHIP",
-      "837",
-      "82",
-      "919",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT YORK TOWNSHIP",
-      "793",
-      "75",
-      "868",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT GNADENHUTTEN",
-      "749",
-      "109",
-      "858",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT LAWRENCE TWP #4",
-      "775",
-      "70",
-      "845",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT NEWCOMERSTOWN #1",
-      "688",
-      "149",
-      "837",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT UNION TOWNSHIP",
-      "741",
-      "84",
-      "825",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT STRASBURG VILL #2",
-      "724",
-      "82",
-      "806",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT SANDY TWP EAST",
-      "677",
-      "123",
-      "800",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT GOSHEN #3/BARNHILL",
-      "683",
-      "112",
-      "795",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT DOVER TWP #1",
-      "675",
-      "97",
-      "772",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT GOSHEN TWP #4",
-      "668",
-      "91",
-      "759",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT WARREN TOWNSHIP",
-      "669",
-      "89",
-      "758",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT GOSHEN 1/ROSWELL",
-      "654",
-      "78",
-      "732",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT DOVER TWP #2",
-      "653",
-      "75",
-      "728",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT SALEM TWP",
-      "638",
-      "68",
-      "706",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT OXFORD TOWNSHIP",
-      "616",
-      "76",
-      "692",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT GOSHEN TWP #2",
-      "597",
-      "93",
-      "690",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT LAWRENCE #1/ZOAR",
-      "567",
-      "113",
-      "680",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT TUSCARAWAS",
-      "573",
-      "101",
-      "674",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT NEWCOMERSTOWN #2",
-      "538",
-      "130",
-      "668",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT SANDY TWP WEST",
-      "587",
-      "69",
-      "656",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT STONECREEK/JEFF TWP",
-      "570",
-      "58",
-      "628",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT LAWRENCE TWP #3",
-      "537",
-      "80",
-      "617",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT BOLIVAR",
-      "556",
-      "60",
-      "616",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT DOVER TWP #4/PARRAL",
-      "539",
-      "77",
-      "616",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT NEWCOMERSTOWN #3",
-      "486",
-      "98",
-      "584",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT RUSH TOWNSHIP",
-      "467",
-      "78",
-      "545",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT WARWICK TWP WEST",
-      "473",
-      "69",
-      "542",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT AUBURN TWP",
-      "462",
-      "69",
-      "531",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT WARWICK TWP EAST",
-      "459",
-      "69",
-      "528",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PRECINCT BUCKS TWP",
-      "406",
-      "69",
+      "MAGNOLIA",
       "475",
+      "96",
+      "571",
+      "2",
+      "N/A"
+    ],
+    [
+      "79",
+      "BALTIC",
+      "466",
+      "86",
+      "552",
+      "3",
+      "N/A"
+    ],
+    [
+      "79",
+      "MIDVALE",
+      "220",
+      "66",
+      "286",
       "1",
       "N/A"
     ],
     [
       "79",
-      "PRECINCT CLAY TWP",
-      "400",
-      "57",
-      "457",
-      "1",
+      "SHERRODSVILLE",
+      "227",
+      "30",
+      "257",
+      "2",
       "N/A"
     ],
     [
       "79",
-      "PRECINCT WASHINGTON TWP",
-      "383",
+      "BEACH",
+      "189",
+      "42",
+      "231",
+      "2",
+      "N/A"
+    ],
+    [
+      "79",
+      "SANDYVILLE",
+      "172",
       "35",
-      "418",
+      "207",
       "1",
       "N/A"
     ],
     [
       "79",
-      "PRECINCT MIDVALE",
-      "312",
-      "93",
-      "405",
+      "ZOAR",
+      "156",
+      "16",
+      "172",
+      "3",
+      "N/A"
+    ],
+    [
+      "79",
+      "TIPPECANOE",
+      "126",
+      "15",
+      "141",
+      "2",
+      "N/A"
+    ],
+    [
+      "79",
+      "SOMERDALE",
+      "99",
+      "22",
+      "121",
       "1",
       "N/A"
     ],
     [
       "79",
-      "PRECINCT BALTIC",
-      "300",
-      "54",
-      "354",
+      "FRESNO",
+      "82",
+      "19",
+      "101",
       "1",
       "N/A"
     ],
     [
       "79",
-      "PRECINCT MINERAL",
-      "271",
-      "77",
-      "348",
+      "GUERNSEY",
+      "39",
+      "2",
+      "41",
       "1",
       "N/A"
     ],
     [
       "79",
-      "PRECINCT PORT WASHINGTON VLG",
-      "250",
-      "55",
-      "305",
+      "EAST SPARTA",
+      "35",
+      "6",
+      "41",
       "1",
       "N/A"
     ],
     [
       "79",
-      "PRECINCT PERRY TOWNSHIP",
-      "221",
-      "31",
-      "252",
+      "FREEPORT",
+      "10",
       "1",
+      "11",
+      "2",
       "N/A"
     ]
   ]

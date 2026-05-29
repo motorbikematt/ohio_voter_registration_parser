@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,235 +17,190 @@
   "rows": [
     [
       "59",
-      "HARMONY TWP",
-      "1,606",
-      "285",
-      "1,891",
-      "2",
-      "N/A"
-    ],
-    [
-      "59",
-      "LINCOLN TWP",
-      "1,231",
-      "161",
-      "1,392",
-      "2",
-      "N/A"
-    ],
-    [
-      "59",
-      "S BLOOMFIELD TWP",
-      "1,209",
-      "149",
-      "1,358",
-      "2",
-      "N/A"
-    ],
-    [
-      "59",
-      "N BLOOMFIELD TWP",
-      "1,189",
-      "161",
-      "1,350",
-      "2",
+      "MT GILEAD",
+      "6,220",
+      "1,018",
+      "7,238",
+      "18",
       "N/A"
     ],
     [
       "59",
       "CARDINGTON",
-      "1,116",
-      "209",
-      "1,325",
-      "2",
+      "4,102",
+      "600",
+      "4,702",
+      "13",
       "N/A"
     ],
     [
       "59",
-      "CONGRESS TWP WEST",
-      "1,121",
-      "161",
-      "1,282",
-      "1",
+      "MARENGO",
+      "4,029",
+      "555",
+      "4,584",
+      "10",
       "N/A"
     ],
     [
       "59",
-      "BENNINGTON TWP WEST",
-      "1,020",
-      "168",
-      "1,188",
-      "1",
+      "GALION",
+      "1,580",
+      "227",
+      "1,807",
+      "6",
       "N/A"
     ],
     [
       "59",
-      "PERU TWP",
-      "975",
-      "122",
-      "1,097",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "BENNINGTON TWP EAST",
-      "999",
-      "92",
-      "1,091",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "FRANKLIN TWP",
-      "924",
-      "166",
-      "1,090",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "MT GILEAD",
-      "851",
-      "135",
-      "986",
-      "2",
-      "N/A"
-    ],
-    [
-      "59",
-      "PERRY TWP",
-      "752",
-      "123",
-      "875",
-      "2",
-      "N/A"
-    ],
-    [
-      "59",
-      "CONGRESS TWP EAST",
-      "761",
-      "103",
-      "864",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "WASHINGTON TWP",
-      "744",
-      "115",
-      "859",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "WESTFIELD TWP",
-      "747",
-      "105",
-      "852",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "TROY TWP",
-      "696",
-      "104",
-      "800",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "CARDINGTON TWP",
-      "681",
-      "81",
-      "762",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "MT GILEAD VILLAGE NW",
-      "606",
-      "135",
-      "741",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "CHESTER TWP EAST",
-      "566",
-      "90",
-      "656",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "CHESTER TWP WEST",
-      "556",
-      "94",
-      "650",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "CANAAN TWP",
-      "562",
-      "70",
-      "632",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "GILEAD TWP SE",
-      "504",
-      "60",
-      "564",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "GILEAD TWP",
-      "467",
-      "48",
-      "515",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "GILEAD TWP NE",
-      "388",
-      "55",
-      "443",
-      "1",
-      "N/A"
-    ],
-    [
-      "59",
-      "MT GILEAD VILLAGE SW",
-      "357",
-      "78",
-      "435",
-      "1",
+      "FREDERICKTOWN",
+      "939",
+      "136",
+      "1,075",
+      "6",
       "N/A"
     ],
     [
       "59",
       "EDISON",
-      "229",
-      "47",
-      "276",
+      "886",
+      "121",
+      "1,007",
+      "6",
+      "N/A"
+    ],
+    [
+      "59",
+      "CENTERBURG",
+      "638",
+      "94",
+      "732",
+      "3",
+      "N/A"
+    ],
+    [
+      "59",
+      "MANSFIELD",
+      "558",
+      "102",
+      "660",
+      "4",
+      "N/A"
+    ],
+    [
+      "59",
+      "ASHLEY",
+      "481",
+      "59",
+      "540",
+      "3",
+      "N/A"
+    ],
+    [
+      "59",
+      "LEXINGTON",
+      "454",
+      "53",
+      "507",
+      "4",
+      "N/A"
+    ],
+    [
+      "59",
+      "BELLVILLE",
+      "257",
+      "41",
+      "298",
+      "2",
+      "N/A"
+    ],
+    [
+      "59",
+      "FULTON",
+      "158",
+      "30",
+      "188",
+      "1",
+      "N/A"
+    ],
+    [
+      "59",
+      "CALEDONIA",
+      "114",
+      "17",
+      "131",
+      "1",
+      "N/A"
+    ],
+    [
+      "59",
+      "CHESTERVILLE",
+      "110",
+      "17",
+      "127",
+      "1",
+      "N/A"
+    ],
+    [
+      "59",
+      "SPARTA",
+      "91",
+      "15",
+      "106",
+      "1",
+      "N/A"
+    ],
+    [
+      "59",
+      "WALDO",
+      "71",
+      "10",
+      "81",
+      "1",
+      "N/A"
+    ],
+    [
+      "59",
+      "IBERIA",
+      "69",
+      "10",
+      "79",
+      "1",
+      "N/A"
+    ],
+    [
+      "59",
+      "MT VERNON",
+      "64",
+      "7",
+      "71",
+      "1",
+      "N/A"
+    ],
+    [
+      "59",
+      "SHAUCK",
+      "19",
+      "4",
+      "23",
+      "1",
+      "N/A"
+    ],
+    [
+      "59",
+      "SUNBURY",
+      "13",
+      "0",
+      "13",
+      "1",
+      "N/A"
+    ],
+    [
+      "59",
+      "MT. GILEAD",
+      "4",
+      "1",
+      "5",
       "1",
       "N/A"
     ]

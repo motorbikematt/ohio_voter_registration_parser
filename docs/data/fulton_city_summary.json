@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,225 +18,117 @@
     [
       "26",
       "WAUSEON",
-      "3,847",
-      "779",
-      "4,626",
-      "5",
+      "7,322",
+      "1,258",
+      "8,580",
+      "13",
       "N/A"
     ],
     [
       "26",
-      "GORHAM / FAYETTE",
-      "1,137",
-      "220",
-      "1,357",
-      "1",
+      "SWANTON",
+      "5,216",
+      "753",
+      "5,969",
+      "8",
       "N/A"
     ],
     [
       "26",
-      "SWANCREEK WEST",
-      "1,121",
-      "164",
-      "1,285",
-      "1",
+      "DELTA",
+      "4,702",
+      "685",
+      "5,387",
+      "11",
+      "N/A"
+    ],
+    [
+      "26",
+      "ARCHBOLD",
+      "3,945",
+      "585",
+      "4,530",
+      "6",
+      "N/A"
+    ],
+    [
+      "26",
+      "FAYETTE",
+      "1,467",
+      "251",
+      "1,718",
+      "3",
+      "N/A"
+    ],
+    [
+      "26",
+      "LYONS",
+      "938",
+      "114",
+      "1,052",
+      "4",
+      "N/A"
+    ],
+    [
+      "26",
+      "METAMORA",
+      "845",
+      "115",
+      "960",
+      "2",
       "N/A"
     ],
     [
       "26",
       "PETTISVILLE",
-      "1,149",
-      "134",
-      "1,283",
+      "237",
+      "30",
+      "267",
       "1",
       "N/A"
     ],
     [
       "26",
-      "AMBOY / METAMORA",
-      "1,108",
-      "154",
-      "1,262",
+      "LIBERTY CENTER",
+      "105",
+      "11",
+      "116",
+      "2",
+      "N/A"
+    ],
+    [
+      "26",
+      "WEST UNITY",
+      "72",
+      "8",
+      "80",
+      "2",
+      "N/A"
+    ],
+    [
+      "26",
+      "STRYKER",
+      "27",
+      "4",
+      "31",
       "1",
       "N/A"
     ],
     [
       "26",
-      "PIKE",
-      "1,119",
-      "142",
-      "1,261",
+      "NAPOLEON",
+      "7",
+      "0",
+      "7",
       "1",
       "N/A"
     ],
     [
       "26",
-      "SWANTON SWANCREEK",
-      "1,059",
-      "185",
-      "1,244",
+      "BERKEY",
+      "5",
       "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "DOVER",
-      "1,023",
-      "155",
-      "1,178",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "SWANTON FULTON",
-      "1,025",
-      "151",
-      "1,176",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "ARCHBOLD ONE",
-      "978",
-      "194",
-      "1,172",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "YORK",
-      "1,023",
-      "114",
-      "1,137",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "SWANCREEK EAST TWO",
-      "944",
-      "109",
-      "1,053",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "ROYALTON / LYONS",
-      "920",
-      "118",
-      "1,038",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "FULTON",
-      "906",
-      "113",
-      "1,019",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "ARCHBOLD THREE",
-      "876",
-      "136",
-      "1,012",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "GERMAN",
-      "846",
-      "101",
-      "947",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "ARCHBOLD TWO",
-      "842",
-      "102",
-      "944",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "DELTA THREE",
-      "759",
-      "136",
-      "895",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "SWANCREEK LIBERTY CENTER",
-      "765",
-      "104",
-      "869",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "SWANCREEK EAST ONE",
-      "746",
-      "98",
-      "844",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "CLINTON EAST",
-      "700",
-      "97",
-      "797",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "CHESTERFIELD",
-      "548",
-      "96",
-      "644",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "DELTA TWO",
-      "524",
-      "101",
-      "625",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "DELTA ONE",
-      "470",
-      "70",
-      "540",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "FRANKLIN",
-      "453",
-      "42",
-      "495",
+      "6",
       "1",
       "N/A"
     ]

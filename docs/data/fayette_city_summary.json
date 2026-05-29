@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -26,127 +26,109 @@
     ],
     [
       "24",
-      "UNION SOUTH/WEST",
-      "931",
-      "125",
-      "1,056",
-      "1",
-      "N/A"
-    ],
-    [
-      "24",
-      "WAYNE",
-      "762",
-      "106",
-      "868",
-      "1",
-      "N/A"
-    ],
-    [
-      "24",
-      "CONCORD/GREEN",
-      "768",
-      "98",
-      "866",
-      "1",
-      "N/A"
-    ],
-    [
-      "24",
-      "MADISON",
-      "656",
-      "72",
-      "728",
-      "1",
-      "N/A"
-    ],
-    [
-      "24",
-      "PERRY",
-      "636",
-      "63",
-      "699",
-      "1",
-      "N/A"
-    ],
-    [
-      "24",
-      "UNION NORTH",
-      "535",
-      "112",
-      "647",
-      "1",
+      "WASHINGTON CH",
+      "3,996",
+      "584",
+      "4,580",
+      "12",
       "N/A"
     ],
     [
       "24",
       "JEFFERSONVILLE",
-      "488",
-      "150",
-      "638",
-      "1",
-      "N/A"
-    ],
-    [
-      "24",
-      "PAINT",
-      "538",
-      "63",
-      "601",
-      "1",
-      "N/A"
-    ],
-    [
-      "24",
-      "JEFFERSON SOUTH",
-      "437",
-      "65",
-      "502",
-      "1",
-      "N/A"
-    ],
-    [
-      "24",
-      "MARION",
-      "441",
-      "48",
-      "489",
-      "1",
-      "N/A"
-    ],
-    [
-      "24",
-      "JASPER",
-      "392",
-      "51",
-      "443",
-      "1",
-      "N/A"
-    ],
-    [
-      "24",
-      "UNION EAST",
-      "371",
-      "49",
-      "420",
-      "1",
+      "1,037",
+      "221",
+      "1,258",
+      "5",
       "N/A"
     ],
     [
       "24",
       "BLOOMINGBURG",
-      "352",
-      "63",
-      "415",
+      "768",
+      "104",
+      "872",
+      "5",
+      "N/A"
+    ],
+    [
+      "24",
+      "GREENFIELD",
+      "496",
+      "44",
+      "540",
+      "3",
+      "N/A"
+    ],
+    [
+      "24",
+      "NEW HOLLAND",
+      "405",
+      "49",
+      "454",
+      "4",
+      "N/A"
+    ],
+    [
+      "24",
+      "MT STERLING",
+      "411",
+      "40",
+      "451",
+      "2",
+      "N/A"
+    ],
+    [
+      "24",
+      "LEESBURG",
+      "205",
+      "26",
+      "231",
+      "2",
+      "N/A"
+    ],
+    [
+      "24",
+      "SABINA",
+      "158",
+      "20",
+      "178",
+      "2",
+      "N/A"
+    ],
+    [
+      "24",
+      "MILLEDGEVILLE",
+      "60",
+      "6",
+      "66",
       "1",
       "N/A"
     ],
     [
       "24",
-      "JEFFERSON NORTH",
-      "311",
+      "JAMESTOWN",
+      "39",
+      "4",
+      "43",
+      "2",
+      "N/A"
+    ],
+    [
+      "24",
+      "SOUTH SOLON",
       "37",
-      "348",
+      "4",
+      "41",
+      "2",
+      "N/A"
+    ],
+    [
+      "24",
+      "CLARKSBURG",
+      "6",
+      "0",
+      "6",
       "1",
       "N/A"
     ]

@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,235 +17,181 @@
   "rows": [
     [
       "53",
-      "PRECINCT RACINE",
-      "907",
-      "126",
-      "1,033",
+      "POMEROY",
+      "3,083",
+      "616",
+      "3,699",
+      "14",
+      "N/A"
+    ],
+    [
+      "53",
+      "RACINE",
+      "2,085",
+      "307",
+      "2,392",
+      "9",
+      "N/A"
+    ],
+    [
+      "53",
+      "MIDDLEPORT",
+      "1,445",
+      "376",
+      "1,821",
+      "8",
+      "N/A"
+    ],
+    [
+      "53",
+      "REEDSVILLE",
+      "1,117",
+      "158",
+      "1,275",
+      "5",
+      "N/A"
+    ],
+    [
+      "53",
+      "ALBANY",
+      "957",
+      "162",
+      "1,119",
+      "3",
+      "N/A"
+    ],
+    [
+      "53",
+      "LONG BOTTOM",
+      "789",
+      "127",
+      "916",
+      "5",
+      "N/A"
+    ],
+    [
+      "53",
+      "RUTLAND",
+      "674",
+      "139",
+      "813",
+      "4",
+      "N/A"
+    ],
+    [
+      "53",
+      "LANGSVILLE",
+      "426",
+      "77",
+      "503",
+      "3",
+      "N/A"
+    ],
+    [
+      "53",
+      "SYRACUSE",
+      "425",
+      "65",
+      "490",
       "2",
       "N/A"
     ],
     [
       "53",
-      "PRECINCT COLUMBIA",
-      "759",
-      "115",
-      "874",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT EAST CHESTER",
-      "771",
-      "89",
-      "860",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT BEDFORD",
-      "724",
-      "118",
-      "842",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT WEST CHESTER",
-      "714",
-      "75",
-      "789",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT SCIPIO",
-      "626",
-      "145",
-      "771",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT ORANGE",
-      "671",
-      "88",
-      "759",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT NORTH OLIVE",
-      "550",
-      "66",
-      "616",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT SALEM",
-      "501",
-      "90",
-      "591",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT LEBANON",
-      "464",
-      "108",
-      "572",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT MINERSVILLE",
-      "484",
-      "78",
-      "562",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT WEST RUTLAND",
-      "454",
-      "95",
-      "549",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT SYRACUSE",
-      "451",
-      "71",
-      "522",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT SOUTH OLIVE",
-      "432",
-      "85",
-      "517",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT EAST RUTLAND",
-      "404",
-      "87",
-      "491",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT LETART",
-      "400",
-      "68",
-      "468",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT MIDDLEPORT 3RD",
-      "366",
-      "88",
-      "454",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT LAUREL CLIFF",
-      "347",
-      "57",
-      "404",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT BRADBURY",
-      "320",
-      "83",
-      "403",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT MIDDLEPORT 2ND",
-      "297",
-      "99",
-      "396",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT POMEROY 2ND",
-      "299",
-      "87",
-      "386",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "PRECINCT MIDDLEPORT 4TH",
+      "PORTLAND",
       "291",
-      "68",
-      "359",
+      "63",
+      "354",
       "1",
       "N/A"
     ],
     [
       "53",
-      "PRECINCT ROCKSPRINGS",
+      "COOLVILLE",
+      "276",
+      "36",
+      "312",
+      "3",
+      "N/A"
+    ],
+    [
+      "53",
+      "SHADE",
+      "202",
+      "38",
       "240",
-      "60",
-      "300",
       "1",
       "N/A"
     ],
     [
       "53",
-      "PRECINCT POMEROY 1ST",
-      "194",
-      "65",
-      "259",
+      "VINTON",
+      "107",
+      "20",
+      "127",
       "1",
       "N/A"
     ],
     [
       "53",
-      "PRECINCT RUTLAND",
-      "204",
-      "47",
-      "251",
+      "TUPPERS PLAINS",
+      "78",
+      "8",
+      "86",
+      "2",
+      "N/A"
+    ],
+    [
+      "53",
+      "CHESHIRE",
+      "33",
+      "9",
+      "42",
       "1",
       "N/A"
     ],
     [
       "53",
-      "PRECINCT POMEROY 3RD",
-      "146",
-      "44",
-      "190",
+      "DEXTER",
+      "10",
+      "1",
+      "11",
+      "1",
+      "N/A"
+    ],
+    [
+      "53",
+      "CHESTER",
+      "7",
+      "0",
+      "7",
+      "2",
+      "N/A"
+    ],
+    [
+      "53",
+      "GUYSVILLE",
+      "7",
+      "0",
+      "7",
+      "1",
+      "N/A"
+    ],
+    [
+      "53",
+      "EWINGTON",
+      "2",
+      "0",
+      "2",
+      "1",
+      "N/A"
+    ],
+    [
+      "53",
+      "BIDWELL",
+      "2",
+      "0",
+      "2",
       "1",
       "N/A"
     ]
