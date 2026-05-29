@@ -263,12 +263,80 @@ A full audit was commissioned (`docs/research/repo_organization_audit_2026-05-27
 The git staging and commits were handed off to a PowerShell script (sandbox FUSE mount blocks git index writes). All file edits were applied directly. The three-commit sequence — cleanup, restructure, hygiene — was the planned order; the PowerShell handoff collapsed them into one operator action.
 
 
-## Pending / Next Steps (as of 2026-05-27)
 
-- **Officeholder data:** All 14 jurisdiction levels currently render "data not yet available" for elected officials. Sourcing this data is the next major workstream.
-- **`ohio_voter_pipeline.py` integration:** Pass `llm_batch=True` to `run_for_levels()` in the narrative phase so the full pipeline automatically enriches narratives on a complete run.
-- **First live LLM enrichment run:** The enricher is built and wired — it hasn't been run against real data yet. A test run against Hamilton County precincts would validate the system prompt and output quality before a full-state batch.
-- **JSONL session review:** Prior session transcripts (`~/.claude/projects/D--vibe-election-data/*.jsonl`) have not yet been reviewed to fill in the journal placeholders for sessions before 2026-05-26.
+## 2026-05-28 — City Column Fix: The PRECINCT_NAME Antipattern Exposed
+
+**Session context:** Cowork (claude-sonnet-4-6)
+
+### The problem that broke everything silently
+
+`build_city_summary()` had been working correctly for Montgomery County from the start. That was the problem. Montgomery County's precinct naming convention happens to use the city name as a prefix — "KETTERING 1-A", "DAYTON 18-B". So `_extract_city(PRECINCT_NAME)`, which strips the alphanumeric-plus-whitespace suffix, returned the right answer in Montgomery. This made the function appear correct in development and pass every sanity check that used Montgomery as the test case.
+
+The bug only manifests in a different county. In Greene County, Ohio — which shares the city of Kettering with Montgomery County — the precincts containing Kettering voters are named "BEAVERCREEK 090" and "SUGARCREEK 151". The precinct names reflect the physical precinct boundary township, not the voter's municipal address. `_extract_city` returned "BEAVERCREEK" and "SUGARCREEK". Those are valid county geographies. There is no error. The function just quietly assigned 537 Kettering voters to two cities that don't exist in any stakeholder-facing output.
+
+The fix is straightforward once the bug is understood: use the `CITY` column, which carries the voter's registered address municipality. This is what `CITY` is for. The precinct name was never the right source.
+
+**Scope of misclassification confirmed by Polars scan:** 2,067,475 voters across 135 cities and 144 county-city pairs — roughly 26% of all Ohio registered voters. Kettering was the visible case because it was the motivation for the drill-down feature. Every city that spans county lines had some version of this problem.
+
+### Three-part fix
+
+The repair touched three layers simultaneously.
+
+**Python (`voter_data_cleaner_v2.py`):** `build_city_summary()` now uses `pl.col('CITY')` as the primary grouping key, with a fallback to `_extract_city(PRECINCT_NAME)` only when CITY is null or blank. This fallback covers the ~19 counties where the Ohio SOS does not populate the CITY field in the SWVF. A suffix normalization step was added to handle the " CITY" suffix that SWVF carries on city values ("KETTERING CITY" → "KETTERING"). The docstring was rewritten to document the architectural rationale so the next person reading the function understands that PRECINCT_NAME is not and was never a jurisdictional proxy.
+
+**JSON regeneration (`tools/regen_city_summary.py`):** Rather than re-running the full Option 1 pipeline (which processes all 88 counties from scratch, rebuilds enriched parquet, and regenerates every output type), a targeted script reads only the three columns needed (`PRECINCT_NAME`, `VOTER_STATUS`, `CITY`) from the hive-partitioned parquet, adds `COUNTY_NUMBER` back as a literal (it is a partition key, not a column inside the parquet files), and calls the fixed `build_city_summary()` directly. All 88 `*_city_summary.json` files were regenerated in minutes. Greene > Kettering now appears correctly: 537 voters, 2 precincts.
+
+**Precinct index (`tools/patch_precinct_index_city.py`):** The `*_precinct_index.json` files needed a `city` field so the client-side JavaScript could filter precincts by city without name-prefix guessing. The script imports `OHIO_COUNTIES` from `voter_data_cleaner_v2` to build a slug-to-number map, computes the dominant CITY value per precinct from parquet data using a group-by + sort + first chain, and writes the `city` field to each of the 3,924 precinct records across all 88 index files. Counties in the blank-CITY set get `city: null`.
+
+**JavaScript (`docs/assets/v2.js`, `aggregateCityCharts()`):** The client-side filter was updated from name-prefix substring matching (`prec.name.startsWith(upper + ' ')`) to exact match on `prec.city`, with name-prefix as fallback for blank-CITY counties. This aligns the client behavior with what the Python layer now produces.
+
+### The audit that followed
+
+After fixing the immediate bug, the broader question became: how many other places in the codebase assume `PRECINCT_NAME` is a jurisdictional proxy? A systematic column-by-column audit was run against the full SWVF schema.
+
+The result was illuminating in both directions.
+
+**`RESIDENTIAL_CITY` — the unused obvious answer.** This column is 100% populated in all 19 blank-CITY counties. Confirmed by scanning Cuyahoga (one of the blank-CITY counties): 862,439 voters, 100% `RESIDENTIAL_CITY` populated, 0% `CITY` populated. Every instance of `_extract_city(PRECINCT_NAME)` across all fallback paths could be replaced with `RESIDENTIAL_CITY`, which is semantically correct and requires no regex. The six compiled regex patterns in `_PRECINCT_SUFFIX_PATTERNS` and the `_extract_city()` function itself can be deleted outright. They were solving a problem that the source data solves directly. The fact that they existed for this long is a consequence of validating the pipeline primarily against Montgomery, which has good CITY coverage.
+
+**`WARD` — direct column, not in pipeline.** The SWVF carries a `WARD` column ("KETTERING WARD 1", "DAYTON WARD 18"), 52.6% populated in Montgomery. Wards are a distinct jurisdictional type meaningful to campaign operations — ward-level organizing is common in larger Ohio cities, and precinct captains often report to ward coordinators. `jurisdictional_groupings.py` currently has 12 jurisdiction types. `WARD` should be the 13th.
+
+**`PRECINCT_CODE` — stable identifier, not in index.** The SWVF carries a `PRECINCT_CODE` column (e.g., "57AKT") that is more stable than `PRECINCT_NAME` across SOS file updates. The SOS occasionally renames precincts without changing codes. Adding it to `index_entries.append()` in the precinct indexer is a minor addition with long-term resilience benefits.
+
+**`COUNTY_ID` cross-county misuse.** Confirmed that `COUNTY_ID` is county-scoped (the SOS reuses values across counties) and `SOS_VOTERID` is the correct statewide join key. No code was found actively misusing this, but the schema reference in CLAUDE.md was verified to make the distinction explicit.
+
+### What still doesn't work, and why it's architectural
+
+The cross-county city problem is partially solved. `aggregateCityCharts()` correctly identifies which precincts belong to Kettering using `prec.city` exact matching. But it only queries one county's precinct index — the one selected in the left panel. When a user clicks Montgomery > Kettering, the function fetches Montgomery's 41 Kettering precincts. It does not know to also query Greene's index for BEAVERCREEK 090 and SUGARCREEK 151.
+
+Resolving this requires generating a `city_county_map.json` artifact during the pipeline — a lookup from city name to the list of county slugs that contain voters registered in that city. The client can then query multiple precinct indexes in a `Promise.all` before aggregating charts. This is Group 3 of the planned refactor.
+
+The left-panel hierarchy builder (`populateCountyChildren()`) also still uses name-prefix matching to bucket precincts into city groups in the navigation tree. This means Greene's BEAVERCREEK 090 and SUGARCREEK 151 precincts — even though tagged `city: 'KETTERING'` in the index — won't appear under a "Kettering" city grouping in the Greene county left-panel view. This is a separate fix from the chart aggregation issue and also belongs to Group 3.
+
+The expected visible behavior after all three groups are complete: clicking Montgomery > Kettering will aggregate charts across Montgomery's 41 Kettering precincts AND Greene's 2. Clicking Greene > Kettering will aggregate just the 2 Greene precincts. Both counties will list Kettering as a named city group in their left panels.
+
+### Refactor plan
+
+The next session is organized into three groups with increasing scope and risk.
+
+**Group 1 — Housekeeping (~30 min):** Consolidate the three duplicate `generate_narratives` import blocks in `ohio_voter_pipeline.py` into a single `_load_generate_narratives()` helper at module level. Remove the unused `import os` at line 17. Reword menu option [3] ("skip jurisdictional groupings") to make clear that cities, townships, and districts are jurisdictional groupings — users have reported confusion about whether "skip jurisdictional groupings" also skips city summaries. Groups 1 and 2 are appropriate for Sonnet.
+
+**Group 2 — Python data layer (~2 hr):** Delete `_extract_city()`, `_PRECINCT_SUFFIX_PATTERNS`, and all six compiled regexes. Replace all fallback calls with `RESIDENTIAL_CITY`. Add `WARD` as the 13th jurisdiction type in `jurisdictional_groupings.py`. Add `PRECINCT_CODE` to `index_entries.append()`. Run `regen_city_summary.py` after to produce clean output from the simplified fallback logic.
+
+**Group 3 — JS architecture (~3 hr, Opus):** Generate `city_county_map.json` as a pipeline artifact. Rewrite `aggregateCityCharts()` for multi-county fetching via `Promise.all`. Fix `populateCountyChildren()` to group precincts by `prec.city` rather than name-prefix extraction. Group 3 involves enough multi-file architectural reasoning — the city_county_map format, the fetch loop structure, the fallback chain when a county's index is missing — that Opus is worth the cost for the design pass.
+
+### README extension
+
+`README.md` was extended with a `voter_data_cleaner_v2.py` reference section covering the smoke test invocation, the table of public entry points and their signatures, key build functions, targeted utilities, the data flow diagram, and the `COUNTY_NUMBER`-as-partition-key constraint (the most common source of KeyError for new contributors). This had been absent since the v2 refactor in April.
+
+## Pending / Next Steps (as of 2026-05-28)
+
+- **Refactor Group 1 (housekeeping):** Consolidate `generate_narratives` imports in `ohio_voter_pipeline.py`; remove unused `import os`; reword menu [3] label. Sonnet session.
+- **Refactor Group 2 (Python data layer):** Delete `_extract_city()` and its six compiled regexes; replace all fallback calls with `RESIDENTIAL_CITY`; add `WARD` as 13th jurisdiction type in `jurisdictional_groupings.py`; add `PRECINCT_CODE` to precinct index; re-run `regen_city_summary.py`. Sonnet session.
+- **Refactor Group 3 (JS layer):** Generate `city_county_map.json` pipeline artifact; rewrite `aggregateCityCharts()` for multi-county `Promise.all` fetching; fix `populateCountyChildren()` city grouping. Opus session recommended.
+- **Officeholder data:** All 14 jurisdiction levels render "data not yet available." Sourcing this is the next major content workstream after the refactor.
+- **LLM enrichment first run:** Enricher built, wired, and integration-tested. Hamilton County precincts are the proposed validation target before a full-state batch run.
+- **`patches/` cleanup:** `patches/fix_city_summary.py` should be deleted — the patch it applies is confirmed live in `voter_data_cleaner_v2.py`.
+- **Git push handoff:** `docs/journal/project_journal.md`, `docs/assets/v2.js`, `tools/patch_precinct_index_city.py`, `tools/regen_city_summary.py`, `README.md`, and `voter_data_cleaner_v2.py` via MCP push_files. The 88 `*_city_summary.json` and 88 `*_precinct_index.json` files via PowerShell `git add docs/data/ && git commit && git push` (data-push protocol).
 
 ---
 
