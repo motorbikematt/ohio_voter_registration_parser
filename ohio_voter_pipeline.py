@@ -53,6 +53,51 @@ def _load_generate_narratives():
     return _gn
 
 
+# ── Cross-county city map ───────────────────────────────────────────────────────
+
+def _build_city_county_map(logger=None):
+    """
+    Build docs/data/city_county_map.json: { "CITY NAME": ["county_slug", ...] }.
+
+    Cities span county lines (e.g. Kettering covers Montgomery and Greene; the
+    Greene-side precincts are SUGARCREEK 151 / BEAVERCREEK 090, NOT
+    KETTERING-prefixed). Each precinct index carries a per-precinct `city` field
+    (from the SWVF CITY / RESIDENTIAL_CITY column); this scans every committed
+    *_precinct_index.json and inverts it to city -> set(counties).
+
+    Keyed on the uppercased city name so the dashboard can match
+    prec.city.toUpperCase() directly and fan out across all listed counties.
+
+    Reads only docs/data/ (already-written indexes); needs no source files.
+    Called at the end of every branch that rebuilds precinct indexes.
+    """
+    import json
+    data_dir = BASE_DIR / 'docs' / 'data'
+    city_counties: dict[str, set[str]] = {}
+    indexes = sorted(data_dir.glob('*_precinct_index.json'))
+    for idx_path in indexes:
+        slug = idx_path.name[:-len('_precinct_index.json')]
+        try:
+            idx = json.loads(idx_path.read_text(encoding='utf-8'))
+        except (OSError, ValueError) as e:
+            if logger:
+                logger.warning('city_county_map: skip %s (%s)', idx_path.name, e)
+            continue
+        for prec in idx.get('precincts', []):
+            city = (prec.get('city') or '').strip().upper()
+            if city:
+                city_counties.setdefault(city, set()).add(slug)
+
+    out = {city: sorted(slugs) for city, slugs in sorted(city_counties.items())}
+    dest = data_dir / 'city_county_map.json'
+    dest.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding='utf-8')
+    if logger:
+        cross = sum(1 for v in out.values() if len(v) > 1)
+        logger.info('city_county_map: %d cities (%d cross-county) from %d indexes -> %s',
+                    len(out), cross, len(indexes), dest.name)
+    return out
+
+
 SWVF_NAMES = [
     "SWVF_1_22.txt.gz",
     "SWVF_23_44.txt.gz",
@@ -511,6 +556,9 @@ def _dispatch(
         _NCL = _load_generate_narratives().NON_COUNTY_LEVELS
         _narrative_phase(levels=_NCL, v2=v2, county_names=None, logger=_log)
 
+        # Cross-county city map — inverts the freshly-written precinct indexes.
+        _build_city_county_map(logger=_log)
+
     elif choice == "3":
         # Counties + precincts only — identical to the county pass in option 1
         # but jurisdictional_groupings.py is not invoked.
@@ -524,6 +572,9 @@ def _dispatch(
             county_names=None,
             logger=_log,
         )
+
+        # Cross-county city map — inverts the freshly-written precinct indexes.
+        _build_city_county_map(logger=_log)
 
     elif choice == "4":
         # Jurisdictional groupings only — useful when county JSON is already
