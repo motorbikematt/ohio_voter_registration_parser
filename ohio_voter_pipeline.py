@@ -14,7 +14,6 @@ the raw SWVF txt files (one-time, ~4 min).  All subsequent runs load from
 the cache in under 60 s.
 """
 
-import os
 import gzip
 import json
 import shutil
@@ -34,6 +33,25 @@ MANIFEST   = BASE_DIR / "download_manifest.json"
 
 SOS_URL    = "https://www6.ohiosos.gov/ords/f?p=VOTERFTP:STWD"
 SOS_BASE   = "https://www6.ohiosos.gov"
+
+# ── Deferred narrative-module loader ────────────────────────────────────────────
+
+def _load_generate_narratives():
+    """
+    Import and return the generate_narratives module.
+
+    tools/ has no __init__.py, so it is inserted onto sys.path before import.
+    The import is deferred (not module-level) because the narrative stage is
+    optional and pulls in heavy template machinery only used at run time.
+    Callers needing the NON_COUNTY_LEVELS constant access it as
+    `_load_generate_narratives().NON_COUNTY_LEVELS`.
+    """
+    _tools = BASE_DIR / 'tools'
+    if str(_tools) not in sys.path:
+        sys.path.insert(0, str(_tools))
+    import generate_narratives as _gn
+    return _gn
+
 
 SWVF_NAMES = [
     "SWVF_1_22.txt.gz",
@@ -303,7 +321,7 @@ def prompt_next_step(txt_files: list[Path]) -> tuple[str, bool, list[str] | None
     print("  Next step:")
     print("  [1]  Full rebuild — counties + precincts + all jurisdictions → JSON  (default)")
     print("  [2]  Full rebuild → JSON + Excel workbook")
-    print("  [3]  Counties + precincts only → JSON  (skip jurisdictional groupings)")
+    print("  [3]  Counties + precincts only → JSON  (skip jurisdictional groupings: cities, townships, wards, districts)")
     print("  [4]  Jurisdictional groupings only → JSON  (cities, townships, districts, etc.)")
     print("  [5]  Selected counties only → JSON")
     print("  [L]  List all 88 counties with official state numbers")
@@ -490,11 +508,7 @@ def _dispatch(
         # Narrative phase B: generate narratives for all 12 jurisdictional
         # grouping levels after jg.main() has written their chart JSON.
         # NON_COUNTY_LEVELS excludes 'county' and 'precinct' (handled above).
-        # tools/ has no __init__.py; insert onto sys.path before importing.
-        import sys as _sys
-        if str(BASE_DIR / 'tools') not in _sys.path:
-            _sys.path.insert(0, str(BASE_DIR / 'tools'))
-        from generate_narratives import NON_COUNTY_LEVELS as _NCL
+        _NCL = _load_generate_narratives().NON_COUNTY_LEVELS
         _narrative_phase(levels=_NCL, v2=v2, county_names=None, logger=_log)
 
     elif choice == "3":
@@ -522,11 +536,7 @@ def _dispatch(
         # Narrative phase: all non-county, non-precinct levels.
         # County/precinct narratives are not regenerated here because the
         # county chart JSON was not rebuilt in this branch.
-        # tools/ has no __init__.py; insert onto sys.path before importing.
-        import sys as _sys
-        if str(BASE_DIR / 'tools') not in _sys.path:
-            _sys.path.insert(0, str(BASE_DIR / 'tools'))
-        from generate_narratives import NON_COUNTY_LEVELS as _NCL
+        _NCL = _load_generate_narratives().NON_COUNTY_LEVELS
         _narrative_phase(levels=_NCL, v2=v2, county_names=None, logger=_log)
 
     elif choice == "5" and county_nums:
@@ -583,11 +593,7 @@ def _narrative_phase(
           rather than aborting the entire pipeline run.
         - The LLM API path is Workstream 2; only the template registry is used.
     """
-    import sys as _sys
-    _tools = BASE_DIR / 'tools'
-    if str(_tools) not in _sys.path:
-        _sys.path.insert(0, str(_tools))
-    import generate_narratives as _gn  # deferred; only loaded when needed
+    _gn = _load_generate_narratives()
 
     _log = logger or v2.setup_logging('narrative')
     level_label = ', '.join(levels)

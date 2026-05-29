@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,28 +18,28 @@
     [
       "23",
       "LANCASTER",
-      "21,283",
-      "4,029",
-      "25,312",
-      "26",
+      "34,153",
+      "5,519",
+      "39,672",
+      "53",
       "N/A"
     ],
     [
       "23",
       "PICKERINGTON",
-      "14,925",
-      "2,505",
-      "17,430",
-      "17",
+      "27,752",
+      "4,021",
+      "31,773",
+      "36",
       "N/A"
     ],
     [
       "23",
-      "VIOLET",
-      "14,704",
-      "1,742",
-      "16,446",
-      "18",
+      "CANAL WINCHESTER",
+      "5,891",
+      "708",
+      "6,599",
+      "10",
       "N/A"
     ],
     [
@@ -53,155 +53,101 @@
     ],
     [
       "23",
-      "BLOOM",
-      "5,438",
-      "481",
-      "5,919",
-      "5",
-      "N/A"
-    ],
-    [
-      "23",
-      "PLEASANT",
-      "4,360",
-      "503",
-      "4,863",
-      "6",
-      "N/A"
-    ],
-    [
-      "23",
-      "WALNUT",
-      "3,817",
-      "626",
-      "4,443",
-      "4",
-      "N/A"
-    ],
-    [
-      "23",
-      "LIBERTY",
-      "3,746",
-      "371",
-      "4,117",
-      "4",
-      "N/A"
-    ],
-    [
-      "23",
-      "GREENFIELD",
-      "3,659",
-      "395",
-      "4,054",
-      "4",
-      "N/A"
-    ],
-    [
-      "23",
-      "BERNE",
-      "2,945",
-      "404",
-      "3,349",
-      "4",
-      "N/A"
-    ],
-    [
-      "23",
-      "CLEARCREEK",
-      "2,340",
-      "328",
-      "2,668",
-      "2",
-      "N/A"
-    ],
-    [
-      "23",
-      "HOCKING",
-      "2,156",
-      "236",
-      "2,392",
-      "3",
-      "N/A"
-    ],
-    [
-      "23",
       "BALTIMORE",
-      "1,647",
-      "233",
-      "1,880",
-      "2",
+      "5,562",
+      "597",
+      "6,159",
+      "13",
+      "N/A"
+    ],
+    [
+      "23",
+      "CARROLL",
+      "3,356",
+      "353",
+      "3,709",
+      "10",
       "N/A"
     ],
     [
       "23",
       "AMANDA",
-      "1,612",
-      "248",
-      "1,860",
-      "2",
+      "2,589",
+      "360",
+      "2,949",
+      "7",
       "N/A"
     ],
     [
       "23",
-      "RUSHCREEK",
-      "1,522",
-      "200",
-      "1,722",
-      "2",
-      "N/A"
-    ],
-    [
-      "23",
-      "LITHOPOLIS",
-      "1,517",
-      "200",
-      "1,717",
-      "2",
-      "N/A"
-    ],
-    [
-      "23",
-      "CANAL WINCHESTER",
-      "1,368",
-      "263",
-      "1,631",
-      "3",
-      "N/A"
-    ],
-    [
-      "23",
-      "MADISON",
-      "1,022",
-      "162",
-      "1,184",
-      "1",
-      "N/A"
-    ],
-    [
-      "23",
-      "RICHLAND WEST",
-      "840",
-      "90",
-      "930",
-      "1",
+      "MILLERSPORT",
+      "1,865",
+      "273",
+      "2,138",
+      "5",
       "N/A"
     ],
     [
       "23",
       "BREMEN",
-      "778",
-      "136",
-      "914",
-      "1",
+      "1,760",
+      "269",
+      "2,029",
+      "3",
       "N/A"
     ],
     [
       "23",
-      "RICHLAND EAST",
-      "552",
-      "56",
-      "608",
-      "1",
+      "LITHOPOLIS",
+      "1,373",
+      "194",
+      "1,567",
+      "3",
+      "N/A"
+    ],
+    [
+      "23",
+      "STOUTSVILLE",
+      "1,287",
+      "200",
+      "1,487",
+      "3",
+      "N/A"
+    ],
+    [
+      "23",
+      "PLEASANTVILLE",
+      "1,208",
+      "179",
+      "1,387",
+      "7",
+      "N/A"
+    ],
+    [
+      "23",
+      "THORNVILLE",
+      "1,159",
+      "212",
+      "1,371",
+      "3",
+      "N/A"
+    ],
+    [
+      "23",
+      "SUGAR GROVE",
+      "1,011",
+      "115",
+      "1,126",
+      "5",
+      "N/A"
+    ],
+    [
+      "23",
+      "RUSHVILLE",
+      "880",
+      "105",
+      "985",
+      "3",
       "N/A"
     ],
     [
@@ -210,6 +156,51 @@
       "404",
       "136",
       "540",
+      "1",
+      "N/A"
+    ],
+    [
+      "23",
+      "THURSTON",
+      "205",
+      "77",
+      "282",
+      "1",
+      "N/A"
+    ],
+    [
+      "23",
+      "PATASKALA",
+      "108",
+      "15",
+      "123",
+      "1",
+      "N/A"
+    ],
+    [
+      "23",
+      "CIRCLEVILLE",
+      "44",
+      "10",
+      "54",
+      "3",
+      "N/A"
+    ],
+    [
+      "23",
+      "ASHVILLE",
+      "22",
+      "0",
+      "22",
+      "2",
+      "N/A"
+    ],
+    [
+      "23",
+      "TARLTON",
+      "6",
+      "1",
+      "7",
       "1",
       "N/A"
     ]

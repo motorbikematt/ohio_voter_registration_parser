@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,145 +17,145 @@
   "rows": [
     [
       "88",
-      "UPPER",
-      "3,526",
-      "574",
-      "4,100",
-      "6",
+      "UPPER SANDUSKY",
+      "5,826",
+      "800",
+      "6,626",
+      "18",
       "N/A"
     ],
     [
       "88",
       "CAREY",
-      "1,945",
-      "342",
-      "2,287",
+      "3,084",
+      "456",
+      "3,540",
+      "8",
+      "N/A"
+    ],
+    [
+      "88",
+      "SYCAMORE",
+      "1,064",
+      "144",
+      "1,208",
       "3",
       "N/A"
     ],
     [
       "88",
-      "SYCAMORE TS",
-      "831",
-      "112",
-      "943",
-      "1",
-      "N/A"
-    ],
-    [
-      "88",
-      "CRAWFORD TS",
-      "671",
-      "73",
-      "744",
-      "1",
-      "N/A"
-    ],
-    [
-      "88",
-      "TYMOCHTEE TS",
-      "634",
-      "75",
-      "709",
-      "1",
-      "N/A"
-    ],
-    [
-      "88",
-      "PITT TS",
-      "621",
-      "63",
-      "684",
-      "1",
-      "N/A"
-    ],
-    [
-      "88",
-      "SALEM TS",
-      "620",
-      "50",
-      "670",
-      "1",
-      "N/A"
-    ],
-    [
-      "88",
-      "CRANE TS",
-      "601",
-      "50",
-      "651",
-      "1",
-      "N/A"
-    ],
-    [
-      "88",
-      "RICHLAND TS",
-      "486",
-      "58",
-      "544",
-      "1",
-      "N/A"
-    ],
-    [
-      "88",
-      "EDEN TS",
-      "462",
-      "69",
-      "531",
-      "1",
-      "N/A"
-    ],
-    [
-      "88",
-      "ANTRIM TS",
-      "471",
-      "45",
-      "516",
-      "1",
-      "N/A"
-    ],
-    [
-      "88",
-      "MIFFLIN TS",
-      "456",
-      "59",
-      "515",
-      "1",
-      "N/A"
-    ],
-    [
-      "88",
       "NEVADA",
-      "383",
-      "71",
-      "454",
-      "1",
+      "1,036",
+      "156",
+      "1,192",
+      "5",
       "N/A"
     ],
     [
       "88",
-      "RIDGE TS",
-      "327",
-      "29",
-      "356",
-      "1",
+      "WHARTON",
+      "421",
+      "47",
+      "468",
+      "3",
       "N/A"
     ],
     [
       "88",
-      "JACKSON TS",
-      "325",
-      "26",
-      "351",
-      "1",
+      "FOREST",
+      "395",
+      "35",
+      "430",
+      "4",
       "N/A"
     ],
     [
       "88",
-      "MARSEILLES TS",
+      "HARPSTER",
+      "357",
+      "40",
+      "397",
+      "3",
+      "N/A"
+    ],
+    [
+      "88",
+      "MCCUTCHENVILLE",
       "212",
-      "42",
-      "254",
+      "37",
+      "249",
+      "1",
+      "N/A"
+    ],
+    [
+      "88",
+      "KIRBY",
+      "64",
+      "13",
+      "77",
+      "2",
+      "N/A"
+    ],
+    [
+      "88",
+      "MORRAL",
+      "47",
+      "4",
+      "51",
+      "3",
+      "N/A"
+    ],
+    [
+      "88",
+      "LARUE",
+      "25",
+      "2",
+      "27",
+      "1",
+      "N/A"
+    ],
+    [
+      "88",
+      "MT BLANCHARD",
+      "17",
+      "3",
+      "20",
+      "1",
+      "N/A"
+    ],
+    [
+      "88",
+      "BUCYRUS",
+      "14",
+      "0",
+      "14",
+      "1",
+      "N/A"
+    ],
+    [
+      "88",
+      "ALVADA",
+      "7",
+      "0",
+      "7",
+      "1",
+      "N/A"
+    ],
+    [
+      "88",
+      "KENTON",
+      "2",
+      "0",
+      "2",
+      "1",
+      "N/A"
+    ],
+    [
+      "88",
+      "VANLUE",
+      "0",
+      "1",
+      "1",
       "1",
       "N/A"
     ]

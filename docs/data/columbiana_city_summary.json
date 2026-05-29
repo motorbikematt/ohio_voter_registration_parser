@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,10 +18,37 @@
     [
       "15",
       "SALEM",
-      "6,105",
-      "1,254",
-      "7,359",
-      "9",
+      "11,592",
+      "1,967",
+      "13,559",
+      "22",
+      "N/A"
+    ],
+    [
+      "15",
+      "E LIVERPOOL",
+      "6,873",
+      "1,151",
+      "8,024",
+      "11",
+      "N/A"
+    ],
+    [
+      "15",
+      "LISBON",
+      "5,742",
+      "913",
+      "6,655",
+      "16",
+      "N/A"
+    ],
+    [
+      "15",
+      "COLUMBIANA",
+      "5,045",
+      "617",
+      "5,662",
+      "11",
       "N/A"
     ],
     [
@@ -35,460 +62,226 @@
     ],
     [
       "15",
-      "COLUMBIANA",
-      "3,642",
-      "456",
-      "4,098",
-      "5",
+      "E PALESTINE",
+      "3,814",
+      "747",
+      "4,561",
+      "7",
       "N/A"
     ],
     [
       "15",
-      "PRECINCT E PALESTINE VIL",
-      "2,445",
-      "532",
-      "2,977",
+      "WELLSVILLE",
+      "3,299",
+      "696",
+      "3,995",
+      "8",
+      "N/A"
+    ],
+    [
+      "15",
+      "LEETONIA",
+      "2,748",
+      "380",
+      "3,128",
+      "9",
+      "N/A"
+    ],
+    [
+      "15",
+      "NEW WATERFORD",
+      "1,795",
+      "241",
+      "2,036",
+      "10",
+      "N/A"
+    ],
+    [
+      "15",
+      "HANOVERTON",
+      "1,363",
+      "170",
+      "1,533",
+      "6",
+      "N/A"
+    ],
+    [
+      "15",
+      "SALINEVILLE",
+      "1,179",
+      "238",
+      "1,417",
+      "6",
+      "N/A"
+    ],
+    [
+      "15",
+      "MINERVA",
+      "1,016",
+      "159",
+      "1,175",
       "3",
       "N/A"
     ],
     [
       "15",
-      "PRECINCT WELLSVILLE",
-      "1,290",
-      "394",
-      "1,684",
+      "NEGLEY",
+      "1,003",
+      "142",
+      "1,145",
+      "3",
+      "N/A"
+    ],
+    [
+      "15",
+      "ROGERS",
+      "862",
+      "135",
+      "997",
+      "5",
+      "N/A"
+    ],
+    [
+      "15",
+      "HOMEWORTH",
+      "884",
+      "102",
+      "986",
+      "5",
+      "N/A"
+    ],
+    [
+      "15",
+      "BELOIT",
+      "850",
+      "78",
+      "928",
+      "4",
+      "N/A"
+    ],
+    [
+      "15",
+      "ALLIANCE",
+      "750",
+      "84",
+      "834",
+      "3",
+      "N/A"
+    ],
+    [
+      "15",
+      "EAST ROCHESTER",
+      "591",
+      "91",
+      "682",
+      "7",
+      "N/A"
+    ],
+    [
+      "15",
+      "KENSINGTON",
+      "528",
+      "76",
+      "604",
+      "4",
+      "N/A"
+    ],
+    [
+      "15",
+      "WASHINGTONVILLE",
+      "161",
+      "48",
+      "209",
+      "1",
+      "N/A"
+    ],
+    [
+      "15",
+      "HAMMONDSVILLE",
+      "96",
+      "17",
+      "113",
       "2",
       "N/A"
     ],
     [
       "15",
-      "PRECINCT MIDDLETON TWP NEGLEY",
-      "1,191",
-      "200",
-      "1,391",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT LIVERPOOL TWP EAST",
-      "1,110",
-      "211",
-      "1,321",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT ST CLAIR TWP CALCUTTA",
-      "1,161",
-      "157",
-      "1,318",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT LIVERPOOL TWP WEST",
-      "1,057",
-      "247",
-      "1,304",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT FAIRFIELD TWP SOUTH",
-      "1,170",
-      "132",
-      "1,302",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT CENTER TWP NORTH",
-      "1,113",
-      "188",
-      "1,301",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT YELLOW CREEK TWP",
-      "1,128",
-      "169",
-      "1,297",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT WEST TWP EAST ROCHESTER",
-      "1,108",
-      "188",
-      "1,296",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT ELKRUN TWP",
-      "1,112",
-      "178",
-      "1,290",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT PERRY TWP SW",
-      "1,105",
-      "179",
-      "1,284",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT PERRY TWP NORTH",
-      "1,087",
-      "140",
-      "1,227",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT KNOX TWP SOUTH",
-      "1,091",
-      "133",
-      "1,224",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT LEETONIA VIL",
-      "1,014",
-      "183",
-      "1,197",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT ST CLAIR TWP SPRUCEVALE",
-      "1,001",
-      "148",
-      "1,149",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT BUTLER TWP NORTH",
-      "909",
-      "131",
-      "1,040",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT HANOVER TWP NE",
-      "884",
-      "125",
-      "1,009",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT UNITY TWP SE",
-      "755",
-      "128",
-      "883",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT UNITY TWP NORTH",
-      "770",
-      "104",
-      "874",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT LISBON VIL SOUTH",
-      "729",
-      "145",
-      "874",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT SALEM TWP NE",
-      "735",
-      "117",
-      "852",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT ST CLAIR TWP SOUTH",
-      "702",
-      "149",
-      "851",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT MIDDLETON TWP ROGERS",
-      "736",
-      "106",
-      "842",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT ST CLAIR TWP EAST",
-      "736",
-      "90",
-      "826",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT UNITY TWP SW",
-      "734",
-      "73",
-      "807",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT MADISON TWP WEST POINT",
-      "701",
-      "84",
-      "785",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT BUTLER TWP SOUTH",
-      "691",
-      "80",
-      "771",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT KNOX TWP NW",
-      "692",
-      "72",
-      "764",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT CENTER TWP SOUTH",
-      "642",
+      "WINONA",
+      "96",
+      "12",
       "108",
-      "750",
       "1",
       "N/A"
     ],
     [
       "15",
-      "PRECINCT HANOVER TWP NORTH",
-      "665",
-      "80",
-      "745",
+      "SUMMITVILLE",
+      "60",
+      "0",
+      "60",
       "1",
       "N/A"
     ],
     [
       "15",
-      "PRECINCT SALEM TWP FRANKLIN SQ",
-      "664",
-      "81",
-      "745",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT LISBON VIL NORTH",
-      "639",
-      "103",
-      "742",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT UNITY TWP NEW WATERFORD",
-      "612",
-      "103",
-      "715",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT FAIRFIELD TWP NORTH",
-      "643",
-      "71",
-      "714",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT BUTLER TWP EAST",
-      "625",
-      "69",
-      "694",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT MADISON TWP ROCK CAMP",
-      "582",
-      "88",
-      "670",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT SALEM TWP NW",
-      "603",
-      "56",
-      "659",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT KNOX TWP NE",
-      "606",
-      "51",
-      "657",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT SALINEVILLE VIL",
-      "521",
-      "127",
-      "648",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT ST CLAIR TWP WEST",
-      "568",
-      "76",
-      "644",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT WEST TWP BAYARD",
-      "551",
-      "78",
-      "629",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT HANOVER TWP SOUTH",
-      "545",
-      "76",
-      "621",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT FAIRFIELD TWP CENTER",
-      "541",
-      "54",
-      "595",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT MADISON TWP GLASGOW",
-      "502",
-      "65",
-      "567",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT ST CLAIR TWP SE",
-      "499",
-      "65",
-      "564",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT WASHINGTON TWP",
-      "461",
-      "89",
-      "550",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT PERRY TWP SE",
-      "490",
-      "50",
-      "540",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT WAYNE TWP",
-      "464",
-      "59",
-      "523",
-      "1",
-      "N/A"
-    ],
-    [
-      "15",
-      "PRECINCT FRANKLIN TWP",
-      "428",
+      "PETERSBURG",
       "49",
-      "477",
+      "9",
+      "58",
+      "1",
+      "N/A"
+    ],
+    [
+      "15",
+      "DAMASCUS",
+      "47",
+      "2",
+      "49",
+      "1",
+      "N/A"
+    ],
+    [
+      "15",
+      "NEW SPRINGFIELD",
+      "43",
+      "5",
+      "48",
+      "1",
+      "N/A"
+    ],
+    [
+      "15",
+      "NORTH GEORGETOWN",
+      "25",
+      "6",
+      "31",
+      "1",
+      "N/A"
+    ],
+    [
+      "15",
+      "IRONDALE",
+      "25",
+      "1",
+      "26",
+      "1",
+      "N/A"
+    ],
+    [
+      "15",
+      "WEST POINT",
+      "12",
+      "2",
+      "14",
+      "1",
+      "N/A"
+    ],
+    [
+      "15",
+      "ELKTON",
+      "7",
+      "2",
+      "9",
       "1",
       "N/A"
     ]

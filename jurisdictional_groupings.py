@@ -206,6 +206,13 @@ JURISDICTIONS = {
         'column': 'COURT_OF_APPEALS',
         'display': 'Court of Appeals District',
     },
+    'wards': {
+        'column': 'WARD',
+        'display': 'Ward',
+        # WARD values are already city-qualified ("CLEVELAND WARD 8"), so they
+        # are globally unique without a composite key. Empty-string WARD rows
+        # (rural / unincorporated precincts) are dropped by the len>1 filter.
+    },
 }
 
 

@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,164 +17,92 @@
   "rows": [
     [
       "09",
-      "WEST CHESTER TWP",
-      "37,059",
-      "5,846",
-      "42,905",
-      "44",
-      "N/A"
-    ],
-    [
-      "09",
       "HAMILTON",
-      "28,943",
-      "6,616",
-      "35,559",
-      "42",
-      "N/A"
-    ],
-    [
-      "09",
-      "LIBERTY TWP",
-      "28,412",
-      "3,724",
-      "32,136",
-      "31",
-      "N/A"
-    ],
-    [
-      "09",
-      "FAIRFIELD",
-      "23,372",
-      "4,452",
-      "27,824",
-      "38",
+      "75,050",
+      "12,746",
+      "87,796",
+      "128",
       "N/A"
     ],
     [
       "09",
       "MIDDLETOWN",
-      "21,268",
-      "5,545",
-      "26,813",
-      "36",
+      "38,778",
+      "7,984",
+      "46,762",
+      "61",
       "N/A"
     ],
     [
       "09",
-      "FAIRFIELD TWP",
-      "14,352",
-      "1,885",
-      "16,237",
-      "19",
+      "WEST CHESTER",
+      "32,930",
+      "5,281",
+      "38,211",
+      "45",
       "N/A"
     ],
     [
       "09",
-      "MONROE",
-      "9,031",
-      "1,231",
-      "10,262",
-      "11",
-      "N/A"
-    ],
-    [
-      "09",
-      "TRENTON",
-      "6,936",
-      "1,295",
-      "8,231",
-      "8",
+      "FAIRFIELD",
+      "24,394",
+      "4,627",
+      "29,021",
+      "44",
       "N/A"
     ],
     [
       "09",
       "OXFORD",
-      "5,464",
-      "1,973",
-      "7,437",
-      "13",
+      "9,594",
+      "2,463",
+      "12,057",
+      "21",
       "N/A"
     ],
     [
       "09",
-      "ROSS TWP",
-      "5,726",
-      "631",
-      "6,357",
-      "7",
+      "MONROE",
+      "9,043",
+      "1,231",
+      "10,274",
+      "14",
       "N/A"
     ],
     [
       "09",
-      "HANOVER TWP",
-      "5,320",
-      "604",
-      "5,924",
-      "10",
+      "TRENTON",
+      "8,154",
+      "1,435",
+      "9,589",
+      "15",
       "N/A"
     ],
     [
       "09",
-      "MADISON TWP",
-      "5,162",
-      "707",
-      "5,869",
-      "7",
+      "CINCINNATI",
+      "3,868",
+      "466",
+      "4,334",
+      "9",
       "N/A"
     ],
     [
       "09",
-      "ST CLAIR TWP",
-      "3,425",
-      "651",
-      "4,076",
-      "5",
+      "OKEANA",
+      "2,295",
+      "201",
+      "2,496",
+      "6",
       "N/A"
     ],
     [
       "09",
-      "MORGAN TWP",
-      "3,675",
-      "334",
-      "4,009",
-      "5",
-      "N/A"
-    ],
-    [
-      "09",
-      "WAYNE TWP",
-      "2,917",
-      "319",
-      "3,236",
-      "5",
-      "N/A"
-    ],
-    [
-      "09",
-      "MILFORD TWP",
-      "2,309",
-      "281",
-      "2,590",
-      "2",
-      "N/A"
-    ],
-    [
-      "09",
-      "REILY TWP",
-      "1,902",
-      "176",
-      "2,078",
-      "2",
-      "N/A"
-    ],
-    [
-      "09",
-      "OXFORD TWP",
-      "1,652",
-      "213",
-      "1,865",
-      "3",
+      "LIBERTY TWP",
+      "1,363",
+      "99",
+      "1,462",
+      "24",
       "N/A"
     ],
     [
@@ -188,11 +116,74 @@
     ],
     [
       "09",
-      "LEMON TWP",
-      "788",
-      "295",
-      "1,083",
+      "SOMERVILLE",
+      "1,033",
+      "109",
+      "1,142",
+      "5",
+      "N/A"
+    ],
+    [
+      "09",
+      "FAIRFIELD TWP",
+      "514",
+      "25",
+      "539",
+      "11",
+      "N/A"
+    ],
+    [
+      "09",
+      "SEVEN MILE",
+      "345",
+      "57",
+      "402",
+      "3",
+      "N/A"
+    ],
+    [
+      "09",
+      "COLLEGE CORNER",
+      "108",
+      "28",
+      "136",
       "2",
+      "N/A"
+    ],
+    [
+      "09",
+      "HARRISON",
+      "113",
+      "7",
+      "120",
+      "3",
+      "N/A"
+    ],
+    [
+      "09",
+      "GERMANTOWN",
+      "89",
+      "12",
+      "101",
+      "1",
+      "N/A"
+    ],
+    [
+      "09",
+      "COLLINSVILLE",
+      "24",
+      "5",
+      "29",
+      "1",
+      "N/A"
+    ],
+    [
+      "09",
+      "OVERPECK",
+      "18",
+      "2",
+      "20",
+      "1",
       "N/A"
     ]
   ]

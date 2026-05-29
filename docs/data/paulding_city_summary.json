@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,126 +18,153 @@
     [
       "63",
       "PAULDING",
-      "1,742",
-      "373",
-      "2,115",
-      "3",
-      "N/A"
-    ],
-    [
-      "63",
-      "BROWN TWP",
-      "1,016",
-      "180",
-      "1,196",
-      "1",
+      "3,307",
+      "568",
+      "3,875",
+      "13",
       "N/A"
     ],
     [
       "63",
       "ANTWERP",
-      "867",
-      "177",
-      "1,044",
+      "2,004",
+      "324",
+      "2,328",
+      "4",
+      "N/A"
+    ],
+    [
+      "63",
+      "PAYNE",
+      "1,377",
+      "257",
+      "1,634",
+      "4",
+      "N/A"
+    ],
+    [
+      "63",
+      "OAKWOOD",
+      "1,241",
+      "208",
+      "1,449",
+      "4",
+      "N/A"
+    ],
+    [
+      "63",
+      "CECIL",
+      "649",
+      "119",
+      "768",
+      "3",
+      "N/A"
+    ],
+    [
+      "63",
+      "DEFIANCE",
+      "514",
+      "94",
+      "608",
+      "2",
+      "N/A"
+    ],
+    [
+      "63",
+      "GROVER HILL",
+      "516",
+      "56",
+      "572",
+      "2",
+      "N/A"
+    ],
+    [
+      "63",
+      "HAVILAND",
+      "324",
+      "36",
+      "360",
+      "3",
+      "N/A"
+    ],
+    [
+      "63",
+      "SCOTT",
+      "105",
+      "17",
+      "122",
+      "3",
+      "N/A"
+    ],
+    [
+      "63",
+      "CLOVERDALE",
+      "91",
+      "18",
+      "109",
       "1",
       "N/A"
     ],
     [
       "63",
-      "HARRISON TWP",
-      "822",
-      "159",
-      "981",
+      "LATTY",
+      "85",
+      "15",
+      "100",
       "1",
       "N/A"
     ],
     [
       "63",
-      "AUGLAIZE TWP",
-      "772",
-      "137",
-      "909",
+      "MELROSE",
+      "69",
+      "20",
+      "89",
       "1",
       "N/A"
     ],
     [
       "63",
-      "CARRYALL TWP",
-      "788",
-      "112",
-      "900",
+      "HICKSVILLE",
+      "45",
+      "17",
+      "62",
+      "2",
+      "N/A"
+    ],
+    [
+      "63",
+      "CONTINENTAL",
+      "15",
+      "1",
+      "16",
       "1",
       "N/A"
     ],
     [
       "63",
-      "CRANE TWP & CECIL",
-      "720",
-      "118",
-      "838",
+      "CONVOY",
+      "11",
+      "0",
+      "11",
       "1",
       "N/A"
     ],
     [
       "63",
-      "PAULDING TWP & LATTY",
-      "703",
-      "98",
-      "801",
+      "SHERWOOD",
+      "2",
+      "1",
+      "3",
       "1",
       "N/A"
     ],
     [
       "63",
-      "BENTON TWP",
-      "618",
-      "101",
-      "719",
+      "MARK CENTER",
       "1",
-      "N/A"
-    ],
-    [
-      "63",
-      "JACKSON TWP & BROUGHTON",
-      "593",
-      "75",
-      "668",
+      "0",
       "1",
-      "N/A"
-    ],
-    [
-      "63",
-      "LATTY TWP & GROVER HILL",
-      "524",
-      "60",
-      "584",
-      "1",
-      "N/A"
-    ],
-    [
-      "63",
-      "EMERALD TWP",
-      "461",
-      "63",
-      "524",
-      "1",
-      "N/A"
-    ],
-    [
-      "63",
-      "WASHINGTON TWP",
-      "377",
-      "51",
-      "428",
-      "1",
-      "N/A"
-    ],
-    [
-      "63",
-      "BLUE CREEK TWP",
-      "353",
-      "47",
-      "400",
       "1",
       "N/A"
     ]

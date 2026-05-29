@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,270 +18,198 @@
     [
       "05",
       "ATHENS",
-      "7,726",
-      "2,488",
-      "10,214",
-      "17",
+      "13,806",
+      "3,394",
+      "17,200",
+      "34",
       "N/A"
     ],
     [
       "05",
       "NELSONVILLE",
-      "1,650",
-      "583",
-      "2,233",
-      "4",
-      "N/A"
-    ],
-    [
-      "05",
-      "PLAINS",
-      "1,679",
-      "359",
-      "2,038",
-      "2",
-      "N/A"
-    ],
-    [
-      "05",
-      "LEE TOWNSHIP",
-      "1,218",
-      "171",
-      "1,389",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "ATHENS BAKER",
-      "1,046",
-      "178",
-      "1,224",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "ATHENS SOUTH",
-      "1,042",
-      "168",
-      "1,210",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "ALEXANDER EAST",
-      "1,036",
-      "126",
-      "1,162",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "YORK TOWNSHIP",
-      "919",
-      "168",
-      "1,087",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "TRIMBLE TOWNSHIP",
-      "938",
-      "137",
-      "1,075",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "CANAAN TOWNSHIP",
-      "909",
-      "113",
-      "1,022",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "CARTHAGE TOWNSHIP",
-      "863",
-      "116",
-      "979",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "LODI TOWNSHIP",
-      "854",
-      "115",
-      "969",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "DOVER EAST",
-      "805",
-      "156",
-      "961",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "GLOUSTER",
-      "753",
-      "182",
-      "935",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "ROME TOWNSHIP",
-      "706",
-      "90",
-      "796",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "TROY EAST",
-      "692",
-      "94",
-      "786",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "WATERLOO",
-      "648",
-      "106",
-      "754",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "AMES TOWNSHIP",
-      "667",
-      "73",
-      "740",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "ALEXANDER WEST",
-      "614",
-      "91",
-      "705",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "NEW MARSHFIELD",
-      "584",
-      "75",
-      "659",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "DOVER WEST",
-      "526",
-      "112",
-      "638",
-      "1",
+      "2,689",
+      "791",
+      "3,480",
+      "8",
       "N/A"
     ],
     [
       "05",
       "ALBANY",
-      "504",
-      "114",
-      "618",
-      "1",
+      "2,038",
+      "323",
+      "2,361",
+      "4",
       "N/A"
     ],
     [
       "05",
-      "TROY WEST",
-      "452",
-      "78",
-      "530",
-      "1",
+      "GLOUSTER",
+      "1,780",
+      "340",
+      "2,120",
+      "7",
       "N/A"
     ],
     [
       "05",
-      "CHAUNCEY VLG",
-      "356",
-      "91",
-      "447",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "BUCHTEL VLG",
-      "281",
-      "49",
-      "330",
-      "1",
+      "THE PLAINS",
+      "1,712",
+      "377",
+      "2,089",
+      "3",
       "N/A"
     ],
     [
       "05",
       "COOLVILLE",
-      "265",
-      "48",
-      "313",
-      "1",
+      "1,736",
+      "274",
+      "2,010",
+      "5",
       "N/A"
     ],
     [
       "05",
-      "BERN TOWNSHIP",
-      "276",
-      "36",
-      "312",
-      "1",
+      "GUYSVILLE",
+      "1,000",
+      "109",
+      "1,109",
+      "4",
+      "N/A"
+    ],
+    [
+      "05",
+      "MILLFIELD",
+      "838",
+      "143",
+      "981",
+      "5",
+      "N/A"
+    ],
+    [
+      "05",
+      "NEW MARSHFIELD",
+      "724",
+      "90",
+      "814",
+      "4",
+      "N/A"
+    ],
+    [
+      "05",
+      "AMESVILLE",
+      "491",
+      "54",
+      "545",
+      "3",
+      "N/A"
+    ],
+    [
+      "05",
+      "STEWART",
+      "436",
+      "62",
+      "498",
+      "3",
+      "N/A"
+    ],
+    [
+      "05",
+      "CHAUNCEY",
+      "358",
+      "94",
+      "452",
+      "3",
       "N/A"
     ],
     [
       "05",
       "JACKSONVILLE",
-      "237",
+      "239",
       "46",
-      "283",
+      "285",
+      "2",
+      "N/A"
+    ],
+    [
+      "05",
+      "BUCHTEL",
+      "242",
+      "42",
+      "284",
+      "1",
+      "N/A"
+    ],
+    [
+      "05",
+      "SHADE",
+      "172",
+      "26",
+      "198",
       "1",
       "N/A"
     ],
     [
       "05",
       "TRIMBLE",
-      "121",
-      "32",
-      "153",
+      "105",
+      "26",
+      "131",
       "1",
       "N/A"
     ],
     [
       "05",
-      "AMESVILLE VLG",
-      "107",
+      "LITTLE HOCKING",
+      "38",
+      "4",
+      "42",
+      "1",
+      "N/A"
+    ],
+    [
+      "05",
+      "HOCKINGPORT",
+      "31",
+      "7",
+      "38",
+      "2",
+      "N/A"
+    ],
+    [
+      "05",
+      "MURRAY",
+      "19",
+      "1",
+      "20",
+      "1",
+      "N/A"
+    ],
+    [
+      "05",
+      "CHESTERHILL",
       "10",
-      "117",
+      "2",
+      "12",
+      "1",
+      "N/A"
+    ],
+    [
+      "05",
+      "SHARPSBURG",
+      "9",
+      "0",
+      "9",
+      "1",
+      "N/A"
+    ],
+    [
+      "05",
+      "NEW STRAITSVILLE",
+      "1",
+      "0",
+      "1",
       "1",
       "N/A"
     ]

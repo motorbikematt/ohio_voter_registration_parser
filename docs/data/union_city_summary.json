@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,171 +18,189 @@
     [
       "80",
       "MARYSVILLE",
-      "15,587",
-      "2,440",
-      "18,027",
-      "20",
-      "N/A"
-    ],
-    [
-      "80",
-      "JEROME",
-      "7,954",
-      "753",
-      "8,707",
-      "10",
-      "N/A"
-    ],
-    [
-      "80",
-      "DUBLIN",
-      "3,000",
-      "415",
-      "3,415",
-      "3",
-      "N/A"
-    ],
-    [
-      "80",
-      "ALLEN",
-      "1,790",
-      "157",
-      "1,947",
-      "2",
-      "N/A"
-    ],
-    [
-      "80",
-      "DARBY",
-      "1,732",
-      "126",
-      "1,858",
-      "2",
-      "N/A"
-    ],
-    [
-      "80",
-      "DOVER",
-      "1,526",
-      "187",
-      "1,713",
-      "2",
-      "N/A"
-    ],
-    [
-      "80",
-      "LIBERTY",
-      "1,375",
-      "129",
-      "1,504",
-      "2",
-      "N/A"
-    ],
-    [
-      "80",
-      "RICHWOOD",
-      "1,159",
-      "219",
-      "1,378",
-      "2",
-      "N/A"
-    ],
-    [
-      "80",
-      "PARIS",
-      "1,116",
-      "92",
-      "1,208",
-      "1",
-      "N/A"
-    ],
-    [
-      "80",
-      "TAYLOR",
-      "1,094",
-      "98",
-      "1,192",
-      "2",
-      "N/A"
-    ],
-    [
-      "80",
-      "MILLCREEK",
-      "918",
-      "93",
-      "1,011",
-      "1",
-      "N/A"
-    ],
-    [
-      "80",
-      "LEESBURG",
-      "881",
-      "112",
-      "993",
-      "1",
-      "N/A"
-    ],
-    [
-      "80",
-      "YORK",
-      "842",
-      "99",
-      "941",
-      "1",
-      "N/A"
-    ],
-    [
-      "80",
-      "CLAIBOURNE",
-      "830",
-      "95",
-      "925",
-      "1",
+      "22,692",
+      "3,103",
+      "25,795",
+      "36",
       "N/A"
     ],
     [
       "80",
       "PLAIN",
-      "856",
-      "68",
-      "924",
-      "1",
+      "9,351",
+      "839",
+      "10,190",
+      "14",
       "N/A"
     ],
     [
       "80",
-      "UNION",
-      "672",
-      "56",
-      "728",
-      "1",
+      "DUBLIN",
+      "3,346",
+      "470",
+      "3,816",
+      "6",
       "N/A"
     ],
     [
       "80",
-      "JACKSON",
-      "570",
-      "68",
-      "638",
-      "1",
-      "N/A"
-    ],
-    [
-      "80",
-      "WASHINGTON",
-      "526",
-      "61",
-      "587",
-      "1",
+      "RICHWOOD",
+      "3,280",
+      "456",
+      "3,736",
+      "8",
       "N/A"
     ],
     [
       "80",
       "MILFORD CENTER",
-      "429",
-      "87",
-      "516",
+      "1,258",
+      "158",
+      "1,416",
+      "5",
+      "N/A"
+    ],
+    [
+      "80",
+      "RAYMOND",
+      "956",
+      "105",
+      "1,061",
+      "4",
+      "N/A"
+    ],
+    [
+      "80",
+      "WEST MANSFIELD",
+      "757",
+      "84",
+      "841",
+      "3",
+      "N/A"
+    ],
+    [
+      "80",
+      "OSTRANDER",
+      "527",
+      "46",
+      "573",
+      "3",
+      "N/A"
+    ],
+    [
+      "80",
+      "UNIONVILLE CENTER",
+      "132",
+      "15",
+      "147",
+      "1",
+      "N/A"
+    ],
+    [
+      "80",
+      "MAGNETIC SPRINGS",
+      "117",
+      "29",
+      "146",
+      "1",
+      "N/A"
+    ],
+    [
+      "80",
+      "IRWIN",
+      "112",
+      "16",
+      "128",
+      "1",
+      "N/A"
+    ],
+    [
+      "80",
+      "MOUNT VICTORY",
+      "100",
+      "2",
+      "102",
+      "1",
+      "N/A"
+    ],
+    [
+      "80",
+      "BROADWAY",
+      "49",
+      "6",
+      "55",
+      "1",
+      "N/A"
+    ],
+    [
+      "80",
+      "DELAWARE",
+      "46",
+      "6",
+      "52",
+      "2",
+      "N/A"
+    ],
+    [
+      "80",
+      "PROSPECT",
+      "37",
+      "8",
+      "45",
+      "2",
+      "N/A"
+    ],
+    [
+      "80",
+      "NORTH LEWISBURG",
+      "34",
+      "1",
+      "35",
+      "1",
+      "N/A"
+    ],
+    [
+      "80",
+      "MARION",
+      "23",
+      "5",
+      "28",
+      "1",
+      "N/A"
+    ],
+    [
+      "80",
+      "RIDGEWAY",
+      "19",
+      "3",
+      "22",
+      "1",
+      "N/A"
+    ],
+    [
+      "80",
+      "WOODSTOCK",
+      "14",
+      "3",
+      "17",
+      "1",
+      "N/A"
+    ],
+    [
+      "80",
+      "EAST LIBERTY",
+      "4",
+      "0",
+      "4",
+      "1",
+      "N/A"
+    ],
+    [
+      "80",
+      "RADNOR",
+      "3",
+      "0",
+      "3",
       "1",
       "N/A"
     ]

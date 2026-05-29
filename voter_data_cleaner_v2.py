@@ -1247,57 +1247,6 @@ def build_precinct_summary(df: pl.DataFrame) -> pl.DataFrame:
 # Pattern: optional separator (space or dash), then one or more digits, optionally
 # followed by a dash and a letter — e.g. "3-E", "14", "5-D".  Also matches a
 # lone trailing letter after a separator — e.g. "MIAMI TWP R" → "MIAMI TWP",
-# "W CARROLLTON-G" → "W CARROLLTON".
-# The regex is applied right-to-left (on the reversed string) so we only strip
-# the rightmost token.
-# Precinct-ID suffix patterns, applied in order to the END of the precinct name.
-# Each pattern requires a SEPARATOR (whitespace or hyphen) before the ID token so
-# we never strip into the city's own letters. Order matters — most specific first.
-_PRECINCT_SUFFIX_PATTERNS = [
-    # Explicit WARD or COUNCIL suffixes (e.g. " WARD 9", " COUNCIL DISTRICT 7")
-    re.compile(r'[\s\-]+(?:WARD|COUNCIL(?: DISTRICT)?)\s*\d+[A-Z]?\s*$', re.IGNORECASE),
-
-    # "DAYTON 3-E", "DAYTON 03-D", "CLEVELAND 18-A"   → city + space + digits + sep + letter
-    re.compile(r'[\s\-]+\d+\s*[\-\s]\s*[A-Z]\s*$', re.IGNORECASE),
-    # "TROTWOOD-A", "W CARROLLTON-G"                  → city + dash + single letter
-    re.compile(r'\-\s*[A-Z]\s*$',                  re.IGNORECASE),
-    # "HUBER HEIGHTS 5-D", "CLEVELAND-04-A"           → city + sep + letter + dash + digits + opt letter
-    re.compile(r'[\s\-]+[A-Z]?\-?\d+[A-Z]?\s*$',   re.IGNORECASE),
-    # "MIAMI TWP R", "CLEVELAND A"                    → city + space + single trailing letter
-    re.compile(r'\s+[A-Z]\s*$',                    re.IGNORECASE),
-    # "DAYTON 3", "CLEVELAND 12"                      → city + space + digits only
-    re.compile(r'[\s\-]+\d+\s*$',                  re.IGNORECASE),
-]
-
-
-def _extract_city(precinct_name: str) -> str:
-    """
-    Extract the municipality portion from a SWVF precinct name.
-
-    Examples:
-        'DAYTON 3-E'        → 'DAYTON'
-        'HUBER HEIGHTS 5-D' → 'HUBER HEIGHTS'
-        'MIAMI TWP R'       → 'MIAMI TWP'
-        'W CARROLLTON-G'    → 'W CARROLLTON'
-        'TROTWOOD-A'        → 'TROTWOOD'
-        'CLEVELAND 18-A'    → 'CLEVELAND'
-        'CLEVELAND'         → 'CLEVELAND'   (no precinct ID, returned unchanged)
-        'BEREA'             → 'BEREA'       (no separator before letter; not stripped)
-
-    Strategy: try each precinct-ID suffix pattern in order against the end of the
-    name. Each pattern requires a separator (space or hyphen) before the ID token
-    so the city's own letters are never eaten. If no pattern matches, the name is
-    returned as-is — better to leave a precinct un-aggregated than to corrupt a
-    city name.
-    """
-    name = precinct_name.strip()
-    for pat in _PRECINCT_SUFFIX_PATTERNS:
-        stripped = pat.sub('', name, count=1).strip(' -')
-        if stripped and stripped != name:
-            return stripped
-    return name
-
-
 def build_city_summary(df: pl.DataFrame) -> pl.DataFrame:
     """
     Aggregate voter registration to city/township level using the CITY column
@@ -1324,16 +1273,16 @@ def build_city_summary(df: pl.DataFrame) -> pl.DataFrame:
             pl.col('CITY').str.strip_chars().alias('CITY'),
         ])
         .with_columns(
-            # Prefer CITY (registered-address municipality) over PRECINCT_NAME
-            # prefix-matching (physical precinct boundary). Fall back to
-            # prefix-matching only when CITY is absent (~19 blank counties).
+            # Prefer CITY (registered-address municipality). Fall back to
+            # RESIDENTIAL_CITY when CITY is absent (~19 blank counties); it is
+            # 100% populated there (confirmed by parquet scan, e.g. Cuyahoga:
+            # 0% CITY, 100% RESIDENTIAL_CITY). Both are registered-address
+            # fields, so no precinct-name prefix-matching is needed.
             pl.when(
                 pl.col('CITY').is_not_null() & pl.col('CITY').str.len_chars().gt(0)
             )
             .then(pl.col('CITY'))
-            .otherwise(
-                pl.col('PRECINCT_NAME').map_elements(_extract_city, return_dtype=pl.Utf8)
-            )
+            .otherwise(pl.col('RESIDENTIAL_CITY').str.strip_chars())
             .alias('City')
         )
         .with_columns(
@@ -2894,6 +2843,9 @@ def export_precinct_charts(
         index_entries.append({
             'name':              precinct_name,
             'safe_name':         safe_name,
+            'precinct_code':     (pdf['PRECINCT_CODE'][0]
+                                  if 'PRECINCT_CODE' in pdf.columns and total
+                                  else None),
             'total':             total,
             'partyUrl':          f'data/{slug}_precinct_{safe_name}_party.json',
             'uncUrl':            f'data/{slug}_precinct_{safe_name}_unc.json',

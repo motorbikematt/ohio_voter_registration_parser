@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,144 +18,180 @@
     [
       "16",
       "COSHOCTON",
-      "5,637",
-      "1,137",
-      "6,774",
-      "8",
+      "9,742",
+      "1,778",
+      "11,520",
+      "19",
       "N/A"
     ],
     [
       "16",
-      "W LAFAYETTE",
-      "1,109",
-      "246",
-      "1,355",
+      "WEST LAFAYETTE",
+      "2,554",
+      "411",
+      "2,965",
+      "4",
+      "N/A"
+    ],
+    [
+      "16",
+      "WARSAW",
+      "2,225",
+      "317",
+      "2,542",
+      "5",
+      "N/A"
+    ],
+    [
+      "16",
+      "FRESNO",
+      "1,252",
+      "220",
+      "1,472",
+      "5",
+      "N/A"
+    ],
+    [
+      "16",
+      "NEWCOMERSTOWN",
+      "566",
+      "88",
+      "654",
+      "3",
+      "N/A"
+    ],
+    [
+      "16",
+      "CONESVILLE",
+      "443",
+      "59",
+      "502",
       "1",
       "N/A"
     ],
     [
       "16",
-      "JACKSON",
-      "1,165",
-      "146",
-      "1,311",
+      "DRESDEN",
+      "367",
+      "56",
+      "423",
+      "3",
+      "N/A"
+    ],
+    [
+      "16",
+      "WALHONDING",
+      "365",
+      "54",
+      "419",
+      "3",
+      "N/A"
+    ],
+    [
+      "16",
+      "FRAZEYSBURG",
+      "308",
+      "35",
+      "343",
+      "2",
+      "N/A"
+    ],
+    [
+      "16",
+      "KILLBUCK",
+      "137",
+      "28",
+      "165",
       "1",
       "N/A"
     ],
     [
       "16",
-      "KEENE / MILLCREEK",
-      "1,133",
-      "155",
-      "1,288",
-      "1",
+      "KIMBOLTON",
+      "90",
+      "19",
+      "109",
+      "2",
       "N/A"
     ],
     [
       "16",
-      "JEFFERSON / NELLIE / NEW CASTLE / WARSAW",
-      "1,082",
-      "156",
-      "1,238",
-      "1",
+      "MILLERSBURG",
+      "89",
+      "12",
+      "101",
+      "2",
       "N/A"
     ],
     [
       "16",
-      "LAFAYETTE",
-      "1,042",
-      "142",
-      "1,184",
-      "1",
-      "N/A"
-    ],
-    [
-      "16",
-      "WHITE EYES / ADAMS",
-      "998",
-      "142",
-      "1,140",
-      "1",
-      "N/A"
-    ],
-    [
-      "16",
-      "FRANKLIN / CONESVILLE / VIRGINIA",
-      "990",
-      "141",
-      "1,131",
-      "1",
-      "N/A"
-    ],
-    [
-      "16",
-      "OXFORD",
-      "927",
-      "118",
-      "1,045",
-      "1",
-      "N/A"
-    ],
-    [
-      "16",
-      "TUSCARAWAS",
-      "740",
-      "186",
-      "926",
-      "1",
-      "N/A"
-    ],
-    [
-      "16",
-      "PERRY / PIKE",
-      "740",
-      "121",
-      "861",
-      "1",
-      "N/A"
-    ],
-    [
-      "16",
-      "CLARK / MONROE / TIVERTON",
-      "747",
-      "110",
-      "857",
-      "1",
-      "N/A"
-    ],
-    [
-      "16",
-      "BEDFORD / WASHINGTON",
-      "750",
+      "BALTIC",
+      "70",
+      "30",
       "100",
-      "850",
+      "2",
+      "N/A"
+    ],
+    [
+      "16",
+      "PLAINFIELD",
+      "73",
+      "14",
+      "87",
       "1",
       "N/A"
     ],
     [
       "16",
-      "BETHLEHEM",
-      "685",
-      "79",
-      "764",
+      "BRINKHAVEN",
+      "64",
+      "14",
+      "78",
       "1",
       "N/A"
     ],
     [
       "16",
-      "LINTON / PLAINFIELD",
-      "371",
-      "68",
-      "439",
+      "BLISSFIELD",
+      "34",
+      "3",
+      "37",
       "1",
       "N/A"
     ],
     [
       "16",
-      "CRAWFORD",
-      "278",
-      "92",
-      "370",
+      "STONECREEK",
+      "5",
+      "1",
+      "6",
+      "1",
+      "N/A"
+    ],
+    [
+      "16",
+      "KEENE",
+      "5",
+      "0",
+      "5",
+      "1",
+      "N/A"
+    ],
+    [
+      "16",
+      "ADAMS MILLS",
+      "3",
+      "0",
+      "3",
+      "1",
+      "N/A"
+    ],
+    [
+      "16",
+      "DANVILLE",
+      "2",
+      "0",
+      "2",
       "1",
       "N/A"
     ]

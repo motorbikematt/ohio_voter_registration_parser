@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,225 +18,162 @@
     [
       "44",
       "IRONTON",
-      "5,339",
-      "1,298",
-      "6,637",
-      "25",
+      "9,090",
+      "2,070",
+      "11,160",
+      "43",
       "N/A"
     ],
     [
       "44",
-      "PRECINCT LABELLE",
-      "4,437",
-      "853",
-      "5,290",
-      "7",
+      "SOUTH POINT",
+      "6,443",
+      "1,475",
+      "7,918",
+      "19",
       "N/A"
     ],
     [
       "44",
-      "PRECINCT UNION",
-      "3,150",
-      "742",
-      "3,892",
-      "5",
+      "PROCTORVILLE",
+      "6,132",
+      "1,258",
+      "7,390",
+      "13",
       "N/A"
     ],
     [
       "44",
-      "PRECINCT SOUTH POINT",
-      "2,199",
-      "393",
-      "2,592",
-      "5",
+      "CHESAPEAKE",
+      "3,904",
+      "958",
+      "4,862",
+      "13",
       "N/A"
     ],
     [
       "44",
-      "PRECINCT BURLINGTON",
-      "1,704",
-      "420",
-      "2,124",
+      "KITTS HILL",
+      "1,620",
+      "243",
+      "1,863",
+      "9",
+      "N/A"
+    ],
+    [
+      "44",
+      "PEDRO",
+      "1,350",
+      "332",
+      "1,682",
+      "8",
+      "N/A"
+    ],
+    [
+      "44",
+      "COAL GROVE",
+      "1,072",
+      "307",
+      "1,379",
       "3",
       "N/A"
     ],
     [
       "44",
-      "PRECINCT SHERIDAN",
-      "1,294",
-      "453",
-      "1,747",
+      "WILLOW WOOD",
+      "759",
+      "150",
+      "909",
+      "6",
+      "N/A"
+    ],
+    [
+      "44",
+      "SCOTTOWN",
+      "540",
+      "120",
+      "660",
+      "5",
+      "N/A"
+    ],
+    [
+      "44",
+      "CROWN",
+      "429",
+      "54",
+      "483",
       "2",
       "N/A"
     ],
     [
       "44",
-      "PRECINCT FAYETTE",
-      "1,436",
-      "297",
-      "1,733",
+      "WATERLOO",
+      "212",
+      "54",
+      "266",
       "3",
       "N/A"
     ],
     [
       "44",
-      "PRECINCT UPPER",
-      "1,441",
-      "292",
-      "1,733",
+      "HANGING ROCK",
+      "126",
+      "22",
+      "148",
+      "1",
+      "N/A"
+    ],
+    [
+      "44",
+      "OAK HILL",
+      "79",
+      "8",
+      "87",
+      "1",
+      "N/A"
+    ],
+    [
+      "44",
+      "SOUTH WEBSTER",
+      "31",
+      "8",
+      "39",
+      "2",
+      "N/A"
+    ],
+    [
+      "44",
+      "FRANKLIN FURNACE",
+      "6",
+      "2",
+      "8",
+      "1",
+      "N/A"
+    ],
+    [
+      "44",
+      "PATRIOT",
+      "3",
+      "1",
       "4",
+      "1",
       "N/A"
     ],
     [
       "44",
-      "PRECINCT ELIZABETH",
-      "1,333",
-      "340",
-      "1,673",
-      "3",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT LAWRENCE",
-      "1,460",
-      "206",
-      "1,666",
-      "3",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT PERRY",
-      "1,388",
-      "256",
-      "1,644",
-      "3",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT COAL GROVE",
-      "1,075",
-      "307",
-      "1,382",
-      "3",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT WINDSOR",
-      "1,102",
-      "210",
-      "1,312",
+      "ROCK CAMP",
+      "2",
+      "0",
+      "2",
       "2",
       "N/A"
     ],
     [
       "44",
-      "PRECINCT BRADRICK",
-      "737",
-      "170",
-      "907",
-      "2",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT MILLER",
-      "773",
-      "117",
-      "890",
+      "BURLINGTON",
       "1",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT MASON",
-      "551",
-      "146",
-      "697",
-      "2",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT AID",
-      "456",
-      "75",
-      "531",
-      "2",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT CHESAPEAKE",
-      "385",
-      "118",
-      "503",
-      "2",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT DECATUR",
-      "333",
-      "84",
-      "417",
+      "0",
       "1",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT HAMILTON",
-      "307",
-      "77",
-      "384",
-      "1",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT PROCTORVILLE",
-      "274",
-      "86",
-      "360",
-      "1",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT SYMMES",
-      "237",
-      "56",
-      "293",
-      "1",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT HANGING ROCK",
-      "154",
-      "27",
-      "181",
-      "1",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT ATHALIA",
-      "133",
-      "28",
-      "161",
-      "1",
-      "N/A"
-    ],
-    [
-      "44",
-      "PRECINCT WASHINGTON",
-      "101",
-      "11",
-      "112",
       "1",
       "N/A"
     ]

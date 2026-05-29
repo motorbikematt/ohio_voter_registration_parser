@@ -40,8 +40,13 @@ def regen_county(county_num: str, county_name: str, slug: str) -> None:
         log.warning('  [skip] %s — no parquet', slug)
         return
 
-    # Load only the columns build_city_summary() needs
-    df = pl.read_parquet(par_path, columns=['PRECINCT_NAME', 'VOTER_STATUS', 'CITY'])
+    # Load only the columns build_city_summary() needs. RESIDENTIAL_CITY is the
+    # fallback grouping key for the ~19 counties where CITY is blank (100%
+    # populated there — confirmed by parquet scan).
+    df = pl.read_parquet(
+        par_path,
+        columns=['PRECINCT_NAME', 'VOTER_STATUS', 'CITY', 'RESIDENTIAL_CITY'],
+    )
     # COUNTY_NUMBER is a Hive partition key — add it back as a literal
     df = df.with_columns(pl.lit(county_num).alias('COUNTY_NUMBER'))
 
@@ -68,7 +73,7 @@ def regen_county(county_num: str, county_name: str, slug: str) -> None:
         'note':      (
             f'Analysis run {today} — Ohio Secretary of State SWVF voter file. '
             'City derived from CITY column (registered-address municipality); '
-            'falls back to precinct-name extraction for counties where CITY is blank. '
+            'falls back to RESIDENTIAL_CITY for counties where CITY is blank. '
             'Cross-county cities show separate rows per county.'
         ),
         'headers': ['County #', 'City / Township', 'Active', 'Confirmation',

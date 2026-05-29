@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,10 +18,10 @@
     [
       "06",
       "WAPAKONETA",
-      "5,513",
-      "904",
-      "6,417",
-      "8",
+      "10,892",
+      "1,406",
+      "12,298",
+      "20",
       "N/A"
     ],
     [
@@ -35,181 +35,172 @@
     ],
     [
       "06",
-      "PRECINCT ST. MARYS",
-      "2,141",
-      "277",
-      "2,418",
-      "3",
+      "ST MARYS",
+      "2,913",
+      "352",
+      "3,265",
+      "8",
       "N/A"
     ],
     [
       "06",
-      "PRECINCT NEW BREMEN",
-      "2,054",
-      "174",
-      "2,228",
-      "3",
+      "NEW BREMEN",
+      "2,876",
+      "230",
+      "3,106",
+      "6",
       "N/A"
     ],
     [
       "06",
-      "PRECINCT MINSTER",
-      "2,027",
-      "159",
-      "2,186",
+      "MINSTER",
+      "2,641",
+      "196",
+      "2,837",
+      "5",
+      "N/A"
+    ],
+    [
+      "06",
+      "CRIDERSVILLE",
+      "1,405",
+      "237",
+      "1,642",
+      "8",
+      "N/A"
+    ],
+    [
+      "06",
+      "NEW KNOXVILLE",
+      "1,039",
+      "116",
+      "1,155",
+      "5",
+      "N/A"
+    ],
+    [
+      "06",
+      "WAYNESFIELD",
+      "998",
+      "130",
+      "1,128",
+      "4",
+      "N/A"
+    ],
+    [
+      "06",
+      "SPENCERVILLE",
+      "324",
+      "31",
+      "355",
       "2",
       "N/A"
     ],
     [
       "06",
-      "PRECINCT DUCHOUQUET",
-      "1,922",
-      "215",
-      "2,137",
-      "2",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT MOULTON",
-      "1,171",
-      "97",
-      "1,268",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT UNION",
-      "1,137",
-      "105",
-      "1,242",
-      "2",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT CRIDERSVILLE",
-      "972",
-      "169",
-      "1,141",
-      "2",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT PUSHETA",
-      "840",
-      "72",
-      "912",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT NOBLE",
-      "814",
-      "74",
-      "888",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT WASHINGTON",
-      "701",
-      "57",
-      "758",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT LOGAN",
-      "613",
-      "61",
-      "674",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT NEW KNOXVILLE",
-      "570",
-      "79",
-      "649",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT JACKSON",
-      "590",
-      "38",
-      "628",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT GERMAN",
-      "530",
-      "32",
-      "562",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT CLAY",
-      "497",
-      "49",
-      "546",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT WAYNE",
-      "491",
-      "55",
-      "546",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT WAYNESFIELD",
-      "398",
-      "63",
-      "461",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT GOSHEN",
-      "296",
-      "34",
-      "330",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT SALEM",
-      "293",
-      "28",
-      "321",
-      "1",
-      "N/A"
-    ],
-    [
-      "06",
-      "PRECINCT BUCKLAND",
+      "BUCKLAND",
       "126",
       "16",
       "142",
+      "1",
+      "N/A"
+    ],
+    [
+      "06",
+      "UNIOPOLIS",
+      "108",
+      "12",
+      "120",
+      "1",
+      "N/A"
+    ],
+    [
+      "06",
+      "LAKEVIEW",
+      "108",
+      "4",
+      "112",
+      "1",
+      "N/A"
+    ],
+    [
+      "06",
+      "NEW HAMPSHIRE",
+      "51",
+      "13",
+      "64",
+      "1",
+      "N/A"
+    ],
+    [
+      "06",
+      "ST JOHNS",
+      "59",
+      "3",
+      "62",
+      "2",
+      "N/A"
+    ],
+    [
+      "06",
+      "MENDON",
+      "37",
+      "3",
+      "40",
+      "2",
+      "N/A"
+    ],
+    [
+      "06",
+      "HARROD",
+      "36",
+      "4",
+      "40",
+      "1",
+      "N/A"
+    ],
+    [
+      "06",
+      "BOTKINS",
+      "35",
+      "2",
+      "37",
+      "3",
+      "N/A"
+    ],
+    [
+      "06",
+      "FORT LORAMIE",
+      "18",
+      "1",
+      "19",
+      "1",
+      "N/A"
+    ],
+    [
+      "06",
+      "JACKSON CENTER",
+      "18",
+      "1",
+      "19",
+      "1",
+      "N/A"
+    ],
+    [
+      "06",
+      "CELINA",
+      "10",
+      "1",
+      "11",
+      "1",
+      "N/A"
+    ],
+    [
+      "06",
+      "LEWISTOWN",
+      "2",
+      "0",
+      "2",
       "1",
       "N/A"
     ]

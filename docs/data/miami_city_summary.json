@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,28 +18,37 @@
     [
       "55",
       "TROY",
-      "15,837",
-      "2,785",
-      "18,622",
-      "21",
+      "22,965",
+      "3,461",
+      "26,426",
+      "36",
       "N/A"
     ],
     [
       "55",
       "PIQUA",
-      "10,242",
-      "2,219",
-      "12,461",
-      "16",
+      "12,917",
+      "2,454",
+      "15,371",
+      "22",
       "N/A"
     ],
     [
       "55",
       "TIPP",
-      "6,870",
-      "847",
-      "7,717",
-      "8",
+      "12,280",
+      "1,393",
+      "13,673",
+      "19",
+      "N/A"
+    ],
+    [
+      "55",
+      "WEST MILTON",
+      "4,409",
+      "563",
+      "4,972",
+      "9",
       "N/A"
     ],
     [
@@ -53,335 +62,155 @@
     ],
     [
       "55",
-      "PRECINCT WEST MILTON",
-      "2,868",
-      "428",
-      "3,296",
+      "COVINGTON",
+      "3,054",
+      "405",
+      "3,459",
+      "8",
+      "N/A"
+    ],
+    [
+      "55",
+      "PLEASANT HILL",
+      "1,276",
+      "121",
+      "1,397",
       "3",
       "N/A"
     ],
     [
       "55",
-      "PRECINCT ELIZABETH",
-      "1,186",
-      "95",
-      "1,281",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT CONCORD SOUTH EAST",
-      "1,132",
-      "79",
-      "1,211",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT LOSTCREEK/CASSTOWN",
-      "1,054",
-      "97",
-      "1,151",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT BROWN/FLETCHER",
-      "994",
-      "130",
-      "1,124",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT UNION EAST",
-      "995",
-      "98",
-      "1,093",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT MONROE WEST",
-      "994",
-      "91",
-      "1,085",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT MONROE SOUTH EAST",
-      "989",
-      "95",
-      "1,084",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT NEWBERRY EAST",
-      "973",
-      "96",
-      "1,069",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT WASHINGTON",
-      "970",
-      "93",
-      "1,063",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT NEWTON EAST",
-      "915",
-      "100",
-      "1,015",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT BETHEL SOUTH EAST",
-      "906",
-      "92",
-      "998",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT CONCORD NORTH",
-      "860",
+      "NEW CARLISLE",
+      "1,144",
       "106",
-      "966",
-      "1",
+      "1,250",
+      "4",
       "N/A"
     ],
     [
       "55",
-      "PRECINCT CONCORD SOUTH",
-      "877",
-      "85",
-      "962",
-      "1",
+      "BRADFORD",
+      "1,011",
+      "153",
+      "1,164",
+      "3",
       "N/A"
     ],
     [
       "55",
-      "PRECINCT MONROE EAST CENTRAL",
-      "858",
-      "90",
-      "948",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT BETHEL EAST",
-      "850",
-      "81",
-      "931",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT MONROE NORTH EAST",
-      "774",
-      "108",
-      "882",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT STAUNTON NORTH",
-      "807",
-      "73",
-      "880",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT PLEASANT HILL",
-      "796",
-      "81",
-      "877",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT BETHEL SOUTH CENTRAL",
-      "759",
-      "94",
-      "853",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT COVINGTON C/D",
-      "744",
-      "104",
-      "848",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT NEWBERRY WEST",
-      "713",
+      "CASSTOWN",
+      "944",
       "93",
-      "806",
+      "1,037",
+      "2",
+      "N/A"
+    ],
+    [
+      "55",
+      "LAURA",
+      "905",
+      "103",
+      "1,008",
+      "3",
+      "N/A"
+    ],
+    [
+      "55",
+      "LUDLOW FALLS",
+      "820",
+      "101",
+      "921",
+      "6",
+      "N/A"
+    ],
+    [
+      "55",
+      "FLETCHER",
+      "735",
+      "84",
+      "819",
+      "2",
+      "N/A"
+    ],
+    [
+      "55",
+      "CONOVER",
+      "301",
+      "49",
+      "350",
+      "2",
+      "N/A"
+    ],
+    [
+      "55",
+      "ENGLEWOOD",
+      "221",
+      "29",
+      "250",
+      "2",
+      "N/A"
+    ],
+    [
+      "55",
+      "DAYTON",
+      "210",
+      "24",
+      "234",
       "1",
       "N/A"
     ],
     [
       "55",
-      "PRECINCT COVINGTON A/B",
-      "659",
-      "118",
-      "777",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT SPRINGCREEK WEST",
-      "713",
-      "63",
-      "776",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT LAURA",
-      "680",
-      "89",
-      "769",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT SPRINGCREEK EAST",
-      "685",
-      "63",
-      "748",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT BRADFORD",
-      "583",
-      "100",
-      "683",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT BETHEL WEST",
-      "607",
-      "52",
-      "659",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT POTSDAM",
-      "584",
-      "62",
-      "646",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT STAUNTON SOUTH",
-      "590",
-      "55",
-      "645",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT MONROE SOUTH",
-      "581",
-      "53",
-      "634",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT UNION SOUTH CENTRAL",
-      "575",
-      "43",
-      "618",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT CONCORD EAST",
-      "549",
-      "56",
-      "605",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT LUDLOW CENTRAL",
-      "530",
-      "65",
-      "595",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT CONCORD WEST",
-      "527",
-      "41",
-      "568",
-      "1",
-      "N/A"
-    ],
-    [
-      "55",
-      "PRECINCT NEWTON WEST",
-      "510",
-      "41",
-      "551",
+      "POTSDAM",
+      "72",
+      "15",
+      "87",
       "1",
       "N/A"
     ],
     [
       "55",
       "UNION",
-      "15",
+      "55",
+      "5",
+      "60",
+      "3",
+      "N/A"
+    ],
+    [
+      "55",
+      "ARCANUM",
+      "16",
       "0",
-      "15",
+      "16",
+      "1",
+      "N/A"
+    ],
+    [
+      "55",
+      "BROOKVILLE",
+      "9",
       "2",
+      "11",
+      "1",
+      "N/A"
+    ],
+    [
+      "55",
+      "SIDNEY",
+      "6",
+      "0",
+      "6",
+      "1",
+      "N/A"
+    ],
+    [
+      "55",
+      "SAINT PARIS",
+      "1",
+      "0",
+      "1",
+      "1",
       "N/A"
     ]
   ]

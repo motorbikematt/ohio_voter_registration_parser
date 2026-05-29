@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,19 +18,28 @@
     [
       "87",
       "PERRYSBURG",
-      "16,258",
-      "2,395",
-      "18,653",
-      "22",
+      "27,611",
+      "4,220",
+      "31,831",
+      "38",
       "N/A"
     ],
     [
       "87",
       "BOWLING GREEN",
-      "13,273",
-      "3,129",
-      "16,402",
-      "20",
+      "17,521",
+      "3,566",
+      "21,087",
+      "33",
+      "N/A"
+    ],
+    [
+      "87",
+      "NORTHWOOD",
+      "4,286",
+      "788",
+      "5,074",
+      "7",
       "N/A"
     ],
     [
@@ -44,460 +53,289 @@
     ],
     [
       "87",
-      "NORTHWOOD",
-      "2,818",
-      "589",
-      "3,407",
-      "4",
+      "WALBRIDGE",
+      "3,237",
+      "512",
+      "3,749",
+      "8",
       "N/A"
     ],
     [
       "87",
-      "HENRY TWP N BALTIMORE",
-      "1,613",
-      "318",
-      "1,931",
-      "2",
+      "PEMBERVILLE",
+      "2,304",
+      "209",
+      "2,513",
+      "7",
       "N/A"
     ],
     [
       "87",
-      "LAKE TWP WALBRIDGE VILL",
-      "1,654",
-      "275",
-      "1,929",
-      "2",
+      "N BALTIMORE",
+      "1,985",
+      "375",
+      "2,360",
+      "6",
       "N/A"
     ],
     [
       "87",
-      "PRBG TWP STARBRIGHT",
-      "997",
-      "317",
-      "1,314",
-      "1",
+      "MILLBURY",
+      "1,655",
+      "219",
+      "1,874",
+      "5",
       "N/A"
     ],
     [
       "87",
-      "MONTGOMERY TWP WEST",
-      "1,144",
-      "145",
-      "1,289",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "LAKE TWP UNION",
-      "1,112",
-      "140",
-      "1,252",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "PLAIN TWP",
-      "1,069",
-      "146",
-      "1,215",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "MIDDLETON TWP NORTH",
-      "1,105",
-      "99",
-      "1,204",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "LAKE TWP LATCHA",
-      "1,071",
-      "130",
-      "1,201",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "WASHINGTON TWP",
-      "1,096",
-      "90",
-      "1,186",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "LAKE TWP EAST",
-      "1,046",
-      "136",
-      "1,182",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "TROY TWP SOUTH",
-      "1,052",
-      "104",
-      "1,156",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "PERRYSBURG TWP BELMONT",
-      "1,005",
-      "139",
-      "1,144",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "PERRYSBURG TWP SOUTH",
-      "950",
-      "177",
-      "1,127",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "LAKE TWP NORTH",
-      "943",
-      "150",
-      "1,093",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "PERRYSBURG TWP ECKEL",
-      "929",
-      "148",
-      "1,077",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "LIBERTY TWP",
-      "928",
-      "115",
-      "1,043",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "MIDDLETON TWP WEST",
-      "945",
-      "52",
-      "997",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "PERRYSBURG TWP GLENWOOD",
-      "805",
-      "168",
-      "973",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "FREEDOM TOWNSHIP",
-      "883",
-      "79",
-      "962",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "PRBG TWP FALLEN TIMBERS",
-      "729",
-      "217",
-      "946",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "PERRYSBURG TWP FORD",
-      "845",
-      "101",
-      "946",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "FREEDOM TWP PEMBERVILLE VILL",
-      "851",
-      "86",
-      "937",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "TROY TWP NORTH",
-      "771",
-      "158",
-      "929",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "WEBSTER TWP",
-      "840",
-      "77",
-      "917",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "PERRYSBURG TWP NORTH",
-      "832",
-      "74",
-      "906",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "WESTON TWP WESTON VILL",
-      "727",
-      "143",
-      "870",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "MIDDLETON TWP HASKINS VILL",
-      "761",
-      "99",
-      "860",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "CENTER TOWNSHIP",
-      "776",
-      "75",
-      "851",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "LAKE TWP MILLBURY VILL",
-      "734",
-      "83",
-      "817",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "PORTAGE TWP EAST",
-      "726",
-      "75",
-      "801",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "BLOOM TWP NORTH",
-      "689",
-      "103",
-      "792",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "PERRY TWP EAST",
-      "671",
-      "114",
-      "785",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "BLOOM TWP SOUTH",
-      "635",
-      "105",
-      "740",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "MONTGOMERY TWP NE",
-      "604",
-      "98",
-      "702",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "PERRYSBURG TWP HAMLET",
-      "638",
-      "62",
-      "700",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "MILTON TWP",
-      "605",
-      "76",
-      "681",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "GRAND RAPIDS TWP GR VILL",
-      "567",
-      "111",
-      "678",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "MIDDLETON TWP DUNBRIDGE",
-      "604",
-      "67",
-      "671",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "MIDDLETON TWP SOUTH",
-      "580",
-      "62",
-      "642",
-      "1",
-      "N/A"
-    ],
-    [
-      "87",
-      "TROY TWP LUCKEY VILL",
-      "572",
-      "69",
-      "641",
-      "1",
+      "WESTON",
+      "1,502",
+      "228",
+      "1,730",
+      "7",
       "N/A"
     ],
     [
       "87",
       "FOSTORIA",
-      "501",
-      "109",
-      "610",
+      "1,172",
+      "216",
+      "1,388",
+      "3",
+      "N/A"
+    ],
+    [
+      "87",
+      "WAYNE",
+      "1,239",
+      "139",
+      "1,378",
+      "5",
+      "N/A"
+    ],
+    [
+      "87",
+      "LUCKEY",
+      "1,146",
+      "125",
+      "1,271",
+      "3",
+      "N/A"
+    ],
+    [
+      "87",
+      "GRAND RAPIDS",
+      "1,088",
+      "154",
+      "1,242",
+      "4",
+      "N/A"
+    ],
+    [
+      "87",
+      "BRADNER",
+      "818",
+      "125",
+      "943",
+      "4",
+      "N/A"
+    ],
+    [
+      "87",
+      "CYGNET",
+      "795",
+      "116",
+      "911",
+      "5",
+      "N/A"
+    ],
+    [
+      "87",
+      "HASKINS",
+      "721",
+      "92",
+      "813",
       "1",
       "N/A"
     ],
     [
       "87",
-      "PERRYSBURG TWP FT MEIGS",
-      "487",
-      "104",
-      "591",
+      "BLOOMDALE",
+      "703",
+      "90",
+      "793",
+      "5",
+      "N/A"
+    ],
+    [
+      "87",
+      "PORTAGE",
+      "642",
+      "106",
+      "748",
+      "5",
+      "N/A"
+    ],
+    [
+      "87",
+      "RUDOLPH",
+      "626",
+      "88",
+      "714",
+      "3",
+      "N/A"
+    ],
+    [
+      "87",
+      "RISINGSUN",
+      "565",
+      "70",
+      "635",
+      "5",
+      "N/A"
+    ],
+    [
+      "87",
+      "CUSTAR",
+      "511",
+      "64",
+      "575",
+      "3",
+      "N/A"
+    ],
+    [
+      "87",
+      "TONTOGANY",
+      "198",
+      "30",
+      "228",
       "1",
       "N/A"
     ],
     [
       "87",
-      "MONTGOMERY TWP SE",
-      "450",
-      "55",
-      "505",
+      "DESHLER",
+      "195",
+      "23",
+      "218",
+      "2",
+      "N/A"
+    ],
+    [
+      "87",
+      "JERRY",
+      "182",
+      "35",
+      "217",
+      "2",
+      "N/A"
+    ],
+    [
+      "87",
+      "GENOA",
+      "131",
+      "9",
+      "140",
+      "3",
+      "N/A"
+    ],
+    [
+      "87",
+      "HOYTVILLE",
+      "94",
+      "23",
+      "117",
       "1",
       "N/A"
     ],
     [
       "87",
-      "WESTON TWP WILLOW",
-      "426",
-      "55",
-      "481",
+      "STONY RIDGE",
+      "106",
+      "11",
+      "117",
       "1",
       "N/A"
     ],
     [
       "87",
-      "JACKSON TWP",
-      "414",
-      "60",
-      "474",
+      "W MILLGROVE",
+      "73",
+      "16",
+      "89",
       "1",
       "N/A"
     ],
     [
       "87",
-      "GRAND RAPIDS TWP PARK",
-      "426",
-      "33",
-      "459",
+      "MILTON CENTER",
+      "63",
+      "14",
+      "77",
       "1",
       "N/A"
     ],
     [
       "87",
-      "HENRY TWP HAMMANSBURG",
-      "401",
-      "49",
-      "450",
+      "DUNBRIDGE",
+      "58",
+      "8",
+      "66",
       "1",
       "N/A"
     ],
     [
       "87",
-      "PORTAGE WEST",
-      "251",
-      "61",
-      "312",
+      "LEMOYNE",
+      "24",
+      "7",
+      "31",
+      "2",
+      "N/A"
+    ],
+    [
+      "87",
+      "GIBSONBURG",
+      "25",
+      "1",
+      "26",
       "1",
       "N/A"
     ],
     [
       "87",
-      "WASHINGTON TWP TONTOGANY VILL",
-      "250",
-      "34",
-      "284",
+      "WOODVILLE",
+      "11",
+      "3",
+      "14",
+      "2",
+      "N/A"
+    ],
+    [
+      "87",
+      "VAN BUREN",
+      "2",
+      "1",
+      "3",
       "1",
       "N/A"
     ],
     [
       "87",
-      "PERRY TWP PERRY",
-      "234",
-      "27",
-      "261",
+      "MCCLURE",
+      "2",
+      "0",
+      "2",
+      "2",
+      "N/A"
+    ],
+    [
+      "87",
+      "MC COMB",
+      "2",
+      "0",
+      "2",
       "1",
       "N/A"
     ]

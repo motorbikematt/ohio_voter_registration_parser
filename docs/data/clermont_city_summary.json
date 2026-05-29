@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,199 +17,271 @@
   "rows": [
     [
       "13",
-      "UNION TOWNSHIP",
-      "29,657",
-      "5,045",
-      "34,702",
+      "CINCINNATI",
+      "24,736",
+      "4,107",
+      "28,843",
       "38",
       "N/A"
     ],
     [
       "13",
-      "MIAMI TOWNSHIP",
-      "28,536",
-      "3,488",
-      "32,024",
-      "37",
-      "N/A"
-    ],
-    [
-      "13",
-      "BATAVIA TOWNSHIP",
-      "15,555",
-      "2,472",
-      "18,027",
-      "16",
-      "N/A"
-    ],
-    [
-      "13",
-      "PIERCE TOWNSHIP",
-      "10,246",
-      "1,503",
-      "11,749",
-      "12",
-      "N/A"
-    ],
-    [
-      "13",
-      "GOSHEN TOWNSHIP",
-      "9,376",
-      "1,477",
-      "10,853",
-      "12",
-      "N/A"
-    ],
-    [
-      "13",
-      "MONROE TOWNSHIP",
-      "4,254",
-      "725",
-      "4,979",
-      "6",
+      "BATAVIA",
+      "21,741",
+      "3,284",
+      "25,025",
+      "39",
       "N/A"
     ],
     [
       "13",
       "MILFORD",
-      "4,124",
-      "696",
-      "4,820",
-      "7",
-      "N/A"
-    ],
-    [
-      "13",
-      "TATE TOWNSHIP",
-      "4,193",
-      "557",
-      "4,750",
-      "5",
-      "N/A"
-    ],
-    [
-      "13",
-      "STONELICK TOWNSHIP",
-      "3,313",
-      "389",
-      "3,702",
-      "5",
-      "N/A"
-    ],
-    [
-      "13",
-      "WAYNE TOWNSHIP",
-      "2,628",
-      "403",
-      "3,031",
-      "3",
-      "N/A"
-    ],
-    [
-      "13",
-      "WILLIAMSBURG TOWNSHIP",
-      "1,937",
-      "268",
-      "2,205",
-      "3",
-      "N/A"
-    ],
-    [
-      "13",
-      "JACKSON TOWNSHIP",
-      "1,877",
-      "237",
-      "2,114",
-      "3",
-      "N/A"
-    ],
-    [
-      "13",
-      "NEW RICHMOND",
-      "1,799",
-      "297",
-      "2,096",
-      "2",
+      "20,924",
+      "2,879",
+      "23,803",
+      "41",
       "N/A"
     ],
     [
       "13",
       "LOVELAND",
-      "1,756",
-      "254",
-      "2,010",
-      "3",
+      "19,300",
+      "2,462",
+      "21,762",
+      "31",
       "N/A"
     ],
     [
       "13",
-      "FRANKLIN TOWNSHIP",
-      "1,736",
-      "274",
-      "2,010",
-      "3",
+      "AMELIA",
+      "14,538",
+      "2,578",
+      "17,116",
+      "27",
       "N/A"
     ],
     [
       "13",
-      "OHIO TOWNSHIP",
-      "1,421",
-      "265",
-      "1,686",
-      "3",
-      "N/A"
-    ],
-    [
-      "13",
-      "BATAVIA",
-      "1,400",
-      "209",
-      "1,609",
-      "1",
-      "N/A"
-    ],
-    [
-      "13",
-      "WILLIAMSBURG",
-      "1,335",
-      "243",
-      "1,578",
-      "2",
+      "GOSHEN",
+      "6,356",
+      "945",
+      "7,301",
+      "15",
       "N/A"
     ],
     [
       "13",
       "BETHEL",
-      "1,272",
-      "282",
-      "1,554",
-      "2",
+      "6,273",
+      "988",
+      "7,261",
+      "15",
       "N/A"
     ],
     [
       "13",
-      "WASHINGTON TOWNSHIP",
-      "1,263",
-      "211",
-      "1,474",
+      "NEW RICHMOND",
+      "6,153",
+      "924",
+      "7,077",
+      "17",
+      "N/A"
+    ],
+    [
+      "13",
+      "WILLIAMSBURG",
+      "3,556",
+      "517",
+      "4,073",
+      "7",
+      "N/A"
+    ],
+    [
+      "13",
+      "FELICITY",
+      "1,431",
+      "261",
+      "1,692",
+      "5",
+      "N/A"
+    ],
+    [
+      "13",
+      "MOSCOW",
+      "983",
+      "148",
+      "1,131",
+      "5",
+      "N/A"
+    ],
+    [
+      "13",
+      "BLANCHESTER",
+      "573",
+      "80",
+      "653",
+      "3",
+      "N/A"
+    ],
+    [
+      "13",
+      "PLEASANT PLAIN",
+      "529",
+      "82",
+      "611",
+      "4",
+      "N/A"
+    ],
+    [
+      "13",
+      "HAMERSVILLE",
+      "385",
+      "44",
+      "429",
       "3",
       "N/A"
     ],
     [
       "13",
       "OWENSVILLE",
-      "372",
-      "79",
-      "451",
+      "317",
+      "71",
+      "388",
+      "2",
+      "N/A"
+    ],
+    [
+      "13",
+      "NEWTONSVILLE",
+      "99",
+      "22",
+      "121",
+      "2",
+      "N/A"
+    ],
+    [
+      "13",
+      "GEORGETOWN",
+      "104",
+      "14",
+      "118",
+      "2",
+      "N/A"
+    ],
+    [
+      "13",
+      "FAYETTEVILLE",
+      "83",
+      "16",
+      "99",
+      "3",
+      "N/A"
+    ],
+    [
+      "13",
+      "MIAMIVILLE",
+      "86",
+      "12",
+      "98",
+      "3",
+      "N/A"
+    ],
+    [
+      "13",
+      "POINT PLEASANT",
+      "55",
+      "6",
+      "61",
       "1",
       "N/A"
     ],
     [
       "13",
-      "FELICITY",
-      "251",
-      "82",
-      "333",
+      "NEVILLE",
+      "30",
+      "12",
+      "42",
+      "1",
+      "N/A"
+    ],
+    [
+      "13",
+      "CHILO",
+      "38",
+      "4",
+      "42",
+      "1",
+      "N/A"
+    ],
+    [
+      "13",
+      "PLEASANT PLAINS",
+      "3",
+      "0",
+      "3",
+      "2",
+      "N/A"
+    ],
+    [
+      "13",
+      "CINICNNATI",
+      "2",
+      "0",
+      "2",
+      "1",
+      "N/A"
+    ],
+    [
+      "13",
+      "MILORD",
+      "1",
+      "0",
+      "1",
+      "1",
+      "N/A"
+    ],
+    [
+      "13",
+      "WILLIAMSBURGE",
+      "1",
+      "0",
+      "1",
+      "1",
+      "N/A"
+    ],
+    [
+      "13",
+      "CINCIATI",
+      "1",
+      "0",
+      "1",
+      "1",
+      "N/A"
+    ],
+    [
+      "13",
+      "CINCINNAT",
+      "1",
+      "0",
+      "1",
+      "1",
+      "N/A"
+    ],
+    [
+      "13",
+      "CINTI",
+      "1",
+      "0",
+      "1",
+      "1",
+      "N/A"
+    ],
+    [
+      "13",
+      "CINCINATI",
+      "1",
+      "0",
+      "1",
       "1",
       "N/A"
     ]

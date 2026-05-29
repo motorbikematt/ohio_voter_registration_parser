@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,252 +18,252 @@
     [
       "19",
       "GREENVILLE",
-      "7,078",
-      "1,374",
-      "8,452",
-      "12",
+      "12,868",
+      "2,000",
+      "14,868",
+      "26",
       "N/A"
     ],
     [
       "19",
-      "PRECINCT VERSAILLES",
-      "1,738",
-      "157",
-      "1,895",
-      "2",
+      "ARCANUM",
+      "4,471",
+      "433",
+      "4,904",
+      "8",
       "N/A"
     ],
     [
       "19",
-      "PRECINCT ARCANUM",
-      "1,480",
+      "VERSAILLES",
+      "3,462",
+      "269",
+      "3,731",
+      "7",
+      "N/A"
+    ],
+    [
+      "19",
+      "UNION",
+      "1,488",
+      "374",
+      "1,862",
+      "6",
+      "N/A"
+    ],
+    [
+      "19",
+      "BRADFORD",
+      "1,413",
+      "179",
+      "1,592",
+      "5",
+      "N/A"
+    ],
+    [
+      "19",
+      "NEW MADISON",
+      "1,275",
+      "156",
+      "1,431",
+      "5",
+      "N/A"
+    ],
+    [
+      "19",
+      "ANSONIA",
+      "1,140",
       "149",
-      "1,629",
-      "2",
+      "1,289",
+      "5",
       "N/A"
     ],
     [
       "19",
-      "PRECINCT GREENVILLE TWP WEST",
-      "1,437",
-      "147",
-      "1,584",
-      "2",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT GREENVILLE TWP EAST",
-      "1,359",
-      "124",
-      "1,483",
-      "2",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT TWIN TWP. GORDON & ITHACA",
-      "1,204",
-      "110",
-      "1,314",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT BROWN TWP & ANSONIA",
-      "1,096",
-      "135",
-      "1,231",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT WAYNE TOWNSHIP",
-      "1,130",
-      "90",
-      "1,220",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT MONROE TWP & PITSBURG",
-      "1,030",
-      "93",
-      "1,123",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT ADAMS WEST & GETTYSBURG",
-      "951",
-      "114",
-      "1,065",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT HARRISON EAST & NEW MADISON",
-      "874",
-      "116",
-      "990",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT VAN BUREN TOWNSHIP",
-      "882",
-      "104",
-      "986",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT NEAVE TOWNSHIP",
-      "826",
-      "110",
-      "936",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT ADAMS EAST & BRADFORD",
-      "816",
-      "109",
-      "925",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT PATTERSON TWP. OSGOOD & YORKSHI",
-      "836",
-      "54",
-      "890",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT BUTLER AND CASTINE",
-      "749",
-      "89",
-      "838",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT UNION CITY",
-      "556",
-      "256",
-      "812",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT WASHINGTON TOWNSHIP",
-      "695",
-      "82",
-      "777",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT JACKSON TOWNSHIP",
-      "631",
-      "82",
-      "713",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT FRANKLIN TOWNSHIP",
-      "618",
-      "62",
-      "680",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT ALLEN TWP NEW WESTON & ROSSBURG",
-      "600",
-      "65",
-      "665",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT WABASH AND NORTH STAR",
-      "595",
-      "39",
-      "634",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT HARRISON WEST & HOLLANSBURG",
-      "531",
-      "70",
-      "601",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "PRECINCT LIBERTY TWP. & PALESTINE",
-      "518",
-      "61",
+      "ROSSBURG",
       "579",
-      "1",
+      "61",
+      "640",
+      "6",
       "N/A"
     ],
     [
       "19",
-      "PRECINCT RICHLAND TOWNSHIP",
-      "479",
-      "40",
+      "NEW WESTON",
+      "578",
+      "50",
+      "628",
+      "3",
+      "N/A"
+    ],
+    [
+      "19",
+      "YORKSHIRE",
+      "484",
+      "35",
       "519",
-      "1",
+      "2",
       "N/A"
     ],
     [
       "19",
-      "PRECINCT WAYNE LAKES",
-      "448",
-      "68",
-      "516",
-      "1",
+      "NEW PARIS",
+      "369",
+      "48",
+      "417",
+      "2",
       "N/A"
     ],
     [
       "19",
-      "PRECINCT MISSISSINAWA TOWNSHIP",
-      "420",
+      "HOLLANSBURG",
+      "302",
+      "53",
+      "355",
+      "2",
+      "N/A"
+    ],
+    [
+      "19",
+      "GETTYSBURG",
+      "221",
       "47",
-      "467",
+      "268",
       "1",
       "N/A"
     ],
     [
       "19",
-      "PRECINCT YORK TOWNSHIP",
-      "316",
-      "23",
-      "339",
+      "PITSBURG",
+      "220",
+      "27",
+      "247",
+      "1",
+      "N/A"
+    ],
+    [
+      "19",
+      "FORT RECOVERY",
+      "196",
+      "17",
+      "213",
+      "2",
+      "N/A"
+    ],
+    [
+      "19",
+      "OSGOOD",
+      "171",
+      "11",
+      "182",
+      "1",
+      "N/A"
+    ],
+    [
+      "19",
+      "LAURA",
+      "159",
+      "14",
+      "173",
+      "2",
+      "N/A"
+    ],
+    [
+      "19",
+      "NORTH STAR",
+      "152",
+      "9",
+      "161",
+      "1",
+      "N/A"
+    ],
+    [
+      "19",
+      "WEST MANCHESTER",
+      "115",
+      "14",
+      "129",
+      "2",
+      "N/A"
+    ],
+    [
+      "19",
+      "PALESTINE",
+      "100",
+      "11",
+      "111",
+      "1",
+      "N/A"
+    ],
+    [
+      "19",
+      "BURKETTSVILLE",
+      "56",
+      "6",
+      "62",
+      "1",
+      "N/A"
+    ],
+    [
+      "19",
+      "COVINGTON",
+      "20",
+      "2",
+      "22",
+      "2",
+      "N/A"
+    ],
+    [
+      "19",
+      "BROOKVILLE",
+      "17",
+      "0",
+      "17",
+      "1",
+      "N/A"
+    ],
+    [
+      "19",
+      "LEWISBURG",
+      "8",
+      "4",
+      "12",
+      "1",
+      "N/A"
+    ],
+    [
+      "19",
+      "FORT LORAMIE",
+      "9",
+      "1",
+      "10",
+      "1",
+      "N/A"
+    ],
+    [
+      "19",
+      "WEST MILTON",
+      "9",
+      "0",
+      "9",
+      "1",
+      "N/A"
+    ],
+    [
+      "19",
+      "ST HENRY",
+      "7",
+      "0",
+      "7",
+      "2",
+      "N/A"
+    ],
+    [
+      "19",
+      "MARIA STEIN",
+      "4",
+      "0",
+      "4",
       "1",
       "N/A"
     ]

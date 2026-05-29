@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,10 +18,10 @@
     [
       "18",
       "CLEVELAND",
-      "166,852",
-      "69,851",
-      "236,703",
-      "254",
+      "166,850",
+      "69,852",
+      "236,702",
+      "256",
       "N/A"
     ],
     [
@@ -36,19 +36,19 @@
     [
       "18",
       "LAKEWOOD",
-      "30,304",
+      "30,303",
       "5,938",
-      "36,242",
+      "36,241",
       "37",
       "N/A"
     ],
     [
       "18",
-      "CLEVELAND HEIGHTS",
-      "27,423",
-      "6,859",
+      "CLEVELAND HTS",
+      "27,424",
+      "6,858",
       "34,282",
-      "33",
+      "34",
       "N/A"
     ],
     [
@@ -80,34 +80,34 @@
     ],
     [
       "18",
-      "SHAKER HEIGHTS",
-      "18,692",
+      "SHAKER HTS",
+      "18,691",
       "3,639",
-      "22,331",
+      "22,330",
       "21",
       "N/A"
     ],
     [
       "18",
       "NORTH OLMSTED",
-      "18,495",
+      "18,496",
       "3,288",
-      "21,783",
-      "21",
+      "21,784",
+      "22",
       "N/A"
     ],
     [
       "18",
       "NORTH ROYALTON",
-      "18,622",
+      "18,623",
       "2,829",
-      "21,451",
-      "23",
+      "21,452",
+      "24",
       "N/A"
     ],
     [
       "18",
-      "GARFIELD HEIGHTS",
+      "GARFIELD HTS",
       "14,065",
       "4,215",
       "18,280",
@@ -135,15 +135,15 @@
     [
       "18",
       "SOUTH EUCLID",
-      "12,995",
+      "12,994",
       "2,748",
-      "15,743",
+      "15,742",
       "16",
       "N/A"
     ],
     [
       "18",
-      "MAPLE HEIGHTS",
+      "MAPLE HTS",
       "11,938",
       "3,628",
       "15,566",
@@ -152,16 +152,16 @@
     ],
     [
       "18",
-      "BROADVIEW HEIGHTS",
-      "12,416",
+      "BROADVIEW HTS",
+      "12,417",
       "1,911",
-      "14,327",
-      "14",
+      "14,328",
+      "15",
       "N/A"
     ],
     [
       "18",
-      "PARMA HEIGHTS",
+      "PARMA HTS",
       "10,644",
       "2,886",
       "13,530",
@@ -170,7 +170,7 @@
     ],
     [
       "18",
-      "MAYFIELD HEIGHTS",
+      "MAYFIELD HTS",
       "10,811",
       "2,207",
       "13,018",
@@ -216,15 +216,15 @@
     [
       "18",
       "BRECKSVILLE",
-      "9,763",
+      "9,762",
       "1,140",
-      "10,903",
+      "10,902",
       "10",
       "N/A"
     ],
     [
       "18",
-      "MIDDLEBURG HEIGHTS",
+      "MIDDLEBURG HTS",
       "9,287",
       "1,524",
       "10,811",
@@ -242,7 +242,7 @@
     ],
     [
       "18",
-      "OLMSTED TOWNSHIP",
+      "OLMSTED TWP",
       "8,783",
       "1,442",
       "10,225",
@@ -252,19 +252,19 @@
     [
       "18",
       "BEACHWOOD",
-      "8,376",
+      "8,377",
       "1,777",
-      "10,153",
-      "10",
+      "10,154",
+      "11",
       "N/A"
     ],
     [
       "18",
       "EAST CLEVELAND",
-      "6,689",
+      "6,690",
       "2,642",
-      "9,331",
-      "15",
+      "9,332",
+      "16",
       "N/A"
     ],
     [
@@ -278,7 +278,7 @@
     ],
     [
       "18",
-      "UNIVERSITY HEIGHTS",
+      "UNIVERSITY HTS",
       "7,403",
       "1,509",
       "8,912",
@@ -288,24 +288,24 @@
     [
       "18",
       "WARRENSVILLE HTS",
-      "6,380",
+      "6,381",
       "2,399",
-      "8,779",
-      "13",
+      "8,780",
+      "14",
       "N/A"
     ],
     [
       "18",
       "BEDFORD",
-      "6,912",
+      "6,911",
       "1,748",
-      "8,660",
+      "8,659",
       "12",
       "N/A"
     ],
     [
       "18",
-      "RICHMOND HEIGHTS",
+      "RICHMOND HTS",
       "6,317",
       "1,414",
       "7,731",
@@ -323,7 +323,7 @@
     ],
     [
       "18",
-      "BEDFORD HEIGHTS",
+      "BEDFORD HTS",
       "5,717",
       "1,504",
       "7,221",
@@ -332,7 +332,7 @@
     ],
     [
       "18",
-      "HIGHLAND HEIGHTS",
+      "HIGHLAND HTS",
       "6,137",
       "735",
       "6,872",
@@ -449,7 +449,7 @@
     ],
     [
       "18",
-      "NEWBURGH HEIGHTS",
+      "NEWBURGH HTS",
       "797",
       "329",
       "1,126",
@@ -458,7 +458,7 @@
     ],
     [
       "18",
-      "BROOKLYN HEIGHTS",
+      "BROOKLYN HTS",
       "998",
       "106",
       "1,104",
@@ -521,7 +521,7 @@
     ],
     [
       "18",
-      "CUYAHOGA HEIGHTS",
+      "CUYAHOGA HTS",
       "374",
       "43",
       "417",

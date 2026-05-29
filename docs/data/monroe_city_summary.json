@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,181 +17,199 @@
   "rows": [
     [
       "56",
-      "PRECINCT CENTER",
-      "707",
-      "97",
-      "804",
+      "WOODSFIELD",
+      "2,580",
+      "424",
+      "3,004",
+      "10",
+      "N/A"
+    ],
+    [
+      "56",
+      "SARDIS",
+      "1,028",
+      "137",
+      "1,165",
+      "6",
+      "N/A"
+    ],
+    [
+      "56",
+      "CLARINGTON",
+      "869",
+      "122",
+      "991",
+      "5",
+      "N/A"
+    ],
+    [
+      "56",
+      "BEALLSVILLE",
+      "782",
+      "123",
+      "905",
+      "4",
+      "N/A"
+    ],
+    [
+      "56",
+      "LEWISVILLE",
+      "764",
+      "84",
+      "848",
+      "7",
+      "N/A"
+    ],
+    [
+      "56",
+      "JERUSALEM",
+      "364",
+      "61",
+      "425",
+      "3",
+      "N/A"
+    ],
+    [
+      "56",
+      "NEW MATAMORAS",
+      "275",
+      "46",
+      "321",
+      "4",
+      "N/A"
+    ],
+    [
+      "56",
+      "GRAYSVILLE",
+      "248",
+      "33",
+      "281",
+      "4",
+      "N/A"
+    ],
+    [
+      "56",
+      "HANNIBAL",
+      "208",
+      "20",
+      "228",
       "1",
       "N/A"
     ],
     [
       "56",
-      "PRECINCT WOODSFIELD SOUTH",
-      "635",
-      "124",
-      "759",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT SUNSBURY",
-      "658",
+      "LOWER SALEM",
+      "90",
+      "6",
       "96",
-      "754",
-      "1",
+      "2",
       "N/A"
     ],
     [
       "56",
-      "PRECINCT MALAGA",
-      "542",
-      "85",
-      "627",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT LEE",
-      "541",
-      "76",
-      "617",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT OHIO",
-      "532",
-      "62",
-      "594",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT SALEM",
-      "504",
-      "87",
-      "591",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT WOODSFIELD NORTH",
-      "505",
-      "75",
-      "580",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT SUMMIT",
-      "388",
-      "41",
-      "429",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT ADAMS",
-      "348",
-      "69",
-      "417",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT SWITZERLAND",
-      "288",
-      "35",
-      "323",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT JACKSON",
-      "256",
-      "39",
-      "295",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT WASHINGTON",
-      "260",
-      "31",
-      "291",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT PERRY",
-      "235",
-      "30",
-      "265",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT GREEN",
-      "230",
-      "32",
-      "262",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT FRANKLIN",
-      "220",
-      "26",
-      "246",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT WAYNE",
-      "192",
-      "32",
-      "224",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT BENTON",
-      "180",
-      "25",
-      "205",
-      "1",
-      "N/A"
-    ],
-    [
-      "56",
-      "PRECINCT BETHEL",
-      "180",
+      "POWHATAN POINT",
+      "65",
       "13",
-      "193",
+      "78",
       "1",
       "N/A"
     ],
     [
       "56",
-      "PRECINCT SENECA",
-      "153",
-      "23",
-      "176",
+      "SUMMERFIELD",
+      "66",
+      "8",
+      "74",
+      "2",
+      "N/A"
+    ],
+    [
+      "56",
+      "RINARD MILLS",
+      "39",
+      "3",
+      "42",
+      "2",
+      "N/A"
+    ],
+    [
+      "56",
+      "CAMERON",
+      "36",
+      "6",
+      "42",
+      "1",
+      "N/A"
+    ],
+    [
+      "56",
+      "MALAGA",
+      "38",
+      "1",
+      "39",
+      "1",
+      "N/A"
+    ],
+    [
+      "56",
+      "STAFFORD",
+      "32",
+      "6",
+      "38",
+      "1",
+      "N/A"
+    ],
+    [
+      "56",
+      "QUAKER",
+      "19",
+      "3",
+      "22",
+      "1",
+      "N/A"
+    ],
+    [
+      "56",
+      "SYCAMORE VALLEY",
+      "20",
+      "1",
+      "21",
+      "1",
+      "N/A"
+    ],
+    [
+      "56",
+      "WINGETT RUN",
+      "20",
+      "0",
+      "20",
+      "1",
+      "N/A"
+    ],
+    [
+      "56",
+      "LAINGS",
+      "6",
+      "1",
+      "7",
+      "2",
+      "N/A"
+    ],
+    [
+      "56",
+      "ANTIOCH",
+      "4",
+      "0",
+      "4",
+      "1",
+      "N/A"
+    ],
+    [
+      "56",
+      "FLY",
+      "1",
+      "0",
+      "1",
       "1",
       "N/A"
     ]

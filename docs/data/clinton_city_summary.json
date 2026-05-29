@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,162 +18,135 @@
     [
       "14",
       "WILMINGTON",
-      "5,942",
-      "1,294",
-      "7,236",
-      "10",
+      "12,359",
+      "1,984",
+      "14,343",
+      "26",
       "N/A"
     ],
     [
       "14",
       "BLANCHESTER",
-      "2,142",
-      "423",
-      "2,565",
-      "3",
-      "N/A"
-    ],
-    [
-      "14",
-      "VERNON",
-      "1,772",
-      "288",
-      "2,060",
-      "2",
-      "N/A"
-    ],
-    [
-      "14",
-      "CHESTER",
-      "1,461",
-      "145",
-      "1,606",
-      "2",
-      "N/A"
-    ],
-    [
-      "14",
-      "ADAMS",
-      "1,420",
-      "142",
-      "1,562",
-      "2",
-      "N/A"
-    ],
-    [
-      "14",
-      "WASHINGTON",
-      "1,283",
-      "184",
-      "1,467",
-      "2",
+      "3,580",
+      "589",
+      "4,169",
+      "7",
       "N/A"
     ],
     [
       "14",
       "SABINA",
-      "1,179",
-      "252",
-      "1,431",
-      "2",
+      "2,190",
+      "396",
+      "2,586",
+      "7",
       "N/A"
     ],
     [
       "14",
-      "CLARK",
-      "1,156",
-      "159",
-      "1,315",
-      "1",
-      "N/A"
-    ],
-    [
-      "14",
-      "UNION NORTH",
-      "1,144",
-      "91",
-      "1,235",
-      "2",
-      "N/A"
-    ],
-    [
-      "14",
-      "UNION SOUTH",
-      "914",
-      "102",
-      "1,016",
-      "2",
-      "N/A"
-    ],
-    [
-      "14",
-      "GREEN",
-      "863",
-      "114",
-      "977",
-      "1",
-      "N/A"
-    ],
-    [
-      "14",
-      "MARION",
-      "852",
-      "72",
-      "924",
-      "1",
-      "N/A"
-    ],
-    [
-      "14",
-      "JEFFERSON",
-      "764",
-      "110",
-      "874",
-      "1",
-      "N/A"
-    ],
-    [
-      "14",
-      "LIBERTY",
-      "629",
-      "77",
-      "706",
-      "1",
+      "CLARKSVILLE",
+      "1,595",
+      "229",
+      "1,824",
+      "5",
       "N/A"
     ],
     [
       "14",
       "NEW VIENNA",
-      "561",
-      "113",
-      "674",
+      "1,262",
+      "208",
+      "1,470",
+      "4",
+      "N/A"
+    ],
+    [
+      "14",
+      "MIDLAND",
+      "875",
+      "124",
+      "999",
+      "4",
+      "N/A"
+    ],
+    [
+      "14",
+      "MARTINSVILLE",
+      "841",
+      "122",
+      "963",
+      "4",
+      "N/A"
+    ],
+    [
+      "14",
+      "LYNCHBURG",
+      "230",
+      "22",
+      "252",
+      "2",
+      "N/A"
+    ],
+    [
+      "14",
+      "PORT WILLIAM",
+      "101",
+      "22",
+      "123",
       "1",
       "N/A"
     ],
     [
       "14",
-      "RICHLAND",
-      "554",
-      "89",
-      "643",
+      "JAMESTOWN",
+      "72",
+      "5",
+      "77",
       "1",
       "N/A"
     ],
     [
       "14",
-      "WAYNE",
-      "387",
-      "37",
-      "424",
+      "REESVILLE",
+      "57",
+      "15",
+      "72",
       "1",
       "N/A"
     ],
     [
       "14",
-      "WILSON",
-      "285",
-      "50",
-      "335",
+      "CUBA",
+      "55",
+      "17",
+      "72",
+      "2",
+      "N/A"
+    ],
+    [
+      "14",
+      "LEESBURG",
+      "48",
+      "6",
+      "54",
+      "1",
+      "N/A"
+    ],
+    [
+      "14",
+      "WAYNESVILLE",
+      "36",
+      "3",
+      "39",
+      "2",
+      "N/A"
+    ],
+    [
+      "14",
+      "XENIA",
+      "7",
+      "0",
+      "7",
       "1",
       "N/A"
     ]

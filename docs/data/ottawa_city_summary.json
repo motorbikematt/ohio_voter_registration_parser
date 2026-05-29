@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,189 +18,180 @@
     [
       "62",
       "PORT CLINTON",
-      "3,115",
-      "628",
-      "3,743",
+      "8,656",
+      "1,203",
+      "9,859",
+      "15",
+      "N/A"
+    ],
+    [
+      "62",
+      "OAK HARBOR",
+      "5,090",
+      "666",
+      "5,756",
+      "12",
+      "N/A"
+    ],
+    [
+      "62",
+      "MARBLEHEAD",
+      "3,564",
+      "355",
+      "3,919",
+      "5",
+      "N/A"
+    ],
+    [
+      "62",
+      "GENOA",
+      "2,538",
+      "353",
+      "2,891",
+      "6",
+      "N/A"
+    ],
+    [
+      "62",
+      "ELMORE",
+      "1,798",
+      "170",
+      "1,968",
+      "6",
+      "N/A"
+    ],
+    [
+      "62",
+      "CURTICE",
+      "1,393",
+      "135",
+      "1,528",
       "4",
       "N/A"
     ],
     [
       "62",
-      "CATAWBA ISLAND",
-      "3,123",
-      "259",
-      "3,382",
-      "4",
-      "N/A"
-    ],
-    [
-      "62",
-      "DANBURY",
-      "3,051",
-      "320",
-      "3,371",
-      "4",
-      "N/A"
-    ],
-    [
-      "62",
-      "ALLEN",
-      "2,340",
-      "258",
-      "2,598",
+      "GRAYTOWN",
+      "928",
+      "110",
+      "1,038",
       "3",
       "N/A"
     ],
     [
       "62",
-      "BENTON",
-      "1,676",
-      "197",
-      "1,873",
-      "2",
+      "MARTIN",
+      "669",
+      "60",
+      "729",
+      "5",
       "N/A"
     ],
     [
       "62",
-      "CLAY",
-      "1,603",
-      "203",
-      "1,806",
-      "2",
-      "N/A"
-    ],
-    [
-      "62",
-      "SALEM",
-      "1,628",
-      "166",
-      "1,794",
-      "2",
-      "N/A"
-    ],
-    [
-      "62",
-      "CARROLL",
-      "1,399",
-      "184",
-      "1,583",
-      "2",
-      "N/A"
-    ],
-    [
-      "62",
-      "HARRIS 1 (ELMORE)",
-      "917",
-      "84",
-      "1,001",
-      "1",
-      "N/A"
-    ],
-    [
-      "62",
-      "BAY 1 (PCS)",
-      "796",
-      "88",
-      "884",
-      "1",
-      "N/A"
-    ],
-    [
-      "62",
-      "PORTAGE",
-      "767",
-      "109",
-      "876",
-      "1",
-      "N/A"
-    ],
-    [
-      "62",
-      "CLAY 1 (GENOA)",
-      "682",
-      "107",
-      "789",
-      "1",
-      "N/A"
-    ],
-    [
-      "62",
-      "DANBURY 1 (MARBLEHEAD)",
-      "725",
+      "PUT-IN-BAY",
+      "522",
       "57",
-      "782",
+      "579",
       "1",
       "N/A"
     ],
     [
       "62",
-      "ERIE",
-      "659",
-      "111",
-      "770",
+      "MILLBURY",
+      "389",
+      "51",
+      "440",
+      "3",
+      "N/A"
+    ],
+    [
+      "62",
+      "WILLISTON",
+      "208",
+      "29",
+      "237",
       "1",
       "N/A"
     ],
     [
       "62",
-      "PUT-IN-BAY 1 (PUT-IN-BAY)",
-      "618",
-      "64",
-      "682",
+      "ROCKY RIDGE",
+      "135",
+      "21",
+      "156",
       "1",
       "N/A"
     ],
     [
       "62",
-      "SALEM 2 (OAK HARBOR)",
-      "555",
-      "108",
-      "663",
+      "CLAY CENTER",
+      "129",
+      "25",
+      "154",
       "1",
       "N/A"
     ],
     [
       "62",
-      "HARRIS 3 (WOODMORE)",
-      "578",
+      "WOODVILLE",
+      "120",
+      "6",
+      "126",
+      "3",
+      "N/A"
+    ],
+    [
+      "62",
+      "MIDDLE BASS",
+      "90",
+      "7",
+      "97",
+      "1",
+      "N/A"
+    ],
+    [
+      "62",
+      "GYPSUM",
       "63",
-      "641",
-      "1",
-      "N/A"
-    ],
-    [
-      "62",
-      "SALEM 3 (OAK HARBOR)",
-      "552",
-      "78",
-      "630",
-      "1",
-      "N/A"
-    ],
-    [
-      "62",
-      "SALEM 1 (OAK HARBOR)",
-      "550",
+      "10",
       "73",
-      "623",
       "1",
       "N/A"
     ],
     [
       "62",
-      "CLAY 2 (GENOA)",
-      "541",
-      "75",
-      "616",
+      "LACARNE",
+      "36",
+      "14",
+      "50",
       "1",
       "N/A"
     ],
     [
       "62",
-      "HARRIS 4 (WOODMORE)",
-      "490",
-      "42",
-      "532",
+      "FREMONT",
+      "27",
+      "2",
+      "29",
+      "1",
+      "N/A"
+    ],
+    [
+      "62",
+      "ISLE ST GEORGE",
+      "6",
+      "0",
+      "6",
+      "1",
+      "N/A"
+    ],
+    [
+      "62",
+      "LINDSEY",
+      "4",
+      "0",
+      "4",
       "1",
       "N/A"
     ]

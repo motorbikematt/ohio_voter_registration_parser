@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,181 +17,154 @@
   "rows": [
     [
       "82",
-      "PRECINCT ELK TOWNSHIP",
-      "742",
-      "152",
-      "894",
-      "1",
+      "MCARTHUR",
+      "2,961",
+      "630",
+      "3,591",
+      "14",
       "N/A"
     ],
     [
       "82",
-      "PRECINCT HARRISON TOWNSHIP",
-      "546",
-      "117",
-      "663",
-      "1",
+      "HAMDEN",
+      "888",
+      "217",
+      "1,105",
+      "5",
       "N/A"
     ],
     [
       "82",
-      "PRECINCT CLINTON TOWNSHIP",
-      "500",
-      "104",
-      "604",
-      "1",
+      "LONDONDERRY",
+      "488",
+      "134",
+      "622",
+      "3",
       "N/A"
     ],
     [
       "82",
-      "PRECINCT SWAN TOWNSHIP",
-      "508",
-      "90",
-      "598",
-      "1",
+      "RAY",
+      "426",
+      "72",
+      "498",
+      "2",
       "N/A"
     ],
     [
       "82",
-      "PRECINCT RICHLAND NORTHWEST",
-      "423",
-      "95",
-      "518",
-      "1",
+      "ALBANY",
+      "308",
+      "40",
+      "348",
+      "3",
       "N/A"
     ],
     [
       "82",
-      "PRECINCT RICHLAND SOUTHEAST",
-      "415",
-      "81",
-      "496",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT WILKESVILLE TOWNSHIP",
-      "356",
-      "93",
-      "449",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT MCARTHUR EAST",
-      "347",
-      "101",
-      "448",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT JACKSON TOWNSHIP",
-      "370",
-      "78",
-      "448",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT MCARTHUR NORTHWEST",
+      "NEW PLYMOUTH",
+      "269",
+      "67",
       "336",
-      "64",
-      "400",
-      "1",
+      "2",
       "N/A"
     ],
     [
       "82",
-      "PRECINCT KNOX TOWNSHIP",
-      "342",
-      "48",
-      "390",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT EAGLE TOWNSHIP",
-      "274",
-      "77",
-      "351",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT VINTON TOWNSHIP",
-      "288",
-      "38",
-      "326",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT HAMDEN NORTH",
-      "206",
-      "60",
-      "266",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT MCARTHUR SOUTHWEST",
-      "218",
-      "44",
+      "VINTON",
       "262",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT HAMDEN SOUTH",
-      "175",
-      "48",
-      "223",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT MADISON TOWNSHIP",
-      "178",
-      "33",
-      "211",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT BROWN TOWNSHIP",
-      "151",
-      "42",
-      "193",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT ZALESKI",
-      "144",
-      "26",
-      "170",
-      "1",
-      "N/A"
-    ],
-    [
-      "82",
-      "PRECINCT WILKESVILLE",
       "74",
+      "336",
+      "1",
+      "N/A"
+    ],
+    [
+      "82",
+      "CREOLA",
+      "258",
+      "45",
+      "303",
+      "2",
+      "N/A"
+    ],
+    [
+      "82",
+      "RADCLIFF",
+      "238",
+      "40",
+      "278",
+      "3",
+      "N/A"
+    ],
+    [
+      "82",
+      "ZALESKI",
+      "172",
+      "30",
+      "202",
+      "2",
+      "N/A"
+    ],
+    [
+      "82",
+      "WILKESVILLE",
+      "88",
+      "11",
+      "99",
+      "3",
+      "N/A"
+    ],
+    [
+      "82",
+      "SOUTH BLOOMINGVILLE",
+      "71",
+      "14",
+      "85",
+      "2",
+      "N/A"
+    ],
+    [
+      "82",
+      "NEW MARSHFIELD",
+      "48",
+      "3",
+      "51",
+      "2",
+      "N/A"
+    ],
+    [
+      "82",
+      "LAURELVILLE",
+      "35",
       "10",
-      "84",
+      "45",
+      "1",
+      "N/A"
+    ],
+    [
+      "82",
+      "LOGAN",
+      "36",
+      "7",
+      "43",
+      "1",
+      "N/A"
+    ],
+    [
+      "82",
+      "WELLSTON",
+      "35",
+      "4",
+      "39",
+      "2",
+      "N/A"
+    ],
+    [
+      "82",
+      "LANGSVILLE",
+      "10",
+      "3",
+      "13",
       "1",
       "N/A"
     ]

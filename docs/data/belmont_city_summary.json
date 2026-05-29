@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,20 +17,47 @@
   "rows": [
     [
       "07",
-      "PRECINCT RICHLAND TWP",
-      "4,431",
-      "598",
-      "5,029",
-      "7",
+      "ST CLAIRSVILLE",
+      "5,298",
+      "697",
+      "5,995",
+      "18",
       "N/A"
     ],
     [
       "07",
       "MARTINS FERRY",
-      "2,860",
-      "886",
-      "3,746",
-      "5",
+      "3,822",
+      "1,055",
+      "4,877",
+      "9",
+      "N/A"
+    ],
+    [
+      "07",
+      "BELLAIRE",
+      "3,742",
+      "876",
+      "4,618",
+      "12",
+      "N/A"
+    ],
+    [
+      "07",
+      "BARNESVILLE",
+      "3,858",
+      "635",
+      "4,493",
+      "9",
+      "N/A"
+    ],
+    [
+      "07",
+      "BRIDGEPORT",
+      "3,138",
+      "657",
+      "3,795",
+      "14",
       "N/A"
     ],
     [
@@ -44,223 +71,79 @@
     ],
     [
       "07",
-      "PRECINCT COLERAIN TWP",
-      "2,577",
-      "329",
-      "2,906",
+      "SHADYSIDE",
+      "3,030",
+      "471",
+      "3,501",
+      "7",
+      "N/A"
+    ],
+    [
+      "07",
+      "BELMONT",
+      "2,033",
+      "278",
+      "2,311",
+      "9",
+      "N/A"
+    ],
+    [
+      "07",
+      "BETHESDA",
+      "1,326",
+      "210",
+      "1,536",
       "6",
       "N/A"
     ],
     [
       "07",
-      "PRECINCT PULTNEY TWP",
-      "2,316",
-      "403",
-      "2,719",
-      "4",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT PEASE TWP",
-      "2,102",
-      "452",
-      "2,554",
-      "5",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT SHADYSIDE",
-      "2,070",
-      "350",
-      "2,420",
+      "POWHATAN POINT",
+      "1,151",
+      "215",
+      "1,366",
       "3",
       "N/A"
     ],
     [
       "07",
-      "PRECINCT BARNESVILLE",
-      "2,015",
-      "400",
-      "2,415",
-      "3",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT BELLAIRE",
-      "1,518",
-      "503",
-      "2,021",
-      "3",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT UNION TWP",
-      "1,306",
-      "178",
-      "1,484",
-      "2",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT MEAD TWP",
-      "1,213",
+      "FLUSHING",
+      "1,022",
       "180",
-      "1,393",
+      "1,202",
+      "6",
+      "N/A"
+    ],
+    [
+      "07",
+      "JACOBSBURG",
+      "1,015",
+      "146",
+      "1,161",
+      "7",
+      "N/A"
+    ],
+    [
+      "07",
+      "LANSING",
+      "272",
+      "46",
+      "318",
       "2",
       "N/A"
     ],
     [
       "07",
-      "PRECINCT WARREN TWP",
-      "1,126",
-      "118",
-      "1,244",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT WHEELING TWP",
-      "1,002",
-      "161",
-      "1,163",
+      "DILLONVALE",
+      "269",
+      "39",
+      "308",
       "2",
       "N/A"
     ],
     [
       "07",
-      "PRECINCT BRIDGEPORT",
-      "773",
-      "236",
-      "1,009",
-      "2",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT GOSHEN TWP",
-      "884",
-      "103",
-      "987",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT SMITH TWP",
-      "853",
-      "88",
-      "941",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT POWHATAN POINT",
-      "720",
-      "152",
-      "872",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT BETHESDA",
-      "647",
-      "133",
-      "780",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT SOMERSET TWP",
-      "590",
-      "78",
-      "668",
-      "2",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT YORK TWP",
-      "513",
-      "72",
-      "585",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT FLUSHING",
-      "461",
-      "83",
-      "544",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT FLUSHING TWP",
-      "426",
-      "68",
-      "494",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT WAYNE TWP",
-      "412",
-      "41",
-      "453",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT BROOKSIDE",
-      "332",
-      "63",
-      "395",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT WASHINGTON TWP",
-      "283",
-      "47",
-      "330",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT BELMONT",
-      "248",
-      "50",
-      "298",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT KIRKWOOD TWP",
-      "229",
-      "42",
-      "271",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "PRECINCT YORKVILLE",
+      "YORKVILLE",
       "209",
       "58",
       "267",
@@ -269,19 +152,208 @@
     ],
     [
       "07",
-      "PRECINCT MORRISTOWN",
-      "149",
-      "30",
-      "179",
+      "NEFFS",
+      "189",
+      "57",
+      "246",
       "1",
       "N/A"
     ],
     [
       "07",
-      "PRECINCT HOLLOWAY",
+      "BEALLSVILLE",
+      "204",
+      "16",
+      "220",
+      "2",
+      "N/A"
+    ],
+    [
+      "07",
+      "JERUSALEM",
+      "181",
+      "15",
+      "196",
+      "3",
+      "N/A"
+    ],
+    [
+      "07",
+      "LAFFERTY",
+      "170",
+      "18",
+      "188",
+      "1",
+      "N/A"
+    ],
+    [
+      "07",
+      "PIEDMONT",
+      "154",
+      "19",
+      "173",
+      "2",
+      "N/A"
+    ],
+    [
+      "07",
+      "HOLLOWAY",
       "141",
       "32",
       "173",
+      "1",
+      "N/A"
+    ],
+    [
+      "07",
+      "BARTON",
+      "132",
+      "27",
+      "159",
+      "2",
+      "N/A"
+    ],
+    [
+      "07",
+      "MORRISTOWN",
+      "135",
+      "24",
+      "159",
+      "1",
+      "N/A"
+    ],
+    [
+      "07",
+      "FAIRPOINT",
+      "112",
+      "26",
+      "138",
+      "1",
+      "N/A"
+    ],
+    [
+      "07",
+      "ALLEDONIA",
+      "100",
+      "21",
+      "121",
+      "2",
+      "N/A"
+    ],
+    [
+      "07",
+      "ADENA",
+      "106",
+      "14",
+      "120",
+      "2",
+      "N/A"
+    ],
+    [
+      "07",
+      "RAYLAND",
+      "97",
+      "8",
+      "105",
+      "1",
+      "N/A"
+    ],
+    [
+      "07",
+      "BANNOCK",
+      "79",
+      "20",
+      "99",
+      "2",
+      "N/A"
+    ],
+    [
+      "07",
+      "MAYNARD",
+      "78",
+      "17",
+      "95",
+      "1",
+      "N/A"
+    ],
+    [
+      "07",
+      "GLENCOE",
+      "77",
+      "15",
+      "92",
+      "2",
+      "N/A"
+    ],
+    [
+      "07",
+      "BLAINE",
+      "74",
+      "13",
+      "87",
+      "2",
+      "N/A"
+    ],
+    [
+      "07",
+      "STEWARTSVILLE",
+      "63",
+      "13",
+      "76",
+      "2",
+      "N/A"
+    ],
+    [
+      "07",
+      "SOMERTON",
+      "56",
+      "3",
+      "59",
+      "1",
+      "N/A"
+    ],
+    [
+      "07",
+      "WARNOCK",
+      "26",
+      "3",
+      "29",
+      "2",
+      "N/A"
+    ],
+    [
+      "07",
+      "COLERAIN",
+      "23",
+      "5",
+      "28",
+      "2",
+      "N/A"
+    ],
+    [
+      "07",
+      "ARMSTRONG MILLS",
+      "16",
+      "5",
+      "21",
+      "1",
+      "N/A"
+    ],
+    [
+      "07",
+      "QUAKER",
+      "6",
+      "0",
+      "6",
+      "2",
+      "N/A"
+    ],
+    [
+      "07",
+      "WOODSFIELD",
+      "2",
+      "0",
+      "2",
       "1",
       "N/A"
     ]

@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,180 +18,108 @@
     [
       "01",
       "WEST UNION",
-      "1,463",
-      "319",
-      "1,782",
-      "2",
-      "N/A"
-    ],
-    [
-      "01",
-      "MEIGS TOWNSHIP",
-      "1,156",
-      "121",
-      "1,277",
-      "1",
-      "N/A"
-    ],
-    [
-      "01",
-      "LIBERTY TOWNSHIP",
-      "1,114",
-      "151",
-      "1,265",
-      "1",
-      "N/A"
-    ],
-    [
-      "01",
-      "SPRIGG TOWNSHIP",
-      "971",
-      "170",
-      "1,141",
-      "1",
+      "4,806",
+      "822",
+      "5,628",
+      "11",
       "N/A"
     ],
     [
       "01",
       "PEEBLES",
-      "855",
-      "213",
-      "1,068",
-      "1",
+      "3,553",
+      "527",
+      "4,080",
+      "9",
       "N/A"
     ],
     [
       "01",
-      "MANCHESTER UNITED TOWNSHIP",
-      "761",
-      "223",
-      "984",
-      "1",
-      "N/A"
-    ],
-    [
-      "01",
-      "BRATTON TOWNSHIP",
-      "822",
-      "91",
-      "913",
-      "1",
-      "N/A"
-    ],
-    [
-      "01",
-      "WAYNE TOWNSHIP",
-      "754",
-      "105",
-      "859",
-      "1",
-      "N/A"
-    ],
-    [
-      "01",
-      "WINCHESTER TOWNSHIP",
-      "770",
-      "77",
-      "847",
-      "1",
-      "N/A"
-    ],
-    [
-      "01",
-      "TIFFIN EAST",
-      "665",
-      "97",
-      "762",
-      "1",
-      "N/A"
-    ],
-    [
-      "01",
-      "SCOTT TOWNSHIP",
-      "683",
-      "70",
-      "753",
-      "1",
-      "N/A"
-    ],
-    [
-      "01",
-      "TIFFIN WEST",
-      "672",
-      "77",
-      "749",
-      "1",
-      "N/A"
-    ],
-    [
-      "01",
-      "LOCUST GROVE",
-      "639",
-      "101",
-      "740",
-      "1",
-      "N/A"
-    ],
-    [
-      "01",
-      "BRUSH CREEK TOWNSHIP",
-      "598",
-      "112",
-      "710",
-      "1",
-      "N/A"
-    ],
-    [
-      "01",
-      "OLIVER TOWNSHIP",
-      "571",
-      "112",
-      "683",
-      "1",
+      "MANCHESTER",
+      "1,845",
+      "404",
+      "2,249",
+      "4",
       "N/A"
     ],
     [
       "01",
       "WINCHESTER",
-      "522",
-      "91",
-      "613",
-      "1",
+      "1,832",
+      "255",
+      "2,087",
+      "6",
       "N/A"
     ],
     [
       "01",
       "SEAMAN",
-      "471",
-      "84",
-      "555",
+      "1,513",
+      "193",
+      "1,706",
+      "7",
+      "N/A"
+    ],
+    [
+      "01",
+      "BLUE CREEK",
+      "524",
+      "82",
+      "606",
+      "4",
+      "N/A"
+    ],
+    [
+      "01",
+      "STOUT",
+      "361",
+      "53",
+      "414",
+      "3",
+      "N/A"
+    ],
+    [
+      "01",
+      "OTWAY",
+      "122",
+      "26",
+      "148",
+      "3",
+      "N/A"
+    ],
+    [
+      "01",
+      "ABERDEEN",
+      "12",
+      "2",
+      "14",
       "1",
       "N/A"
     ],
     [
       "01",
-      "JEFFERSON TOWNSHIP",
-      "428",
-      "49",
-      "477",
+      "LATHAM",
+      "7",
+      "0",
+      "7",
       "1",
       "N/A"
     ],
     [
       "01",
-      "MONROE TOWNSHIP",
-      "354",
-      "50",
-      "404",
+      "DECATUR",
+      "1",
+      "0",
+      "1",
       "1",
       "N/A"
     ],
     [
       "01",
-      "GREEN TOWNSHIP",
-      "307",
-      "52",
-      "359",
+      "HILLSBORO",
+      "0",
+      "1",
+      "1",
       "1",
       "N/A"
     ]

@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,108 +18,171 @@
     [
       "37",
       "LOGAN",
-      "3,687",
-      "704",
-      "4,391",
-      "4",
+      "9,512",
+      "1,517",
+      "11,029",
+      "17",
       "N/A"
     ],
     [
       "37",
-      "PRECINCT FALLS",
-      "2,740",
-      "424",
-      "3,164",
+      "LAURELVILLE",
+      "1,513",
+      "302",
+      "1,815",
+      "5",
+      "N/A"
+    ],
+    [
+      "37",
+      "ROCKBRIDGE",
+      "1,393",
+      "187",
+      "1,580",
+      "5",
+      "N/A"
+    ],
+    [
+      "37",
+      "NELSONVILLE",
+      "661",
+      "127",
+      "788",
       "3",
       "N/A"
     ],
     [
       "37",
-      "PRECINCT MARION",
-      "1,437",
-      "191",
-      "1,628",
-      "2",
-      "N/A"
-    ],
-    [
-      "37",
-      "PRECINCT GREEN",
-      "1,401",
-      "212",
-      "1,613",
-      "2",
-      "N/A"
-    ],
-    [
-      "37",
-      "PRECINCT PERRY",
-      "1,248",
-      "244",
-      "1,492",
-      "2",
-      "N/A"
-    ],
-    [
-      "37",
-      "PRECINCT STARR",
-      "790",
-      "122",
-      "912",
-      "1",
-      "N/A"
-    ],
-    [
-      "37",
-      "PRECINCT GOOD HOPE",
-      "793",
-      "105",
-      "898",
-      "1",
-      "N/A"
-    ],
-    [
-      "37",
-      "PRECINCT WASHINGTON",
-      "713",
-      "91",
-      "804",
-      "1",
-      "N/A"
-    ],
-    [
-      "37",
-      "PRECINCT WARD",
-      "621",
-      "142",
-      "763",
-      "1",
-      "N/A"
-    ],
-    [
-      "37",
-      "PRECINCT LAUREL",
-      "663",
-      "80",
-      "743",
-      "1",
-      "N/A"
-    ],
-    [
-      "37",
-      "PRECINCT SALTCREEK",
-      "547",
-      "108",
-      "655",
-      "1",
-      "N/A"
-    ],
-    [
-      "37",
-      "PRECINCT BENTON",
+      "SO BLOOMINGVILLE",
       "419",
-      "77",
-      "496",
+      "84",
+      "503",
+      "2",
+      "N/A"
+    ],
+    [
+      "37",
+      "HIDE A WAY HILLS",
+      "393",
+      "57",
+      "450",
+      "1",
+      "N/A"
+    ],
+    [
+      "37",
+      "NEW PLYMOUTH",
+      "218",
+      "27",
+      "245",
+      "2",
+      "N/A"
+    ],
+    [
+      "37",
+      "MURRAY",
+      "160",
+      "61",
+      "221",
+      "1",
+      "N/A"
+    ],
+    [
+      "37",
+      "SUGAR GROVE",
+      "177",
+      "28",
+      "205",
+      "2",
+      "N/A"
+    ],
+    [
+      "37",
+      "AMANDA",
+      "137",
+      "19",
+      "156",
+      "2",
+      "N/A"
+    ],
+    [
+      "37",
+      "UNION FURNACE",
+      "124",
+      "17",
+      "141",
+      "1",
+      "N/A"
+    ],
+    [
+      "37",
+      "HAYDENVILLE",
+      "79",
+      "30",
+      "109",
+      "2",
+      "N/A"
+    ],
+    [
+      "37",
+      "CARBON HILL",
+      "93",
+      "7",
+      "100",
+      "1",
+      "N/A"
+    ],
+    [
+      "37",
+      "NEW STRAITSVILLE",
+      "72",
+      "22",
+      "94",
+      "2",
+      "N/A"
+    ],
+    [
+      "37",
+      "BREMEN",
+      "60",
+      "5",
+      "65",
+      "2",
+      "N/A"
+    ],
+    [
+      "37",
+      "GLOUSTER",
+      "18",
+      "3",
+      "21",
+      "1",
+      "N/A"
+    ],
+    [
+      "37",
+      "BUCHTEL",
+      "12",
+      "4",
+      "16",
+      "1",
+      "N/A"
+    ],
+    [
+      "37",
+      "CREOLA",
+      "9",
+      "3",
+      "12",
+      "1",
+      "N/A"
+    ],
+    [
+      "37",
+      "LANCASTER",
+      "9",
+      "0",
+      "9",
       "1",
       "N/A"
     ]

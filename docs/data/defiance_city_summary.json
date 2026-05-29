@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,153 +18,144 @@
     [
       "20",
       "DEFIANCE",
-      "9,172",
-      "1,940",
-      "11,112",
-      "12",
+      "15,745",
+      "2,736",
+      "18,481",
+      "24",
       "N/A"
     ],
     [
       "20",
       "HICKSVILLE",
-      "1,663",
-      "451",
-      "2,114",
-      "3",
-      "N/A"
-    ],
-    [
-      "20",
-      "NOBLE TWP",
-      "1,508",
-      "192",
-      "1,700",
-      "2",
-      "N/A"
-    ],
-    [
-      "20",
-      "HIGHLAND TWP",
-      "1,412",
-      "166",
-      "1,578",
-      "2",
-      "N/A"
-    ],
-    [
-      "20",
-      "DEFIANCE TWP",
-      "1,116",
-      "162",
-      "1,278",
-      "2",
-      "N/A"
-    ],
-    [
-      "20",
-      "TIFFIN TWP",
-      "994",
-      "118",
-      "1,112",
-      "1",
-      "N/A"
-    ],
-    [
-      "20",
-      "HICKSVILLE TWP",
-      "897",
-      "117",
-      "1,014",
-      "1",
-      "N/A"
-    ],
-    [
-      "20",
-      "DELAWARE TWP",
-      "782",
-      "106",
-      "888",
-      "1",
-      "N/A"
-    ],
-    [
-      "20",
-      "WASHINGTON TWP",
-      "756",
-      "85",
-      "841",
-      "1",
-      "N/A"
-    ],
-    [
-      "20",
-      "MILFORD TWP",
-      "589",
-      "81",
-      "670",
-      "1",
-      "N/A"
-    ],
-    [
-      "20",
-      "ADAMS TWP",
-      "610",
-      "41",
-      "651",
-      "1",
-      "N/A"
-    ],
-    [
-      "20",
-      "FARMER TWP",
-      "572",
-      "68",
-      "640",
-      "1",
-      "N/A"
-    ],
-    [
-      "20",
-      "MARK TWP",
-      "516",
-      "52",
-      "568",
-      "1",
-      "N/A"
-    ],
-    [
-      "20",
-      "NORTH RICHLAND TWP",
-      "443",
-      "49",
-      "492",
-      "1",
+      "3,103",
+      "644",
+      "3,747",
+      "7",
       "N/A"
     ],
     [
       "20",
       "SHERWOOD",
-      "409",
-      "80",
-      "489",
-      "1",
-      "N/A"
-    ],
-    [
-      "20",
-      "SOUTH RICHLAND TWP",
-      "368",
-      "45",
-      "413",
-      "1",
+      "1,038",
+      "166",
+      "1,204",
+      "5",
       "N/A"
     ],
     [
       "20",
       "NEY",
-      "183",
-      "28",
+      "810",
+      "101",
+      "911",
+      "5",
+      "N/A"
+    ],
+    [
+      "20",
+      "EDGERTON",
+      "468",
+      "44",
+      "512",
+      "2",
+      "N/A"
+    ],
+    [
+      "20",
+      "BRYAN",
+      "279",
+      "37",
+      "316",
+      "3",
+      "N/A"
+    ],
+    [
+      "20",
+      "MARK CENTER",
       "211",
+      "21",
+      "232",
+      "2",
+      "N/A"
+    ],
+    [
+      "20",
+      "HOLGATE",
+      "100",
+      "16",
+      "116",
+      "3",
+      "N/A"
+    ],
+    [
+      "20",
+      "EVANSPORT",
+      "95",
+      "5",
+      "100",
+      "1",
+      "N/A"
+    ],
+    [
+      "20",
+      "CECIL",
+      "34",
+      "4",
+      "38",
+      "2",
+      "N/A"
+    ],
+    [
+      "20",
+      "NEW BAVARIA",
+      "29",
+      "3",
+      "32",
+      "1",
+      "N/A"
+    ],
+    [
+      "20",
+      "FARMER",
+      "26",
+      "1",
+      "27",
+      "1",
+      "N/A"
+    ],
+    [
+      "20",
+      "NAPOLEON",
+      "21",
+      "1",
+      "22",
+      "2",
+      "N/A"
+    ],
+    [
+      "20",
+      "CONTINENTAL",
+      "15",
+      "1",
+      "16",
+      "1",
+      "N/A"
+    ],
+    [
+      "20",
+      "ANTWERP",
+      "8",
+      "1",
+      "9",
+      "2",
+      "N/A"
+    ],
+    [
+      "20",
+      "JEWELL",
+      "8",
+      "0",
+      "8",
       "1",
       "N/A"
     ]

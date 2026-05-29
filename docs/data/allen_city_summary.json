@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,100 +18,46 @@
     [
       "02",
       "LIMA",
-      "13,605",
-      "4,662",
-      "18,267",
-      "23",
+      "39,104",
+      "8,508",
+      "47,612",
+      "72",
       "N/A"
     ],
     [
       "02",
-      "SHAWNEE",
-      "7,869",
-      "1,151",
-      "9,020",
-      "12",
-      "N/A"
-    ],
-    [
-      "02",
-      "AMERICAN",
-      "7,207",
-      "1,254",
-      "8,461",
-      "12",
-      "N/A"
-    ],
-    [
-      "02",
-      "BATH",
-      "5,331",
-      "825",
-      "6,156",
+      "DELPHOS",
+      "3,350",
+      "468",
+      "3,818",
       "9",
       "N/A"
     ],
     [
       "02",
       "BLUFFTON",
-      "2,194",
-      "257",
-      "2,451",
-      "3",
+      "3,178",
+      "337",
+      "3,515",
+      "6",
       "N/A"
     ],
     [
       "02",
-      "DELPHOS",
-      "2,037",
-      "346",
-      "2,383",
-      "4",
+      "SPENCERVILLE",
+      "2,082",
+      "281",
+      "2,363",
+      "7",
       "N/A"
     ],
     [
       "02",
-      "PERRY",
-      "1,817",
-      "303",
-      "2,120",
-      "3",
-      "N/A"
-    ],
-    [
-      "02",
-      "JACKSON",
-      "1,830",
-      "181",
-      "2,011",
-      "2",
-      "N/A"
-    ],
-    [
-      "02",
-      "MARION",
-      "1,688",
-      "149",
-      "1,837",
-      "2",
-      "N/A"
-    ],
-    [
-      "02",
-      "AUGLAIZE",
-      "1,449",
-      "133",
-      "1,582",
-      "2",
-      "N/A"
-    ],
-    [
-      "02",
-      "AMANDA",
-      "1,347",
-      "119",
-      "1,466",
-      "2",
+      "HARROD",
+      "2,038",
+      "214",
+      "2,252",
+      "6",
       "N/A"
     ],
     [
@@ -125,83 +71,110 @@
     ],
     [
       "02",
-      "RICHLAND",
-      "1,205",
-      "91",
-      "1,296",
-      "2",
-      "N/A"
-    ],
-    [
-      "02",
-      "SPENCERVILLE",
-      "1,066",
-      "189",
-      "1,255",
-      "2",
-      "N/A"
-    ],
-    [
-      "02",
-      "MONROE",
-      "1,018",
-      "90",
-      "1,108",
-      "2",
-      "N/A"
-    ],
-    [
-      "02",
-      "SUGAR CREEK",
-      "717",
-      "79",
-      "796",
-      "1",
-      "N/A"
-    ],
-    [
-      "02",
-      "SPENCER",
-      "525",
-      "59",
-      "584",
-      "1",
+      "COLUMBUS GROVE",
+      "814",
+      "74",
+      "888",
+      "5",
       "N/A"
     ],
     [
       "02",
       "CAIRO",
       "280",
-      "49",
-      "329",
-      "1",
-      "N/A"
-    ],
-    [
-      "02",
-      "HARROD",
-      "202",
-      "40",
-      "242",
-      "1",
+      "47",
+      "327",
+      "2",
       "N/A"
     ],
     [
       "02",
       "LAFAYETTE",
-      "193",
-      "33",
-      "226",
-      "1",
+      "216",
+      "34",
+      "250",
+      "2",
+      "N/A"
+    ],
+    [
+      "02",
+      "ADA",
+      "154",
+      "20",
+      "174",
+      "2",
       "N/A"
     ],
     [
       "02",
       "BEAVERDAM",
-      "139",
-      "42",
-      "181",
+      "119",
+      "38",
+      "157",
       "1",
+      "N/A"
+    ],
+    [
+      "02",
+      "GOMER",
+      "96",
+      "15",
+      "111",
+      "1",
+      "N/A"
+    ],
+    [
+      "02",
+      "WAYNESFIELD",
+      "96",
+      "6",
+      "102",
+      "1",
+      "N/A"
+    ],
+    [
+      "02",
+      "FT JENNINGS",
+      "85",
+      "7",
+      "92",
+      "3",
+      "N/A"
+    ],
+    [
+      "02",
+      "PANDORA",
+      "64",
+      "2",
+      "66",
+      "1",
+      "N/A"
+    ],
+    [
+      "02",
+      "ALGER",
+      "24",
+      "0",
+      "24",
+      "1",
+      "N/A"
+    ],
+    [
+      "02",
+      "WAPAKONETA",
+      "14",
+      "1",
+      "15",
+      "1",
+      "N/A"
+    ],
+    [
+      "02",
+      "VENEDOCIA",
+      "5",
+      "0",
+      "5",
+      "2",
       "N/A"
     ]
   ]

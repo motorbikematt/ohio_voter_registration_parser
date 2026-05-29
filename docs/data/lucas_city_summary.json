@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,168 +18,141 @@
     [
       "48",
       "TOLEDO",
-      "131,666",
-      "35,771",
-      "167,437",
-      "169",
-      "N/A"
-    ],
-    [
-      "48",
-      "PRECINCT SYLVANIA TOWNSHIP",
-      "21,114",
-      "3,163",
-      "24,277",
-      "22",
-      "N/A"
-    ],
-    [
-      "48",
-      "PRECINCT SPRINGFIELD",
-      "15,745",
-      "2,850",
-      "18,595",
-      "18",
+      "150,304",
+      "39,024",
+      "189,328",
+      "195",
       "N/A"
     ],
     [
       "48",
       "SYLVANIA",
-      "11,889",
-      "1,820",
-      "13,709",
-      "13",
-      "N/A"
-    ],
-    [
-      "48",
-      "OREGON",
-      "11,788",
-      "1,875",
-      "13,663",
-      "13",
-      "N/A"
-    ],
-    [
-      "48",
-      "PRECINCT MONCLOVA",
-      "10,816",
-      "1,191",
-      "12,007",
-      "11",
+      "22,513",
+      "3,317",
+      "25,830",
+      "29",
       "N/A"
     ],
     [
       "48",
       "MAUMEE",
-      "8,908",
-      "1,280",
-      "10,188",
-      "9",
+      "18,398",
+      "2,595",
+      "20,993",
+      "25",
+      "N/A"
+    ],
+    [
+      "48",
+      "OREGON",
+      "12,248",
+      "1,923",
+      "14,171",
+      "14",
+      "N/A"
+    ],
+    [
+      "48",
+      "HOLLAND",
+      "10,020",
+      "1,622",
+      "11,642",
+      "19",
       "N/A"
     ],
     [
       "48",
       "WATERVILLE",
-      "4,335",
-      "507",
-      "4,842",
-      "5",
+      "6,079",
+      "691",
+      "6,770",
+      "11",
       "N/A"
     ],
     [
       "48",
-      "PRECINCT WHITEHOUSE",
-      "3,370",
-      "409",
-      "3,779",
+      "WHITEHOUSE",
+      "5,320",
+      "630",
+      "5,950",
+      "11",
+      "N/A"
+    ],
+    [
+      "48",
+      "MONCLOVA",
+      "3,271",
+      "319",
+      "3,590",
+      "11",
+      "N/A"
+    ],
+    [
+      "48",
+      "SWANTON",
+      "2,703",
+      "429",
+      "3,132",
+      "9",
+      "N/A"
+    ],
+    [
+      "48",
+      "CURTICE",
+      "1,310",
+      "168",
+      "1,478",
+      "2",
+      "N/A"
+    ],
+    [
+      "48",
+      "GRAND RAPIDS",
+      "984",
+      "116",
+      "1,100",
       "3",
       "N/A"
     ],
     [
       "48",
-      "PRECINCT OTTAWA HILLS",
-      "3,163",
-      "513",
-      "3,676",
+      "BERKEY",
+      "753",
+      "78",
+      "831",
+      "2",
+      "N/A"
+    ],
+    [
+      "48",
+      "NEAPOLIS",
+      "117",
+      "18",
+      "135",
+      "1",
+      "N/A"
+    ],
+    [
+      "48",
+      "MARTIN",
+      "96",
+      "13",
+      "109",
+      "1",
+      "N/A"
+    ],
+    [
+      "48",
+      "LIBERTY CENTER",
+      "64",
+      "4",
+      "68",
       "3",
       "N/A"
     ],
     [
       "48",
-      "PRECINCT PROVIDENCE",
-      "2,177",
-      "250",
-      "2,427",
-      "3",
-      "N/A"
-    ],
-    [
-      "48",
-      "PRECINCT JERUSALEM",
-      "1,866",
-      "229",
-      "2,095",
-      "2",
-      "N/A"
-    ],
-    [
-      "48",
-      "PRECINCT SWANTON",
-      "1,714",
-      "297",
-      "2,011",
-      "2",
-      "N/A"
-    ],
-    [
-      "48",
-      "PRECINCT WASHINGTON",
-      "1,647",
-      "325",
-      "1,972",
-      "2",
-      "N/A"
-    ],
-    [
-      "48",
-      "PRECINCT WATERVILLE TOWNSHIP",
-      "1,454",
-      "161",
-      "1,615",
-      "2",
-      "N/A"
-    ],
-    [
-      "48",
-      "PRECINCT RICHFIELD",
-      "1,118",
-      "120",
-      "1,238",
-      "1",
-      "N/A"
-    ],
-    [
-      "48",
-      "PRECINCT SPENCER",
-      "971",
-      "131",
-      "1,102",
-      "1",
-      "N/A"
-    ],
-    [
-      "48",
-      "PRECINCT HARDING",
-      "439",
-      "55",
-      "494",
-      "1",
-      "N/A"
-    ],
-    [
-      "48",
-      "PRECINCT OREGON",
+      "HARBOR VIEW",
       "48",
       "12",
       "60",

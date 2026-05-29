@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,298 +17,199 @@
   "rows": [
     [
       "08",
-      "JACKSON TWP",
-      "1,197",
-      "142",
-      "1,339",
-      "1",
+      "MOUNT ORAB",
+      "4,889",
+      "885",
+      "5,774",
+      "12",
       "N/A"
     ],
     [
       "08",
-      "STERLING TWP NORTH",
-      "1,010",
-      "217",
-      "1,227",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "FRANKLIN TWP",
-      "1,067",
-      "123",
-      "1,190",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "LEWIS TWP NORTH",
-      "975",
-      "161",
-      "1,136",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "STERLING TWP SOUTH",
-      "958",
-      "171",
-      "1,129",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "MT ORAB NORTH",
-      "834",
-      "217",
-      "1,051",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "MT ORAB SOUTH",
-      "906",
-      "129",
-      "1,035",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "GEORGETOWN EAST",
-      "835",
-      "199",
-      "1,034",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "RIPLEY",
-      "835",
-      "196",
-      "1,031",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "GEORGETOWN NORTH",
-      "818",
-      "136",
-      "954",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "ABERDEEN",
-      "752",
-      "193",
-      "945",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "CLARK TWP WEST",
-      "789",
-      "126",
-      "915",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "JEFFERSON RUSS",
-      "790",
-      "119",
-      "909",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "PIKE TWP WEST",
-      "758",
-      "138",
-      "896",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "CLARK HAMERSVILLE",
-      "741",
-      "136",
-      "877",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "PLEASANT TWP",
-      "775",
-      "92",
-      "867",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "SCOTT TWP",
-      "761",
-      "100",
-      "861",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "PERRY / LAKE LORELEI",
-      "758",
-      "101",
-      "859",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "PERRY TWP WEST",
-      "754",
-      "94",
-      "848",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "EAGLE TWP",
-      "734",
-      "109",
-      "843",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "WASHINGTON TWP",
-      "739",
-      "91",
-      "830",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "PIKE TWP EAST",
-      "708",
-      "111",
-      "819",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "UNION TWP",
-      "691",
-      "115",
-      "806",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "PERRY TWP-VILLAGES",
-      "709",
-      "73",
-      "782",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "MOUNT ORAB VILLAGE WEST",
-      "664",
-      "104",
-      "768",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "PERRY TWP SOUTH",
-      "647",
-      "78",
-      "725",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "GEORGETOWN SW",
-      "596",
-      "100",
-      "696",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "GREEN TWP SOUTH",
-      "568",
-      "97",
-      "665",
-      "1",
+      "GEORGETOWN",
+      "4,842",
+      "778",
+      "5,620",
+      "12",
       "N/A"
     ],
     [
       "08",
       "SARDINIA",
-      "518",
-      "123",
-      "641",
-      "1",
+      "2,362",
+      "359",
+      "2,721",
+      "9",
       "N/A"
     ],
     [
       "08",
-      "HUNTINGTON TWP",
-      "471",
-      "113",
-      "584",
-      "1",
+      "FAYETTEVILLE",
+      "2,140",
+      "276",
+      "2,416",
+      "4",
       "N/A"
     ],
     [
       "08",
-      "LEWIS/HIGGINSPORT",
+      "RIPLEY",
+      "1,892",
+      "370",
+      "2,262",
+      "6",
+      "N/A"
+    ],
+    [
+      "08",
+      "WILLIAMSBURG",
+      "1,714",
+      "331",
+      "2,045",
+      "7",
+      "N/A"
+    ],
+    [
+      "08",
+      "HAMERSVILLE",
+      "1,489",
+      "270",
+      "1,759",
+      "4",
+      "N/A"
+    ],
+    [
+      "08",
+      "ABERDEEN",
+      "1,032",
+      "271",
+      "1,303",
+      "2",
+      "N/A"
+    ],
+    [
+      "08",
+      "RUSSELLVILLE",
+      "877",
+      "115",
+      "992",
+      "4",
+      "N/A"
+    ],
+    [
+      "08",
+      "BETHEL",
+      "776",
+      "105",
+      "881",
+      "6",
+      "N/A"
+    ],
+    [
+      "08",
+      "WINCHESTER",
+      "769",
+      "106",
+      "875",
+      "4",
+      "N/A"
+    ],
+    [
+      "08",
+      "LAKE WAYNOKA",
+      "625",
+      "66",
+      "691",
+      "2",
+      "N/A"
+    ],
+    [
+      "08",
+      "BLANCHESTER",
+      "377",
+      "30",
       "407",
-      "79",
-      "486",
+      "2",
+      "N/A"
+    ],
+    [
+      "08",
+      "FELICITY",
+      "307",
+      "73",
+      "380",
+      "2",
+      "N/A"
+    ],
+    [
+      "08",
+      "LYNCHBURG",
+      "197",
+      "23",
+      "220",
       "1",
       "N/A"
     ],
     [
       "08",
-      "GREEN TWP NORTH",
-      "403",
-      "67",
-      "470",
+      "MIDLAND",
+      "90",
+      "9",
+      "99",
       "1",
       "N/A"
     ],
     [
       "08",
-      "BYRD TWP",
-      "402",
-      "50",
-      "452",
+      "HIGGINSPORT",
+      "81",
+      "14",
+      "95",
+      "1",
+      "N/A"
+    ],
+    [
+      "08",
+      "MANCHESTER",
+      "60",
+      "11",
+      "71",
+      "1",
+      "N/A"
+    ],
+    [
+      "08",
+      "DECATUR",
+      "19",
+      "6",
+      "25",
+      "1",
+      "N/A"
+    ],
+    [
+      "08",
+      "HILLSBORO",
+      "17",
+      "1",
+      "18",
+      "1",
+      "N/A"
+    ],
+    [
+      "08",
+      "MARATHON",
+      "7",
+      "1",
+      "8",
+      "2",
+      "N/A"
+    ],
+    [
+      "08",
+      "FEESBURG",
+      "8",
+      "0",
+      "8",
       "1",
       "N/A"
     ]

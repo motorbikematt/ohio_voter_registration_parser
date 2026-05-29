@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-05-28",
-  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to precinct-name extraction for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-05-28 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -17,154 +17,127 @@
   "rows": [
     [
       "66",
-      "WARD",
-      "2,326",
-      "403",
-      "2,729",
-      "5",
-      "N/A"
-    ],
-    [
-      "66",
-      "PEE PEE TWP",
-      "1,916",
-      "339",
-      "2,255",
-      "2",
-      "N/A"
-    ],
-    [
-      "66",
-      "PEBBLE TWP",
-      "1,279",
-      "227",
-      "1,506",
-      "1",
+      "WAVERLY",
+      "6,602",
+      "1,204",
+      "7,806",
+      "15",
       "N/A"
     ],
     [
       "66",
       "PIKETON",
-      "1,088",
-      "220",
-      "1,308",
-      "1",
-      "N/A"
-    ],
-    [
-      "66",
-      "NEWTON TWP",
-      "987",
-      "235",
-      "1,222",
-      "1",
-      "N/A"
-    ],
-    [
-      "66",
-      "BENTON TWP",
-      "751",
-      "217",
-      "968",
-      "1",
-      "N/A"
-    ],
-    [
-      "66",
-      "UNION TWP",
-      "697",
-      "205",
-      "902",
-      "1",
-      "N/A"
-    ],
-    [
-      "66",
-      "JACKSON TWP",
-      "645",
-      "128",
-      "773",
-      "1",
-      "N/A"
-    ],
-    [
-      "66",
-      "BEAVER TWP",
-      "608",
-      "122",
-      "730",
-      "1",
-      "N/A"
-    ],
-    [
-      "66",
-      "SEAL TWP",
-      "609",
-      "114",
-      "723",
-      "1",
-      "N/A"
-    ],
-    [
-      "66",
-      "SUNFISH TWP",
-      "620",
-      "100",
-      "720",
-      "1",
-      "N/A"
-    ],
-    [
-      "66",
-      "MARION TWP",
-      "566",
-      "102",
-      "668",
-      "1",
-      "N/A"
-    ],
-    [
-      "66",
-      "SCIOTO TWP",
-      "571",
-      "94",
-      "665",
-      "1",
-      "N/A"
-    ],
-    [
-      "66",
-      "MIFFLIN TWP",
-      "542",
-      "111",
-      "653",
-      "1",
-      "N/A"
-    ],
-    [
-      "66",
-      "CAMP CREEK TWP",
-      "497",
-      "124",
-      "621",
-      "1",
-      "N/A"
-    ],
-    [
-      "66",
-      "PERRY TWP",
-      "312",
-      "50",
-      "362",
-      "1",
+      "3,822",
+      "769",
+      "4,591",
+      "11",
       "N/A"
     ],
     [
       "66",
       "BEAVER",
-      "188",
-      "40",
-      "228",
+      "1,508",
+      "321",
+      "1,829",
+      "6",
+      "N/A"
+    ],
+    [
+      "66",
+      "LUCASVILLE",
+      "889",
+      "235",
+      "1,124",
+      "4",
+      "N/A"
+    ],
+    [
+      "66",
+      "PEEBLES",
+      "517",
+      "145",
+      "662",
+      "4",
+      "N/A"
+    ],
+    [
+      "66",
+      "BAINBRIDGE",
+      "334",
+      "79",
+      "413",
+      "3",
+      "N/A"
+    ],
+    [
+      "66",
+      "LATHAM",
+      "191",
+      "21",
+      "212",
+      "1",
+      "N/A"
+    ],
+    [
+      "66",
+      "CHILLICOTHE",
+      "153",
+      "19",
+      "172",
+      "1",
+      "N/A"
+    ],
+    [
+      "66",
+      "HILLSBORO",
+      "118",
+      "23",
+      "141",
+      "2",
+      "N/A"
+    ],
+    [
+      "66",
+      "RARDEN",
+      "31",
+      "10",
+      "41",
+      "1",
+      "N/A"
+    ],
+    [
+      "66",
+      "OTWAY",
+      "18",
+      "2",
+      "20",
+      "1",
+      "N/A"
+    ],
+    [
+      "66",
+      "WAKEFIELD",
+      "9",
+      "1",
+      "10",
+      "1",
+      "N/A"
+    ],
+    [
+      "66",
+      "CYNTHIANA",
+      "8",
+      "2",
+      "10",
+      "1",
+      "N/A"
+    ],
+    [
+      "66",
+      "STOCKDALE",
+      "2",
+      "0",
+      "2",
       "1",
       "N/A"
     ]
