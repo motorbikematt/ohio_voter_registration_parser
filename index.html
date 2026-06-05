@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRWS05T21T"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-JRWS05T21T');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ohio Voter Registration Analysis</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+
+      <div class="header-title-row">
+        <div class="header-title-group">
+          <h1 class="site-title">Ohio Voter Registration</h1>
+          <span class="header-county-label" id="header-county-label"></span>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+          <span class="theme-icon">&#127769;</span>
+        </button>
+      </div>
+
+      <div class="header-controls">
+        <div class="control-group">
+          <label for="county-select">County</label>
+          <select id="county-select" aria-label="Select county"></select>
+        </div>
+
+        <div class="control-group" id="precinct-control" style="display:none">
+          <label for="precinct-select">Precinct</label>
+          <select id="precinct-select" aria-label="Select precinct"></select>
+        </div>
+
+        <div id="jurisdiction-controls" style="display:none">
+          <div class="control-group">
+            <label for="jur-type-select">Type</label>
+            <select id="jur-type-select" aria-label="Select jurisdiction type">
+              <option value="">-- select type --</option>
+            </select>
+          </div>
+          <div class="control-group" id="jur-county-group" style="display:none">
+            <label for="jur-county-select">County</label>
+            <select id="jur-county-select" aria-label="Select county">
+              <option value="">-- select county --</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label for="jur-name-select">Jurisdiction</label>
+            <select id="jur-name-select" aria-label="Select jurisdiction">
+              <option value="">-- select --</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group scope-control-group">
+          <div class="scope-tabs" id="scope-tabs">
+            <button class="scope-tab active" data-scope="county">County</button>
+            <button class="scope-tab" data-scope="precinct">Precinct</button>
+            <button class="scope-tab" data-scope="city">City</button>
+            <button class="scope-tab" data-scope="jurisdiction">Jurisdictions</button>
+          </div>
+          <div class="geo-filter-group" id="geo-filter-group">
+            <button class="geo-btn active" data-geo="all">All</button>
+            <button class="geo-btn" data-geo="county">Analysis</button>
+            <button class="geo-btn" data-geo="city">City</button>
+            <button class="geo-btn" data-geo="precinct">Precinct</button>
+          </div>
+        </div>
+      </div>
+
+      <nav class="section-nav" id="section-nav" aria-label="Jump to section">
+        <!-- populated by charts.js -->
+      </nav>
+
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="page-intro" id="page-intro">
+      <p id="page-description">Loading analysis data&hellip;</p>
+      <p class="data-note" id="data-note"></p>
+    </section>
+
+    <div id="charts-container">
+      <!-- populated by charts.js -->
+    </div>
+
+    <div id="jur-data-note" style="display:none">
+      <!-- populated by charts.js when type=cities is active -->
+    </div>
+
+    <div id="jurisdiction-charts-container" style="display:none">
+      <!-- populated by charts.js when jurisdiction scope is active -->
+    </div>
+
+    <footer class="site-footer">
+      <p>Data sourced from Ohio Secretary of State voter registration files &mdash; Montgomery County Board of Elections.
+         Analysis pipeline: <a href="https://github.com/motorbikematt/ohio_voter_registration_parser" target="_blank" rel="noopener">ohio_voter_registration_parser</a>.
+      </p>
+    </footer>
+  </main>
+
+  <script src="charts.js"></script>
+  <script>
+    ChartDashboard.init({
+      manifestUrl:         'manifest.json',
+      countySelectId:      'county-select',
+      geoFilterGroupId:    'geo-filter-group',
+      navId:               'section-nav',
+      containerId:         'charts-container',
+      descriptionId:       'page-description',
+      dataNoteId:          'data-note',
+      headerCountyLabelId: 'header-county-label',
+      themeToggleId:       'theme-toggle',
+      precinctControlId:   'precinct-control',
+      precinctSelectId:    'precinct-select',
+      scopeTabsId:             'scope-tabs',
+      jurControlsId:           'jurisdiction-controls',
+      jurCountyGroupId:        'jur-county-group',
+      jurTypeSelectId:         'jur-type-select',
+      jurCountySelectId:       'jur-county-select',
+      jurNameSelectId:         'jur-name-select',
+      jurChartsContainerId:    'jurisdiction-charts-container'
+    });
+  </script>
+
+</body>
+</html>
