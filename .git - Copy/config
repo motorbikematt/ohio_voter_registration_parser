@@ -1,0 +1,22 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+	untrackedCache = true
+[remote "origin"]
+	url = https://github.com/motorbikematt/ohio_voter_registration_parser.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+	vscode-merge-base = origin/main
+[user]
+	name = motorbikematt
+	email = motorbikematt@gmail.com
+[feature]
+	manyFiles = true
+[index]
+	version = 4
