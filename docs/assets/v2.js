@@ -29,7 +29,10 @@
   async function fetchJSON(url) {
     if (cache.byUrl[url]) return cache.byUrl[url];
     const res = await fetch(url);
-    if (!res.ok) throw new Error('Failed: ' + url);
+    if (!res.ok) {
+      emit('exception', { description: 'Failed to fetch ' + url, fatal: false });
+      throw new Error('Failed: ' + url);
+    }
     const data = await res.json();
     cache.byUrl[url] = data;
     return data;
@@ -909,6 +912,15 @@
       merged.scales.y.max = 100;
       merged.scales.y.ticks.callback = (v) => v + '%';
     }
+    if (!merged.onClick) {
+      merged.onClick = (e, elements) => {
+        if (elements && elements.length > 0) {
+          const index = elements[0].index;
+          const label = dataObj.labels && dataObj.labels[index] ? dataObj.labels[index] : 'unknown';
+          emit('select_content', { content_type: 'chart_bar', item_id: canvasId, description: String(label) });
+        }
+      };
+    }
     chartInstances[canvasId] = new Chart(c.getContext('2d'), {
       type,
       data: dataObj,
@@ -1574,6 +1586,9 @@
         S[key] = val;
         writeState({ [key]: val });
         emit('tweak_change', { key, value: val });
+        if (typeof window.gtag === 'function') {
+          window.gtag('set', 'user_properties', { [key]: val });
+        }
         if (key === 'view') { renderHierarchy(); }
         applyChrome();
         // Some changes need rerender (compact spacings, layout swap)
@@ -1608,7 +1623,7 @@
     };
     inp.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        emit('search', { query: inp.value });
+        emit('search', { search_term: inp.value });
         // Jump to first visible row
         const first = Array.from(document.querySelectorAll('.hier-row[data-action]')).find(r => r.style.display !== 'none');
         if (first) first.click();
@@ -1623,6 +1638,9 @@
       writeState({ theme: S.theme });
       applyChrome();
       emit('theme_change', { theme: S.theme });
+      if (typeof window.gtag === 'function') {
+        window.gtag('set', 'user_properties', { theme: S.theme });
+      }
       refreshView();
     };
     $('tweaks-toggle').onclick = () => {
