@@ -19,7 +19,7 @@ from pathlib import Path
 import polars as pl
 
 BASE_DIR    = Path(__file__).parent.parent
-PARQUET_DIR = BASE_DIR / "source" / "parquet"
+PARQUET_DIR = BASE_DIR / "local" / "source" / "parquet"  # PATCH: Rerouted to local/ workspace
 REPORT_PATH = BASE_DIR / "collision_report.md"
 
 JURISDICTION_COLUMNS = {

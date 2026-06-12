@@ -13,7 +13,7 @@ This directory contains the logic and runners for the "Lean Prediction" engine. 
 
 ### `run_lean_predictor_all_cohorts.py`
 *   **Purpose:** The primary driver for the scoring engine. 
-*   **Function:** Automatically discovers all target CSVs in the `UNC_Exports/` subdirectories and runs the `mixed_lean_predictor` against them in parallel using a `ProcessPoolExecutor`.
+*   **Function:** Automatically discovers all target CSVs in the `local/exports/` subdirectories and runs the `mixed_lean_predictor` against them in parallel using a `ProcessPoolExecutor`.
 
 ### `run_mixed_lean_predictor_all_counties.py`
 *   **Purpose:** A specialized runner focused specifically on the "Mixed" cohort across all 88 counties.

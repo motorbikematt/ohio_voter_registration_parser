@@ -28,10 +28,10 @@ import polars as pl
 # ── Paths ─────────────────────────────────────────────────────────────────────
 
 BASE_DIR    = Path(__file__).parent.parent
-SOURCE_DIR  = BASE_DIR / "source"
+SOURCE_DIR  = BASE_DIR / "local" / "source"  # PATCH: Rerouted to local/ workspace
 TXT_DIR     = SOURCE_DIR / "State Voter Files"
 PARQUET_DIR = SOURCE_DIR / "parquet"
-OUT_DIR     = BASE_DIR / "UNC_Exports" / "Precinct_Summary"
+OUT_DIR     = BASE_DIR / "local" / "exports" / "Precinct_Summary"  # PATCH: Rerouted to local/ workspace
 
 # ── Import shared helpers from existing pipeline ──────────────────────────────
 

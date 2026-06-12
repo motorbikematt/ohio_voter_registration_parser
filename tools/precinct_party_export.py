@@ -36,8 +36,8 @@ import polars as pl
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 BASE_DIR    = Path(__file__).parent.parent
-PARQUET_DIR = BASE_DIR / "source" / "parquet"
-OUT_DIR     = BASE_DIR / "UNC_Exports" / "Workbooks"
+PARQUET_DIR = BASE_DIR / "local" / "source" / "parquet"  # PATCH: Rerouted to local/ workspace
+OUT_DIR     = BASE_DIR / "local" / "exports" / "Workbooks"  # PATCH: Rerouted to local/ workspace
 
 # ── Import shared helpers ─────────────────────────────────────────────────────
 sys.path.insert(0, str(BASE_DIR))

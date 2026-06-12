@@ -38,7 +38,7 @@ import polars as pl
 # --- CONFIG --------------------------------------------------------------
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 PREDICTOR = PROJECT_ROOT / "tools" / "scoring" / "mixed_lean_predictor.py"
-MIXED_DIR = PROJECT_ROOT / "UNC_Exports" / "Mixed"
+MIXED_DIR = PROJECT_ROOT / "local" / "exports" / "Mixed"  # PATCH: Rerouted to local/ workspace
 STATEWIDE_SUMMARY = MIXED_DIR / "_statewide_MIXED_summary.csv"
 STATEWIDE_DETAILS = MIXED_DIR / "_statewide_MIXED_summary_by_county.csv"
 

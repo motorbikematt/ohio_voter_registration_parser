@@ -44,8 +44,8 @@ EXPORT_SCRIPT = PROJECT_ROOT / "tools" / "export_unc_targets.py"
 PREDICTOR = PROJECT_ROOT / "tools" / "scoring" / "mixed_lean_predictor.py"
 RUNNER = PROJECT_ROOT / "tools" / "scoring" / "run_lean_predictor_all_cohorts.py"
 
-SOURCE_DIR = PROJECT_ROOT / "source"
-EXPORT_ROOT = PROJECT_ROOT / "UNC_Exports"
+SOURCE_DIR = PROJECT_ROOT / "local" / "source"  # PATCH: Rerouted to local/ workspace
+EXPORT_ROOT = PROJECT_ROOT / "local" / "exports"  # PATCH: Rerouted to local/ workspace
 STATEWIDE_DIR = EXPORT_ROOT / "_Statewide"
 DELIVERABLE_DIR = PROJECT_ROOT / "Deliverables"
 

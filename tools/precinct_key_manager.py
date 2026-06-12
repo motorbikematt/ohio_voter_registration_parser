@@ -55,8 +55,8 @@ except ImportError as e:
 # ── Paths ─────────────────────────────────────────────────────────────────────
 # Note: Since this script lives in /tools, BASE_DIR points to the project root.
 BASE_DIR = Path(__file__).parent.parent
-OUT_DIR  = BASE_DIR / "source" / "precinct_keys"
-LOG_DIR  = BASE_DIR / "working"
+OUT_DIR  = BASE_DIR / "local" / "source" / "precinct_keys"  # PATCH: Rerouted to local/ workspace
+LOG_DIR  = BASE_DIR / "local" / "working"  # PATCH: Rerouted to local/ workspace
 MASTER_XLSX = BASE_DIR / "precinct_keys_master.xlsx"
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)

@@ -58,13 +58,13 @@ except ImportError:
 BASE_DIR    = Path(__file__).parent
 DOCS_DIR    = BASE_DIR / "docs"
 DATA_DIR    = DOCS_DIR / "data"
-LOGS_DIR    = BASE_DIR / "logs"
-PARQUET_DIR          = BASE_DIR / "source" / "parquet"
-PARQUET_ENRICHED_DIR = BASE_DIR / "source" / "parquet_enriched"
+LOGS_DIR    = BASE_DIR / "local" / "logs"  # PATCH: Rerouted to local/ workspace
+PARQUET_DIR          = BASE_DIR / "local" / "source" / "parquet"  # PATCH: Rerouted to local/ workspace
+PARQUET_ENRICHED_DIR = BASE_DIR / "local" / "source" / "parquet_enriched"  # PATCH: Rerouted to local/ workspace
 PARQUET_ENRICHED_DIR.mkdir(parents=True, exist_ok=True)
 ENRICHED_CACHE       = PARQUET_ENRICHED_DIR / "enriched_voters.parquet"
 CLASSIFIER_SRC       = BASE_DIR / "voter_data_cleaner_v2.py"
-OUTPUT_DIR  = BASE_DIR / "output"
+OUTPUT_DIR  = BASE_DIR / "local" / "output"  # PATCH: Rerouted to local/ workspace
 
 LOGS_DIR.mkdir(exist_ok=True)
 OUTPUT_DIR.mkdir(exist_ok=True)

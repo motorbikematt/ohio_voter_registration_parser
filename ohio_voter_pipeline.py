@@ -27,7 +27,7 @@ from bs4 import BeautifulSoup
 # ── Config ────────────────────────────────────────────────────────────────────
 
 BASE_DIR   = Path(__file__).parent
-SOURCE_DIR = BASE_DIR / "source"
+SOURCE_DIR = BASE_DIR / "local" / "source"  # PATCH: Rerouted to local/ workspace
 TXT_DIR    = SOURCE_DIR / "State Voter Files"
 MANIFEST   = BASE_DIR / "download_manifest.json"
 
@@ -352,7 +352,7 @@ def prompt_next_step(txt_files: list[Path]) -> tuple[str, bool, list[str] | None
     county_numbers is None for full-Ohio runs, a list of strings for targeted runs.
     """
     total_rows_est = sum(f.stat().st_size for f in txt_files) // 140
-    parquet_dir    = BASE_DIR / "source" / "parquet"
+    parquet_dir    = BASE_DIR / "local" / "source" / "parquet"  # PATCH: Rerouted to local/ workspace
     parquet_ready  = parquet_dir.exists() and any(parquet_dir.iterdir())
     cache_label    = "  ✓ Parquet cache ready (fast load)" if parquet_ready else "  ○ No Parquet cache yet (will build on first run)"
 

@@ -62,7 +62,7 @@ uv sync
 
 The Ohio SOS blocks automated downloads with 403/CAPTCHA. Download the four SWVF archives
 manually from the [Ohio SOS voter file page](https://www6.ohiosos.gov/ords/f?p=VOTERFTP:STWD)
-and place them in `source/State Voter Files/`:
+and place them in `local/source/State Voter Files/`:
 
 ```
 SWVF_1_22.txt.gz
@@ -78,7 +78,7 @@ python ohio_voter_pipeline.py
 ```
 
 On first run, select option **[1]** or **[2]**. The pipeline will decompress the source files,
-build a Hive-partitioned Parquet cache (`source/parquet/COUNTY_NUMBER=NN/`), then export
+build a Hive-partitioned Parquet cache (`local/source/parquet/COUNTY_NUMBER=NN/`), then export
 dashboard JSON for all 88 counties. Subsequent runs load from the Parquet cache (~4 seconds
 for all 7.9M rows) instead of re-parsing the raw text files.
 
@@ -102,7 +102,7 @@ python tools/precinct_party_export.py
 ```
 
 Interactive menu: choose county + precinct (single workbook) or whole county. Output lands in
-`UNC_Exports/Workbooks/`. Tabs follow the 8-cohort partisan spectrum (see Cohort Taxonomy below).
+`local/exports/Workbooks/`. Tabs follow the 8-cohort partisan spectrum (see Cohort Taxonomy below).
 
 ### 5. View the dashboard
 
@@ -118,11 +118,11 @@ Precinct drill-down shows per-precinct cohort composition for every precinct in 
 - **Excel workbook** — `ohio_analysis_YYYY-MM-DD.xlsx` (county summary) or `county_NN_analysis_YYYY-MM-DD.xlsx`
   - Sheets: Decade Summary, Participation, District Breakdown, Party Cross-tabs
   - Ohio-wide builds use a County Summary sheet (raw 7.9M rows exceeds Excel's row limit)
-- **Precinct workbook** — `UNC_Exports/Workbooks/{County}_{Precinct}_voters.xlsx` — all voter columns + cohort scoring
-- **Target CSVs** — `UNC_Exports/Pure_D/`, `UNC_Exports/D_Crossover/`, etc. — one file per county per cohort
-- **Parquet cache** — `source/parquet/COUNTY_NUMBER=NN/` — fast reload for subsequent runs
-- **Error log** — `working/errors/invalid_birthyear_<run>.csv` — rows dropped for unparseable birth dates
-- **Run logs** — `logs/voter_analysis_YYYYMMDD_HHMMSS.log`
+- **Precinct workbook** — `local/exports/Workbooks/{County}_{Precinct}_voters.xlsx` — all voter columns + cohort scoring
+- **Target CSVs** — `local/exports/Pure_D/`, `local/exports/D_Crossover/`, etc. — one file per county per cohort
+- **Parquet cache** — `local/source/parquet/COUNTY_NUMBER=NN/` — fast reload for subsequent runs
+- **Error log** — `local/working/errors/invalid_birthyear_<run>.csv` — rows dropped for unparseable birth dates
+- **Run logs** — `local/logs/voter_analysis_YYYYMMDD_HHMMSS.log`
 
 ## Cohort taxonomy
 
@@ -181,7 +181,7 @@ High CONFIRMATION density combined with sparse recent election history is a conc
 
 ## What stays out of git
 
-`source/`, `working/`, `UNC_Exports/`, `*.xlsx`, `*.csv`, `*.txt`, and `logs/` are excluded via `.gitignore`.
+`local/source/`, `local/working/`, `local/exports/`, `*.xlsx`, `*.csv`, `*.txt`, and `local/logs/` are excluded via `.gitignore`.
 Raw SWVF files contain PII and must never be committed. Aggregated dashboard JSON in `docs/data/`
 contains no individual voter records and is safe to publish.
 
@@ -240,7 +240,7 @@ Single-county combined run: web dashboard JSON + Excel workbook. `county_number`
 | `build_city_summary(df)` | County-scoped Polars DataFrame | City / township aggregation using `CITY` column; falls back to precinct-name extraction for blank-CITY counties |
 | `build_county_summary(df)` | County-scoped DataFrame | Active / Confirmation totals and cohort breakdown |
 | `build_precinct_summary(df)` | County-scoped DataFrame | Per-precinct active / confirmation totals |
-| `build_parquet_cache(txt_files)` | SWVF `.txt` paths | Hive-partitioned Parquet at `source/parquet/COUNTY_NUMBER=NN/` |
+| `build_parquet_cache(txt_files)` | SWVF `.txt` paths | Hive-partitioned Parquet at `local/source/parquet/COUNTY_NUMBER=NN/` |
 | `classify_all_voters_primary_history(df)` | Full statewide DataFrame | Adds `cohort_family`, `cohort`, `lean_score`, crossover columns |
 
 ### Targeted post-pipeline utilities

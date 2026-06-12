@@ -8,7 +8,7 @@ log = logging.getLogger(__name__)
 
 # Paths
 BASE_DIR = Path(__file__).parent
-DATA_DIR = BASE_DIR / "source" / "precinct_keys"
+DATA_DIR = BASE_DIR / "local" / "source" / "precinct_keys"  # PATCH: Rerouted to local/ workspace
 
 # Configuration
 EXPECTED_COLS = ["county", "precinct_code", "precinct_label", "name", "sub"]

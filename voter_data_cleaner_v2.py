@@ -91,9 +91,9 @@ import xlsxwriter                    # noqa: F401 — imported for engine availa
 BASE_DIR     = Path(__file__).parent
 DOCS_DIR     = BASE_DIR / "docs"
 DATA_DIR     = DOCS_DIR / "data"
-LOGS_DIR     = BASE_DIR / "logs"
-PARQUET_DIR          = BASE_DIR / "source" / "parquet"
-PARQUET_ENRICHED_DIR = BASE_DIR / "source" / "parquet_enriched"
+LOGS_DIR     = BASE_DIR / "local" / "logs"  # PATCH: Rerouted to local/ workspace
+PARQUET_DIR          = BASE_DIR / "local" / "source" / "parquet"  # PATCH: Rerouted to local/ workspace
+PARQUET_ENRICHED_DIR = BASE_DIR / "local" / "source" / "parquet_enriched"  # PATCH: Rerouted to local/ workspace
 PARQUET_ENRICHED_DIR.mkdir(parents=True, exist_ok=True)
 ENRICHED_CACHE       = PARQUET_ENRICHED_DIR / "enriched_voters.parquet"
 CLASSIFIER_SRC       = Path(__file__)
@@ -591,7 +591,7 @@ def clean_voter_data(df: pl.DataFrame, logger: logging.Logger) -> pl.DataFrame:
         # calls are extremely slow (blocks on disk I/O each iteration) and caused silent
         # process death on full-Ohio 7.9M-row runs.  A single Polars write_csv() is
         # ~1000× faster and produces a file analysts can inspect directly.
-        error_dir = Path(__file__).parent / 'working' / 'errors'
+        error_dir = Path(__file__).parent / 'local' / 'working' / 'errors'  # PATCH: Rerouted to local/ workspace
         error_dir.mkdir(parents=True, exist_ok=True)
         error_file = error_dir / f'invalid_birthyear_{logger.name}.csv'
         invalid_rows.select('SOS_VOTERID', 'DATE_OF_BIRTH', 'BIRTHYEAR').write_csv(error_file)

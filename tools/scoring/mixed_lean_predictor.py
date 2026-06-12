@@ -33,7 +33,7 @@ import polars as pl
 
 # --- CONFIG ---------------------------------------------------------------
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-_MIXED_DIR = _PROJECT_ROOT / "UNC_Exports" / "Mixed"
+_MIXED_DIR = _PROJECT_ROOT / "local" / "exports" / "Mixed"  # PATCH: Rerouted to local/ workspace
 
 INPUT_CSV = Path(os.environ.get(
     "MIXED_INPUT_CSV",

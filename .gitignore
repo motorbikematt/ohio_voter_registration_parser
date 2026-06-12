@@ -14,7 +14,6 @@ env/
 # The source/ directory holds raw and decompressed voter files
 # from the Ohio SOS.  These contain PII, are very large, and
 # are re-downloadable on demand via ohio_voter_pipeline.py.
-source/
 
 # ─── Analysis outputs ─────────────────────────────────────
 # Excel workbooks and CSVs produced by the analysis scripts.
@@ -24,7 +23,6 @@ source/
 !source/precinct_keys/*.csv
 
 # ─── Project Specific Artifacts ───────────────────────────
-working/
 .ipynb_checkpoints/
 *.bat
 *.ps1
@@ -55,17 +53,14 @@ download_manifest.json
 .claude/settings.local.json
 
 # ─── Logs ─────────────────────────────────────────────────
-logs/
 command_history.log
 
 # ─── UNC target list exports (PII — never commit) ─────────
-UNC_Exports/
 
 # ─── Tool-specific local directories ──────────────────────
 .antigravitycli/
 
 # ─── One-shot patch scripts (use patches/ directory, not root) ────
-patches/
 
 # ─── Private agent instructions / internal research ───────
 GEMINI.md
@@ -82,3 +77,4 @@ HGL_Q1Q2_INTERROGATION-answered.md
 RevisedHGLFormAnswers.md
 HGL_PITCH_DECK.md
 HGL_PITCH_DECK_APPSCRIPT.js
+local/

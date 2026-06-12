@@ -10,7 +10,7 @@ This directory contains standalone utilities, maintenance scripts, and specializ
     *   **Scrape Mode:** Extracts "Beginning Precinct" dropdowns from BoE `vtrapp` portals using `curl_cffi` and `BeautifulSoup`.
     *   **Aggregate Mode:** Compiles all county CSVs into a master Excel workbook with formatted headers and frozen panes.
 *   **Menu Options:** 1. Export CSVs only, 2. Workbook only, 3. Both.
-*   **Output:** CSVs in `source/precinct_keys/` and `precinct_keys_master.xlsx` in the root.
+*   **Output:** CSVs in `local/source/precinct_keys/` and `precinct_keys_master.xlsx` in the root.
 
 ## 🧹 Maintenance & Cleaning
 
@@ -22,11 +22,11 @@ This directory contains standalone utilities, maintenance scripts, and specializ
 
 ### `precinct_party_export.py`
 *   **Purpose:** Generates a 7-tab Excel workbook for a specific county or precinct, segmented by partisan cohort.
-*   **Output:** `UNC_Exports/Workbooks/{County}_all_voters.xlsx`.
+*   **Output:** `local/exports/Workbooks/{County}_all_voters.xlsx`.
 
 ### `precinct_unc_export.py`
 *   **Purpose:** Computes and exports D + UNC Lifetime-D voter counts per precinct for all 88 counties.
-*   **Output:** `UNC_Exports/Precinct_Summary/`.
+*   **Output:** `local/exports/Precinct_Summary/`.
 
 ### `export_unc_targets.py`
 *   **Purpose:** A prototype script for emitting filtered target lists for specific partisan cohorts from raw SWVF files.

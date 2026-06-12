@@ -41,7 +41,7 @@ import polars as pl
 # --- CONFIG --------------------------------------------------------------
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 PREDICTOR = PROJECT_ROOT / "tools" / "scoring" / "mixed_lean_predictor.py"
-EXPORT_ROOT = PROJECT_ROOT / "UNC_Exports"
+EXPORT_ROOT = PROJECT_ROOT / "local" / "exports"  # PATCH: Rerouted to local/ workspace
 STATEWIDE_DIR = EXPORT_ROOT / "_Statewide"
 
 # Cohort subdir -> filename suffix used to identify input targets.

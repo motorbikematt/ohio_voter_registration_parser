@@ -16,7 +16,7 @@ def run_global_parquet_search(term: str = None, parquet_dir: str = None):
     script_dir = Path(__file__).parent.resolve()
     project_root = script_dir.parent
     if parquet_dir is None:
-        base_path = project_root / "source" / "parquet"
+        base_path = project_root / "local" / "source" / "parquet"  # PATCH: Rerouted to local/ workspace
     else:
         base_path = Path(parquet_dir).resolve()
 

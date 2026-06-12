@@ -29,9 +29,9 @@ Usage
     python export_unc_targets.py \\
         --county 57 \\
         --county-name montgomery \\
-        --input "source/State Voter Files/SWVF_45_66.txt" \\
-        [--input "source/State Voter Files/SWVF_1_22.txt" ...] \\
-        [--output-dir "UNC_Exports"]
+        --input "local/source/State Voter Files/SWVF_45_66.txt" \\
+        [--input "local/source/State Voter Files/SWVF_1_22.txt" ...] \\
+        [--output-dir "local/exports"]
 
     --county        Zero-padded county number (e.g. 57 for Montgomery).
     --county-name   Slug used in output filenames (e.g. montgomery).
@@ -386,7 +386,7 @@ def main() -> None:
     args   = parse_args()
 
     script_dir = Path(__file__).parent.parent
-    output_dir = Path(args.output_dir) if args.output_dir else script_dir / 'UNC_Exports'
+    output_dir = Path(args.output_dir) if args.output_dir else script_dir / 'local/exports'
 
     txt_files    = [Path(p) for p in args.inputs]
     county_num   = args.county.strip().zfill(2)

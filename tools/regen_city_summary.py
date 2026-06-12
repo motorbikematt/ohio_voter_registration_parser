@@ -20,7 +20,7 @@ import voter_data_cleaner_v2 as _v2
 
 ROOT     = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / 'docs' / 'data'
-PAR_DIR  = ROOT / 'source' / 'parquet'
+PAR_DIR  = ROOT / 'local' / 'source' / 'parquet'  # PATCH: Rerouted to local/ workspace
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 log = logging.getLogger(__name__)
