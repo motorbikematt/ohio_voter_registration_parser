@@ -4,7 +4,7 @@ Project state, phase status, dashboard history, and changelog live in the Cowork
 
 ## State-file archive rule (read first)
 
-Before any Write or Edit that overwrites `CLAUDE.md`, `MEMORY.md`, or any file under the Cowork memory directory (`memory/project_*.md`, `memory/feedback_*.md`, etc.), first run `python tools/archive_state.py <path>` from the project root. The script copies the current version to `docs/archive/{filename}.{YYYY-MM-DDTHHMM}.md` (or `docs/archive/memory/...` for memory files), giving us a timestamped progression of state evolution that git then tracks. Skipping this step loses the prior version irrecoverably for memory files (which live outside the project's git history).
+Before any Write or Edit that overwrites `CLAUDE.md`, `MEMORY.md`, or any file under the Cowork memory directory (`memory/project_*.md`, `memory/feedback_*.md`, etc.), first run `python tools/admin/archive_state.py <path>` from the project root. The script copies the current version to `context/archive/{filename}.{YYYY-MM-DDTHHMM}.md` (or `context/archive/memory/...` for memory files), giving us a timestamped progression of state evolution that git then tracks. Skipping this step loses the prior version irrecoverably for memory files (which live outside the project's git history).
 
 ## File editing protocol
 
@@ -24,7 +24,7 @@ p.write_text(src.replace(old, new), encoding='utf-8')
 
 For payloads >50 lines, use `Path.write_text(content)` from inside a Python invocation — never `cat << 'EOF' >> file`. After every patch validate: Python `python3 -c "import ast; ast.parse(open('path').read())"`, JavaScript `node --check path/to/file.js`.
 
-**Patch script location.** One-shot patch scripts go in `patches/` (gitignored), never at repo root. Check `patches/` at the start of each session and delete any script whose target patch has already been applied.
+**Patch script location.** One-shot patch scripts go in `local/patches/` (gitignored via `local/`), never at repo root. Check `local/patches/` at the start of each session and delete any script whose target patch has already been applied.
 
 ## Processing principles
 
@@ -32,13 +32,13 @@ For payloads >50 lines, use `Path.write_text(content)` from inside a Python invo
 - **Parquet** (partitioned by county) for intermediate layers; **GeoParquet** for spatial.
 - **Excel only for final aggregated stakeholder outputs** via `xlsxwriter`/`openpyxl`. Never load raw files into Excel.
 - **Provenance preserved** in parquet metadata or sidecar JSON: BoE timestamps, original headers, source URLs.
-- **Zero-trust security**: never commit raw PII. `.gitignore` covers `./working/` and `./source/`.
-- **Error policy**: log malformed rows to `./working/errors/[county].log` and continue. Never halt on parse error.
+- **Zero-trust security**: never commit raw PII. `.gitignore` covers `local/` entirely (source files, working dirs, exports, logs, patches).
+- **Error policy**: log malformed rows to `local/working/errors/[county].log` and continue. Never halt on parse error.
 - **No try/except as control flow** — sole operator, loud failures preferred over silent degradation.
 
 ## File locations
 
-Raw input in `source/`. Working output and dashboard JSON in `./` and `./docs/data/`. Core engine scripts at root; utilities and exporters in `tools/`; scoring module in `tools/scoring/`.
+Raw input in `local/source/`. Working output in `local/working/`; exports in `local/exports/`. Dashboard JSON in `docs/data/`. Core engine scripts in `pipeline/`; exporters in `tools/export/`; lookup utilities in `tools/lookup/`; maintenance operators in `tools/admin/`; narrative generation in `tools/narrative/`; scoring module in `tools/scoring/`. AI context (archives, journal, memory, research) in `context/`.
 
 ## Schema reference — SWVF source
 
@@ -63,7 +63,7 @@ Source: 4 split flat files (`SWVF_1_22.txt`, `SWVF_23_44.txt`, `SWVF_45_66.txt`,
 
 ## Pipeline architecture (why the code looks the way it does)
 
-`ThreadPoolExecutor` with `max_workers=8`, not multiprocessing — shared address space, no IPC, no WinError 1450. `orjson` for JSON (GIL-releasing, ~3–5× stdlib; falls back to stdlib if missing). `psutil` RSS logging in every `_timer` exit. Pre-classification (`classify_all_voters_primary_history()`) runs once in main process; workers receive enriched slices with `cohort_family` attached. Enriched-parquet cache at `source/parquet_enriched/enriched_voters.parquet` skips redundant cleaning; freshness check compares cache mtime against `max(latest_raw_partition_mtime, classifier_src_mtime)`. Atomic write via `.parquet.tmp` → `.replace()`. Install: `.venv\Scripts\pip install orjson psutil`.
+`ThreadPoolExecutor` with `max_workers=8`, not multiprocessing — shared address space, no IPC, no WinError 1450. `orjson` for JSON (GIL-releasing, ~3–5× stdlib; falls back to stdlib if missing). `psutil` RSS logging in every `_timer` exit. Pre-classification (`classify_all_voters_primary_history()`) runs once in main process; workers receive enriched slices with `cohort_family` attached. Enriched-parquet cache at `local/source/parquet_enriched/enriched_voters.parquet` skips redundant cleaning; freshness check compares cache mtime against `max(latest_raw_partition_mtime, classifier_src_mtime)`. Atomic write via `.parquet.tmp` → `.replace()`. Install: `.venv\Scripts\pip install orjson psutil`.
 
 ## Git push rule — MCP vs manual
 

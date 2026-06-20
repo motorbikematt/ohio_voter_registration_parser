@@ -27,7 +27,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 ARCHIVE_ROOT = PROJECT_ROOT / "context" / "archive"  # PATCH: Rerouted to context/ umbrella
 
 
