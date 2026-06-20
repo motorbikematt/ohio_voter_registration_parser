@@ -1,0 +1,58 @@
+<!doctype html>
+<!--
+  /captain/ landing — chooser between the mobile and desktop captain views.
+  Standalone prototype, intentionally not linked from the main dashboard
+  (security by obscurity until the authenticated backend is hosted).
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Precinct Captain — Choose view</title>
+  <style>
+    body { font:15px/1.5 system-ui,-apple-system,sans-serif; margin:0; background:#f3f4f6; color:#1a1a1a; }
+    .wrap { max-width:560px; margin:0 auto; padding:40px 20px; }
+    h1 { font-size:24px; margin:0 0 6px; }
+    .sub { color:#666; margin-bottom:28px; }
+    .demo-note { background:#fef3c7; border:1px solid #fcd34d; color:#78350f;
+                 padding:10px 14px; border-radius:10px; margin-bottom:24px; font-size:13px; line-height:1.45; }
+    .demo-note strong { display:block; margin-bottom:2px; }
+    .choices { display:grid; gap:14px; }
+    a.choice { display:block; background:#fff; border:1px solid #e3e3e3; border-radius:12px;
+               padding:18px 20px; text-decoration:none; color:inherit; transition:border-color .15s; }
+    a.choice:hover { border-color:#4338ca; }
+    .choice h2 { font-size:17px; margin:0 0 4px; }
+    .choice p { font-size:13px; color:#666; margin:0; }
+    .rec { font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+           background:#4338ca; color:#fff; padding:2px 8px; border-radius:10px; margin-left:8px; vertical-align:middle; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Precinct Captain — preview</h1>
+    <div class="sub">A look at the captain experience for the Doorstep Democracy roster tool.</div>
+
+    <div class="demo-note">
+      <strong>Demo mode — sample data only</strong>
+      Real voter rosters require an authenticated backend, which is not yet hosted.
+      These pages show what the interface will look like once it is. No PII is served here.
+    </div>
+
+    <div class="choices">
+      <a class="choice" id="mobile" href="mobile.html">
+        <h2>Mobile view <span class="rec" id="mobile-rec" style="display:none">Recommended</span></h2>
+        <p>One voter per tap. Optimized for use at the door — verify a name, see jurisdictions, move on.</p>
+      </a>
+      <a class="choice" id="desktop" href="desktop.html">
+        <h2>Desktop view <span class="rec" id="desktop-rec" style="display:none">Recommended</span></h2>
+        <p>Full sortable table. Best for triage and walk-list planning. Includes CSV / XLSX / Print.</p>
+      </a>
+    </div>
+  </div>
+  <script>
+    // Recommend the view that matches the device, but never force it.
+    const isNarrow = matchMedia("(max-width: 880px)").matches;
+    document.getElementById(isNarrow ? "mobile-rec" : "desktop-rec").style.display = "";
+  </script>
+</body>
+</html>

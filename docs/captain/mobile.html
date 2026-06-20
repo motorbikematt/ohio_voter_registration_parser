@@ -1,0 +1,349 @@
+<!doctype html>
+<!--
+  PRECINCT CAPTAIN PROTOTYPE — lives in local/ (gitignored), NEVER committed.
+  Mirrors the real captain experience: their precinct is fixed (comes from auth),
+  they see their precinct's cohort bar chart, and ONE TAP on a bar generates the
+  roster for that cohort. No level menu, no precinct codes, no county lookup.
+
+  Run roster_api.py on localhost:8000, then open this file directly in a browser.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Precinct — Captain View (prototype)</title>
+  <style>
+    :root { --ink:#1a1a1a; --muted:#666; --rule:#e3e3e3; --surface:#fff; --bg:#f7f7f8; }
+    * { box-sizing: border-box; }
+    body { font: 15px/1.5 system-ui, -apple-system, sans-serif; margin:0; background:var(--bg); color:var(--ink); }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 64px; }
+
+    /* Captain identity bar — in production this comes from their login, not a control */
+    .who { display:flex; align-items:center; gap:10px; margin-bottom:4px; }
+    .who .eyebrow { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    h1 { font-size:26px; margin:2px 0 2px; }
+    .sub { color:var(--muted); margin-bottom:18px; font-size:14px; }
+
+    .card { background:var(--surface); border:1px solid var(--rule); border-radius:14px; padding:18px; margin-bottom:16px; }
+    .card h2 { font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 4px; font-weight:600; }
+    .hint { color:var(--muted); font-size:13px; margin:0 0 14px; }
+
+    /* Bar chart: each row is a tappable cohort. The bar IS the button. */
+    .bars { display:flex; flex-direction:column; gap:9px; }
+    .bar-row { display:grid; grid-template-columns: 150px 1fr 54px; align-items:center; gap:10px;
+               cursor:pointer; border:none; background:none; padding:6px 8px; border-radius:10px; text-align:left;
+               font:inherit; color:inherit; transition:background .12s; }
+    .bar-row:hover, .bar-row:focus-visible { background:#f0f1f3; outline:none; }
+    .bar-row.active { background:#eef2ff; box-shadow: inset 0 0 0 2px #c7d2fe; }
+    .bar-label { font-weight:600; font-size:14px; }
+    .bar-track { background:#eee; border-radius:6px; height:26px; overflow:hidden; }
+    .bar-fill { height:100%; border-radius:6px; min-width:3px; transition:width .3s; }
+    .bar-count { text-align:right; font-variant-numeric:tabular-nums; font-weight:600; }
+    .total-line { margin-top:12px; padding-top:12px; border-top:1px solid var(--rule); color:var(--muted); font-size:13px; }
+
+    /* Roster output */
+    #report { display:none; }
+    .report-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:6px; }
+    .chip { display:inline-block; padding:3px 10px; border-radius:20px; font-size:13px; color:#fff; font-weight:600; }
+    .report-count { color:var(--muted); font-size:14px; }
+    table { border-collapse:collapse; width:100%; margin-top:10px; font-size:13px; }
+    th,td { border-bottom:1px solid var(--rule); padding:7px 8px; text-align:left; vertical-align:top; }
+    th { color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.04em; }
+    td .addr { color:var(--muted); font-size:12px; }
+    .voted { font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .loading { color:var(--muted); padding:14px 0; }
+
+    /* Accordion roster: each voter is a data row + a hidden detail row. */
+    .roster .vrow { cursor:pointer; }
+    .roster .vrow:hover { background:#f6f7f9; }
+    .roster .vrow.open { background:#eef2ff; }
+    .roster .twirl-cell { width:24px; padding-right:0; }
+    .roster .twirl { display:inline-block; transition:transform .2s; color:var(--muted); font-size:11px; }
+    .roster .vrow.open .twirl { transform:rotate(90deg); }
+
+    /* Detail row: the cell holds a grid that animates 0fr -> 1fr (slide open),
+       which pushes every row below it down naturally as the table reflows. */
+    .roster .drow > td { padding:0; border-bottom:1px solid var(--rule); }
+    .roster .juris-slide { display:grid; grid-template-rows:0fr; transition:grid-template-rows .22s ease; }
+    .roster .drow.open .juris-slide { grid-template-rows:1fr; }
+    .roster .juris-inner { overflow:hidden; }
+    .roster .drow.open .juris-inner { padding:10px 12px 14px 32px; background:#fafbff; }
+    .juris-title { font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:8px; }
+    .juris-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:8px 18px; }
+    .juris-item { display:flex; flex-direction:column; gap:1px; }
+    .juris-k { font-size:11px; color:var(--muted); }
+    .juris-v { font-size:13px; font-weight:600; }
+    .juris-empty { color:var(--muted); font-size:13px; }
+
+    /* Hidden plumbing — token only; precinct is fixed in code (=auth identity) */
+    .plumbing { margin-top:28px; font-size:12px; color:#aaa; }
+    .plumbing input { font:12px monospace; padding:3px 6px; }
+
+    /* Demo-mode banner: shown only when no backend is reachable. The page is
+       still interactive but uses synthetic data so the captain can SEE the UX
+       before the gated backend exists. */
+    .demo-banner { background:#fef3c7; border:1px solid #fcd34d; color:#78350f;
+                   padding:10px 14px; border-radius:10px; margin-bottom:14px; font-size:13px; line-height:1.45; }
+    .demo-banner strong { display:block; margin-bottom:2px; }
+    .demo-banner a { color:#78350f; }
+
+    /* Map view placeholder — flagged for future build (KML/GeoJSON walking
+       routes). Visible button so the captain knows it's coming. */
+    .map-btn { margin-top:14px; display:flex; align-items:center; gap:10px;
+               background:#f3f4f6; border:1px dashed #cbd5e1; color:#475569;
+               padding:12px 14px; border-radius:10px; font:inherit; font-size:13px;
+               cursor:not-allowed; width:100%; text-align:left; }
+    .map-btn .pin { font-size:18px; }
+    .map-btn .soon { margin-left:auto; font-size:11px; text-transform:uppercase;
+                     letter-spacing:.06em; background:#fff; padding:2px 8px; border-radius:10px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="demo-banner" id="demo-banner" style="display:none">
+      <strong>Demo mode — sample data only</strong>
+      Real voter rosters require the authenticated backend, which is not yet hosted.
+      This page shows what the captain experience will look like once it is.
+    </div>
+
+    <div class="who">
+      <span class="eyebrow">Precinct Captain · Montgomery County</span>
+    </div>
+    <h1 id="precinct-name">Kettering 1-A</h1>
+    <div class="sub">Your precinct at a glance. Tap any group below to see who they are.</div>
+
+    <div class="card">
+      <h2>Voters by group</h2>
+      <p class="hint">Each bar is the number of voters in your precinct who fit that pattern. Tap one to get the list.</p>
+      <div class="bars" id="bars"><div class="loading">Loading your precinct…</div></div>
+      <div class="total-line" id="total-line"></div>
+    </div>
+
+    <div class="card" id="report">
+      <div class="report-head">
+        <span class="chip" id="report-chip"></span>
+        <span class="report-count" id="report-count"></span>
+      </div>
+      <div id="report-body"></div>
+      <button class="map-btn" disabled title="Walk-list maps are planned — KML/GeoJSON routing by street order so a canvasser walks a sensible path, not an alphabetical one.">
+        <span class="pin">📍</span>
+        <span>Open this list on a walking map</span>
+        <span class="soon">Coming soon</span>
+      </button>
+    </div>
+
+    <!-- Production: precinct + token both come from the captain's authenticated session.
+         For the prototype, precinct is hardcoded below and token is a dev field. -->
+    <div class="plumbing">
+      dev token: <input id="token" placeholder="ROSTER_TOKEN" size="16" oninput="loadSummary()" />
+      <span id="conn"></span>
+    </div>
+  </div>
+
+  <script>
+    // ── Session context (in production, set from auth, not literals) ──────────
+    // When the page is served BY the API (http://127.0.0.1:8000/), use a relative
+    // base so fetches are same-origin. file:// opens fall back to absolute localhost.
+    // On the public deploy (GitHub Pages), no backend exists and demo data is used.
+    const API = location.protocol === "file:" ? "http://127.0.0.1:8000" : "";
+    const SESSION = { precinct: "KETTERING 1-A", county: "57", precinctDisplay: "Kettering 1-A" };
+
+    const tokenEl = () => document.getElementById("token").value.trim();
+    const authHeaders = () => { const t = tokenEl(); return t ? { Authorization: "Bearer " + t } : {}; };
+
+    let DEMO_MODE = false;   // flipped true if backend is unreachable
+    let activeCohort = null;
+
+    // Synthetic demo data — used only when no live backend is reachable. The
+    // cohort proportions mirror Kettering 1-A's real shape (derivable from the
+    // public aggregate dashboard) but the names below are fabricated.
+    const DEMO_BARS = [
+      { cohort:"PURE_R",         label:"Solid Republican",   color:"#ef4444", count:57 },
+      { cohort:"UNC_LAPSED_R",   label:"Lapsed Republican",  color:"#fca5a5", count:91 },
+      { cohort:"MIXED_ACTIVE",   label:"Mixed – Active",     color:"#f59e0b", count:49 },
+      { cohort:"MIXED_LAPSED",   label:"Mixed – Lapsed",     color:"#a78bfa", count:49 },
+      { cohort:"UNC_NO_PRIMARY", label:"No Primary History", color:"#9ca3af", count:478 },
+      { cohort:"UNC_LAPSED_D",   label:"Lapsed Democrat",    color:"#93c5fd", count:133 },
+      { cohort:"PURE_D",         label:"Solid Democrat",     color:"#3b82f6", count:74 },
+    ];
+    const DEMO_SAMPLE_NAMES = [
+      ["SAMPLE","ALEX"],["SAMPLE","BLAIR"],["SAMPLE","CASEY"],["SAMPLE","DAKOTA"],
+      ["SAMPLE","ELLIS"],["SAMPLE","FINLEY"],["SAMPLE","HARPER"],["SAMPLE","JORDAN"],
+    ];
+    const DEMO_STREETS = ["BROADMOOR DR","YORKSHIRE PL","MONTERAY AVE","RIDGEWOOD AVE","DAVID RD"];
+    function demoRoster(bar) {
+      const n = Math.min(bar.count, 12);
+      const rows = [];
+      for (let i = 0; i < n; i++) {
+        const nm = DEMO_SAMPLE_NAMES[i % DEMO_SAMPLE_NAMES.length];
+        rows.push({
+          first: nm[1], last: nm[0] + " " + String.fromCharCode(65 + i),
+          address: (1000 + i * 47) + " " + DEMO_STREETS[i % DEMO_STREETS.length],
+          city: "KETTERING CITY", zip: "45419",
+          last_primary: "2024-03-19", last_general: "2024-11-05",
+          cohort: bar.cohort,
+          jurisdictions: {
+            precinct_name:"KETTERING 1-A", ward:"KETTERING WARD 1",
+            congressional_district:"10", state_senate_district:"06",
+            state_representative_district:"36",
+          },
+        });
+      }
+      return { total: bar.count, rows, returned: rows.length };
+    }
+
+    function showDemoBanner() {
+      DEMO_MODE = true;
+      document.getElementById("demo-banner").style.display = "";
+      const plumbing = document.querySelector(".plumbing");
+      if (plumbing) plumbing.style.display = "none";
+    }
+
+    async function loadSummary() {
+      const p = new URLSearchParams({ precinct: SESSION.precinct, county: SESSION.county });
+      try {
+        const res = await fetch(API + "/precinct-summary?" + p, { headers: authHeaders() });
+        if (!res.ok) throw new Error("backend " + res.status);
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        const conn = document.getElementById("conn");
+        if (conn) conn.textContent = "· connected";
+        renderBars(data);
+      } catch (e) {
+        // No backend reachable → demo mode with synthetic data. The UI still
+        // works so a captain visiting the public URL can see what's coming.
+        showDemoBanner();
+        renderBars({ bars: DEMO_BARS, total: 931, generated: "demo" });
+      }
+    }
+
+    function renderBars(data) {
+      const max = Math.max(1, ...data.bars.map(b => b.count));
+      const bars = document.getElementById("bars");
+      bars.innerHTML = "";
+      data.bars.forEach(b => {
+        const row = document.createElement("button");
+        row.className = "bar-row";
+        row.setAttribute("aria-label", `${b.label}: ${b.count} voters — tap for list`);
+        row.innerHTML =
+          `<span class="bar-label">${b.label}</span>` +
+          `<span class="bar-track"><span class="bar-fill" style="width:${(b.count/max*100).toFixed(1)}%;background:${b.color}"></span></span>` +
+          `<span class="bar-count">${b.count}</span>`;
+        row.onclick = () => selectCohort(b, row);
+        bars.appendChild(row);
+      });
+      document.getElementById("total-line").textContent =
+        `${data.total.toLocaleString()} registered voters total · updated ${data.generated}`;
+    }
+
+    async function selectCohort(bar, rowEl) {
+      activeCohort = bar.cohort;
+      document.querySelectorAll(".bar-row").forEach(r => r.classList.remove("active"));
+      rowEl.classList.add("active");
+
+      const report = document.getElementById("report");
+      report.style.display = "block";
+      document.getElementById("report-chip").textContent = bar.label;
+      document.getElementById("report-chip").style.background = bar.color;
+      document.getElementById("report-count").textContent = "loading…";
+      document.getElementById("report-body").innerHTML = '<div class="loading">Building list…</div>';
+      report.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      if (DEMO_MODE) {
+        // Synthetic rows — make the demo feel real without ever surfacing PII.
+        renderReport(bar, demoRoster(bar));
+        return;
+      }
+      const p = new URLSearchParams({
+        level: "precinct", id: SESSION.precinct, county: SESSION.county,
+        cohort: bar.cohort, limit: "1000",
+      });
+      try {
+        const res = await fetch(API + "/roster?" + p, { headers: authHeaders() });
+        const data = await res.json();
+        if (data.error) { document.getElementById("report-count").textContent = data.error; return; }
+        renderReport(bar, data);
+      } catch (e) {
+        document.getElementById("report-count").textContent = "fetch failed";
+      }
+    }
+
+    // Human labels for the jurisdiction keys the API returns. Order = display order.
+    const JURIS_LABELS = [
+      ["ward", "Ward"],
+      ["township", "Township"],
+      ["village", "Village"],
+      ["congressional_district", "U.S. Congress"],
+      ["state_senate_district", "State Senate"],
+      ["state_representative_district", "State House"],
+      ["local_school_district", "School District"],
+    ];
+
+    function jurisdictionRows(j) {
+      // Build the inner detail content; skip jurisdictions that don't apply
+      // (empty string) so the captain only sees what's relevant to that address.
+      const items = JURIS_LABELS
+        .filter(([k]) => j && j[k])
+        .map(([k, label]) =>
+          `<div class="juris-item"><span class="juris-k">${label}</span><span class="juris-v">${j[k]}</span></div>`);
+      if (!items.length) return '<div class="juris-empty">No additional jurisdictions on file.</div>';
+      return `<div class="juris-grid">${items.join("")}</div>`;
+    }
+
+    function renderReport(bar, data) {
+      document.getElementById("report-count").textContent =
+        `${data.total.toLocaleString()} voters in ${SESSION.precinctDisplay}`;
+      if (!data.rows.length) {
+        document.getElementById("report-body").innerHTML = '<div class="loading">No voters in this group.</div>';
+        return;
+      }
+      let html = '<table class="roster"><thead><tr>' +
+        '<th></th><th>Name</th><th>Address</th><th>Last primary</th><th>Last general</th></tr></thead><tbody>';
+      data.rows.forEach((r, i) => {
+        const name = [r.last, r.first].filter(Boolean).join(", ");
+        const addr = [r.address, [r.city, r.zip].filter(Boolean).join(" ")].filter(Boolean).join(" · ");
+        // Data row: clickable. Twirl in col 1 indicates it expands.
+        html += `<tr class="vrow" data-row="${i}">` +
+          `<td class="twirl-cell"><span class="twirl">▸</span></td>` +
+          `<td><strong>${name}</strong></td>` +
+          `<td><span class="addr">${addr}</span></td>` +
+          `<td class="voted">${r.last_primary ?? "—"}</td>` +
+          `<td class="voted">${r.last_general ?? "—"}</td></tr>`;
+        // Detail row: hidden until its data row is tapped. colspan spans full width.
+        html += `<tr class="drow" data-detail="${i}"><td colspan="5">` +
+          `<div class="juris-slide"><div class="juris-inner">` +
+          `<div class="juris-title">Jurisdictions for this address</div>` +
+          jurisdictionRows(r.jurisdictions) +
+          `</div></div></td></tr>`;
+      });
+      html += "</tbody></table>";
+      const body = document.getElementById("report-body");
+      body.innerHTML = html;
+      wireAccordion(body);
+    }
+
+    function wireAccordion(body) {
+      let openIdx = null;
+      body.querySelectorAll(".vrow").forEach(row => {
+        row.onclick = () => {
+          const idx = row.getAttribute("data-row");
+          const detail = body.querySelector(`.drow[data-detail="${idx}"]`);
+          const isOpen = row.classList.contains("open");
+          // Close any currently-open row (only one at a time).
+          if (openIdx !== null && openIdx !== idx) {
+            body.querySelector(`.vrow[data-row="${openIdx}"]`)?.classList.remove("open");
+            body.querySelector(`.drow[data-detail="${openIdx}"]`)?.classList.remove("open");
+          }
+          // Toggle the tapped row.
+          row.classList.toggle("open", !isOpen);
+          detail.classList.toggle("open", !isOpen);
+          openIdx = isOpen ? null : idx;
+        };
+      });
+    }
+
+    loadSummary();
+  </script>
+</body>
+</html>

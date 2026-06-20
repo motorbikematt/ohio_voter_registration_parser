@@ -1,0 +1,253 @@
+<!doctype html>
+<!--
+  PRECINCT CAPTAIN PROTOTYPE — DESKTOP/PC VIEW. local/ (gitignored), NEVER committed.
+  Same data + same API as the mobile view (preview.html), different presentation:
+  PC is the "manage the list" surface — a dense table with every jurisdiction
+  inline (no accordion; there's room) and CSV/XLSX export for printing walk-lists.
+  Served by the API at http://127.0.0.1:8000/pc so downloads are same-origin.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Precinct — Captain View (Desktop)</title>
+  <style>
+    :root { --ink:#1a1a1a; --muted:#666; --rule:#e3e3e3; --surface:#fff; --bg:#f3f4f6; --accent:#4338ca; }
+    * { box-sizing:border-box; }
+    body { font:14px/1.45 system-ui,-apple-system,sans-serif; margin:0; background:var(--bg); color:var(--ink); }
+    .wrap { max-width:1240px; margin:0 auto; padding:22px 24px 80px; }
+    .eyebrow { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    h1 { font-size:24px; margin:2px 0 14px; }
+
+    /* Two-column desktop layout: cohort chart left, roster right. */
+    .grid { display:grid; grid-template-columns:300px 1fr; gap:20px; align-items:start; }
+    .card { background:var(--surface); border:1px solid var(--rule); border-radius:12px; padding:16px; }
+    .card h2 { font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 4px; font-weight:600; }
+    .hint { color:var(--muted); font-size:12px; margin:0 0 12px; }
+
+    .bars { display:flex; flex-direction:column; gap:7px; }
+    .bar-row { display:grid; grid-template-columns:1fr 44px; align-items:center; gap:8px; cursor:pointer;
+               border:none; background:none; padding:7px 8px; border-radius:8px; text-align:left; font:inherit; color:inherit; }
+    .bar-row:hover { background:#f0f1f3; }
+    .bar-row.active { background:#eef2ff; box-shadow:inset 0 0 0 2px #c7d2fe; }
+    .bar-label { font-size:13px; font-weight:600; margin-bottom:4px; }
+    .bar-track { background:#eee; border-radius:5px; height:9px; overflow:hidden; }
+    .bar-fill { height:100%; border-radius:5px; min-width:3px; }
+    .bar-count { text-align:right; font-variant-numeric:tabular-nums; font-weight:600; }
+    .total-line { margin-top:10px; padding-top:10px; border-top:1px solid var(--rule); color:var(--muted); font-size:12px; }
+
+    /* Roster pane */
+    .roster-head { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+    .chip { display:inline-block; padding:3px 11px; border-radius:20px; font-size:13px; color:#fff; font-weight:600; }
+    .roster-count { color:var(--muted); font-size:13px; }
+    .spacer { flex:1; }
+    .btn { border:1px solid var(--rule); background:var(--surface); border-radius:8px; padding:7px 12px;
+           font:inherit; font-size:13px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; }
+    .btn:hover { border-color:#bbb; background:#fafafa; }
+    .btn[disabled] { opacity:.4; cursor:not-allowed; }
+    .btn.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .btn.primary:hover { background:#3730a3; }
+
+    .tbl-scroll { overflow-x:auto; border:1px solid var(--rule); border-radius:10px; }
+    table { border-collapse:collapse; width:100%; font-size:12.5px; }
+    th,td { border-bottom:1px solid var(--rule); padding:6px 9px; text-align:left; white-space:nowrap; }
+    thead th { position:sticky; top:0; background:#f8f8fb; color:var(--muted); font-size:10.5px;
+               text-transform:uppercase; letter-spacing:.04em; z-index:1; }
+    tbody tr:hover { background:#f6f7f9; }
+    td.num { font-variant-numeric:tabular-nums; }
+    .placeholder { color:var(--muted); padding:40px; text-align:center; }
+    .juris { color:#444; }
+
+    /* Demo-mode banner: shown only when no backend is reachable. */
+    .demo-banner { background:#fef3c7; border:1px solid #fcd34d; color:#78350f;
+                   padding:10px 14px; border-radius:10px; margin-bottom:14px; font-size:13px; }
+    .demo-banner strong { display:block; margin-bottom:2px; }
+
+    /* Map view placeholder — future KML/GeoJSON walk-list. */
+    .btn.map { background:#f3f4f6; border:1px dashed #cbd5e1; color:#475569; cursor:not-allowed; }
+    .btn.map:hover { background:#f3f4f6; border-color:#cbd5e1; }
+    .btn .soon { font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+                 background:#fff; padding:1px 6px; border-radius:8px; margin-left:4px; }
+
+    @media print {
+      .grid { display:block; } .card:first-child, .roster-head .btn, .total-line, .hint { display:none; }
+      .tbl-scroll { border:none; } thead th { position:static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="demo-banner" id="demo-banner" style="display:none">
+      <strong>Demo mode — sample data only</strong>
+      Real voter rosters require the authenticated backend, which is not yet hosted.
+      This page shows what the captain experience will look like once it is.
+    </div>
+
+    <div class="eyebrow">Precinct Captain · Montgomery County · Desktop</div>
+    <h1 id="precinct-name">Kettering 1-A</h1>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Voters by group</h2>
+        <p class="hint">Click a group to load its list. Then export or print.</p>
+        <div class="bars" id="bars"><div class="placeholder">Loading…</div></div>
+        <div class="total-line" id="total-line"></div>
+      </div>
+
+      <div class="card">
+        <div class="roster-head">
+          <span class="chip" id="chip" style="display:none"></span>
+          <span class="roster-count" id="count"></span>
+          <span class="spacer"></span>
+          <button class="btn map" disabled title="Walk-list maps are planned — KML/GeoJSON routing by street order so a canvasser walks a sensible path, not an alphabetical one.">📍 Map view <span class="soon">soon</span></button>
+          <button class="btn" id="btn-csv" disabled onclick="doExport('csv')">⬇ CSV</button>
+          <button class="btn primary" id="btn-xlsx" disabled onclick="doExport('xlsx')">⬇ Excel (XLSX)</button>
+          <button class="btn" id="btn-print" disabled onclick="window.print()">🖨 Print</button>
+        </div>
+        <div class="tbl-scroll">
+          <div id="body"><div class="placeholder">Pick a group on the left to see voters.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = location.protocol === "file:" ? "http://127.0.0.1:8000" : "";
+    const SESSION = { precinct:"KETTERING 1-A", county:"57", precinctDisplay:"Kettering 1-A" };
+    const headers = {};               // token omitted: localhost-open prototype
+    let DEMO_MODE = false;
+    let active = null;                // {cohort,label,color}
+
+    // Synthetic demo data — used when no live backend is reachable (public deploy).
+    // Cohort shape mirrors Kettering 1-A's real proportions (derivable from the
+    // public aggregate dashboard); the names below are fabricated.
+    const DEMO_BARS = [
+      { cohort:"PURE_R",         label:"Solid Republican",   color:"#ef4444", count:57 },
+      { cohort:"UNC_LAPSED_R",   label:"Lapsed Republican",  color:"#fca5a5", count:91 },
+      { cohort:"MIXED_ACTIVE",   label:"Mixed – Active",     color:"#f59e0b", count:49 },
+      { cohort:"MIXED_LAPSED",   label:"Mixed – Lapsed",     color:"#a78bfa", count:49 },
+      { cohort:"UNC_NO_PRIMARY", label:"No Primary History", color:"#9ca3af", count:478 },
+      { cohort:"UNC_LAPSED_D",   label:"Lapsed Democrat",    color:"#93c5fd", count:133 },
+      { cohort:"PURE_D",         label:"Solid Democrat",     color:"#3b82f6", count:74 },
+    ];
+    const DEMO_STREETS = ["BROADMOOR DR","YORKSHIRE PL","MONTERAY AVE","RIDGEWOOD AVE","DAVID RD"];
+    function demoRoster(bar) {
+      const n = Math.min(bar.count, 14);
+      const rows = [];
+      for (let i = 0; i < n; i++) {
+        rows.push({
+          first: "ALEX", last: "SAMPLE " + String.fromCharCode(65 + i),
+          address: (1000 + i * 47) + " " + DEMO_STREETS[i % DEMO_STREETS.length],
+          city: "KETTERING CITY", zip: "45419",
+          last_primary: "2024-03-19", last_general: "2024-11-05",
+          cohort: bar.cohort,
+          jurisdictions: {
+            precinct_name:"KETTERING 1-A", ward:"KETTERING WARD 1",
+            congressional_district:"10", state_senate_district:"06",
+            state_representative_district:"36",
+          },
+        });
+      }
+      return { total: bar.count, rows };
+    }
+    function showDemoBanner() {
+      DEMO_MODE = true;
+      document.getElementById("demo-banner").style.display = "";
+    }
+
+    async function loadSummary() {
+      const p = new URLSearchParams({ precinct:SESSION.precinct, county:SESSION.county });
+      try {
+        const res = await fetch(API + "/precinct-summary?" + p, { headers });
+        if (!res.ok) throw new Error("backend " + res.status);
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        renderBars(data);
+      } catch (e) {
+        showDemoBanner();
+        renderBars({ bars: DEMO_BARS, total: 931, generated: "demo" });
+      }
+    }
+
+    function renderBars(data) {
+      const max = Math.max(1, ...data.bars.map(b => b.count));
+      const bars = document.getElementById("bars");
+      bars.innerHTML = "";
+      data.bars.forEach(b => {
+        const row = document.createElement("button");
+        row.className = "bar-row";
+        row.innerHTML =
+          `<div><div class="bar-label">${b.label}</div>` +
+          `<div class="bar-track"><div class="bar-fill" style="width:${(b.count/max*100).toFixed(1)}%;background:${b.color}"></div></div></div>` +
+          `<div class="bar-count">${b.count}</div>`;
+        row.onclick = () => selectCohort(b, row);
+        bars.appendChild(row);
+      });
+      document.getElementById("total-line").textContent =
+        `${data.total.toLocaleString()} registered voters · updated ${data.generated}`;
+    }
+
+    async function selectCohort(bar, rowEl) {
+      active = bar;
+      document.querySelectorAll(".bar-row").forEach(r => r.classList.remove("active"));
+      rowEl.classList.add("active");
+      const chip = document.getElementById("chip");
+      chip.style.display = ""; chip.textContent = bar.label; chip.style.background = bar.color;
+      document.getElementById("count").textContent = "loading…";
+      document.getElementById("body").innerHTML = '<div class="placeholder">Building list…</div>';
+      ["btn-csv","btn-xlsx","btn-print"].forEach(id => document.getElementById(id).disabled = true);
+
+      if (DEMO_MODE) {
+        renderTable(demoRoster(bar));
+        // Print works in demo (just prints the sample table). Exports require
+        // the backend — keep those disabled and tooltip them.
+        document.getElementById("btn-print").disabled = false;
+        const csv = document.getElementById("btn-csv");
+        const xlsx = document.getElementById("btn-xlsx");
+        csv.title = xlsx.title = "Export requires the authenticated backend (coming soon)";
+        return;
+      }
+
+      const p = new URLSearchParams({ level:"precinct", id:SESSION.precinct, county:SESSION.county, cohort:bar.cohort, limit:"1000" });
+      try {
+        const data = await (await fetch(API + "/roster?" + p, { headers })).json();
+        if (data.error) { document.getElementById("count").textContent = data.error; return; }
+        renderTable(data);
+        ["btn-csv","btn-xlsx","btn-print"].forEach(id => document.getElementById(id).disabled = false);
+      } catch (e) { document.getElementById("count").textContent = "fetch failed"; }
+    }
+
+    function renderTable(data) {
+      document.getElementById("count").textContent = `${data.total.toLocaleString()} voters in ${SESSION.precinctDisplay}`;
+      if (!data.rows.length) { document.getElementById("body").innerHTML = '<div class="placeholder">No voters in this group.</div>'; return; }
+      const cols = [
+        ["Last","last"],["First","first"],["Address","address"],["City","city"],["ZIP","zip"],
+        ["Last Primary","last_primary"],["Last General","last_general"],
+      ];
+      const jcols = [["Precinct","precinct_name"],["Ward","ward"],["U.S. Congress","congressional_district"],
+                     ["State Senate","state_senate_district"],["State House","state_representative_district"]];
+      let h = "<table><thead><tr>" +
+        cols.map(c => `<th>${c[0]}</th>`).join("") +
+        jcols.map(c => `<th>${c[0]}</th>`).join("") + "</tr></thead><tbody>";
+      for (const r of data.rows) {
+        const j = r.jurisdictions || {};
+        h += "<tr>" +
+          cols.map(c => `<td>${r[c[1]] ?? ""}</td>`).join("") +
+          jcols.map(c => `<td class="juris">${j[c[1]] ?? ""}</td>`).join("") + "</tr>";
+      }
+      document.getElementById("body").innerHTML = h + "</tbody></table>";
+    }
+
+    function doExport(fmt) {
+      if (!active) return;
+      const p = new URLSearchParams({
+        level:"precinct", id:SESSION.precinct, county:SESSION.county, cohort:active.cohort, format:fmt,
+      });
+      // Same-origin GET with attachment Content-Disposition → browser downloads it.
+      window.location = API + "/export?" + p;
+    }
+
+    loadSummary();
+  </script>
+</body>
+</html>
