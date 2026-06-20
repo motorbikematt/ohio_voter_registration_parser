@@ -13,8 +13,8 @@ from pathlib import Path
 import pytest
 
 polars = pytest.importorskip("polars")
-import voter_data_cleaner_v2 as _v2
-import jurisdictional_groupings as _jg
+from pipeline import voter_data_cleaner as _v2
+from pipeline import jurisdictional_groupings as _jg
 
 
 # ── _cache_is_fresh() ────────────────────────────────────────────────────────

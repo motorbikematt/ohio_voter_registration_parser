@@ -52,10 +52,10 @@ except ImportError:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Paths and constants (reuse from voter_data_cleaner_v2)
+# Paths and constants (reuse from pipeline.voter_data_cleaner)
 # ─────────────────────────────────────────────────────────────────────────────
 
-BASE_DIR    = Path(__file__).parent
+BASE_DIR    = Path(__file__).resolve().parent.parent
 DOCS_DIR    = BASE_DIR / "docs"
 DATA_DIR    = DOCS_DIR / "data"
 LOGS_DIR    = BASE_DIR / "local" / "logs"  # PATCH: Rerouted to local/ workspace
@@ -63,11 +63,17 @@ PARQUET_DIR          = BASE_DIR / "local" / "source" / "parquet"  # PATCH: Rerou
 PARQUET_ENRICHED_DIR = BASE_DIR / "local" / "source" / "parquet_enriched"  # PATCH: Rerouted to local/ workspace
 PARQUET_ENRICHED_DIR.mkdir(parents=True, exist_ok=True)
 ENRICHED_CACHE       = PARQUET_ENRICHED_DIR / "enriched_voters.parquet"
-CLASSIFIER_SRC       = BASE_DIR / "voter_data_cleaner_v2.py"
+CLASSIFIER_SRC       = BASE_DIR / "pipeline" / "voter_data_cleaner.py"
 OUTPUT_DIR  = BASE_DIR / "local" / "output"  # PATCH: Rerouted to local/ workspace
 
 LOGS_DIR.mkdir(exist_ok=True)
 OUTPUT_DIR.mkdir(exist_ok=True)
+
+# Ensure pipeline/ is on sys.path so sibling modules can be imported as bare names
+# whether this script is run directly or imported as part of the pipeline package.
+_pipeline_dir = str(Path(__file__).resolve().parent)
+if _pipeline_dir not in sys.path:
+    sys.path.insert(0, _pipeline_dir)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Logging setup
@@ -602,7 +608,7 @@ def main(
     logger.info(f'Output format: {output_format}')
 
     # Load enriched voter data -- use persistent cache when fresh
-    import voter_data_cleaner_v2 as _v2
+    import voter_data_cleaner as _v2
     if _cache_is_fresh():
         logger.info('Loading enriched voter data from persistent cache...')
         df = pl.read_parquet(ENRICHED_CACHE)

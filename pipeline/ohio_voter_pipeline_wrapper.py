@@ -39,8 +39,8 @@ from pathlib import Path
 import polars as pl
 
 # --- CONFIG --------------------------------------------------------------
-PROJECT_ROOT = Path(__file__).resolve().parent
-EXPORT_SCRIPT = PROJECT_ROOT / "tools" / "export_unc_targets.py"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+EXPORT_SCRIPT = PROJECT_ROOT / "tools" / "export" / "export_unc_targets.py"
 PREDICTOR = PROJECT_ROOT / "tools" / "scoring" / "mixed_lean_predictor.py"
 RUNNER = PROJECT_ROOT / "tools" / "scoring" / "run_lean_predictor_all_cohorts.py"
 

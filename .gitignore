@@ -9,6 +9,7 @@ build/
 .venv/
 venv/
 env/
+.pytest_cache/
 
 # ─── Voter data files (never commit raw voter records) ────
 # The source/ directory holds raw and decompressed voter files
@@ -20,7 +21,6 @@ env/
 # EXCEPTION: We track precinct metadata as it contains no PII.
 *.xlsx
 *.csv
-!source/precinct_keys/*.csv
 
 # ─── Project Specific Artifacts ───────────────────────────
 .ipynb_checkpoints/
@@ -28,7 +28,7 @@ env/
 *.ps1
 *.code-workspace
 
-# ─── Stray local backups at repo root (use docs/archive/ instead) ───
+# ─── Stray local backups at repo root (use context/archive/ instead) ───
 /CLAUDE.md.bak*
 /CLAUDE.md.bak.*
 /*.bak
@@ -55,26 +55,14 @@ download_manifest.json
 # ─── Logs ─────────────────────────────────────────────────
 command_history.log
 
-# ─── UNC target list exports (PII — never commit) ─────────
-
 # ─── Tool-specific local directories ──────────────────────
 .antigravitycli/
 
-# ─── One-shot patch scripts (use patches/ directory, not root) ────
-
 # ─── Private agent instructions / internal research ───────
 GEMINI.md
-docs/research/CLAUDE_md_review.md
-docs/research/PIPELINE_GUIDE.md
-
-# ─── State Archive Files ──────────────────────────────────
-
 
 # ─── Image artifacts ──────────────────────────────────────
 *.PDF*.png
 *.PNG
-HGL_Q1Q2_INTERROGATION-answered.md
-RevisedHGLFormAnswers.md
-HGL_PITCH_DECK.md
-HGL_PITCH_DECK_APPSCRIPT.js
+
 local/

@@ -88,7 +88,7 @@ import xlsxwriter                    # noqa: F401 — imported for engine availa
 
 # Derive BASE_DIR from the location of this script so the repo works
 # regardless of where it is cloned or what OS it runs on.
-BASE_DIR     = Path(__file__).parent
+BASE_DIR     = Path(__file__).resolve().parent.parent
 DOCS_DIR     = BASE_DIR / "docs"
 DATA_DIR     = DOCS_DIR / "data"
 LOGS_DIR     = BASE_DIR / "local" / "logs"  # PATCH: Rerouted to local/ workspace
@@ -591,7 +591,7 @@ def clean_voter_data(df: pl.DataFrame, logger: logging.Logger) -> pl.DataFrame:
         # calls are extremely slow (blocks on disk I/O each iteration) and caused silent
         # process death on full-Ohio 7.9M-row runs.  A single Polars write_csv() is
         # ~1000× faster and produces a file analysts can inspect directly.
-        error_dir = Path(__file__).parent / 'local' / 'working' / 'errors'  # PATCH: Rerouted to local/ workspace
+        error_dir = Path(__file__).resolve().parent.parent / 'local' / 'working' / 'errors'
         error_dir.mkdir(parents=True, exist_ok=True)
         error_file = error_dir / f'invalid_birthyear_{logger.name}.csv'
         invalid_rows.select('SOS_VOTERID', 'DATE_OF_BIRTH', 'BIRTHYEAR').write_csv(error_file)

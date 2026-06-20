@@ -26,7 +26,13 @@ from bs4 import BeautifulSoup
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
-BASE_DIR   = Path(__file__).parent
+BASE_DIR   = Path(__file__).resolve().parent.parent
+
+# Ensure pipeline/ is on sys.path (bare sibling imports) and project root
+# is on sys.path (from tools.narrative import ...) regardless of invocation style.
+for _p in [str(Path(__file__).resolve().parent), str(BASE_DIR)]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 SOURCE_DIR = BASE_DIR / "local" / "source"  # PATCH: Rerouted to local/ workspace
 TXT_DIR    = SOURCE_DIR / "State Voter Files"
 MANIFEST   = BASE_DIR / "download_manifest.json"
@@ -40,16 +46,12 @@ def _load_generate_narratives():
     """
     Import and return the generate_narratives module.
 
-    tools/ has no __init__.py, so it is inserted onto sys.path before import.
-    The import is deferred (not module-level) because the narrative stage is
-    optional and pulls in heavy template machinery only used at run time.
+    The import is deferred because the narrative stage is optional and pulls
+    in heavy template machinery only used at run time.
     Callers needing the NON_COUNTY_LEVELS constant access it as
     `_load_generate_narratives().NON_COUNTY_LEVELS`.
     """
-    _tools = BASE_DIR / 'tools'
-    if str(_tools) not in sys.path:
-        sys.path.insert(0, str(_tools))
-    import generate_narratives as _gn
+    from tools.narrative import generate_narratives as _gn
     return _gn
 
 
@@ -198,8 +200,8 @@ def decompress_gz(gz_path: Path, out_dir: Path) -> Path:
 # ── County lookup helpers ─────────────────────────────────────────────────────
 
 def _get_ohio_counties() -> dict[str, str]:
-    """Return the OHIO_COUNTIES dict from voter_data_cleaner_v2 without a full import."""
-    import voter_data_cleaner_v2 as v2
+    """Return the OHIO_COUNTIES dict from voter_data_cleaner without a full import."""
+    import voter_data_cleaner as v2
     return v2.OHIO_COUNTIES   # dict[str, str]  e.g. {'01': 'Adams', ...}
 
 
@@ -515,7 +517,7 @@ def _dispatch(
     "4" — Jurisdictional groupings only (all 12 types); county rebuild skipped.
     "5" — Selected counties + precincts; no jurisdictional groupings.
     """
-    import voter_data_cleaner_v2 as v2
+    import voter_data_cleaner as v2
 
     _log     = v2.setup_logging('pipeline')
     src_date = v2.get_source_date(_log)

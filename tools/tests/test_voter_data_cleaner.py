@@ -1,7 +1,7 @@
 import pytest
 
 # Import the specific function we want to test
-from voter_data_cleaner_v2 import _extract_city
+from pipeline.voter_data_cleaner import _extract_city
 
 def test_extract_city_standard_dash():
     """Test that standard dash suffixes (e.g. '1-A', '10-B') are stripped."""

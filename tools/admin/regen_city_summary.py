@@ -15,12 +15,15 @@ from pathlib import Path
 
 import polars as pl
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import voter_data_cleaner_v2 as _v2
+# Add project root to sys.path so pipeline package is importable.
+_ROOT = Path(__file__).resolve().parent.parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+from pipeline import voter_data_cleaner as _v2
 
-ROOT     = Path(__file__).resolve().parent.parent
+ROOT     = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = ROOT / 'docs' / 'data'
-PAR_DIR  = ROOT / 'local' / 'source' / 'parquet'  # PATCH: Rerouted to local/ workspace
+PAR_DIR  = ROOT / 'local' / 'source' / 'parquet'
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 log = logging.getLogger(__name__)

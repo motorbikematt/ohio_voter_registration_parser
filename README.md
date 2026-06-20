@@ -5,26 +5,47 @@ Outputs interactive web dashboard JSON for all 88 counties and optional Excel wo
 
 ## What's in this repo
 
-**Root engine**
+**Pipeline (`pipeline/`)**
 
 | File | Purpose |
 |---|---|
-| `ohio_voter_pipeline.py` | Main entry point — interactive menu for statewide or targeted county analysis |
-| `voter_data_cleaner_v2.py` | Core engine — Polars ingestion, cohort classifier, participation metrics, JSON + Excel export |
-| `ohio_voter_pipeline_wrapper.py` | Programmatic wrapper around the pipeline for scripted runs |
-| `jurisdictional_groupings.py` | Aggregates all 12 jurisdiction types; handles county-scoped slug logic |
+| `pipeline/ohio_voter_pipeline.py` | Main entry point — interactive menu for statewide or targeted county analysis |
+| `pipeline/voter_data_cleaner.py` | Core engine — Polars ingestion, cohort classifier, participation metrics, JSON + Excel export |
+| `pipeline/ohio_voter_pipeline_wrapper.py` | Programmatic wrapper around the pipeline for scripted runs |
+| `pipeline/jurisdictional_groupings.py` | Aggregates all 12 jurisdiction types; handles county-scoped slug logic |
 
-**Utilities (`tools/`)**
+**Exporters (`tools/export/`)**
 
 | File | Purpose |
 |---|---|
-| `precinct_unc_export.py` | Standalone export: partisan cohort counts per precinct, all 88 counties |
-| `precinct_party_export.py` | Interactive export: 8-tab partisan-spectrum Excel workbook by county or precinct |
-| `export_unc_targets.py` | Export cohort-segmented voter targeting CSVs (Pure R/D, Crossover, UNC subclasses) |
-| `voter_lookup.py` | Parquet-backed individual voter lookup |
-| `raw_voter_lookup.py` | Raw text file voter lookup (pre-Parquet) |
-| `generate_narratives.py` | Render templated narrative cards for dashboard jurisdictions |
-| `archive_state.py` | Timestamped snapshot of CLAUDE.md / MEMORY.md before overwrite |
+| `tools/export/precinct_unc_export.py` | Standalone export: partisan cohort counts per precinct, all 88 counties |
+| `tools/export/precinct_party_export.py` | Interactive export: 8-tab partisan-spectrum Excel workbook by county or precinct |
+| `tools/export/export_unc_targets.py` | Export cohort-segmented voter targeting CSVs (Pure R/D, Crossover, UNC subclasses) |
+| `tools/export/upload_to_gdrive.py` | Upload deliverables to Google Drive |
+
+**Lookup (`tools/lookup/`)**
+
+| File | Purpose |
+|---|---|
+| `tools/lookup/voter_lookup.py` | Parquet-backed individual voter lookup |
+| `tools/lookup/raw_voter_lookup.py` | Raw text file voter lookup (pre-Parquet) |
+
+**Admin (`tools/admin/`)**
+
+| File | Purpose |
+|---|---|
+| `tools/admin/archive_state.py` | Timestamped snapshot of CLAUDE.md / MEMORY.md before overwrite |
+| `tools/admin/precinct_key_manager.py` | Scrape and aggregate Ohio BoE precinct keys |
+| `tools/admin/regen_city_summary.py` | Repair operator: regenerate `*_city_summary.json` from Parquet |
+| `tools/admin/run_city_groupings.py` | Bypass shim: run city jurisdictional groupings without full pipeline menu |
+
+**Narrative (`tools/narrative/`)**
+
+| File | Purpose |
+|---|---|
+| `tools/narrative/generate_narratives.py` | Pipeline-integrated runner: templated + optional LLM narrative generation |
+| `tools/narrative/templates.py` | Deterministic per-level template engine |
+| `tools/narrative/llm_enricher.py` | Optional Anthropic API enrichment for captain briefings |
 
 **Scoring (`tools/scoring/`)**
 
@@ -74,7 +95,7 @@ SWVF_67_88.txt.gz
 ### 3. Build the Parquet cache and run the analysis
 
 ```powershell
-python ohio_voter_pipeline.py
+python pipeline/ohio_voter_pipeline.py
 ```
 
 On first run, select option **[1]** or **[2]**. The pipeline will decompress the source files,
@@ -98,7 +119,7 @@ comma-separated multi-county selection are supported. Example: `57, greene, 76`.
 ### 4. Export a precinct or county voter workbook
 
 ```powershell
-python tools/precinct_party_export.py
+python tools/export/precinct_party_export.py
 ```
 
 Interactive menu: choose county + precinct (single workbook) or whole county. Output lands in
@@ -248,18 +269,15 @@ Single-county combined run: web dashboard JSON + Excel workbook. `county_number`
 These scripts update specific outputs without rerunning the full pipeline:
 
 ```powershell
-# Patch city field into all precinct index JSONs (run after a fresh Option 1)
-python tools/patch_precinct_index_city.py
-
 # Regenerate all *_city_summary.json from parquet (fast; skips chart generation)
-python tools/regen_city_summary.py
+python tools/admin/regen_city_summary.py
 ```
 
 ### Data flow
 
 ```
 SWVF_*.txt.gz
-    └─▶ build_parquet_cache()   →  source/parquet/COUNTY_NUMBER=NN/
+    └─▶ build_parquet_cache()   →  local/source/parquet/COUNTY_NUMBER=NN/
             └─▶ load_voter_files_parquet()
                     └─▶ clean_voter_data()
                             └─▶ classify_all_voters_primary_history()
