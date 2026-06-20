@@ -2,10 +2,6 @@
 
 Project state, phase status, dashboard history, and changelog live in the Cowork memory system (auto-loaded via `MEMORY.md`), not here. This file holds only universally applicable rules and irreducible domain semantics.
 
-## State-file archive rule (read first)
-
-Before any Write or Edit that overwrites `CLAUDE.md`, `MEMORY.md`, or any file under the Cowork memory directory (`memory/project_*.md`, `memory/feedback_*.md`, etc.), first run `python tools/admin/archive_state.py <path>` from the project root. The script copies the current version to `context/archive/{filename}.{YYYY-MM-DDTHHMM}.md` (or `context/archive/memory/...` for memory files), giving us a timestamped progression of state evolution that git then tracks. Skipping this step loses the prior version irrecoverably for memory files (which live outside the project's git history).
-
 ## File editing protocol
 
 Edit tool for files ≤150 lines; Python patch script for anything longer. The Edit tool and bash heredocs both truncate silently — a failed write looks identical to a successful one until parsing fails downstream.
@@ -38,7 +34,7 @@ For payloads >50 lines, use `Path.write_text(content)` from inside a Python invo
 
 ## File locations
 
-Raw input in `local/source/`. Working output in `local/working/`; exports in `local/exports/`. Dashboard JSON in `docs/data/`. Core engine scripts in `pipeline/`; exporters in `tools/export/`; lookup utilities in `tools/lookup/`; maintenance operators in `tools/admin/`; narrative generation in `tools/narrative/`; scoring module in `tools/scoring/`. AI context (archives, journal, memory, research) in `context/`.
+Raw input in `local/source/`. Working output in `local/working/`; exports in `local/exports/`. Dashboard JSON in `docs/data/`. Core engine scripts in `pipeline/`; exporters in `tools/export/`; lookup utilities in `tools/lookup/`; maintenance operators in `tools/admin/`; narrative generation in `tools/narrative/`; scoring module in `tools/scoring/`. AI context (archives, journal, memory, research) in `local/context/` (gitignored).
 
 ## Schema reference — SWVF source
 
