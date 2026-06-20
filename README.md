@@ -36,6 +36,7 @@ Outputs interactive web dashboard JSON for all 88 counties and optional Excel wo
 |---|---|
 | `tools/admin/archive_state.py` | Timestamped snapshot of CLAUDE.md / MEMORY.md before overwrite |
 | `tools/admin/precinct_key_manager.py` | Scrape and aggregate Ohio BoE precinct keys |
+| `tools/admin/clean_precinct_keys.py` | Remove redundant columns from scraped precinct CSVs |
 | `tools/admin/regen_city_summary.py` | Repair operator: regenerate `*_city_summary.json` from Parquet |
 | `tools/admin/run_city_groupings.py` | Bypass shim: run city jurisdictional groupings without full pipeline menu |
 
@@ -51,10 +52,10 @@ Outputs interactive web dashboard JSON for all 88 counties and optional Excel wo
 
 | File | Purpose |
 |---|---|
-| `mixed_lean_predictor.py` | Decay-weighted lean predictor for UNC MIXED cohort |
-| `run_lean_predictor_all_cohorts.py` | Batch runner — lean predictor across all cohorts |
-| `run_mixed_lean_predictor_all_counties.py` | Batch runner — lean predictor across all 88 counties |
-| `unc_lifetime_d_predictor.py` | Lifetime Democratic lean predictor for UNC voters |
+| `tools/scoring/mixed_lean_predictor.py` | Decay-weighted lean predictor for UNC MIXED cohort |
+| `tools/scoring/run_lean_predictor_all_cohorts.py` | Batch runner — lean predictor across all cohorts |
+| `tools/scoring/run_mixed_lean_predictor_all_counties.py` | Batch runner — lean predictor across all 88 counties |
+| `tools/scoring/unc_lifetime_d_predictor.py` | Lifetime Democratic lean predictor for UNC voters |
 
 **Dashboard**
 
@@ -219,14 +220,14 @@ MIT — Matthew F Reyes, 2026
 
 ---
 
-## `voter_data_cleaner_v2.py` — core engine reference
+## `pipeline/voter_data_cleaner.py` — core engine reference
 
-This module is not normally called directly. `ohio_voter_pipeline.py` is the intended entry point. The functions below are documented for scripted or programmatic use.
+This module is not normally called directly. `pipeline/ohio_voter_pipeline.py` is the intended entry point. The functions below are documented for scripted or programmatic use.
 
 ### Smoke test
 
 ```powershell
-python voter_data_cleaner_v2.py --test
+python pipeline/voter_data_cleaner.py --test
 ```
 
 Validates that `OHIO_COUNTIES` has all 88 entries and spot-checks county numbering. Exits with a non-zero code on failure.
