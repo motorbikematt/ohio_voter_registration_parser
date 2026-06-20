@@ -57,6 +57,12 @@ command_history.log
 # ─── Tool-specific local directories ──────────────────────
 .antigravitycli/
 
+# ─── Windows Explorer git-directory copies ────────────────
+# Windows creates "X - Copy" when duplicating in Explorer.
+# A copied .git dir committed to history embeds pack files.
+.git - Copy/
+*" - Copy"/
+
 # ─── Private agent instructions / internal research ───────
 GEMINI.md
 
