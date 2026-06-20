@@ -164,6 +164,17 @@
   const html = document.documentElement;
   const $ = (id) => document.getElementById(id);
 
+  // On mobile the left/right panes are fixed-position overlays (see @media
+  // max-width:880px in v2.css). After a terminal selection the center pane
+  // updates *underneath* the still-open drawer, so the user sees no change.
+  // Dismiss any open drawer + backdrop so the result becomes visible.
+  function closeDrawers() {
+    document.querySelectorAll('.left-pane.is-open, .right-pane.is-open')
+      .forEach(p => p.classList.remove('is-open'));
+    const bd = document.querySelector('.drawer-backdrop');
+    if (bd) bd.classList.remove('is-visible');
+  }
+
   function applyChrome() {
     html.dataset.style   = S.style;
     html.dataset.theme   = S.theme;
@@ -742,6 +753,7 @@
         S.level = 'precinct'; S.id = precinct; S.county = county; S.city = null;
         writeState({ level: 'precinct', id: precinct, county: county, city: null, type: null });
         emit('select_jurisdiction', { level: 'precinct', id: precinct, county, name });
+        closeDrawers();   // mobile: terminal selection, reveal center pane
         await refreshView();
       };
     });
@@ -827,6 +839,7 @@
           writeState({ level: 'district', id, type: dtype });
           emit('select_jurisdiction', { level: 'district', type: dtype, id, name });
         }
+        closeDrawers();   // mobile: reveal the updated center pane (no-op on desktop)
         await refreshView();
       };
     });
@@ -847,6 +860,7 @@
       writeState({ level: 'county', id: slug, county: null, type: null });
       emit('select_jurisdiction', { level: 'county', id: slug, name });
     }
+    closeDrawers();   // mobile: reveal center pane after map/county selection
     await refreshView();
   }
 
@@ -1683,10 +1697,7 @@
         bd.classList.toggle('is-visible', !!document.querySelector('.left-pane.is-open, .right-pane.is-open'));
       };
     });
-    document.querySelector('.drawer-backdrop').onclick = () => {
-      document.querySelectorAll('.left-pane.is-open, .right-pane.is-open').forEach(p => p.classList.remove('is-open'));
-      document.querySelector('.drawer-backdrop').classList.remove('is-visible');
-    };
+    document.querySelector('.drawer-backdrop').onclick = closeDrawers;
   }
 
   // ── Boot ───────────────────────────────────────────────────
