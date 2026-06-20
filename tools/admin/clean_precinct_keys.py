@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger(__name__)
 
 # Paths
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = BASE_DIR / "local" / "source" / "precinct_keys"  # PATCH: Rerouted to local/ workspace
 
 # Configuration

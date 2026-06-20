@@ -14,7 +14,7 @@ def run_global_raw_search(term: str = None, raw_dir: str = None):
 
     # Resolve paths
     script_dir = Path(__file__).parent.resolve()
-    project_root = script_dir.parent
+    project_root = script_dir.parent.parent
     if raw_dir is None:
         raw_path = project_root / "local" / "source" / "State Voter Files"  # PATCH: Rerouted to local/ workspace
     else:

@@ -35,7 +35,7 @@ from pathlib import Path
 import polars as pl
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
-BASE_DIR    = Path(__file__).parent.parent
+BASE_DIR    = Path(__file__).resolve().parent.parent.parent
 PARQUET_DIR = BASE_DIR / "local" / "source" / "parquet"  # PATCH: Rerouted to local/ workspace
 OUT_DIR     = BASE_DIR / "local" / "exports" / "Workbooks"  # PATCH: Rerouted to local/ workspace
 

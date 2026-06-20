@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 # Add project root to path for imports if needed
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(PROJECT_ROOT))
 
 try:

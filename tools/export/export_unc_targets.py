@@ -295,8 +295,10 @@ def export_cohort_targets(df: pl.DataFrame, primary_cols: list[str],
     """
     # Import lazily so this script remains usable even if v2 is unavailable.
     import sys as _sys
-    _sys.path.insert(0, str(Path(__file__).parent))
-    import voter_data_cleaner_v2 as v2
+    _root = Path(__file__).resolve().parent.parent.parent
+    if str(_root) not in _sys.path:
+        _sys.path.insert(0, str(_root))
+    from pipeline import voter_data_cleaner as v2
 
     classified = v2.classify_all_voters_primary_history(df, primary_cols, logger)
 
@@ -385,7 +387,7 @@ def main() -> None:
     logger = _build_logger()
     args   = parse_args()
 
-    script_dir = Path(__file__).parent.parent
+    script_dir = Path(__file__).resolve().parent.parent.parent
     output_dir = Path(args.output_dir) if args.output_dir else script_dir / 'local/exports'
 
     txt_files    = [Path(p) for p in args.inputs]
