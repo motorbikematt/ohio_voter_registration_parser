@@ -1,11 +1,13 @@
 <!doctype html>
 <!--
-  PRECINCT CAPTAIN PROTOTYPE — lives in local/ (gitignored), NEVER committed.
-  Mirrors the real captain experience: their precinct is fixed (comes from auth),
-  they see their precinct's cohort bar chart, and ONE TAP on a bar generates the
-  roster for that cohort. No level menu, no precinct codes, no county lookup.
+  DEPRECATED 2026-06-21 — superseded by docs/index.htm + captain/captain-mode.js.
+  The captain experience is now an in-place decoration layer on the main
+  dashboard (responsive: this same mobile presentation is rendered by the
+  roster panel when viewport <= 880px). Kept to avoid breaking bookmarks;
+  will be removed in a future cleanup.
 
-  Run roster_api.py on localhost:8000, then open this file directly in a browser.
+  Original purpose: standalone mobile precinct-captain prototype, fixed to
+  Kettering 1-A, talked to roster_api.py at 127.0.0.1:8000/.
 -->
 <html lang="en">
 <head>

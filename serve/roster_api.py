@@ -42,13 +42,18 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # serve/ as import root
+
 import polars as pl
+
+import captain_db  # SQLite write tier — captain identity, touches, walk lists
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 ENRICHED_CACHE = BASE_DIR / "local" / "source" / "parquet_enriched" / "enriched_voters.parquet"
-# Captain prototype pages, served same-origin so their fetch()/downloads work.
-PREVIEW_PAGE = BASE_DIR / "local" / "roster_preview" / "preview.html"   # mobile
-PC_PAGE      = BASE_DIR / "local" / "roster_preview" / "pc.html"        # desktop
+# As of 2026-06-21 the UI is docs/index.htm + captain/captain-mode.js — this
+# API is JSON-only. (Earlier prototype served preview.html / pc.html here; those
+# routes were removed when the dashboard absorbed the captain experience.)
 
 HOST = os.environ.get("ROSTER_HOST", "127.0.0.1")
 PORT = int(os.environ.get("ROSTER_PORT", "8000"))
@@ -144,6 +149,9 @@ def _load(path: Path) -> pl.DataFrame:
         "RESIDENTIAL_ADDRESS1", "CITY", "RESIDENTIAL_CITY", "RESIDENTIAL_ZIP",
         "COUNTY_NUMBER", "cohort_family",
         "PRECINCT_CODE", "PARTY_AFFILIATION",
+        # Generation comes pre-computed from the pipeline (BIRTHYEAR -> bucket).
+        # The captain UI hits this as a secondary facet (Pure D Millennials, etc.)
+        "Generation",
     ]
     keep = [c for c in dict.fromkeys(base_cols + JURISDICTION_COLS) if c in schema_names]
 
@@ -184,13 +192,33 @@ def get_df() -> pl.DataFrame:
         return _loaded["df"]  # type: ignore[return-value]
 
 
-def _roster_frame(level: str, jid: str, cohort: str, county: str | None) -> pl.DataFrame:
-    """Apply the jurisdiction+cohort filter and return the matched frame, sorted
-    by name. Shared by the JSON roster and the file exports so both see exactly
-    the same set of voters."""
+def filter_voter_ids(level: str, jid: str, cohort: str | None, county: str | None,
+                     generation: str | None = None) -> list[str]:
+    """Return SOS_VOTERIDs matching the given filter — the seed set for a new
+    walk list. Pulled out separately from _roster_frame so the caller can avoid
+    the row materialization cost (we only need ids, not addresses + dates)."""
+    matched = _roster_frame(level, jid, cohort, county, generation=generation)
+    if "SOS_VOTERID" not in matched.columns:
+        return []
+    return [str(v) for v in matched["SOS_VOTERID"].to_list() if v is not None]
+
+
+def _roster_frame(level: str, jid: str, cohort: str | None, county: str | None,
+                  generation: str | None = None) -> pl.DataFrame:
+    """Apply the jurisdiction + (cohort | generation) filter and return the
+    matched frame, sorted by name. Shared by the JSON roster and the file
+    exports so both see exactly the same set of voters.
+
+    Exactly one of cohort/generation should be provided. Both is allowed
+    (intersection) but the captain UI ships single-facet for this iteration.
+    """
     df = get_df()
     col = LEVEL_COLUMN[level]
-    flt = pl.col("cohort_family") == cohort
+    flt = pl.lit(True)
+    if cohort:
+        flt = flt & (pl.col("cohort_family") == cohort)
+    if generation and "Generation" in df.columns:
+        flt = flt & (pl.col("Generation").cast(pl.Utf8) == generation)
     if level == "county":
         flt = flt & (pl.col("COUNTY_NUMBER").cast(pl.Utf8).str.zfill(2) == jid.zfill(2))
     else:
@@ -218,15 +246,19 @@ EXPORT_COLUMNS = [
 ]
 
 
-def query_roster(level: str, jid: str, cohort: str, county: str | None,
-                 limit: int, offset: int) -> dict:
-    """Filter the roster frame by jurisdiction + cohort and shape rows for the UI."""
+def query_roster(level: str, jid: str, cohort: str | None, county: str | None,
+                 limit: int, offset: int, generation: str | None = None) -> dict:
+    """Filter the roster frame by jurisdiction + cohort and/or generation,
+    and shape rows for the UI. At least one of cohort/generation is required —
+    an unscoped name dump would be antithetical to the gated-access posture."""
     if level not in LEVEL_COLUMN:
         return {"error": f"unknown level '{level}'", "valid": sorted(LEVEL_COLUMN)}
-    if cohort not in VALID_COHORTS:
+    if not cohort and not generation:
+        return {"error": "cohort or generation required"}
+    if cohort and cohort not in VALID_COHORTS:
         return {"error": f"unknown cohort '{cohort}'", "valid": sorted(VALID_COHORTS)}
 
-    matched = _roster_frame(level, jid, cohort, county)
+    matched = _roster_frame(level, jid, cohort, county, generation=generation)
     total = matched.height
 
     page = matched.slice(offset, limit)
@@ -234,6 +266,7 @@ def query_roster(level: str, jid: str, cohort: str, county: str | None,
     rows = []
     for r in page.iter_rows(named=True):
         rows.append({
+            "sos_voterid": r.get("SOS_VOTERID"),
             "first": r.get("FIRST_NAME"),
             "last": r.get("LAST_NAME"),
             "address": r.get("RESIDENTIAL_ADDRESS1"),
@@ -248,7 +281,8 @@ def query_roster(level: str, jid: str, cohort: str, county: str | None,
         })
 
     return {
-        "level": level, "id": jid, "cohort": cohort, "county": county,
+        "level": level, "id": jid,
+        "cohort": cohort, "generation": generation, "county": county,
         "total": total, "offset": offset, "limit": limit,
         "returned": len(rows), "rows": rows,
         "generated": date.today().isoformat(),
@@ -282,28 +316,31 @@ def precinct_summary(precinct: str, county: str) -> dict:
     }
 
 
-def _export_frame(level: str, jid: str, cohort: str, county: str | None) -> pl.DataFrame:
-    """The exact rows an export contains: the full matched cohort projected to
+def _export_frame(level: str, jid: str, cohort: str | None, county: str | None,
+                  generation: str | None = None) -> pl.DataFrame:
+    """The exact rows an export contains: the full matched filter projected to
     EXPORT_COLUMNS with human headers. No pagination — exports are complete."""
-    matched = _roster_frame(level, jid, cohort, county)
+    matched = _roster_frame(level, jid, cohort, county, generation=generation)
     src_cols = [c for c, _ in EXPORT_COLUMNS if c in matched.columns]
     rename = {c: lbl for c, lbl in EXPORT_COLUMNS if c in matched.columns}
     return matched.select(src_cols).rename(rename)
 
 
-def export_csv(level: str, jid: str, cohort: str, county: str | None) -> bytes:
-    return _export_frame(level, jid, cohort, county).write_csv().encode("utf-8")
+def export_csv(level: str, jid: str, cohort: str | None, county: str | None,
+               generation: str | None = None) -> bytes:
+    return _export_frame(level, jid, cohort, county, generation=generation).write_csv().encode("utf-8")
 
 
-def export_xlsx(level: str, jid: str, cohort: str, county: str | None) -> bytes:
+def export_xlsx(level: str, jid: str, cohort: str | None, county: str | None,
+                generation: str | None = None) -> bytes:
     """Build a printable .xlsx via xlsxwriter (per CLAUDE.md, the mandated path
     for stakeholder spreadsheet output). Frozen header row, auto-width, and the
     cohort label in the sheet name so a printed walk-list is self-identifying."""
     import io
     import xlsxwriter  # local import: only needed when an xlsx is actually requested
 
-    frame = _export_frame(level, jid, cohort, county)
-    label = COHORT_LABELS.get(cohort, cohort)
+    frame = _export_frame(level, jid, cohort, county, generation=generation)
+    label = COHORT_LABELS.get(cohort, cohort) if cohort else (generation or "Roster")
     buf = io.BytesIO()
     wb = xlsxwriter.Workbook(buf, {"in_memory": True})
     # Sheet name: Excel caps at 31 chars and forbids []:*?/\
@@ -347,15 +384,26 @@ class Handler(BaseHTTPRequestHandler):
         return auth == f"Bearer {TOKEN}"
 
     def do_OPTIONS(self):
-        self._send(204, {})
-
-    def _send_html(self, code: int, html: str):
-        body = html.encode("utf-8")
-        self.send_response(code)
-        self.send_header("Content-Type", "text/html; charset=utf-8")
-        self.send_header("Content-Length", str(len(body)))
+        # CORS preflight. Browser sends OPTIONS before POST/PUT with a JSON body.
+        self.send_response(204)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Authorization, Content-Type")
+        self.send_header("Access-Control-Max-Age", "600")
         self.end_headers()
-        self.wfile.write(body)
+
+    def _read_body(self) -> dict:
+        """Parse JSON body for POST/PUT. Returns {} for empty bodies or anything
+        unparseable — caller validates required fields itself."""
+        length = int(self.headers.get("Content-Length") or "0")
+        if not length:
+            return {}
+        raw = self.rfile.read(length)
+        try:
+            data = json.loads(raw.decode("utf-8"))
+            return data if isinstance(data, dict) else {}
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            return {}
 
     def _send_file(self, body: bytes, content_type: str, filename: str):
         self.send_response(200)
@@ -366,46 +414,67 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    # ── Captain-write endpoints (SQLite tier in captain_db) ──────────────
+    # GET   /captain/me              — current captain or {"captain": null}
+    # POST  /captain                 — create captain (name/email/phone/precinct)
+    # GET   /touches?sos_voterid=    — touch history for one voter
+    # POST  /touches                 — log a new touch
+    # POST  /walk-list               — find-or-create walk list for a filter
+    # GET   /walk-list/{id}/progress — counts + last-touched
+    # GET   /walk-list/{id}/statuses — sos_voterid -> status map
+    # PUT   /walk-list/{id}/voter/{sos}/status — set queued/done/skip
+    _GET_ROUTES = {"/health", "/roster", "/precinct-summary", "/export",
+                   "/captain/me", "/touches"}
+    # Walk-list GET routes are dynamic (/walk-list/{id}/...), checked separately.
+
     def do_GET(self):
         parsed = urlparse(self.path)
+        # JSON-only API. The captain UI is docs/index.htm + captain-mode.js.
         if parsed.path == "/health":
             return self._send(200, {"ok": True, "cache_exists": ENRICHED_CACHE.exists()})
-        # Serve the captain prototype page from the API itself so the page and
-        # its fetch() calls share one origin (no CORS / sandbox / mixed-content).
-        if parsed.path in ("/", "/index.html"):
-            if PREVIEW_PAGE.exists():
-                return self._send_html(200, PREVIEW_PAGE.read_text(encoding="utf-8"))
-            return self._send_html(404, "<h1>preview page not found</h1>")
-        if parsed.path == "/pc":
-            if PC_PAGE.exists():
-                return self._send_html(200, PC_PAGE.read_text(encoding="utf-8"))
-            return self._send_html(404, "<h1>pc page not found</h1>")
-        if parsed.path not in ("/roster", "/precinct-summary", "/export"):
+        is_walk_list_get = parsed.path.startswith("/walk-list/")
+        if parsed.path not in self._GET_ROUTES and not is_walk_list_get:
             return self._send(404, {"error": "not found"})
         if not self._authed():
             return self._send(401, {"error": "unauthorized"})
 
         q = parse_qs(parsed.query)
 
+        if parsed.path == "/captain/me":
+            return self._send(200, {"captain": captain_db.get_captain()})
+
+        if parsed.path == "/touches":
+            sos = q.get("sos_voterid", [""])[0]
+            if not sos:
+                return self._send(400, {"error": "sos_voterid required"})
+            return self._send(200, {"touches": captain_db.list_touches(sos)})
+
+        if is_walk_list_get:
+            return self._handle_walk_list_get(parsed.path)
+
         if parsed.path == "/export":
             level = q.get("level", ["county"])[0]
             jid = q.get("id", [""])[0]
-            cohort = q.get("cohort", [""])[0]
+            cohort = q.get("cohort", [""])[0] or None
+            generation = q.get("generation", [""])[0] or None
             county = q.get("county", [None])[0]
             fmt = q.get("format", ["csv"])[0].lower()
             if level not in LEVEL_COLUMN:
                 return self._send(400, {"error": f"unknown level '{level}'"})
-            if cohort not in VALID_COHORTS:
+            if not cohort and not generation:
+                return self._send(400, {"error": "cohort or generation required"})
+            if cohort and cohort not in VALID_COHORTS:
                 return self._send(400, {"error": f"unknown cohort '{cohort}'"})
-            stem = f"{jid}_{cohort}_{date.today().isoformat()}".replace(" ", "_").replace("/", "-")
+            tag = cohort or generation or "roster"
+            stem = f"{jid}_{tag}_{date.today().isoformat()}".replace(" ", "_").replace("/", "-")
             if fmt == "xlsx":
-                body = export_xlsx(level, jid, cohort, county)
+                body = export_xlsx(level, jid, cohort, county, generation=generation)
                 return self._send_file(
                     body,
                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                     f"{stem}.xlsx",
                 )
-            body = export_csv(level, jid, cohort, county)
+            body = export_csv(level, jid, cohort, county, generation=generation)
             return self._send_file(body, "text/csv; charset=utf-8", f"{stem}.csv")
 
         if parsed.path == "/precinct-summary":
@@ -417,7 +486,8 @@ class Handler(BaseHTTPRequestHandler):
 
         level = (q.get("level", ["county"])[0])
         jid = q.get("id", [""])[0]
-        cohort = q.get("cohort", [""])[0]
+        cohort = q.get("cohort", [""])[0] or None
+        generation = q.get("generation", [""])[0] or None
         county = q.get("county", [None])[0]
         try:
             limit = min(int(q.get("limit", ["100"])[0]), 1000)
@@ -425,9 +495,126 @@ class Handler(BaseHTTPRequestHandler):
         except ValueError:
             return self._send(400, {"error": "limit/offset must be integers"})
 
-        result = query_roster(level, jid, cohort, county, limit, offset)
+        result = query_roster(level, jid, cohort, county, limit, offset, generation=generation)
         code = 400 if "error" in result else 200
         self._send(code, result)
+
+    # ── Walk-list GET routes ─────────────────────────────────────────────
+    def _handle_walk_list_get(self, path: str):
+        # /walk-list/{id}/progress | /walk-list/{id}/statuses | /walk-list/{id}/touches
+        parts = path.strip("/").split("/")
+        # parts = ["walk-list", "{id}", "<sub>"]
+        if len(parts) != 3:
+            return self._send(404, {"error": "not found"})
+        try:
+            wl_id = int(parts[1])
+        except ValueError:
+            return self._send(400, {"error": "walk_list_id must be integer"})
+        sub = parts[2]
+        if sub == "progress":
+            return self._send(200, captain_db.walk_list_progress(wl_id))
+        if sub == "statuses":
+            return self._send(200, {"statuses": captain_db.walk_list_statuses(wl_id)})
+        if sub == "touches":
+            return self._send(200, {"touches": captain_db.list_touches_for_walk_list(wl_id)})
+        return self._send(404, {"error": "not found"})
+
+    # ── Captain-write POSTs ──────────────────────────────────────────────
+    def do_POST(self):
+        parsed = urlparse(self.path)
+        if not self._authed():
+            return self._send(401, {"error": "unauthorized"})
+        body = self._read_body()
+
+        if parsed.path == "/captain":
+            try:
+                captain = captain_db.create_captain(
+                    display_name=body.get("display_name", ""),
+                    email=body.get("email", ""),
+                    phone=body.get("phone", ""),
+                    precinct_county=body.get("precinct_county", ""),
+                    precinct_name=body.get("precinct_name", ""),
+                )
+            except ValueError as e:
+                return self._send(400, {"error": str(e)})
+            return self._send(201, {"captain": captain})
+
+        if parsed.path == "/touches":
+            try:
+                t = captain_db.log_touch(
+                    sos_voterid=body.get("sos_voterid", ""),
+                    captain_id=int(body.get("captain_id", 0)),
+                    precinct_county=body.get("precinct_county", ""),
+                    precinct_name=body.get("precinct_name", ""),
+                    kind=body.get("kind", ""),
+                    outcome=body.get("outcome") or None,
+                    notes=body.get("notes") or None,
+                )
+            except (ValueError, TypeError) as e:
+                return self._send(400, {"error": str(e)})
+            return self._send(201, {"touch": t})
+
+        if parsed.path == "/walk-list":
+            # The body carries the filter the captain just clicked. We resolve
+            # the seed voter set against the parquet (same filter the /roster
+            # endpoint uses), then find-or-create the SQLite walk list.
+            try:
+                captain_id = int(body.get("captain_id", 0))
+            except (ValueError, TypeError):
+                return self._send(400, {"error": "captain_id required"})
+            precinct = body.get("precinct_name", "")
+            county = body.get("precinct_county", "")
+            cohort = body.get("cohort") or None
+            generation = body.get("generation") or None
+            if not precinct or not county:
+                return self._send(400, {"error": "precinct_name and precinct_county required"})
+            if not cohort and not generation:
+                return self._send(400, {"error": "cohort or generation required"})
+            # Compose filter_kind/value/label so re-clicks are idempotent.
+            if cohort and generation:
+                fk, fv = "cohort_generation", f"{cohort}|{generation}"
+                label = body.get("filter_label") or f"{cohort} {generation}"
+            elif cohort:
+                fk, fv = "cohort", cohort
+                label = body.get("filter_label") or cohort
+            else:
+                fk, fv = "generation", generation  # type: ignore[assignment]
+                label = body.get("filter_label") or generation  # type: ignore[assignment]
+            try:
+                seeds = filter_voter_ids("precinct", precinct, cohort, county, generation=generation)
+                wl = captain_db.find_or_create_walk_list(
+                    captain_id=captain_id,
+                    precinct_county=county, precinct_name=precinct,
+                    filter_kind=fk, filter_value=fv, filter_label=label,
+                    seed_voter_ids=seeds,
+                )
+            except (ValueError, TypeError) as e:
+                return self._send(400, {"error": str(e)})
+            return self._send(200, {"walk_list": wl, "seeded": len(seeds)})
+
+        return self._send(404, {"error": "not found"})
+
+    # ── Walk-status PUT ──────────────────────────────────────────────────
+    def do_PUT(self):
+        parsed = urlparse(self.path)
+        if not self._authed():
+            return self._send(401, {"error": "unauthorized"})
+        # /walk-list/{id}/voter/{sos_voterid}/status
+        parts = parsed.path.strip("/").split("/")
+        if len(parts) == 5 and parts[0] == "walk-list" and parts[2] == "voter" and parts[4] == "status":
+            try:
+                wl_id = int(parts[1])
+            except ValueError:
+                return self._send(400, {"error": "walk_list_id must be integer"})
+            sos = parts[3]
+            body = self._read_body()
+            status = body.get("status", "")
+            try:
+                captain_db.set_walk_status(walk_list_id=wl_id, sos_voterid=sos, status=status)
+            except ValueError as e:
+                return self._send(400, {"error": str(e)})
+            return self._send(200, {"ok": True})
+        return self._send(404, {"error": "not found"})
 
     def log_message(self, fmt, *args):  # quieter console
         pass

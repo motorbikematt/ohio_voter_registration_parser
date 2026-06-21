@@ -1,10 +1,13 @@
 <!doctype html>
 <!--
-  PRECINCT CAPTAIN PROTOTYPE — DESKTOP/PC VIEW. local/ (gitignored), NEVER committed.
-  Same data + same API as the mobile view (preview.html), different presentation:
-  PC is the "manage the list" surface — a dense table with every jurisdiction
-  inline (no accordion; there's room) and CSV/XLSX export for printing walk-lists.
-  Served by the API at http://127.0.0.1:8000/pc so downloads are same-origin.
+  DEPRECATED 2026-06-21 — superseded by docs/index.htm + captain/captain-mode.js.
+  The captain experience is now an in-place decoration layer on the main
+  dashboard (responsive: this same desktop presentation is rendered by the
+  roster panel when viewport >= 881px, with CSV/XLSX export). Kept to avoid
+  breaking bookmarks; will be removed in a future cleanup.
+
+  Original purpose: standalone desktop precinct-captain prototype, fixed to
+  Kettering 1-A, talked to roster_api.py at 127.0.0.1:8000/pc.
 -->
 <html lang="en">
 <head>
