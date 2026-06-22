@@ -128,11 +128,72 @@ Interactive menu: choose county + precinct (single workbook) or whole county. Ou
 
 ### 5. View the dashboard
 
-Open `docs/index.html` locally, or view the live dashboard at:
-[https://precincts.info](https://precincts.info)
-
 The dashboard supports three scope tiers: **County** (default), **City**, and **Precinct**.
 Precinct drill-down shows per-precinct cohort composition for every precinct in the selected county.
+
+**Easiest: use the live site.**
+[https://precincts.info](https://precincts.info) — fully rendered, no setup.
+
+**Run it locally** if you want to develop against it or unlock captain mode (see step 6).
+You cannot just double-click `docs/index.htm` — modern browsers block `fetch()` over
+`file://` URLs, so the dashboard JSON won't load. You need a tiny static server. Python's
+built-in one is enough:
+
+```powershell
+cd docs
+python -m http.server 8001
+```
+
+Open [http://localhost:8001](http://localhost:8001). Leave the terminal running; stop with `Ctrl+C`.
+
+### 6. Captain mode (optional — real voter rosters)
+
+The public dashboard shows aggregates only. **Captain mode** is an overlay on the same
+dashboard that lets you click any chart segment in a precinct view and get the actual list
+of voters in that cohort (name, address, last-voted dates), plus walk-list and door-touch
+tracking. The roster data stays on your machine; nothing about captain mode touches `docs/`
+or the network.
+
+**Prerequisites:** you must have completed steps 2 and 3 above. Captain mode reads the
+enriched parquet (`local/source/parquet_enriched/enriched_voters.parquet`) that the pipeline
+builds. If that file is missing, `serve/roster_api.py` refuses to start and prints the
+pipeline command you need to run. If the API is somehow running without the parquet, the
+dashboard shows an amber banner instead of activating click handlers.
+
+**Run two terminals:**
+
+```powershell
+# Terminal 1 — static dashboard (same as step 5)
+cd docs
+python -m http.server 8001
+```
+
+```powershell
+# Terminal 2 — roster API on port 8000
+$env:ROSTER_TOKEN = "dev-secret"
+python serve/roster_api.py
+```
+
+Stop either server with `Ctrl+C`.
+
+**First-run note (Windows):** Defender Firewall prompts on the first listening-socket
+bind for a given Python interpreter. You will see *one* "Allow access" dialog per
+server, per interpreter (a venv Python and a system Python prompt separately). Click
+"Allow access" once and the rule persists. If a terminal seems frozen waiting for the
+server to start, check for a Defender dialog hidden behind your other windows.
+
+Now reload [http://localhost:8001](http://localhost:8001). The page will detect the API on
+`127.0.0.1:8000` and inject a banner: *"Self-hosted — real voter data"*. Drill into any
+county → precinct, then click a slice of the cohort ribbon, doughnut, or generation chart
+to open the roster panel.
+
+**Why two ports?** The static server and the API both default to 8000. We put the dashboard
+on 8001 to avoid the collision; the API stays on 8000 because `captain-mode.js` hardcodes
+`http://127.0.0.1:8000` as its default backend (override with `?captainApi=http://...`).
+
+**What gets written.** Captain identity, walk lists, and door-touch logs go to
+`local/captain.db` (SQLite, gitignored). It's created automatically on first write. The
+enriched parquet is read-only.
 
 ## Output
 
@@ -259,7 +320,7 @@ Single-county combined run: web dashboard JSON + Excel workbook. `county_number`
 
 | Function | Input | Output |
 |---|---|---|
-| `build_city_summary(df)` | County-scoped Polars DataFrame | City / township aggregation using `CITY` column; falls back to precinct-name extraction for blank-CITY counties |
+| `build_city_summary(df)` | County-scoped Polars DataFrame | City / township aggregation. Municipality is resolved by the SWVF jurisdiction hierarchy (`CITY → VILLAGE → WARD-prefix → TOWNSHIP = not-a-city → RESIDENTIAL_CITY` as last resort), never by postal city alone — see `_dominant_city_per_precinct` and `tools/admin/validate_jurisdiction_fields.py` |
 | `build_county_summary(df)` | County-scoped DataFrame | Active / Confirmation totals and cohort breakdown |
 | `build_precinct_summary(df)` | County-scoped DataFrame | Per-precinct active / confirmation totals |
 | `build_parquet_cache(txt_files)` | SWVF `.txt` paths | Hive-partitioned Parquet at `local/source/parquet/COUNTY_NUMBER=NN/` |

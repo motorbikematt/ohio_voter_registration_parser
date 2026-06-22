@@ -45,5 +45,11 @@ This directory contains standalone utilities, maintenance scripts, and specializ
 *   **Purpose:** Scans all county data to detect jurisdiction names (e.g., "Washington Township") that exist in multiple counties.
 *   **Output:** Generates `collision_report.md`.
 
+### `admin/validate_jurisdiction_fields.py`
+*   **Purpose:** Data-validation gate for the municipality fields in a new SWVF drop. Confirms the per-county field coverage that the pipeline's city resolver (`_dominant_city_per_precinct`) depends on, and flags precincts a postal-city fallback would mislabel.
+*   **Why it exists:** The Ohio SWVF ([official layout](https://www6.ohiosos.gov/ords/f?p=111:2)) carries two unrelated location families — authoritative jurisdiction (`CITY`/`VILLAGE`/`WARD`/`TOWNSHIP`) and postal address (`RESIDENTIAL_CITY`). Backfilling a blank `CITY` from the postal column mislabels township precincts with their post-office city (e.g. `WASHINGTON TWP F` → `KETTERING`). The resolver instead walks a hierarchy: `CITY → VILLAGE → WARD-prefix → TOWNSHIP (= not a city) → RESIDENTIAL_CITY` (last resort).
+*   **Reports:** (1) per-county CITY coverage; (2) hierarchy-coverage table for blank-CITY counties showing which fallback column covers them, and the *true* postal-last-resort set (counties with no authoritative column — currently only Wyandot); (3) township/village precincts a postal fallback would mislabel.
+*   **Usage:** `python tools/admin/validate_jurisdiction_fields.py [--strict] [--show N]`. `--strict` exits non-zero on HIGH-severity mislabels so it can gate a pipeline run in CI.
+
 ### `run_city_groupings.py`
 *   **Purpose:** A simple wrapper to trigger the generation of city-level chart JSON files for the web dashboard.

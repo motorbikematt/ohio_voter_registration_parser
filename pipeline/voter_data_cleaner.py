@@ -2369,6 +2369,11 @@ def _precinct_safe_name(precinct_name: str) -> str:
 
 
 _CITY_SUFFIX_RE = re.compile(r'\s+(?:CITY|VILLAGE|CITY CORP|CORP)$', re.IGNORECASE)
+# A township token in PRECINCT_NAME means 'not a city' (used when the
+# TOWNSHIP column is blank, e.g. Wyandot's 'ANTRIM TS'). ' TS' is a
+# Wyandot-only trailing abbreviation (verified statewide: 13 precincts,
+# all trailing, no collisions). TWP/TOWNSHIP are the general markers.
+_TOWNSHIP_NAME_RE = re.compile(r'\bTWP\b|\bTOWNSHIP\b|\sTS$')
 
 
 def _normalize_city_name(name: str) -> str:
@@ -2399,33 +2404,95 @@ def _dominant_per_precinct(df: pl.DataFrame, value_col: str) -> dict:
 
 def _dominant_city_per_precinct(df: pl.DataFrame) -> dict:
     """
-    Map PRECINCT_NAME -> normalized dominant municipality for one county's df.
+    Map PRECINCT_NAME -> dominant municipality for one county's df, resolved by
+    the SWVF jurisdiction hierarchy (NOT by postal address).
 
-    Uses the dominant NON-BLANK CITY value per precinct — the registered-address
-    municipality (e.g. Greene's SUGARCREEK 151 carries 'KETTERING CITY' /
-    'CENTERVILLE CITY' for its incorporated voters even though most rows are
-    blank). RESIDENTIAL_CITY is used ONLY for precincts that have no CITY data at
-    all (the ~19 blank-CITY counties); it is the postal/mailing city, which is
-    coarser and differently named (e.g. it labels those same Greene precincts
-    'DAYTON'), so it must never override a real CITY value. This per-precinct
-    fallback — not a per-row coalesce — is what keeps cross-county cities like
-    Kettering intact while still covering blank-CITY counties like Cuyahoga.
-    Precincts with neither value are absent from the map (caller emits None).
+    The Ohio SWVF (official layout: https://www6.ohiosos.gov/ords/f?p=111:2)
+    carries two unrelated location families:
+      * Authoritative jurisdiction: CITY, VILLAGE, WARD, TOWNSHIP, PRECINCT —
+        the Board of Elections' assignment of where a voter legally votes.
+      * Postal address: RESIDENTIAL_CITY — USPS mail delivery only. A voter in
+        an unincorporated township has CITY='' but receives mail from a nearby
+        city's post office, so RESIDENTIAL_CITY names that city. Using it as the
+        municipality mislabels township precincts (e.g. WASHINGTON TWP F ->
+        'KETTERING'). It is therefore the LAST resort, never a CITY override.
+
+    Resolution order per precinct (first match wins):
+      1. PRECINCT_NAME township token (TWP / TOWNSHIP / trailing ' TS') -> the
+         precinct is primarily unincorporated township, so it is NOT a city
+         (emit None) -- even if a MINORITY of rows carry a CITY/VILLAGE value
+         (e.g. Wyandot's 'JACKSON TS' contains the tiny Village of Kirby for ~35
+         voters; the precinct as a whole is Jackson Township). This runs first so
+         that minority value cannot claim the precinct. The name token also
+         covers counties that leave the TOWNSHIP column blank but name the
+         precinct as a township -- notably Wyandot ('ANTRIM TS'). Universal, not
+         a per-county exception.
+      2. CITY          -> that city (69 counties populate this).
+      3. VILLAGE       -> that village (incorporated-but-not-city residents).
+      4. WARD prefix   -> municipality embedded in WARD (e.g. Cuyahoga's
+                          'CLEVELAND WARD 7' -> 'CLEVELAND').
+      5. TOWNSHIP column -> the column-based counterpart to step 1, for counties
+                          that populate the TOWNSHIP column but use a
+                          non-township precinct name. Emits None.
+      6. RESIDENTIAL_CITY (postal) -> only when none of the above match (e.g.
+         Wyandot's incorporated precincts 'CAREY A', 'UPPER D', 'NEVADA' -- real
+         towns with no authoritative jurisdiction column). Flagged as a fallback
+         in provenance.
+
+    A precinct that resolves to a township (steps 1/5) is intentionally ABSENT
+    from the returned map; the caller emits None ('not in a city'). Run
+    tools/admin/validate_jurisdiction_fields.py on every new SWVF drop to confirm
+    the per-county coverage this logic relies on.
     """
     cols = df.columns
-    if 'PRECINCT_NAME' not in cols or 'CITY' not in cols:
-        # No CITY column at all: fall back wholesale to RESIDENTIAL_CITY.
-        if 'PRECINCT_NAME' in cols and 'RESIDENTIAL_CITY' in cols:
-            return {k: _normalize_city_name(v)
-                    for k, v in _dominant_per_precinct(df, 'RESIDENTIAL_CITY').items()}
+    if 'PRECINCT_NAME' not in cols:
         return {}
 
-    by_city = _dominant_per_precinct(df, 'CITY')
+    resolved: dict = {}
+
+    def fill(col: str, transform=None):
+        """Set resolved[p] from the dominant non-blank value of col, but only
+        for precincts not already resolved by a higher-priority column."""
+        if col not in cols:
+            return
+        for pname, val in _dominant_per_precinct(df, col).items():
+            if pname in resolved:
+                continue
+            v = transform(val) if transform else val
+            if v:
+                resolved[pname] = v
+
+    # 1: A PRECINCT_NAME that declares a township (TWP / TOWNSHIP / trailing
+    #    ' TS') is primarily unincorporated township -> NOT a city, even if a
+    #    MINORITY of its rows carry a CITY/VILLAGE value (e.g. Wyandot's
+    #    'JACKSON TS' contains the tiny Village of Kirby for ~35 voters). Resolve
+    #    these to None first so that minority value cannot claim the precinct.
+    for pname in df['PRECINCT_NAME'].drop_nulls().unique().to_list():
+        if _TOWNSHIP_NAME_RE.search(pname.upper()):
+            resolved.setdefault(pname, None)
+
+    # 2-3: authoritative municipality columns (only for non-township precincts,
+    #      which are already pinned to None above).
+    fill('CITY', _normalize_city_name)
+    fill('VILLAGE', _normalize_city_name)
+    # 4: WARD carries 'CLEVELAND WARD 7' style values; take the municipality
+    #    prefix before ' WARD'. Only applies where WARD is populated (Cuyahoga).
+    fill('WARD', lambda v: _normalize_city_name(re.split(r'\s+WARD\b', v, maxsplit=1)[0]))
+
+    # 5: TOWNSHIP-column precincts are NOT cities (the column-based counterpart
+    #    to the name check in step 1; covers counties that populate the column
+    #    but use a non-township precinct name).
+    if 'TOWNSHIP' in cols:
+        for pname in _dominant_per_precinct(df, 'TOWNSHIP'):
+            resolved.setdefault(pname, None)
+
+    # 6: postal last resort — only precincts still unresolved (no CITY/VILLAGE/
+    #    WARD/TOWNSHIP signal at all, e.g. Wyandot). Never overrides the above.
     if 'RESIDENTIAL_CITY' in cols:
-        by_res = _dominant_per_precinct(df, 'RESIDENTIAL_CITY')
-        for pname, val in by_res.items():
-            by_city.setdefault(pname, val)  # only where CITY gave nothing
-    return {k: _normalize_city_name(v) for k, v in by_city.items()}
+        fill('RESIDENTIAL_CITY', _normalize_city_name)
+
+    # Drop the explicit-None (township) entries; caller treats "absent" as None.
+    return {k: v for k, v in resolved.items() if v}
 
 
 def export_precinct_charts(

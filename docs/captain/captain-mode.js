@@ -89,11 +89,23 @@
   // ─── boot ────────────────────────────────────────────────────────────────
   async function boot() {
     let alive = false;
+    let cacheReady = false;
     try {
       const r = await fetch(API + '/health', { mode: 'cors' });
       alive = r.ok;
+      if (alive) {
+        const h = await r.json();
+        cacheReady = !!h.cache_exists;
+      }
     } catch (_) { /* unreachable -> public mode */ }
     if (!alive) return;
+    if (!cacheReady) {
+      // API is running but the enriched parquet is missing. Show a clear
+      // warning instead of activating click handlers that would 500.
+      injectAssets();
+      mountWarningBanner();
+      return;
+    }
     injectAssets();
     document.body.classList.add('captain-mode');
     mountBanner();
@@ -133,6 +145,17 @@
       '<span><b>Self-hosted</b> &middot; real voter data active</span>' +
       '<span class="grow"></span>' +
       '<span class="hint">Click any cohort or generation bar to generate a roster</span>';
+    document.body.appendChild(b);
+  }
+
+  function mountWarningBanner() {
+    const b = document.createElement('div');
+    b.className = 'captain-banner captain-banner-warn';
+    b.innerHTML =
+      '<span class="dot"></span>' +
+      '<span><b>Captain mode unavailable</b> &middot; enriched parquet missing</span>' +
+      '<span class="grow"></span>' +
+      '<span class="hint">Run <code>python pipeline/ohio_voter_pipeline.py</code> (option 1), then restart the API.</span>';
     document.body.appendChild(b);
   }
 
@@ -306,14 +329,33 @@
     currentScope = {
       countySlug,
       precinctSlug,
-      precinct: slugToDisplay(precinctSlug),
-      county: null, // 2-digit number resolved via manifest alphabetical index
+      // Display name: read from the hierarchy row v2.js renders. That row's
+      // data-precinct-name attribute holds the exact parquet name (e.g.
+      // "KETTERING 1-A") including any hyphens, apostrophes, or slashes that
+      // the slug erases. Fall back to a best-effort slug-to-display if the row
+      // is not in the DOM yet (race on cold-load); the API is slug-agnostic so
+      // roster queries work regardless of what's in `precinct`.
+      precinct: precinctDisplayFromSlug(precinctSlug),
+      county: null,     // 2-digit number resolved via manifest alphabetical index
+      countyName: null, // human-readable name (e.g. "Montgomery") for UI display
     };
     resolveCountyNumber();
   }
 
-  function slugToDisplay(slug) {
-    return String(slug || '').replace(/_/g, ' ').toUpperCase();
+  function precinctDisplayFromSlug(slug) {
+    if (!slug) return '';
+    const row = document.querySelector(
+      '.hier-row[data-precinct="' + cssEscape(slug) + '"]'
+    );
+    const name = row && row.getAttribute('data-precinct-name');
+    if (name) return name;
+    // Fallback: slug-to-display is lossy (collapses hyphens/spaces) but better
+    // than showing nothing while the hierarchy is still rendering.
+    return String(slug).replace(/_/g, ' ').toUpperCase();
+  }
+
+  function cssEscape(s) {
+    return String(s).replace(/["\\]/g, '\\$&');
   }
 
   // The roster API needs COUNTY_NUMBER (2-digit). The dashboard knows the
@@ -340,7 +382,11 @@
         const idx = list.findIndex(c =>
           countyToSlug(typeof c === 'string' ? c : (c.name || '')) === currentScope.countySlug
         );
-        if (idx >= 0) currentScope.county = countyIndexToNumber(idx);
+        if (idx >= 0) {
+          currentScope.county = countyIndexToNumber(idx);
+          const entry = list[idx];
+          currentScope.countyName = typeof entry === 'string' ? entry : (entry.name || '');
+        }
       } catch (_) { /* manifest unavailable — fall back when user clicks */ }
     }
   }
@@ -386,7 +432,14 @@
     overlay.className = 'captain-picker-overlay';
     // Pre-fill precinct from the current scope so the captain doesn't retype it.
     const pCounty = (currentScope && currentScope.county) || '';
+    const pCountyName = (currentScope && currentScope.countyName) || '';
     const pName = (currentScope && currentScope.precinct) || '';
+    // County name displayed read-only; the 2-digit number is what the API needs,
+    // carried in a hidden input so form serialization at submit time is unchanged.
+    const countyRow = pCountyName
+      ? '<div class="captain-readonly-row"><span class="rl-label">County</span><span class="rl-value">' + esc(pCountyName) + '</span></div>' +
+        '<input type="hidden" name="precinct_county" value="' + esc(pCounty) + '">'
+      : '<label>County number<input name="precinct_county" required value="' + esc(pCounty) + '" placeholder="e.g. 57"></label>';
     overlay.innerHTML =
       '<div class="captain-picker">' +
         '<h2>Set up your captain account</h2>' +
@@ -396,7 +449,7 @@
           '<label>Email<input name="email" type="email" required autocomplete="email"></label>' +
           '<label>Phone<input name="phone" type="tel" inputmode="tel" required autocomplete="tel"></label>' +
           '<label>Precinct<input name="precinct_name" required value="' + esc(pName) + '"></label>' +
-          '<label>County number<input name="precinct_county" required value="' + esc(pCounty) + '" placeholder="e.g. 57"></label>' +
+          countyRow +
           '<div class="captain-picker-actions">' +
             '<button type="submit" class="primary">Save</button>' +
             '<button type="button" class="cancel">Cancel</button>' +
@@ -605,7 +658,9 @@
     }
     const url = buildUrl('/roster', {
       level: 'precinct',
-      id: currentScope.precinct,
+      // Send the URL slug, not the display name. The API normalizes both sides
+      // ("kettering_1_a" vs "KETTERING 1-A") so punctuation is irrelevant.
+      id: currentScope.precinctSlug,
       county: currentScope.county || '',
       limit: PAGE_SIZE,
       offset: pageOffset,
@@ -715,7 +770,7 @@
     if (!currentFilter || !currentScope) return;
     const url = buildUrl('/export', {
       level: 'precinct',
-      id: currentScope.precinct,
+      id: currentScope.precinctSlug,
       county: currentScope.county || '',
       format: fmt,
     });

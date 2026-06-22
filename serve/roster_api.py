@@ -203,6 +203,17 @@ def filter_voter_ids(level: str, jid: str, cohort: str | None, county: str | Non
     return [str(v) for v in matched["SOS_VOTERID"].to_list() if v is not None]
 
 
+def _slugify(s: str) -> str:
+    """Normalize a name for slug-vs-slug comparison. Lowercases, then collapses
+    any run of non-alphanumeric characters into a single underscore. This is the
+    server-side mirror of the client's URL-slug generator: 'KETTERING 1-A' and
+    'kettering_1_a' both become 'kettering_1_a'. The captain UI passes the slug
+    from location.search straight through, so the comparison needs to be
+    punctuation-agnostic on both sides — the parquet name may use hyphens,
+    spaces, apostrophes, or slashes depending on the county."""
+    return re.sub(r"[^a-z0-9]+", "_", s.lower()).strip("_")
+
+
 def _roster_frame(level: str, jid: str, cohort: str | None, county: str | None,
                   generation: str | None = None) -> pl.DataFrame:
     """Apply the jurisdiction + (cohort | generation) filter and return the
@@ -222,7 +233,16 @@ def _roster_frame(level: str, jid: str, cohort: str | None, county: str | None,
     if level == "county":
         flt = flt & (pl.col("COUNTY_NUMBER").cast(pl.Utf8).str.zfill(2) == jid.zfill(2))
     else:
-        flt = flt & (pl.col(col).cast(pl.Utf8) == jid)
+        # Slug-vs-slug match: collapse punctuation on both sides so the URL slug
+        # the captain UI sends ("kettering_1_a") matches the parquet name
+        # ("KETTERING 1-A"). Mirrors _slugify().
+        jid_slug = _slugify(jid)
+        col_slug = (
+            pl.col(col).cast(pl.Utf8).str.to_lowercase()
+              .str.replace_all(r"[^a-z0-9]+", "_")
+              .str.strip_chars("_")
+        )
+        flt = flt & (col_slug == jid_slug)
         # precinct/township/village names collide across counties — scope by county
         if county is not None and "COUNTY_NUMBER" in df.columns:
             flt = flt & (pl.col("COUNTY_NUMBER").cast(pl.Utf8).str.zfill(2) == county.zfill(2))
@@ -621,6 +641,14 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main():
+    if not ENRICHED_CACHE.exists():
+        print("ERROR: enriched parquet not found at")
+        print(f"  {ENRICHED_CACHE}")
+        print()
+        print("Run the pipeline first:")
+        print("  python pipeline/ohio_voter_pipeline.py")
+        print("Select option [1] when prompted (full Ohio -> dashboard JSON).")
+        sys.exit(1)
     if not TOKEN:
         print("WARNING: ROSTER_TOKEN unset - API is OPEN. Localhost-only use.")
     print(f"roster_api -> http://{HOST}:{PORT}  (cache: {ENRICHED_CACHE})")

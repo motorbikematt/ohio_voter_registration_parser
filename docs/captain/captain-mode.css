@@ -49,6 +49,17 @@
 }
 body.captain-mode { padding-top: 28px; }
 
+/* Warning state: API reachable but enriched parquet missing. Click handlers
+   stay off; banner explains the remediation. */
+.captain-banner-warn { background: #d97706; }
+body:has(.captain-banner-warn) { padding-top: 28px; }
+.captain-banner-warn code {
+  background: rgba(0,0,0,.18);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
 @media (max-width: 880px) {
   .captain-banner { font-size: 11px; padding: 5px 10px; }
   .captain-banner .hint { display: none; }
@@ -316,6 +327,19 @@ body.captain-mode [data-chart-id] canvas { cursor: pointer; }
   box-sizing: border-box;
 }
 .captain-picker input:focus { outline: 2px solid #2563eb; outline-offset: -1px; }
+.captain-picker .captain-readonly-row {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 0 0 12px;
+  padding: 8px 10px;
+  background: #0f172a;
+  border: 1px solid #334155; border-radius: 6px;
+}
+.captain-picker .captain-readonly-row .rl-label {
+  font-size: 12px; color: #94a3b8; font-weight: 500;
+}
+.captain-picker .captain-readonly-row .rl-value {
+  font: 14px/1.4 system-ui, sans-serif; color: #f1f5f9;
+}
 .captain-picker-actions {
   display: flex; gap: 8px; margin-top: 16px;
 }
