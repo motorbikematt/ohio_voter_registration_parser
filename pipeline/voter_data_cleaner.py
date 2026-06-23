@@ -1266,32 +1266,31 @@ def build_city_summary(df: pl.DataFrame) -> pl.DataFrame:
         Precincts       — number of distinct precincts contributing to this city
         Est. Unregistered — placeholder; requires Census integration
     """
+    base = df.with_columns([
+        pl.col('PRECINCT_NAME').fill_null('Unknown').str.strip_chars().alias('PRECINCT_NAME'),
+        pl.col('COUNTY_NUMBER').fill_null('??').str.strip_chars().alias('COUNTY_NUMBER'),
+    ])
+
+    # Resolve municipality with the SHARED jurisdiction-hierarchy resolver, so
+    # this summary, the precinct index, and city_county_map can never drift:
+    #   CITY -> VILLAGE -> WARD-prefix -> TOWNSHIP (= not a city) -> postal.
+    # Townships resolve to None and are intentionally excluded (they are not
+    # cities). _dominant_city_per_precinct keys by PRECINCT_NAME within a county
+    # slice; build_city_summary may receive multiple counties, so map per
+    # (county, precinct).
+    city_by_precinct = {}
+    for (cnum,), sub in base.group_by(['COUNTY_NUMBER'], maintain_order=True):
+        for pname, city in _dominant_city_per_precinct(sub).items():
+            city_by_precinct[(cnum, pname)] = city
+
+    mapping = pl.DataFrame(
+        [{'COUNTY_NUMBER': c, 'PRECINCT_NAME': p, 'City': v}
+         for (c, p), v in city_by_precinct.items()],
+        schema={'COUNTY_NUMBER': pl.Utf8, 'PRECINCT_NAME': pl.Utf8, 'City': pl.Utf8},
+    )
+
     return (
-        df.with_columns([
-            pl.col('PRECINCT_NAME').fill_null('Unknown').str.strip_chars().alias('PRECINCT_NAME'),
-            pl.col('COUNTY_NUMBER').fill_null('??').str.strip_chars().alias('COUNTY_NUMBER'),
-            pl.col('CITY').str.strip_chars().alias('CITY'),
-        ])
-        .with_columns(
-            # Prefer CITY (registered-address municipality). Fall back to
-            # RESIDENTIAL_CITY when CITY is absent (~19 blank counties); it is
-            # 100% populated there (confirmed by parquet scan, e.g. Cuyahoga:
-            # 0% CITY, 100% RESIDENTIAL_CITY). Both are registered-address
-            # fields, so no precinct-name prefix-matching is needed.
-            pl.when(
-                pl.col('CITY').is_not_null() & pl.col('CITY').str.len_chars().gt(0)
-            )
-            .then(pl.col('CITY'))
-            .otherwise(pl.col('RESIDENTIAL_CITY').str.strip_chars())
-            .alias('City')
-        )
-        .with_columns(
-            # Strip Ohio municipal type suffixes so display names match
-            # existing city_summary format: 'KETTERING' not 'KETTERING CITY'.
-            pl.col('City')
-              .str.replace(r'\s+(?:CITY|VILLAGE|CITY CORP|CORP)\s*$', '', literal=False)
-              .alias('City')
-        )
+        base.join(mapping, on=['COUNTY_NUMBER', 'PRECINCT_NAME'], how='inner')
         .group_by(['COUNTY_NUMBER', 'City'])
         .agg([
             pl.col('VOTER_STATUS').eq('ACTIVE').sum().cast(pl.Int64).alias('ACTIVE'),

@@ -196,123 +196,28 @@
     const norm = slug.replace(/_/g, ' ');
     return list.find(c => c.toLowerCase() === norm.toLowerCase()) || (slug[0].toUpperCase() + slug.slice(1));
   }
-
-  // ── Data: load all chartConfigs for a jurisdiction ─────────
-  // ── City-level chart aggregation ──────────────────────────
-  // Fetches all precinct-level chart JSONs for a city in parallel and sums
-  // the data arrays element-wise, producing county-compatible chartConfig objects.
-  async function aggregateCityCharts(countySlug, cityName, precinctIndex) {
-    const upper = cityName.toUpperCase();
-
-    // Determine which counties contain this city. The cross-county map lets a
-    // city like Kettering pull its Greene-side precincts (SUGARCREEK 151 /
-    // BEAVERCREEK 090) even when the tree was opened under Montgomery. Without
-    // the map we fall back to the single county whose tree was clicked.
+  // City slug helpers. city_county_map.json is keyed by DISPLAY NAME (uppercase)
+  // -> [county slugs]; the slug shape matches countyToSlug / the pipeline's
+  // _precinct_safe_name. A city is addressed in the URL by its own slug
+  // (?level=city&id=kettering), independent of any county.
+  function cityNameToSlug(name) { return countyToSlug(name); }
+  async function cityNameFromSlug(slug) {
     const map = await loadCityCountyMap();
-    const counties = (map && map[upper] && map[upper].length) ? map[upper] : [countySlug];
-
-    // Load each county's precinct index (the clicked one is already in hand),
-    // then collect precincts whose .city matches — tagged with their own county
-    // slug so chart files are fetched from the right county's namespace.
-    const indexByCounty = {};
-    indexByCounty[countySlug] = precinctIndex;
-    await Promise.all(counties.map(async cs => {
-      if (indexByCounty[cs]) return;
-      indexByCounty[cs] = await fetchJSON(`data/${cs}_precinct_index.json`).catch(() => null);
-    }));
-
-    const cityPrecincts = [];
-    counties.forEach(cs => {
-      const idx = indexByCounty[cs];
-      const list = (idx && idx.precincts) ? idx.precincts : [];
-      list.forEach(prec => {
-        // Prefer the city field (SWVF CITY/RESIDENTIAL_CITY). Fall back to
-        // name-prefix matching only for indexes lacking a city field.
-        const match = prec.city
-          ? prec.city.toUpperCase() === upper
-          : (prec.name.toUpperCase() === upper || prec.name.toUpperCase().startsWith(upper + ' '));
-        if (match) cityPrecincts.push({ county: cs, safe_name: prec.safe_name });
-      });
-    });
-    if (cityPrecincts.length === 0) return {};
-
-    // Fetch all 6 chart types for every precinct in parallel, each from its
-    // own county's namespace.
-    const results = await Promise.all(cityPrecincts.map(async prec => {
-      const cs = prec.county;
-      const ps = prec.safe_name;
-      const [party, decade, gen, partyDecade, partyGen, unc] = await Promise.all([
-        fetchJSON(`data/${cs}_precinct_${ps}_party.json`).catch(() => null),
-        fetchJSON(`data/${cs}_precinct_${ps}_decade.json`).catch(() => null),
-        fetchJSON(`data/${cs}_precinct_${ps}_generation.json`).catch(() => null),
-        fetchJSON(`data/${cs}_precinct_${ps}_party_by_decade.json`).catch(() => null),
-        fetchJSON(`data/${cs}_precinct_${ps}_party_by_generation.json`).catch(() => null),
-        fetchJSON(`data/${cs}_precinct_${ps}_unc.json`).catch(() => null),
-      ]);
-      return { party, decade, gen, partyDecade, partyGen, unc };
-    }));
-
-    function sumArrays(arrays) {
-      if (!arrays.length) return [];
-      const len = Math.max(...arrays.map(a => a.length));
-      const out = new Array(len).fill(0);
-      for (const arr of arrays) for (let i = 0; i < arr.length; i++) out[i] += Number(arr[i] || 0);
-      return out;
+    if (map) {
+      for (const display of Object.keys(map)) {
+        if (cityNameToSlug(display) === slug) return display;
+      }
     }
-    function aggSingle(key) {
-      const valid = results.map(r => r[key]).filter(d => d && d.chartConfig);
-      if (!valid.length) return null;
-      const base = JSON.parse(JSON.stringify(valid[0].chartConfig));
-      const canonLabels = base.labels;
-      const arrays = valid.map(d => {
-        const dLabels = d.chartConfig.labels;
-        return canonLabels.map(l => {
-          const idx = dLabels.indexOf(l);
-          return idx >= 0 ? Number(d.chartConfig.datasets[0].data[idx] || 0) : 0;
-        });
-      });
-      base.datasets[0].data = sumArrays(arrays);
-      return { chartConfig: base };
-    }
-    function aggStacked(key) {
-      const valid = results.map(r => r[key]).filter(d => d && d.chartConfig);
-      if (!valid.length) return null;
-      const base = JSON.parse(JSON.stringify(valid[0].chartConfig));
-      const canonLabels = base.labels;
-      base.datasets = base.datasets.map((ds, dsIdx) => {
-        const arrays = valid.map(d => {
-          const dLabels = d.chartConfig.labels;
-          return canonLabels.map(l => {
-            const idx = dLabels.indexOf(l);
-            return idx >= 0 ? Number(((d.chartConfig.datasets[dsIdx] || {}).data || [])[idx] || 0) : 0;
-          });
-        });
-        ds.data = sumArrays(arrays);
-        return ds;
-      });
-      return { chartConfig: base };
-    }
-    function aggUnc() {
-      const valid = results.map(r => r.unc).filter(d => d && d.chartConfig);
-      if (!valid.length) return null;
-      const base = JSON.parse(JSON.stringify(valid[0].chartConfig));
-      base.datasets = base.datasets.map((ds, i) => {
-        ds.data = [valid.reduce((acc, d) => acc + Number(((d.chartConfig.datasets[i] || {}).data || [0])[0] || 0), 0)];
-        return ds;
-      });
-      return { chartConfig: base };
-    }
-
-    return {
-      party:       aggSingle('party'),
-      decade:      aggSingle('decade'),
-      gen:         aggSingle('gen'),
-      partyDecade: aggStacked('partyDecade'),
-      partyGen:    aggStacked('partyGen'),
-      uncShadow:   aggUnc(),
-    };
+    return slug.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  }
+  // Counties a city spans (all of them, unioned) — or [] if unknown.
+  async function citySpanCounties(cityName) {
+    const map = await loadCityCountyMap();
+    const upper = (cityName || '').toUpperCase();
+    return (map && map[upper] && map[upper].length) ? map[upper] : [];
   }
 
+  // ── Data: load all chartConfigs for a jurisdiction ─────────
   // Returns: { total, party, decade, partyDecade, gen, partyGen, uncShadow, citySummary, precinctIndex, missing[] }
   async function loadJurisdiction(level, id, county) {
     const bag = { level, id, county, missing: [] };
@@ -343,8 +248,23 @@
       // renderNarrative() hides the card when bag.narrative is absent.
       add('narrative',   `data/${cs}_precinct_${ps}_narrative.json`);
     } else if (level === 'city') {
-      const cs = countyToSlug(county || S.id || '');
-      add('citySummary',   `data/${cs}_city_summary.json`);
+      // id is a CITY slug. The view is the unified all-county report. Chart data
+      // comes from the pipeline's PRECOMPUTED city aggregates (correct, derived
+      // straight from the voter file's CITY column) — NOT re-summed from whole
+      // precinct files, which over-counts partial border precincts. Flat-file
+      // pattern, same as districts.
+      bag.cityName = await cityNameFromSlug(id);
+      bag.spanCounties = await citySpanCounties(bag.cityName);
+      add('party',       `data/city/${id}_party_affiliation.json`);
+      add('decade',      `data/city/${id}_decade_distribution.json`);
+      add('gen',         `data/city/${id}_generation_distribution.json`);
+      add('partyDecade', `data/city/${id}_party_by_decade.json`);
+      add('partyGen',    `data/city/${id}_party_by_generation.json`);
+      add('uncShadow',   `data/city/${id}_unc_shadow.json`);
+      add('narrative',   `data/city/${id}_narrative.json`);
+      // Primary county's precinct index drives the left-nav precinct list.
+      const cs = (bag.spanCounties && bag.spanCounties[0]) || countyToSlug(S.county || '');
+      bag.primaryCounty = cs;
       add('precinctIndex', `data/${cs}_precinct_index.json`);
     } else if (level === 'district') {
       const t = S.district_type || 'state_senate_district';
@@ -361,12 +281,6 @@
       catch (e) { bag.missing.push(t.key); }
     }));
 
-    // For city level, aggregate chart data from individual precinct files
-    if (level === 'city' && bag.precinctIndex) {
-      const cs = countyToSlug(county || S.id || '');
-      const cityCharts = await aggregateCityCharts(cs, id, bag.precinctIndex);
-      Object.assign(bag, cityCharts);
-    }
     if (bag.party && bag.party.chartConfig) {
       bag.total = bag.party.chartConfig.datasets[0].data.reduce((a, b) => a + Number(b || 0), 0);
     }
@@ -579,8 +493,31 @@
       const html = ['<div class="hier-section">',
         '<span class="eyebrow">Statewide</span>',
         '<div class="hier-row depth-0" data-action="select-state"><span class="twirl"></span><span class="label">Ohio</span><span class="count">' + counties.length + '</span></div>',
-        '</div>',
-        '<div class="hier-section"><span class="eyebrow">Counties (88)</span>'];
+        '</div>'];
+
+      // Cities spanning multiple counties: the unified, county-independent view.
+      // (Single-county cities remain reachable by drilling into their county.)
+      const cmap = await loadCityCountyMap();
+      if (cmap) {
+        const multi = Object.keys(cmap)
+          .filter(name => (cmap[name] || []).length > 1)
+          .sort();
+        if (multi.length) {
+          html.push('<div class="hier-section"><span class="eyebrow">Cities spanning counties (' + multi.length + ')</span>');
+          multi.forEach(name => {
+            const slug = cityNameToSlug(name);
+            const isSel = S.level === 'city' && !S.county && S.id === slug;
+            const nC = cmap[name].length;
+            html.push('<div class="hier-row depth-0 ' + (isSel ? 'is-selected' : '') +
+              '" data-action="select-city" data-city-slug="' + slug + '" data-city-name="' + name + '">' +
+              '<span class="twirl"></span><span class="label">' + name + '</span>' +
+              '<span class="count">' + nC + ' co.</span></div>');
+          });
+          html.push('</div>');
+        }
+      }
+
+      html.push('<div class="hier-section"><span class="eyebrow">Counties (88)</span>');
       counties.forEach(c => {
         const slug = countyToSlug(c);
         const isSel = S.level === 'county' && S.id === slug;
@@ -731,13 +668,16 @@
         const isOpen = el.classList.toggle('is-open');
         const children = wrap.querySelector('[data-city-children="' + key + '"]');
         if (children) children.classList.toggle('is-open', isOpen);
-        // Navigate to city view for named cities (not 'Other precincts')
-        if (cityName && cs) {
+        // Navigate to the unified city view for named cities (not 'Other
+        // precincts'). Clicking a city anywhere — county tree or Cities root —
+        // resolves to the full cross-county report. One concept, no fragments.
+        if (cityName) {
           wrap.querySelectorAll('[data-action="toggle-city"].is-selected').forEach(r => r.classList.remove('is-selected'));
           el.classList.add('is-selected');
-          S.level = 'city'; S.city = cityName; S.id = cs; S.county = cs;
-          writeState({ level: 'city', city: cityName, id: cs, county: cs, type: null });
-          emit('select_jurisdiction', { level: 'city', city: cityName, county: cs });
+          const citySlug = cityNameToSlug(cityName);
+          S.level = 'city'; S.city = cityName; S.id = citySlug; S.county = null;
+          writeState({ level: 'city', id: citySlug, county: null, city: null, type: null });
+          emit('select_jurisdiction', { level: 'city', city: cityName });
           await refreshView();
         }
       };
@@ -819,6 +759,13 @@
           S.level = 'county'; S.id = slug; S.county = null; S.district_type = null;
           writeState({ level: 'county', id: slug, county: null, type: null });
           emit('select_jurisdiction', { level: 'county', id: slug, name });
+        } else if (action === 'select-city') {
+          // Unified, county-independent city view (no county param).
+          const slug = el.getAttribute('data-city-slug');
+          const name = el.getAttribute('data-city-name');
+          S.level = 'city'; S.id = slug; S.city = name; S.county = null; S.district_type = null;
+          writeState({ level: 'city', id: slug, county: null, city: null, type: null });
+          emit('select_jurisdiction', { level: 'city', id: slug, name });
         } else if (action === 'select-precinct') {
           const county = el.getAttribute('data-county');
           const precinct = el.getAttribute('data-precinct');
@@ -1160,8 +1107,9 @@
     if (bag.level === 'county') {
       parts.push({ label: bag.displayName, here: true });
     } else if (bag.level === 'city') {
-      parts.push({ label: slugToCountyName(bag.county || S.id || ''), action: 'county', county: bag.county || S.id });
-      parts.push({ label: bag.displayName, here: true });
+      // Unified city: Ohio › City (no intermediate county — it may span several).
+      // The span, if multi-county, is shown as a subtitle label by the hero.
+      parts.push({ label: bag.displayName + (bag.citySpanLabel ? ' (' + bag.citySpanLabel + ')' : ''), here: true });
     } else if (bag.level === 'precinct') {
       parts.push({ label: slugToCountyName(bag.county), action: 'county', county: bag.county });
       parts.push({ label: bag.displayName, here: true });
@@ -1438,9 +1386,14 @@
         bag = await loadJurisdiction('county', S.id, null);
         bag.displayName = slugToCountyName(S.id);
       } else if (S.level === 'city') {
-        bag = await loadJurisdiction('city', S.city, S.id);
-        bag.displayName = S.city || '';
-        bag.county = S.id;
+        // id is the city slug. A city view is always the unified, all-county
+        // report — every county the city spans, unioned.
+        bag = await loadJurisdiction('city', S.id, null);
+        const span = bag.spanCounties || [];
+        bag.displayName = bag.cityName || (S.id || '').replace(/_/g, ' ').toUpperCase();
+        // Honest multi-county label when the city spans >1 county.
+        bag.citySpanLabel = span.length > 1 ? span.map(slugToCountyName).join(' + ') : null;
+        bag.county = null;
       } else if (S.level === 'precinct') {
         bag = await loadJurisdiction('precinct', S.id, S.county || 'hamilton');
         bag.displayName = (bag.party && bag.party.precinct) || S.id.replace(/_/g, ' ').toUpperCase();
@@ -1491,8 +1444,10 @@
       renderHexMap(window._leans, null, [aName, bName].filter(Boolean));
     } else {
       if (mapEyebrow) mapEyebrow.textContent = 'Ohio · 88 counties · party lean';
+      // For a city, S.id is a CITY slug (not a county) and the view is always
+      // the unified all-county report, so there's no single county to highlight.
+      // NOTE: the hex map is a placeholder pending real jurisdictional maps.
       const name = S.level === 'county' ? slugToCountyName(S.id) :
-                   S.level === 'city' ? slugToCountyName(S.id) :
                    S.level === 'precinct' ? slugToCountyName(S.county || '') : null;
       renderHexMap(window._leans, name, null);
     }

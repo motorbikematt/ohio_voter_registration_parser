@@ -146,6 +146,10 @@ CHART_COLORS = {
     'generation': '#8b5cf6',
 }
 
+# Canonical generation order — must match voter_data_cleaner._GEN_ORDER
+# and the labels written into the `Generation` column.
+_GEN_ORDER = ['Silent/Greatest', 'Baby Boomers', 'Gen X', 'Millennials', 'Gen Z', 'Gen Alpha']
+
 GENERATION_RANGES = {
     'Silent': (1928, 1945),
     'Baby Boomers': (1946, 1964),
@@ -394,33 +398,46 @@ def aggregate_jurisdiction(
             'note': note,
         }
 
+    # ── Generation distribution (bar) ─────────────────────────────────────────
+    # Uses the canonical `Generation` column built by the cleaner (Pew bounds),
+    # mirroring decade_distribution. Empty generations are dropped from labels.
+    if 'Generation' in subset.columns:
+        gen_df = (
+            subset.group_by('Generation')
+                  .agg(pl.len().alias('count'))
+        )
+        gmap = dict(zip(gen_df['Generation'].to_list(), gen_df['count'].to_list()))
+        gen_labels = [g for g in _GEN_ORDER if gmap.get(g)]
+        result['generation_distribution'] = {
+            'title': 'Voter Distribution by Generation',
+            'type': 'bar',
+            'chartConfig': {
+                'labels': gen_labels,
+                'datasets': [{
+                    'label': 'Registered Voters',
+                    'data': [int(gmap.get(g, 0)) for g in gen_labels],
+                    'backgroundColor': CHART_COLORS['bar'],
+                    'borderRadius': 4,
+                }],
+            },
+            'note': note,
+        }
+
     # ── Party × Generation (stacked bar) ──────────────────────────────────────
-    if 'cohort_family' in subset.columns and 'birth_year' in subset.columns:
-        # Compute generation from birth_year
-        subset_with_gen = subset.with_columns(
-            pl.col('birth_year').map_elements(
-                lambda y: next((g for g, (start, end) in GENERATION_RANGES.items()
-                              if start <= y <= end), 'Unknown'),
-                return_dtype=pl.Utf8
-            ).alias('generation')
-        )
-
-        gen_order = ['Silent', 'Baby Boomers', 'Generation X', 'Millennials', 'Generation Z', 'Gen Alpha']
-
+    if 'cohort_family' in subset.columns and 'Generation' in subset.columns:
         party_gen_df = (
-            subset_with_gen.group_by(['generation', 'cohort_family'])
-                           .agg(pl.len().alias('count'))
+            subset.group_by(['Generation', 'cohort_family'])
+                  .agg(pl.len().alias('count'))
         )
-
-        # Filter to known generations and sort
-        party_gen_df = party_gen_df.filter(pl.col('generation').is_in(gen_order))
+        gen_order = [g for g in _GEN_ORDER
+                     if party_gen_df.filter(pl.col('Generation') == g).height > 0]
 
         datasets = []
         for fam, lbl, color in COHORT_SLICES:
             data = []
             for gen in gen_order:
                 row = party_gen_df.filter(
-                    (pl.col('generation') == gen) & (pl.col('cohort_family') == fam)
+                    (pl.col('Generation') == gen) & (pl.col('cohort_family') == fam)
                 )
                 data.append(int(row['count'].sum()) if row.height > 0 else 0)
 
@@ -488,7 +505,7 @@ def export_jurisdiction_json(
 
         # Write each chart type as separate JSON
         for chart_type in ['party_affiliation', 'decade_distribution', 'party_by_decade',
-                          'party_by_generation', 'unc_shadow']:
+                          'generation_distribution', 'party_by_generation', 'unc_shadow']:
             if chart_type in result:
                 chart_data = result[chart_type]
                 chart_data['geography'] = jurisdiction_type
@@ -531,7 +548,8 @@ def export_jurisdiction_index(results, jurisdiction_type_key, logger):
     config     = JURISDICTIONS.get(jurisdiction_type_key, {})
     type_dir   = DATA_DIR / config.get('display', jurisdiction_type_key).lower().replace(' ', '_')
     PRIMARY_SUFFIX = '_party_affiliation.json'
-    CHART_TYPES    = ['party_affiliation', 'decade_distribution', 'party_by_decade', 'unc_shadow']
+    CHART_TYPES    = ['party_affiliation', 'decade_distribution', 'party_by_decade',
+                      'generation_distribution', 'party_by_generation', 'unc_shadow']
 
     entries = []
     if not type_dir.exists():
