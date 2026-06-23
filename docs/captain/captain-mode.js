@@ -617,8 +617,44 @@
     return null;
   }
 
+  // ─── city roster (export-only) ────────────────────────
+  // City views do not generate an on-screen roster or notes (precinct-scoped by
+  // design). A cohort/generation click downloads that cohort for the whole city
+  // as CSV. The /export endpoint aggregates across all counties the city spans
+  // via the CITY-column slug match, so a cross-county city (e.g. Kettering in
+  // Greene + Montgomery) exports as one list. No county param is sent.
+  function exportCityRoster(filter, citySlug) {
+    if (!citySlug) return;
+    // The CITY column stores "<NAME> CITY" (e.g. "KETTERING CITY"), which the
+    // API slugifies to "kettering_city". The URL carries the bare slug
+    // ("kettering"), so append "_city" to match — same suffix convention as the
+    // precomputed data/city/ files. Idempotent if the slug already has it.
+    const fs = citySlug.endsWith('_city') ? citySlug : `${citySlug}_city`;
+    const params = { level: 'city', id: fs, format: 'csv' };
+    if (filter.kind === 'cohort') params.cohort = filter.value;
+    else params.generation = filter.value;
+    const url = buildUrl('/export', params);
+    // Stream the attachment via a transient <a download>; setting location on a
+    // single-page app can interrupt page state, so we use an anchor instead.
+    const a = document.createElement('a');
+    a.href = url.toString();
+    a.download = '';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
   // ─── roster loading ──────────────────────────────────────────────────────
   async function openFilter(filter) {
+    // City-level views are an export-only surface: the roster/notes UI is
+    // precinct-scoped by design (one precinct, one captain). At the city level
+    // a cohort click downloads the cohort across the whole city instead of
+    // opening the notes panel. The backend supports level=city on /export.
+    const _p = new URLSearchParams(location.search);
+    if (_p.get('level') === 'city') {
+      exportCityRoster(filter, _p.get('id') || '');
+      return;
+    }
     if (!currentScope) {
       alert('Pick a precinct from the hierarchy first.');
       return;

@@ -255,13 +255,18 @@
       // pattern, same as districts.
       bag.cityName = await cityNameFromSlug(id);
       bag.spanCounties = await citySpanCounties(bag.cityName);
-      add('party',       `data/city/${id}_party_affiliation.json`);
-      add('decade',      `data/city/${id}_decade_distribution.json`);
-      add('gen',         `data/city/${id}_generation_distribution.json`);
-      add('partyDecade', `data/city/${id}_party_by_decade.json`);
-      add('partyGen',    `data/city/${id}_party_by_generation.json`);
-      add('uncShadow',   `data/city/${id}_unc_shadow.json`);
-      add('narrative',   `data/city/${id}_narrative.json`);
+      // Pipeline writes city files with the jurisdiction-type suffix baked in
+      // (CITY value "KETTERING CITY" -> slug "kettering_city"), matching the
+      // township/village/district trees. The URL id is the bare city slug
+      // ("kettering"), so append "_city" to address the precomputed files.
+      const fs = id.endsWith('_city') ? id : `${id}_city`;
+      add('party',       `data/city/${fs}_party_affiliation.json`);
+      add('decade',      `data/city/${fs}_decade_distribution.json`);
+      add('gen',         `data/city/${fs}_generation_distribution.json`);
+      add('partyDecade', `data/city/${fs}_party_by_decade.json`);
+      add('partyGen',    `data/city/${fs}_party_by_generation.json`);
+      add('uncShadow',   `data/city/${fs}_unc_shadow.json`);
+      add('narrative',   `data/city/${fs}_narrative.json`);
       // Primary county's precinct index drives the left-nav precinct list.
       const cs = (bag.spanCounties && bag.spanCounties[0]) || countyToSlug(S.county || '');
       bag.primaryCounty = cs;
@@ -283,6 +288,24 @@
 
     if (bag.party && bag.party.chartConfig) {
       bag.total = bag.party.chartConfig.datasets[0].data.reduce((a, b) => a + Number(b || 0), 0);
+    }
+
+    // City precinct count: the per-county city_summary files carry the precinct
+    // count (row index 5) but their voter totals (index 4) double-count partial
+    // border precincts, so we take ONLY the precinct count and sum it across the
+    // spanning counties. The voter total stays sourced from bag.party (the
+    // corrected city aggregate). For Kettering: 2 (Greene) + 41 (Montgomery) = 43.
+    if (level === 'city' && bag.spanCounties && bag.spanCounties.length) {
+      const nameUpper = String(bag.cityName || id.replace(/_city$/, '').replace(/_/g, ' ')).toUpperCase();
+      let pc = 0, found = false;
+      await Promise.all(bag.spanCounties.map(async cslug => {
+        try {
+          const cs = await fetchJSON(`data/${cslug}_city_summary.json`);
+          const row = (cs.rows || []).find(r => String(r[1]).toUpperCase() === nameUpper);
+          if (row) { pc += Number(String(row[5]).replace(/[^0-9]/g, '')) || 0; found = true; }
+        } catch (e) { /* missing county summary: skip, count stays partial */ }
+      }));
+      if (found) bag.cityPrecinctCount = pc;
     }
     return bag;
   }
@@ -893,7 +916,11 @@
     if (bag && bag.level === 'city') {
       const cityRow = bag.citySummary && bag.citySummary.rows
         ? bag.citySummary.rows.find(r => r[1] === bag.displayName) : null;
-      const precinctCount = cityRow ? cityRow[5] : '?';
+      // Precinct count is summed across spanning counties in loadJurisdiction
+      // (cross-county-aware); fall back to the single-county row, then '?'.
+      const precinctCount = (bag.cityPrecinctCount != null)
+        ? bag.cityPrecinctCount
+        : (cityRow ? cityRow[5] : '?');
       if (bag.party && bag.party.chartConfig) {
         // Full hero with ribbon (same layout as county)
         const labels = bag.party.chartConfig.labels.map(l => String(l).split(' \u2014 ')[0]);
