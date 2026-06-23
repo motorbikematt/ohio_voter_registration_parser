@@ -19,7 +19,7 @@ Ohio Statewide Voter File (SWVF) parser and precinct-captain dashboard. Ingests 
 ## 4. SWVF Schema & Domain Semantics
 The irreducible knowledge this file exists to hold — most of the project's worst bugs were schema misunderstandings, not code defects.
 
-**Source files.** 4 split flat files (`SWVF_1_22.txt`, `SWVF_23_44.txt`, `SWVF_45_66.txt`, `SWVF_67_88.txt`). Comma-delimited **CSV**, double-quoted fields, UTF-8 — despite the `.txt` extension. NOT pipe-delimited. 46 static cols + 89 dynamic election cols. Official layout: https://www6.ohiosos.gov/ords/f?p=111:2
+**Source files.** 4 split flat files (`SWVF_1_22.txt`, `SWVF_23_44.txt`, `SWVF_45_66.txt`, `SWVF_67_88.txt`). Comma-delimited **CSV**, double-quoted fields, UTF-8 — despite the `.txt` extension. NOT pipe-delimited. 46 static cols + 89 dynamic election cols. Official layout: local/source/Voter_File_Layout.md
 
 **Join keys.** `SOS_VOTERID` is the statewide key. `COUNTY_ID` is county-scoped — never join on it across counties.
 
@@ -34,8 +34,6 @@ The irreducible knowledge this file exists to hold — most of the project's wor
 **Blank cells are empty strings, not null.** SWVF arrives with `""`, not `null`; null-aware ops (e.g. `pl.coalesce`) skip nothing. `.replace("", None)` before coalescing or filtering on nullity.
 
 **Derived columns.** PascalCase temporal: `Generation`, `Decade`, `BIRTHYEAR` (not `birth_year`). Canonical `Generation` values are exactly `Silent/Greatest`, `Baby Boomers`, `Gen X`, `Millennials`, `Gen Z` — not Pew shorthand; wrong labels silently return 0 rows.
-
-**PII columns (never commit).** Residential: `ADDRESS1`, `SECONDARY_ADDR`, `CITY`, `STATE`, `ZIP`, `ZIP_PLUS4`, `COUNTRY`, `POSTALCODE`. Mailing: `ADDRESS1`, `SECONDARY_ADDRESS`, `CITY`, `STATE`, `ZIP`, `ZIP_PLUS4`, `COUNTRY`, `POSTAL_CODE`. Also voter names, `RESIDENTIAL_*`, and any `SOS_VOTERID`-linked individual rows.
 
 **Not in SWVF.** Last Activity Type, ballot method (`_TYPE` absentee/Eday/provisional cols), CONFIRMATION subtype — county files only. Precinct canvass (P3+): https://www.ohiosos.gov/elections/election-results-and-data/
 
@@ -65,10 +63,10 @@ The irreducible knowledge this file exists to hold — most of the project's wor
 
 ## 9. Safe-Change Rules
 * **File editing.** Use the Edit tool only for files ≤150 lines. The Edit tool and bash heredocs both truncate **silently** — a failed write looks identical to a success until parsing fails downstream. For larger files, write a Python patch script to `local/patches/` (`p.read_text()` / `p.write_text()`), then validate (`python -c "import ast; ast.parse(...)"` or `node --check`). Use `python` / `.venv\Scripts\python.exe` in Git Bash; `python3` exists only in the Cowork Linux sandbox. For payloads >50 lines write via `Path.write_text(content)`; never `cat << 'EOF' >> file`.
-* **Zero-trust security.** Never commit raw PII. `local/` stays entirely in `.gitignore`.
+* **Zero-trust security.** Never commit email or phone numbers (PII). Name, DOB, and address are public record. `local/` stays entirely in `.gitignore`.
 * **Verify input sources.** When a user reports a broken URL/command/output, first ask whether they typed it, pasted it, or something generated it — before proposing a fix. Do not break a working contract to accommodate a muscle-memory typo.
 * **MCP push ban.** NEVER push `docs/data/` (~78k generated JSON files) via the GitHub MCP — `push_files` sends content as tokens and a prior attempt exhausted the account budget. Batch changed *code* files into a single `push_files` call; the user pushes regenerated `docs/data/` and binaries manually (see §10).
-* **Claude Code CLI host-scanner avoidance** (the `\n#` multi-line `-c` flag, `cd`+redirection, `awk`/`sed`) is CLI-host behavior and lives in the global `~/.claude/CLAUDE.md` under `## Command Execution`. It does not fire in the Cowork sandbox (verified), so it is intentionally not duplicated here.
+* **Claude Code CLI host-scanner avoidance** (the `\n#` multi-line `-c` flag, `cd`+redirection) is CLI-host behavior and lives in the global `~/.claude/CLAUDE.md` under `## Command Execution`. It does not fire in the Cowork sandbox (verified), so it is intentionally not duplicated here. Utilities such as `awk`, `sed`, `xargs`, and `stat` are whitelisted in `.claude/settings.local.json` and do not require avoidance.
 
 ## 10. Specific Commands
 Manual git-push handoff (the sandbox cannot push — Windows Credential Manager prompts are unsupported, and FUSE mounts block git index writes):
