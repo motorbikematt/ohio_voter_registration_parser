@@ -1,0 +1,125 @@
+{
+  "_meta": {
+    "generated": "2026-06-23",
+    "valid_through": "2026-11-03",
+    "county": "Montgomery",
+    "county_number": 57,
+    "sources": [
+      "Montgomery County BoE 2026 Candidate Petition Report (6/1/2026)",
+      "local/source/6.1.2026-Candidate-Petition-Report.pdf"
+    ],
+    "notes": [
+      "Keys under each jurisdiction type match exact values in enriched_voters.parquet (verified 2026-06-23).",
+      "WARD/LOCAL_SCHOOL_DISTRICT/TOWNSHIP/VILLAGE stubs pending manual data entry from individual jurisdictions.",
+      "STATE_SENATE_DISTRICT 06 is not on the 2026 ballot (even-cycle seat last contested 2024); incumbent TBD.",
+      "Precinct central committee (precinct captains) are covered in serve/precinct_captains.json, keyed by exact PRECINCT_NAME parquet values.",
+      "COUNTY_COMMISSIONER and COUNTY_AUDITOR deferred to post-beta per handoff spec."
+    ]
+  },
+
+  "CONGRESSIONAL_DISTRICT": {
+    "10": {
+      "office": "U.S. House (OH-10)",
+      "incumbent": { "name": "Mike Turner", "party": "R" },
+      "challengers": [
+        { "name": "Kristina Knickerbocker", "party": "D" },
+        { "name": "Thomas F. McMasters", "party": "L" }
+      ]
+    }
+  },
+
+  "STATE_SENATE_DISTRICT": {
+    "05": {
+      "office": "Ohio Senate (District 5)",
+      "incumbent": { "name": "Phil Plummer", "party": "R" },
+      "challengers": [
+        { "name": "Jeffrey J. Harris", "party": "D" }
+      ]
+    },
+    "06": {
+      "office": "Ohio Senate (District 6)",
+      "incumbent": null,
+      "challengers": [],
+      "note": "Not on 2026 ballot (even-cycle seat). Incumbent data pending."
+    }
+  },
+
+  "STATE_REPRESENTATIVE_DISTRICT": {
+    "36": {
+      "office": "Ohio House (District 36)",
+      "incumbent": { "name": "Andrea White", "party": "R" },
+      "challengers": [
+        { "name": "Rose Lounsbury", "party": "D" },
+        { "name": "Chuck Horn", "party": "I" }
+      ]
+    },
+    "37": {
+      "office": "Ohio House (District 37)",
+      "incumbent": { "name": "Tom Young", "party": "R" },
+      "challengers": [
+        { "name": "Tom Herner", "party": "D" }
+      ]
+    },
+    "38": {
+      "office": "Ohio House (District 38)",
+      "incumbent": { "name": "Desiree Tims", "party": "D" },
+      "challengers": []
+    },
+    "39": {
+      "office": "Ohio House (District 39)",
+      "incumbent": null,
+      "challengers": [
+        { "name": "Daquan Neal", "party": "D" },
+        { "name": "Mark Campbell", "party": "R" }
+      ],
+      "note": "No incumbent checkbox in filing data; may be open seat due to redistricting."
+    },
+    "40": {
+      "office": "Ohio House (District 40)",
+      "incumbent": { "name": "Rodney Creech", "party": "R" },
+      "challengers": [
+        { "name": "Timothy B. Hornbacker", "party": "D" },
+        { "name": "Joshua A. Umbaugh", "party": "L" }
+      ]
+    }
+  },
+
+  "WARD": {
+    "_note": "City council races not in BoE petition report. Populate manually per city. Dayton, Kettering, Huber Heights, Miamisburg, Clayton, Trotwood, Moraine wards are present in parquet."
+  },
+
+  "LOCAL_SCHOOL_DISTRICT": {
+    "_note": "School board elections not in BoE petition report. Populate manually. Districts present: BROOKVILLE LOCAL SD (MONTG), JEFFERSON TOWNSHIP LOCAL SD (MONTG), MAD RIVER LOCAL SD (MONTG), NEW LEBANON LOCAL SD (MONTG), NORTHRIDGE LOCAL SD (MONTG), VALLEY VIEW LOCAL SD (MONTG)."
+  },
+
+  "CITY_SCHOOL_DISTRICT": {
+    "_note": "stub"
+  },
+
+  "TOWNSHIP": {
+    "_note": "Township trustee races not in BoE petition report. Populate manually. Townships present: BUTLER, CLAY, CLEARCREEK, GERMAN, HARRISON, JACKSON, JEFFERSON, MIAMI, PERRY, WASHINGTON."
+  },
+
+  "VILLAGE": {
+    "_note": "Village council races not in BoE petition report. Populate manually. Villages present: FARMERSVILLE VILLAGE, NEW LEBANON VILLAGE, PHILLIPSBURG VILLAGE, VERONA VILLAGE."
+  },
+
+  "_deferred": {
+    "COUNTY_COMMISSIONER": {
+      "office": "Montgomery County Commissioner",
+      "incumbent": { "name": "Carolyn Rice", "party": "D" },
+      "challengers": [
+        { "name": "Margie Christie", "party": "R" }
+      ],
+      "note": "Deferred to post-beta per handoff spec."
+    },
+    "COUNTY_AUDITOR": {
+      "office": "Montgomery County Auditor",
+      "incumbent": { "name": "Karl Keith", "party": "D" },
+      "challengers": [
+        { "name": "Tammy L. Murphy", "party": "R" }
+      ],
+      "note": "Deferred to post-beta per handoff spec."
+    }
+  }
+}

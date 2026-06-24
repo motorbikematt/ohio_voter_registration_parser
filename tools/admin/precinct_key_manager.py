@@ -57,7 +57,7 @@ except ImportError as e:
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 OUT_DIR  = BASE_DIR / "local" / "source" / "precinct_keys"  # PATCH: Rerouted to local/ workspace
 LOG_DIR  = BASE_DIR / "local" / "working"  # PATCH: Rerouted to local/ workspace
-MASTER_XLSX = BASE_DIR / "precinct_keys_master.xlsx"
+MASTER_XLSX = OUT_DIR / "precinct_keys_master.xlsx"  # §3b: keep beside precinct_keys CSVs, not project root
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 LOG_DIR.mkdir(parents=True, exist_ok=True)
