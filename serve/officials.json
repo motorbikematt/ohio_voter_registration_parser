@@ -16,24 +16,37 @@
       "COUNTY_COMMISSIONER and COUNTY_AUDITOR deferred to post-beta per handoff spec."
     ]
   },
-
   "CONGRESSIONAL_DISTRICT": {
     "10": {
       "office": "U.S. House (OH-10)",
-      "incumbent": { "name": "Mike Turner", "party": "R" },
+      "incumbent": {
+        "name": "Mike Turner",
+        "party": "R"
+      },
       "challengers": [
-        { "name": "Kristina Knickerbocker", "party": "D" },
-        { "name": "Thomas F. McMasters", "party": "L" }
+        {
+          "name": "Kristina Knickerbocker",
+          "party": "D"
+        },
+        {
+          "name": "Thomas F. McMasters",
+          "party": "L"
+        }
       ]
     }
   },
-
   "STATE_SENATE_DISTRICT": {
     "05": {
       "office": "Ohio Senate (District 5)",
-      "incumbent": { "name": "Phil Plummer", "party": "R" },
+      "incumbent": {
+        "name": "Phil Plummer",
+        "party": "R"
+      },
       "challengers": [
-        { "name": "Jeffrey J. Harris", "party": "D" }
+        {
+          "name": "Jeffrey J. Harris",
+          "party": "D"
+        }
       ]
     },
     "06": {
@@ -43,81 +56,2492 @@
       "note": "Not on 2026 ballot (even-cycle seat). Incumbent data pending."
     }
   },
-
   "STATE_REPRESENTATIVE_DISTRICT": {
     "36": {
       "office": "Ohio House (District 36)",
-      "incumbent": { "name": "Andrea White", "party": "R" },
+      "incumbent": {
+        "name": "Andrea White",
+        "party": "R"
+      },
       "challengers": [
-        { "name": "Rose Lounsbury", "party": "D" },
-        { "name": "Chuck Horn", "party": "I" }
+        {
+          "name": "Rose Lounsbury",
+          "party": "D"
+        },
+        {
+          "name": "Chuck Horn",
+          "party": "I"
+        }
       ]
     },
     "37": {
       "office": "Ohio House (District 37)",
-      "incumbent": { "name": "Tom Young", "party": "R" },
+      "incumbent": {
+        "name": "Tom Young",
+        "party": "R"
+      },
       "challengers": [
-        { "name": "Tom Herner", "party": "D" }
+        {
+          "name": "Tom Herner",
+          "party": "D"
+        }
       ]
     },
     "38": {
       "office": "Ohio House (District 38)",
-      "incumbent": { "name": "Desiree Tims", "party": "D" },
+      "incumbent": {
+        "name": "Desiree Tims",
+        "party": "D"
+      },
       "challengers": []
     },
     "39": {
       "office": "Ohio House (District 39)",
       "incumbent": null,
       "challengers": [
-        { "name": "Daquan Neal", "party": "D" },
-        { "name": "Mark Campbell", "party": "R" }
+        {
+          "name": "Daquan Neal",
+          "party": "D"
+        },
+        {
+          "name": "Mark Campbell",
+          "party": "R"
+        }
       ],
       "note": "No incumbent checkbox in filing data; may be open seat due to redistricting."
     },
     "40": {
       "office": "Ohio House (District 40)",
-      "incumbent": { "name": "Rodney Creech", "party": "R" },
+      "incumbent": {
+        "name": "Rodney Creech",
+        "party": "R"
+      },
       "challengers": [
-        { "name": "Timothy B. Hornbacker", "party": "D" },
-        { "name": "Joshua A. Umbaugh", "party": "L" }
+        {
+          "name": "Timothy B. Hornbacker",
+          "party": "D"
+        },
+        {
+          "name": "Joshua A. Umbaugh",
+          "party": "L"
+        }
       ]
     }
   },
-
   "WARD": {
-    "_note": "City council races not in BoE petition report. Populate manually per city. Dayton, Kettering, Huber Heights, Miamisburg, Clayton, Trotwood, Moraine wards are present in parquet."
+    "BROOKVILLE MAYOR": {
+      "office": "BROOKVILLE CITY MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "CHARLES LETNER",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "BROOKVILLE AT LARGE": {
+      "office": "BROOKVILLE CITY COUNCIL",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "STEPHEN CRANE",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "JD FOWLER",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "DENNIS PIPER",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "MIKE HUGHES",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "JARED LEDFORD",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "DARREN MCNEW",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "CLAYTON MAYOR": {
+      "office": "CLAYTON CITY MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "RYAN FARMER",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "CLAYTON AT LARGE": {
+      "office": "CLAYTON CITY COUNCIL AT LARGE",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "TINA KELLY",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "MISTY MCDOWELL",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "DANA YORK",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "CLAYTON WARD 1": {
+      "office": "CLAYTON CITY COUNCIL WARD 1",
+      "seat": "Ward 1",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "LEEANNE BUSTOS",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "CLAYTON WARD 2": {
+      "office": "CLAYTON CITY COUNCIL WARD 2",
+      "seat": "Ward 2",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "KENNETH C. HENNING",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "CLAYTON WARD 3": {
+      "office": "CLAYTON CITY COUNCIL WARD 3",
+      "seat": "Ward 3",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "JAMES T. GORMAN",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "CENTERVILLE MAYOR": {
+      "office": "CENTERVILLE CITY MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "BROOKS A. COMPTON",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "CENTERVILLE AT LARGE": {
+      "office": "CENTERVILLE CITY COUNCIL",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "MARK ENGERT",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "BELINDA KENLEY",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "JENNIFER MCLAUGHLIN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "TERRY POSEY SR.",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "JOANNE RAU",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "BILL SERR",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "DAYTON MAYOR": {
+      "office": "DAYTON CITY MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "SHENISE TURNER-SLOSS",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "DAYTON AT LARGE": {
+      "office": "DAYTON CITY COMMISSION",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "DARIUS BECKHAM",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "DARRYL FAIRCHILD",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "MATT JOSEPH",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "CHRIS SHAW",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "ENGLEWOOD MAYOR": {
+      "office": "ENGLEWOOD CITY MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "CATHY MCGRAIL",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "ENGLEWOOD AT LARGE": {
+      "office": "ENGLEWOOD CITY COUNCIL",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "BRAD DAUGHERTY",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "STEVE P. HENNE",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "FRED B. HUELSMAN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "ANDREW GOUGH",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "BRAD RARICK",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "COURTNEY RIETMAN",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "GERMANTOWN MAYOR": {
+      "office": "GERMANTOWN CITY MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "TERRY A. JOHNSON",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "GERMANTOWN AT LARGE": {
+      "office": "GERMANTOWN CITY COUNCIL",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "MICHAEL KUHN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "ROB RETTICH",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "BRIAN WAFZIG",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "JEFF JONES",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "BONNIE KOOGLE",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "RICK REED",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "HUBER HTS MAYOR": {
+      "office": "HUBER HEIGHTS CITY MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "JEFF GORE",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "HUBER HTS AT LARGE": {
+      "office": "HUBER HEIGHTS CITY COUNCIL AT LARGE",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "NANCY BYRGE",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "FRED A. AIKENS",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "HUBER HTS WARD 1": {
+      "office": "HUBER HEIGHTS CITY COUNCIL WARD 1",
+      "seat": "Ward 1",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "SCOTT DAVIDSON",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "HUBER HTS WARD 2": {
+      "office": "HUBER HEIGHTS CITY COUNCIL WARD 2",
+      "seat": "Ward 2",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "DON WEBB",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "HUBER HTS WARD 3": {
+      "office": "HUBER HEIGHTS CITY COUNCIL WARD 3",
+      "seat": "Ward 3",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "KATE BAKER",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "HUBER HTS WARD 4": {
+      "office": "HUBER HEIGHTS CITY COUNCIL WARD 4",
+      "seat": "Ward 4",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "ANITA KITCHEN",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "HUBER HTS WARD 5": {
+      "office": "HUBER HEIGHTS CITY COUNCIL WARD 5",
+      "seat": "Ward 5",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "MARK CAMPBELL",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "HUBER HTS WARD 6": {
+      "office": "HUBER HEIGHTS CITY COUNCIL WARD 6",
+      "seat": "Ward 6",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "BRIAN LOONEY",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "KETTERING MAYOR": {
+      "office": "KETTERING MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "BRYAN SUDDITH",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "KETTERING AT LARGE": {
+      "office": "KETTERING CITY COUNCIL AT LARGE",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "LAURA ARBER",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "DAN PALMER",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "KETTERING WARD 1": {
+      "office": "KETTERING CITY COUNCIL DISTRICT 1",
+      "seat": "District 1 (Ward 1)",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "LISA DUVALL",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "KETTERING WARD 2": {
+      "office": "KETTERING CITY COUNCIL DISTRICT 2",
+      "seat": "District 2 (Ward 2)",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "BOB SCOTT",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "KETTERING WARD 3": {
+      "office": "KETTERING CITY COUNCIL DISTRICT 3",
+      "seat": "District 3 (Ward 3)",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "SHANE SULLIVAN",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "KETTERING WARD 4": {
+      "office": "KETTERING CITY COUNCIL DISTRICT 4",
+      "seat": "District 4 (Ward 4)",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "RYAN KONKEL",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "MIAMISBURG MAYOR": {
+      "office": "MIAMISBURG MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "MICHELLE COLLINS",
+          "party": "R"
+        }
+      ],
+      "challengers": []
+    },
+    "MIAMISBURG AT LARGE": {
+      "office": "MIAMISBURG CITY COUNCIL AT LARGE",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "STEVE BEACHLER",
+          "party": "R"
+        },
+        {
+          "name": "RYAN COLVIN",
+          "party": "R"
+        },
+        {
+          "name": "JEFF NESTOR",
+          "party": "R"
+        }
+      ],
+      "challengers": []
+    },
+    "MIAMISBURG WARD 1": {
+      "office": "MIAMISBURG CITY COUNCIL WARD 1",
+      "seat": "Ward 1",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "JASON SHADE",
+          "party": "R"
+        }
+      ],
+      "challengers": []
+    },
+    "MIAMISBURG WARD 2": {
+      "office": "MIAMISBURG CITY COUNCIL WARD 2",
+      "seat": "Ward 2",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "SARAH CLARK THACKER",
+          "party": "R"
+        }
+      ],
+      "challengers": []
+    },
+    "MIAMISBURG WARD 3": {
+      "office": "MIAMISBURG CITY COUNCIL WARD 3",
+      "seat": "Ward 3",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "RICK MELTON",
+          "party": "R"
+        }
+      ],
+      "challengers": []
+    },
+    "MIAMISBURG WARD 4": {
+      "office": "MIAMISBURG CITY COUNCIL WARD 4",
+      "seat": "Ward 4",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "JEFF THOMPSON",
+          "party": "R"
+        }
+      ],
+      "challengers": []
+    },
+    "MORAINE MAYOR": {
+      "office": "MORAINE MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "TERI MURPHY",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "MORAINE AT LARGE": {
+      "office": "MORAINE COUNCIL AT LARGE",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "ORA ALLEN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "BRANDEN DELPH",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "MORAINE WARD 1": {
+      "office": "MORAINE COUNCIL DISTRICT 1",
+      "seat": "District 1 (Ward 1)",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "MIKE DAUGHERTY",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "MORAINE WARD 2": {
+      "office": "MORAINE COUNCIL DISTRICT 2",
+      "seat": "District 2 (Ward 2)",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "DAVE MILLER",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "MORAINE WARD 3": {
+      "office": "MORAINE COUNCIL DISTRICT 3",
+      "seat": "District 3 (Ward 3)",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "SHIRLEY WHITT",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "MORAINE WARD 4": {
+      "office": "MORAINE COUNCIL DISTRICT 4",
+      "seat": "District 4 (Ward 4)",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "JEANETTE MARCUS",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "OAKWOOD MAYOR": {
+      "office": "OAKWOOD MAYOR/COUNCIL",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "SAM DORF",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "LEIGH TURBEN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "STEVE BYINGTON",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "WILLIAM D. DUNCAN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "HEALY JACKSON",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "RIVERSIDE MAYOR": {
+      "office": "RIVERSIDE MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "PETER J. WILLIAMS",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "RIVERSIDE AT LARGE": {
+      "office": "RIVERSIDE COUNCIL",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "ANDY BROWN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "JESSE MAXFIELD",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "BRENDA FRY",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "STEVE GABY",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "ANGEL PATTERSON",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "FREDA PATTERSON",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "SPRINGBORO MAYOR": {
+      "office": "SPRINGBORO MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "JOHN AGENBROAD",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "SPRINGBORO AT LARGE": {
+      "office": "SPRINGBORO COUNCIL AT LARGE",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "STEPHEN HARDING",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "BECKY IVERSON",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "SPRINGBORO WARD 1": {
+      "office": "SPRINGBORO COUNCIL WARD 1",
+      "seat": "Ward 1",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "JERRY FERRIS",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "TROTWOOD MAYOR": {
+      "office": "TROTWOOD MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "YVETTE F. PAGE",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "TROTWOOD AT LARGE": {
+      "office": "TROTWOOD CITY COUNCIL AT LARGE",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "RHONDA C. FINLEY",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "DENISE MOORE",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "TROTWOOD WARD 1": {
+      "office": "TROTWOOD CITY COUNCIL DISTRICT 1",
+      "seat": "District 1 (Ward 1)",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "ROBERT L. KELLEY JR.",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "TROTWOOD WARD 2": {
+      "office": "TROTWOOD CITY COUNCIL DISTRICT 2",
+      "seat": "District 2 (Ward 2)",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "MARTHA H. CLARK",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "TROTWOOD WARD 3": {
+      "office": "TROTWOOD CITY COUNCIL DISTRICT 3",
+      "seat": "District 3 (Ward 3)",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "MILTON J. PEARSON",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "TROTWOOD WARD 4": {
+      "office": "TROTWOOD CITY COUNCIL DISTRICT 4",
+      "seat": "District 4 (Ward 4)",
+      "parquet_match": true,
+      "incumbents": [
+        {
+          "name": "TYNA R. BROWN",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "UNION MAYOR": {
+      "office": "UNION MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "MICHAEL O'CALLAGHAN",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "UNION AT LARGE": {
+      "office": "UNION CITY COUNCIL",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "ROBERT BENNETT",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "JOHN BRUNS",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "LYNNE THOMAS-ROTH",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "LINDA BLACK",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "STEPHEN BROOKOVER",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "JOSH RARICK",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "VANDALIA MAYOR": {
+      "office": "VANDALIA MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "RICHARD HERBST",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "VANDALIA AT LARGE": {
+      "office": "VANDALIA CITY COUNCIL",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "AMBER AIVALOTIS-WEAVER",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "CYNTHIA DOOGAN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "COREY M. FOLLICK",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "EMILY BRADFORD",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "RICK FORD",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "AARON HATHAWAY",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "W CARROLLTON MAYOR": {
+      "office": "WEST CARROLLTON MAYOR",
+      "seat": "Mayor",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "RICK BARNHART",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "W CARROLLTON AT LARGE": {
+      "office": "WEST CARROLLTON CITY COUNCIL",
+      "seat": "At Large",
+      "parquet_match": false,
+      "incumbents": [
+        {
+          "name": "ANGIE FRYMAN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "JILL TOMLIN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "MIKE BOYLE",
+          "party": "R"
+        },
+        {
+          "name": "RICK DOBSON",
+          "party": "R"
+        },
+        {
+          "name": "KEITH TILTON",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "LAUREN WILLIAMS",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    }
   },
-
   "LOCAL_SCHOOL_DISTRICT": {
-    "_note": "School board elections not in BoE petition report. Populate manually. Districts present: BROOKVILLE LOCAL SD (MONTG), JEFFERSON TOWNSHIP LOCAL SD (MONTG), MAD RIVER LOCAL SD (MONTG), NEW LEBANON LOCAL SD (MONTG), NORTHRIDGE LOCAL SD (MONTG), VALLEY VIEW LOCAL SD (MONTG)."
+    "BROOKVILLE LOCAL SD (MONTG)": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "JOY EYLER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "JUDY HOOVER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "FRED GARBER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "RODNEY STARK",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "SUSAN STECK",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        }
+      ],
+      "challengers": []
+    },
+    "CARLISLE LOCAL SD (WARREN)": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "MISSIE MILLER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "KELLY MILLIGAN",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "CRAIG HARRIS",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "MOLLIE MCINTOSH",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "AMANDA MORRIS",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "JEFFERSON TOWNSHIP LOCAL SD (MONTG)": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "SHAUNECE GILLESPIE",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "RENEE MCDANIEL",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "PATRICIA BABETTO",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "BONITA BEMBRY",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "MICHELLE COOPER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "MAD RIVER LOCAL SD (MONTG)": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "JULIE DENNING",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "RUTH NEWHOUSE",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "DAMIEN MCCORMICK",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "AJ RICKER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "MARILYN STEINER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "NEW LEBANON LOCAL SD (MONTG)": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "TONYA LANKHEIT",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "RON MOORE",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "DAWN LEONARD",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "JEFF MILLER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "ELIZABETH POWERS",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "NORTHRIDGE LOCAL SD (MONTG)": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "MARGIE GLOCK",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "NICOLE LOWE",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "JAMES M. DILLON",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "TINA FIORE",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "JACINDA FUGATE",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        }
+      ],
+      "challengers": []
+    },
+    "PREBLE SHAWNEE LOCAL SD (PREBLE)": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "LISA TUTTLE-HUFF",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "JEFF WOOD",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "KARLA LYNCH",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "DARRICK MURPHY",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "JULIA SINGLETON",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "TRI-COUNTY NORTH LSD (PREBLE)": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "ADAM BROWN",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "WILLIAM HAPNER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "AARON FRITZ",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "LARRY SEIBEL",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "VICKIE WOODYARD",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        }
+      ],
+      "challengers": []
+    },
+    "VALLEY VIEW LOCAL SD (MONTG)": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "TYSON DILLON",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "CHEVELLA GRIFFITH",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "TIMOTHY RUDD",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "JOE SCHOLLER JR.",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "STEPHANIE SMITH",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    }
   },
-
   "CITY_SCHOOL_DISTRICT": {
-    "_note": "stub"
+    "CENTERVILLE CITY SD": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "ALLISON DURNBAUGH",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "AMANDA GRAF",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "KATHY CRIPPEN",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "MARK PETERS",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "MEGAN SPARKS",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "DAYTON CITY SD": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "WILLIAM BAILEY",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "WILLIAM SMITH",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "ERIC WALKER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "JAMICA GARRISON",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "CHRISONDRA GOODWINE",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "JOSEPH LACEY",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "JOCELYN SPENCER RHYNARD",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "HUBER HEIGHTS CITY SD": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "ERIKA-JOY CASSIDY",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "SHANNON WELDON",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "KELLY BLEDSOE",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "MARK COMBS",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "STEVE ZBINDEN",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "KETTERING CITY SD": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "JENNIFER KANE",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "CHRISSIE RICHARDS",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "TOBY HENDERSON",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "BILL LAUTAR",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "MARK MARTIN",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "MIAMISBURG CITY SD": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "NILA GETTER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "JASON MOWERY",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "CHRIS AMSLER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "ANN NIESS",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "SHELBI NUNERY",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "NORTHMONT CITY SD": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "KARL ESPELETA",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "NICK ORRILL",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "LINDA BLUM",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "CHRIS PULOS",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "JANE WOODIE",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "OAKWOOD CITY SD": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "DEBBIE DILORENZO",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "NATHAN REITER GARCIA",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "LAUREN KAWAI",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "LAURA MIDDLETON",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "JOHN WILSON",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "SPRINGBORO COMMUNITY CITY SD": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "LISA BABB",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "SARAH E. SCHLEEHAUF",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "JAMIE BELANGER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "DAN GUDZ",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "DAVE STUCKEY",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "TROTWOOD-MADISON CITY SD": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "AARON LUMPKIN",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "DIONNE SIMMONS",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "SONJA CHERRY",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "LAJUANA CURINGTON",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "ERICA GIST",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        }
+      ],
+      "challengers": []
+    },
+    "VANDALIA-BUTLER CITY SD": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "MARY KILSHEIMER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "RODNEY WASHBURN",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "SCOTT FULLAM",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "HOLLY HERBST",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "MARY KAY SMITH",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    },
+    "WEST CARROLLTON CITY SD": {
+      "office": "Board of Education Member",
+      "incumbents": [
+        {
+          "name": "LORI GIBSON",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "ANGIE SHOCKLEY",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2027"
+        },
+        {
+          "name": "LESLIE MILLER",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "NATE MUNDY",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        },
+        {
+          "name": "DORMETRIA ROBINSON THOMPSON",
+          "party": null,
+          "nonpartisan": true,
+          "term_exp": "12/31/2029"
+        }
+      ],
+      "challengers": []
+    }
   },
-
   "TOWNSHIP": {
-    "_note": "Township trustee races not in BoE petition report. Populate manually. Townships present: BUTLER, CLAY, CLEARCREEK, GERMAN, HARRISON, JACKSON, JEFFERSON, MIAMI, PERRY, WASHINGTON."
+    "BUTLER TOWNSHIP": {
+      "office": "Township Trustee",
+      "term_exp": "12/31/2027",
+      "incumbents": [
+        {
+          "name": "MISSY PRUSZYNSKI",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "BRYSON JACKSON",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "MIKE THEIN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "GREGORY A. BRUSH",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "CLAY TOWNSHIP": {
+      "office": "Township Trustee",
+      "term_exp": "12/31/2027",
+      "incumbents": [
+        {
+          "name": "DALE WINNER",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "MARK HAWORTH",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "ANGELA HOWELL",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "VANESSA FURREY",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "CLEARCREEK TOWNSHIP": {
+      "office": "Township Trustee",
+      "term_exp": "12/31/2027",
+      "incumbents": [
+        {
+          "name": "JASON E. GABBARD",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "RUSS CAROLUS JR",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "TROY HOLTREY",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "STEVE MUTERSPAW",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "GERMAN TOWNSHIP": {
+      "office": "Township Trustee",
+      "term_exp": "12/31/2027",
+      "incumbents": [
+        {
+          "name": "LOU POTTER",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "JAMES ROWLAND",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "JAKE STUBBS",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "MARK HEISTAND",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "HARRISON TOWNSHIP": {
+      "office": "Township Trustee",
+      "term_exp": "12/31/2027",
+      "incumbents": [
+        {
+          "name": "DANIELLE BRADLEY",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "GEORGEANN GODSEY",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "ROLAND WINBURN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "CRAIG A. JONES",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "JACKSON TOWNSHIP": {
+      "office": "Township Trustee",
+      "term_exp": "12/31/2027",
+      "incumbents": [
+        {
+          "name": "MICHAEL MOYER",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "JIM ERISMAN",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "RYAN HODSON",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "ELIZABETH KOZAREC",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "JEFFERSON TOWNSHIP": {
+      "office": "Township Trustee",
+      "term_exp": "12/31/2027",
+      "incumbents": [
+        {
+          "name": "OSCAR YOUNG",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "SHEILA K. BACK",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "VERA POWELL",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "CHARLENE CHATTAMS",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "MIAMI TOWNSHIP": {
+      "office": "Township Trustee",
+      "term_exp": "12/31/2027",
+      "incumbents": [
+        {
+          "name": "DONALD R. CULP",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "DREW BARRY",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "TERRY POSEY JR.",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "GREG CLINGERMAN",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    },
+    "PERRY TOWNSHIP": {
+      "office": "Township Trustee",
+      "term_exp": "12/31/2027",
+      "incumbents": [
+        {
+          "name": "BOYD WARNER",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "ALBERT ACKER",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "BLAINE HEETER",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "AMY HOOVER",
+          "party": "R"
+        }
+      ],
+      "challengers": []
+    },
+    "WASHINGTON TOWNSHIP": {
+      "office": "Township Trustee",
+      "term_exp": "12/31/2027",
+      "incumbents": [
+        {
+          "name": "BRIAN LUNNE",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "SHARON LOWRY",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "SCOTT PAULSON",
+          "party": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "GARY SMIGA",
+          "party": null,
+          "nonpartisan": true
+        }
+      ],
+      "challengers": []
+    }
   },
-
   "VILLAGE": {
-    "_note": "Village council races not in BoE petition report. Populate manually. Villages present: FARMERSVILLE VILLAGE, NEW LEBANON VILLAGE, PHILLIPSBURG VILLAGE, VERONA VILLAGE."
+    "CARLISLE VILLAGE": {
+      "offices": [
+        {
+          "office": "CARLISLE MAYOR",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "RANDY WINKLER",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "CARLISLE COUNCIL",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "DEBBIE KEMPER",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "CARLISLE COUNCIL",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "CHRIS STIVERS",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "CARLISLE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "DENISE EAGLE",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "CARLISLE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "JASON FAULKNER",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "CARLISLE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "TIM HUMPHRIES",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "CARLISLE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "MICHAEL KILPATRICK",
+            "party": null,
+            "nonpartisan": true
+          }
+        }
+      ],
+      "challengers": []
+    },
+    "FARMERSVILLE VILLAGE": {
+      "offices": [
+        {
+          "office": "FARMERSVILLE MAYOR",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "NICOLAS LAMB",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "FARMERSVILLE VILLAGE COUNCIL",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "JOE HOLDERMAN",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "FARMERSVILLE VILLAGE COUNCIL",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "JEFF MORNEAULT",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "FARMERSVILLE VILLAGE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "ERIC CRAIG",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "FARMERSVILLE VILLAGE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "TODD CUNNINGHAM",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "FARMERSVILLE VILLAGE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "CRYSTAL CURRENT",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "FARMERSVILLE VILLAGE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "BRIAN SMITH",
+            "party": null,
+            "nonpartisan": true
+          }
+        }
+      ],
+      "challengers": []
+    },
+    "NEW LEBANON VILLAGE": {
+      "offices": [
+        {
+          "office": "NEW LEBANON MAYOR",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "DAVID NICKERSON",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "NEW LEBANON VILLAGE COUNCIL",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "TIMOTHY BACK",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "NEW LEBANON VILLAGE COUNCIL",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "GALE B. JOY",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "NEW LEBANON VILLAGE COUNCIL",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "MELISSA SEXTON",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "NEW LEBANON VILLAGE COUNCIL",
+          "term_exp": "12/31/2026",
+          "incumbent": {
+            "name": "NICOLE L ADKINS",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "NEW LEBANON VILLAGE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "THERESA COOPER",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "NEW LEBANON VILLAGE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "TOM WILDER",
+            "party": null,
+            "nonpartisan": true
+          }
+        }
+      ],
+      "challengers": []
+    },
+    "PHILLIPSBURG VILLAGE": {
+      "offices": [
+        {
+          "office": "PHILLIPSBURG MAYOR",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "JOSHUA SIMPSON",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "PHILLIPSBURG VILLAGE COUNCIL",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "HEATHER CRAFT",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "PHILLIPSBURG VILLAGE COUNCIL",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "HOPE HOARD",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "PHILLIPSBURG VILLAGE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "CHRYSTAL BEAVERS",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "PHILLIPSBURG VILLAGE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "JACOB GROH",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "PHILLIPSBURG VILLAGE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "JILL RITTER",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "PHILLIPSBURG VILLAGE COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "JOHN RITTER",
+            "party": null,
+            "nonpartisan": true
+          }
+        }
+      ],
+      "challengers": []
+    },
+    "VERONA VILLAGE": {
+      "offices": [
+        {
+          "office": "VERONA MAYOR",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "NIKKI PLANK",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "VILLAGE OF VERONA COUNCIL",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "JIM SCHNEIDER",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "VILLAGE OF VERONA COUNCIL",
+          "term_exp": "12/31/2027",
+          "incumbent": {
+            "name": "SARAH STEWART",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "VILLAGE OF VERONA COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "JENNI BAKER",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "VILLAGE OF VERONA COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "ERIN BIGGS",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "VILLAGE OF VERONA COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "GRANT CLASS",
+            "party": null,
+            "nonpartisan": true
+          }
+        },
+        {
+          "office": "VILLAGE OF VERONA COUNCIL",
+          "term_exp": "12/31/2029",
+          "incumbent": {
+            "name": "TYLER WOODS",
+            "party": null,
+            "nonpartisan": true
+          }
+        }
+      ],
+      "challengers": []
+    }
   },
-
   "_deferred": {
     "COUNTY_COMMISSIONER": {
       "office": "Montgomery County Commissioner",
-      "incumbent": { "name": "Carolyn Rice", "party": "D" },
+      "incumbent": {
+        "name": "Carolyn Rice",
+        "party": "D"
+      },
       "challengers": [
-        { "name": "Margie Christie", "party": "R" }
+        {
+          "name": "Margie Christie",
+          "party": "R"
+        }
       ],
       "note": "Deferred to post-beta per handoff spec."
     },
     "COUNTY_AUDITOR": {
       "office": "Montgomery County Auditor",
-      "incumbent": { "name": "Karl Keith", "party": "D" },
+      "incumbent": {
+        "name": "Karl Keith",
+        "party": "D"
+      },
       "challengers": [
-        { "name": "Tammy L. Murphy", "party": "R" }
+        {
+          "name": "Tammy L. Murphy",
+          "party": "R"
+        }
       ],
       "note": "Deferred to post-beta per handoff spec."
     }

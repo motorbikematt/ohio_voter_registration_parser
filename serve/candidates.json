@@ -1,0 +1,682 @@
+{
+  "_meta": {
+    "generated": "2026-06-25",
+    "county": "Montgomery",
+    "county_number": 57,
+    "election_date": "2026-11-03",
+    "valid_through": "2026-11-03",
+    "retrieved_date": "2026-06-01",
+    "source": "boe_candidate_petition_pdf",
+    "source_file": "6.1.2026-Candidate-Petition-Report.pdf",
+    "total_candidates": 53,
+    "offices_per_section": {
+      "CONGRESSIONAL_DISTRICT": 1,
+      "STATE_SENATE_DISTRICT": 1,
+      "STATE_REPRESENTATIVE_DISTRICT": 5,
+      "COUNTY_COMMISSIONER": 1,
+      "COUNTY_AUDITOR": 1,
+      "STATEWIDE": 8,
+      "JUDICIAL": 8
+    },
+    "notes": [
+      "2026 general-election candidates from the Montgomery County BoE Candidate Petition Report. BoE updates the report weekly; re-run parse_candidate_petitions.py and this builder on each refresh.",
+      "District section keys (CONGRESSIONAL_DISTRICT, STATE_*_DISTRICT) match officials.json and the enriched_voters.parquet jurisdiction columns; STATEWIDE/JUDICIAL key by office slug (no parquet jurisdiction).",
+      "party is null for nonpartisan offices (most judicial seats); a 'nonpartisan' flag marks those entries.",
+      "address.zip feeds the Session-2 voter-matching pass; 'On File' means the BoE withheld the street address."
+    ]
+  },
+  "CONGRESSIONAL_DISTRICT": {
+    "10": {
+      "office": "Representative to Congress- 10th District (1)",
+      "candidates": [
+        {
+          "name": "Kristina Knickerbocker",
+          "party": "D",
+          "address": {
+            "street": "2678 Sutton Rd.",
+            "city": "Yellow Springs",
+            "zip": "45387"
+          },
+          "petition_filed": "2026-02-03",
+          "petition_certified": "2026-02-17"
+        },
+        {
+          "name": "Thomas F. McMasters",
+          "party": "L",
+          "address": {
+            "street": "6934 Sylmar Ct.",
+            "city": "Huber Heights",
+            "zip": "45424"
+          },
+          "petition_filed": "2026-02-03",
+          "petition_certified": "2026-02-17"
+        },
+        {
+          "name": "Mike Turner",
+          "party": "R",
+          "address": {
+            "street": "109 N Main St. Apt. 1103",
+            "city": "Dayton",
+            "zip": "45402"
+          },
+          "petition_filed": "2026-01-12",
+          "petition_certified": "2026-01-20"
+        }
+      ]
+    }
+  },
+  "STATE_SENATE_DISTRICT": {
+    "05": {
+      "office": "State Senator- 5th District (1)",
+      "candidates": [
+        {
+          "name": "Jeffrey J. Harris",
+          "party": "D",
+          "address": {
+            "street": "1062 Linwood Dr.",
+            "city": "Troy",
+            "zip": "45373"
+          },
+          "petition_filed": "2026-02-20",
+          "petition_certified": "2026-02-20"
+        },
+        {
+          "name": "Phil Plummer",
+          "party": "R",
+          "address": {
+            "street": "1831 Kershner Rd.",
+            "city": "Dayton",
+            "zip": "45414"
+          },
+          "petition_filed": "2026-01-22",
+          "petition_certified": "2026-02-17"
+        }
+      ]
+    }
+  },
+  "STATE_REPRESENTATIVE_DISTRICT": {
+    "36": {
+      "office": "State Representative- 36th District (1)",
+      "candidates": [
+        {
+          "name": "Rose Lounsbury",
+          "party": "D",
+          "address": {
+            "street": "222 Wonderly Ave.",
+            "city": "Dayton",
+            "zip": "45419"
+          },
+          "petition_filed": "2025-12-04",
+          "petition_certified": "2026-01-20"
+        },
+        {
+          "name": "Chuck Horn",
+          "party": "I",
+          "address": {
+            "street": "1482 Willamette Rd.",
+            "city": "Kettering",
+            "zip": "45429"
+          },
+          "petition_filed": "2026-01-23",
+          "petition_certified": "2026-02-17"
+        },
+        {
+          "name": "Andrea White",
+          "party": "R",
+          "address": {
+            "street": "4744 Bokay Dr.",
+            "city": "Kettering",
+            "zip": "45440"
+          },
+          "petition_filed": "2026-02-02",
+          "petition_certified": "2026-02-17"
+        }
+      ]
+    },
+    "37": {
+      "office": "State Representative- 37th District (1)",
+      "candidates": [
+        {
+          "name": "Tom Herner",
+          "party": "D",
+          "address": {
+            "street": "9409 Trail Stone Pt.",
+            "city": "Centerville",
+            "zip": "45458"
+          },
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-17"
+        },
+        {
+          "name": "Tom Young",
+          "party": "R",
+          "address": {
+            "street": "1121 Cedar Creek Cir.",
+            "city": "Centerville",
+            "zip": "45459"
+          },
+          "petition_filed": "2026-01-30",
+          "petition_certified": "2026-02-17"
+        }
+      ]
+    },
+    "38": {
+      "office": "State Representative- 38th District (1)",
+      "candidates": [
+        {
+          "name": "Desiree Tims",
+          "party": "D",
+          "address": {
+            "street": "4636 Sumac Ct.",
+            "city": "Dayton",
+            "zip": "45417"
+          },
+          "petition_filed": "2026-02-03",
+          "petition_certified": "2026-02-18"
+        }
+      ]
+    },
+    "39": {
+      "office": "State Representative- 39th District (1)",
+      "candidates": [
+        {
+          "name": "Daquan Neal",
+          "party": "D",
+          "address": {
+            "street": "3841 Carroll Ave. Apt. 2",
+            "city": "Dayton",
+            "zip": "45405"
+          },
+          "petition_filed": "2025-12-08",
+          "petition_certified": "2026-01-20"
+        },
+        {
+          "name": "Mark Campbell",
+          "party": "R",
+          "address": {
+            "street": "5260 Heather Way",
+            "city": "Huber Heights",
+            "zip": "45424"
+          },
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-17"
+        }
+      ]
+    },
+    "40": {
+      "office": "State Representative-40th District (1)",
+      "candidates": [
+        {
+          "name": "Timothy B. Hornbacker",
+          "party": "D",
+          "address": {
+            "street": "11868 State Route 121 N.",
+            "city": "New Paris",
+            "zip": "45347"
+          },
+          "petition_filed": "2026-02-03",
+          "petition_certified": "2026-02-17"
+        },
+        {
+          "name": "Joshua A. Umbaugh",
+          "party": "L",
+          "address": {
+            "street": "737 E. Pearl St.",
+            "city": "Miamisburg",
+            "zip": "45342"
+          },
+          "petition_filed": "2026-02-03",
+          "petition_certified": "2026-02-17"
+        },
+        {
+          "name": "Rodney Creech",
+          "party": "R",
+          "address": {
+            "street": "5062 Bantas Creek Rd.",
+            "city": "West Alexandria",
+            "zip": "45381"
+          },
+          "petition_filed": "2026-01-30",
+          "petition_certified": "2026-02-17"
+        }
+      ]
+    }
+  },
+  "COUNTY_COMMISSIONER": {
+    "county": {
+      "office": "County Commissioner (1) Term Begins 1/1/2027",
+      "candidates": [
+        {
+          "name": "Carolyn Rice",
+          "party": "D",
+          "address": {
+            "street": "1135 Green Tree Dr.",
+            "city": "Kettering",
+            "zip": "45429"
+          },
+          "petition_filed": "2025-12-30",
+          "petition_certified": "2026-01-20"
+        },
+        {
+          "name": "Margie Christie",
+          "party": "R",
+          "address": {
+            "street": "5074 Benner Rd.",
+            "city": "Miamisburg",
+            "zip": "45342"
+          },
+          "petition_filed": "2026-01-12",
+          "petition_certified": "2026-02-17"
+        }
+      ]
+    }
+  },
+  "COUNTY_AUDITOR": {
+    "county": {
+      "office": "County Auditor (1)",
+      "candidates": [
+        {
+          "name": "Karl Keith",
+          "party": "D",
+          "address": {
+            "street": "221 Watervliet Ave.",
+            "city": "Dayton",
+            "zip": "45420"
+          },
+          "petition_filed": "2026-01-27",
+          "petition_certified": "2026-02-17"
+        },
+        {
+          "name": "Tammy L. Murphy",
+          "party": "R",
+          "address": {
+            "street": "8951 Deep Forest Ln.",
+            "city": "Centerville",
+            "zip": "45458"
+          },
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-17"
+        }
+      ]
+    }
+  },
+  "STATEWIDE": {
+    "governor-lt-governor": {
+      "office": "Governor & Lt. Governor (1)",
+      "candidates": [
+        {
+          "name": "Amy Acton and David Pepper",
+          "party": "D",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        },
+        {
+          "name": "Don Kissick and James L. Mills",
+          "party": "L",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        },
+        {
+          "name": "Vivek Ramaswamy and Robert A. McColley",
+          "party": "R",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        }
+      ]
+    },
+    "attorney-general": {
+      "office": "Attorney General (1)",
+      "candidates": [
+        {
+          "name": "John J. Kulewicz",
+          "party": "D",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        },
+        {
+          "name": "Keith Faber",
+          "party": "R",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        }
+      ]
+    },
+    "state-auditor": {
+      "office": "State Auditor (1)",
+      "candidates": [
+        {
+          "name": "Annette Blackwell",
+          "party": "D",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        },
+        {
+          "name": "Aidan Michael Jeffery",
+          "party": "L",
+          "address": null,
+          "petition_filed": "2026-02-23",
+          "petition_certified": "2026-02-23"
+        },
+        {
+          "name": "Frank Larose",
+          "party": "R",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        }
+      ]
+    },
+    "secretary-of-state": {
+      "office": "Secretary of State (1)",
+      "candidates": [
+        {
+          "name": "Allison Russo",
+          "party": "D",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        },
+        {
+          "name": "Tom Pruss",
+          "party": "L",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        },
+        {
+          "name": "Robert Sprague",
+          "party": "R",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        }
+      ]
+    },
+    "treasurer-of-state": {
+      "office": "Treasurer of State (1)",
+      "candidates": [
+        {
+          "name": "Seth Walsh",
+          "party": "D",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        },
+        {
+          "name": "Jay Edwards",
+          "party": "R",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        }
+      ]
+    },
+    "justice-of-the-supreme-court-term-begins-1-1-2027": {
+      "office": "Justice of the Supreme Court (1) Term Begins 1/1/2027",
+      "candidates": [
+        {
+          "name": "Marilyn Zayas",
+          "party": "D",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        },
+        {
+          "name": "Daniel R. Hawkins",
+          "party": "R",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        }
+      ]
+    },
+    "justice-of-the-supreme-court-term-begins-1-2-2027": {
+      "office": "Justice of the Supreme Court (1) Term Begins 1/2/2027",
+      "candidates": [
+        {
+          "name": "Jennifer Brunner",
+          "party": "D",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        },
+        {
+          "name": "Colleen O'Donnell",
+          "party": "R",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        }
+      ]
+    },
+    "u-s-senator-unexpired-term-ending-1-3-2029": {
+      "office": "U.S. Senator (1) Unexpired Term Ending 1/3/2029",
+      "candidates": [
+        {
+          "name": "Sherrod Brown",
+          "party": "D",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        },
+        {
+          "name": "William B. Redpath",
+          "party": "L",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        },
+        {
+          "name": "Jon Husted",
+          "party": "R",
+          "address": null,
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-19"
+        }
+      ]
+    }
+  },
+  "JUDICIAL": {
+    "judge-of-the-court-of-appeals-2nd-dist-term-begins-2-9-2027": {
+      "office": "Judge of the Court of Appeals- 2nd Dist (1) Term Begins 2/9/2027",
+      "candidates": [
+        {
+          "name": "Chris Epley",
+          "party": "R",
+          "address": {
+            "street": "On File",
+            "city": null,
+            "zip": null
+          },
+          "petition_filed": "2025-11-20",
+          "petition_certified": "2026-02-17"
+        }
+      ]
+    },
+    "judge-of-the-court-of-common-pleas-term-begins-1-1-2027": {
+      "office": "Judge of the Court of Common Pleas (1) Term Begins 1/1/2027",
+      "candidates": [
+        {
+          "name": "Susan D. Solle",
+          "party": null,
+          "address": {
+            "street": "6622 Bellefontaine Rd.",
+            "city": "Huber Heights",
+            "zip": "45424"
+          },
+          "petition_filed": "2026-01-21",
+          "petition_certified": "2026-02-17",
+          "nonpartisan": true
+        }
+      ]
+    },
+    "judge-of-the-court-of-common-pleas-term-begins-1-2-2027": {
+      "office": "Judge of the Court of Common Pleas (1) Term Begins 1/2/2027",
+      "candidates": [
+        {
+          "name": "Anne Keeton",
+          "party": null,
+          "address": {
+            "street": "817 Schrubb Dr.",
+            "city": "Kettering",
+            "zip": "45429"
+          },
+          "petition_filed": "2026-01-07",
+          "petition_certified": "2026-01-20",
+          "nonpartisan": true
+        },
+        {
+          "name": "Derek Muncy",
+          "party": null,
+          "address": {
+            "street": "6511 Taywood Rd.",
+            "city": "Englewood",
+            "zip": "45322"
+          },
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-17",
+          "nonpartisan": true
+        }
+      ]
+    },
+    "judge-of-the-court-of-common-pleas-term-begins-1-3-2027": {
+      "office": "Judge of the Court of Common Pleas (1) Term Begins 1/3/2027",
+      "candidates": [
+        {
+          "name": "Michele S.H. Henne",
+          "party": null,
+          "address": {
+            "street": "414 Wiltshire Blvd.",
+            "city": "Dayton",
+            "zip": "45419"
+          },
+          "petition_filed": "2026-01-30",
+          "petition_certified": "2026-02-17",
+          "nonpartisan": true
+        },
+        {
+          "name": "Kelly D. Madzey",
+          "party": null,
+          "address": {
+            "street": "2858 Ramblingwood Ln.",
+            "city": "Centerville",
+            "zip": "45458"
+          },
+          "petition_filed": "2026-02-03",
+          "petition_certified": "2026-02-17",
+          "nonpartisan": true
+        }
+      ]
+    },
+    "judge-of-the-court-of-common-pleas-term-begins-7-1-2027": {
+      "office": "Judge of the Court of Common Pleas (1) Term Begins 7/1/2027",
+      "candidates": [
+        {
+          "name": "Steve Abshire",
+          "party": null,
+          "address": {
+            "street": "5663 Mark Dale Dr.",
+            "city": "Centerville",
+            "zip": "45459"
+          },
+          "petition_filed": "2026-02-03",
+          "petition_certified": "2026-02-17",
+          "nonpartisan": true
+        },
+        {
+          "name": "Richard Glennon",
+          "party": null,
+          "address": {
+            "street": "1908 Coolidge Dr.",
+            "city": "Dayton",
+            "zip": "45419"
+          },
+          "petition_filed": "2026-02-03",
+          "petition_certified": "2026-02-17",
+          "nonpartisan": true
+        }
+      ]
+    },
+    "judge-of-the-court-of-common-pleas-term-begins-7-2-2027": {
+      "office": "Judge of the Court of Common Pleas (1) Term Begins 7/2/2027",
+      "candidates": [
+        {
+          "name": "Elizabeth A. Ellis",
+          "party": null,
+          "address": {
+            "street": "On File",
+            "city": null,
+            "zip": null
+          },
+          "petition_filed": "2026-01-16",
+          "petition_certified": "2026-02-17",
+          "nonpartisan": true
+        }
+      ]
+    },
+    "judge-of-the-court-of-common-pleas-juvenile-division-ute-12-31-2029": {
+      "office": "Judge of the Court of Common Pleas- Juvenile Division (1) UTE 12/31/2029",
+      "candidates": [
+        {
+          "name": "Hope Smalls",
+          "party": null,
+          "address": {
+            "street": "226 McDaniel St. Apt. 150",
+            "city": "Dayton",
+            "zip": "45405"
+          },
+          "petition_filed": null,
+          "petition_certified": null,
+          "nonpartisan": true
+        },
+        {
+          "name": "Nicholas Sylvain",
+          "party": null,
+          "address": {
+            "street": "4200 Maricarr Dr.",
+            "city": "Kettering",
+            "zip": "45429"
+          },
+          "petition_filed": null,
+          "petition_certified": null,
+          "nonpartisan": true
+        }
+      ]
+    },
+    "judge-of-the-court-of-common-pleas-probate-division-term-begins-2-9-2027": {
+      "office": "Judge of the Court of Common Pleas- Probate Division (1) Term Begins 2/9/2027",
+      "candidates": [
+        {
+          "name": "David Brannon",
+          "party": null,
+          "address": {
+            "street": "10112 Benham Dr.",
+            "city": "Centerville",
+            "zip": "45458"
+          },
+          "petition_filed": "2025-12-19",
+          "petition_certified": "2026-01-20",
+          "nonpartisan": true
+        },
+        {
+          "name": "Cassandra A. Rice",
+          "party": null,
+          "address": {
+            "street": "1502 E. Schantz Ave.",
+            "city": "Dayton",
+            "zip": "45419"
+          },
+          "petition_filed": "2026-02-04",
+          "petition_certified": "2026-02-17",
+          "nonpartisan": true
+        }
+      ]
+    }
+  }
+}

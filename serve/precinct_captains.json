@@ -1,25 +1,71 @@
 {
   "_meta": {
-    "generated": "2026-06-23",
-    "primary_date": "2026-05-05",
-    "term_end_D": "2026-06-01",
-    "term_end_L": "2028-05-07",
+    "generated": "2026-06-25",
     "county": "Montgomery",
     "county_number": 57,
+    "primary_date": "2026-05-05",
+    "keyed_by": "PRECINCT_NAME (exact enriched_voters.parquet values)",
+    "parties": {
+      "D": {
+        "label": "Democratic",
+        "source": "boe_pdf",
+        "source_file": "DEM-CENTRAL-COMMITTEE-5-2-26.pdf",
+        "retrieved_date": "2026-05-02",
+        "coverage": "complete",
+        "filings": 269,
+        "gaps": [
+          "0650",
+          "1430"
+        ],
+        "status_counts": {
+          "uncontested": 163,
+          "vacant": 171,
+          "contested": 47
+        }
+      },
+      "L": {
+        "label": "Libertarian",
+        "source": "boe_pdf",
+        "source_file": "LIB-CENTRAL-COMMITTEE.pdf",
+        "retrieved_date": "2026-02-20",
+        "coverage": "complete",
+        "filings": 3,
+        "gaps": [],
+        "status_counts": {
+          "vacant": 378,
+          "uncontested": 3
+        }
+      },
+      "R": {
+        "label": "Republican",
+        "source": "csv",
+        "source_file": "electedofficials.csv",
+        "retrieved_date": null,
+        "coverage": "partial",
+        "filings": 1,
+        "gaps": [],
+        "status_counts": {
+          "data_pending": 380,
+          "uncontested": 1
+        }
+      }
+    },
     "sources": [
-      "Montgomery County BoE Democratic Central Committee Filing Report (05/02/2026)",
-      "Montgomery County BoE Libertarian Central Committee Filing Report (02/20/2026)",
-      "local/source/DEM-CENTRAL-COMMITTEE-5-2-26.pdf",
-      "local/source/LIB-CENTRAL-COMMITTEE.pdf"
+      "DEM-CENTRAL-COMMITTEE-5-2-26.pdf (Democratic, retrieved 2026-05-02)",
+      "LIB-CENTRAL-COMMITTEE.pdf (Libertarian, retrieved 2026-02-20)",
+      "electedofficials.csv (Republican, retrieved None)"
     ],
+    "status_semantics": {
+      "uncontested": "single filer (elected unopposed in the primary)",
+      "contested": "2+ filers; certified primary result needed to pick the winner",
+      "vacant": "no one filed (source covers every precinct)",
+      "data_pending": "filings not yet loaded for this party (e.g. R awaiting the BoE PDF)"
+    },
     "notes": [
-      "Keys match exact PRECINCT_NAME values in enriched_voters.parquet (verified 2026-06-23).",
-      "Republican central committee data not yet loaded — R entries are stubs (status: data_pending).",
-      "D status: 'uncontested' = single filer elected; 'contested' = multiple filers (certified result needed to determine winner); 'vacant' = no candidate filed.",
-      "Candidates without party suffix in BoE filing have party: null (crossfiler or unaffiliated registrant running in D primary).",
-      "DEM source is a pre-election filing report (05/02/2026), NOT certified results. Contested races need BoE result lookup.",
-      "DAYTON 4-B: present in parquet but absent from DEM filing report (ballot number 0650 skipped — no D race on file). Treated as vacant.",
-      "ENGLEWOOD-I: present in parquet but absent from DEM filing report (ballot number 1430 skipped — ENG-H at 1420, ENG-J at 1440). Treated as vacant."
+      "Keys match exact PRECINCT_NAME values in enriched_voters.parquet.",
+      "Candidate 'party' is null when the BoE filing carried no party suffix (crossfiler / unaffiliated registrant running in that party's primary).",
+      "D/L statuses come from 2026 primary central-committee filing reports (pre-certification); R comes from the elected-officials CSV (current officeholder), so R precincts without a CSV row are data_pending, not vacant.",
+      "Contested races are frozen at the filer list; the certified-result pass (Session 2) resolves winners."
     ]
   },
   "BROOKVILLE-A": {
@@ -27,7 +73,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "HELEN E. UMPHREY",
+          "name": "Helen E. Umphrey",
           "party": "D",
           "write_in": false
         }
@@ -47,7 +93,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "RACHAEL MORRELL",
+          "name": "Rachael Morrell",
           "party": "D",
           "write_in": false
         }
@@ -67,7 +113,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MARY COOK",
+          "name": "Mary Cook",
           "party": "D",
           "write_in": false
         }
@@ -101,7 +147,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "DEBRA BONIFAS ARMANINI",
+          "name": "Debra Bonifas Armanini",
           "party": "D",
           "write_in": false
         }
@@ -121,7 +167,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "DIANE S. WALSH",
+          "name": "Diane S. Walsh",
           "party": "D",
           "write_in": false
         }
@@ -141,12 +187,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "GREGORY A. BRUSH",
+          "name": "Gregory A. Brush",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "ADDISON NICOLE DADY",
+          "name": "Addison Nicole Dady",
           "party": null,
           "write_in": false
         }
@@ -166,7 +212,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MELISSA DADY",
+          "name": "Melissa Dady",
           "party": "D",
           "write_in": false
         }
@@ -186,7 +232,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "WILLIAM N. DAVIS, II",
+          "name": "William N. Davis, II",
           "party": "D",
           "write_in": false
         }
@@ -220,358 +266,8 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "DIAMOND JEWEL GRAY",
+          "name": "Diamond Jewel Gray",
           "party": null,
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-A": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-B": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "JANET E. TREADWAY",
-          "party": "D",
-          "write_in": true
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-C": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-D": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-E": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "CAROLINE A. M. DICKEY",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-F": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "JULIA CLAIRE ROMIE",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-G": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "LYNN M. OLIVER",
-          "party": "D",
-          "write_in": true
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-H": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "TERRY K. SMITH",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-I": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "AMY M. GALLOWAY",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-J": {
-    "D": {
-      "status": "contested",
-      "candidates": [
-        {
-          "name": "ANN MARIE PULASKI",
-          "party": "D",
-          "write_in": false
-        },
-        {
-          "name": "DANIA LASHALLE WILLIAMS",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-K": {
-    "D": {
-      "status": "contested",
-      "candidates": [
-        {
-          "name": "KEARA DEVER",
-          "party": "D",
-          "write_in": false
-        },
-        {
-          "name": "MICHAEL J RICE",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-L": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "LESLIE MERRY",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-M": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "HUNTTING W. BROWN",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-N": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-O": {
-    "D": {
-      "status": "contested",
-      "candidates": [
-        {
-          "name": "MARILYN R. DONOFF",
-          "party": "D",
-          "write_in": false
-        },
-        {
-          "name": "ELIZABETH GRIMM WHELLEY",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-P": {
-    "D": {
-      "status": "contested",
-      "candidates": [
-        {
-          "name": "ANDREA MOSKELAND COBB",
-          "party": "D",
-          "write_in": false
-        },
-        {
-          "name": "TERRA FOX WILLIAMS",
-          "party": null,
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-Q": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "CENTERVILLE-R": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "JEFFREY HUNTER JOHNSON",
-          "party": "D",
           "write_in": false
         }
       ]
@@ -632,12 +328,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "ELIZABETH EVANS",
+          "name": "Elizabeth Evans",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "MARK TERRILL",
+          "name": "Mark Terrill",
           "party": "D",
           "write_in": false
         }
@@ -657,7 +353,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MAT HECK, JR",
+          "name": "Mat Heck, Jr",
           "party": "D",
           "write_in": false
         }
@@ -677,7 +373,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "DENNIS LIEBERMAN",
+          "name": "Dennis Lieberman",
           "party": "D",
           "write_in": false
         }
@@ -697,12 +393,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "SHARON L. HUNTER",
+          "name": "Sharon L. Hunter",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "DESTINY THOMAS",
+          "name": "Destiny Thomas",
           "party": "D",
           "write_in": false
         }
@@ -736,12 +432,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "ROSALYN P. LAKE",
+          "name": "Rosalyn P. Lake",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "JARED WOOD-GRANDY",
+          "name": "Jared Wood-Grandy",
           "party": "D",
           "write_in": false
         }
@@ -761,7 +457,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "JOSEPH A. HARRIS, JR",
+          "name": "Joseph A. Harris, Jr",
           "party": "D",
           "write_in": false
         }
@@ -781,7 +477,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "JAMES T. GORMAN",
+          "name": "James T. Gorman",
           "party": "D",
           "write_in": false
         }
@@ -815,12 +511,362 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "ROBERTA KAY GREAVER",
+          "name": "Roberta Kay Greaver",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "SYLVESTER TOWNSEND",
+          "name": "Sylvester Townsend",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-A": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-B": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Janet E. Treadway",
+          "party": "D",
+          "write_in": true
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-C": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-D": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-E": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Caroline A. M. Dickey",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-F": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Julia Claire Romie",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-G": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Lynn M. Oliver",
+          "party": "D",
+          "write_in": true
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-H": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Terry K. Smith",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-I": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Amy M. Galloway",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-J": {
+    "D": {
+      "status": "contested",
+      "candidates": [
+        {
+          "name": "Ann Marie Pulaski",
+          "party": "D",
+          "write_in": false
+        },
+        {
+          "name": "Dania Lashalle Williams",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-K": {
+    "D": {
+      "status": "contested",
+      "candidates": [
+        {
+          "name": "Keara Dever",
+          "party": "D",
+          "write_in": false
+        },
+        {
+          "name": "Michael J Rice",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-L": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Leslie Merry",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-M": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Huntting W. Brown",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-N": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-O": {
+    "D": {
+      "status": "contested",
+      "candidates": [
+        {
+          "name": "Marilyn R. Donoff",
+          "party": "D",
+          "write_in": false
+        },
+        {
+          "name": "Elizabeth Grimm Whelley",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-P": {
+    "D": {
+      "status": "contested",
+      "candidates": [
+        {
+          "name": "Andrea Moskeland Cobb",
+          "party": "D",
+          "write_in": false
+        },
+        {
+          "name": "Terra Fox Williams",
+          "party": null,
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-Q": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "CENTERVILLE-R": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Jeffrey Hunter Johnson",
           "party": "D",
           "write_in": false
         }
@@ -854,17 +900,17 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "WHITNEY CRIM",
+          "name": "Whitney Crim",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "JOE LACEY",
+          "name": "Joe Lacey",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "ERIC DION WALKER",
+          "name": "Eric Dion Walker",
           "party": "D",
           "write_in": false
         }
@@ -884,7 +930,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "STEVE CLEAVES-JONES",
+          "name": "Steve Cleaves-Jones",
           "party": null,
           "write_in": false
         }
@@ -904,12 +950,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "HEATH RICHARD MACALPINE",
+          "name": "Heath Richard Macalpine",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "WILLIE LEE MORRIS",
+          "name": "Willie Lee Morris",
           "party": "D",
           "write_in": true
         }
@@ -929,21 +975,726 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "DAVID ESRATI",
+          "name": "David Esrati",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "MATTHEW RAYMOND KLEMPNER",
+          "name": "Matthew Raymond Klempner",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "HUGH M. QUILL, JR",
+          "name": "Hugh M. Quill, Jr",
           "party": null,
           "write_in": false
         }
       ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 2-A": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 2-B": {
+    "D": {
+      "status": "contested",
+      "candidates": [
+        {
+          "name": "Torey Carter",
+          "party": null,
+          "write_in": false
+        },
+        {
+          "name": "Karin Gudal",
+          "party": "D",
+          "write_in": false
+        },
+        {
+          "name": "Michael McGovern",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 2-C": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Kevin J. Keller",
+          "party": "D",
+          "write_in": true
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 2-D": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 3-A": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 3-B": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 3-C": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Youssef A. Elzein",
+          "party": "D",
+          "write_in": true
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 3-D": {
+    "D": {
+      "status": "contested",
+      "candidates": [
+        {
+          "name": "Colin T. Bishop",
+          "party": null,
+          "write_in": false
+        },
+        {
+          "name": "Cynthia E. Cox Ubaldo",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 3-E": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Nick Brusky",
+          "party": "R",
+          "write_in": false
+        }
+      ]
+    }
+  },
+  "DAYTON 3-F": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Kerry Todd Gray",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 3-G": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Denton Ritchie",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 3-H": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Mary Kuehne",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 3-I": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Troy Beckham",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 3-J": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Christopher Shaw",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 3-K": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Debra L. Owens",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 3-L": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 4-A": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Martin W. Gehres",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 4-B": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 4-C": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Jocelyn Rhynard",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 5-A": {
+    "D": {
+      "status": "contested",
+      "candidates": [
+        {
+          "name": "David L. Braun",
+          "party": null,
+          "write_in": false
+        },
+        {
+          "name": "Malik Simon",
+          "party": null,
+          "write_in": false
+        },
+        {
+          "name": "Jacqueline Ann Toussaint-Barker",
+          "party": null,
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 5-B": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Bruce Earnheart",
+          "party": "L",
+          "write_in": false
+        }
+      ]
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 5-C": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 5-D": {
+    "D": {
+      "status": "contested",
+      "candidates": [
+        {
+          "name": "Donald Domineck",
+          "party": "D",
+          "write_in": false
+        },
+        {
+          "name": "Charles M. Taylor",
+          "party": "D",
+          "write_in": false
+        },
+        {
+          "name": "Kwabena Kimaru Wa -Tenza",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 6-A": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 6-B": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Stacey D. Benson-Taylor",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 6-C": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 7-A": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Rhine McLin",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 7-B": {
+    "D": {
+      "status": "contested",
+      "candidates": [
+        {
+          "name": "Mike Brill",
+          "party": "D",
+          "write_in": false
+        },
+        {
+          "name": "Bethany Marie Ramsey",
+          "party": "D",
+          "write_in": true
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 8-A": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Karl L. Keith",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 8-B": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Melissa D. Rodriguez",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 8-C": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Michael Robert Lopez",
+          "party": "L",
+          "write_in": false
+        }
+      ]
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 8-D": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Zachary Paul Zugelder",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 9-A": {
+    "D": {
+      "status": "contested",
+      "candidates": [
+        {
+          "name": "Diane Graham",
+          "party": "D",
+          "write_in": false
+        },
+        {
+          "name": "Kenneth R. McCall",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 9-B": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Pamela Rae Fisher",
+          "party": "D",
+          "write_in": true
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 9-C": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Matthew F. Joseph",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "DAYTON 9-D": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
     },
     "L": {
       "status": "vacant",
@@ -987,7 +1738,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MARY E. PATTERSON",
+          "name": "Mary E. Patterson",
           "party": "D",
           "write_in": false
         }
@@ -1007,7 +1758,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ZACHARY JANOW",
+          "name": "Zachary Janow",
           "party": "D",
           "write_in": false
         }
@@ -1027,7 +1778,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "BRIAN J. WILLIAMS",
+          "name": "Brian J. Williams",
           "party": "D",
           "write_in": false
         }
@@ -1089,12 +1840,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "VALERIE N. DUNCAN",
+          "name": "Valerie N. Duncan",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "STEVEN J. TOLSON, SR",
+          "name": "Steven J. Tolson, Sr",
           "party": null,
           "write_in": false
         }
@@ -1114,7 +1865,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ROBERT NESTA THADE-VIARS",
+          "name": "Robert Nesta Thade-Viars",
           "party": "D",
           "write_in": false
         }
@@ -1148,7 +1899,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "AMANDA L. DAVIS",
+          "name": "Amanda L. Davis",
           "party": "D",
           "write_in": false
         }
@@ -1168,7 +1919,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ANNA KEELEY WILDERMUTH",
+          "name": "Anna Keeley Wildermuth",
           "party": "D",
           "write_in": false
         }
@@ -1188,7 +1939,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "JOY SHACKLEFORD",
+          "name": "Joy Shackleford",
           "party": null,
           "write_in": false
         }
@@ -1208,7 +1959,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "SUSAN R. MARTIN",
+          "name": "Susan R. Martin",
           "party": "D",
           "write_in": false
         }
@@ -1242,7 +1993,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "JONATHAN D. JACKSON",
+          "name": "Jonathan D. Jackson",
           "party": "D",
           "write_in": false
         }
@@ -1276,7 +2027,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "CARLOS D. BUFORD",
+          "name": "Carlos D. Buford",
           "party": "D",
           "write_in": false
         }
@@ -1296,7 +2047,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "TIMOTHY BRANHAM",
+          "name": "Timothy Branham",
           "party": "D",
           "write_in": false
         }
@@ -1330,7 +2081,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "TERRI SIMS",
+          "name": "Terri Sims",
           "party": null,
           "write_in": false
         }
@@ -1350,7 +2101,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "RODNEY STARK, SR",
+          "name": "Rodney Stark, Sr",
           "party": "D",
           "write_in": false
         }
@@ -1370,7 +2121,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "EVA BODDIE",
+          "name": "Eva Boddie",
           "party": "D",
           "write_in": false
         }
@@ -1390,12 +2141,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "CHRISONDRA ALEXIS",
+          "name": "Chrisondra Alexis",
           "party": null,
           "write_in": true
         },
         {
-          "name": "GOODWINE",
+          "name": "Goodwine",
           "party": "D",
           "write_in": false
         }
@@ -1415,7 +2166,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "KELLIE J. MERRIMAN-PENICK",
+          "name": "Kellie J. Merriman-Penick",
           "party": null,
           "write_in": false
         }
@@ -1449,22 +2200,22 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "WILLIAM BAILEY",
+          "name": "William Bailey",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "DERRICK L. FOWARD",
+          "name": "Derrick L. Foward",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "CLAUDIA LEE MASON",
+          "name": "Claudia Lee Mason",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "TANIKA THOMPSON",
+          "name": "Tanika Thompson",
           "party": "D",
           "write_in": false
         }
@@ -1484,7 +2235,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "DAJZA DEMMINGS",
+          "name": "Dajza Demmings",
           "party": "D",
           "write_in": false
         }
@@ -1518,7 +2269,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "JUANITA R. CUNNINGHAM",
+          "name": "Juanita R. Cunningham",
           "party": "D",
           "write_in": false
         }
@@ -1538,7 +2289,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "DIEDRE KEITH",
+          "name": "Diedre Keith",
           "party": "R",
           "write_in": false
         }
@@ -1558,7 +2309,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ANGELA NEWLAND",
+          "name": "Angela Newland",
           "party": null,
           "write_in": false
         }
@@ -1592,12 +2343,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "IDA F. HAMILTON",
+          "name": "Ida F. Hamilton",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "JASON MILLER",
+          "name": "Jason Miller",
           "party": "D",
           "write_in": false
         }
@@ -1617,12 +2368,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "HEATHER RENEE LAYNE",
+          "name": "Heather Renee Layne",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "INGER G. H. MARSH",
+          "name": "Inger G. H. Marsh",
           "party": "D",
           "write_in": false
         }
@@ -1642,12 +2393,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "DONALD BUSH",
+          "name": "Donald Bush",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "MICHELE DENISE PHIPPS",
+          "name": "Michele Denise Phipps",
           "party": "D",
           "write_in": false
         }
@@ -1695,99 +2446,21 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "RHONDA L. HARRIS",
+          "name": "Rhonda L. Harris",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "DEMETRIA HODGES",
+          "name": "Demetria Hodges",
           "party": null,
           "write_in": false
         },
         {
-          "name": "DARRYL R. SMITH",
+          "name": "Darryl R. Smith",
           "party": "D",
           "write_in": false
         }
       ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 2-A": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 2-B": {
-    "D": {
-      "status": "contested",
-      "candidates": [
-        {
-          "name": "TOREY CARTER",
-          "party": null,
-          "write_in": false
-        },
-        {
-          "name": "KARIN GUDAL",
-          "party": "D",
-          "write_in": false
-        },
-        {
-          "name": "MICHAEL MCGOVERN",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 2-C": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "KEVIN J. KELLER",
-          "party": "D",
-          "write_in": true
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 2-D": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
     },
     "L": {
       "status": "vacant",
@@ -1803,7 +2476,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MICHELLE ERIN RICICA",
+          "name": "Michelle Erin Ricica",
           "party": "D",
           "write_in": true
         }
@@ -1851,7 +2524,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "THOMAS J. RITCHIE, SR",
+          "name": "Thomas J. Ritchie, Sr",
           "party": "D",
           "write_in": false
         }
@@ -1899,7 +2572,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "NATHAN GRANT",
+          "name": "Nathan Grant",
           "party": null,
           "write_in": false
         }
@@ -1919,12 +2592,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "WILL SMITH",
+          "name": "Will Smith",
           "party": null,
           "write_in": false
         },
         {
-          "name": "JAMIE WATT",
+          "name": "Jamie Watt",
           "party": "D",
           "write_in": false
         }
@@ -1944,7 +2617,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ASHTON HOOD",
+          "name": "Ashton Hood",
           "party": "D",
           "write_in": false
         }
@@ -1964,7 +2637,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "CHARLENE WORTHAM",
+          "name": "Charlene Wortham",
           "party": "D",
           "write_in": false
         }
@@ -1984,637 +2657,16 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "ERIC CREDIT",
+          "name": "Eric Credit",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "RUSSELL M. JOSEPH",
+          "name": "Russell M. Joseph",
           "party": "D",
           "write_in": false
         }
       ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 3-A": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 3-B": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 3-C": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "YOUSSEF A. ELZEIN",
-          "party": "D",
-          "write_in": true
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 3-D": {
-    "D": {
-      "status": "contested",
-      "candidates": [
-        {
-          "name": "COLIN T. BISHOP",
-          "party": null,
-          "write_in": false
-        },
-        {
-          "name": "CYNTHIA E. COX UBALDO",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 3-E": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 3-F": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "KERRY TODD GRAY",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 3-G": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "DENTON RITCHIE",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 3-H": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "MARY KUEHNE",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 3-I": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "TROY BECKHAM",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 3-J": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "CHRISTOPHER SHAW",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 3-K": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "DEBRA L. OWENS",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 3-L": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 4-A": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "MARTIN W. GEHRES",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 4-B": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 4-C": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "JOCELYN RHYNARD",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 5-A": {
-    "D": {
-      "status": "contested",
-      "candidates": [
-        {
-          "name": "DAVID L. BRAUN",
-          "party": null,
-          "write_in": false
-        },
-        {
-          "name": "MALIK SIMON",
-          "party": null,
-          "write_in": false
-        },
-        {
-          "name": "JACQUELINE ANN TOUSSAINT-BARKER",
-          "party": null,
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 5-B": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "Bruce Earnheart",
-          "party": "L",
-          "write_in": false
-        }
-      ]
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 5-C": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 5-D": {
-    "D": {
-      "status": "contested",
-      "candidates": [
-        {
-          "name": "DONALD DOMINECK",
-          "party": "D",
-          "write_in": false
-        },
-        {
-          "name": "CHARLES M. TAYLOR",
-          "party": "D",
-          "write_in": false
-        },
-        {
-          "name": "KWABENA KIMARU WA -TENZA",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 6-A": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 6-B": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "STACEY D. BENSON-TAYLOR",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 6-C": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 7-A": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "RHINE MCLIN",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 7-B": {
-    "D": {
-      "status": "contested",
-      "candidates": [
-        {
-          "name": "MIKE BRILL",
-          "party": "D",
-          "write_in": false
-        },
-        {
-          "name": "BETHANY MARIE RAMSEY",
-          "party": "D",
-          "write_in": true
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 8-A": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "KARL L. KEITH",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 8-B": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "MELISSA D. RODRIGUEZ",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 8-C": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "Michael Robert Lopez",
-          "party": "L",
-          "write_in": false
-        }
-      ]
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 8-D": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "ZACHARY PAUL ZUGELDER",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 9-A": {
-    "D": {
-      "status": "contested",
-      "candidates": [
-        {
-          "name": "DIANE GRAHAM",
-          "party": "D",
-          "write_in": false
-        },
-        {
-          "name": "KENNETH R. MCCALL",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 9-B": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "PAMELA RAE FISHER",
-          "party": "D",
-          "write_in": true
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 9-C": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "MATTHEW F. JOSEPH",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "DAYTON 9-D": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
     },
     "L": {
       "status": "vacant",
@@ -2630,7 +2682,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "SHARON GARRETT",
+          "name": "Sharon Garrett",
           "party": null,
           "write_in": false
         }
@@ -2664,7 +2716,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ELLA BOLLING",
+          "name": "Ella Bolling",
           "party": "D",
           "write_in": false
         }
@@ -2698,7 +2750,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MELISSA A. ELWORTH",
+          "name": "Melissa A. Elworth",
           "party": "D",
           "write_in": false
         }
@@ -2718,7 +2770,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "SUSAN J. EVANS",
+          "name": "Susan J. Evans",
           "party": "D",
           "write_in": false
         }
@@ -2822,7 +2874,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "JON A. VINCENT",
+          "name": "Jon A. Vincent",
           "party": "D",
           "write_in": true
         }
@@ -2912,7 +2964,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "CARLA CLAY",
+          "name": "Carla Clay",
           "party": null,
           "write_in": false
         }
@@ -2946,7 +2998,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MONIQUE GREEN",
+          "name": "Monique Green",
           "party": "D",
           "write_in": false
         }
@@ -2980,7 +3032,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "SCOTT ERIC BARWICK",
+          "name": "Scott Eric Barwick",
           "party": "D",
           "write_in": false
         }
@@ -3000,7 +3052,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ELEXUS D. RENNER",
+          "name": "Elexus D. Renner",
           "party": "D",
           "write_in": false
         }
@@ -3020,12 +3072,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "TARA CAMPBELL",
+          "name": "Tara Campbell",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "LAWRENCE S. FLOWERS",
+          "name": "Lawrence S. Flowers",
           "party": "D",
           "write_in": false
         }
@@ -3045,7 +3097,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "BARBARA BAYLIFF",
+          "name": "Barbara Bayliff",
           "party": "D",
           "write_in": false
         }
@@ -3093,7 +3145,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "TONY CURINGTON, SR",
+          "name": "Tony Curington, Sr",
           "party": "D",
           "write_in": false
         }
@@ -3113,12 +3165,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "REGINAL HAWKINS",
+          "name": "Reginal Hawkins",
           "party": null,
           "write_in": false
         },
         {
-          "name": "SAMUEL SANDERS",
+          "name": "Samuel Sanders",
           "party": "D",
           "write_in": false
         }
@@ -3180,12 +3232,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "VAUGHN D. BEAMS",
+          "name": "Vaughn D. Beams",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "RHONDA ANTOINETTE LOWE",
+          "name": "Rhonda Antoinette Lowe",
           "party": null,
           "write_in": false
         }
@@ -3275,7 +3327,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "KENYA L. GREEN",
+          "name": "Kenya L. Green",
           "party": "D",
           "write_in": false
         }
@@ -3323,7 +3375,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "PEYTON MANGER",
+          "name": "Peyton Manger",
           "party": "D",
           "write_in": false
         }
@@ -3343,7 +3395,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "KARRI ANNE SMITH",
+          "name": "Karri Anne Smith",
           "party": "D",
           "write_in": false
         }
@@ -3363,7 +3415,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "KRISTA A. FOX",
+          "name": "Krista A. Fox",
           "party": "D",
           "write_in": false
         }
@@ -3397,7 +3449,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "JEAN ANDREA NEWBY AL NASIR",
+          "name": "Jean Andrea Newby Al Nasir",
           "party": "D",
           "write_in": false
         }
@@ -3431,7 +3483,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "RACHEL FERGUSON",
+          "name": "Rachel Ferguson",
           "party": null,
           "write_in": false
         }
@@ -3493,7 +3545,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "CENA S. BUCHANNON",
+          "name": "Cena S. Buchannon",
           "party": "D",
           "write_in": true
         }
@@ -3513,7 +3565,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "FELICIA A. HILL",
+          "name": "Felicia A. Hill",
           "party": "D",
           "write_in": false
         }
@@ -3533,41 +3585,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "GRADY L. MULLINS",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "JACK/NEW LEBANON-A": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "JACK/NEW LEBANON-B": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "ROBYN FECKE",
+          "name": "Grady L. Mullins",
           "party": "D",
           "write_in": false
         }
@@ -3587,7 +3605,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "THOMAS G. ANDERSON, JR",
+          "name": "Thomas G. Anderson, Jr",
           "party": "D",
           "write_in": false
         }
@@ -3635,17 +3653,17 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "EARL GUY",
+          "name": "Earl Guy",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "SABRINA JORDAN",
+          "name": "Sabrina Jordan",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "ADRENNIA KELLY",
+          "name": "Adrennia Kelly",
           "party": "D",
           "write_in": false
         }
@@ -3665,7 +3683,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ERIKA J. MATTINGLY",
+          "name": "Erika J. Mattingly",
           "party": "D",
           "write_in": false
         }
@@ -3685,7 +3703,41 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "SHEILA BACK",
+          "name": "Sheila Back",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "JACK/NEW LEBANON-A": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "JACK/NEW LEBANON-B": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Robyn Fecke",
           "party": "D",
           "write_in": false
         }
@@ -3705,7 +3757,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MATTHEW FREDERICK REYES",
+          "name": "Matthew Frederick Reyes",
           "party": null,
           "write_in": false
         }
@@ -3725,7 +3777,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "LYNDA ROUTLEY",
+          "name": "Lynda Routley",
           "party": "D",
           "write_in": false
         }
@@ -3745,7 +3797,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "NEVIN SMITH",
+          "name": "Nevin Smith",
           "party": null,
           "write_in": false
         }
@@ -3765,7 +3817,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "VICTORIA A. FOX",
+          "name": "Victoria A. Fox",
           "party": "D",
           "write_in": false
         }
@@ -3785,17 +3837,17 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "ROBERT S. FERRARA",
+          "name": "Robert S. Ferrara",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "RON HALL",
+          "name": "Ron Hall",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "KYLE JOHNSON",
+          "name": "Kyle Johnson",
           "party": null,
           "write_in": false
         }
@@ -3815,7 +3867,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "STEPHEN DILL",
+          "name": "Stephen Dill",
           "party": "D",
           "write_in": false
         }
@@ -3835,7 +3887,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "BETH A. HOLTEN",
+          "name": "Beth A. Holten",
           "party": "D",
           "write_in": false
         }
@@ -3855,7 +3907,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ALEXANDER DAUFEL",
+          "name": "Alexander Daufel",
           "party": null,
           "write_in": false
         }
@@ -3875,7 +3927,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ANTHONY RAY STEPHENS",
+          "name": "Anthony Ray Stephens",
           "party": null,
           "write_in": false
         }
@@ -3895,7 +3947,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "RACHEL CARTOLANO",
+          "name": "Rachel Cartolano",
           "party": "D",
           "write_in": false
         }
@@ -3915,7 +3967,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "LADONNA RENEE HAWKINS",
+          "name": "Ladonna Renee Hawkins",
           "party": "D",
           "write_in": false
         }
@@ -3935,7 +3987,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "PAUL ASHLEY MARCHANT",
+          "name": "Paul Ashley Marchant",
           "party": "D",
           "write_in": false
         }
@@ -3955,7 +4007,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ANNA FERNANDEZ",
+          "name": "Anna Fernandez",
           "party": "D",
           "write_in": false
         }
@@ -3989,7 +4041,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "GEORGIA MARIAH SOSEBEE",
+          "name": "Georgia Mariah Sosebee",
           "party": null,
           "write_in": false
         }
@@ -4023,7 +4075,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "RUTH BICKEL",
+          "name": "Ruth Bickel",
           "party": "D",
           "write_in": false
         }
@@ -4043,7 +4095,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "NIKKI ARMSTRONG",
+          "name": "Nikki Armstrong",
           "party": "D",
           "write_in": false
         }
@@ -4063,7 +4115,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "COLE THOMAS HOLLAND",
+          "name": "Cole Thomas Holland",
           "party": null,
           "write_in": false
         }
@@ -4097,7 +4149,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MATTHEW R. MANCZ",
+          "name": "Matthew R. Mancz",
           "party": "D",
           "write_in": false
         }
@@ -4117,7 +4169,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "AMY ALLYSON ROLLINS",
+          "name": "Amy Allyson Rollins",
           "party": "D",
           "write_in": false
         }
@@ -4137,7 +4189,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MARY KATHLEEN DOSS",
+          "name": "Mary Kathleen Doss",
           "party": null,
           "write_in": false
         }
@@ -4157,7 +4209,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "BRYAN K. JACKSON",
+          "name": "Bryan K. Jackson",
           "party": "D",
           "write_in": false
         }
@@ -4177,7 +4229,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "PAUL M. STOLL",
+          "name": "Paul M. Stoll",
           "party": "D",
           "write_in": false
         }
@@ -4197,7 +4249,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "EMILY BURKMAN GRAY",
+          "name": "Emily Burkman Gray",
           "party": "D",
           "write_in": false
         }
@@ -4217,7 +4269,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ANNIE M. KUZMA",
+          "name": "Annie M. Kuzma",
           "party": "D",
           "write_in": false
         }
@@ -4237,7 +4289,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "LYNDA S. YARBOROUGH",
+          "name": "Lynda S. Yarborough",
           "party": "D",
           "write_in": false
         }
@@ -4285,7 +4337,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "STEPHEN LOUIS RUECKHAUS",
+          "name": "Stephen Louis Rueckhaus",
           "party": "D",
           "write_in": false
         }
@@ -4305,7 +4357,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "CLINTON RODGERS",
+          "name": "Clinton Rodgers",
           "party": "D",
           "write_in": false
         }
@@ -4339,7 +4391,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "KEVIN M. MESSER",
+          "name": "Kevin M. Messer",
           "party": "D",
           "write_in": false
         }
@@ -4359,7 +4411,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MICHEL BUXTON",
+          "name": "Michel Buxton",
           "party": "D",
           "write_in": false
         }
@@ -4393,12 +4445,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "NAOMI A. FOGEL",
+          "name": "Naomi A. Fogel",
           "party": null,
           "write_in": false
         },
         {
-          "name": "ARTHUR HILL",
+          "name": "Arthur Hill",
           "party": "D",
           "write_in": false
         }
@@ -4418,7 +4470,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "JENNIFER L. BELL",
+          "name": "Jennifer L. Bell",
           "party": null,
           "write_in": false
         }
@@ -4438,12 +4490,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "DALMA C. GRANDJEAN",
+          "name": "Dalma C. Grandjean",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "OLIVIA KATHRYN WEYMOUTH",
+          "name": "Olivia Kathryn Weymouth",
           "party": null,
           "write_in": false
         }
@@ -4477,16 +4529,254 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "MICHAEL C. BOCK",
+          "name": "Michael C. Bock",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "HOLLY BRAUN",
+          "name": "Holly Braun",
           "party": "D",
           "write_in": false
         }
       ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 1-A": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Randall J. Reed",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 1-B": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 1-C": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 2-A": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 2-B": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Charles F. Bowling",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Joshua A Umbaugh",
+          "party": "L",
+          "write_in": false
+        }
+      ]
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 2-C": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 3-A": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 3-B": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 3-C": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Carol Ann Roe",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 3-D": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Cara Sweet",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 4-A": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Timothy Ray Gaffney",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 4-B": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Daniel Brandt",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 4-C": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "MIAMISBURG 4-D": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
     },
     "L": {
       "status": "vacant",
@@ -4572,12 +4862,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "DEVON DOUGLAS",
+          "name": "Devon Douglas",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "STACEY REYNOLDS",
+          "name": "Stacey Reynolds",
           "party": "D",
           "write_in": false
         }
@@ -4695,7 +4985,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ZACHARY PETER LUTZ",
+          "name": "Zachary Peter Lutz",
           "party": "D",
           "write_in": false
         }
@@ -4771,7 +5061,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "GUY B. ABER",
+          "name": "Guy B. Aber",
           "party": "D",
           "write_in": false
         }
@@ -4815,244 +5105,6 @@
     }
   },
   "MIAMI TWP V": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 1-A": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "RANDALL J. REED",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 1-B": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 1-C": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 2-A": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 2-B": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "CHARLES F. BOWLING",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "Joshua A Umbaugh",
-          "party": "L",
-          "write_in": false
-        }
-      ]
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 2-C": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 3-A": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 3-B": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 3-C": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "CAROL ANN ROE",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 3-D": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "CARA SWEET",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 4-A": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "TIMOTHY RAY GAFFNEY",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 4-B": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "DANIEL BRANDT",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 4-C": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "MIAMISBURG 4-D": {
     "D": {
       "status": "vacant",
       "candidates": []
@@ -5141,7 +5193,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MEGAN TURNER",
+          "name": "Megan Turner",
           "party": "D",
           "write_in": false
         }
@@ -5161,7 +5213,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "VICKIE HAMILTON-SMITH",
+          "name": "Vickie Hamilton-Smith",
           "party": "D",
           "write_in": false
         }
@@ -5209,7 +5261,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "PAMELA G. BEATTY",
+          "name": "Pamela G. Beatty",
           "party": "D",
           "write_in": false
         }
@@ -5229,7 +5281,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ALISON BENFORD",
+          "name": "Alison Benford",
           "party": "D",
           "write_in": false
         }
@@ -5249,7 +5301,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "LAWRENCE DEGUIRE",
+          "name": "Lawrence Deguire",
           "party": "D",
           "write_in": false
         }
@@ -5265,40 +5317,6 @@
     }
   },
   "OAKWOOD-H": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "PAGE MANOR": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "LATRISHA THOMAS-PALMER",
-          "party": null,
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "PER/NEW LEBANON": {
     "D": {
       "status": "vacant",
       "candidates": []
@@ -5368,12 +5386,46 @@
       "candidates": []
     }
   },
+  "PAGE MANOR": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Latrisha Thomas-Palmer",
+          "party": null,
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "PER/NEW LEBANON": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
   "RIVERSIDE-A": {
     "D": {
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ROBERT J. MURRAY, JR",
+          "name": "Robert J. Murray, Jr",
           "party": "D",
           "write_in": false
         }
@@ -5393,7 +5445,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "KEVIN FRAZIER",
+          "name": "Kevin Frazier",
           "party": "D",
           "write_in": false
         }
@@ -5413,7 +5465,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "TERRY HUDSON",
+          "name": "Terry Hudson",
           "party": "D",
           "write_in": false
         }
@@ -5447,12 +5499,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "KAREN M. CLIFT",
+          "name": "Karen M. Clift",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "TARA OWENS",
+          "name": "Tara Owens",
           "party": null,
           "write_in": false
         }
@@ -5556,7 +5608,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ZACHARY JOSEPH",
+          "name": "Zachary Joseph",
           "party": "D",
           "write_in": false
         }
@@ -5618,7 +5670,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "DAVID OWENS",
+          "name": "David Owens",
           "party": "D",
           "write_in": false
         }
@@ -5638,7 +5690,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "DAWN E. WOJCIK",
+          "name": "Dawn E. Wojcik",
           "party": "D",
           "write_in": false
         }
@@ -5672,12 +5724,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "GWENDOLYN D. BUCHANAN",
+          "name": "Gwendolyn D. Buchanan",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "TERRI LYNN GATES",
+          "name": "Terri Lynn Gates",
           "party": null,
           "write_in": false
         }
@@ -5711,7 +5763,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ALONZO H. EDMONDS",
+          "name": "Alonzo H. Edmonds",
           "party": null,
           "write_in": false
         }
@@ -5745,12 +5797,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "YVETTE F. PAGE",
+          "name": "Yvette F. Page",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "KELLY MOON",
+          "name": "Kelly Moon",
           "party": "D",
           "write_in": false
         }
@@ -5770,7 +5822,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "PATRICIA DAUGHERTY",
+          "name": "Patricia Daugherty",
           "party": "D",
           "write_in": false
         }
@@ -5790,7 +5842,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MARTHA CLARK",
+          "name": "Martha Clark",
           "party": "D",
           "write_in": false
         }
@@ -5810,7 +5862,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "DONNA LYNN WARE",
+          "name": "Donna Lynn Ware",
           "party": null,
           "write_in": false
         }
@@ -5844,7 +5896,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MILTON J. PEARSON",
+          "name": "Milton J. Pearson",
           "party": "D",
           "write_in": false
         }
@@ -5892,17 +5944,17 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "LAJUANA J. CURINGTON",
+          "name": "Lajuana J. Curington",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "CATHERINE SWAIN",
+          "name": "Catherine Swain",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "CHARLES K. WILLIAMS",
+          "name": "Charles K. Williams",
           "party": "D",
           "write_in": false
         }
@@ -5922,7 +5974,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "PATRICK SCOTT THOMASSON",
+          "name": "Patrick Scott Thomasson",
           "party": "D",
           "write_in": false
         }
@@ -5984,7 +6036,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ANGELA DAVIS",
+          "name": "Angela Davis",
           "party": "D",
           "write_in": false
         }
@@ -6004,7 +6056,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "CEDRIC HOWARD",
+          "name": "Cedric Howard",
           "party": "D",
           "write_in": false
         }
@@ -6052,7 +6104,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "CANDACE S. HALL",
+          "name": "Candace S. Hall",
           "party": null,
           "write_in": false
         }
@@ -6128,7 +6180,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "JESSE D. PARETE",
+          "name": "Jesse D. Parete",
           "party": "D",
           "write_in": false
         }
@@ -6148,7 +6200,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "JUDY ANN DODGE",
+          "name": "Judy Ann Dodge",
           "party": "D",
           "write_in": false
         }
@@ -6168,7 +6220,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "WILLIAM M. LOY",
+          "name": "William M. Loy",
           "party": "D",
           "write_in": false
         }
@@ -6188,7 +6240,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "ANDREW T. FRENCH",
+          "name": "Andrew T. French",
           "party": "D",
           "write_in": false
         }
@@ -6208,7 +6260,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "DANIEL J. GERHARD",
+          "name": "Daniel J. Gerhard",
           "party": "D",
           "write_in": false
         }
@@ -6237,191 +6289,16 @@
       "candidates": []
     }
   },
-  "W CARROLLTON-A": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "ANGELA MARIE LEBLANC",
-          "party": "D",
-          "write_in": true
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "W CARROLLTON-B": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "JEFFREY JOSKEN",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "W CARROLLTON-C": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "W CARROLLTON-D": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "W CARROLLTON-E": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "W CARROLLTON-F": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "W CARROLLTON-G": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "RENEE SHEPPARD",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "W CARROLLTON-H": {
-    "D": {
-      "status": "contested",
-      "candidates": [
-        {
-          "name": "DEREK JOHNSON",
-          "party": "D",
-          "write_in": false
-        },
-        {
-          "name": "DORMETRIA ROBINSON THOMPSON",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "W CARROLLTON-I": {
-    "D": {
-      "status": "uncontested",
-      "candidates": [
-        {
-          "name": "MADISON HUNT",
-          "party": null,
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
   "WASHINGTON TWP A": {
     "D": {
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MARYGRACE Y. MILLER",
+          "name": "Marygrace Y. Miller",
           "party": "D",
           "write_in": false
         }
       ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "WASHINGTON TWP AA": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
     },
     "L": {
       "status": "vacant",
@@ -6437,30 +6314,16 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "VAIBHAV JAIN",
+          "name": "Vaibhav Jain",
           "party": null,
           "write_in": false
         },
         {
-          "name": "CHRISTINE LEGAWIEC",
+          "name": "Christine Legawiec",
           "party": "D",
           "write_in": false
         }
       ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "WASHINGTON TWP BB": {
-    "D": {
-      "status": "vacant",
-      "candidates": []
     },
     "L": {
       "status": "vacant",
@@ -6476,32 +6339,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "EUGENE W. MAGNUS, II",
-          "party": "D",
-          "write_in": false
-        }
-      ]
-    },
-    "L": {
-      "status": "vacant",
-      "candidates": []
-    },
-    "R": {
-      "status": "data_pending",
-      "candidates": []
-    }
-  },
-  "WASHINGTON TWP CC": {
-    "D": {
-      "status": "contested",
-      "candidates": [
-        {
-          "name": "LUCY ANNE MCKOSKY",
-          "party": "D",
-          "write_in": false
-        },
-        {
-          "name": "JAMES NEIL VANGROV",
+          "name": "Eugene W. Magnus, II",
           "party": "D",
           "write_in": false
         }
@@ -6521,7 +6359,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "DEBRA MUSTARD GIBSON",
+          "name": "Debra Mustard Gibson",
           "party": "D",
           "write_in": false
         }
@@ -6541,12 +6379,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "PHILIP B. CRIPPEN",
+          "name": "Philip B. Crippen",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "DOUGLAS M. TROUT",
+          "name": "Douglas M. Trout",
           "party": "D",
           "write_in": false
         }
@@ -6622,17 +6460,17 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "TERESA M. BAKER",
+          "name": "Teresa M. Baker",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "ERICK DETWEILER",
+          "name": "Erick Detweiler",
           "party": "R",
           "write_in": false
         },
         {
-          "name": "PATRICIA M. PERILMAN",
+          "name": "Patricia M. Perilman",
           "party": "D",
           "write_in": false
         }
@@ -6708,12 +6546,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "MATTHEW COX",
+          "name": "Matthew Cox",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "TRAVIS WADDLE",
+          "name": "Travis Waddle",
           "party": "D",
           "write_in": false
         }
@@ -6733,7 +6571,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "MANDY LORENE COWGILL",
+          "name": "Mandy Lorene Cowgill",
           "party": "D",
           "write_in": false
         }
@@ -6753,7 +6591,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "CHARLES E. PETTY",
+          "name": "Charles E. Petty",
           "party": "D",
           "write_in": false
         }
@@ -6773,7 +6611,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "NANCY STRANGE",
+          "name": "Nancy Strange",
           "party": "D",
           "write_in": false
         }
@@ -6821,7 +6659,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "LAUREL J. KERR",
+          "name": "Laurel J. Kerr",
           "party": "D",
           "write_in": false
         }
@@ -6869,7 +6707,7 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "SANDRA LEA JOHNSON",
+          "name": "Sandra Lea Johnson",
           "party": null,
           "write_in": false
         }
@@ -6889,12 +6727,12 @@
       "status": "contested",
       "candidates": [
         {
-          "name": "MOHAMED AL-HAMDANI",
+          "name": "Mohamed Al-Hamdani",
           "party": "D",
           "write_in": false
         },
         {
-          "name": "THOMAS RICHARD ANDRASSY",
+          "name": "Thomas Richard Andrassy",
           "party": "D",
           "write_in": false
         }
@@ -6914,7 +6752,221 @@
       "status": "uncontested",
       "candidates": [
         {
-          "name": "THOMAS HERNER",
+          "name": "Thomas Herner",
+          "party": null,
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "WASHINGTON TWP AA": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "WASHINGTON TWP BB": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "WASHINGTON TWP CC": {
+    "D": {
+      "status": "contested",
+      "candidates": [
+        {
+          "name": "Lucy Anne McKosky",
+          "party": "D",
+          "write_in": false
+        },
+        {
+          "name": "James Neil Vangrov",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "W CARROLLTON-A": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Angela Marie Leblanc",
+          "party": "D",
+          "write_in": true
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "W CARROLLTON-B": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Jeffrey Josken",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "W CARROLLTON-C": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "W CARROLLTON-D": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "W CARROLLTON-E": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "W CARROLLTON-F": {
+    "D": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "W CARROLLTON-G": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Renee Sheppard",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "W CARROLLTON-H": {
+    "D": {
+      "status": "contested",
+      "candidates": [
+        {
+          "name": "Derek Johnson",
+          "party": "D",
+          "write_in": false
+        },
+        {
+          "name": "Dormetria Robinson Thompson",
+          "party": "D",
+          "write_in": false
+        }
+      ]
+    },
+    "L": {
+      "status": "vacant",
+      "candidates": []
+    },
+    "R": {
+      "status": "data_pending",
+      "candidates": []
+    }
+  },
+  "W CARROLLTON-I": {
+    "D": {
+      "status": "uncontested",
+      "candidates": [
+        {
+          "name": "Madison Hunt",
           "party": null,
           "write_in": false
         }
