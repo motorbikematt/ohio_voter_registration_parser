@@ -45,6 +45,10 @@ PROFILE_LABELS = {
     "Crossover (D-leaning)", "Crossover (R-leaning)", "Crossover (Mixed)",
     "Non-Partisan Voter", "No Primary History",
 }
+LOCATION_CHECKS = {"confirmed", "mismatch", "unavailable"}
+MATCH_CONFIDENCES = {"high", "medium", "low"}
+LEDGER_STATES = {"unverified", "confirmed", "rejected", "corrected"}
+VERIFY_STATUSES = {"unverified", "current", "stale", "rejected", "corrected"}
 
 
 class Report:
@@ -147,17 +151,52 @@ def check_profiles(rep: Report) -> None:
     obj = json.loads(path.read_text(encoding="utf-8"))
     rep.check("_meta" in obj and "unmatched" in obj.get("_meta", {}),
               "_meta.unmatched is present (gaps surfaced)", "missing")
-    bad_label, missing_id = [], []
+    bad_label, missing_id, bad_conf = [], [], []
     for et in ("incumbent", "captain_candidate", "general_candidate"):
         for prof in obj.get(et, []) or []:
             if prof.get("partisan_profile_label") not in PROFILE_LABELS:
                 bad_label.append(f"{et}/{prof.get('name')}={prof.get('partisan_profile_label')!r}")
             if not (prof.get("sos_voterid") or "").strip():
                 missing_id.append(f"{et}/{prof.get('name')}")
+            # confidence fields must be well-formed and internally consistent:
+            # needs_review is exactly "not high" (no view may treat low/medium as fact).
+            if (prof.get("location_check") not in LOCATION_CHECKS
+                    or prof.get("match_confidence") not in MATCH_CONFIDENCES):
+                bad_conf.append(f"{et}/{prof.get('name')}")
+            # verification (C7) must be a well-formed read-only projection.
+            v = prof.get("verification") or {}
+            if (not prof.get("match_key")
+                    or v.get("state") not in LEDGER_STATES
+                    or v.get("status") not in VERIFY_STATUSES):
+                bad_conf.append(f"{et}/{prof.get('name')}(verification)")
     rep.check(not bad_label, "all partisan_profile_label values are known",
               f"{len(bad_label)}: {bad_label[:5]}")
     rep.check(not missing_id, "every matched profile has a sos_voterid",
               f"{len(missing_id)}: {missing_id[:5]}")
+    rep.check(not bad_conf, "match-confidence fields are well-formed and consistent",
+              f"{len(bad_conf)}: {bad_conf[:5]}")
+    # surface the review burden (alert, not just protect -- handoff section 5).
+    nr = obj.get("_meta", {}).get("needs_review_total")
+    print(f"  [info] needs_review_total = {nr}")
+
+
+def check_ledger(rep: Report) -> None:
+    """The confirmation ledger (C7) is hand-authored truth -- lint it loudly."""
+    path = SERVE_DIR / "voter_match_confirmations.json"
+    print("\n[voter_match_confirmations.json]")
+    if not path.exists():
+        print("  [skip] no ledger yet")
+        return
+    obj = json.loads(path.read_text(encoding="utf-8"))
+    bad = []
+    for c in obj.get("confirmations", []) or []:
+        st = c.get("state")
+        if not c.get("match_key") or st not in (LEDGER_STATES - {"unverified"}):
+            bad.append(f"{c.get('match_key')}={st!r}")
+        elif st == "corrected" and not (c.get("corrected_sos_voterid") or "").strip():
+            bad.append(f"{c.get('match_key')}=corrected/no-target")
+    rep.check(not bad, "ledger entries are well-formed (key + actionable state)",
+              f"{len(bad)}: {bad[:5]}")
 
 
 def check_district_reconciliation(rep: Report) -> None:
@@ -217,6 +256,7 @@ def main() -> int:
     check_people(rep, "officials.json")
     check_people(rep, "candidates.json")
     check_profiles(rep)
+    check_ledger(rep)
     check_district_reconciliation(rep)
     check_drift(rep)
 

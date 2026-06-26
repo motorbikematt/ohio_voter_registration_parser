@@ -148,6 +148,97 @@ def load_precinct_crosswalk(county_slug: str, validate: bool = True) -> Precinct
     return PrecinctCrosswalk(county_slug=county_slug, ballot_to_name=ballot_to_name, names=names)
 
 
+# -- jurisdiction containment crosswalk (precinct -> CD/SD/HD) -----------------
+
+# Short label -> parquet district column. Values are zero-padded strings ("05",
+# "10", "36") that match officials.json / candidates.json district keys exactly.
+DISTRICT_COLS: dict[str, str] = {
+    "CD": "CONGRESSIONAL_DISTRICT",
+    "SD": "STATE_SENATE_DISTRICT",
+    "HD": "STATE_REPRESENTATIVE_DISTRICT",
+}
+
+
+@dataclass
+class JurisdictionCrosswalk:
+    """Empirical precinct -> {CD,SD,HD} containment, derived from the voter file.
+
+    Each precinct maps to the SET of districts its voters fall in. A clean
+    precinct yields one of each; a split precinct (real in Ohio -- e.g. DAYTON
+    3-B spans two House districts) yields two, so we store sets and flag non-clean
+    nesting rather than assume 1:1 (CLAUDE.md section 5, single empirical resolver).
+    """
+
+    county_slug: str
+    precinct_to: dict[str, dict[str, set[str]]]   # PRECINCT_NAME -> {"CD":{...},...}
+
+    def resolve(self, precinct_name: str) -> dict[str, set[str]] | None:
+        return self.precinct_to.get(precinct_name)
+
+    def is_split(self, precinct_name: str) -> bool:
+        d = self.precinct_to.get(precinct_name)
+        return bool(d) and any(len(v) > 1 for v in d.values())
+
+    def split_precincts(self) -> list[str]:
+        return sorted(p for p in self.precinct_to if self.is_split(p))
+
+    def precinct_in(self, precinct_name: str, level: str, district_key: str) -> bool | None:
+        """Does this precinct fall in the given district (level in CD/SD/HD)?
+
+        None when the precinct is unknown (caller decides how to treat a miss);
+        True/False otherwise. A split precinct counts as containing the district
+        if the district is among its set.
+        """
+        d = self.precinct_to.get(precinct_name)
+        if not d:
+            return None
+        return district_key in d.get(level, set())
+
+    def nests_in(self, child_level: str, child_key: str,
+                 parent_level: str, parent_key: str) -> bool:
+        """Does child district roll up entirely into the parent district?
+
+        Empirical: every precinct in the child must also be in the parent.
+        Answers 'does HD-39 nest in SD-5?' for the incumbent-seeks-higher-office
+        eligibility check (handoff section 6).
+        """
+        child_precincts = [p for p, d in self.precinct_to.items()
+                           if child_key in d.get(child_level, set())]
+        if not child_precincts:
+            return False
+        return all(parent_key in self.precinct_to[p].get(parent_level, set())
+                   for p in child_precincts)
+
+
+def load_jurisdiction_crosswalk(county_slug: str) -> JurisdictionCrosswalk:
+    """Derive precinct -> {CD,SD,HD} sets empirically from enriched_voters.parquet.
+
+    Grouped over the county's voters: collect the distinct district value per
+    precinct per level. The single resolver for jurisdiction nesting, reused by
+    Stage-7 jurisdiction-consistency and the confirmation-ledger basis checks.
+    """
+    import polars as pl  # local import: only the crosswalk needs polars
+
+    number = COUNTY_NUMBER[county_slug]
+    df = (
+        pl.scan_parquet(ENRICHED_PARQUET)
+        .filter(pl.col("COUNTY_NUMBER") == number)
+        .select(["PRECINCT_NAME", *DISTRICT_COLS.values()])
+        .collect()
+    )
+    precinct_to: dict[str, dict[str, set[str]]] = {}
+    for row in df.iter_rows(named=True):
+        p = row["PRECINCT_NAME"]
+        if not p:
+            continue
+        slot = precinct_to.setdefault(p, {k: set() for k in DISTRICT_COLS})
+        for short, col in DISTRICT_COLS.items():
+            v = row[col]
+            if v:
+                slot[short].add(v)
+    return JurisdictionCrosswalk(county_slug=county_slug, precinct_to=precinct_to)
+
+
 # -- name normalization --------------------------------------------------------
 
 _ROMAN = {"II", "III", "IV", "V", "VI", "VII"}

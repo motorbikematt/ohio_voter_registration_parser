@@ -70,12 +70,19 @@ Structure of `serve/partisan_profiles.json`:
     - generated: str
     - match_summary: {map of dynamic keys}
         - <key>: {object}
+            - by_confidence: {object}
+                - high: int
+                - low: int
+                - medium: int
             - matched: int
+            - needs_review: int
             - unmatched: int
+    - needs_review_total: int
     - notes: [list]
         - <item>: str
     - source_files: {object}
         - candidates: str
+        - confirmations: str
         - officials: str
         - precinct_captains: str
         - voters: str
@@ -85,21 +92,32 @@ Structure of `serve/partisan_profiles.json`:
             - <item>: str
         - incumbent: [list]
             - <item>: str
+    - verification_summary: {object}
+        - confirmed: int
+        - corrected: int
+        - rejected: int
+        - unverified: int
 - captain_candidate: [list]
     - <item>: {object}
         - PARTY_AFFILIATION: str
+        - binding_hash: str
         - cohort: str
         - cohort_family: str
         - crossover_class: null
         - d_primaries: int
         - entity_type: str
         - filing_party: str
+        - jurisdiction_consistent: null
         - last_three_party: str
         - lean_confidence: float
         - lean_score: float
+        - location_check: str
+        - match_confidence: str
+        - match_key: str
         - match_method: str
         - match_score: int
         - name: str
+        - needs_review: bool
         - nonpartisan_office: bool
         - partisan_profile_label: str
         - party_letter: str
@@ -112,25 +130,37 @@ Structure of `serve/partisan_profiles.json`:
         - status: str
         - switch_count: int
         - total_primaries: int
+        - verification: {object}
+            - basis: null
+            - state: str
+            - status: str
+            - verified_by: null
+            - verified_date: null
         - voter_status: str
         - x_primaries: int
         - years_since_last_partisan: float
 - general_candidate: [list]
     - <item>: {object}
         - PARTY_AFFILIATION: str
+        - binding_hash: str
         - cohort: str
         - cohort_family: str
         - crossover_class: null|str
         - d_primaries: int
         - entity_type: str
         - filing_party: null|str
+        - jurisdiction_consistent: bool|null
         - key: str
         - last_three_party: str
         - lean_confidence: float|null
         - lean_score: float|null
+        - location_check: str
+        - match_confidence: str
+        - match_key: str
         - match_method: str
         - match_score: int
         - name: str
+        - needs_review: bool
         - nonpartisan_office: bool
         - office: str
         - partisan_profile_label: str
@@ -142,25 +172,37 @@ Structure of `serve/partisan_profiles.json`:
         - sos_voterid: str
         - switch_count: int
         - total_primaries: int
+        - verification: {object}
+            - basis: null
+            - state: str
+            - status: str
+            - verified_by: null
+            - verified_date: null
         - voter_status: str
         - x_primaries: int
         - years_since_last_partisan: float|null
 - incumbent: [list]
     - <item>: {object}
         - PARTY_AFFILIATION: str
+        - binding_hash: str
         - cohort: str
         - cohort_family: str
         - crossover_class: null|str
         - d_primaries: int
         - entity_type: str
         - filing_party: null|str
+        - jurisdiction_consistent: bool|null
         - key: str
         - last_three_party: str
         - lean_confidence: float|null
         - lean_score: float|null
+        - location_check: str
+        - match_confidence: str
+        - match_key: str
         - match_method: str
         - match_score: int
         - name: str
+        - needs_review: bool
         - nonpartisan_office: bool
         - office: str
         - partisan_profile_label: str
@@ -173,6 +215,12 @@ Structure of `serve/partisan_profiles.json`:
         - sos_voterid: str
         - switch_count: int
         - total_primaries: int
+        - verification: {object}
+            - basis: null
+            - state: str
+            - status: str
+            - verified_by: null
+            - verified_date: null
         - voter_status: str
         - x_primaries: int
         - years_since_last_partisan: float|null
