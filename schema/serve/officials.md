@@ -109,6 +109,7 @@ Structure of `serve/officials.json`:
                 - name: str
                 - party: str
         - incumbent: {object}
+            - legal_name: str
             - name: str
             - party: str
         - incumbent_of_this_race: {object}
@@ -134,6 +135,7 @@ Structure of `serve/officials.json`:
                 - name: str
                 - party: str
         - incumbent: {object}
+            - legal_name?: str
             - name: str
             - party: str
         - incumbent_of_this_race: null|object|object

@@ -415,6 +415,13 @@ def build_district_sections(rows: list[dict], candidates: dict) -> dict:
         reconciled = (marked is None) or (
             inc_full is not None and _same_person(marked["name"], inc_full)
         )
+        # When the ballot filer reconciles to the CSV holder, the ballot name is
+        # the public-facing name (matches Ballotpedia / the officeholder's site,
+        # e.g. 'Tom Young' for legal 'James Young', 'Mike Turner' for 'Michael
+        # Turner'). Display the ballot name; keep the CSV legal name on record.
+        if inc and marked and reconciled and marked["name"] != inc["name"]:
+            inc["legal_name"] = inc["name"]
+            inc["name"] = marked["name"]
         out[section][key] = {
             "office": _district_office_label(section, key),
             "incumbent": inc,
