@@ -1,6 +1,6 @@
 """parse_candidate_petitions.py -- Stage 4: BoE candidate petition report -> intermediate JSON.
 
-Source: local/source/6.1.2026-Candidate-Petition-Report.pdf (converted to .md by
+Source: local/source/County Data Files/6.1.2026-Candidate-Petition-Report.pdf (converted to .md by
 tools/admin/pdf_to_markdown.py first -- the PDF is rotated, so raw geometry is
 transposed, but pymupdf4llm reconstructs the wide table into clean rows).
 
@@ -40,10 +40,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from officials_common import COUNTY_NUMBER, ROOT, normalize_name, atomic_write_json  # noqa: E402
 
-LOCAL_SOURCE = ROOT / "local" / "source"
+LOCAL_SOURCE = ROOT / "local" / "source" / "County Data Files"
 WORKING_DIR = ROOT / "local" / "working"
-
-PETITION_PDF = "6.1.2026-Candidate-Petition-Report.pdf"
 
 PARTY_TOKEN = {"DEM": "D", "REP": "R", "LIB": "L", "IND": "I", "NON": None}
 _DATE_RE = re.compile(r"^\d{1,2}/\d{1,2}/\d{4}$")
@@ -100,6 +98,71 @@ def _is_header_row(cells: list[str]) -> bool:
     return labelish >= 2
 
 
+def _clean_part(p: str) -> str:
+    """Clean one <br>-split cell part the same way _cells cleans a whole cell."""
+    return re.sub(r"\s+", " ", p.replace("*", " ")).strip()
+
+
+def _split_stacked_row(raw: str) -> list[list[str]]:
+    """Split one markdown table row into one cell-list per candidate.
+
+    Most rows hold a single candidate and pass through unchanged. Some (County
+    Auditor, County Commissioner, several judicial seats) pack N candidates into
+    a single row, separating each candidate's value with <br> inside every
+    column. We split each cell on <br>, infer N from the most common multi-part
+    column width (requiring >=2 columns to agree, so a stray <br> never forces a
+    phantom split), and emit N cell-lists. Column order is preserved so the
+    downstream address heuristic (cells between name and first date) stays valid.
+
+    Per-column distribution:
+      * checkbox-dominant column ("[x] [ ]", optionally merged with party tokens
+        like "DEM<br>REP<br>[x] [ ]") -> the i-th party token and i-th [x]/[ ]
+        marker go to candidate i, each as its own cell, kept in original position;
+      * width-N column -> the i-th part to candidate i;
+      * width-1 column -> broadcast (shared values such as a single pick-up date);
+      * other widths -> best-effort pad/truncate.
+    """
+    rawcells = [c.strip() for c in raw.strip().strip("|").split("|")]
+    colparts = [[_clean_part(p) for p in c.split("<br>")] for c in rawcells]
+
+    widths = [len(p) for p in colparts if len(p) > 1]
+    if not widths:
+        return [_cells(raw)]
+    from collections import Counter
+    n, freq = Counter(widths).most_common(1)[0]
+    if n < 2 or freq < 2:
+        return [_cells(raw)]
+
+    rows: list[list[str]] = [[] for _ in range(n)]
+    for parts in colparts:
+        joined = " ".join(parts)
+        marks = re.findall(r"\[[ xX]\]", joined)
+        party_parts = [p for p in parts if p.upper() in PARTY_TOKEN]
+        # A column is checkbox-dominant if it carries >=2 checkbox markers and no
+        # free text beyond party tokens/markers -- that is the party+incumbent
+        # column, whether or not the party letters are stacked into it.
+        residue = re.sub(r"\[[ xX]\]", "", joined)
+        for pp in party_parts:
+            residue = residue.replace(pp, "")
+        if len(marks) >= 2 and not residue.strip():
+            for i in range(n):
+                # Marker before party token: _parse_data_row stops scanning at the
+                # first party cell, so the [x]/[ ] must precede it to register.
+                rows[i].append(marks[i] if i < len(marks) else "[ ]")
+                if i < len(party_parts):
+                    rows[i].append(party_parts[i])
+        elif len(parts) == n:
+            for i in range(n):
+                rows[i].append(parts[i])
+        elif len(parts) == 1:
+            for i in range(n):
+                rows[i].append(parts[0])
+        else:
+            for i in range(n):
+                rows[i].append(parts[i] if i < len(parts) else "")
+    return rows
+
+
 def parse_petition_md(md_path: Path) -> tuple[list[dict], str | None]:
     """Parse the petition markdown into flat candidate filings."""
     filings: list[dict] = []
@@ -115,9 +178,13 @@ def parse_petition_md(md_path: Path) -> tuple[list[dict], str | None]:
         if _is_header_row(cells):
             continue
 
-        party = next((PARTY_TOKEN[c.upper()] for c in cells if c.upper() in PARTY_TOKEN), "NONE")
-        has_date = any(_DATE_RE.match(c) for c in cells)
-        has_party_cell = any(c.upper() in PARTY_TOKEN for c in cells)
+        # Decide data-row vs office-header on <br>-split parts, not the collapsed
+        # cells: a fully-stacked data row has every date cell holding two dates
+        # ("11/20/2025 12/15/2025"), which fails the anchored _DATE_RE and would
+        # otherwise misroute the whole row (and its candidates) as an office header.
+        parts_flat = [_clean_part(p) for c in raw.strip().strip("|").split("|") for p in c.split("<br>")]
+        has_date = any(_DATE_RE.match(p) for p in parts_flat)
+        has_party_cell = any(p.upper() in PARTY_TOKEN for p in parts_flat)
 
         if not has_date and not has_party_cell:
             # Office header row: join the bold office text spread across cells.
@@ -126,12 +193,15 @@ def parse_petition_md(md_path: Path) -> tuple[list[dict], str | None]:
                 current_office = office_text
             continue
 
-        # Data row.
-        filing = _parse_data_row(cells, current_office)
-        if filing:
-            if filing.get("date_of_election"):
-                election_date = filing["date_of_election"]
-            filings.append(filing)
+        # Data row. A single markdown row can stack multiple candidates with <br>
+        # inside each cell; split into one cell-list per candidate so each parses
+        # independently instead of merging into one mangled entry.
+        for row_cells in _split_stacked_row(raw):
+            filing = _parse_data_row(row_cells, current_office)
+            if filing:
+                if filing.get("date_of_election"):
+                    election_date = filing["date_of_election"]
+                filings.append(filing)
 
     return filings, election_date
 
@@ -139,7 +209,10 @@ def parse_petition_md(md_path: Path) -> tuple[list[dict], str | None]:
 def _parse_data_row(cells: list[str], office_raw: str | None) -> dict | None:
     party = None
     p_idx = None
+    is_incumbent = False
     for i, c in enumerate(cells):
+        if "[x]" in c.lower() or "[x]" in c:
+            is_incumbent = True
         if c.upper() in PARTY_TOKEN:
             party = PARTY_TOKEN[c.upper()]
             p_idx = i
@@ -150,6 +223,10 @@ def _parse_data_row(cells: list[str], office_raw: str | None) -> dict | None:
     n_idx = None
     for i in range((p_idx + 1) if p_idx is not None else 0, len(cells)):
         c = cells[i]
+        # Ignore cells that are purely checkboxes
+        if not c.replace("[x]", "").replace("[ ]", "").replace("(?i)", "").strip():
+            continue
+            
         if c and not _DATE_RE.match(c) and not _ZIP_RE.match(c) and c.upper() not in PARTY_TOKEN:
             name, n_idx = c, i
             break
@@ -195,6 +272,7 @@ def _parse_data_row(cells: list[str], office_raw: str | None) -> dict | None:
         "name_normalized": normalize_name(name),
         "party": party,
         "address": address if any(address.values()) else None,
+        "is_incumbent": is_incumbent,
         "petition_filed": petition_filed,
         "petition_certified": petition_certified,
         "date_of_election": date_of_election,
@@ -212,7 +290,24 @@ def main() -> None:
         print(f"ERROR: unknown county slug {args.county!r}", file=sys.stderr)
         sys.exit(1)
 
-    pdf_path = args.pdf or (LOCAL_SOURCE / PETITION_PDF)
+    county_code = COUNTY_NUMBER[args.county]
+    county_dir = LOCAL_SOURCE / f"{county_code}_{args.county.capitalize()}"
+    manifest_path = county_dir / "manifest.json"
+    
+    if not manifest_path.exists():
+        print(f"ERROR: manifest.json not found for {args.county}. Run the pipeline wrapper first.", file=sys.stderr)
+        sys.exit(1)
+        
+    with open(manifest_path, "r") as f:
+        import json
+        manifest = json.load(f)
+        
+    petition_filename = manifest.get("candidate_petitions")
+    if not petition_filename:
+        print(f"Skipping candidates: no candidate_petitions file mapped for {args.county}.")
+        return
+
+    pdf_path = args.pdf or (county_dir / petition_filename)
     md_path = pdf_path.with_suffix(".md")
     if not md_path.exists():
         print(f"ERROR: markdown not found: {md_path}\n"
@@ -233,8 +328,9 @@ def main() -> None:
         "source_file": pdf_path.name,
         "filings": filings,
     }
+    county_code = COUNTY_NUMBER[args.county]
     WORKING_DIR.mkdir(parents=True, exist_ok=True)
-    out = WORKING_DIR / f"candidate_filings_{args.county}.json"
+    out = WORKING_DIR / f"{county_code}_candidate_filings_{args.county}.json"
     n = atomic_write_json(out, result)
 
     from collections import Counter

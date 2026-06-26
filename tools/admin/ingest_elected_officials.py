@@ -279,6 +279,155 @@ def build_sections(rows: list[dict]) -> dict:
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+# -- district incumbents (A5): derived from the CSV holder, not hand-entry -------
+
+# CSV DISTTYPE -> officials.json district section. These are intentionally the
+# rows ingest's CITY/TOWN/VILL/SCHOOL filter excludes; here we own them so the
+# district sections stop being hand-typed (and stop being wrong -- see handoff
+# section 2b, the Plummer/Huffman mislabel).
+DISTRICT_SECTION = {
+    "USCONG": "CONGRESSIONAL_DISTRICT",
+    "SENATE": "STATE_SENATE_DISTRICT",
+    "HOUSE":  "STATE_REPRESENTATIVE_DISTRICT",
+}
+_ORD_RE = re.compile(r"(\d+)\s*(?:ST|ND|RD|TH)?\s+DISTRICT", re.IGNORECASE)
+_NAME_SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
+
+
+def _display_name(s: str) -> str:
+    """Title-case an ALL-CAPS CSV name with minimal special-casing."""
+    out = []
+    for w in s.split():
+        wl = w.lower()
+        if wl in {"ii", "iii", "iv", "v"}:
+            out.append(w.upper())
+        elif wl.startswith("mc") and len(w) > 2:
+            out.append("Mc" + w[2:].capitalize())
+        else:
+            out.append(w.capitalize())
+    return " ".join(out)
+
+
+def _district_incumbent(row: dict) -> dict:
+    """CSV holder as a display entry: first + last (+ suffix), middle dropped.
+
+    The operator-canonical form is first+last (e.g. HD-37 'James Young', not the
+    middle-name-laden 'James Thomas Young'); the middle name is kept only inside
+    _same_person matching, where the nickname (Tom <- Thomas) lives.
+    """
+    bits = [row["FIRSTN"].strip(), row["LASTN"].strip()]
+    if row.get("SUFFIXN", "").strip():
+        bits.append(row["SUFFIXN"].strip())
+    entry = {"name": _display_name(" ".join(b for b in bits if b)),
+             "party": (row.get("PARTY", "").strip() or None)}
+    if entry["party"] is None:
+        entry["nonpartisan"] = True
+    return entry
+
+
+def _full_csv_name(row: dict) -> str:
+    """Full CSV name incl. middle, for _same_person matching only (the display
+    name drops the middle, but the middle carries the go-by name: 'Thomas'->'Tom')."""
+    bits = [row["FIRSTN"], row.get("MIDDLEN", ""), row["LASTN"], row.get("SUFFIXN", "")]
+    return " ".join(b.strip() for b in bits if b.strip())
+
+
+def _tokens(name: str) -> list[str]:
+    return [p for p in re.sub(r"[^a-z ]", " ", name.lower()).split() if p not in _NAME_SUFFIXES]
+
+
+def _same_person(a: str, b: str) -> bool:
+    """Same registrant heuristic: identical last name AND a shared given-name
+    initial across first OR middle names. Handles nickname-vs-legal (Phil/Philip)
+    and goes-by-middle-name (James Thomas Young -> 'Tom Young'). Single-county
+    scope; rare same-last+shared-initial collisions are acceptable here.
+    """
+    pa, pb = _tokens(a), _tokens(b)
+    if len(pa) < 2 or len(pb) < 2 or pa[-1] != pb[-1]:
+        return False
+    return bool({p[0] for p in pa[:-1]} & {p[0] for p in pb[:-1]})
+
+
+def _district_office_label(section: str, key: str) -> str:
+    n = int(key)
+    if section == "CONGRESSIONAL_DISTRICT":
+        return f"U.S. House (OH-{n})"
+    if section == "STATE_SENATE_DISTRICT":
+        return f"Ohio Senate (District {n})"
+    return f"Ohio House (District {n})"
+
+
+def build_district_sections(rows: list[dict], candidates: dict) -> dict:
+    """Build the three district sections, fully derived (zero hand-entry).
+
+    incumbent       <- the current CSV officeholder of the seat (source-stamped);
+    challengers     <- candidates.json filers for the seat, minus the incumbent;
+    currently_holds <- stamped on a challenger who already holds another seat
+                       (the 'incumbent runs for higher office' case, e.g. Plummer
+                       holds HD-39 while challenging for SD-5);
+    incumbent_of_this_race <- the petition-marked filer (or null); the Stage-8
+                       reconciliation gate fails if it disagrees with the CSV holder.
+    """
+    holders: dict = {}
+    for row in rows:
+        section = DISTRICT_SECTION.get(row["DISTTYPE"])
+        if not section:
+            continue
+        m = _ORD_RE.search(row["OFCDESC"])
+        if not m:
+            continue
+        holders[(section, f"{int(m.group(1)):02d}")] = row
+
+    # (seat -> full CSV name) for matching the currently_holds cross-reference.
+    holder_full = {sk: _full_csv_name(r) for sk, r in holders.items()}
+
+    seats = set(holders)
+    for section in DISTRICT_SECTION.values():
+        for key in candidates.get(section, {}) or {}:
+            seats.add((section, key))
+
+    out: dict = {s: {} for s in DISTRICT_SECTION.values()}
+    for (section, key) in sorted(seats):
+        row = holders.get((section, key))
+        inc = _district_incumbent(row) if row is not None else None
+        inc_full = _full_csv_name(row) if row is not None else None
+
+        filers = (candidates.get(section, {}).get(key, {}) or {}).get("candidates", [])
+        marked = None
+        challengers = []
+        for c in filers:
+            if c.get("is_incumbent"):
+                marked = c
+            if inc_full and _same_person(c["name"], inc_full):
+                continue  # the incumbent re-filing is not their own challenger
+            ch = {"name": c["name"], "party": c.get("party")}
+            if c.get("nonpartisan"):
+                ch["nonpartisan"] = True
+            held = next((sk for sk, hn in holder_full.items()
+                         if sk != (section, key) and _same_person(c["name"], hn)), None)
+            if held:
+                ch["currently_holds"] = {
+                    "section": held[0], "key": held[1],
+                    "office": _district_office_label(*held),
+                }
+            challengers.append(ch)
+
+        reconciled = (marked is None) or (
+            inc_full is not None and _same_person(marked["name"], inc_full)
+        )
+        out[section][key] = {
+            "office": _district_office_label(section, key),
+            "incumbent": inc,
+            "incumbent_source": "electedofficials.csv" if inc else None,
+            "incumbent_of_this_race": (
+                {"name": marked["name"], "party": marked.get("party")} if marked else None
+            ),
+            "challengers": challengers,
+            "reconciled": reconciled,
+        }
+    return out
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Populate officials.json from electedofficials.csv.")
     parser.add_argument("--csv",   type=Path, default=DEFAULT_CSV, help="Path to electedofficials.csv")
@@ -311,6 +460,15 @@ def main() -> None:
 
     # Load existing officials.json and merge
     existing = json.loads(OFFICIALS_JSON.read_text(encoding="utf-8"))
+
+    # A5: replace the hand-typed district sections with CSV-derived ones.
+    district_rows = [r for r in rows if r["DISTTYPE"] in DISTRICT_SECTION]
+    candidates = json.loads((ROOT / "serve" / "candidates.json").read_text(encoding="utf-8"))
+    for section, data in build_district_sections(district_rows, candidates).items():
+        existing[section] = data
+        conflicts = [k for k, v in data.items() if not v.get("reconciled")]
+        if conflicts:
+            print(f"  WARN: {section} marker/CSV conflict on {conflicts} -- Stage 8 will fail")
 
     for section, data in new_sections.items():
         if isinstance(existing.get(section), dict) and "_note" in existing[section]:

@@ -242,6 +242,93 @@ def pdf_adapter(county: str, party: str, pdf_path: Path, hint: dict) -> dict:
                      hint.get("retrieved_date"), pdf_path.name, coverage="complete")
 
 
+def custom_table_adapter(county: str, party: str, file_path: Path, mapping: dict) -> dict:
+    """Parse a county-specific CSV or XLSX file using the manifest's column mapping."""
+    out = []
+    
+    name_col = mapping.get("name")
+    party_col = mapping.get("party")
+    precinct_col = mapping.get("precinct")
+    
+    rows = []
+    ext = file_path.suffix.lower()
+    
+    if ext == ".csv":
+        with open(file_path, "r", encoding="utf-8-sig") as f:
+            for row in csv.DictReader(f):
+                rows.append(row)
+    elif ext == ".xlsx":
+        import openpyxl
+        wb = openpyxl.load_workbook(file_path, data_only=True, read_only=True)
+        tab_name = mapping.get("tab_name")
+        if tab_name and tab_name in wb.sheetnames:
+            ws = wb[tab_name]
+        else:
+            ws = wb.active
+            
+        ws_rows = list(ws.rows)
+        if ws_rows:
+            headers = [str(cell.value) if cell.value is not None else f"Col_{i}" for i, cell in enumerate(ws_rows[0], 1)]
+            for r in ws_rows[1:]:
+                row_dict = {}
+                for i, cell in enumerate(r):
+                    if i < len(headers):
+                        row_dict[headers[i]] = str(cell.value) if cell.value is not None else ""
+                rows.append(row_dict)
+        wb.close()
+        
+    for row in rows:
+        # If the file has a party column and we are parsing a specific party (D, L, R), filter it.
+        if party_col and row.get(party_col):
+            row_party = str(row[party_col]).strip().upper()
+            if not row_party.startswith(party):
+                continue
+                
+        name = str(row.get(name_col, "")).strip() if name_col else ""
+        if not name:
+            continue
+            
+        precinct = str(row.get(precinct_col, "")).strip() if precinct_col else ""
+        
+        out.append({
+            "precinct_raw": precinct,
+            "name_raw": name,
+            "party": party,
+            "address": None
+        })
+            
+    # Remove duplicates
+    seen = set()
+    dedup = []
+    for o in out:
+        key = (o["precinct_raw"], o["name_raw"])
+        if key not in seen:
+            seen.add(key)
+            dedup.append(o)
+            
+    return {
+        "county_slug": county,
+        "party": party,
+        "source": "table",
+        "retrieved_date": None,
+        "coverage": "partial",
+        "lists_all_precincts": False,
+        "source_file": file_path.name,
+        "filings": [
+            {
+                "precinct_name": o["precinct_raw"],
+                "name_raw": o["name_raw"],
+                "name_normalized": normalize_name(o["name_raw"]),
+                "party": o["party"],
+                "write_in": False,
+                "contested": False,
+            }
+            for o in dedup
+        ],
+        "gaps": [],
+    }
+
+
 def csv_adapter(county: str, party: str) -> dict:
     """Build filings from electedofficials.csv DISTTYPE == 'PRECINCT' rows."""
     rows = [
@@ -321,8 +408,31 @@ def _assemble(county, party, parsed, lists_all, source, retrieved_date,
 
 def detect_and_parse(county: str, party: str, source_override: Path | None) -> dict:
     """Run the first matching adapter for a county+party (documented order)."""
-    # 1. CSV (DISTTYPE == PRECINCT rows)
-    if source_override is None and ELECTED_CSV.exists():
+    # Load manifest
+    county_code = COUNTY_NUMBER[county]
+    county_dir = LOCAL_SOURCE / "County Data Files" / f"{county_code}_{county.capitalize()}"
+    manifest_path = county_dir / "manifest.json"
+    
+    if not manifest_path.exists():
+        print(f"ERROR: manifest.json not found for {county}. Run the pipeline wrapper first.", file=sys.stderr)
+        sys.exit(1)
+        
+    with open(manifest_path, "r") as f:
+        manifest = json.load(f)
+        
+    # Check if a specific file is mapped for this party
+    manifest_key = f"central_committee_{party}"
+    mapped_filename = manifest.get(manifest_key)
+    
+    # 1. County-specific CSV/XLSX from manifest
+    if mapped_filename and mapped_filename.lower().endswith((".csv", ".xlsx")):
+        print(f"  [{party}] Custom Table Adapter ({mapped_filename})")
+        file_path = county_dir / mapped_filename
+        csv_map = manifest.get("csv_mappings", {}).get(manifest_key, {})
+        return custom_table_adapter(county, party, file_path, csv_map)
+        
+    # 2. State-wide SOS CSV fallback
+    if not mapped_filename and source_override is None and ELECTED_CSV.exists():
         has_precinct_rows = any(
             r["DISTTYPE"].strip() == "PRECINCT" and r["PARTY"].strip() == party
             for r in csv.DictReader(ELECTED_CSV.open(encoding="utf-8"))
@@ -330,30 +440,27 @@ def detect_and_parse(county: str, party: str, source_override: Path | None) -> d
         if has_precinct_rows:
             print(f"  [{party}] CSVAdapter (electedofficials.csv PRECINCT rows)")
             return csv_adapter(county, party)
-
-    # 2. PDF
-    hint = SOURCE_HINTS.get((county, party), {})
+            
+    # 3. PDF
     pdf_path = None
     if source_override is not None:
         pdf_path = source_override
-    elif hint.get("pdf"):
-        pdf_path = LOCAL_SOURCE / hint["pdf"]
-    else:
-        globs = list(LOCAL_SOURCE.glob(f"{county}_{party}_central_committee*.pdf"))
-        globs += [p for p in LOCAL_SOURCE.glob("*.pdf")
-                  if PARTY_WORD[party][:3] in p.name.upper() and "CENTRAL" in p.name.upper()]
-        pdf_path = globs[0] if globs else None
+    elif mapped_filename:
+        pdf_path = county_dir / mapped_filename
+        
     if pdf_path and pdf_path.exists():
         print(f"  [{party}] PDFAdapter ({pdf_path.name})")
+        # Dummy hint since we stripped SOURCE_HINTS. 
+        # For full generalization, we assume D lists all precincts.
+        hint = {"has_address": True, "lists_all_precincts": (party == "D")}
         return pdf_adapter(county, party, pdf_path, hint)
 
-    # 3. Manual override
+    # 4. Manual override
     override = PATCHES_DIR / f"captain_override_{county}_{party}.json"
     if override.exists():
         print(f"  [{party}] ManualJSONAdapter ({override.name})")
         return manual_adapter(county, party, override)
 
-    # 4. Nothing -> log gap, emit empty partial (Stage 5 -> data_pending)
     print(f"  [{party}] no source found -> empty (data_pending)")
     _log_gap(county, party, "no adapter matched; emitted empty filings")
     return {
@@ -379,9 +486,10 @@ def main() -> None:
 
     parties = ["D", "L", "R"] if args.all_parties else [args.party]
     WORKING_DIR.mkdir(parents=True, exist_ok=True)
+    county_code = COUNTY_NUMBER[args.county]
     for party in parties:
         result = detect_and_parse(args.county, party, args.source)
-        out = WORKING_DIR / f"captain_filings_{args.county}_{party}.json"
+        out = WORKING_DIR / f"{county_code}_captain_filings_{args.county}_{party}.json"
         n = atomic_write_json(out, result)
         print(f"  -> {out.name}: {len(result['filings'])} filings, "
               f"{len(result['gaps'])} gaps, coverage={result['coverage']} ({n:,} bytes)")

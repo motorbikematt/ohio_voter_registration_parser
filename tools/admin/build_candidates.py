@@ -64,15 +64,22 @@ def _candidate_entry(f: dict) -> dict:
     }
     if f["party"] is None:
         entry["nonpartisan"] = True
+    # Incumbency marker captured from the petition checkbox geometry (parse stage).
+    # Carry it through so Stage 7/8 and the district reconciliation gate can see it;
+    # stamp the source only on positives to keep non-incumbent entries clean.
+    entry["is_incumbent"] = bool(f.get("is_incumbent", False))
+    if entry["is_incumbent"]:
+        entry["incumbent_source"] = "petition_marker"
     return entry
 
 
 def build(county: str) -> dict:
-    path = WORKING_DIR / f"candidate_filings_{county}.json"
-    if not path.exists():
+    paths = list(WORKING_DIR.glob(f"*_candidate_filings_{county}.json"))
+    if not paths:
         raise FileNotFoundError(
-            f"missing {path.name}; run parse_candidate_petitions.py --county {county} first"
+            f"missing candidate_filings_{county}.json; run parse_candidate_petitions.py --county {county} first"
         )
+    path = paths[0]
     data = json.loads(path.read_text(encoding="utf-8"))
 
     sections: dict[str, "OrderedDict[str, dict]"] = {s: OrderedDict() for s in SECTION_ORDER}

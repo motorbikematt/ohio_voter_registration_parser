@@ -7,7 +7,7 @@ needed in-context, no token overhead from raw PDF parsing).
 
 Usage:
     python tools/admin/pdf_to_markdown.py path/to/file.pdf [file2.pdf ...]
-    python tools/admin/pdf_to_markdown.py --all          # all PDFs under local/source/
+    python tools/admin/pdf_to_markdown.py --all          # all PDFs under local/source/County Data Files/
     python tools/admin/pdf_to_markdown.py --all --force  # overwrite existing .md files
 
 Output: <same directory>/<basename>.md
@@ -21,23 +21,66 @@ from pathlib import Path
 
 # Project root: tools/admin/ -> tools/ -> repo root
 ROOT = Path(__file__).resolve().parent.parent.parent
-LOCAL_SOURCE = ROOT / "local" / "source"
+LOCAL_SOURCE = ROOT / "local" / "source" / "County Data Files"
 
 
 def convert(pdf_path: Path, force: bool = False) -> tuple[bool, int, int]:
     """Convert a single PDF to markdown.  Returns (skipped, pdf_bytes, md_bytes)."""
     md_path = pdf_path.with_suffix(".md")
     if md_path.exists() and not force:
-        print(f"  SKIP  {pdf_path.name}  (already exists, use --force to overwrite)")
-        return True, 0, 0
+        if md_path.stat().st_mtime >= pdf_path.stat().st_mtime:
+            print(f"  SKIP  {pdf_path.name}  (already exists and is up-to-date, use --force to overwrite)")
+            return True, 0, 0
 
     try:
+        import fitz
         import pymupdf4llm  # noqa: PLC0415
     except ImportError:
-        print("ERROR: pymupdf4llm not installed.  Run: pip install pymupdf4llm", file=sys.stderr)
+        print("ERROR: pymupdf or pymupdf4llm not installed.  Run: uv add pymupdf", file=sys.stderr)
         sys.exit(1)
 
-    md_text = pymupdf4llm.to_markdown(str(pdf_path))
+    doc = fitz.open(pdf_path)
+    
+    # Fast-Pass Vector Scanning
+    for page in doc:
+        drawings = page.get_drawings()
+        
+        # 1. Density Fast-Pass: skip if overwhelmingly dense (maps, graphics)
+        if len(drawings) > 1000:
+            continue
+            
+        # 2. Geometric Strictness & O(N) Geometry Fast-Pass
+        checkboxes = []
+        for d in drawings:
+            rects = [item for item in d.get("items", []) if item[0] == "re"]
+            if len(rects) == 1 and d.get("type") == "s":
+                rect = rects[0][1]
+                # Checkboxes must be perfect squares (abs width-height < 2) 5-20px wide
+                if 5 < rect.width < 20 and 5 < rect.height < 20 and abs(rect.width - rect.height) < 2:
+                    checkboxes.append(rect)
+                    
+        # Bypass thorough scan if zero shapes meet criteria
+        if not checkboxes:
+            continue
+            
+        # Extract checkmarks
+        checkmarks = [d["rect"] for d in drawings if d.get("type") == "s" and len([item for item in d.get("items", []) if item[0] == "l"]) == 2]
+
+        # 3. Optimized Thorough Scan (Y-Coordinate Bounding)
+        for box in checkboxes:
+            # Only test intersections against checkmarks on the same Y-band
+            is_checked = False
+            for cm in checkmarks:
+                if abs(cm.y0 - box.y0) < 10 or abs(cm.y1 - box.y1) < 10:
+                    if box.intersects(cm):
+                        is_checked = True
+                        break
+                        
+            text = "[x]" if is_checked else "[ ]"
+            page.insert_text((box.x0, box.y1), text, fontsize=10, fontname="helv", color=(0,0,0))
+
+    md_text = pymupdf4llm.to_markdown(doc)
+    doc.close()
     md_path.write_text(md_text, encoding="utf-8")
 
     pdf_bytes = pdf_path.stat().st_size

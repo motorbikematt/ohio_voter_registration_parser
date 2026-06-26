@@ -84,3 +84,131 @@ Person object (`incumbent` / `incumbents[]` / `challengers[]`):
   emits them. Normalizing the latter through
   `tools/admin/officials_common.normalize_name` is a pending cleanup; values are
   load-bearing display strings, not schema, so this does not affect joins.
+
+## Generated structural inventory
+
+<!-- BEGIN GENERATED INVENTORY -- dump_schema.py; do not edit by hand -->
+
+Structure of `serve/officials.json`:
+
+```
+- CITY_SCHOOL_DISTRICT: {map of dynamic keys}
+    - <key>: {object}
+        - challengers: [empty list]
+        - incumbents: [list]
+            - <item>: {object}
+                - name: str
+                - nonpartisan: bool
+                - party: null
+                - term_exp: str
+        - office: str
+- CONGRESSIONAL_DISTRICT: {object}
+    - 10: {object}
+        - challengers: [list]
+            - <item>: {object}
+                - name: str
+                - party: str
+        - incumbent: {object}
+            - name: str
+            - party: str
+        - incumbent_of_this_race: {object}
+            - name: str
+            - party: str
+        - incumbent_source: str
+        - office: str
+        - reconciled: bool
+- LOCAL_SCHOOL_DISTRICT: {map of dynamic keys}
+    - <key>: {object}
+        - challengers: [empty list]
+        - incumbents: [list]
+            - <item>: {object}
+                - name: str
+                - nonpartisan: bool
+                - party: null
+                - term_exp: str
+        - office: str
+- STATE_REPRESENTATIVE_DISTRICT: {map of dynamic keys}
+    - <key>: {object}
+        - challengers: [list]
+            - <item>: {object}
+                - name: str
+                - party: str
+        - incumbent: {object}
+            - name: str
+            - party: str
+        - incumbent_of_this_race: null|object|object
+        - incumbent_source: str
+        - office: str
+        - reconciled: bool
+- STATE_SENATE_DISTRICT: {map of dynamic keys}
+    - <key>: {object}
+        - challengers: [list]
+            - <item>: {object}
+                - currently_holds?: {object}
+                    - key: str
+                    - office: str
+                    - section: str
+                - name: str
+                - party: str
+        - incumbent: {object}
+            - name: str
+            - party: str
+        - incumbent_of_this_race: null
+        - incumbent_source: str
+        - office: str
+        - reconciled: bool
+- TOWNSHIP: {map of dynamic keys}
+    - <key>: {object}
+        - challengers: [empty list]
+        - incumbents: [list]
+            - <item>: {object}
+                - name: str
+                - nonpartisan?: bool
+                - party: null|str
+        - office: str
+        - term_exp: str
+- VILLAGE: {map of dynamic keys}
+    - <key>: {object}
+        - challengers: [empty list]
+        - offices: [list]
+            - <item>: {object}
+                - incumbent: {object}
+                    - name: str
+                    - nonpartisan: bool
+                    - party: null
+                - office: str
+                - term_exp: str
+- WARD: {map of dynamic keys}
+    - <key>: {object}
+        - challengers: [empty list]
+        - incumbents: [list]
+            - <item>: {object}
+                - name: str
+                - nonpartisan?: bool
+                - party: null|str
+        - office: str
+        - parquet_match: bool
+        - seat: str
+- _deferred: {map of dynamic keys}
+    - <key>: {object}
+        - challengers: [list]
+            - <item>: {object}
+                - name: str
+                - party: str
+        - incumbent: {object}
+            - name: str
+            - party: str
+        - note: str
+        - office: str
+- _meta: {object}
+    - county: str
+    - county_number: int
+    - generated: str
+    - notes: [list]
+        - <item>: str
+    - sources: [list]
+        - <item>: str
+    - valid_through: str
+```
+
+<!-- END GENERATED INVENTORY -->

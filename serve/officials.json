@@ -20,6 +20,11 @@
     "10": {
       "office": "U.S. House (OH-10)",
       "incumbent": {
+        "name": "Michael Turner",
+        "party": "R"
+      },
+      "incumbent_source": "electedofficials.csv",
+      "incumbent_of_this_race": {
         "name": "Mike Turner",
         "party": "R"
       },
@@ -32,34 +37,57 @@
           "name": "Thomas F. McMasters",
           "party": "L"
         }
-      ]
+      ],
+      "reconciled": true
     }
   },
   "STATE_SENATE_DISTRICT": {
     "05": {
       "office": "Ohio Senate (District 5)",
       "incumbent": {
-        "name": "Phil Plummer",
+        "name": "Stephen Huffman",
         "party": "R"
       },
+      "incumbent_source": "electedofficials.csv",
+      "incumbent_of_this_race": null,
       "challengers": [
         {
           "name": "Jeffrey J. Harris",
           "party": "D"
+        },
+        {
+          "name": "Phil Plummer",
+          "party": "R",
+          "currently_holds": {
+            "section": "STATE_REPRESENTATIVE_DISTRICT",
+            "key": "39",
+            "office": "Ohio House (District 39)"
+          }
         }
-      ]
+      ],
+      "reconciled": true
     },
     "06": {
       "office": "Ohio Senate (District 6)",
-      "incumbent": null,
+      "incumbent": {
+        "name": "Willis Blackshear Jr",
+        "party": "D"
+      },
+      "incumbent_source": "electedofficials.csv",
+      "incumbent_of_this_race": null,
       "challengers": [],
-      "note": "Not on 2026 ballot (even-cycle seat). Incumbent data pending."
+      "reconciled": true
     }
   },
   "STATE_REPRESENTATIVE_DISTRICT": {
     "36": {
       "office": "Ohio House (District 36)",
       "incumbent": {
+        "name": "Andrea White",
+        "party": "R"
+      },
+      "incumbent_source": "electedofficials.csv",
+      "incumbent_of_this_race": {
         "name": "Andrea White",
         "party": "R"
       },
@@ -72,11 +100,17 @@
           "name": "Chuck Horn",
           "party": "I"
         }
-      ]
+      ],
+      "reconciled": true
     },
     "37": {
       "office": "Ohio House (District 37)",
       "incumbent": {
+        "name": "James Young",
+        "party": "R"
+      },
+      "incumbent_source": "electedofficials.csv",
+      "incumbent_of_this_race": {
         "name": "Tom Young",
         "party": "R"
       },
@@ -85,7 +119,8 @@
           "name": "Tom Herner",
           "party": "D"
         }
-      ]
+      ],
+      "reconciled": true
     },
     "38": {
       "office": "Ohio House (District 38)",
@@ -93,11 +128,22 @@
         "name": "Desiree Tims",
         "party": "D"
       },
-      "challengers": []
+      "incumbent_source": "electedofficials.csv",
+      "incumbent_of_this_race": {
+        "name": "Desiree Tims",
+        "party": "D"
+      },
+      "challengers": [],
+      "reconciled": true
     },
     "39": {
       "office": "Ohio House (District 39)",
-      "incumbent": null,
+      "incumbent": {
+        "name": "Philip Plummer Jr",
+        "party": "R"
+      },
+      "incumbent_source": "electedofficials.csv",
+      "incumbent_of_this_race": null,
       "challengers": [
         {
           "name": "Daquan Neal",
@@ -108,11 +154,16 @@
           "party": "R"
         }
       ],
-      "note": "No incumbent checkbox in filing data; may be open seat due to redistricting."
+      "reconciled": true
     },
     "40": {
       "office": "Ohio House (District 40)",
       "incumbent": {
+        "name": "Rodney Creech",
+        "party": "R"
+      },
+      "incumbent_source": "electedofficials.csv",
+      "incumbent_of_this_race": {
         "name": "Rodney Creech",
         "party": "R"
       },
@@ -125,7 +176,8 @@
           "name": "Joshua A. Umbaugh",
           "party": "L"
         }
-      ]
+      ],
+      "reconciled": true
     }
   },
   "WARD": {

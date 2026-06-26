@@ -43,12 +43,12 @@ PARTY_LABEL = {"D": "Democratic", "L": "Libertarian", "R": "Republican"}
 
 
 def _load_intermediate(county: str, party: str) -> dict:
-    path = WORKING_DIR / f"captain_filings_{county}_{party}.json"
-    if not path.exists():
+    paths = list(WORKING_DIR.glob(f"*_captain_filings_{county}_{party}.json"))
+    if not paths:
         raise FileNotFoundError(
-            f"missing {path.name}; run parse_central_committee.py --county {county} --all-parties first"
+            f"missing captain_filings_{county}_{party}.json; run parse_central_committee.py --county {county} --all-parties first"
         )
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(paths[0].read_text(encoding="utf-8"))
 
 
 def build(county: str) -> dict:

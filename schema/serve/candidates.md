@@ -72,3 +72,136 @@ Each candidate object (snake_case):
   `petition_certified` are mapped by column position, reliable for full-address
   district/county/judicial rows; statewide rows (no address columns) may leave
   them null. `date_of_election` lives once in `_meta.election_date`.
+
+## Generated structural inventory
+
+<!-- BEGIN GENERATED INVENTORY -- dump_schema.py; do not edit by hand -->
+
+Structure of `serve/candidates.json`:
+
+```
+- CONGRESSIONAL_DISTRICT: {object}
+    - 10: {object}
+        - candidates: [list]
+            - <item>: {object}
+                - address: {object}
+                    - city: str
+                    - street: str
+                    - zip: str
+                - incumbent_source?: str
+                - is_incumbent: bool
+                - name: str
+                - party: str
+                - petition_certified: str
+                - petition_filed: str
+        - office: str
+- COUNTY_AUDITOR: {object}
+    - county: {object}
+        - candidates: [list]
+            - <item>: {object}
+                - address: {object}
+                    - city: str
+                    - street: str
+                    - zip: str
+                - incumbent_source?: str
+                - is_incumbent: bool
+                - name: str
+                - party: str
+                - petition_certified: str
+                - petition_filed: str
+        - office: str
+- COUNTY_COMMISSIONER: {object}
+    - county: {object}
+        - candidates: [list]
+            - <item>: {object}
+                - address: {object}
+                    - city: str
+                    - street: str
+                    - zip: str
+                - incumbent_source?: str
+                - is_incumbent: bool
+                - name: str
+                - party: str
+                - petition_certified: str
+                - petition_filed: str
+        - office: str
+- JUDICIAL: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [list]
+            - <item>: {object}
+                - address: {object}
+                    - city: null|str
+                    - street: str
+                    - zip: null|str
+                - incumbent_source?: str
+                - is_incumbent: bool
+                - name: str
+                - nonpartisan?: bool
+                - party: null|str
+                - petition_certified: null|str
+                - petition_filed: null|str
+        - office: str
+- STATEWIDE: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [list]
+            - <item>: {object}
+                - address: null
+                - incumbent_source?: str
+                - is_incumbent: bool
+                - name: str
+                - party: str
+                - petition_certified: str
+                - petition_filed: str
+        - office: str
+- STATE_REPRESENTATIVE_DISTRICT: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [list]
+            - <item>: {object}
+                - address: {object}
+                    - city: str
+                    - street: str
+                    - zip: str
+                - incumbent_source?: str
+                - is_incumbent: bool
+                - name: str
+                - party: str
+                - petition_certified: str
+                - petition_filed: str
+        - office: str
+- STATE_SENATE_DISTRICT: {object}
+    - 05: {object}
+        - candidates: [list]
+            - <item>: {object}
+                - address: {object}
+                    - city: str
+                    - street: str
+                    - zip: str
+                - is_incumbent: bool
+                - name: str
+                - party: str
+                - petition_certified: str
+                - petition_filed: str
+        - office: str
+- _meta: {object}
+    - county: str
+    - county_number: int
+    - election_date: str
+    - generated: str
+    - notes: [list]
+        - <item>: str
+    - offices_per_section: {object}
+        - CONGRESSIONAL_DISTRICT: int
+        - COUNTY_AUDITOR: int
+        - COUNTY_COMMISSIONER: int
+        - JUDICIAL: int
+        - STATEWIDE: int
+        - STATE_REPRESENTATIVE_DISTRICT: int
+        - STATE_SENATE_DISTRICT: int
+    - retrieved_date: str
+    - source: str
+    - source_file: str
+    - total_candidates: int
+    - valid_through: str
+```
+
+<!-- END GENERATED INVENTORY -->

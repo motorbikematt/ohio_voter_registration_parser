@@ -79,3 +79,1578 @@ Each candidate object:
   winners; the filer lists are final, the winners are not.
 - The Republican central-committee PDF has not been received; R precincts are
   `data_pending` stubs except `DAYTON 3-E` (Nick Brusky, from the CSV).
+
+## Generated structural inventory
+
+<!-- BEGIN GENERATED INVENTORY -- dump_schema.py; do not edit by hand -->
+
+Structure of `serve/precinct_captains.json`:
+
+```
+- BROOKVILLE-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- BROOKVILLE-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- BROOKVILLE-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- BROOKVILLE-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- BUTLER TWP A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- BUTLER TWP B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- BUTLER TWP C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- BUTLER TWP D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- BUTLER TWP E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- BUTLER TWP F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- BUTLER TWP G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-J: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-K: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-L: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-M: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-N: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-O: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-P: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-Q: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CENTERVILLE-R: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAY TWP A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAY TWP B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAY TWP C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAYTON 1-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAYTON 1-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAYTON 1-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAYTON 1-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAYTON 2-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAYTON 2-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAYTON 2-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAYTON 3-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAYTON 3-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- CLAYTON 3-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 1-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 1-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 1-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 1-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 1-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 10-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 10-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 10-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 10-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 10-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 11-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 11-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 11-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 11-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 11-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 12-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 12-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 12-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 12-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 13-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 13-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 14-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 14-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 14-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 14-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 15-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 15-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 15-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 15-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 16-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 16-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 16-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 16-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 16-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 17-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 17-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 17-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 17-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 18-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 18-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 18-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 18-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 19-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 19-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 19-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 2-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 2-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 2-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 2-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 20-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 20-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 20-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 20-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 21-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 21-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 21-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 22-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 22-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 22-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 23-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 3-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 3-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 3-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 3-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 3-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 3-F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 3-G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 3-H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 3-I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 3-J: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 3-K: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 3-L: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 4-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 4-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 4-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 5-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 5-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [list]
+            - <item>: {object}
+                - name: str
+                - party: str
+                - write_in: bool
+        - status: str
+- DAYTON 5-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 5-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 6-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 6-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 6-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 7-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 7-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 8-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 8-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 8-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [list]
+            - <item>: {object}
+                - name: str
+                - party: str
+                - write_in: bool
+        - status: str
+- DAYTON 8-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 9-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 9-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 9-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- DAYTON 9-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- ENGLEWOOD-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- ENGLEWOOD-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- ENGLEWOOD-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- ENGLEWOOD-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- ENGLEWOOD-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- ENGLEWOOD-F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- ENGLEWOOD-G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- ENGLEWOOD-H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- ENGLEWOOD-I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- ENGLEWOOD-J: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- FARMERSVILLE: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- GERMAN TWP A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- GERMAN TWP B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- GERMANTOWN-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- GERMANTOWN-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- GERMANTOWN-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- GERMANTOWN-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP J: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP K: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP L: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP M: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP N: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HARRISON TWP O: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 1-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 1-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 1-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 1-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 2-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 2-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 3-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 3-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 3-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 3-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 3-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 4-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 4-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 4-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 4-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 5-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 5-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 5-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 5-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 6-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 6-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 6-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- HUBER HEIGHTS 6-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- JACK/NEW LEBANON-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- JACK/NEW LEBANON-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- JACKSON TWP A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- JACKSON TWP B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- JEFFERSON TWP A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- JEFFERSON TWP B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- JEFFERSON TWP C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- JEFFERSON TWP D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 1-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 1-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 1-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 1-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 1-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 1-F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 1-G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 1-H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 1-I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 2-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 2-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 2-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 2-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 2-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 2-F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 2-G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 2-H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 2-I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 2-J: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 3-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 3-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 3-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 3-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 3-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 3-F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 3-G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 3-H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 3-I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 3-J: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 3-K: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 4-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 4-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 4-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 4-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 4-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 4-F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 4-G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 4-H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 4-I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 4-J: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- KETTERING 4-K: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP J: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP K: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP L: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP M: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP N: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP O: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP P: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP Q: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP R: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP S: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP T: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP U: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMI TWP V: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 1-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 1-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 1-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 2-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 2-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [list]
+            - <item>: {object}
+                - name: str
+                - party: str
+                - write_in: bool
+        - status: str
+- MIAMISBURG 2-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 3-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 3-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 3-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 3-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 4-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 4-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 4-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MIAMISBURG 4-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MORAINE 1-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MORAINE 2-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MORAINE 3-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MORAINE 4-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- MORAINE 4-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- OAKWOOD-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- OAKWOOD-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- OAKWOOD-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- OAKWOOD-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- OAKWOOD-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- OAKWOOD-F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- OAKWOOD-G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- OAKWOOD-H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- PAGE MANOR: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- PER/NEW LEBANON: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- PERRY TWP A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- PERRY TWP B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- PERRY TWP C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- PHILLIPSBURG: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-J: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-K: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-L: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-M: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-N: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-O: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- RIVERSIDE-P: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 1-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 1-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 1-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 1-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 1-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 2-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 2-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 2-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 2-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 2-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 3-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 3-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 3-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 3-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 4-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 4-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 4-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- TROTWOOD 4-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- UNION-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- UNION-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- UNION-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- UNION-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- UNION-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- VANDALIA-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- VANDALIA-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- VANDALIA-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- VANDALIA-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- VANDALIA-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- VANDALIA-F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- VANDALIA-G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- VANDALIA-H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- VANDALIA-I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- VANDALIA-J: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- VANDALIA-K: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- W CARROLLTON-A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- W CARROLLTON-B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- W CARROLLTON-C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- W CARROLLTON-D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- W CARROLLTON-E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- W CARROLLTON-F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- W CARROLLTON-G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- W CARROLLTON-H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- W CARROLLTON-I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP A: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP AA: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP B: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP BB: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP C: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP CC: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP D: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP E: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP F: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP G: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP H: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP I: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP J: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP K: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP L: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP M: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP N: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP O: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP P: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP Q: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP R: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP S: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP T: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP U: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP V: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP W: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP X: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP Y: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- WASHINGTON TWP Z: {map of dynamic keys}
+    - <key>: {object}
+        - candidates: [empty list]
+        - status: str
+- _meta: {object}
+    - county: str
+    - county_number: int
+    - generated: str
+    - keyed_by: str
+    - notes: [list]
+        - <item>: str
+    - parties: {map of dynamic keys}
+        - <key>: {object}
+            - coverage: str
+            - filings: int
+            - gaps: [empty list]
+            - label: str
+            - retrieved_date: null
+            - source: str
+            - source_file: str
+            - status_counts: {object}
+                - data_pending?: int
+                - uncontested?: int
+                - vacant?: int
+    - primary_date: str
+    - sources: [list]
+        - <item>: str
+    - status_semantics: {object}
+        - contested: str
+        - data_pending: str
+        - uncontested: str
+        - vacant: str
+```
+
+<!-- END GENERATED INVENTORY -->
