@@ -1,3 +1,11 @@
+/**
+ * activate.js
+ * 
+ * Handles the Canvassing Dashboard account activation flow.
+ * Extracts the user's UUID (v_id) from the URL and prompts them for their full 10-digit 
+ * cell phone number and a new password. The phone number acts as an MFA/identity verification
+ * step. If successful, redirects the user to their private dashboard (/captain).
+ */
 const urlParams = new URLSearchParams(window.location.search);
 const apiOverride = urlParams.get('captainApi');
 const API_BASE = apiOverride 
@@ -9,24 +17,9 @@ const API_BASE = apiOverride
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const v_id = urlParams.get('v_id');
-  const needs_phone = urlParams.get('needs_phone') === 'true';
 
   if (v_id) {
     document.getElementById('v_id').value = v_id;
-  }
-
-  if (needs_phone) {
-    const pinInput = document.getElementById('pin');
-    const phoneLabel = document.getElementById('phoneLabel');
-    const helpText = document.getElementById('phoneHelpText');
-    
-    phoneLabel.textContent = '10-Digit Cell Phone Number';
-    pinInput.placeholder = '5551234567';
-    pinInput.maxLength = 10;
-    helpText.textContent = 'Please enter your full 10-digit cell phone number.';
-  } else {
-    const pinInput = document.getElementById('pin');
-    pinInput.maxLength = 4;
   }
 
   document.getElementById('activateForm').addEventListener('submit', async (e) => {
@@ -50,12 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    if (needs_phone && pin.length !== 10) {
+    if (pin.length !== 10) {
       errorBox.textContent = 'Please enter a valid 10-digit phone number.';
-      errorBox.classList.remove('hidden');
-      return;
-    } else if (!needs_phone && pin.length !== 4) {
-      errorBox.textContent = 'Please enter your 4-digit PIN.';
       errorBox.classList.remove('hidden');
       return;
     }
