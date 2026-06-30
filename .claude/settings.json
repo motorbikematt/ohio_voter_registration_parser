@@ -3,7 +3,10 @@
     "allow": [
       "mcp__chrome-devtools__puppeteer_screenshot",
       "mcp__claude-in-chrome__read_network_requests",
-      "mcp__claude-in-chrome__read_console_messages"
+      "mcp__claude-in-chrome__read_console_messages",
+      "Read(//d/vibe/quorum/**)",
+      "Read(//d/vibe/quorum/src/lib/**)",
+      "Read(//d/vibe/quorum/src/**)"
     ]
   }
 }

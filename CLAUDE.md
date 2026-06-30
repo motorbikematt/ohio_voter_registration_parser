@@ -15,6 +15,7 @@ Ohio Statewide Voter File (SWVF) parser and precinct-captain dashboard. Ingests 
 * `tools/` — segmented by function: `export/`, `lookup/`, `admin/`, `narrative/`, `scoring/`, `tests/`.
 * `serve/` — local PII backend (`roster_api.py`, `captain_db.py`); the *code* is committable and PII-free, reading PII only at runtime from `local/`.
 * `local/` — local-only workspace, **entirely gitignored**: `source/`, `working/`, `exports/`, `patches/`, `logs/`, `*.db`, and `local/context/` (AI `archive/`, `research/`, `journal/`, `handoffs/`, `scope/`, `business/`).
+* **Session working docs.** `local/context/journal/project_journal.md` — running session log, append-only (use `open('a')` per §8; never read-modify-write). `local/context/handoffs/HANDOFF_QUORUM_SEEDING.md` — current master work queue for both `election-data` and `quorum`. Read this + `local/context/handoffs/SESSION_FINDINGS_2026-06-29.md` at the start of any new session before touching pipeline or quorum code.
 
 ## 4. SWVF Schema & Domain Semantics
 The irreducible knowledge this file exists to hold — most of the project's worst bugs were schema misunderstandings, not code defects.
