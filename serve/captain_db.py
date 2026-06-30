@@ -73,6 +73,8 @@ CREATE TABLE IF NOT EXISTS captain (
     phone_digits    TEXT NOT NULL,
     precinct_county TEXT NOT NULL,
     precinct_name   TEXT NOT NULL,
+    v_id            TEXT UNIQUE,     -- SOS_VOTERID from the state file
+    password_hash   TEXT,            -- For activation/login flow
     created_at      TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -140,7 +142,13 @@ def connect() -> sqlite3.Connection:
         # a POST is writing.
         _conn.execute("PRAGMA journal_mode = WAL")
         _conn.execute("PRAGMA foreign_keys = ON")
-        _conn.executescript(SCHEMA)
+        # Simple migrations
+        try:
+            _conn.execute("ALTER TABLE captain ADD COLUMN v_id TEXT UNIQUE")
+            _conn.execute("ALTER TABLE captain ADD COLUMN password_hash TEXT")
+        except sqlite3.OperationalError:
+            pass  # columns already exist
+
         return _conn
 
 
@@ -175,25 +183,29 @@ def get_captain() -> dict | None:
 def create_captain(
     *, display_name: str, email: str, phone: str,
     precinct_county: str, precinct_name: str,
+    v_id: str | None = None, password_hash: str | None = None,
 ) -> dict:
     """Insert (and return) the captain row. Required fields must be non-empty.
 
-    Localhost prototype: we don't enforce uniqueness. A second call overwrites
-    nothing — it just creates another row, and get_captain() picks the first.
-    That keeps the UX of "let me re-do the picker" from getting stuck.
+    Raises ValueError if anything is blank.
     """
     for label, val in [("display_name", display_name), ("email", email),
                        ("phone", phone), ("precinct_county", precinct_county),
                        ("precinct_name", precinct_name)]:
         if not val or not str(val).strip():
             raise ValueError(f"{label} required")
+    phone_digits = _normalize_phone(phone)
     with _lock:
-        cur = connect().execute(
-            "INSERT INTO captain (display_name, email, phone, phone_digits, "
-            "precinct_county, precinct_name) VALUES (?, ?, ?, ?, ?, ?)",
-            (display_name.strip(), email.strip(), phone.strip(),
-             _normalize_phone(phone), precinct_county.strip(),
-             precinct_name.strip()),
+        c = connect()
+        cur = c.execute(
+            """
+            INSERT INTO captain (
+                display_name, email, phone, phone_digits, 
+                precinct_county, precinct_name, v_id, password_hash
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (display_name.strip(), email.strip(), phone.strip(), phone_digits,
+             precinct_county.strip(), precinct_name.strip(), v_id, password_hash)
         )
         new_id = cur.lastrowid
         return _row_to_dict(connect().execute(

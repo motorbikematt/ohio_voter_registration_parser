@@ -546,6 +546,47 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(401, {"error": "unauthorized"})
         body = self._read_body()
 
+        if parsed.path == "/activate":
+            v_id = body.get("v_id", "")
+            pin = body.get("pin", "")
+            password = body.get("new_password", "")
+            if not v_id or not pin or not password:
+                return self._send(400, {"error": "v_id, pin, and new_password are required"})
+            
+            # Lookup voter in parquet
+            df = get_df()
+            voter = df.filter(pl.col("SOS_VOTERID") == v_id)
+            if voter.height == 0:
+                return self._send(404, {"error": "Voter not found"})
+            
+            row = voter.row(0, named=True)
+            first_name = row.get("FIRST_NAME") or ""
+            last_name = row.get("LAST_NAME") or ""
+            display_name = f"{first_name} {last_name}".strip()
+            precinct_name = row.get("PRECINCT_NAME") or ""
+            county = row.get("COUNTY_NUMBER") or ""
+            
+            import hashlib
+            import sqlite3
+            pw_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
+            
+            try:
+                captain = captain_db.create_captain(
+                    display_name=display_name,
+                    email="no-email@provided.local",
+                    phone=pin,
+                    precinct_county=str(county),
+                    precinct_name=precinct_name,
+                    v_id=v_id,
+                    password_hash=pw_hash
+                )
+            except ValueError as e:
+                return self._send(400, {"error": str(e)})
+            except sqlite3.IntegrityError:
+                return self._send(400, {"error": "Account already activated"})
+                
+            return self._send(201, {"message": "Activated successfully", "captain": captain, "token": "dev-secret"})
+
         if parsed.path == "/captain":
             try:
                 captain = captain_db.create_captain(
