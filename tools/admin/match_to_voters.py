@@ -3,7 +3,9 @@
 The "consumer" stage of the officials/captains/candidates pipeline. It reads the
 three frozen serve files produced by Session 1 --
 
-  * serve/officials.json          -> entity_type "incumbent"
+  * serve/officials.json          -> entity_type "incumbent"  (legacy name; holds
+                                     both incumbents AND challengers from officials.json;
+                                     the per-profile `role` field is the real discriminator)
   * serve/precinct_captains.json  -> entity_type "captain_candidate"
   * serve/candidates.json         -> entity_type "general_candidate"
 
@@ -429,6 +431,10 @@ def _home_zip_index() -> dict[tuple[str, str], str]:
     """Build (LASTN_upper, FIRSTN_upper) -> HZIPCODE from electedofficials.csv.
 
     HZIPCODE only (home zip). NEVER OZIPCODE (office address) -- section 4.
+
+    NOTE: Permanently inert. HZIPCODE is uniformly blank on all rows by BoE policy
+    (confirmed 2026-06-29 with county). Always returns {}. Home location is recovered
+    instead via the voter-file join + jurisdiction-consistency check.
     """
     out: dict[tuple[str, str], str] = {}
     for row in csv.DictReader(ELECTED_CSV.open(encoding="utf-8")):
@@ -501,7 +507,8 @@ def run(county_slug: str, verbose: bool) -> dict:
             print(f"  HIT  [{entity_type}/{method}/{score}] {identity['name']} "
                   f"-> {profile['sos_voterid']}{flag}")
 
-    # incumbent -- zip from HZIPCODE (home), name-only when no CSV row exists.
+    # "incumbent" entity_type = everyone from officials.json (incumbents + challengers).
+    # The per-profile `role` field discriminates; do not filter by entity_type alone.
     for identity, _person in _persons_in_officials(officials):
         # Office-level signal alongside the voter-derived partisan_profile: the
         # office being nonpartisan (charter fact) is independent of the holder's
