@@ -15,9 +15,113 @@
       "corrected_sos_voterid": "for state=corrected: the right voterid (else null)",
       "verified_by": "confirmer identity (ties to ROSTER_TOKEN auth later)",
       "verified_date": "YYYY-MM-DD",
-      "basis": {"dob_match": false, "jurisdiction_consistent": false, "address_match": false},
+      "basis": {
+        "dob_match": false,
+        "jurisdiction_consistent": false,
+        "address_match": false
+      },
       "binding_hash": "match_to_voters.binding_hash of the voter at confirmation time"
     }
   },
-  "confirmations": []
+  "confirmations": [
+    {
+      "match_key": "captain_candidate|CENTERVILLE-R|J Hunter Johnson",
+      "sos_voterid": null,
+      "state": "corrected",
+      "corrected_sos_voterid": "OH0011259065",
+      "verified_by": "motorbikematt",
+      "verified_date": "2026-07-01",
+      "basis": {
+        "dob_match": false,
+        "jurisdiction_consistent": true,
+        "address_match": false
+      },
+      "binding_hash": "08206ebf5baa505a",
+      "note": "auto-match ambiguous (4 J-first JOHNSONs in CENTERVILLE-R); disambiguated by middle name HUNTER -- only Jeffrey HUNTER Johnson qualifies."
+    },
+    {
+      "match_key": "captain_candidate|DAYTON 10-E|Brian J Williams",
+      "sos_voterid": "OH0023926064",
+      "state": "confirmed",
+      "corrected_sos_voterid": null,
+      "verified_by": "motorbikematt",
+      "verified_date": "2026-07-01",
+      "basis": {
+        "dob_match": false,
+        "jurisdiction_consistent": true,
+        "address_match": true
+      },
+      "binding_hash": "d9f5e19704f6cce7"
+    },
+    {
+      "match_key": "captain_candidate|DAYTON 17-D|Angela Denise Newland",
+      "sos_voterid": "OH0021046775",
+      "state": "confirmed",
+      "corrected_sos_voterid": null,
+      "verified_by": "motorbikematt",
+      "verified_date": "2026-07-01",
+      "basis": {
+        "dob_match": false,
+        "jurisdiction_consistent": true,
+        "address_match": true
+      },
+      "binding_hash": "77d98f589fa474d1"
+    },
+    {
+      "match_key": "captain_candidate|DAYTON 19-C|Darryl R Smith",
+      "sos_voterid": "OH0025771060",
+      "state": "confirmed",
+      "corrected_sos_voterid": null,
+      "verified_by": "motorbikematt",
+      "verified_date": "2026-07-01",
+      "basis": {
+        "dob_match": false,
+        "jurisdiction_consistent": true,
+        "address_match": true
+      },
+      "binding_hash": "e48ea6213a5603fb"
+    },
+    {
+      "match_key": "captain_candidate|DAYTON 22-A|William Louis Smith Jr",
+      "sos_voterid": "OH0011362255",
+      "state": "confirmed",
+      "corrected_sos_voterid": null,
+      "verified_by": "motorbikematt",
+      "verified_date": "2026-07-01",
+      "basis": {
+        "dob_match": false,
+        "jurisdiction_consistent": true,
+        "address_match": true
+      },
+      "binding_hash": "552de48f8dd74172"
+    },
+    {
+      "match_key": "captain_candidate|KETTERING 3-B|Matthew R Mancz",
+      "sos_voterid": "OH0011287276",
+      "state": "confirmed",
+      "corrected_sos_voterid": null,
+      "verified_by": "motorbikematt",
+      "verified_date": "2026-07-01",
+      "basis": {
+        "dob_match": false,
+        "jurisdiction_consistent": true,
+        "address_match": true
+      },
+      "binding_hash": "ecf7aca67ecb01d5"
+    },
+    {
+      "match_key": "captain_candidate|WASHINGTON TWP A|Marygrace Y Miller",
+      "sos_voterid": "OH0011301451",
+      "state": "confirmed",
+      "corrected_sos_voterid": null,
+      "verified_by": "motorbikematt",
+      "verified_date": "2026-07-01",
+      "basis": {
+        "dob_match": false,
+        "jurisdiction_consistent": true,
+        "address_match": true
+      },
+      "binding_hash": "491eb6d9fd8243c9"
+    }
+  ]
 }
