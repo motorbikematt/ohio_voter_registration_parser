@@ -28,6 +28,7 @@ Everything else is private helpers.
 """
 from __future__ import annotations
 
+import os
 import re
 import sqlite3
 import threading
@@ -36,7 +37,10 @@ from pathlib import Path
 from typing import Any
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-DB_PATH = BASE_DIR / "local" / "captain.db"
+# Config-driven DB location: ROSTER_DB_PATH overrides the localhost default so
+# a hosted deploy can point at a mounted volume / managed disk with zero code
+# change. Default keeps the existing local demo working with zero config.
+DB_PATH = Path(os.environ.get("ROSTER_DB_PATH", str(BASE_DIR / "local" / "captain.db")))
 
 # Touch kinds — the set of things that can happen at a door / phone / inbox.
 TOUCH_KINDS = {

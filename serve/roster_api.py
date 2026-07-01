@@ -11,7 +11,9 @@ ever be written into docs/ or committed.
 Design decisions (see CLAUDE.md + the prototyping discussion):
 
   * Reads ``local/source/parquet_enriched/enriched_voters.parquet`` — the same
-    cache the weekly pipeline rebuilds. We never re-run cleaning here.
+    cache the weekly pipeline rebuilds. We never re-run cleaning here. The path
+    is config-driven (``ROSTER_ENRICHED_CACHE``) so a hosted deploy can point at
+    a different mount without a code change; the localhost default is unchanged.
   * Weekly-refresh aware: the loaded frame is cached in-process, but its source
     mtime is checked on every request. When the pipeline rewrites the parquet
     (atomic .replace), the next request transparently reloads it. No restart.
@@ -21,14 +23,33 @@ Design decisions (see CLAUDE.md + the prototyping discussion):
     cast that ballot), so we parse the date out of each column NAME and keep the
     max non-empty one per voter. Done once per load, not per query.
   * Auth: a single bearer token from ROSTER_TOKEN. Prototype-grade — replace
-    with real session auth before this is exposed beyond localhost.
+    with real session auth before this is exposed beyond localhost. The token
+    is REQUIRED (startup fails loud otherwise) whenever ROSTER_HOST binds to a
+    non-loopback address (e.g. a Tailnet IP) — see `_require_token_if_remote()`.
+    Binding to 127.0.0.1/localhost/::1 keeps working with no token, for the
+    zero-config local demo.
   * Stdlib http.server only — zero new deps. Swap for FastAPI/uvicorn when the
     gated web app is built for real.
 
-Run:
-    ROSTER_TOKEN=dev-secret .venv/Scripts/python.exe serve/roster_api.py
+Config (env vars; all optional, sensible localhost defaults):
+    ROSTER_HOST            bind address (default 127.0.0.1)
+    ROSTER_PORT            bind port (default 8000)
+    ROSTER_TOKEN           bearer token; REQUIRED if ROSTER_HOST is non-loopback
+    ROSTER_ENRICHED_CACHE  path to enriched_voters.parquet (default under local/)
+    ROSTER_DB_PATH         path to captain.db (read by captain_db.py)
+
+Run (local demo, no token needed):
+    .venv/Scripts/python.exe serve/roster_api.py
     # then:  GET http://127.0.0.1:8000/roster?level=county&id=01&cohort=PURE_R
-    #        Authorization: Bearer dev-secret
+
+Run (non-loopback / Tailnet — token mandatory):
+    ROSTER_HOST=100.x.y.z ROSTER_TOKEN=<strong-secret> .venv/Scripts/python.exe serve/roster_api.py
+    # then:  GET http://100.x.y.z:8000/roster?level=county&id=01&cohort=PURE_R
+    #        Authorization: Bearer <strong-secret>
+
+Moving to a hosted service later is a config change only: point ROSTER_HOST at
+the host's bind address, set ROSTER_TOKEN, and set ROSTER_ENRICHED_CACHE /
+ROSTER_DB_PATH at the hosted paths — no code edit required.
 """
 from __future__ import annotations
 
@@ -50,7 +71,12 @@ import polars as pl
 import captain_db  # SQLite write tier — captain identity, touches, walk lists
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-ENRICHED_CACHE = BASE_DIR / "local" / "source" / "parquet_enriched" / "enriched_voters.parquet"
+# Config-driven: ROSTER_ENRICHED_CACHE overrides the localhost default so a
+# hosted deploy can point at a different mount with zero code change.
+ENRICHED_CACHE = Path(os.environ.get(
+    "ROSTER_ENRICHED_CACHE",
+    str(BASE_DIR / "local" / "source" / "parquet_enriched" / "enriched_voters.parquet"),
+))
 # As of 2026-06-21 the UI is docs/index.htm + captain/captain-mode.js — this
 # API is JSON-only. (Earlier prototype served preview.html / pc.html here; those
 # routes were removed when the dashboard absorbed the captain experience.)
@@ -58,6 +84,35 @@ ENRICHED_CACHE = BASE_DIR / "local" / "source" / "parquet_enriched" / "enriched_
 HOST = os.environ.get("ROSTER_HOST", "127.0.0.1")
 PORT = int(os.environ.get("ROSTER_PORT", "8000"))
 TOKEN = os.environ.get("ROSTER_TOKEN", "")
+
+# Loopback addresses that keep the zero-config local demo working without a
+# token. Anything else (a LAN IP, a Tailnet IP, 0.0.0.0, a public hostname) is
+# "serving non-locally" and the token gate below applies.
+LOOPBACK_HOSTS = {"127.0.0.1", "localhost", "::1"}
+
+
+def _is_loopback(host: str) -> bool:
+    return host in LOOPBACK_HOSTS
+
+
+def require_token_if_remote(host: str, token: str) -> None:
+    """Fail loud at startup if we're about to serve real PII off a
+    non-loopback interface (Tailnet, LAN, etc.) without a token configured.
+
+    This is the re-enabled ROSTER_TOKEN gate per the seeder handoff (§6):
+    the localhost demo must keep working with no token, but the moment this
+    process binds somewhere reachable off-box, an unset token is a
+    misconfiguration, not a degraded mode — so this is a hard exit, not a
+    warning. No try/except: a missing token on a remote bind must not be
+    silently tolerated.
+    """
+    if _is_loopback(host):
+        return
+    if not token:
+        print(f"ERROR: ROSTER_HOST={host!r} is non-loopback but ROSTER_TOKEN is unset.")
+        print("Refusing to serve real PII off localhost without auth.")
+        print("Set ROSTER_TOKEN to a strong secret before binding non-locally.")
+        sys.exit(1)
 
 # The 7 cohort_family values that back the 7 chart slices. A roster request
 # carries the cohort the user clicked; we validate against this set so a typo'd
@@ -399,7 +454,11 @@ class Handler(BaseHTTPRequestHandler):
 
     def _authed(self) -> bool:
         if not TOKEN:
-            return True  # no token configured → open (localhost prototype only)
+            # Only reachable when ROSTER_HOST is loopback: main() calls
+            # require_token_if_remote() at startup and exits before
+            # serve_forever() if a non-loopback bind has no token. So an
+            # unset TOKEN here always means "localhost demo" -> open.
+            return True
         auth = self.headers.get("Authorization", "")
         return auth == f"Bearer {TOKEN}"
 
@@ -690,6 +749,9 @@ def main():
         print("  python pipeline/ohio_voter_pipeline.py")
         print("Select option [1] when prompted (full Ohio -> dashboard JSON).")
         sys.exit(1)
+    # Loud gate: a non-loopback bind (Tailnet/LAN) with no token is a hard
+    # exit, not a warning — see require_token_if_remote() docstring.
+    require_token_if_remote(HOST, TOKEN)
     if not TOKEN:
         print("WARNING: ROSTER_TOKEN unset - API is OPEN. Localhost-only use.")
     print(f"roster_api -> http://{HOST}:{PORT}  (cache: {ENRICHED_CACHE})")
