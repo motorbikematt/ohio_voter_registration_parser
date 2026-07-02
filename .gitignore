@@ -52,6 +52,8 @@ download_manifest.json
 .claude/settings.local.json
 # Agent-tool worktrees: temporary isolated checkouts, never committed.
 .claude/worktrees/
+# Local Claude skills: machine-local tooling, not shared across contributors.
+.claude/skills/
 
 # ─── Logs ─────────────────────────────────────────────────
 command_history.log
@@ -73,4 +75,3 @@ GEMINI.md
 *.PNG
 
 local/
-.claude/skills/grill-me/grill-me.skill
