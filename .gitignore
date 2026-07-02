@@ -50,6 +50,8 @@ download_manifest.json
 # settings.local.json holds machine-specific permissions and
 # preferences — not shared across contributors.
 .claude/settings.local.json
+# Agent-tool worktrees: temporary isolated checkouts, never committed.
+.claude/worktrees/
 
 # ─── Logs ─────────────────────────────────────────────────
 command_history.log
