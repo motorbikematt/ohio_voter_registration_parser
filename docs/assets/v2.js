@@ -545,7 +545,7 @@
         const slug = countyToSlug(c);
         const isSel = S.level === 'county' && S.id === slug;
         const isExpanded = isSel ||
-          (S.level === 'city' && S.id === slug) ||
+          (S.level === 'city' && countyToSlug(S.county || '') === slug) ||
           (S.level === 'precinct' && countyToSlug(S.county || '') === slug);
         html.push('<div class="hier-row depth-0 ' + (isSel ? 'is-selected' : '') + '" data-action="select-county" data-county="' + slug + '" data-county-name="' + c + '"><span class="twirl">▸</span><span class="label">' + c + '</span><span class="count">—</span></div>');
         if (isExpanded) {
@@ -557,7 +557,7 @@
 
       // If a county is open, lazy-load its city/precinct list
       if (S.level === 'county' || S.level === 'precinct' || S.level === 'city') {
-        const cs = S.level === 'precinct' ? countyToSlug(S.county || '') : S.id;
+        const cs = (S.level === 'precinct' || S.level === 'city') ? countyToSlug(S.county || '') : S.id;
         await populateCountyChildren(cs);
       }
     } else {
@@ -698,9 +698,13 @@
           wrap.querySelectorAll('[data-action="toggle-city"].is-selected').forEach(r => r.classList.remove('is-selected'));
           el.classList.add('is-selected');
           const citySlug = cityNameToSlug(cityName);
-          S.level = 'city'; S.city = cityName; S.id = citySlug; S.county = null;
-          writeState({ level: 'city', id: citySlug, county: null, city: null, type: null });
-          emit('select_jurisdiction', { level: 'city', city: cityName });
+          // Keep S.county pointing at the county tree the user drilled in from
+          // (cs), so that tree stays expanded after navigating to the city
+          // view — S.id is the city slug (cross-county-unique) and can't be
+          // used for that check the way county/precinct navigation can.
+          S.level = 'city'; S.city = cityName; S.id = citySlug; S.county = cs;
+          writeState({ level: 'city', id: citySlug, county: cs, city: null, type: null });
+          emit('select_jurisdiction', { level: 'city', city: cityName, county: cs });
           await refreshView();
         }
       };
@@ -1600,21 +1604,48 @@
   }
 
   // ── Search ─────────────────────────────────────────────────
+  // Rows the search has force-opened (city/county `.hier-children` wrappers
+  // that default to collapsed — v2.css hides them regardless of a matching
+  // descendant's own display style). Tracked so a cleared search can close
+  // only what it opened, not state the user toggled manually.
+  let _searchOpened = [];
+  function clearSearchOpens() {
+    _searchOpened.forEach(el => el.classList.remove('is-open'));
+    _searchOpened = [];
+  }
   function wireSearch() {
     const inp = $('global-search');
     if (!inp) return;
     inp.oninput = () => {
       const q = inp.value.trim().toLowerCase();
-      if (!q) return;
+      clearSearchOpens();
+      if (!q) {
+        document.querySelectorAll('.hier-row[data-action]').forEach(r => r.style.display = '');
+        return;
+      }
       // Filter visible rows in hierarchy
       document.querySelectorAll('.hier-row[data-action]').forEach(r => {
         const lbl = (r.textContent || '').toLowerCase();
-        r.style.display = lbl.includes(q) ? '' : 'none';
+        const isMatch = lbl.includes(q);
+        r.style.display = isMatch ? '' : 'none';
+        if (isMatch) {
+          // A matching row can be nested inside a collapsed city/county
+          // bucket; walk up and open every ancestor so it's actually visible.
+          let anc = r.parentElement;
+          while (anc) {
+            if (anc.classList.contains('hier-children') && !anc.classList.contains('is-open')) {
+              anc.classList.add('is-open');
+              _searchOpened.push(anc);
+            }
+            anc = anc.parentElement;
+          }
+        }
       });
     };
     inp.onblur = () => {
       if (!inp.value) {
         document.querySelectorAll('.hier-row[data-action]').forEach(r => r.style.display = '');
+        clearSearchOpens();
       }
     };
     inp.addEventListener('keydown', (e) => {

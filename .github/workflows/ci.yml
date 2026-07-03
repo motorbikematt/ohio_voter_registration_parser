@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  frontend-syntax:
+    name: Frontend JS syntax check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: node --check on docs/assets/*.js
+        run: |
+          for f in docs/*.js docs/assets/*.js docs/captain/*.js docs/activate/*.js; do
+            [ -f "$f" ] || continue
+            echo "checking $f"
+            node --check "$f"
+          done
+
+  data-naming:
+    name: docs/data/city slug naming check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pytest
+        run: pip install pytest
+      - name: Run slug naming check
+        run: pytest tools/tests/test_data_slug_naming.py -q
