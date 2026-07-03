@@ -30,6 +30,7 @@ Output:
 import concurrent.futures
 import json
 import logging
+import re
 import sys
 import time
 from datetime import date as date_t, datetime
@@ -231,10 +232,19 @@ JURISDICTIONS = {
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _slugify(name: str) -> str:
-    """Convert jurisdiction name to URL-safe slug."""
+    """Convert jurisdiction name to URL-safe slug.
+
+    Collapses any run of non-alphanumeric characters (spaces, punctuation,
+    stray whitespace) to a single underscore and strips leading/trailing
+    underscores — matching _precinct_safe_name in voter_data_cleaner.py and
+    the frontend's countyToSlug/cityNameToSlug (v2.js). A naive one-for-one
+    replace() left a source CITY value with a trailing space (e.g.
+    "COLUMBUS CITY ") slugged to "columbus_city_", producing a double
+    underscore once export_jurisdiction_json appended "_<chart_type>.json".
+    """
     if name is None or (isinstance(name, float)):
         return 'unknown'
-    return str(name).lower().replace(' ', '_').replace('/', '_').replace('-', '_')
+    return re.sub(r'[^a-z0-9]+', '_', str(name).lower()).strip('_')
 
 
 def _cn_key(county_number) -> str:
@@ -544,7 +554,6 @@ def export_jurisdiction_index(results, jurisdiction_type_key, logger):
     Called from main() after the JSON export loop so the dashboard can populate
     its filter dropdowns without re-running the full aggregation.
     """
-    import re
     config     = JURISDICTIONS.get(jurisdiction_type_key, {})
     type_dir   = DATA_DIR / config.get('display', jurisdiction_type_key).lower().replace(' ', '_')
     PRIMARY_SUFFIX = '_party_affiliation.json'
