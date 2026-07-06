@@ -520,7 +520,7 @@ class Handler(BaseHTTPRequestHandler):
         q = parse_qs(parsed.query)
 
         if parsed.path == "/captain/me":
-            return self._send(200, {"captain": captain_db.get_captain()})
+            return self._send(200, {"captain": captain_db.get_current_captain()})
 
         if parsed.path == "/touches":
             sos = q.get("sos_voterid", [""])[0]
@@ -606,64 +606,79 @@ class Handler(BaseHTTPRequestHandler):
         body = self._read_body()
 
         if parsed.path == "/activate":
+            # v_id is the SEAT's opaque v_id (opaque_hash of county|dist_name|
+            # party -- captain_schema_v2.md S1), from the QR / activation link.
+            # It is NOT a SOS_VOTERID: that anchor was superseded because it
+            # rotates on holder change, orphaning the account every rotation.
             v_id = body.get("v_id", "")
             pin = body.get("pin", "")
             password = body.get("new_password", "")
             if not v_id or not pin or not password:
                 return self._send(400, {"error": "v_id, pin, and new_password are required"})
-            
-            # Lookup voter in parquet
-            df = get_df()
-            voter = df.filter(pl.col("SOS_VOTERID") == v_id)
-            if voter.height == 0:
-                return self._send(404, {"error": "Voter not found"})
-            
-            row = voter.row(0, named=True)
-            first_name = row.get("FIRST_NAME") or ""
-            last_name = row.get("LAST_NAME") or ""
-            display_name = f"{first_name} {last_name}".strip()
-            precinct_name = row.get("PRECINCT_NAME") or ""
-            county = row.get("COUNTY_NUMBER") or ""
-            
+
+            seat = captain_db.get_seat_by_v_id(v_id)
+            if seat is None:
+                return self._send(404, {"error": "Seat not found"})
+            holder = captain_db.get_active_holder(seat["seat_id"])
+            if holder is None:
+                return self._send(404, {"error": "No holder on record for this seat"})
+            # PIN verification: SOS_VOTERID last-4 (schema S6 "PIN / SOS last-4").
+            # Phone-based PIN is not available until the PII sheet is supplied
+            # (HANDOFF S3 interim path -- phone is null for all v1 captains).
+            if not holder.get("sos_voterid") or pin != str(holder["sos_voterid"])[-4:]:
+                return self._send(400, {"error": "PIN does not match this seat's holder on record"})
+            if holder.get("password_hash"):
+                return self._send(400, {"error": "Account already activated"})
+
             import hashlib
-            import sqlite3
             pw_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
-            
             try:
-                captain = captain_db.create_captain(
-                    display_name=display_name,
-                    email="no-email@provided.local",
-                    phone=pin,
-                    precinct_county=str(county),
-                    precinct_name=precinct_name,
-                    v_id=v_id,
-                    password_hash=pw_hash
-                )
+                captain_db.attach_login(holder_term_id=holder["holder_term_id"], password_hash=pw_hash)
             except ValueError as e:
                 return self._send(400, {"error": str(e)})
-            except sqlite3.IntegrityError:
-                return self._send(400, {"error": "Account already activated"})
-                
-            return self._send(201, {"message": "Activated successfully", "captain": captain, "token": "dev-secret"})
+            captain_db.set_seat_status(seat["seat_id"], "filled")
+
+            return self._send(201, {
+                "message": "Activated successfully",
+                "captain": captain_db.get_captain_view(seat["seat_id"]),
+                "token": "dev-secret",
+            })
 
         if parsed.path == "/captain":
-            try:
-                captain = captain_db.create_captain(
-                    display_name=body.get("display_name", ""),
-                    email=body.get("email", ""),
-                    phone=body.get("phone", ""),
-                    precinct_county=body.get("precinct_county", ""),
-                    precinct_name=body.get("precinct_name", ""),
-                )
-            except ValueError as e:
-                return self._send(400, {"error": str(e)})
-            return self._send(201, {"captain": captain})
+            display_name = body.get("display_name", "")
+            email = body.get("email", "")
+            phone = body.get("phone", "")
+            precinct_county = body.get("precinct_county", "")
+            precinct_name = body.get("precinct_name", "")
+            for label, val in [("display_name", display_name), ("email", email),
+                               ("phone", phone), ("precinct_county", precinct_county),
+                               ("precinct_name", precinct_name)]:
+                if not val or not str(val).strip():
+                    return self._send(400, {"error": f"{label} required"})
+            seat = captain_db.upsert_seat(
+                county_number=precinct_county.strip(), dist_name=precinct_name.strip(),
+                party="D", display_name=precinct_name.strip(), status="filled",
+            )
+            captain_db.start_holder_term(
+                seat_id=seat["seat_id"], display_name=display_name.strip(),
+                email=email.strip(), phone=phone.strip(), origin="appointed",
+                claimed=True,
+            )
+            return self._send(201, {"captain": captain_db.get_captain_view(seat["seat_id"])})
 
         if parsed.path == "/touches":
             try:
+                seat_id = int(body.get("captain_id", 0))
+            except (ValueError, TypeError):
+                return self._send(400, {"error": "captain_id required"})
+            holder = captain_db.get_active_holder(seat_id)
+            if holder is None:
+                return self._send(400, {"error": "no active holder for this seat"})
+            try:
                 t = captain_db.log_touch(
                     sos_voterid=body.get("sos_voterid", ""),
-                    captain_id=int(body.get("captain_id", 0)),
+                    seat_id=seat_id,
+                    holder_term_id=holder["holder_term_id"],
                     precinct_county=body.get("precinct_county", ""),
                     precinct_name=body.get("precinct_name", ""),
                     kind=body.get("kind", ""),
@@ -679,7 +694,7 @@ class Handler(BaseHTTPRequestHandler):
             # the seed voter set against the parquet (same filter the /roster
             # endpoint uses), then find-or-create the SQLite walk list.
             try:
-                captain_id = int(body.get("captain_id", 0))
+                seat_id = int(body.get("captain_id", 0))
             except (ValueError, TypeError):
                 return self._send(400, {"error": "captain_id required"})
             precinct = body.get("precinct_name", "")
@@ -700,10 +715,12 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 fk, fv = "generation", generation  # type: ignore[assignment]
                 label = body.get("filter_label") or generation  # type: ignore[assignment]
+            holder = captain_db.get_active_holder(seat_id)
             try:
                 seeds = filter_voter_ids("precinct", precinct, cohort, county, generation=generation)
                 wl = captain_db.find_or_create_walk_list(
-                    captain_id=captain_id,
+                    seat_id=seat_id,
+                    created_by_holder_term=holder["holder_term_id"] if holder else None,
                     precinct_county=county, precinct_name=precinct,
                     filter_kind=fk, filter_value=fv, filter_label=label,
                     seed_voter_ids=seeds,
