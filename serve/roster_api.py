@@ -53,9 +53,11 @@ ROSTER_DB_PATH at the hosted paths — no code edit required.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
+import secrets
 import threading
 from datetime import date
 from functools import lru_cache
@@ -113,6 +115,34 @@ def require_token_if_remote(host: str, token: str) -> None:
         print("Refusing to serve real PII off localhost without auth.")
         print("Set ROSTER_TOKEN to a strong secret before binding non-locally.")
         sys.exit(1)
+
+
+# Password storage: PBKDF2-HMAC-SHA256 (stdlib; OWASP-recommended iteration
+# count). The stored string is self-describing ("pbkdf2_sha256$<iters>$<salt>
+# $<hash>") so the iteration count can be raised later without invalidating
+# existing hashes. Replaces the original unsalted single-round sha256 — swapped
+# 2026-07-05 while zero accounts were activated, so no migration was needed.
+_PBKDF2_ITERATIONS = 600_000
+
+
+def _hash_password(password: str) -> str:
+    salt = secrets.token_bytes(16)
+    dk = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, _PBKDF2_ITERATIONS)
+    return f"pbkdf2_sha256${_PBKDF2_ITERATIONS}${salt.hex()}${dk.hex()}"
+
+
+def _verify_password(password: str, stored: str) -> bool:
+    """Constant-time check against a stored _hash_password() string. No login
+    endpoint calls this yet — it exists so the future login/session work uses
+    the matching verifier instead of re-hashing ad hoc."""
+    parts = (stored or "").split("$")
+    if len(parts) != 4 or parts[0] != "pbkdf2_sha256":
+        return False
+    _, iters, salt_hex, hash_hex = parts
+    dk = hashlib.pbkdf2_hmac(
+        "sha256", password.encode("utf-8"), bytes.fromhex(salt_hex), int(iters)
+    )
+    return secrets.compare_digest(dk.hex(), hash_hex)
 
 # The 7 cohort_family values that back the 7 chart slices. A roster request
 # carries the cohort the user clicked; we validate against this set so a typo'd
@@ -630,8 +660,7 @@ class Handler(BaseHTTPRequestHandler):
             if holder.get("password_hash"):
                 return self._send(400, {"error": "Account already activated"})
 
-            import hashlib
-            pw_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
+            pw_hash = _hash_password(password)
             try:
                 captain_db.attach_login(holder_term_id=holder["holder_term_id"], password_hash=pw_hash)
             except ValueError as e:
@@ -641,7 +670,10 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(201, {
                 "message": "Activated successfully",
                 "captain": captain_db.get_captain_view(seat["seat_id"]),
-                "token": "dev-secret",
+                # Random per-activation token. NOTE: nothing validates it
+                # server-side yet — real session auth is still the hosted-tier
+                # task — but a hardcoded literal credential must never ship.
+                "token": secrets.token_urlsafe(24),
             })
 
         if parsed.path == "/captain":
