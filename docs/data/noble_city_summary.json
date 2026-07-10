@@ -3,8 +3,8 @@
   "county": "Noble",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -14,60 +14,5 @@
     "Precincts",
     "Est. Unregistered"
   ],
-  "rows": [
-    [
-      "61",
-      "CALDWELL",
-      "993",
-      "161",
-      "1,154",
-      "2",
-      "N/A"
-    ],
-    [
-      "61",
-      "DEXTER CITY",
-      "973",
-      "135",
-      "1,108",
-      "3",
-      "N/A"
-    ],
-    [
-      "61",
-      "SARAHSVILLE",
-      "374",
-      "40",
-      "414",
-      "1",
-      "N/A"
-    ],
-    [
-      "61",
-      "BATESVILLE",
-      "312",
-      "43",
-      "355",
-      "1",
-      "N/A"
-    ],
-    [
-      "61",
-      "SUMMERFIELD",
-      "306",
-      "43",
-      "349",
-      "1",
-      "N/A"
-    ],
-    [
-      "61",
-      "BELLE VALLEY",
-      "242",
-      "49",
-      "291",
-      "1",
-      "N/A"
-    ]
-  ]
+  "rows": []
 }

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 284 (18%)",
+      "UNC – Lapsed R — 175 (11%)",
+      "Mixed – Active — 106 (7%)",
+      "Mixed – Lapsed — 66 (4%)",
+      "UNC – No Primary — 816 (52%)",
+      "UNC – Lapsed D — 92 (6%)",
+      "Pure D — 39 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          284,
+          175,
+          106,
+          66,
+          816,
+          92,
+          39
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "WAPAKONETA WARD 4 (WAPAKONETA City)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 185 (7%)",
+      "UNC – Lapsed R — 176 (6%)",
+      "Mixed – Active — 283 (10%)",
+      "Mixed – Lapsed — 208 (8%)",
+      "UNC – No Primary — 957 (35%)",
+      "UNC – Lapsed D — 472 (17%)",
+      "Pure D — 462 (17%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          185,
+          176,
+          283,
+          208,
+          957,
+          472,
+          462
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "LYNDHURST WARD 4 (LYNDHURST City)",
+  "updated": "2026-07-10"
+}

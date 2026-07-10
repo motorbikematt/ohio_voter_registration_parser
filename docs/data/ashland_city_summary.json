@@ -3,8 +3,8 @@
   "county": "Ashland",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -22,69 +22,6 @@
       "1,770",
       "11,987",
       "14",
-      "N/A"
-    ],
-    [
-      "03",
-      "LOUDONVILLE",
-      "2,067",
-      "213",
-      "2,280",
-      "2",
-      "N/A"
-    ],
-    [
-      "03",
-      "SAVANNAH",
-      "1,128",
-      "159",
-      "1,287",
-      "1",
-      "N/A"
-    ],
-    [
-      "03",
-      "POLK",
-      "1,070",
-      "139",
-      "1,209",
-      "1",
-      "N/A"
-    ],
-    [
-      "03",
-      "PERRYSVILLE",
-      "959",
-      "104",
-      "1,063",
-      "1",
-      "N/A"
-    ],
-    [
-      "03",
-      "MIFFLIN",
-      "787",
-      "78",
-      "865",
-      "1",
-      "N/A"
-    ],
-    [
-      "03",
-      "HAYESVILLE",
-      "737",
-      "72",
-      "809",
-      "1",
-      "N/A"
-    ],
-    [
-      "03",
-      "JEROMESVILLE",
-      "291",
-      "37",
-      "328",
-      "1",
       "N/A"
     ]
   ]

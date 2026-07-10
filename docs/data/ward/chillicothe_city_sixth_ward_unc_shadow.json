@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 128",
+      "Mixed – Active — 79",
+      "Mixed – Lapsed — 98",
+      "UNC – No Primary — 1,016",
+      "UNC – Lapsed D — 235"
+    ],
+    "datasets": [
+      {
+        "data": [
+          128,
+          79,
+          98,
+          1016,
+          235
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "SIXTH WARD (CHILLICOTHE City)",
+  "updated": "2026-07-10"
+}

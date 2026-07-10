@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 54 (6%)",
+      "UNC – Lapsed R — 66 (7%)",
+      "Mixed – Active — 72 (8%)",
+      "Mixed – Lapsed — 67 (7%)",
+      "UNC – No Primary — 442 (49%)",
+      "UNC – Lapsed D — 133 (15%)",
+      "Pure D — 74 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          54,
+          66,
+          72,
+          67,
+          442,
+          133,
+          74
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "NEWTON FALLS-WARD 3 (NEWTON FALLS VILLAGE Village)",
+  "updated": "2026-07-10"
+}

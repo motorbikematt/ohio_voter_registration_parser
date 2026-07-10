@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 291 (9%)",
+      "UNC – Lapsed R — 190 (6%)",
+      "Mixed – Active — 198 (6%)",
+      "Mixed – Lapsed — 138 (4%)",
+      "UNC – No Primary — 1,845 (58%)",
+      "UNC – Lapsed D — 379 (12%)",
+      "Pure D — 123 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          291,
+          190,
+          198,
+          138,
+          1845,
+          379,
+          123
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "THIRD WARD (MARION City)",
+  "updated": "2026-07-10"
+}

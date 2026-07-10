@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 300",
+      "Mixed – Active — 355",
+      "Mixed – Lapsed — 384",
+      "UNC – No Primary — 1,406",
+      "UNC – Lapsed D — 462"
+    ],
+    "datasets": [
+      {
+        "data": [
+          300,
+          355,
+          384,
+          1406,
+          462
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "NORTH ROYALTON WARD 4 (NORTH ROYALTON City)",
+  "updated": "2026-07-10"
+}

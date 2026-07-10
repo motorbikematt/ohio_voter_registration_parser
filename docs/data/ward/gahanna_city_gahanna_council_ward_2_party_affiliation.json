@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 695 (10%)",
+      "UNC – Lapsed R — 740 (11%)",
+      "Mixed – Active — 471 (7%)",
+      "Mixed – Lapsed — 666 (10%)",
+      "UNC – No Primary — 2,531 (37%)",
+      "UNC – Lapsed D — 1,010 (15%)",
+      "Pure D — 741 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          695,
+          740,
+          471,
+          666,
+          2531,
+          1010,
+          741
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "GAHANNA COUNCIL WARD 2 (GAHANNA City)",
+  "updated": "2026-07-10"
+}

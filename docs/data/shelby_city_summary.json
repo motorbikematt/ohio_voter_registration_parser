@@ -3,8 +3,8 @@
   "county": "Shelby",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -19,81 +19,9 @@
       "75",
       "SIDNEY",
       "10,513",
-      "2,234",
-      "12,747",
+      "2,241",
+      "12,754",
       "14",
-      "N/A"
-    ],
-    [
-      "75",
-      "LOCKINGTON",
-      "1,121",
-      "156",
-      "1,277",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "FORT LORAMIE",
-      "1,043",
-      "67",
-      "1,110",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "ANNA",
-      "905",
-      "123",
-      "1,028",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "RUSSIA",
-      "910",
-      "72",
-      "982",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "JACKSON CENTER",
-      "820",
-      "137",
-      "957",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "KETTLERSVILLE",
-      "853",
-      "59",
-      "912",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "BOTKINS",
-      "745",
-      "83",
-      "828",
-      "1",
-      "N/A"
-    ],
-    [
-      "75",
-      "PORT JEFFERSON",
-      "691",
-      "107",
-      "798",
-      "1",
       "N/A"
     ]
   ]

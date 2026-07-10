@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 201",
+      "Mixed – Active — 311",
+      "Mixed – Lapsed — 209",
+      "UNC – No Primary — 912",
+      "UNC – Lapsed D — 395"
+    ],
+    "datasets": [
+      {
+        "data": [
+          201,
+          311,
+          209,
+          912,
+          395
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "FAIRVIEW PARK WARD 1 (FAIRVIEW PARK City)",
+  "updated": "2026-07-10"
+}

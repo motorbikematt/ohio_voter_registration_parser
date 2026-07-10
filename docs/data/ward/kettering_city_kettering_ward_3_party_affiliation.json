@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,491 (14%)",
+      "UNC – Lapsed R — 1,294 (12%)",
+      "Mixed – Active — 993 (9%)",
+      "Mixed – Lapsed — 711 (7%)",
+      "UNC – No Primary — 3,962 (38%)",
+      "UNC – Lapsed D — 1,086 (10%)",
+      "Pure D — 924 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1491,
+          1294,
+          993,
+          711,
+          3962,
+          1086,
+          924
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "KETTERING WARD 3 (KETTERING City)",
+  "updated": "2026-07-10"
+}

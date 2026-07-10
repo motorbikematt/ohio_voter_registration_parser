@@ -3,8 +3,8 @@
   "county": "Lawrence",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -22,60 +22,6 @@
       "1,298",
       "6,637",
       "25",
-      "N/A"
-    ],
-    [
-      "44",
-      "SOUTH POINT",
-      "2,199",
-      "393",
-      "2,592",
-      "5",
-      "N/A"
-    ],
-    [
-      "44",
-      "COAL GROVE",
-      "1,075",
-      "307",
-      "1,382",
-      "3",
-      "N/A"
-    ],
-    [
-      "44",
-      "CHESAPEAKE",
-      "385",
-      "118",
-      "503",
-      "2",
-      "N/A"
-    ],
-    [
-      "44",
-      "PROCTORVILLE",
-      "274",
-      "86",
-      "360",
-      "1",
-      "N/A"
-    ],
-    [
-      "44",
-      "HANGING ROCK",
-      "154",
-      "27",
-      "181",
-      "1",
-      "N/A"
-    ],
-    [
-      "44",
-      "ATHALIA",
-      "133",
-      "28",
-      "161",
-      "1",
       "N/A"
     ]
   ]

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 60 (6%)",
+      "UNC – Lapsed R — 99 (10%)",
+      "Mixed – Active — 30 (3%)",
+      "Mixed – Lapsed — 73 (7%)",
+      "UNC – No Primary — 579 (59%)",
+      "UNC – Lapsed D — 109 (11%)",
+      "Pure D — 32 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          60,
+          99,
+          30,
+          73,
+          579,
+          109,
+          32
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "HUBER HEIGHTS WARD 6 (HUBER HEIGHTS City)",
+  "updated": "2026-07-10"
+}

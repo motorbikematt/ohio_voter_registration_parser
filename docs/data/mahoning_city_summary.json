@@ -3,8 +3,8 @@
   "county": "Mahoning",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,9 +18,9 @@
     [
       "50",
       "YOUNGSTOWN",
-      "25,902",
-      "8,371",
-      "34,273",
+      "25,903",
+      "8,373",
+      "34,276",
       "45",
       "N/A"
     ],
@@ -28,8 +28,8 @@
       "50",
       "STRUTHERS",
       "5,238",
-      "1,084",
-      "6,322",
+      "1,085",
+      "6,323",
       "12",
       "N/A"
     ],
@@ -53,24 +53,6 @@
     ],
     [
       "50",
-      "SEBRING",
-      "2,069",
-      "401",
-      "2,470",
-      "4",
-      "N/A"
-    ],
-    [
-      "50",
-      "POLAND",
-      "1,701",
-      "205",
-      "1,906",
-      "3",
-      "N/A"
-    ],
-    [
-      "50",
       "COLUMBIANA",
       "1,205",
       "146",
@@ -80,55 +62,10 @@
     ],
     [
       "50",
-      "NEW MIDDLETOWN",
-      "950",
-      "120",
-      "1,070",
-      "2",
-      "N/A"
-    ],
-    [
-      "50",
-      "LOWELLVILLE",
-      "610",
-      "91",
-      "701",
-      "2",
-      "N/A"
-    ],
-    [
-      "50",
-      "CRAIG BEACH",
-      "585",
-      "110",
-      "695",
-      "1",
-      "N/A"
-    ],
-    [
-      "50",
-      "BELOIT",
-      "455",
-      "73",
-      "528",
-      "1",
-      "N/A"
-    ],
-    [
-      "50",
       "ALLIANCE",
       "189",
       "41",
       "230",
-      "1",
-      "N/A"
-    ],
-    [
-      "50",
-      "WASHINGTONVILLE",
-      "164",
-      "50",
-      "214",
       "1",
       "N/A"
     ]

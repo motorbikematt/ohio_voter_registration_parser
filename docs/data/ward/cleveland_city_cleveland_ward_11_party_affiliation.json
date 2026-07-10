@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 295 (2%)",
+      "UNC – Lapsed R — 347 (3%)",
+      "Mixed – Active — 496 (4%)",
+      "Mixed – Lapsed — 670 (5%)",
+      "UNC – No Primary — 8,232 (61%)",
+      "UNC – Lapsed D — 2,286 (17%)",
+      "Pure D — 1,153 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          295,
+          347,
+          496,
+          670,
+          8232,
+          2286,
+          1153
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "CLEVELAND WARD 11 (CLEVELAND City)",
+  "updated": "2026-07-10"
+}

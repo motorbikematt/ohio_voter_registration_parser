@@ -3,8 +3,8 @@
   "county": "Morgan",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -14,42 +14,5 @@
     "Precincts",
     "Est. Unregistered"
   ],
-  "rows": [
-    [
-      "58",
-      "MCCONNELSVILLE",
-      "1,175",
-      "222",
-      "1,397",
-      "2",
-      "N/A"
-    ],
-    [
-      "58",
-      "STOCKPORT",
-      "1,025",
-      "169",
-      "1,194",
-      "1",
-      "N/A"
-    ],
-    [
-      "58",
-      "MALTA",
-      "936",
-      "157",
-      "1,093",
-      "1",
-      "N/A"
-    ],
-    [
-      "58",
-      "CHESTERHILL",
-      "546",
-      "96",
-      "642",
-      "1",
-      "N/A"
-    ]
-  ]
+  "rows": []
 }

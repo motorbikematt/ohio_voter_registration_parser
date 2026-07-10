@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 275 (10%)",
+      "UNC – Lapsed R — 255 (9%)",
+      "Mixed – Active — 239 (9%)",
+      "Mixed – Lapsed — 260 (9%)",
+      "UNC – No Primary — 1,039 (37%)",
+      "UNC – Lapsed D — 510 (18%)",
+      "Pure D — 222 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          275,
+          255,
+          239,
+          260,
+          1039,
+          510,
+          222
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "WILLOUGHBY WARD 4 (WILLOUGHBY City)",
+  "updated": "2026-07-10"
+}

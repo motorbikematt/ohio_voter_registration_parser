@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 122 (3%)",
+      "UNC – Lapsed R — 155 (4%)",
+      "Mixed – Active — 145 (4%)",
+      "Mixed – Lapsed — 173 (5%)",
+      "UNC – No Primary — 2,164 (58%)",
+      "UNC – Lapsed D — 570 (15%)",
+      "Pure D — 389 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          122,
+          155,
+          145,
+          173,
+          2164,
+          570,
+          389
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "ELYRIA CITY WARD-5 (ELYRIA City)",
+  "updated": "2026-07-10"
+}

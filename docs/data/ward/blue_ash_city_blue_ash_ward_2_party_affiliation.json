@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 331 (12%)",
+      "UNC – Lapsed R — 355 (12%)",
+      "Mixed – Active — 172 (6%)",
+      "Mixed – Lapsed — 200 (7%)",
+      "UNC – No Primary — 1,217 (43%)",
+      "UNC – Lapsed D — 375 (13%)",
+      "Pure D — 195 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          331,
+          355,
+          172,
+          200,
+          1217,
+          375,
+          195
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "BLUE ASH WARD 2 (BLUE ASH City)",
+  "updated": "2026-07-10"
+}

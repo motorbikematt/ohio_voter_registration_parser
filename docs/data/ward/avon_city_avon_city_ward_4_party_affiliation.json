@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 617 (15%)",
+      "UNC – Lapsed R — 594 (14%)",
+      "Mixed – Active — 393 (9%)",
+      "Mixed – Lapsed — 408 (10%)",
+      "UNC – No Primary — 1,543 (37%)",
+      "UNC – Lapsed D — 382 (9%)",
+      "Pure D — 242 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          617,
+          594,
+          393,
+          408,
+          1543,
+          382,
+          242
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "AVON CITY WARD-4 (AVON City)",
+  "updated": "2026-07-10"
+}

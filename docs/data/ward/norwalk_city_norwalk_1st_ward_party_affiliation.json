@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 335 (13%)",
+      "UNC – Lapsed R — 243 (9%)",
+      "Mixed – Active — 201 (8%)",
+      "Mixed – Lapsed — 229 (9%)",
+      "UNC – No Primary — 1,141 (43%)",
+      "UNC – Lapsed D — 294 (11%)",
+      "Pure D — 196 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          335,
+          243,
+          201,
+          229,
+          1141,
+          294,
+          196
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "NORWALK 1ST WARD (NORWALK City)",
+  "updated": "2026-07-10"
+}

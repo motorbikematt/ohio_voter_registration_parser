@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 577 (24%)",
+      "UNC – Lapsed R — 329 (14%)",
+      "Mixed – Active — 217 (9%)",
+      "Mixed – Lapsed — 124 (5%)",
+      "UNC – No Primary — 953 (40%)",
+      "UNC – Lapsed D — 151 (6%)",
+      "Pure D — 50 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          577,
+          329,
+          217,
+          124,
+          953,
+          151,
+          50
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "WARD 2 (BELLEFONTAINE City)",
+  "updated": "2026-07-10"
+}

@@ -3,8 +3,8 @@
   "county": "Meigs",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -14,51 +14,5 @@
     "Precincts",
     "Est. Unregistered"
   ],
-  "rows": [
-    [
-      "53",
-      "MIDDLEPORT",
-      "954",
-      "255",
-      "1,209",
-      "3",
-      "N/A"
-    ],
-    [
-      "53",
-      "POMEROY",
-      "639",
-      "196",
-      "835",
-      "3",
-      "N/A"
-    ],
-    [
-      "53",
-      "SYRACUSE",
-      "451",
-      "71",
-      "522",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "RACINE",
-      "371",
-      "68",
-      "439",
-      "1",
-      "N/A"
-    ],
-    [
-      "53",
-      "RUTLAND",
-      "204",
-      "47",
-      "251",
-      "1",
-      "N/A"
-    ]
-  ]
+  "rows": []
 }

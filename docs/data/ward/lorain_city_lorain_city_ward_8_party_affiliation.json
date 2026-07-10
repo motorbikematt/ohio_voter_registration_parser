@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 364 (6%)",
+      "UNC – Lapsed R — 352 (6%)",
+      "Mixed – Active — 577 (10%)",
+      "Mixed – Lapsed — 340 (6%)",
+      "UNC – No Primary — 2,337 (40%)",
+      "UNC – Lapsed D — 959 (16%)",
+      "Pure D — 891 (15%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          364,
+          352,
+          577,
+          340,
+          2337,
+          959,
+          891
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "LORAIN CITY WARD-8 (LORAIN City)",
+  "updated": "2026-07-10"
+}

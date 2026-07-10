@@ -3,8 +3,8 @@
   "county": "Clark",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -31,78 +31,6 @@
       "512",
       "3,386",
       "5",
-      "N/A"
-    ],
-    [
-      "12",
-      "ENON",
-      "1,708",
-      "195",
-      "1,903",
-      "2",
-      "N/A"
-    ],
-    [
-      "12",
-      "NORTH HAMPTON",
-      "1,172",
-      "102",
-      "1,274",
-      "1",
-      "N/A"
-    ],
-    [
-      "12",
-      "SOUTH VIENNA",
-      "1,122",
-      "121",
-      "1,243",
-      "1",
-      "N/A"
-    ],
-    [
-      "12",
-      "CLIFTON",
-      "1,083",
-      "109",
-      "1,192",
-      "1",
-      "N/A"
-    ],
-    [
-      "12",
-      "DONNELSVILLE",
-      "1,017",
-      "118",
-      "1,135",
-      "1",
-      "N/A"
-    ],
-    [
-      "12",
-      "CATAWBA",
-      "961",
-      "149",
-      "1,110",
-      "1",
-      "N/A"
-    ],
-    [
-      "12",
-      "SOUTH CHARLESTON",
-      "838",
-      "115",
-      "953",
-      "1",
-      "N/A"
-    ],
-    [
-      "12",
-      "TREMONT CITY",
-      "759",
-      "97",
-      "856",
-      "1",
       "N/A"
     ]
   ]

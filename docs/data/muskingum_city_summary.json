@@ -3,8 +3,8 @@
   "county": "Muskingum",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -22,96 +22,6 @@
       "2,802",
       "13,118",
       "14",
-      "N/A"
-    ],
-    [
-      "60",
-      "DRESDEN",
-      "1,962",
-      "263",
-      "2,225",
-      "3",
-      "N/A"
-    ],
-    [
-      "60",
-      "SOUTH ZANESVILLE",
-      "1,533",
-      "344",
-      "1,877",
-      "2",
-      "N/A"
-    ],
-    [
-      "60",
-      "PHILO",
-      "808",
-      "155",
-      "963",
-      "1",
-      "N/A"
-    ],
-    [
-      "60",
-      "NEW CONCORD",
-      "826",
-      "121",
-      "947",
-      "1",
-      "N/A"
-    ],
-    [
-      "60",
-      "NORWICH",
-      "713",
-      "65",
-      "778",
-      "1",
-      "N/A"
-    ],
-    [
-      "60",
-      "FRAZEYBURG",
-      "627",
-      "125",
-      "752",
-      "1",
-      "N/A"
-    ],
-    [
-      "60",
-      "GRATIOT",
-      "561",
-      "105",
-      "666",
-      "1",
-      "N/A"
-    ],
-    [
-      "60",
-      "FULTONHAM",
-      "479",
-      "110",
-      "589",
-      "1",
-      "N/A"
-    ],
-    [
-      "60",
-      "ADAMSVILLE",
-      "515",
-      "70",
-      "585",
-      "1",
-      "N/A"
-    ],
-    [
-      "60",
-      "ROSEVILLE",
-      "453",
-      "123",
-      "576",
-      "1",
       "N/A"
     ]
   ]

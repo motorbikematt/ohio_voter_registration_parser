@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 688 (13%)",
+      "UNC – Lapsed R — 670 (13%)",
+      "Mixed – Active — 507 (10%)",
+      "Mixed – Lapsed — 773 (15%)",
+      "UNC – No Primary — 1,554 (30%)",
+      "UNC – Lapsed D — 629 (12%)",
+      "Pure D — 369 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          688,
+          670,
+          507,
+          773,
+          1554,
+          629,
+          369
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "AVON LAKE WARD-1 (AVON LAKE City)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 14 (2%)",
+      "UNC – Lapsed R — 38 (5%)",
+      "Mixed – Active — 49 (7%)",
+      "Mixed – Lapsed — 39 (5%)",
+      "UNC – No Primary — 418 (58%)",
+      "UNC – Lapsed D — 94 (13%)",
+      "Pure D — 73 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          14,
+          38,
+          49,
+          39,
+          418,
+          94,
+          73
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "UHRICHSVILLE W 3 (UHRICHSVILLE City)",
+  "updated": "2026-07-10"
+}

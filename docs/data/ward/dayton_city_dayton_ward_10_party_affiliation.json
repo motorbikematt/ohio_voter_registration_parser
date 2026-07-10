@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 335 (9%)",
+      "UNC – Lapsed R — 342 (9%)",
+      "Mixed – Active — 209 (5%)",
+      "Mixed – Lapsed — 217 (6%)",
+      "UNC – No Primary — 1,904 (49%)",
+      "UNC – Lapsed D — 485 (13%)",
+      "Pure D — 356 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          335,
+          342,
+          209,
+          217,
+          1904,
+          485,
+          356
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "DAYTON WARD 10 (DAYTON City)",
+  "updated": "2026-07-10"
+}

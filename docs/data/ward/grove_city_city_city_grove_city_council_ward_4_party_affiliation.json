@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 972 (14%)",
+      "UNC – Lapsed R — 989 (14%)",
+      "Mixed – Active — 441 (6%)",
+      "Mixed – Lapsed — 673 (10%)",
+      "UNC – No Primary — 2,807 (40%)",
+      "UNC – Lapsed D — 751 (11%)",
+      "Pure D — 380 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          972,
+          989,
+          441,
+          673,
+          2807,
+          751,
+          380
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "GROVE CITY COUNCIL WARD 4 (GROVE CITY-CITY City)",
+  "updated": "2026-07-10"
+}

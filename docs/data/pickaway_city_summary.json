@@ -3,8 +3,8 @@
   "county": "Pickaway",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -22,78 +22,6 @@
       "1,428",
       "8,228",
       "9",
-      "N/A"
-    ],
-    [
-      "65",
-      "COMMERCIAL POINT",
-      "4,608",
-      "531",
-      "5,139",
-      "5",
-      "N/A"
-    ],
-    [
-      "65",
-      "ASHVILLE",
-      "2,721",
-      "434",
-      "3,155",
-      "3",
-      "N/A"
-    ],
-    [
-      "65",
-      "SOUTH BLOOMFIELD",
-      "1,896",
-      "336",
-      "2,232",
-      "3",
-      "N/A"
-    ],
-    [
-      "65",
-      "WILLIAMSPORT",
-      "844",
-      "140",
-      "984",
-      "1",
-      "N/A"
-    ],
-    [
-      "65",
-      "TARLTON",
-      "748",
-      "117",
-      "865",
-      "1",
-      "N/A"
-    ],
-    [
-      "65",
-      "NEW HOLLAND",
-      "688",
-      "112",
-      "800",
-      "1",
-      "N/A"
-    ],
-    [
-      "65",
-      "HARRISBURG",
-      "688",
-      "101",
-      "789",
-      "1",
-      "N/A"
-    ],
-    [
-      "65",
-      "DARBYVILLE",
-      "558",
-      "65",
-      "623",
-      "1",
       "N/A"
     ]
   ]

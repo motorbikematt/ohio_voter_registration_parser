@@ -3,8 +3,8 @@
   "county": "Brown",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -14,78 +14,5 @@
     "Precincts",
     "Est. Unregistered"
   ],
-  "rows": [
-    [
-      "08",
-      "MT. ORAB",
-      "2,404",
-      "450",
-      "2,854",
-      "3",
-      "N/A"
-    ],
-    [
-      "08",
-      "GEORGETOWN",
-      "2,249",
-      "435",
-      "2,684",
-      "3",
-      "N/A"
-    ],
-    [
-      "08",
-      "RIPLEY",
-      "835",
-      "196",
-      "1,031",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "ABERDEEN",
-      "752",
-      "193",
-      "945",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "RUSSELLVILLE",
-      "790",
-      "119",
-      "909",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "HAMERSVILLE",
-      "741",
-      "136",
-      "877",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "SARDINIA",
-      "518",
-      "123",
-      "641",
-      "1",
-      "N/A"
-    ],
-    [
-      "08",
-      "HIGGINSPORT",
-      "407",
-      "79",
-      "486",
-      "1",
-      "N/A"
-    ]
-  ]
+  "rows": []
 }

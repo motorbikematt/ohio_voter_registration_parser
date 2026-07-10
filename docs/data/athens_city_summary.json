@@ -3,8 +3,8 @@
   "county": "Athens",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -31,78 +31,6 @@
       "583",
       "2,233",
       "4",
-      "N/A"
-    ],
-    [
-      "05",
-      "GLOUSTER",
-      "753",
-      "182",
-      "935",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "ALBANY",
-      "504",
-      "114",
-      "618",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "CHAUNCEY",
-      "356",
-      "91",
-      "447",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "BUCHTEL",
-      "281",
-      "49",
-      "330",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "COOLVILLE",
-      "265",
-      "48",
-      "313",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "JACKSONVILLE",
-      "237",
-      "46",
-      "283",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "TRIMBLE",
-      "121",
-      "32",
-      "153",
-      "1",
-      "N/A"
-    ],
-    [
-      "05",
-      "AMESVILLE",
-      "107",
-      "10",
-      "117",
-      "1",
       "N/A"
     ]
   ]

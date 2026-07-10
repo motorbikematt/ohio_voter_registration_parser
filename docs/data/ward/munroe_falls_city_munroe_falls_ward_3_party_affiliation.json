@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 163 (14%)",
+      "UNC – Lapsed R — 94 (8%)",
+      "Mixed – Active — 126 (11%)",
+      "Mixed – Lapsed — 92 (8%)",
+      "UNC – No Primary — 352 (31%)",
+      "UNC – Lapsed D — 149 (13%)",
+      "Pure D — 159 (14%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          163,
+          94,
+          126,
+          92,
+          352,
+          149,
+          159
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "Munroe Falls Ward 3 (MUNROE FALLS City)",
+  "updated": "2026-07-10"
+}

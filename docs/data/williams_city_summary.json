@@ -3,8 +3,8 @@
   "county": "Williams",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -22,69 +22,6 @@
       "933",
       "5,485",
       "6",
-      "N/A"
-    ],
-    [
-      "86",
-      "MONTPELIER",
-      "1,966",
-      "437",
-      "2,403",
-      "2",
-      "N/A"
-    ],
-    [
-      "86",
-      "HOLIDAY CITY",
-      "1,728",
-      "185",
-      "1,913",
-      "2",
-      "N/A"
-    ],
-    [
-      "86",
-      "EDON",
-      "1,191",
-      "154",
-      "1,345",
-      "1",
-      "N/A"
-    ],
-    [
-      "86",
-      "EDGERTON",
-      "1,037",
-      "222",
-      "1,259",
-      "1",
-      "N/A"
-    ],
-    [
-      "86",
-      "WEST UNITY",
-      "891",
-      "170",
-      "1,061",
-      "1",
-      "N/A"
-    ],
-    [
-      "86",
-      "PIONEER",
-      "859",
-      "143",
-      "1,002",
-      "1",
-      "N/A"
-    ],
-    [
-      "86",
-      "STRYKER",
-      "658",
-      "127",
-      "785",
-      "1",
       "N/A"
     ]
   ]

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 105 (5%)",
+      "UNC – Lapsed R — 166 (8%)",
+      "Mixed – Active — 96 (5%)",
+      "Mixed – Lapsed — 128 (7%)",
+      "UNC – No Primary — 1,129 (58%)",
+      "UNC – Lapsed D — 251 (13%)",
+      "Pure D — 84 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          105,
+          166,
+          96,
+          128,
+          1129,
+          251,
+          84
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "SECOND WARD (ZANESVILLE City)",
+  "updated": "2026-07-10"
+}

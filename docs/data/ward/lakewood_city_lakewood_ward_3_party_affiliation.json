@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 352 (4%)",
+      "UNC – Lapsed R — 510 (6%)",
+      "Mixed – Active — 654 (7%)",
+      "Mixed – Lapsed — 689 (8%)",
+      "UNC – No Primary — 3,463 (39%)",
+      "UNC – Lapsed D — 1,649 (19%)",
+      "Pure D — 1,482 (17%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          352,
+          510,
+          654,
+          689,
+          3463,
+          1649,
+          1482
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "LAKEWOOD WARD 3 (LAKEWOOD City)",
+  "updated": "2026-07-10"
+}

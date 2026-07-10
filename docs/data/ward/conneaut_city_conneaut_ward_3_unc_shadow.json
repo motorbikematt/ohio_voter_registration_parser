@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 113",
+      "Mixed – Active — 180",
+      "Mixed – Lapsed — 125",
+      "UNC – No Primary — 580",
+      "UNC – Lapsed D — 284"
+    ],
+    "datasets": [
+      {
+        "data": [
+          113,
+          180,
+          125,
+          580,
+          284
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "CONNEAUT WARD 3 (CONNEAUT City)",
+  "updated": "2026-07-10"
+}

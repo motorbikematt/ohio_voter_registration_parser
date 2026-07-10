@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 437",
+      "Mixed – Active — 186",
+      "Mixed – Lapsed — 522",
+      "UNC – No Primary — 5,861",
+      "UNC – Lapsed D — 1,110"
+    ],
+    "datasets": [
+      {
+        "data": [
+          437,
+          186,
+          522,
+          5861,
+          1110
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "CINTI WARD 6 (CINCINNATI City)",
+  "updated": "2026-07-10"
+}

@@ -3,8 +3,8 @@
   "county": "Seneca",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -31,60 +31,6 @@
       "1,308",
       "4,821",
       "6",
-      "N/A"
-    ],
-    [
-      "74",
-      "ATTICA",
-      "484",
-      "102",
-      "586",
-      "1",
-      "N/A"
-    ],
-    [
-      "74",
-      "BLOOMVILLE",
-      "375",
-      "112",
-      "487",
-      "1",
-      "N/A"
-    ],
-    [
-      "74",
-      "BETTSVILLE",
-      "332",
-      "62",
-      "394",
-      "1",
-      "N/A"
-    ],
-    [
-      "74",
-      "GREEN SPRINGS",
-      "307",
-      "85",
-      "392",
-      "1",
-      "N/A"
-    ],
-    [
-      "74",
-      "REPUBLIC",
-      "305",
-      "54",
-      "359",
-      "1",
-      "N/A"
-    ],
-    [
-      "74",
-      "NEW RIEGEL",
-      "147",
-      "17",
-      "164",
-      "1",
       "N/A"
     ]
   ]

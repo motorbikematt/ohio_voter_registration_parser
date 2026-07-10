@@ -3,8 +3,8 @@
   "county": "Lorain",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,9 +18,9 @@
     [
       "47",
       "LORAIN",
-      "29,425",
-      "8,088",
-      "37,513",
+      "29,426",
+      "8,092",
+      "37,518",
       "44",
       "N/A"
     ],
@@ -28,8 +28,8 @@
       "47",
       "ELYRIA",
       "26,796",
-      "5,993",
-      "32,789",
+      "5,994",
+      "32,790",
       "31",
       "N/A"
     ],
@@ -82,8 +82,8 @@
       "47",
       "SHEFFIELD LAKE",
       "4,888",
-      "850",
-      "5,738",
+      "852",
+      "5,740",
       "4",
       "N/A"
     ],
@@ -94,51 +94,6 @@
       "492",
       "4,115",
       "4",
-      "N/A"
-    ],
-    [
-      "47",
-      "SHEFFIELD",
-      "3,072",
-      "379",
-      "3,451",
-      "3",
-      "N/A"
-    ],
-    [
-      "47",
-      "WELLINGTON",
-      "2,585",
-      "499",
-      "3,084",
-      "3",
-      "N/A"
-    ],
-    [
-      "47",
-      "GRAFTON",
-      "1,635",
-      "203",
-      "1,838",
-      "2",
-      "N/A"
-    ],
-    [
-      "47",
-      "LAGRANGE",
-      "1,476",
-      "220",
-      "1,696",
-      "2",
-      "N/A"
-    ],
-    [
-      "47",
-      "SOUTH AMHERST",
-      "955",
-      "106",
-      "1,061",
-      "1",
       "N/A"
     ]
   ]

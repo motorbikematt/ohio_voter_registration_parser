@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 175 (8%)",
+      "UNC – Lapsed R — 170 (8%)",
+      "Mixed – Active — 154 (7%)",
+      "Mixed – Lapsed — 222 (11%)",
+      "UNC – No Primary — 887 (43%)",
+      "UNC – Lapsed D — 367 (18%)",
+      "Pure D — 109 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          175,
+          170,
+          154,
+          222,
+          887,
+          367,
+          109
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "WICKLIFFE WARD 4 (WICKLIFFE City)",
+  "updated": "2026-07-10"
+}

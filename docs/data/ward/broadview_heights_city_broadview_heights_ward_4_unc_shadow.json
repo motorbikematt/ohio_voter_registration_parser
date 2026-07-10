@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 400",
+      "Mixed – Active — 453",
+      "Mixed – Lapsed — 423",
+      "UNC – No Primary — 1,185",
+      "UNC – Lapsed D — 394"
+    ],
+    "datasets": [
+      {
+        "data": [
+          400,
+          453,
+          423,
+          1185,
+          394
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "BROADVIEW HEIGHTS WARD 4 (BROADVIEW HEIGHTS City)",
+  "updated": "2026-07-10"
+}

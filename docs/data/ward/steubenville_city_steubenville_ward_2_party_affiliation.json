@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 215 (12%)",
+      "UNC – Lapsed R — 97 (5%)",
+      "Mixed – Active — 198 (11%)",
+      "Mixed – Lapsed — 80 (4%)",
+      "UNC – No Primary — 844 (46%)",
+      "UNC – Lapsed D — 310 (17%)",
+      "Pure D — 99 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          215,
+          97,
+          198,
+          80,
+          844,
+          310,
+          99
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "STEUBENVILLE WARD 2 (STEUBENVILLE City)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 192 (14%)",
+      "UNC – Lapsed R — 197 (14%)",
+      "Mixed – Active — 106 (8%)",
+      "Mixed – Lapsed — 128 (9%)",
+      "UNC – No Primary — 571 (42%)",
+      "UNC – Lapsed D — 103 (8%)",
+      "Pure D — 64 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          192,
+          197,
+          106,
+          128,
+          571,
+          103,
+          64
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "SHELBY WARD 1 (SHELBY City)",
+  "updated": "2026-07-10"
+}

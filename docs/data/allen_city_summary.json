@@ -3,8 +3,8 @@
   "county": "Allen",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -26,74 +26,11 @@
     ],
     [
       "02",
-      "BLUFFTON",
-      "2,194",
-      "257",
-      "2,451",
-      "3",
-      "N/A"
-    ],
-    [
-      "02",
       "DELPHOS",
       "2,037",
       "346",
       "2,383",
       "4",
-      "N/A"
-    ],
-    [
-      "02",
-      "ELIDA",
-      "1,236",
-      "125",
-      "1,361",
-      "2",
-      "N/A"
-    ],
-    [
-      "02",
-      "SPENCERVILLE",
-      "1,066",
-      "189",
-      "1,255",
-      "2",
-      "N/A"
-    ],
-    [
-      "02",
-      "CAIRO",
-      "280",
-      "49",
-      "329",
-      "1",
-      "N/A"
-    ],
-    [
-      "02",
-      "HARROD",
-      "202",
-      "40",
-      "242",
-      "1",
-      "N/A"
-    ],
-    [
-      "02",
-      "LAFAYETTE",
-      "193",
-      "33",
-      "226",
-      "1",
-      "N/A"
-    ],
-    [
-      "02",
-      "BEAVERDAM",
-      "139",
-      "42",
-      "181",
-      "1",
       "N/A"
     ]
   ]

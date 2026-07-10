@@ -3,8 +3,8 @@
   "county": "Montgomery",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -28,8 +28,8 @@
       "57",
       "KETTERING",
       "35,112",
-      "5,261",
-      "40,373",
+      "5,262",
+      "40,374",
       "41",
       "N/A"
     ],
@@ -46,8 +46,8 @@
       "57",
       "CENTERVILLE",
       "17,205",
-      "2,298",
-      "19,503",
+      "2,299",
+      "19,504",
       "18",
       "N/A"
     ],
@@ -157,33 +157,6 @@
       "509",
       "4,039",
       "4",
-      "N/A"
-    ],
-    [
-      "57",
-      "NEW LEBANON",
-      "1,981",
-      "384",
-      "2,365",
-      "3",
-      "N/A"
-    ],
-    [
-      "57",
-      "FARMERSVILLE",
-      "619",
-      "85",
-      "704",
-      "1",
-      "N/A"
-    ],
-    [
-      "57",
-      "PHILLIPSBURG",
-      "263",
-      "49",
-      "312",
-      "1",
       "N/A"
     ]
   ]

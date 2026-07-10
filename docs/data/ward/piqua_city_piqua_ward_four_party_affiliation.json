@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 230 (9%)",
+      "UNC – Lapsed R — 309 (12%)",
+      "Mixed – Active — 131 (5%)",
+      "Mixed – Lapsed — 157 (6%)",
+      "UNC – No Primary — 1,381 (55%)",
+      "UNC – Lapsed D — 245 (10%)",
+      "Pure D — 68 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          230,
+          309,
+          131,
+          157,
+          1381,
+          245,
+          68
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "PIQUA WARD FOUR (PIQUA City)",
+  "updated": "2026-07-10"
+}

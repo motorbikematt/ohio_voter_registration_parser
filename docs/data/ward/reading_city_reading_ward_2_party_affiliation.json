@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 159 (10%)",
+      "UNC – Lapsed R — 146 (9%)",
+      "Mixed – Active — 69 (4%)",
+      "Mixed – Lapsed — 106 (7%)",
+      "UNC – No Primary — 873 (55%)",
+      "UNC – Lapsed D — 160 (10%)",
+      "Pure D — 65 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          159,
+          146,
+          69,
+          106,
+          873,
+          160,
+          65
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "READING WARD 2 (READING City)",
+  "updated": "2026-07-10"
+}

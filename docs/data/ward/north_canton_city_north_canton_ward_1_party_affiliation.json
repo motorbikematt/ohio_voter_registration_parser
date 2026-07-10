@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 387 (13%)",
+      "UNC – Lapsed R — 267 (9%)",
+      "Mixed – Active — 258 (9%)",
+      "Mixed – Lapsed — 223 (8%)",
+      "UNC – No Primary — 1,128 (39%)",
+      "UNC – Lapsed D — 336 (12%)",
+      "Pure D — 322 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          387,
+          267,
+          258,
+          223,
+          1128,
+          336,
+          322
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "NORTH CANTON WARD 1 (NORTH CANTON City)",
+  "updated": "2026-07-10"
+}

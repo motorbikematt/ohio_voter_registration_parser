@@ -3,8 +3,8 @@
   "county": "Ross",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -22,60 +22,6 @@
       "2,413",
       "13,954",
       "22",
-      "N/A"
-    ],
-    [
-      "71",
-      "SOUTH SALEM",
-      "561",
-      "95",
-      "656",
-      "1",
-      "N/A"
-    ],
-    [
-      "71",
-      "FRANKFORT",
-      "525",
-      "101",
-      "626",
-      "1",
-      "N/A"
-    ],
-    [
-      "71",
-      "ADELPHI",
-      "517",
-      "108",
-      "625",
-      "1",
-      "N/A"
-    ],
-    [
-      "71",
-      "CLARKSBURG",
-      "519",
-      "86",
-      "605",
-      "1",
-      "N/A"
-    ],
-    [
-      "71",
-      "KINGSTON",
-      "471",
-      "100",
-      "571",
-      "1",
-      "N/A"
-    ],
-    [
-      "71",
-      "BAINBRIDGE",
-      "391",
-      "67",
-      "458",
-      "1",
       "N/A"
     ]
   ]

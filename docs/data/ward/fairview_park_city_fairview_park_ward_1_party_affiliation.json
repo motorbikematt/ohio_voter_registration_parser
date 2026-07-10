@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 226 (9%)",
+      "UNC – Lapsed R — 201 (8%)",
+      "Mixed – Active — 311 (12%)",
+      "Mixed – Lapsed — 209 (8%)",
+      "UNC – No Primary — 912 (35%)",
+      "UNC – Lapsed D — 395 (15%)",
+      "Pure D — 322 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          226,
+          201,
+          311,
+          209,
+          912,
+          395,
+          322
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "FAIRVIEW PARK WARD 1 (FAIRVIEW PARK City)",
+  "updated": "2026-07-10"
+}

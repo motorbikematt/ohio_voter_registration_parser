@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 101 (5%)",
+      "UNC – Lapsed R — 102 (5%)",
+      "Mixed – Active — 115 (6%)",
+      "Mixed – Lapsed — 126 (6%)",
+      "UNC – No Primary — 1,082 (55%)",
+      "UNC – Lapsed D — 276 (14%)",
+      "Pure D — 154 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          101,
+          102,
+          115,
+          126,
+          1082,
+          276,
+          154
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "ASHTABULA WARD 4 (ASHTABULA City)",
+  "updated": "2026-07-10"
+}

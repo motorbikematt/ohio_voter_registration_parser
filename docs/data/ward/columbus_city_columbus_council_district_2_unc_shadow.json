@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 5,957",
+      "Mixed – Active — 3,165",
+      "Mixed – Lapsed — 4,184",
+      "UNC – No Primary — 33,845",
+      "UNC – Lapsed D — 7,923"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5957,
+          3165,
+          4184,
+          33845,
+          7923
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "COLUMBUS COUNCIL DISTRICT 2 (COLUMBUS City)",
+  "updated": "2026-07-10"
+}

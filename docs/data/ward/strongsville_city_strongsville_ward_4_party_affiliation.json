@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,142 (14%)",
+      "UNC – Lapsed R — 805 (10%)",
+      "Mixed – Active — 950 (11%)",
+      "Mixed – Lapsed — 982 (12%)",
+      "UNC – No Primary — 2,876 (34%)",
+      "UNC – Lapsed D — 940 (11%)",
+      "Pure D — 717 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1142,
+          805,
+          950,
+          982,
+          2876,
+          940,
+          717
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "STRONGSVILLE WARD 4 (STRONGSVILLE City)",
+  "updated": "2026-07-10"
+}

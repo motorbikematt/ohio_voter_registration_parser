@@ -3,8 +3,8 @@
   "county": "Clinton",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -22,78 +22,6 @@
       "1,294",
       "7,236",
       "10",
-      "N/A"
-    ],
-    [
-      "14",
-      "BLANCHESTER",
-      "2,142",
-      "423",
-      "2,565",
-      "3",
-      "N/A"
-    ],
-    [
-      "14",
-      "SABINA",
-      "1,179",
-      "252",
-      "1,431",
-      "2",
-      "N/A"
-    ],
-    [
-      "14",
-      "MARTINSVILLE",
-      "1,156",
-      "159",
-      "1,315",
-      "1",
-      "N/A"
-    ],
-    [
-      "14",
-      "CLARKSVILLE",
-      "899",
-      "168",
-      "1,067",
-      "1",
-      "N/A"
-    ],
-    [
-      "14",
-      "MIDLAND",
-      "764",
-      "110",
-      "874",
-      "1",
-      "N/A"
-    ],
-    [
-      "14",
-      "PORT WILLIAM",
-      "629",
-      "77",
-      "706",
-      "1",
-      "N/A"
-    ],
-    [
-      "14",
-      "HARVEYSBURG",
-      "609",
-      "66",
-      "675",
-      "1",
-      "N/A"
-    ],
-    [
-      "14",
-      "NEW VIENNA",
-      "561",
-      "113",
-      "674",
-      "1",
       "N/A"
     ]
   ]

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 108 (5%)",
+      "UNC – Lapsed R — 122 (6%)",
+      "Mixed – Active — 242 (11%)",
+      "Mixed – Lapsed — 113 (5%)",
+      "UNC – No Primary — 972 (44%)",
+      "UNC – Lapsed D — 288 (13%)",
+      "Pure D — 344 (16%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          108,
+          122,
+          242,
+          113,
+          972,
+          288,
+          344
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "BARBERTON WARD 5 (BARBERTON City)",
+  "updated": "2026-07-10"
+}

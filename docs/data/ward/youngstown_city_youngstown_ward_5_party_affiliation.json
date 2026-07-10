@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 181 (3%)",
+      "UNC – Lapsed R — 169 (3%)",
+      "Mixed – Active — 659 (11%)",
+      "Mixed – Lapsed — 315 (5%)",
+      "UNC – No Primary — 2,264 (38%)",
+      "UNC – Lapsed D — 1,273 (22%)",
+      "Pure D — 1,057 (18%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          181,
+          169,
+          659,
+          315,
+          2264,
+          1273,
+          1057
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "YOUNGSTOWN WARD 5 (YOUNGSTOWN City)",
+  "updated": "2026-07-10"
+}

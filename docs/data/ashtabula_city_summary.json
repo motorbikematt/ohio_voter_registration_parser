@@ -3,8 +3,8 @@
   "county": "Ashtabula",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -40,69 +40,6 @@
       "589",
       "3,622",
       "7",
-      "N/A"
-    ],
-    [
-      "04",
-      "JEFFERSON",
-      "1,739",
-      "297",
-      "2,036",
-      "3",
-      "N/A"
-    ],
-    [
-      "04",
-      "NORTH KINGSVILLE",
-      "1,696",
-      "238",
-      "1,934",
-      "3",
-      "N/A"
-    ],
-    [
-      "04",
-      "ROAMING SHORES",
-      "1,073",
-      "154",
-      "1,227",
-      "1",
-      "N/A"
-    ],
-    [
-      "04",
-      "ORWELL",
-      "719",
-      "151",
-      "870",
-      "1",
-      "N/A"
-    ],
-    [
-      "04",
-      "ANDOVER",
-      "552",
-      "88",
-      "640",
-      "1",
-      "N/A"
-    ],
-    [
-      "04",
-      "GENEVA-ON-THE-LAKE",
-      "450",
-      "101",
-      "551",
-      "1",
-      "N/A"
-    ],
-    [
-      "04",
-      "ROCK CREEK",
-      "351",
-      "81",
-      "432",
-      "1",
       "N/A"
     ]
   ]

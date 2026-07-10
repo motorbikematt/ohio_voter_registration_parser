@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 621 (17%)",
+      "UNC – Lapsed R — 644 (17%)",
+      "Mixed – Active — 234 (6%)",
+      "Mixed – Lapsed — 381 (10%)",
+      "UNC – No Primary — 1,377 (37%)",
+      "UNC – Lapsed D — 306 (8%)",
+      "Pure D — 124 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          621,
+          644,
+          234,
+          381,
+          1377,
+          306,
+          124
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "SPRINGBORO CITY WRD3 (SPRINGBORO City)",
+  "updated": "2026-07-10"
+}

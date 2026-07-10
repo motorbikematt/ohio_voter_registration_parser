@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 112 (4%)",
+      "UNC – Lapsed R — 113 (4%)",
+      "Mixed – Active — 339 (12%)",
+      "Mixed – Lapsed — 143 (5%)",
+      "UNC – No Primary — 1,126 (41%)",
+      "UNC – Lapsed D — 443 (16%)",
+      "Pure D — 461 (17%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          112,
+          113,
+          339,
+          143,
+          1126,
+          443,
+          461
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "NILES-WARD 1 (NILES City)",
+  "updated": "2026-07-10"
+}

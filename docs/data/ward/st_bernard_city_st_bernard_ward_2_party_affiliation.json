@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 55 (7%)",
+      "UNC – Lapsed R — 56 (7%)",
+      "Mixed – Active — 26 (3%)",
+      "Mixed – Lapsed — 71 (9%)",
+      "UNC – No Primary — 391 (49%)",
+      "UNC – Lapsed D — 141 (18%)",
+      "Pure D — 56 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          55,
+          56,
+          26,
+          71,
+          391,
+          141,
+          56
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "ST. BERNARD WARD 2 (ST. BERNARD City)",
+  "updated": "2026-07-10"
+}

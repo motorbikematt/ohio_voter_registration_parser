@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 360",
+      "Mixed – Active — 351",
+      "Mixed – Lapsed — 242",
+      "UNC – No Primary — 1,386",
+      "UNC – Lapsed D — 423"
+    ],
+    "datasets": [
+      {
+        "data": [
+          360,
+          351,
+          242,
+          1386,
+          423
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "OSNABURG (OSNABURG City)",
+  "updated": "2026-07-10"
+}

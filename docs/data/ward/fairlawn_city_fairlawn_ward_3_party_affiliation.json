@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 80 (8%)",
+      "UNC – Lapsed R — 81 (8%)",
+      "Mixed – Active — 68 (7%)",
+      "Mixed – Lapsed — 79 (8%)",
+      "UNC – No Primary — 408 (41%)",
+      "UNC – Lapsed D — 171 (17%)",
+      "Pure D — 98 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          80,
+          81,
+          68,
+          79,
+          408,
+          171,
+          98
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "FAIRLAWN WARD 3 (FAIRLAWN City)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 151 (9%)",
+      "UNC – Lapsed R — 116 (7%)",
+      "Mixed – Active — 109 (7%)",
+      "Mixed – Lapsed — 83 (5%)",
+      "UNC – No Primary — 890 (55%)",
+      "UNC – Lapsed D — 180 (11%)",
+      "Pure D — 82 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          151,
+          116,
+          109,
+          83,
+          890,
+          180,
+          82
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "FOSTORIA WARD 4 (FOSTORIA City)",
+  "updated": "2026-07-10"
+}

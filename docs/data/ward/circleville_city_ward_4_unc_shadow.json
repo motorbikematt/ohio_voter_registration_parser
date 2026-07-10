@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 115",
+      "Mixed – Active — 132",
+      "Mixed – Lapsed — 72",
+      "UNC – No Primary — 879",
+      "UNC – Lapsed D — 176"
+    ],
+    "datasets": [
+      {
+        "data": [
+          115,
+          132,
+          72,
+          879,
+          176
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "WARD 4 (CIRCLEVILLE City)",
+  "updated": "2026-07-10"
+}

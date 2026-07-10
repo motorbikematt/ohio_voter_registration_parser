@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 62",
+      "Mixed – Active — 87",
+      "Mixed – Lapsed — 154",
+      "UNC – No Primary — 1,256",
+      "UNC – Lapsed D — 533"
+    ],
+    "datasets": [
+      {
+        "data": [
+          62,
+          87,
+          154,
+          1256,
+          533
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "GARFIELD HEIGHTS WARD 3 (GARFIELD HEIGHTS City)",
+  "updated": "2026-07-10"
+}

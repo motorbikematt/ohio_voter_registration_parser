@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 22",
+      "Mixed – Active — 36",
+      "Mixed – Lapsed — 47",
+      "UNC – No Primary — 587",
+      "UNC – Lapsed D — 358"
+    ],
+    "datasets": [
+      {
+        "data": [
+          22,
+          36,
+          47,
+          587,
+          358
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "BEDFORD WARD 4 (BEDFORD City)",
+  "updated": "2026-07-10"
+}

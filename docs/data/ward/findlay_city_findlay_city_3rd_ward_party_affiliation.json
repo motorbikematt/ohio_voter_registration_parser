@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 997 (26%)",
+      "UNC – Lapsed R — 449 (12%)",
+      "Mixed – Active — 360 (10%)",
+      "Mixed – Lapsed — 303 (8%)",
+      "UNC – No Primary — 1,344 (36%)",
+      "UNC – Lapsed D — 239 (6%)",
+      "Pure D — 86 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          997,
+          449,
+          360,
+          303,
+          1344,
+          239,
+          86
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "FINDLAY CITY - 3RD WARD (FINDLAY City)",
+  "updated": "2026-07-10"
+}

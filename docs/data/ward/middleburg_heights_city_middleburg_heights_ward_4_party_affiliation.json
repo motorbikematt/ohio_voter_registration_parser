@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 268 (11%)",
+      "UNC – Lapsed R — 203 (9%)",
+      "Mixed – Active — 314 (13%)",
+      "Mixed – Lapsed — 229 (10%)",
+      "UNC – No Primary — 772 (33%)",
+      "UNC – Lapsed D — 392 (17%)",
+      "Pure D — 191 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          268,
+          203,
+          314,
+          229,
+          772,
+          392,
+          191
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "MIDDLEBURG HEIGHTS WARD 4 (MIDDLEBURG HEIGHTS City)",
+  "updated": "2026-07-10"
+}

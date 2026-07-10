@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 73 (11%)",
+      "UNC – Lapsed R — 47 (7%)",
+      "Mixed – Active — 21 (3%)",
+      "Mixed – Lapsed — 52 (8%)",
+      "UNC – No Primary — 412 (62%)",
+      "UNC – Lapsed D — 36 (5%)",
+      "Pure D — 22 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          73,
+          47,
+          21,
+          52,
+          412,
+          36,
+          22
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "WILLARD 1ST WARD (WILLARD City)",
+  "updated": "2026-07-10"
+}

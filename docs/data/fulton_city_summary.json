@@ -3,8 +3,8 @@
   "county": "Fulton",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -22,60 +22,6 @@
       "779",
       "4,626",
       "5",
-      "N/A"
-    ],
-    [
-      "26",
-      "ARCHBOLD",
-      "2,696",
-      "432",
-      "3,128",
-      "3",
-      "N/A"
-    ],
-    [
-      "26",
-      "SWANTON",
-      "2,084",
-      "336",
-      "2,420",
-      "2",
-      "N/A"
-    ],
-    [
-      "26",
-      "DELTA",
-      "1,753",
-      "307",
-      "2,060",
-      "3",
-      "N/A"
-    ],
-    [
-      "26",
-      "FAYETTE",
-      "1,137",
-      "220",
-      "1,357",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "METAMORA",
-      "1,108",
-      "154",
-      "1,262",
-      "1",
-      "N/A"
-    ],
-    [
-      "26",
-      "LYONS",
-      "920",
-      "118",
-      "1,038",
-      "1",
       "N/A"
     ]
   ]

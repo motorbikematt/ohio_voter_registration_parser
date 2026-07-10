@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 120 (11%)",
+      "UNC – Lapsed R — 75 (7%)",
+      "Mixed – Active — 65 (6%)",
+      "Mixed – Lapsed — 57 (5%)",
+      "UNC – No Primary — 625 (59%)",
+      "UNC – Lapsed D — 87 (8%)",
+      "Pure D — 22 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          120,
+          75,
+          65,
+          57,
+          625,
+          87,
+          22
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "LONDON WARD 3 (LONDON City)",
+  "updated": "2026-07-10"
+}

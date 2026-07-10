@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 246 (11%)",
+      "UNC – Lapsed R — 187 (8%)",
+      "Mixed – Active — 175 (8%)",
+      "Mixed – Lapsed — 171 (7%)",
+      "UNC – No Primary — 1,021 (44%)",
+      "UNC – Lapsed D — 343 (15%)",
+      "Pure D — 154 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          246,
+          187,
+          175,
+          171,
+          1021,
+          343,
+          154
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "FIFTH WARD (CHILLICOTHE City)",
+  "updated": "2026-07-10"
+}

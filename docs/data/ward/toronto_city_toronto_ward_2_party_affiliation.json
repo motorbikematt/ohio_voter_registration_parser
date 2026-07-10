@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 54 (7%)",
+      "UNC – Lapsed R — 48 (6%)",
+      "Mixed – Active — 106 (13%)",
+      "Mixed – Lapsed — 72 (9%)",
+      "UNC – No Primary — 316 (39%)",
+      "UNC – Lapsed D — 146 (18%)",
+      "Pure D — 75 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          54,
+          48,
+          106,
+          72,
+          316,
+          146,
+          75
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "TORONTO WARD 2 (TORONTO City)",
+  "updated": "2026-07-10"
+}

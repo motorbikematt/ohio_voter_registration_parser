@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 384",
+      "Mixed – Active — 243",
+      "Mixed – Lapsed — 216",
+      "UNC – No Primary — 1,167",
+      "UNC – Lapsed D — 281"
+    ],
+    "datasets": [
+      {
+        "data": [
+          384,
+          243,
+          216,
+          1167,
+          281
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "THIRD WARD (MOUNT VERNON City)",
+  "updated": "2026-07-10"
+}

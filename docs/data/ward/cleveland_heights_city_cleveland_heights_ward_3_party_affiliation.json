@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 47 (1%)",
+      "UNC – Lapsed R — 96 (2%)",
+      "Mixed – Active — 204 (4%)",
+      "Mixed – Lapsed — 264 (5%)",
+      "UNC – No Primary — 2,011 (41%)",
+      "UNC – Lapsed D — 1,018 (21%)",
+      "Pure D — 1,247 (26%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          47,
+          96,
+          204,
+          264,
+          2011,
+          1018,
+          1247
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "CLEVELAND HEIGHTS WARD 3 (CLEVELAND HEIGHTS City)",
+  "updated": "2026-07-10"
+}

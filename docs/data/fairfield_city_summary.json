@@ -3,8 +3,8 @@
   "county": "Fairfield",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -19,8 +19,8 @@
       "23",
       "LANCASTER",
       "21,283",
-      "4,028",
-      "25,311",
+      "4,029",
+      "25,312",
       "26",
       "N/A"
     ],
@@ -53,118 +53,10 @@
     ],
     [
       "23",
-      "BALTIMORE",
-      "2,380",
-      "297",
-      "2,677",
-      "3",
-      "N/A"
-    ],
-    [
-      "23",
-      "MILLERSPORT",
-      "1,973",
-      "294",
-      "2,267",
-      "2",
-      "N/A"
-    ],
-    [
-      "23",
-      "LITHOPOLIS",
-      "1,517",
-      "200",
-      "1,717",
-      "2",
-      "N/A"
-    ],
-    [
-      "23",
-      "STOUTSVILLE",
-      "1,123",
-      "152",
-      "1,275",
-      "1",
-      "N/A"
-    ],
-    [
-      "23",
-      "AMANDA",
-      "1,033",
-      "177",
-      "1,210",
-      "1",
-      "N/A"
-    ],
-    [
-      "23",
-      "CARROLL",
-      "1,019",
-      "112",
-      "1,131",
-      "1",
-      "N/A"
-    ],
-    [
-      "23",
       "REYNOLDSBURG",
       "766",
       "189",
       "955",
-      "1",
-      "N/A"
-    ],
-    [
-      "23",
-      "THURSTON",
-      "816",
-      "136",
-      "952",
-      "1",
-      "N/A"
-    ],
-    [
-      "23",
-      "WEST RUSHVILLE",
-      "840",
-      "90",
-      "930",
-      "1",
-      "N/A"
-    ],
-    [
-      "23",
-      "BREMEN",
-      "778",
-      "136",
-      "914",
-      "1",
-      "N/A"
-    ],
-    [
-      "23",
-      "SUGAR GROVE",
-      "673",
-      "77",
-      "750",
-      "1",
-      "N/A"
-    ],
-    [
-      "23",
-      "RUSHVILLE",
-      "552",
-      "56",
-      "608",
-      "1",
-      "N/A"
-    ],
-    [
-      "23",
-      "PLEASANTVILLE",
-      "481",
-      "98",
-      "579",
       "1",
       "N/A"
     ]

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 75",
+      "Mixed – Active — 131",
+      "Mixed – Lapsed — 172",
+      "UNC – No Primary — 2,200",
+      "UNC – Lapsed D — 960"
+    ],
+    "datasets": [
+      {
+        "data": [
+          75,
+          131,
+          172,
+          2200,
+          960
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "EUCLID WARD 8 (EUCLID City)",
+  "updated": "2026-07-10"
+}

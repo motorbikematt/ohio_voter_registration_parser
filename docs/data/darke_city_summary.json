@@ -3,8 +3,8 @@
   "county": "Darke",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -22,96 +22,6 @@
       "1,374",
       "8,452",
       "12",
-      "N/A"
-    ],
-    [
-      "19",
-      "VERSAILLES",
-      "1,738",
-      "157",
-      "1,895",
-      "2",
-      "N/A"
-    ],
-    [
-      "19",
-      "ARCANUM",
-      "1,480",
-      "149",
-      "1,629",
-      "2",
-      "N/A"
-    ],
-    [
-      "19",
-      "GETTYSBURG",
-      "951",
-      "114",
-      "1,065",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "NEW MADISON",
-      "874",
-      "116",
-      "990",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "BRADFORD",
-      "816",
-      "109",
-      "925",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "CASTINE",
-      "749",
-      "89",
-      "838",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "UNION CITY",
-      "556",
-      "256",
-      "812",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "NORTH STAR",
-      "595",
-      "39",
-      "634",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "HOLLANSBURG",
-      "531",
-      "70",
-      "601",
-      "1",
-      "N/A"
-    ],
-    [
-      "19",
-      "WAYNE LAKES",
-      "448",
-      "68",
-      "516",
-      "1",
       "N/A"
     ]
   ]

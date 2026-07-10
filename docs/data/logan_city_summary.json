@@ -3,8 +3,8 @@
   "county": "Logan",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -22,105 +22,6 @@
       "1,672",
       "8,521",
       "8",
-      "N/A"
-    ],
-    [
-      "46",
-      "RUSHSYLVANIA",
-      "1,237",
-      "216",
-      "1,453",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "WEST LIBERTY",
-      "1,064",
-      "158",
-      "1,222",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "ZANESFIELD",
-      "810",
-      "132",
-      "942",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "DEGRAFF",
-      "712",
-      "116",
-      "828",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "RUSSELLS POINT",
-      "669",
-      "151",
-      "820",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "LAKEVIEW",
-      "636",
-      "151",
-      "787",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "QUINCY",
-      "639",
-      "93",
-      "732",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "BELLE CENTER",
-      "500",
-      "73",
-      "573",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "WEST MANSFIELD",
-      "409",
-      "85",
-      "494",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "RIDGEWAY",
-      "399",
-      "52",
-      "451",
-      "1",
-      "N/A"
-    ],
-    [
-      "46",
-      "HUNTSVILLE",
-      "234",
-      "46",
-      "280",
-      "1",
       "N/A"
     ]
   ]

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 5,119 (23%)",
+      "UNC – Lapsed R — 2,257 (10%)",
+      "Mixed – Active — 2,316 (11%)",
+      "Mixed – Lapsed — 2,181 (10%)",
+      "UNC – No Primary — 6,285 (29%)",
+      "UNC – Lapsed D — 1,914 (9%)",
+      "Pure D — 1,785 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5119,
+          2257,
+          2316,
+          2181,
+          6285,
+          1914,
+          1785
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "LAKE (LAKE City)",
+  "updated": "2026-07-10"
+}

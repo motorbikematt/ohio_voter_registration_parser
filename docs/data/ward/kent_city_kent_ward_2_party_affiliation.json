@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 154 (5%)",
+      "UNC – Lapsed R — 171 (5%)",
+      "Mixed – Active — 286 (9%)",
+      "Mixed – Lapsed — 199 (6%)",
+      "UNC – No Primary — 1,251 (40%)",
+      "UNC – Lapsed D — 570 (18%)",
+      "Pure D — 506 (16%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          154,
+          171,
+          286,
+          199,
+          1251,
+          570,
+          506
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "KENT WARD 2 (KENT City)",
+  "updated": "2026-07-10"
+}

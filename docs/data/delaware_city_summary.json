@@ -3,8 +3,8 @@
   "county": "Delaware",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -67,42 +67,6 @@
       "295",
       "3,376",
       "4",
-      "N/A"
-    ],
-    [
-      "21",
-      "GALENA",
-      "1,046",
-      "123",
-      "1,169",
-      "1",
-      "N/A"
-    ],
-    [
-      "21",
-      "OSTRANDER",
-      "875",
-      "90",
-      "965",
-      "1",
-      "N/A"
-    ],
-    [
-      "21",
-      "ASHLEY",
-      "556",
-      "113",
-      "669",
-      "1",
-      "N/A"
-    ],
-    [
-      "21",
-      "SHAWNEE HILLS",
-      "556",
-      "44",
-      "600",
-      "1",
       "N/A"
     ]
   ]

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 800 (19%)",
+      "UNC – Lapsed R — 346 (8%)",
+      "Mixed – Active — 500 (12%)",
+      "Mixed – Lapsed — 297 (7%)",
+      "UNC – No Primary — 1,490 (35%)",
+      "UNC – Lapsed D — 474 (11%)",
+      "Pure D — 301 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          800,
+          346,
+          500,
+          297,
+          1490,
+          474,
+          301
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "ALLIANCE WARD 4 (ALLIANCE City)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 212",
+      "Mixed – Active — 236",
+      "Mixed – Lapsed — 242",
+      "UNC – No Primary — 655",
+      "UNC – Lapsed D — 249"
+    ],
+    "datasets": [
+      {
+        "data": [
+          212,
+          236,
+          242,
+          655,
+          249
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "AURORA WARD 6 (AURORA City)",
+  "updated": "2026-07-10"
+}

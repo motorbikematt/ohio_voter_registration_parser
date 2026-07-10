@@ -3,8 +3,8 @@
   "county": "Washington",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -31,51 +31,6 @@
       "775",
       "4,564",
       "4",
-      "N/A"
-    ],
-    [
-      "84",
-      "BEVERLY",
-      "1,003",
-      "156",
-      "1,159",
-      "1",
-      "N/A"
-    ],
-    [
-      "84",
-      "LOWELL",
-      "953",
-      "134",
-      "1,087",
-      "1",
-      "N/A"
-    ],
-    [
-      "84",
-      "MATAMORAS",
-      "818",
-      "169",
-      "987",
-      "1",
-      "N/A"
-    ],
-    [
-      "84",
-      "LOWER SALEM",
-      "637",
-      "75",
-      "712",
-      "1",
-      "N/A"
-    ],
-    [
-      "84",
-      "MACKSBURG",
-      "176",
-      "37",
-      "213",
-      "1",
       "N/A"
     ]
   ]

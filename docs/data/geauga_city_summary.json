@@ -3,8 +3,8 @@
   "county": "Geauga",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -22,42 +22,6 @@
       "479",
       "3,963",
       "4",
-      "N/A"
-    ],
-    [
-      "28",
-      "SOUTH RUSSELL",
-      "2,841",
-      "333",
-      "3,174",
-      "4",
-      "N/A"
-    ],
-    [
-      "28",
-      "MIDDLEFIELD",
-      "1,757",
-      "263",
-      "2,020",
-      "2",
-      "N/A"
-    ],
-    [
-      "28",
-      "BURTON",
-      "820",
-      "114",
-      "934",
-      "1",
-      "N/A"
-    ],
-    [
-      "28",
-      "HUNTING VALLEY",
-      "109",
-      "12",
-      "121",
-      "1",
       "N/A"
     ]
   ]

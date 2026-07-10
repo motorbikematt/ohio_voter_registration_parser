@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 120",
+      "Mixed – Active — 52",
+      "Mixed – Lapsed — 86",
+      "UNC – No Primary — 1,099",
+      "UNC – Lapsed D — 255"
+    ],
+    "datasets": [
+      {
+        "data": [
+          120,
+          52,
+          86,
+          1099,
+          255
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "THIRD WARD (ZANESVILLE City)",
+  "updated": "2026-07-10"
+}

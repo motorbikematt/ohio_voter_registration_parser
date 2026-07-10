@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 75 (3%)",
+      "UNC – Lapsed R — 70 (3%)",
+      "Mixed – Active — 146 (7%)",
+      "Mixed – Lapsed — 124 (6%)",
+      "UNC – No Primary — 689 (32%)",
+      "UNC – Lapsed D — 516 (24%)",
+      "Pure D — 527 (25%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          75,
+          70,
+          146,
+          124,
+          689,
+          516,
+          527
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "RICHMOND HEIGHTS WARD 3 (RICHMOND HEIGHTS City)",
+  "updated": "2026-07-10"
+}

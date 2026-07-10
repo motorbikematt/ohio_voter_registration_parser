@@ -3,8 +3,8 @@
   "county": "Trumbull",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -58,42 +58,6 @@
       "517",
       "5,217",
       "6",
-      "N/A"
-    ],
-    [
-      "78",
-      "NEWTON FALLS",
-      "2,395",
-      "553",
-      "2,948",
-      "4",
-      "N/A"
-    ],
-    [
-      "78",
-      "LORDSTOWN",
-      "2,114",
-      "303",
-      "2,417",
-      "3",
-      "N/A"
-    ],
-    [
-      "78",
-      "MCDONALD",
-      "1,957",
-      "240",
-      "2,197",
-      "3",
-      "N/A"
-    ],
-    [
-      "78",
-      "WEST FARMINGTON",
-      "236",
-      "58",
-      "294",
-      "1",
       "N/A"
     ]
   ]

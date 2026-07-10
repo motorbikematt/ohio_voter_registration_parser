@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 368 (13%)",
+      "UNC – Lapsed R — 314 (11%)",
+      "Mixed – Active — 289 (10%)",
+      "Mixed – Lapsed — 315 (11%)",
+      "UNC – No Primary — 955 (33%)",
+      "UNC – Lapsed D — 445 (15%)",
+      "Pure D — 189 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          368,
+          314,
+          289,
+          315,
+          955,
+          445,
+          189
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "NEW PHILADELPHIA W 2 (NEW PHILADELPHIA City)",
+  "updated": "2026-07-10"
+}

@@ -3,8 +3,8 @@
   "county": "Lucas",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -62,56 +62,11 @@
     ],
     [
       "48",
-      "WHITEHOUSE",
-      "3,370",
-      "409",
-      "3,779",
-      "3",
-      "N/A"
-    ],
-    [
-      "48",
-      "OTTAWA HILLS",
-      "3,163",
-      "513",
-      "3,676",
-      "3",
-      "N/A"
-    ],
-    [
-      "48",
       "WASHINGTON TOWNSHIP",
       "1,647",
       "325",
       "1,972",
       "2",
-      "N/A"
-    ],
-    [
-      "48",
-      "BERKEY",
-      "1,118",
-      "120",
-      "1,238",
-      "1",
-      "N/A"
-    ],
-    [
-      "48",
-      "HOLLAND",
-      "964",
-      "144",
-      "1,108",
-      "1",
-      "N/A"
-    ],
-    [
-      "48",
-      "SWANTON",
-      "893",
-      "183",
-      "1,076",
-      "1",
       "N/A"
     ]
   ]

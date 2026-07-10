@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 540",
+      "Mixed – Active — 290",
+      "Mixed – Lapsed — 345",
+      "UNC – No Primary — 1,862",
+      "UNC – Lapsed D — 494"
+    ],
+    "datasets": [
+      {
+        "data": [
+          540,
+          290,
+          345,
+          1862,
+          494
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "LANCASTER CITY WD 3 (LANCASTER City)",
+  "updated": "2026-07-10"
+}

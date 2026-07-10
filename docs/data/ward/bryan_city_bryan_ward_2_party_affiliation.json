@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 120 (11%)",
+      "UNC – Lapsed R — 150 (13%)",
+      "Mixed – Active — 92 (8%)",
+      "Mixed – Lapsed — 75 (7%)",
+      "UNC – No Primary — 566 (50%)",
+      "UNC – Lapsed D — 88 (8%)",
+      "Pure D — 32 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          120,
+          150,
+          92,
+          75,
+          566,
+          88,
+          32
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "BRYAN WARD 2 (BRYAN City)",
+  "updated": "2026-07-10"
+}

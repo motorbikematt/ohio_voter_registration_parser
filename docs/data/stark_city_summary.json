@@ -3,8 +3,8 @@
   "county": "Stark",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -143,18 +143,18 @@
     ],
     [
       "76",
-      "MARLBORO",
-      "2,842",
-      "243",
+      "WASHINGTON",
+      "2,764",
+      "321",
       "3,085",
       "3",
       "N/A"
     ],
     [
       "76",
-      "WASHINGTON",
-      "2,764",
-      "321",
+      "MARLBORO",
+      "2,842",
+      "243",
       "3,085",
       "3",
       "N/A"
@@ -188,15 +188,6 @@
     ],
     [
       "76",
-      "HARTVILLE",
-      "1,984",
-      "276",
-      "2,260",
-      "2",
-      "N/A"
-    ],
-    [
-      "76",
       "PIKE",
       "1,595",
       "201",
@@ -206,109 +197,10 @@
     ],
     [
       "76",
-      "BREWSTER",
-      "1,137",
-      "203",
-      "1,340",
-      "2",
-      "N/A"
-    ],
-    [
-      "76",
-      "MINERVA",
-      "973",
-      "183",
-      "1,156",
-      "1",
-      "N/A"
-    ],
-    [
-      "76",
-      "NAVARRE",
-      "947",
-      "147",
-      "1,094",
-      "1",
-      "N/A"
-    ],
-    [
-      "76",
-      "WAYNESBURG",
-      "912",
-      "163",
-      "1,075",
-      "1",
-      "N/A"
-    ],
-    [
-      "76",
-      "MAGNOLIA",
-      "909",
-      "148",
-      "1,057",
-      "1",
-      "N/A"
-    ],
-    [
-      "76",
-      "EAST CANTON",
-      "841",
-      "144",
-      "985",
-      "1",
-      "N/A"
-    ],
-    [
-      "76",
-      "WILMOT",
-      "873",
-      "93",
-      "966",
-      "1",
-      "N/A"
-    ],
-    [
-      "76",
       "SUGAR CREEK",
       "819",
       "97",
       "916",
-      "1",
-      "N/A"
-    ],
-    [
-      "76",
-      "HILLS & DALES",
-      "781",
-      "110",
-      "891",
-      "1",
-      "N/A"
-    ],
-    [
-      "76",
-      "EAST SPARTA",
-      "732",
-      "118",
-      "850",
-      "1",
-      "N/A"
-    ],
-    [
-      "76",
-      "MEYERS LAKE",
-      "562",
-      "46",
-      "608",
-      "1",
-      "N/A"
-    ],
-    [
-      "76",
-      "BEACH CITY",
-      "481",
-      "82",
-      "563",
       "1",
       "N/A"
     ]

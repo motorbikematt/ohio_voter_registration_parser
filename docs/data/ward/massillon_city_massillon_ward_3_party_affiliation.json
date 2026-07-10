@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 350 (10%)",
+      "UNC – Lapsed R — 226 (7%)",
+      "Mixed – Active — 392 (11%)",
+      "Mixed – Lapsed — 212 (6%)",
+      "UNC – No Primary — 1,422 (42%)",
+      "UNC – Lapsed D — 471 (14%)",
+      "Pure D — 343 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          350,
+          226,
+          392,
+          212,
+          1422,
+          471,
+          343
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "MASSILLON WARD 3 (MASSILLON City)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 498 (20%)",
+      "UNC – Lapsed R — 267 (11%)",
+      "Mixed – Active — 238 (10%)",
+      "Mixed – Lapsed — 150 (6%)",
+      "UNC – No Primary — 1,071 (43%)",
+      "UNC – Lapsed D — 194 (8%)",
+      "Pure D — 69 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          498,
+          267,
+          238,
+          150,
+          1071,
+          194,
+          69
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "GREENVILLE WARD 3 (GREENVILLE City)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 144 (9%)",
+      "UNC – Lapsed R — 151 (10%)",
+      "Mixed – Active — 62 (4%)",
+      "Mixed – Lapsed — 151 (10%)",
+      "UNC – No Primary — 861 (55%)",
+      "UNC – Lapsed D — 154 (10%)",
+      "Pure D — 55 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          144,
+          151,
+          62,
+          151,
+          861,
+          154,
+          55
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "GALION WARD 3 (GALION City)",
+  "updated": "2026-07-10"
+}

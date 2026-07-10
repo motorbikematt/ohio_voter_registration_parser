@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 152 (3%)",
+      "UNC – Lapsed R — 136 (3%)",
+      "Mixed – Active — 269 (6%)",
+      "Mixed – Lapsed — 207 (5%)",
+      "UNC – No Primary — 1,790 (41%)",
+      "UNC – Lapsed D — 1,009 (23%)",
+      "Pure D — 806 (18%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          152,
+          136,
+          269,
+          207,
+          1790,
+          1009,
+          806
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "SOUTH EUCLID WARD 2 (SOUTH EUCLID City)",
+  "updated": "2026-07-10"
+}

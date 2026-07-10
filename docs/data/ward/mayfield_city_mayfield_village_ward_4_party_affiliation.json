@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 53 (9%)",
+      "UNC – Lapsed R — 55 (10%)",
+      "Mixed – Active — 53 (9%)",
+      "Mixed – Lapsed — 46 (8%)",
+      "UNC – No Primary — 213 (37%)",
+      "UNC – Lapsed D — 89 (16%)",
+      "Pure D — 65 (11%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          53,
+          55,
+          53,
+          46,
+          213,
+          89,
+          65
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "MAYFIELD VILLAGE WARD 4 (MAYFIELD City)",
+  "updated": "2026-07-10"
+}

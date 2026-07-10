@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 98 (1%)",
+      "UNC – Lapsed R — 110 (1%)",
+      "Mixed – Active — 111 (1%)",
+      "Mixed – Lapsed — 388 (3%)",
+      "UNC – No Primary — 6,355 (57%)",
+      "UNC – Lapsed D — 2,757 (25%)",
+      "Pure D — 1,404 (13%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          98,
+          110,
+          111,
+          388,
+          6355,
+          2757,
+          1404
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "WARD 13 (TOLEDO City)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 72",
+      "Mixed – Active — 62",
+      "Mixed – Lapsed — 50",
+      "UNC – No Primary — 1,071",
+      "UNC – Lapsed D — 190"
+    ],
+    "datasets": [
+      {
+        "data": [
+          72,
+          62,
+          50,
+          1071,
+          190
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "SECOND WARD (MARION City)",
+  "updated": "2026-07-10"
+}

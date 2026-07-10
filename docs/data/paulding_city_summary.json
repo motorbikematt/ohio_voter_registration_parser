@@ -3,8 +3,8 @@
   "county": "Paulding",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -14,24 +14,5 @@
     "Precincts",
     "Est. Unregistered"
   ],
-  "rows": [
-    [
-      "63",
-      "PAULDING",
-      "1,742",
-      "373",
-      "2,115",
-      "3",
-      "N/A"
-    ],
-    [
-      "63",
-      "ANTWERP",
-      "867",
-      "177",
-      "1,044",
-      "1",
-      "N/A"
-    ]
-  ]
+  "rows": []
 }

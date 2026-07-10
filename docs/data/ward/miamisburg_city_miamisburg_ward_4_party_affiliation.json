@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 694 (18%)",
+      "UNC – Lapsed R — 548 (14%)",
+      "Mixed – Active — 361 (9%)",
+      "Mixed – Lapsed — 325 (8%)",
+      "UNC – No Primary — 1,424 (37%)",
+      "UNC – Lapsed D — 344 (9%)",
+      "Pure D — 157 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          694,
+          548,
+          361,
+          325,
+          1424,
+          344,
+          157
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "MIAMISBURG WARD 4 (MIAMISBURG City)",
+  "updated": "2026-07-10"
+}

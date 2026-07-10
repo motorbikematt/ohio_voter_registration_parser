@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 400",
+      "Mixed – Active — 499",
+      "Mixed – Lapsed — 416",
+      "UNC – No Primary — 1,304",
+      "UNC – Lapsed D — 576"
+    ],
+    "datasets": [
+      {
+        "data": [
+          400,
+          499,
+          416,
+          1304,
+          576
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "ROCKY RIVER WARD 2 (ROCKY RIVER City)",
+  "updated": "2026-07-10"
+}

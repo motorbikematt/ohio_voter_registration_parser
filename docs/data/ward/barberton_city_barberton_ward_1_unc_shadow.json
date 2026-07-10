@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 151",
+      "Mixed – Active — 312",
+      "Mixed – Lapsed — 125",
+      "UNC – No Primary — 1,141",
+      "UNC – Lapsed D — 359"
+    ],
+    "datasets": [
+      {
+        "data": [
+          151,
+          312,
+          125,
+          1141,
+          359
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "BARBERTON WARD 1 (BARBERTON City)",
+  "updated": "2026-07-10"
+}

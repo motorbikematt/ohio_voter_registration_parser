@@ -3,8 +3,8 @@
   "county": "Belmont",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -31,114 +31,6 @@
       "535",
       "3,717",
       "7",
-      "N/A"
-    ],
-    [
-      "07",
-      "SHADYSIDE",
-      "2,070",
-      "350",
-      "2,420",
-      "3",
-      "N/A"
-    ],
-    [
-      "07",
-      "BARNESVILLE",
-      "2,015",
-      "400",
-      "2,415",
-      "3",
-      "N/A"
-    ],
-    [
-      "07",
-      "BELLAIRE",
-      "1,518",
-      "503",
-      "2,021",
-      "3",
-      "N/A"
-    ],
-    [
-      "07",
-      "BRIDGEPORT",
-      "773",
-      "236",
-      "1,009",
-      "2",
-      "N/A"
-    ],
-    [
-      "07",
-      "POWHATAN POINT",
-      "720",
-      "152",
-      "872",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "BETHESDA",
-      "647",
-      "133",
-      "780",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "FLUSHING",
-      "461",
-      "83",
-      "544",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "BROOKSIDE",
-      "332",
-      "63",
-      "395",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "BELMONT",
-      "248",
-      "50",
-      "298",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "YORKVILLE",
-      "209",
-      "58",
-      "267",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "MORRISTOWN",
-      "149",
-      "30",
-      "179",
-      "1",
-      "N/A"
-    ],
-    [
-      "07",
-      "HOLLOWAY",
-      "141",
-      "32",
-      "173",
-      "1",
       "N/A"
     ]
   ]

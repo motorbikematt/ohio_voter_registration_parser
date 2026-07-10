@@ -3,8 +3,8 @@
   "county": "Richland",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -40,69 +40,6 @@
       "650",
       "4,767",
       "4",
-      "N/A"
-    ],
-    [
-      "70",
-      "LEXINGTON",
-      "3,005",
-      "370",
-      "3,375",
-      "3",
-      "N/A"
-    ],
-    [
-      "70",
-      "BELLVILLE",
-      "1,272",
-      "143",
-      "1,415",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "PLYMOUTH",
-      "979",
-      "182",
-      "1,161",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "LUCAS",
-      "919",
-      "94",
-      "1,013",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "CRESTLINE",
-      "634",
-      "97",
-      "731",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "SHILOH",
-      "580",
-      "100",
-      "680",
-      "1",
-      "N/A"
-    ],
-    [
-      "70",
-      "BUTLER",
-      "531",
-      "63",
-      "594",
-      "1",
       "N/A"
     ]
   ]

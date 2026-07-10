@@ -3,8 +3,8 @@
   "county": "Tuscarawas",
   "geography": "city",
   "type": "table",
-  "updated": "2026-06-22",
-  "note": "Analysis run 2026-06-22 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
+  "updated": "2026-07-10",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
   "headers": [
     "County #",
     "City / Township",
@@ -40,132 +40,6 @@
       "600",
       "2,750",
       "4",
-      "N/A"
-    ],
-    [
-      "79",
-      "NEWCOMERSTOWN",
-      "1,712",
-      "377",
-      "2,089",
-      "3",
-      "N/A"
-    ],
-    [
-      "79",
-      "STRASBURG",
-      "1,619",
-      "201",
-      "1,820",
-      "2",
-      "N/A"
-    ],
-    [
-      "79",
-      "DENNISON",
-      "1,252",
-      "267",
-      "1,519",
-      "2",
-      "N/A"
-    ],
-    [
-      "79",
-      "SUGARCREEK",
-      "1,308",
-      "179",
-      "1,487",
-      "2",
-      "N/A"
-    ],
-    [
-      "79",
-      "GNADENHUTTEN",
-      "749",
-      "109",
-      "858",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "BARNHILL",
-      "683",
-      "112",
-      "795",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "ROSWELL",
-      "654",
-      "78",
-      "732",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "ZOAR",
-      "567",
-      "113",
-      "680",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "TUSCARAWAS",
-      "573",
-      "101",
-      "674",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "BOLIVAR",
-      "556",
-      "60",
-      "616",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "MIDVALE",
-      "312",
-      "93",
-      "405",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "BALTIC",
-      "300",
-      "54",
-      "354",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "MINERAL CITY",
-      "271",
-      "77",
-      "348",
-      "1",
-      "N/A"
-    ],
-    [
-      "79",
-      "PORT WASHINGTON",
-      "250",
-      "55",
-      "305",
-      "1",
       "N/A"
     ]
   ]
