@@ -38,6 +38,7 @@ from pathlib import Path
 ROOT           = Path(__file__).resolve().parent.parent.parent
 DEFAULT_CSV    = ROOT / "local" / "source" / "electedofficials.csv"
 OFFICIALS_JSON = ROOT / "serve" / "officials.json"
+WARD_INDEX_JSON = ROOT / "docs" / "data" / "ward" / "index.json"
 
 # ── DISTNAME normalization maps ───────────────────────────────────────────────
 
@@ -128,6 +129,31 @@ PARQUET_WARD_PREFIXES = {
     "MIAMISBURG", "MORAINE", "TROTWOOD",
 }
 
+def load_ward_name_to_slug(county_scope: str = "montgomery") -> dict[str, str]:
+    """WARD raw value -> canonical ward_slug, from the W1 ward index
+    (data/ward/index.json), scoped to entities whose county_slugs include
+    county_scope. Ward *names* are not globally unique (e.g. bare 'FIRST WARD'
+    collides across 5 counties, CLAUDE.md 4), so an unscoped lookup could
+    silently resolve to the wrong municipality's entity; scoping to this
+    ingester's county keeps the join unambiguous. Raises if a name collides
+    even within scope (would indicate a genuine entity-builder bug)."""
+    if not WARD_INDEX_JSON.exists():
+        return {}
+    entries = json.loads(WARD_INDEX_JSON.read_text(encoding="utf-8"))
+    out: dict[str, str] = {}
+    for e in entries:
+        if county_scope not in (e.get("county_slugs") or []):
+            continue
+        name = e["name"]
+        if name in out and out[name] != e["slug"]:
+            raise ValueError(
+                f"ward name {name!r} resolves to multiple slugs within "
+                f"{county_scope!r} scope: {out[name]!r} vs {e['slug']!r}"
+            )
+        out[name] = e["slug"]
+    return out
+
+
 # ── OFCDESC seat parsing ──────────────────────────────────────────────────────
 
 _WARD_RE   = re.compile(r'\bWARD\s+(\d+)\b',     re.IGNORECASE)
@@ -190,6 +216,8 @@ def build_sections(rows: list[dict]) -> dict:
     school: dict      = {}
     city_school: dict = {}
     unmapped: list    = []
+    ward_name_to_slug = load_ward_name_to_slug()
+    unmatched_ward_seats: list = []
 
     for row in rows:
         dtype    = row["DISTTYPE"]
@@ -256,10 +284,17 @@ def build_sections(rows: list[dict]) -> dict:
                 continue
             parquet_key, seat_label = parse_seat(ofcdesc, city_prefix)
             if parquet_key not in ward:
+                is_ward_specific = (city_prefix in PARQUET_WARD_PREFIXES
+                                     and "AT LARGE" not in parquet_key
+                                     and "MAYOR" not in parquet_key)
+                ward_slug = ward_name_to_slug.get(parquet_key) if is_ward_specific else None
+                if is_ward_specific and ward_slug is None:
+                    unmatched_ward_seats.append(f"{ofcdesc} (DISTNAME={distname}, key={parquet_key})")
                 ward[parquet_key] = {
                     "office":      ofcdesc,
                     "seat":        seat_label,
-                    "parquet_match": city_prefix in PARQUET_WARD_PREFIXES and "AT LARGE" not in parquet_key and "MAYOR" not in parquet_key,
+                    "parquet_match": is_ward_specific,
+                    "ward_slug":   ward_slug,
                     "incumbents":  [],
                     "challengers": [],
                 }
@@ -267,6 +302,9 @@ def build_sections(rows: list[dict]) -> dict:
 
     if unmapped:
         print(f"  WARN: {len(unmapped)} unmapped DISTNAME values: {unmapped[:10]}")
+    if unmatched_ward_seats:
+        print(f"  WARN: {len(unmatched_ward_seats)} ward-specific seats did not "
+              f"resolve to a data/ward/index.json entity: {unmatched_ward_seats}")
 
     return {
         "WARD": ward,

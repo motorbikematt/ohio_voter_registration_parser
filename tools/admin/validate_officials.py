@@ -237,6 +237,36 @@ def check_district_reconciliation(rep: Report) -> None:
               f"{len(drift)}: {drift[:5]}")
 
 
+def check_ward_join(rep: Report) -> None:
+    """[10] Every ward-specific seat in officials.json's WARD section resolves
+    to an existing data/ward/index.json entity. Re-derives the join fresh
+    (ingest.load_ward_name_to_slug) rather than trusting the committed
+    ward_slug field, so drift between officials.json and a regenerated
+    ward index (PLAN_SUBCOUNTY_JURISDICTIONS.md Part W1) is caught here, not
+    silently served stale."""
+    print("\n[ward-seat -> ward-entity join]")
+    officials = json.loads((SERVE_DIR / "officials.json").read_text(encoding="utf-8"))
+    ward_section = officials.get("WARD", {})
+    fresh = ingest.load_ward_name_to_slug()
+
+    unresolved = []
+    stale = []
+    for key, entry in ward_section.items():
+        if not entry.get("parquet_match"):
+            continue  # AT_LARGE / MAYOR pseudo-keys are not ward entities
+        fresh_slug = fresh.get(key)
+        if fresh_slug is None:
+            unresolved.append(key)
+        elif entry.get("ward_slug") != fresh_slug:
+            stale.append(f"{key}: committed={entry.get('ward_slug')!r} fresh={fresh_slug!r}")
+    rep.check(not unresolved,
+              "every ward-specific seat resolves to a data/ward/index.json entity",
+              f"{len(unresolved)}: {unresolved[:5]}")
+    rep.check(not stale,
+              "committed ward_slug matches a fresh re-derivation (no index drift)",
+              f"{len(stale)}: {stale[:5]}")
+
+
 def check_drift(rep: Report) -> None:
     print("\n[schema drift]")
     problems = validate_schema.check_drift()
@@ -259,6 +289,7 @@ def main() -> int:
     check_profiles(rep)
     check_ledger(rep)
     check_district_reconciliation(rep)
+    check_ward_join(rep)
     check_drift(rep)
 
     print(f"\n{'=' * 56}")

@@ -43,12 +43,33 @@ HIGH-severity mislabel is found, so this can gate a pipeline run in CI.
 """
 from __future__ import annotations
 import argparse
+import json
+import re
 import sys
+from datetime import date
 from pathlib import Path
 
 import polars as pl
 
+_ROOT = Path(__file__).resolve().parent.parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+from pipeline import voter_data_cleaner as _v  # noqa: E402
+
 DEFAULT_PARQUET = Path('local/source/parquet_enriched/enriched_voters.parquet')
+DOCS_DATA = _ROOT / 'docs' / 'data'
+WARD_INDEX_JSON = DOCS_DATA / 'ward' / 'index.json'
+DATA_QUALITY_MD = _ROOT / 'DATA_QUALITY.md'
+LEDGER_BEGIN = '<!-- auto:begin -->'
+LEDGER_END = '<!-- auto:end -->'
+PLACE_WARD_COLS = ['COUNTY_NUMBER', 'PRECINCT_NAME', 'CITY', 'VILLAGE', 'WARD', 'TOWNSHIP',
+                   'RESIDENTIAL_CITY']
+
+# Measured 2026-07-09/10 baselines (PLAN_SUBCOUNTY_JURISDICTIONS.md Parts W1-W4).
+# --strict fails if these GROW (regression), not on the baseline count itself --
+# each is a per-drop measurement re-checked on every new SWVF partition.
+SPLIT_PRECINCT_BASELINE = 43
+WARD_ABUSE_BASELINE = 4
 
 # Ohio's 88 counties are numbered 01-88 in alphabetical order (fixed by statute).
 OHIO_COUNTIES = [
@@ -168,6 +189,362 @@ def village_in_township_candidates(lf: pl.LazyFrame) -> pl.DataFrame:
                 'township': pl.Utf8, 'voters': pl.Int64})
 
 
+def _county_slug(name: str) -> str:
+    return name.lower().replace(' ', '_')
+
+
+def _per_county_frames(lf: pl.LazyFrame):
+    """Yield (county_num, county_name, slug, df) for every county present,
+    reading only the raw jurisdiction columns the single resolvers need.
+    Bounded to 88 iterations; the underlying select/collect is one pass over
+    the enriched parquet, matching the pattern in
+    tools/admin/regen_precinct_index_places.py."""
+    cols = [c for c in PLACE_WARD_COLS if c in lf.collect_schema().names()]
+    full = lf.select(cols).collect()
+    for num, cname in sorted(COUNTY_NAME.items()):
+        sub = full.filter(pl.col('COUNTY_NUMBER') == num)
+        if sub.height:
+            yield num, cname, _county_slug(cname), sub
+
+
+def _bundle_missing_path(place: dict, county_slug: str) -> Path | None:
+    """Path to the place's stats bundle if it does NOT exist on disk, else
+    None. Checks a single representative chart file (party_affiliation) --
+    a bundle is written atomically per-place (CLAUDE.md 5), so one file's
+    presence implies the rest."""
+    slug = _v._place_slug(place, county_slug)
+    if place['type'] == 'city':
+        p = DOCS_DATA / 'city' / f'{slug}_city_party_affiliation.json'
+    else:
+        p = DOCS_DATA / place['type'] / f'{slug}_party_affiliation.json'
+    return None if p.exists() else p
+
+
+def check_place_completeness(lf: pl.LazyFrame, show: int) -> int:
+    """[5] Place resolution completeness (Part 6): every precinct must resolve
+    to exactly one (type, name) via the single place resolver
+    (_v._place_per_precinct) -- the data-layer guarantee behind 'no Other
+    precincts bucket'. Secondary warn-only check: does each resolved place's
+    stats bundle actually exist on disk (surfaces rare postal-fallback /
+    composite-township cases where a tree node would render but 404)."""
+    print(f'\n[5] Place resolution completeness')
+    placeless: list[tuple[str, str]] = []
+    missing_bundles: list[tuple[str, str, str]] = []
+    for num, cname, slug, sub in _per_county_frames(lf):
+        place = _v._place_per_precinct(sub)
+        precincts = set(sub['PRECINCT_NAME'].drop_nulls().unique().to_list())
+        for p in sorted(precincts - place.keys()):
+            placeless.append((cname, p))
+        seen_slugs = set()
+        for p in place.values():
+            key = (p['type'], p['name'])
+            if key in seen_slugs:
+                continue
+            seen_slugs.add(key)
+            missing = _bundle_missing_path(p, slug)
+            if missing is not None:
+                missing_bundles.append((cname, f"{p['type']}:{p['name']}", str(missing)))
+
+    print(f'    place-less precincts (MUST be zero): {len(placeless)}')
+    for cname, p in placeless[:show]:
+        print(f'      {cname:<14} {p}')
+    if len(placeless) > show:
+        print(f'      ... +{len(placeless) - show} more (raise --show to see all)')
+
+    print(f'    resolved places with no stats bundle on disk (warn-only): '
+          f'{len(missing_bundles)}')
+    for cname, label, path in missing_bundles[:show]:
+        print(f'      {cname:<14} {label:<30} missing {path}')
+
+    return len(placeless)
+
+
+def check_ward_coverage(lf: pl.LazyFrame) -> list[dict]:
+    """[6] Ward coverage matrix: per (municipality, county), % of that city's
+    voters with a non-blank WARD. Classify per the locked policy: 0% in every
+    county the city appears in -> INFO 'at-large' (no code change); anything
+    else uneven (partial coverage in a county, or populated in one county and
+    blank in another -- the Kettering/Greene case) -> DEFECT. We never impute
+    the gap (ward boundaries aren't derivable from the voter file)."""
+    print(f'\n[6] Ward coverage matrix (per municipality, across counties)')
+    # city_name -> county_slug -> (county_num, county_name, nonblank_ward_voters, total_voters)
+    by_city: dict[str, dict[str, tuple[str, str, int, int]]] = {}
+    for num, cname, slug, sub in _per_county_frames(lf):
+        place = _v._place_per_precinct(sub)
+        city_by_precinct = {p: v['name'] for p, v in place.items() if v['type'] == 'city'}
+        if not city_by_precinct:
+            continue
+        rows = sub.select(['PRECINCT_NAME', 'WARD']).with_columns(
+            pl.col('WARD').str.strip_chars().alias('_w')
+        )
+        rows = rows.with_columns(
+            pl.col('PRECINCT_NAME').replace_strict(city_by_precinct, default=None).alias('_city')
+        ).filter(pl.col('_city').is_not_null())
+        if rows.height == 0:
+            continue
+        agg = rows.group_by('_city').agg(
+            pl.len().alias('total'),
+            (pl.col('_w').is_not_null() & (pl.col('_w') != '')).sum().alias('nb'),
+        )
+        for r in agg.iter_rows(named=True):
+            by_city.setdefault(r['_city'], {})[slug] = (num, cname, r['nb'], r['total'])
+
+    defects: list[dict] = []
+    info_at_large = 0
+    for city, counties in sorted(by_city.items()):
+        covered = [c for c, (_, _, nb, tot) in counties.items() if nb > 0]
+        if not covered:
+            info_at_large += 1
+            continue
+        multi = len(counties) > 1
+        for c, (num, cname, nb, tot) in sorted(counties.items()):
+            cov = nb / tot if tot else 0.0
+            if 0 < cov < 0.95:
+                defects.append({'kind': 'partial', 'city': city, 'county_num': num,
+                                 'county_name': cname, 'county_slug': c,
+                                 'coverage': cov, 'nb': nb, 'total': tot})
+            elif cov == 0 and multi:
+                defects.append({'kind': 'cross_county_gap', 'city': city, 'county_num': num,
+                                 'county_name': cname, 'county_slug': c,
+                                 'coverage': 0.0, 'nb': nb, 'total': tot})
+
+    print(f'    at-large (0% everywhere) municipalities: {info_at_large}  (INFO, not a defect)')
+    print(f'    DEFECT-classified gaps: {len(defects)}')
+    for d in defects:
+        if d['kind'] == 'partial':
+            print(f"      {d['city']} / {d['county_slug']}: partial WARD coverage "
+                  f"{d['coverage']:.1%} ({d['nb']}/{d['total']} voters)")
+        else:
+            print(f"      {d['city']} / {d['county_slug']}: 0% WARD, populated in "
+                  f"another county ({d['total']} voters under-counted)")
+    return defects
+
+
+def check_split_precincts(lf: pl.LazyFrame, show: int) -> list:
+    """[7] Split precincts (H2): precincts whose ward-holding voters span more
+    than one WARD value. Baseline 43 statewide (2026-07-09 measurement) --
+    fail --strict if it grows. Also enumerates ward entities that are never
+    any precinct's dominant ward (the stamp-less tail: row-accurate page
+    exists, but no tree node), by diffing the stamped ward_slug set in the
+    committed precinct indexes against docs/data/ward/index.json."""
+    print(f'\n[7] Split precincts + stamp-less ward entities')
+    splits = []
+    for num, cname, slug, sub in _per_county_frames(lf):
+        if 'WARD' not in sub.columns:
+            continue
+        rows = sub.select(['PRECINCT_NAME', 'WARD']).with_columns(
+            pl.col('WARD').str.strip_chars().alias('_w')
+        ).filter(pl.col('_w') != '')
+        if rows.height == 0:
+            continue
+        per_prec = (rows.group_by(['PRECINCT_NAME', '_w']).agg(pl.len().alias('n'))
+                        .group_by('PRECINCT_NAME').agg(pl.col('_w').n_unique().alias('nwards'),
+                                                        pl.col('n').sum().alias('voters')))
+        for r in per_prec.filter(pl.col('nwards') > 1).iter_rows(named=True):
+            splits.append((cname, r['PRECINCT_NAME'], r['nwards'], r['voters']))
+
+    print(f'    precincts spanning >1 ward: {len(splits)}  (baseline: 43)')
+    for cname, pname, n, voters in splits[:show]:
+        print(f'      {cname:<14} {pname:<26} {n} wards ({voters:,} voters)')
+    if len(splits) > show:
+        print(f'      ... +{len(splits) - show} more (raise --show to see all)')
+
+    stamped_slugs: set[str] = set()
+    for idx_path in DOCS_DATA.glob('*_precinct_index.json'):
+        idx = json.loads(idx_path.read_text(encoding='utf-8'))
+        for entry in idx.get('precincts', []):
+            ws = entry.get('ward_slug')
+            if ws:
+                stamped_slugs.add(ws)
+
+    all_slugs = {e['slug'] for e in json.loads(WARD_INDEX_JSON.read_text(encoding='utf-8'))} \
+        if WARD_INDEX_JSON.exists() else set()
+    stampless = sorted(all_slugs - stamped_slugs)
+    print(f'    ward entities with no precinct stamped as their dominant ward: '
+          f'{len(stampless)}  (baseline: 7)')
+    for s in stampless[:show]:
+        print(f'      {s}')
+
+    return splits
+
+
+def check_ward_collision_safety(lf: pl.LazyFrame) -> bool:
+    """[8] Collision safety: no two ward entities share a slug, and every
+    precinct-stamped ward_slug resolves to an existing entity (the
+    'first_ward silently merges 5 municipalities' class of bug can never
+    regress unnoticed). Current truth: 915 stamped slugs subset of 922
+    entities (7 stamp-less, see [7])."""
+    print(f'\n[8] Ward collision safety')
+    if not WARD_INDEX_JSON.exists():
+        print('    [skip] docs/data/ward/index.json not found')
+        return True
+    entries = json.loads(WARD_INDEX_JSON.read_text(encoding='utf-8'))
+    slugs = [e['slug'] for e in entries]
+    dupes = sorted({s for s in slugs if slugs.count(s) > 1})
+    print(f'    duplicate entity slugs (MUST be zero): {len(dupes)}')
+    for d in dupes:
+        print(f'      {d}')
+
+    slug_set = set(slugs)
+    stamped_slugs: set[str] = set()
+    for idx_path in DOCS_DATA.glob('*_precinct_index.json'):
+        idx = json.loads(idx_path.read_text(encoding='utf-8'))
+        for entry in idx.get('precincts', []):
+            ws = entry.get('ward_slug')
+            if ws:
+                stamped_slugs.add(ws)
+    orphans = sorted(stamped_slugs - slug_set)
+    print(f'    stamped ward_slug values with no matching entity (MUST be zero): '
+          f'{len(orphans)}')
+    for o in orphans[:20]:
+        print(f'      {o}')
+    print(f'    stamped slugs: {len(stamped_slugs)}  entities: {len(slug_set)}  '
+          f'(subset check: {"OK" if not orphans else "FAIL"})')
+    return not dupes and not orphans
+
+
+def check_ward_schema_abuse(lf: pl.LazyFrame) -> list[dict]:
+    """[9] Schema abuse: WARD values that are not real wards -- either the
+    value itself is a township name (Lucas stuffs 'WASHINGTON TOWNSHIP' etc.
+    into WARD) or the dominant resolved parent is a township (Stark's
+    WARD='CANTON' on 8,182 township voters; a 2-voter BELLEVUE WARD 4
+    fragment in a township-tokened precinct). Mirrors
+    _v._ward_map_per_county's own 'regex OR township-parent' exclusion --
+    this validates against that rule, not the plan's original prose.
+    Baseline: 4 distinct WARD values statewide."""
+    print(f'\n[9] Ward schema abuse (excluded from ward entities)')
+    abuse_rows: list[dict] = []
+    for num, cname, slug, sub in _per_county_frames(lf):
+        ward_map = _v._ward_map_per_county(sub, slug)
+        if not ward_map:
+            continue
+        counts = None
+        for ward_value, desc in ward_map.items():
+            if not desc['abuse']:
+                continue
+            if counts is None:
+                counts = (sub.select(pl.col('WARD').str.strip_chars().alias('_w'))
+                             .group_by('_w').agg(pl.len().alias('n')))
+            n = counts.filter(pl.col('_w') == ward_value)['n'].to_list()
+            abuse_rows.append({'county_num': num, 'county_name': cname,
+                                'ward_value': ward_value,
+                                'parent_type': desc['parent_type'],
+                                'voters': n[0] if n else 0})
+
+    distinct_values = sorted({(r['county_name'], r['ward_value']) for r in abuse_rows})
+    print(f'    distinct abused WARD values: {len(distinct_values)}  (baseline: 4)')
+    for r in abuse_rows:
+        print(f"      {r['county_name']:<12} WARD={r['ward_value']:<20} "
+              f"parent_type={r['parent_type']:<10} ({r['voters']:,} voters)")
+    return abuse_rows
+
+
+def _gap_slug(s: str) -> str:
+    return re.sub(r'[^A-Z0-9]+', '-', s.upper()).strip('-')
+
+
+def build_ledger_rows(ward_defects: list[dict], abuse_rows: list[dict],
+                       splits: list) -> list[dict]:
+    """Part W7: turn this run's measured gaps into stable-ID ledger rows for
+    DATA_QUALITY.md. One row per distinct state-data defect; IDs are stable
+    across drops (county number + defect specifics) so the manual section can
+    reference them durably. Never fabricates a boundary or imputes a count --
+    every row is a direct measurement from this drop's enriched parquet."""
+    rows: list[dict] = []
+    for d in ward_defects:
+        gap_id = f"WARD-GAP-{d['county_num']}-{_gap_slug(d['city'])}"
+        cls = ('cross-county ward gap' if d['kind'] == 'cross_county_gap'
+               else 'partial ward coverage')
+        voters = d['total'] - d['nb'] if d['kind'] == 'cross_county_gap' else d['nb']
+        detail = (f"{d['coverage']:.1%} coverage" if d['kind'] == 'partial'
+                  else '0% coverage, populated in another county')
+        rows.append({
+            'gap_id': gap_id, 'county': d['county_name'], 'municipality': d['city'],
+            'defect_class': cls, 'affected_voters': d['total'],
+            'detail': detail,
+        })
+    for r in abuse_rows:
+        gap_id = f"WARD-ABUSE-{r['county_num']}-{_gap_slug(r['ward_value'])}"
+        rows.append({
+            'gap_id': gap_id, 'county': r['county_name'], 'municipality': r['ward_value'],
+            'defect_class': 'schema abuse (township name in WARD)',
+            'affected_voters': r['voters'],
+            'detail': f"resolves to {r['parent_type']} parent",
+        })
+    if splits:
+        total_voters = sum(v for *_, v in splits)
+        rows.append({
+            'gap_id': 'WARD-SPLIT-PRECINCTS', 'county': 'statewide',
+            'municipality': f'{len(splits)} precincts (linked list, see validator [7])',
+            'defect_class': 'split precinct (dominant-ward approximation)',
+            'affected_voters': total_voters,
+            'detail': f'{len(splits)} precincts span >1 ward',
+        })
+    return rows
+
+
+def _parse_existing_ledger(text: str) -> dict[str, str]:
+    """gap_id -> first_observed, read from a previous auto-table so re-runs
+    don't reset the 'first seen' date. Tolerant of a missing/empty table."""
+    first_seen: dict[str, str] = {}
+    for line in text.splitlines():
+        if not line.startswith('|'):
+            continue
+        cells = [c.strip() for c in line.strip('|').split('|')]
+        if len(cells) < 6 or cells[0] in ('Gap ID', '---') or set(cells[0]) == {'-'}:
+            continue
+        gap_id, first_observed = cells[0], cells[4]
+        if gap_id and first_observed:
+            first_seen[gap_id] = first_observed
+    return first_seen
+
+
+def write_ledger(rows: list[dict], today: str) -> None:
+    """Write/refresh the auto section of DATA_QUALITY.md between LEDGER_BEGIN
+    / LEDGER_END markers, preserving everything outside them (the manual
+    status section is human-owned, per Part W7) and preserving each gap's
+    first-observed date across runs."""
+    existing = DATA_QUALITY_MD.read_text(encoding='utf-8') if DATA_QUALITY_MD.exists() else ''
+    prior_first_seen = _parse_existing_ledger(existing)
+
+    header = ('| Gap ID | County | Municipality | Defect class | First observed | '
+               'Last observed | Affected voters | Detail |\n'
+               '|---|---|---|---|---|---|---|---|\n')
+    lines = [header.rstrip('\n')]
+    for r in sorted(rows, key=lambda r: r['gap_id']):
+        first_observed = prior_first_seen.get(r['gap_id'], today)
+        lines.append(f"| {r['gap_id']} | {r['county']} | {r['municipality']} | "
+                      f"{r['defect_class']} | {first_observed} | {today} | "
+                      f"{r['affected_voters']:,} | {r['detail']} |")
+    table = '\n'.join(lines)
+
+    if LEDGER_BEGIN in existing and LEDGER_END in existing:
+        pre, rest = existing.split(LEDGER_BEGIN, 1)
+        _, post = rest.split(LEDGER_END, 1)
+        new_text = f'{pre}{LEDGER_BEGIN}\n{table}\n{LEDGER_END}{post}'
+    else:
+        new_text = (
+            '# DATA_QUALITY.md — Ohio SWVF state-data defect ledger\n\n'
+            'Measured gaps in the state-provided voter file (missing WARD '
+            'coverage, township-name schema abuse in WARD, split precincts) '
+            'that are Board-of-Elections/SoS data defects, not repo bugs. '
+            'The table below is regenerated by '
+            '`python tools/admin/validate_jurisdiction_fields.py --ledger`; '
+            'edit only the manual section beneath it.\n\n'
+            f'{LEDGER_BEGIN}\n{table}\n{LEDGER_END}\n\n'
+            '## Manual status\n\n'
+            'Never touched by the tool. Add one row per gap ID when a report '
+            'is filed.\n\n'
+            '| Gap ID | Report filed | SoS/BoE contact or ticket | Status | '
+            'Resolved in drop |\n'
+            '|---|---|---|---|---|\n'
+        )
+    tmp = DATA_QUALITY_MD.with_suffix('.md.tmp')
+    tmp.write_text(new_text, encoding='utf-8')
+    tmp.replace(DATA_QUALITY_MD)
+    print(f'\n[ledger] wrote {len(rows)} rows to {DATA_QUALITY_MD}')
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--parquet', type=Path, default=DEFAULT_PARQUET)
@@ -175,6 +552,10 @@ def main() -> int:
                     help='max conflict rows to print')
     ap.add_argument('--strict', action='store_true',
                     help='exit non-zero if any name conflict exists')
+    ap.add_argument('--skip-ward', action='store_true',
+                    help='skip sections [5]-[9] (slower: per-county resolver passes)')
+    ap.add_argument('--ledger', action='store_true',
+                    help='write/refresh the auto section of DATA_QUALITY.md (Part W7)')
     args = ap.parse_args()
 
     if not args.parquet.exists():
@@ -269,6 +650,27 @@ def main() -> int:
     # postal label there would be a genuine mislabel.
     postal_set = set(postal_only['COUNTY_NUMBER'].to_list())
     high = conflicts.filter(~pl.col('COUNTY_NUMBER').is_in(postal_set))
+
+    placeless_count = 0
+    ward_defects: list[str] = []
+    splits: list = []
+    collision_ok = True
+    abuse_rows: list = []
+    if not args.skip_ward:
+        placeless_count = check_place_completeness(lf, args.show)
+        ward_defects = check_ward_coverage(lf)
+        splits = check_split_precincts(lf, args.show)
+        collision_ok = check_ward_collision_safety(lf)
+        abuse_rows = check_ward_schema_abuse(lf)
+
+    if args.ledger:
+        if args.skip_ward:
+            print('ERROR: --ledger requires sections [5]-[9] (drop --skip-ward)',
+                  file=sys.stderr)
+            return 2
+        ledger_rows = build_ledger_rows(ward_defects, abuse_rows, splits)
+        write_ledger(ledger_rows, date.today().isoformat())
+
     print(f'\n[SUMMARY]')
     print(f'  township/postal name conflicts total:                 '
           f'{conflicts.height}')
@@ -279,11 +681,38 @@ def main() -> int:
     print('  NOTE: the resolver maps these conflicts to None (= "not a city")')
     print('        via the TOWNSHIP step, so they are NOT mislabeled at runtime.')
     print('        This count tracks the postal-fallback risk surface over time.')
+    if not args.skip_ward:
+        print(f'  place-less precincts (MUST be zero):                   {placeless_count}')
+        print(f'  ward coverage DEFECTs (state-data gaps, tracked in '
+              f'DATA_QUALITY.md): {len(ward_defects)}')
+        print(f'  split precincts:                                       '
+              f'{len(splits)}  (baseline {SPLIT_PRECINCT_BASELINE})')
+        print(f'  ward collision safety:                                 '
+              f'{"OK" if collision_ok else "FAIL"}')
+        distinct_abuse = len({(r['county_name'], r['ward_value']) for r in abuse_rows})
+        print(f'  ward schema-abuse values:                              '
+              f'{distinct_abuse}  (baseline {WARD_ABUSE_BASELINE})')
 
-    if high.height and args.strict:
-        print('\nFAIL: high-severity jurisdiction mislabels present.',
-              file=sys.stderr)
-        return 1
+    if args.strict:
+        failures = []
+        if high.height:
+            failures.append('high-severity jurisdiction mislabels present')
+        if placeless_count:
+            failures.append(f'{placeless_count} place-less precincts (must be zero)')
+        if not collision_ok:
+            failures.append('ward slug collision/orphan check failed (must be zero)')
+        if len(splits) > SPLIT_PRECINCT_BASELINE:
+            failures.append(f'split precincts grew to {len(splits)} '
+                             f'(baseline {SPLIT_PRECINCT_BASELINE})')
+        distinct_abuse = len({(r['county_name'], r['ward_value']) for r in abuse_rows})
+        if distinct_abuse > WARD_ABUSE_BASELINE:
+            failures.append(f'ward schema-abuse values grew to {distinct_abuse} '
+                             f'(baseline {WARD_ABUSE_BASELINE})')
+        if failures:
+            print('\nFAIL:', file=sys.stderr)
+            for f in failures:
+                print(f'  - {f}', file=sys.stderr)
+            return 1
     return 0
 
 
