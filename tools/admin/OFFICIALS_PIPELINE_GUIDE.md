@@ -9,6 +9,10 @@ green checkmark from the validator.
 > few places where the rules in `CLAUDE.md §4` could bite you. Nothing here breaks a
 > rule, but two things need your eyes on the first run.
 
+> **Note (2026-07):** `dump_schema.py` (Stage 8) was renamed to `validate_schema.py`
+> to match the `validate_*` naming of the other gates. Same script, same flags —
+> just a new filename. Commands below already reflect the new name.
+
 ---
 
 ## 1. What this pipeline does (the big picture)
@@ -49,7 +53,7 @@ All scripts live in `tools/admin/` (except the wrapper, in `pipeline/`).
 | 5 | `build_precinct_captains.py --county montgomery` | `serve/precinct_captains.json` |
 | 6 | `build_candidates.py --county montgomery` | `serve/candidates.json` |
 | **7** | **`match_to_voters.py --county montgomery`** | **`serve/partisan_profiles.json`** |
-| **8** | **`dump_schema.py`** then **`validate_officials.py --county montgomery`** | refreshes `schema/` and prints a pass/fail report |
+| **8** | **`validate_schema.py`** then **`validate_officials.py --county montgomery`** | refreshes `schema/` and prints a pass/fail report |
 
 **Stage 7 output — `serve/partisan_profiles.json`.** For every filer it could match, it
 records that person's `sos_voterid`, voting history counts, lean score, and a plain
@@ -104,7 +108,7 @@ python tools/admin/pdf_to_markdown.py --all
 python tools/admin/parse_candidate_petitions.py --county montgomery
 python tools/admin/build_candidates.py --county montgomery
 python tools/admin/match_to_voters.py --county montgomery --verbose
-python tools/admin/dump_schema.py
+python tools/admin/validate_schema.py
 python tools/admin/validate_officials.py --county montgomery
 ```
 
@@ -165,7 +169,7 @@ terminal — not through the MCP):
 
 ```
 git add serve/partisan_profiles.json serve/officials.json serve/precinct_captains.json serve/candidates.json
-git add tools/admin/match_to_voters.py tools/admin/dump_schema.py tools/admin/validate_officials.py
+git add tools/admin/match_to_voters.py tools/admin/validate_schema.py tools/admin/validate_officials.py
 git add pipeline/officials_pipeline_wrapper.py
 git add schema/enriched/enriched_voters.md schema/serve/partisan_profiles.md
 git add schema/serve/officials.md schema/serve/precinct_captains.md schema/serve/candidates.md

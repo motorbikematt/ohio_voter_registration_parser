@@ -13,7 +13,8 @@ Checks:
      (gaps are gaps, not silent drops).
   4. every person object across officials/candidates has name + party/nonpartisan.
   5. partisan_profiles.json (if present) is well-formed: known labels, gaps surfaced.
-  6. schema drift: dump_schema regenerates the inventory; STALE blocks fail the build.
+  6. schema drift: validate_schema regenerates the inventory; STALE blocks fail the build.
+     (validate_schema.py was named dump_schema.py before the 2026-07 validate_* rename.)
 
 Usage:
     python tools/admin/validate_officials.py --county montgomery
@@ -34,7 +35,7 @@ from officials_common import (  # noqa: E402
     load_precinct_crosswalk,
 )
 import csv  # noqa: E402
-import dump_schema  # noqa: E402
+import validate_schema  # noqa: E402  (was dump_schema.py before the 2026-07 rename)
 import ingest_elected_officials as ingest  # noqa: E402  (single district resolver)
 
 SERVE_DIR = ROOT / "serve"
@@ -238,7 +239,7 @@ def check_district_reconciliation(rep: Report) -> None:
 
 def check_drift(rep: Report) -> None:
     print("\n[schema drift]")
-    problems = dump_schema.check_drift()
+    problems = validate_schema.check_drift()
     rep.check(not problems, "schema inventory in sync with live artifacts",
               "; ".join(problems))
 

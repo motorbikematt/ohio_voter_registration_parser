@@ -1,3 +1,13 @@
+"""voter_lookup_source.py -- global substring search across the raw SWVF_*.txt files.
+
+Renamed 2026-07 from raw_voter_lookup.py to voter_lookup_source.py to pair with
+the sibling voter_lookup_parquet.py (renamed from voter_lookup.py, same date),
+which runs the identical search against the cleaned Parquet cache instead. Use
+this one when checking whether a record was dropped or altered somewhere in
+pipeline processing -- it reads the untouched original source files. If anything
+still imports this module by its old filename/path, update the reference -- the
+run_global_raw_search() function name is unchanged.
+"""
 import polars as pl
 from pathlib import Path
 from datetime import datetime

@@ -1,3 +1,12 @@
+"""voter_lookup_parquet.py -- global substring search across the enriched Parquet cache.
+
+Renamed 2026-07 from voter_lookup.py to voter_lookup_parquet.py to disambiguate
+from the sibling voter_lookup_source.py (renamed from raw_voter_lookup.py, same
+date), which runs the identical search against the raw SWVF_*.txt files instead.
+The old name didn't say which storage layer it hit; if anything still imports
+this module by its old filename/path, update the reference -- the run_global_
+parquet_search() function name is unchanged.
+"""
 import polars as pl
 from pathlib import Path
 from datetime import datetime

@@ -1,4 +1,12 @@
-"""dump_schema.py -- generate the structural inventory the schema/ docs own.
+"""validate_schema.py -- generate the structural inventory the schema/ docs own.
+
+Renamed 2026-07 from dump_schema.py to validate_schema.py so its name carries the
+same validate_* verb as validate_officials.py and validate_jurisdiction_fields.py
+(the other two integrity gates in this folder) -- "dump" undersold that --check
+mode is a real drift gate, not just a generator. All function/CLI-flag names are
+unchanged (generate_blocks(), check_drift(), --check). If anything still imports
+this module by its old filename/path (validate_officials.py did, see below --
+already updated), update the reference.
 
 schema/README.md splits every schema doc into two parts with different owners:
   1. Structural inventory  -- GENERATED here, never hand-typed (column names/dtypes,
@@ -19,8 +27,8 @@ HOST: run on Windows / Claude Code CLI. The Cowork sandbox serves byte-capped re
 and cannot reliably read the parquet (schema/README.md host note).
 
 Usage:
-    python tools/admin/dump_schema.py            # write/refresh the generated blocks
-    python tools/admin/dump_schema.py --check    # exit 1 if any block is out of date
+    python tools/admin/validate_schema.py            # write/refresh the generated blocks
+    python tools/admin/validate_schema.py --check    # exit 1 if any block is out of date
 """
 
 from __future__ import annotations
