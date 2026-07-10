@@ -14,6 +14,7 @@ the raw SWVF txt files (one-time, ~4 min).  All subsequent runs load from
 the cache in under 60 s.
 """
 
+import argparse
 import gzip
 import json
 import shutil
@@ -36,6 +37,9 @@ for _p in [str(Path(__file__).resolve().parent), str(BASE_DIR)]:
 SOURCE_DIR = BASE_DIR / "local" / "source"  # PATCH: Rerouted to local/ workspace
 TXT_DIR    = SOURCE_DIR / "State Voter Files"
 MANIFEST   = BASE_DIR / "download_manifest.json"
+
+# Single resolver for snapshot discovery/staging (CLAUDE.md section 5).
+import snapshot_store  # noqa: E402  (needs the sys.path setup above)
 
 SOS_URL    = "https://www6.ohiosos.gov/ords/f?p=VOTERFTP:STWD"
 SOS_BASE   = "https://www6.ohiosos.gov"
@@ -100,12 +104,7 @@ def _build_city_county_map(logger=None):
     return out
 
 
-SWVF_NAMES = [
-    "SWVF_1_22.txt.gz",
-    "SWVF_23_44.txt.gz",
-    "SWVF_45_66.txt.gz",
-    "SWVF_67_88.txt.gz",
-]
+SWVF_NAMES = list(snapshot_store.SWVF_GZ_NAMES)  # canonical 4-name set
 
 REQ_HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; ohio-voter-pipeline/1.0)"}
 TIMEOUT     = 60
@@ -181,20 +180,14 @@ def download_file(url: str, dest: Path):
                 received += len(chunk)
                 if total:
                     pct = received / total * 100
-                    print(f"\r  ↓ {dest.name}  {pct:.0f}%  ({received/1e6:.0f}/{total/1e6:.0f} MB)",
+                    print(f"\r  {dest.name}  {pct:.0f}%  ({received/1e6:.0f}/{total/1e6:.0f} MB)",
                           end="", flush=True)
-    print(f"\r  ✓ {dest.name}  ({received/1e6:.0f} MB)                    ")
+    print(f"\r  OK {dest.name}  ({received/1e6:.0f} MB)                    ")
 
 
-def decompress_gz(gz_path: Path, out_dir: Path) -> Path:
-    """Decompress gz_path into out_dir; return path to decompressed file."""
-    out_path = out_dir / gz_path.name.removesuffix(".gz")
-    print(f"  Decompressing → {out_path.name} ...", end="", flush=True)
-    with gzip.open(gz_path, "rb") as f_in, open(out_path, "wb") as f_out:
-        shutil.copyfileobj(f_in, f_out, length=8 * 1024 * 1024)
-    size = out_path.stat().st_size
-    print(f"\r  ✓ {out_path.name}  ({size/1e9:.2f} GB)              ")
-    return out_path
+# decompress_gz now lives in snapshot_store (single resolver); re-exported
+# here for any caller still importing it from this module.
+from snapshot_store import decompress_gz  # noqa: E402,F401
 
 
 # ── County lookup helpers ─────────────────────────────────────────────────────
@@ -413,93 +406,211 @@ def prompt_next_step(txt_files: list[Path]) -> tuple[str, bool, list[str] | None
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-def main():
-    print("=" * 60)
-    print("  OHIO VOTER FILE PIPELINE")
-    print("=" * 60)
+# -- Snapshot selection --------------------------------------------------------
 
-    manifest = load_manifest()
-
-    # 1 ── optionally scrape the SOS page for updated file links
-    links = {}
-    if prompt_check_for_updates():
+def _parse_last_modified_date(lm: str) -> str | None:
+    """Parse an HTTP Last-Modified header value to 'YYYY-MM-DD', or None."""
+    if not lm or lm == "unknown":
+        return None
+    for fmt in ("%a, %d %b %Y %H:%M:%S %Z", "%a, %d %b %Y %H:%M:%S GMT"):
         try:
-            links = scrape_download_links()
-            if not links:
-                print("  ⚠  No SWVF download links found (page layout may have changed).")
-                print(f"     Check manually: {SOS_URL}")
-            else:
-                print(f"  Found {len(links)} download link(s).\n")
-        except RuntimeError as e:
-            print(f"  ⚠  Could not reach SOS page: {e}")
-            print("     Skipping download check — will use files already on disk.\n")
-    else:
-        print("  Skipping SOS scrape — using files already on disk.\n")
+            return datetime.strptime(lm, fmt).strftime("%Y-%m-%d")
+        except ValueError:
+            continue
+    return None
 
-    # 2 ── compare remote Last-Modified against manifest
+
+def prompt_snapshot_selection() -> snapshot_store.SnapshotInfo:
+    """
+    Show discovered snapshots and prompt which to process.
+    Enter accepts the default (newest complete snapshot).
+    """
+    snaps = snapshot_store.list_snapshots()
+    complete = [s for s in snaps if s.complete]
+    if not complete:
+        print("\n  No COMPLETE snapshot found under:")
+        print(f"    {snapshot_store.SNAPSHOTS_DIR}")
+        print("  Add a dated folder with the 4 SWVF_*.txt.gz files "
+              "(see snapshots/README.md).")
+        sys.exit(1)
+
+    default = complete[0]  # newest complete
+    print(f"\n{'='*60}")
+    print("  AVAILABLE SNAPSHOTS")
+    print("=" * 60)
+    print(snapshot_store.format_snapshot_table(snaps))
+    print()
+    while True:
+        raw = input(f"  Snapshot to process (# or YYYY-MM-DD) [{default.date}]: ").strip()
+        if not raw:
+            return default
+        if raw.isdigit():
+            idx = int(raw) - 1
+            if 0 <= idx < len(snaps):
+                pick = snaps[idx]
+            else:
+                print("  Invalid row number.")
+                continue
+        else:
+            pick = next((s for s in snaps if s.date == raw), None)
+            if pick is None:
+                print("  No snapshot with that date.")
+                continue
+        if not pick.complete:
+            print(f"  {pick.date} is INCOMPLETE; choose a complete snapshot.")
+            continue
+        return pick
+
+
+def _run_update_check() -> None:
+    """
+    Best-effort SOS scrape + download into snapshots/<date>/ with provenance.json.
+    The SOS site blocks automated requests (403/CAPTCHA); this stays best-effort
+    and never raises into the caller.
+    """
+    manifest = load_manifest()
+    try:
+        links = scrape_download_links()
+    except RuntimeError as e:
+        print(f"  WARN: could not reach SOS page: {e}")
+        print("        Continuing with snapshots already on disk.")
+        return
+    if not links:
+        print("  WARN: no SWVF download links found (page layout may have changed).")
+        print(f"        Check manually: {SOS_URL}")
+        return
+    print(f"  Found {len(links)} download link(s).")
+
     to_download: dict[str, tuple[str, str]] = {}
     for name, url in links.items():
         remote_dt = head_last_modified(url)
         cached_dt = manifest.get(name, {}).get("last_modified")
         if remote_dt == "unknown" or remote_dt != cached_dt:
-            label = "NEW" if not cached_dt else f"updated  {cached_dt} → {remote_dt}"
-            print(f"  {name}:  {label}")
             to_download[name] = (url, remote_dt)
-        else:
-            print(f"  {name}:  current  ({remote_dt})")
-
-    # 3 ── if nothing to download (or scrape skipped), jump straight to prompt
-    txt_files = sorted(TXT_DIR.glob("SWVF_*.txt")) if TXT_DIR.exists() else []
     if not to_download:
-        if txt_files:
-            print("✓ Using files already on disk — no download needed.")
-            choice, include_precincts, county_nums = prompt_next_step(txt_files)
-            _dispatch(choice, txt_files, include_precincts, county_nums)
-        else:
-            print("\n✗ No SWVF_*.txt files found and download unavailable.")
-            print(f"  Place files manually in: {TXT_DIR}")
-            sys.exit(1)
+        print("  All remote files current; nothing to download.")
         return
 
-    # 4 ── create dirs
-    today_str = date.today().strftime("%Y-%m-%d")
-    gz_dir    = SOURCE_DIR / f"{today_str} gz"
-    gz_dir.mkdir(parents=True, exist_ok=True)
-    TXT_DIR.mkdir(parents=True, exist_ok=True)
+    # Date the snapshot by the newest parseable Last-Modified, else today.
+    parsed = [d for d in (_parse_last_modified_date(dt) for _, dt in to_download.values()) if d]
+    snap_date = max(parsed) if parsed else date.today().strftime("%Y-%m-%d")
+    dest_dir = snapshot_store.SNAPSHOTS_DIR / snap_date
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    print(f"\n  Downloading into {dest_dir}\n")
 
-    # 5 ── download + decompress
-    print(f"\nDownloading to {gz_dir}\n")
-    newly_txt = []
+    sha: dict[str, str] = {}
+    last_modified: dict[str, str] = {}
     for name, (url, remote_dt) in to_download.items():
-        gz_path = gz_dir / name
+        gz_path = dest_dir / name
         try:
             download_file(url, gz_path)
         except Exception as e:
-            print(f"\n  ✗ Download failed for {name}: {e}")
+            print(f"  FAIL download {name}: {e}")
             continue
-
-        try:
-            txt_path = decompress_gz(gz_path, TXT_DIR)
-            newly_txt.append(txt_path)
-        except Exception as e:
-            print(f"\n  ✗ Decompression failed for {name}: {e}")
-            continue
-
+        sha[name] = snapshot_store._sha256(gz_path)
+        last_modified[name] = remote_dt
         manifest.setdefault(name, {}).update({
             "last_modified": remote_dt,
             "downloaded":    datetime.now().isoformat(),
             "gz_path":       str(gz_path),
-            "txt_path":      str(txt_path),
         })
 
+    prov = {
+        "source_url":    SOS_URL,
+        "last_modified": last_modified,
+        "sha256":        sha,
+        "downloaded_at": datetime.now().isoformat(timespec="seconds"),
+        "downloaded_by": "ohio_voter_pipeline.scrape",
+    }
+    snapshot_store._atomic_write_json(dest_dir / "provenance.json", prov)
     manifest["last_run"] = datetime.now().isoformat()
     save_manifest(manifest)
-    print(f"\n✓ Manifest saved → {MANIFEST}")
+    print(f"\n  Downloaded snapshot {snap_date}; provenance.json written.")
 
-    # 6 ── prompt
-    txt_files = sorted(TXT_DIR.glob("SWVF_*.txt"))
-    if txt_files:
+
+# -- Argument parsing ----------------------------------------------------------
+
+def parse_args(argv=None) -> argparse.Namespace:
+    p = argparse.ArgumentParser(
+        prog="ohio_voter_pipeline.py",
+        description="Ohio SWVF snapshot pipeline: discover, stage, and analyze.",
+    )
+    p.add_argument("--list-snapshots", action="store_true",
+                   help="Print the discovered snapshot table and exit.")
+    sel = p.add_mutually_exclusive_group()
+    sel.add_argument("--snapshot", metavar="YYYY-MM-DD",
+                     help="Process this exact snapshot (implies headless).")
+    sel.add_argument("--latest", action="store_true",
+                     help="Process the newest complete snapshot (implies headless).")
+    p.add_argument("--choice", choices=["1", "2", "3", "4", "5"],
+                   help="Menu choice to run, bypassing the interactive menu (implies headless).")
+    p.add_argument("--counties", metavar="LIST",
+                   help='Comma-separated county numbers, e.g. "57,29" (required with --choice 5).')
+    p.add_argument("--precinct-charts", action="store_true",
+                   help="Also build per-precinct chart JSON (choices 1/2/3/5).")
+    p.add_argument("--no-update-check", action="store_true",
+                   help="Skip the interactive SOS update-check prompt.")
+    return p.parse_args(argv)
+
+
+# -- Main ----------------------------------------------------------------------
+
+def main(args: argparse.Namespace | None = None):
+    if args is None:
+        args = parse_args()
+
+    # --list-snapshots: print and exit before any prompt or network call.
+    if args.list_snapshots:
+        print(snapshot_store.format_snapshot_table())
+        return
+
+    # Any explicit selection/choice flag implies headless: never call input().
+    headless = bool(args.snapshot or args.latest or args.choice)
+
+    if args.choice == "5" and not args.counties:
+        print('  --choice 5 requires --counties "57,29".')
+        sys.exit(2)
+
+    print("=" * 60)
+    print("  OHIO VOTER FILE PIPELINE")
+    print("=" * 60)
+
+    # 1 -- optional SOS update check (interactive only; never in headless).
+    if not headless and not args.no_update_check and prompt_check_for_updates():
+        _run_update_check()
+    elif not headless:
+        print("  Skipping SOS scrape -- using snapshots already on disk.")
+
+    # 2 -- snapshot selection.
+    if args.snapshot:
+        snap = snapshot_store.resolve(args.snapshot)
+    elif args.latest or headless:
+        snap = snapshot_store.resolve("latest")
+    else:
+        snap = prompt_snapshot_selection()
+
+    print(f"\n  Selected snapshot: {snap.date}")
+
+    # 3 -- stage (decompress) the chosen snapshot into State Voter Files/.
+    #      Idempotent: already-staged snapshots skip decompression.
+    txt_files = sorted(snapshot_store.stage(snap))
+
+    # 4 -- menu choice + dispatch.
+    if args.choice:
+        choice = args.choice
+        include_precincts = args.precinct_charts
+        county_nums = None
+        if choice == "5":
+            county_nums = resolve_counties(args.counties)
+            if not county_nums:
+                print(f"  Could not resolve counties from: {args.counties!r}")
+                sys.exit(2)
+        _dispatch(choice, txt_files, include_precincts, county_nums)
+    else:
         choice, include_precincts, county_nums = prompt_next_step(txt_files)
+        if choice == "0":
+            print("  Exiting.")
+            return
         _dispatch(choice, txt_files, include_precincts, county_nums)
 
 
@@ -664,4 +775,4 @@ def _narrative_phase(
 
 
 if __name__ == '__main__':
-    main()
+    main(parse_args())

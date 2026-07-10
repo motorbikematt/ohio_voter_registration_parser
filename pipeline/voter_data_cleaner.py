@@ -173,13 +173,25 @@ def _write_cache_atomic(df: pl.DataFrame, logger: logging.Logger) -> None:
 
 def get_source_date(logger: logging.Logger) -> str:
     """
-    Extract the effective source-file date from download_manifest.json.
+    Extract the effective source-file date as ``YYYYMMDD``.
 
-    The pipeline stores per-file ``last_modified`` HTTP header strings.  We
-    parse the most recent one and return it formatted as ``YYYYMMDD``.  If the
-    manifest is absent or unparseable, fall back to today's date so callers
-    always get a usable string.
+    Precedence:
+      1. The staged snapshot's own date (``snapshot_store.staged_info()`` ->
+         ``staged_from.json``) -- the true source-file date.
+      2. The most recent ``last_modified`` in ``download_manifest.json``.
+      3. Today's date (last resort).
+    Each fallback logs a loud warning so a wrong output date is never silent.
     """
+    # 1 -- staged snapshot date (authoritative source-file date).
+    import snapshot_store
+    staged = snapshot_store.staged_info()
+    if staged and staged.get('snapshot_date'):
+        snap_date = staged['snapshot_date']
+        logger.info('Source-file date from staged snapshot: %s', snap_date)
+        return snap_date.replace('-', '')
+    logger.warning('No staged snapshot (staged_from.json) -- falling back to '
+                   'download_manifest.json for the source date')
+
     if not MANIFEST_PATH.exists():
         logger.warning('download_manifest.json not found — falling back to today\'s date '
                        'for output filenames (source-file date is unavailable)')

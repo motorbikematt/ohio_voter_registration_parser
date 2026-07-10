@@ -40,6 +40,8 @@ import polars as pl
 
 # --- CONFIG --------------------------------------------------------------
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import snapshot_store  # single resolver for snapshot staging (CLAUDE.md section 5)
 EXPORT_SCRIPT = PROJECT_ROOT / "tools" / "export" / "export_unc_targets.py"
 PREDICTOR = PROJECT_ROOT / "tools" / "scoring" / "mixed_lean_predictor.py"
 RUNNER = PROJECT_ROOT / "tools" / "scoring" / "run_lean_predictor_all_cohorts.py"
@@ -49,12 +51,11 @@ EXPORT_ROOT = PROJECT_ROOT / "local" / "exports"  # PATCH: Rerouted to local/ wo
 STATEWIDE_DIR = EXPORT_ROOT / "_Statewide"
 DELIVERABLE_DIR = PROJECT_ROOT / "Deliverables"
 
-DEFAULT_SWVF_FILES = [
-    SOURCE_DIR / "SWVF_1_22.txt",
-    SOURCE_DIR / "SWVF_23_44.txt",
-    SOURCE_DIR / "SWVF_45_66.txt",
-    SOURCE_DIR / "SWVF_67_88.txt",
-]
+def _staged_swvf_files() -> list[Path]:
+    """The currently-staged SWVF .txt paths (from snapshot_store staging)."""
+    return [snapshot_store.STAGING_DIR / n.removesuffix(".gz")
+            for n in snapshot_store.SWVF_GZ_NAMES
+            if (snapshot_store.STAGING_DIR / n.removesuffix(".gz")).exists()]
 
 # Map county number -> slug for the export step.
 # Extend as needed; the wrapper falls back to the county number if missing.
@@ -110,9 +111,13 @@ def stage_export(args: argparse.Namespace, interactive: bool) -> int:
         print("[abort] export stage requires --county and --county-name in non-interactive mode")
         return 1
 
-    swvf_files = [p for p in DEFAULT_SWVF_FILES if p.exists()]
+    swvf_files = _staged_swvf_files()
     if not swvf_files:
-        print(f"[abort] no SWVF_*.txt files found under {SOURCE_DIR}")
+        print(f"[abort] No staged SWVF_*.txt under {snapshot_store.STAGING_DIR}.")
+        print("        Stage a snapshot first: python pipeline/ohio_voter_pipeline.py "
+              "--snapshot YYYY-MM-DD")
+        print("        (see local/context/handoffs/future_work/"
+              "HANDOFF_pipeline_snapshot_selection.md)")
         return 1
 
     rc_total = 0
