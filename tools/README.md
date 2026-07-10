@@ -37,7 +37,7 @@ Highlights:
 
 ## 📊 `export/` — Stakeholder Deliverables
 
-Excel workbooks, target-list CSVs, and cloud uploads for human consumption — reads PII, writes only to gitignored `local/exports/`. Full detail in **[`export/README.md`](export/README.md)**.
+Excel workbooks, target-list CSVs, and cloud uploads for human consumption — reads raw voter-file records (public record, not PII by itself — see the terminology note in `export/README.md`), writes only to gitignored `local/exports/`. Full detail in **[`export/README.md`](export/README.md)**.
 
 *   **`precinct_party_export.py`** — 7-tab partisan-cohort Excel workbook (with embedded charts in precinct mode), for a chosen county or single precinct. Output: `local/exports/Workbooks/{County}_{Precinct}_voters.xlsx` or `{County}_all_voters.xlsx`.
 *   **`precinct_unc_export.py`** — D + UNC Lifetime-D voter counts per precinct across all 88 counties, plus a statewide rollup. Output: `local/exports/Precinct_Summary/`.

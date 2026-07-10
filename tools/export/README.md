@@ -1,8 +1,21 @@
 # tools/export/
 
 Scripts that turn the enriched voter data into deliverables for humans — Excel workbooks,
-target-list CSVs, and cloud uploads. Unlike `tools/admin/`, these read PII (names, addresses)
-and write into `local/exports/` / `UNC_Exports/`, which are gitignored — never GitHub Pages data.
+target-list CSVs, and cloud uploads. These read raw voter-file records (names, addresses,
+party/primary history) and write into `local/exports/` / `UNC_Exports/`, which are gitignored —
+never GitHub Pages data.
+
+**Terminology note (2026-07):** SWVF fields — name, DOB, address, party affiliation, voting
+history — are Ohio public record, not PII by themselves; anyone can obtain them from a Board of
+Elections or the SOS lookup portal. The stricter PII/SOC2-Type2 handling threshold is crossed
+only when a voter record is *joined* against non-public personally-identifying data (a personal
+phone number, personal email, etc.) — see `CLAUDE.md §9`'s `H*` field policy for the concrete
+example. These outputs still stay out of the repo, but for reasons independent of PII
+classification: they're generated data artifacts (not code or documentation), they go stale
+within weeks of the source SWVF drop, and bulk-republishing public record in a more
+aggregated/accessible form than its original source is its own policy call regardless of
+sensitivity. Below, "Security" notes have been reworded to reflect this — the gitignore
+requirement stands unchanged.
 
 ### `precinct_party_export.py`
 - **Function:** Interactive tool that exports a multi-tab Excel workbook of voter names,
@@ -17,7 +30,8 @@ and write into `local/exports/` / `UNC_Exports/`, which are gitignored — never
   `{County}_all_voters.xlsx`.
 - **Usage:** `python precinct_party_export.py` (interactive menu; run from repo root so the
   `voter_data_cleaner_v2` import resolves).
-- **Security:** output directory is gitignored — no PII leaves it.
+- **Security:** output directory is gitignored — no voter-record data or generated artifact
+  leaves it (see terminology note above; not a PII-specific concern).
 
 ### `export_unc_targets.py`
 - **Function:** Standalone prototype that reads raw `SWVF_*.txt` files, filters to one county, and
@@ -31,7 +45,8 @@ and write into `local/exports/` / `UNC_Exports/`, which are gitignored — never
   All_Affiliated_D,All_Affiliated_R,Pure_D,Pure_R,D_Crossover,R_Crossover}/{county}_{CLASS}_targets.csv`.
 - **Usage:**
   `python export_unc_targets.py --county 57 --county-name montgomery --input "local/source/State Voter Files/SWVF_45_66.txt" [--output-dir DIR]`
-- **Security:** output directory must be gitignored before running; PII never leaves it.
+- **Security:** output directory must be gitignored before running; voter-record data and
+  generated artifacts never leave it (see terminology note above; not a PII-specific concern).
 
 ### `precinct_unc_export.py`
 - **Function:** For every precinct across all 88 Ohio counties (or one county via `--county`),
