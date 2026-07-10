@@ -23,6 +23,11 @@
     { max:  0.15, color: '#60a5fa', label: 'Lean D' },
     { max:  1.0,  color: '#2563eb', label: 'Strong D' }
   ];
+  // Levels that live inside a single county's tree (as opposed to 'county'
+  // itself or cross-county/statewide levels like unified 'city' + 'district').
+  // 'city' is included because a single-county city is still reached by
+  // drilling into its county tree, even though its data view is unified.
+  const SUBCOUNTY_LEVELS = ['city', 'township', 'village', 'ward'];
 
   // ── In-memory caches ───────────────────────────────────────
   const cache = { manifest: null, byUrl: {} };
@@ -217,6 +222,32 @@
     return (map && map[upper] && map[upper].length) ? map[upper] : [];
   }
 
+  // Township/village/ward index lookups. Entries carry `county_slug`
+  // (township/village) or `county_slugs[]` (ward, which can span counties
+  // the way a city does — e.g. Alliance's ward 2/3 spans Mahoning+Stark).
+  async function placeIndexEntry(type, slug) {
+    try {
+      const idx = await fetchJSON(`data/${type}/index.json`);
+      return (idx || []).find(e => e.slug === slug) || null;
+    } catch (e) { return null; }
+  }
+  async function placeDisplayName(type, slug) {
+    if (type === 'city') return await cityNameFromSlug(slug);
+    const entry = await placeIndexEntry(type, slug);
+    return (entry && entry.name) || slug.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  }
+  // Deep-link recovery: a township/village/ward URL may omit ?county= (shared
+  // link, old history entry). Look the id up in its index.json to backfill
+  // the county slug the hierarchy tree and breadcrumb need. Undecidable from
+  // the id alone otherwise — county isn't encoded in the slug for cities, and
+  // wards can span counties.
+  async function resolvePlaceCounty(level, id) {
+    const entry = await placeIndexEntry(level, id);
+    if (!entry) return null;
+    if (level === 'ward') return (entry.county_slugs && entry.county_slugs[0]) || null;
+    return entry.county_slug || null;
+  }
+
   // ── Data: load all chartConfigs for a jurisdiction ─────────
   // Returns: { total, party, decade, partyDecade, gen, partyGen, uncShadow, citySummary, precinctIndex, missing[] }
   async function loadJurisdiction(level, id, county) {
@@ -271,6 +302,34 @@
       const cs = (bag.spanCounties && bag.spanCounties[0]) || countyToSlug(S.county || '');
       bag.primaryCounty = cs;
       add('precinctIndex', `data/${cs}_precinct_index.json`);
+    } else if (level === 'township' || level === 'village') {
+      // id is a county-scoped place slug (e.g. montgomery_washington_township).
+      // Single-county — townships/villages don't span counties the way cities do.
+      add('party',       `data/${level}/${id}_party_affiliation.json`);
+      add('decade',      `data/${level}/${id}_decade_distribution.json`);
+      add('partyDecade', `data/${level}/${id}_party_by_decade.json`);
+      // Not generated for townships/villages (bundle has no generation-level
+      // data); tried anyway so they land in bag.missing[] and render the same
+      // graceful placeholder as an unprocessed district.
+      add('gen',         `data/${level}/${id}_generation_distribution.json`);
+      add('partyGen',    `data/${level}/${id}_party_by_generation.json`);
+      add('uncShadow',   `data/${level}/${id}_unc_shadow.json`);
+      add('narrative',   `data/${level}/${id}_narrative.json`);
+      const cs = county || S.county;
+      bag.primaryCounty = cs;
+      if (cs) add('precinctIndex', `data/${cs}_precinct_index.json`);
+    } else if (level === 'ward') {
+      // id is a municipality-scoped ward slug (e.g. kettering_city_kettering_ward_2).
+      add('party',       `data/ward/${id}_party_affiliation.json`);
+      add('decade',      `data/ward/${id}_decade_distribution.json`);
+      add('partyDecade', `data/ward/${id}_party_by_decade.json`);
+      add('gen',         `data/ward/${id}_generation_distribution.json`);
+      add('partyGen',    `data/ward/${id}_party_by_generation.json`);
+      add('uncShadow',   `data/ward/${id}_unc_shadow.json`);
+      add('narrative',   `data/ward/${id}_narrative.json`);
+      const cs = county || S.county;
+      bag.primaryCounty = cs;
+      if (cs) add('precinctIndex', `data/${cs}_precinct_index.json`);
     } else if (level === 'district') {
       const t = S.district_type || 'state_senate_district';
       add('party',       `data/${t}/${id}_party_affiliation.json`);
@@ -306,6 +365,19 @@
         } catch (e) { /* missing county summary: skip, count stays partial */ }
       }));
       if (found) bag.cityPrecinctCount = pc;
+    }
+
+    // Ward's parent place (city/township/village), for the 4-level breadcrumb
+    // (Ohio › County › City › Ward). Never parsed from the ward name itself
+    // (CINTI/HUBER HTS/FIRST WARD all break name-based parsing) — read from
+    // the entity the pipeline already resolved via the place resolver.
+    if (level === 'ward') {
+      const entry = await placeIndexEntry('ward', id);
+      if (entry && entry.parent_place_slug && entry.parent_type) {
+        bag.wardParentSlug = entry.parent_place_slug;
+        bag.wardParentType = entry.parent_type;
+        bag.wardParentName = await placeDisplayName(entry.parent_type, entry.parent_place_slug);
+      }
     }
     return bag;
   }
@@ -545,7 +617,7 @@
         const slug = countyToSlug(c);
         const isSel = S.level === 'county' && S.id === slug;
         const isExpanded = isSel ||
-          (S.level === 'city' && countyToSlug(S.county || '') === slug) ||
+          (SUBCOUNTY_LEVELS.includes(S.level) && countyToSlug(S.county || '') === slug) ||
           (S.level === 'precinct' && countyToSlug(S.county || '') === slug);
         html.push('<div class="hier-row depth-0 ' + (isSel ? 'is-selected' : '') + '" data-action="select-county" data-county="' + slug + '" data-county-name="' + c + '"><span class="twirl">▸</span><span class="label">' + c + '</span><span class="count">—</span></div>');
         if (isExpanded) {
@@ -555,9 +627,9 @@
       html.push('</div>');
       root.innerHTML = html.join('');
 
-      // If a county is open, lazy-load its city/precinct list
-      if (S.level === 'county' || S.level === 'precinct' || S.level === 'city') {
-        const cs = (S.level === 'precinct' || S.level === 'city') ? countyToSlug(S.county || '') : S.id;
+      // If a county is open, lazy-load its place/ward/precinct list
+      if (S.level === 'county' || S.level === 'precinct' || SUBCOUNTY_LEVELS.includes(S.level)) {
+        const cs = (S.level === 'precinct' || SUBCOUNTY_LEVELS.includes(S.level)) ? countyToSlug(S.county || '') : S.id;
         await populateCountyChildren(cs);
       }
     } else {
@@ -580,137 +652,147 @@
     wireHierarchyEvents();
   }
 
+  const PLACE_TYPE_LABEL = { city: 'City', village: 'Village', township: 'Township' };
+
   async function populateCountyChildren(countySlug) {
     const wrap = document.querySelector('[data-county-children="' + countySlug + '"]');
     if (!wrap) return;
     wrap.innerHTML = '<div class="hier-row depth-1 muted"><span class="label">Loading…</span></div>';
 
-    const [citySum, precIdx] = await Promise.all([
-      fetchJSON('data/' + countySlug + '_city_summary.json').catch(() => null),
-      fetchJSON('data/' + countySlug + '_precinct_index.json').catch(() => null)
-    ]);
-
-    const cities = (citySum && citySum.rows)
-      ? citySum.rows.map(r => ({ name: r[1], total: r[4], precinctCount: Number(r[5]) || 0 }))
-      : [];
+    const precIdx = await fetchJSON('data/' + countySlug + '_precinct_index.json').catch(() => null);
     const precincts = (precIdx && precIdx.precincts) ? precIdx.precincts : [];
 
-    if (cities.length === 0 && precincts.length === 0) {
+    if (precincts.length === 0) {
       wrap.innerHTML = '<div class="hier-row depth-1 muted"><span class="label">Not yet processed</span></div>';
       return;
     }
 
-    // Group precincts under cities by the per-precinct `city` field (from the
-    // SWVF CITY/RESIDENTIAL_CITY column). This is authoritative and correctly
-    // handles precincts whose NAME does not contain the city (e.g. Greene's
-    // SUGARCREEK 151 belongs to Kettering). Fall back to longest-prefix-match
-    // on name only for precincts lacking a city field.
-    const cityByUpper = {};
-    cities.forEach(c => { cityByUpper[c.name.toUpperCase()] = c.name; });
-    const citiesByLen = cities.slice().sort((a, b) => b.name.length - a.name.length);
-    const buckets = {};
-    const orphans = [];
+    // Group precincts by the pipeline-stamped place_slug/place_type/place_name
+    // (single resolver — every precinct resolves to exactly one place; no
+    // name-matching heuristics, no "Other precincts" bucket). A precinct
+    // without a place_slug is a pipeline defect the validation gate catches;
+    // it still gets its own depth-1 row rather than reviving a synthetic bucket.
+    const places = {};
+    const placeless = [];
     precincts.forEach(p => {
-      let matched = null;
-      const pcity = (p.city || '').toUpperCase();
-      if (pcity && cityByUpper[pcity]) {
-        matched = cityByUpper[pcity];
-      } else if (!p.city) {
-        const upper = p.name.toUpperCase();
-        for (const c of citiesByLen) {
-          const cn = c.name.toUpperCase();
-          if (upper === cn || upper.startsWith(cn + ' ') || upper.startsWith(cn)) { matched = c.name; break; }
-        }
-      }
-      if (matched) (buckets[matched] = buckets[matched] || []).push(p);
-      else orphans.push(p);
+      if (!p.place_slug) { placeless.push(p); return; }
+      const g = (places[p.place_slug] = places[p.place_slug] || {
+        slug: p.place_slug, type: p.place_type, name: p.place_name, precincts: []
+      });
+      g.precincts.push(p);
     });
 
-    // Sort cities by total registered (descending) for display.
-    const parseTotal = (s) => Number(String(s).replace(/,/g, '')) || 0;
-    const ordered = cities.slice().sort((a, b) => parseTotal(b.total) - parseTotal(a.total));
+    const placeList = Object.keys(places).map(k => places[k]);
+    placeList.forEach(pl => { pl.total = pl.precincts.reduce((sum, p) => sum + (Number(p.total) || 0), 0); });
+    placeList.sort((a, b) => b.total - a.total);
+
+    function precinctRow(p, depth) {
+      const isSel = S.level === 'precinct' && S.id === p.safe_name;
+      return '<div class="hier-row depth-' + depth + ' ' + (isSel ? 'is-selected' : '') + '" data-action="select-precinct" data-county="' + countySlug + '" data-precinct="' + p.safe_name + '" data-precinct-name="' + p.name + '">' +
+        '<span class="twirl"></span>' +
+        '<span class="label">' + p.name + '</span>' +
+        '<span class="count">' + (p.total ? p.total.toLocaleString() : '—') + '</span>' +
+      '</div>';
+    }
 
     const html = [];
-    ordered.forEach(c => {
-      const cityPrecincts = buckets[c.name] || [];
-      if (cityPrecincts.length === 0) return;
-      const ck = countySlug + '_' + c.name.toLowerCase().replace(/[^a-z0-9]+/g, '_');
-      const isCitySel = S.level === 'city' && S.city === c.name;
+    placeList.forEach(place => {
+      // place_slug IS the routing id (bare-name slug for cities, matching the
+      // frontend's own cityNameToSlug; county-prefixed for village/township —
+      // see PLAN_SUBCOUNTY_JURISDICTIONS.md Part 2). Never recomputed here.
+      const isPlaceSel = S.level === place.type && S.id === place.slug;
       html.push(
-        '<div class="hier-row depth-1 ' + (isCitySel ? 'is-selected' : '') + '" data-action="toggle-city" data-city-key="' + ck + '" data-city-name="' + c.name + '" data-county="' + countySlug + '">' +
+        '<div class="hier-row depth-1 ' + (isPlaceSel ? 'is-selected' : '') + '" data-action="toggle-place" data-place-slug="' + place.slug + '" data-place-type="' + place.type + '" data-place-name="' + place.name + '" data-county="' + countySlug + '">' +
           '<span class="twirl">▸</span>' +
-          '<span class="label">' + c.name + '</span>' +
-          '<span class="count">' + cityPrecincts.length + '</span>' +
+          '<span class="label">' + place.name + '</span>' +
+          '<span class="place-type-badge">' + (PLACE_TYPE_LABEL[place.type] || place.type) + '</span>' +
+          '<span class="count">' + place.precincts.length + '</span>' +
         '</div>',
-        '<div class="hier-children" data-city-children="' + ck + '">'
+        '<div class="hier-children" data-place-children="' + place.slug + '">'
       );
-      cityPrecincts.forEach(p => {
-        const isSel = S.level === 'precinct' && S.id === p.safe_name;
-        html.push(
-          '<div class="hier-row depth-2 ' + (isSel ? 'is-selected' : '') + '" data-action="select-precinct" data-county="' + countySlug + '" data-precinct="' + p.safe_name + '" data-precinct-name="' + p.name + '">' +
-            '<span class="twirl"></span>' +
-            '<span class="label">' + p.name + '</span>' +
-            '<span class="count">' + (p.total ? p.total.toLocaleString() : '—') + '</span>' +
-          '</div>'
-        );
+
+      // Nest precincts under wards when the place has any ward-holding
+      // precincts; otherwise keep the flat place > precinct shape (no empty
+      // ward layer for at-large cities/townships/villages).
+      const wards = {};
+      const flat = [];
+      place.precincts.forEach(p => {
+        if (p.ward_slug) {
+          const w = (wards[p.ward_slug] = wards[p.ward_slug] || { slug: p.ward_slug, name: p.ward_name, precincts: [] });
+          w.precincts.push(p);
+        } else {
+          flat.push(p);
+        }
       });
-      html.push('</div>');
+
+      Object.keys(wards).map(k => wards[k]).sort((a, b) => b.precincts.length - a.precincts.length).forEach(ward => {
+        const isWardSel = S.level === 'ward' && S.id === ward.slug;
+        html.push(
+          '<div class="hier-row depth-2 ' + (isWardSel ? 'is-selected' : '') + '" data-action="toggle-ward" data-ward-slug="' + ward.slug + '" data-ward-name="' + ward.name + '" data-county="' + countySlug + '">' +
+            '<span class="twirl">▸</span>' +
+            '<span class="label">' + ward.name + '</span>' +
+            '<span class="count">' + ward.precincts.length + '</span>' +
+          '</div>',
+          '<div class="hier-children" data-ward-children="' + ward.slug + '">'
+        );
+        ward.precincts.forEach(p => html.push(precinctRow(p, 3)));
+        html.push('</div>');
+      });
+      flat.forEach(p => html.push(precinctRow(p, 2)));
+
+      html.push('</div>'); // close data-place-children
     });
 
-    if (orphans.length > 0) {
-      const ck = countySlug + '_other';
-      html.push(
-        '<div class="hier-row depth-1" data-action="toggle-city" data-city-key="' + ck + '">' +
-          '<span class="twirl">▸</span><span class="label muted">Other precincts</span>' +
-          '<span class="count">' + orphans.length + '</span>' +
-        '</div>',
-        '<div class="hier-children" data-city-children="' + ck + '">'
-      );
-      orphans.slice(0, 40).forEach(p => {
-        const isSel = S.level === 'precinct' && S.id === p.safe_name;
-        html.push(
-          '<div class="hier-row depth-2 ' + (isSel ? 'is-selected' : '') + '" data-action="select-precinct" data-county="' + countySlug + '" data-precinct="' + p.safe_name + '" data-precinct-name="' + p.name + '">' +
-            '<span class="twirl"></span><span class="label">' + p.name + '</span>' +
-            '<span class="count">' + (p.total ? p.total.toLocaleString() : '—') + '</span>' +
-          '</div>'
-        );
-      });
-      if (orphans.length > 40) html.push('<div class="hier-row depth-2 muted"><span class="label">+ ' + (orphans.length - 40) + ' more</span></div>');
-      html.push('</div>');
-    }
+    placeless.forEach(p => html.push(precinctRow(p, 1)));
 
     wrap.innerHTML = html.join('');
 
-    // Toggle handlers on city rows: expand tree AND navigate to city view
-    wrap.querySelectorAll('[data-action="toggle-city"]').forEach(el => {
+    // Toggle handlers on place rows: expand tree AND navigate to the place's view.
+    wrap.querySelectorAll('[data-action="toggle-place"]').forEach(el => {
       el.onclick = async (e) => {
         e.stopPropagation();
-        const key = el.getAttribute('data-city-key');
-        const cityName = el.getAttribute('data-city-name');
+        const pslug = el.getAttribute('data-place-slug');
+        const ptype = el.getAttribute('data-place-type');
+        const pname = el.getAttribute('data-place-name');
         const cs = el.getAttribute('data-county');
         const isOpen = el.classList.toggle('is-open');
-        const children = wrap.querySelector('[data-city-children="' + key + '"]');
+        const children = wrap.querySelector('[data-place-children="' + pslug + '"]');
         if (children) children.classList.toggle('is-open', isOpen);
-        // Navigate to the unified city view for named cities (not 'Other
-        // precincts'). Clicking a city anywhere — county tree or Cities root —
-        // resolves to the full cross-county report. One concept, no fragments.
-        if (cityName) {
-          wrap.querySelectorAll('[data-action="toggle-city"].is-selected').forEach(r => r.classList.remove('is-selected'));
-          el.classList.add('is-selected');
-          const citySlug = cityNameToSlug(cityName);
-          // Keep S.county pointing at the county tree the user drilled in from
-          // (cs), so that tree stays expanded after navigating to the city
-          // view — S.id is the city slug (cross-county-unique) and can't be
-          // used for that check the way county/precinct navigation can.
-          S.level = 'city'; S.city = cityName; S.id = citySlug; S.county = cs;
-          writeState({ level: 'city', id: citySlug, county: cs, city: null, type: null });
-          emit('select_jurisdiction', { level: 'city', city: cityName, county: cs });
-          await refreshView();
-        }
+
+        wrap.querySelectorAll('[data-action="toggle-place"].is-selected').forEach(r => r.classList.remove('is-selected'));
+        el.classList.add('is-selected');
+
+        S.level = ptype; S.id = pslug; S.county = cs; S.city = ptype === 'city' ? pname : null;
+        writeState({ level: ptype, id: pslug, county: cs, city: null, type: null });
+        emit('select_jurisdiction', { level: ptype, id: pslug, county: cs, name: pname });
+        closeDrawers();
+        await refreshView();
       };
     });
 
-    // Wire precinct click handlers (depth-2 rows are excluded from wireHierarchyEvents)
+    // Toggle handlers on ward rows: expand tree AND navigate to the ward's view.
+    wrap.querySelectorAll('[data-action="toggle-ward"]').forEach(el => {
+      el.onclick = async (e) => {
+        e.stopPropagation();
+        const wslug = el.getAttribute('data-ward-slug');
+        const wname = el.getAttribute('data-ward-name');
+        const cs = el.getAttribute('data-county');
+        const isOpen = el.classList.toggle('is-open');
+        const children = wrap.querySelector('[data-ward-children="' + wslug + '"]');
+        if (children) children.classList.toggle('is-open', isOpen);
+
+        wrap.querySelectorAll('[data-action="toggle-ward"].is-selected').forEach(r => r.classList.remove('is-selected'));
+        el.classList.add('is-selected');
+
+        S.level = 'ward'; S.id = wslug; S.county = cs; S.city = null;
+        writeState({ level: 'ward', id: wslug, county: cs, city: null, type: null });
+        emit('select_jurisdiction', { level: 'ward', id: wslug, county: cs, name: wname });
+        closeDrawers();
+        await refreshView();
+      };
+    });
+
+    // Wire precinct click handlers (depth-2/3 rows are excluded from wireHierarchyEvents)
     wrap.querySelectorAll('[data-action="select-precinct"]').forEach(el => {
       el.onclick = async (e) => {
         e.stopPropagation();
@@ -725,26 +807,54 @@
       };
     });
 
-    // Auto-expand the city that contains the currently-selected precinct
+    // Auto-expand every hier-children wrapper between the selected precinct
+    // and the county root — 1 level for a flat place, 2 when ward-nested.
     if (S.level === 'precinct') {
-      const selRow = wrap.querySelector('.hier-row.depth-2.is-selected');
+      const selRow = wrap.querySelector('[data-action="select-precinct"].is-selected');
       if (selRow) {
-        const ch = selRow.parentNode;
-        const key = ch.getAttribute('data-city-children');
-        const toggle = wrap.querySelector('[data-city-key="' + key + '"]');
-        if (toggle) {
-          toggle.classList.add('is-open');
-          ch.classList.add('is-open');
+        let node = selRow.parentNode;
+        while (node && node !== wrap) {
+          if (node.classList && node.classList.contains('hier-children')) {
+            node.classList.add('is-open');
+            const placeKey = node.getAttribute('data-place-children');
+            const wardKey = node.getAttribute('data-ward-children');
+            const toggle = placeKey
+              ? wrap.querySelector('[data-place-slug="' + placeKey + '"]')
+              : wrap.querySelector('[data-ward-slug="' + wardKey + '"]');
+            if (toggle) toggle.classList.add('is-open');
+          }
+          node = node.parentNode;
         }
       }
     }
-    // Auto-expand the active city when at city view
-    if (S.level === 'city' && S.city) {
-      const cityKey = countySlug + '_' + S.city.toLowerCase().replace(/[^a-z0-9]+/g, '_');
-      const cityRow = wrap.querySelector('[data-city-key="' + cityKey + '"]');
-      const cityChildren = wrap.querySelector('[data-city-children="' + cityKey + '"]');
-      if (cityRow && !cityRow.classList.contains('is-open')) { cityRow.classList.add('is-open'); }
-      if (cityChildren) cityChildren.classList.add('is-open');
+    // Auto-expand the active place when at city/township/village view.
+    if (S.level === 'city' || S.level === 'township' || S.level === 'village') {
+      const placeRow = wrap.querySelector('[data-place-slug="' + S.id + '"]');
+      if (placeRow) {
+        const children = wrap.querySelector('[data-place-children="' + S.id + '"]');
+        placeRow.classList.add('is-open');
+        if (children) children.classList.add('is-open');
+      }
+    }
+    // Auto-expand the active ward, and its enclosing place, at ward view.
+    if (S.level === 'ward') {
+      const wardRow = wrap.querySelector('[data-ward-slug="' + S.id + '"]');
+      if (wardRow) {
+        wardRow.classList.add('is-open');
+        const wardChildren = wrap.querySelector('[data-ward-children="' + S.id + '"]');
+        if (wardChildren) wardChildren.classList.add('is-open');
+        let node = wardRow.parentNode;
+        while (node && node !== wrap) {
+          if (node.classList && node.classList.contains('hier-children') && node.hasAttribute('data-place-children')) {
+            node.classList.add('is-open');
+            const placeKey = node.getAttribute('data-place-children');
+            const toggle = wrap.querySelector('[data-place-slug="' + placeKey + '"]');
+            if (toggle) toggle.classList.add('is-open');
+            break;
+          }
+          node = node.parentNode;
+        }
+      }
     }
   }
 
@@ -768,12 +878,15 @@
 
   function wireHierarchyEvents() {
     document.querySelectorAll('[data-action]').forEach(el => {
-      // Skip rows whose handlers are owned by populateCountyChildren
-      // (city toggles + precincts under cities). Otherwise this would
-      // overwrite their onclick and the tree expansion would die silently.
+      // Skip rows whose handlers are owned by populateCountyChildren (place
+      // toggles, ward toggles, and precincts nested under either). Otherwise
+      // this would overwrite their onclick and the tree expansion would die
+      // silently. All select-precinct rows are rendered exclusively inside
+      // populateCountyChildren (at depth 1/2/3 depending on ward nesting), so
+      // it's skipped unconditionally rather than by a specific depth class.
       const action = el.getAttribute('data-action');
-      if (action === 'toggle-city') return;
-      if (action === 'select-precinct' && el.classList.contains('depth-2')) return;
+      if (action === 'toggle-place' || action === 'toggle-ward') return;
+      if (action === 'select-precinct') return;
       el.onclick = async () => {
         if (action === 'select-state') {
           // No state-level data file exists for all 88; just zoom out the breadcrumb
@@ -1065,7 +1178,7 @@
       renderChart('chart-unc', 'bar', bag.uncShadow.chartConfig, { stacked: true });
     } else { setPlaceholder('chart-unc-wrap', 'UNC shadow not yet processed'); }
 
-    if (bag.level === 'city') {
+    if (bag.level === 'city' || bag.level === 'township' || bag.level === 'village' || bag.level === 'ward') {
       setPlaceholder('city-table-wrap', 'Precinct-level charts above \u2014 select a precinct for detailed data');
     } else if (bag.citySummary && bag.citySummary.rows) {
       renderTable($('city-table-wrap'), bag.citySummary);
@@ -1141,6 +1254,18 @@
       // Unified city: Ohio › City (no intermediate county — it may span several).
       // The span, if multi-county, is shown as a subtitle label by the hero.
       parts.push({ label: bag.displayName + (bag.citySpanLabel ? ' (' + bag.citySpanLabel + ')' : ''), here: true });
+    } else if (bag.level === 'township' || bag.level === 'village') {
+      parts.push({ label: slugToCountyName(bag.county), action: 'county', county: bag.county });
+      parts.push({ label: bag.displayName, here: true });
+    } else if (bag.level === 'ward') {
+      parts.push({ label: slugToCountyName(bag.county), action: 'county', county: bag.county });
+      // Parent municipality segment (City/Township/Village), if the ward
+      // entity's parent was resolved. Absent (e.g. parent index lookup
+      // failed) -> skip straight to the ward, still under the county.
+      if (bag.wardParentSlug && bag.wardParentType && bag.wardParentName) {
+        parts.push({ label: bag.wardParentName, action: 'place', placeType: bag.wardParentType, placeId: bag.wardParentSlug });
+      }
+      parts.push({ label: bag.displayName, here: true });
     } else if (bag.level === 'precinct') {
       parts.push({ label: slugToCountyName(bag.county), action: 'county', county: bag.county });
       parts.push({ label: bag.displayName, here: true });
@@ -1151,7 +1276,7 @@
     root.innerHTML = parts.map((p, i) => {
       const sep = i > 0 ? '<span class="sep">›</span> ' : '';
       if (p.here) return sep + '<span class="here">' + p.label + '</span>';
-      return sep + '<a data-bc="' + (p.action || '') + '" data-county="' + (p.county || '') + '" data-dtype="' + (p.dtype || '') + '">' + p.label + '</a>';
+      return sep + '<a data-bc="' + (p.action || '') + '" data-county="' + (p.county || '') + '" data-dtype="' + (p.dtype || '') + '" data-place-type="' + (p.placeType || '') + '" data-place-id="' + (p.placeId || '') + '">' + p.label + '</a>';
     }).join(' ');
     root.querySelectorAll('a[data-bc]').forEach(a => {
       a.onclick = async () => {
@@ -1166,6 +1291,11 @@
         } else if (action === 'dtype') {
           S.level = 'county'; S.id = 'hamilton'; S.district_type = null;
           writeState({ level: 'county', id: 'hamilton', type: null });
+        } else if (action === 'place') {
+          const ptype = a.getAttribute('data-place-type');
+          const pid = a.getAttribute('data-place-id');
+          S.level = ptype; S.id = pid;
+          writeState({ level: ptype, id: pid });
         }
         await refreshView();
       };
@@ -1402,6 +1532,14 @@
       catch (e) { console.error('manifest load fail', e); }
     }
 
+    // Deep-link recovery: a township/village/ward URL may arrive with no
+    // ?county= (shared link, old history entry). Backfill S.county from the
+    // place's own index.json before the hierarchy tree or breadcrumb read it.
+    if ((S.level === 'township' || S.level === 'village' || S.level === 'ward') && !S.county) {
+      const cs = await resolvePlaceCounty(S.level, S.id);
+      if (cs) { S.county = cs; writeState({ county: cs }, true); }
+    }
+
     // Hierarchy
     await renderHierarchy();
 
@@ -1425,6 +1563,14 @@
         // Honest multi-county label when the city spans >1 county.
         bag.citySpanLabel = span.length > 1 ? span.map(slugToCountyName).join(' + ') : null;
         bag.county = null;
+      } else if (S.level === 'township' || S.level === 'village') {
+        bag = await loadJurisdiction(S.level, S.id, S.county);
+        bag.displayName = (bag.party && bag.party.jurisdiction_name) || S.id.replace(/_/g, ' ').toUpperCase();
+        bag.county = S.county || null;
+      } else if (S.level === 'ward') {
+        bag = await loadJurisdiction('ward', S.id, S.county);
+        bag.displayName = (bag.party && bag.party.jurisdiction_name) || S.id.replace(/_/g, ' ').toUpperCase();
+        bag.county = S.county || null;
       } else if (S.level === 'precinct') {
         bag = await loadJurisdiction('precinct', S.id, S.county || 'hamilton');
         bag.displayName = (bag.party && bag.party.precinct) || S.id.replace(/_/g, ' ').toUpperCase();
