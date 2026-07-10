@@ -14,6 +14,10 @@ from pipeline.voter_data_cleaner import (
     _normalize_city_name,
     _precinct_safe_name,
     _dominant_city_per_precinct,
+    _place_per_precinct,
+    _place_slug,
+    _ward_map_per_county,
+    _ward_parent_slugs,
     _TOWNSHIP_NAME_RE,
 )
 
@@ -120,3 +124,178 @@ def test_postal_last_resort_for_real_town():
         {'PRECINCT_NAME': 'CAREY B', 'RESIDENTIAL_CITY': 'CAREY'},
     ]))
     assert m['CAREY B'] == 'CAREY'
+
+
+# ── _place_per_precinct (the single place resolver) ───────────────────────
+def test_place_city_type_and_normalized_name():
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'KETTERING 1-A', 'CITY': 'KETTERING CITY'},
+    ]))
+    assert p['KETTERING 1-A'] == {'type': 'city', 'name': 'KETTERING'}
+
+
+def test_place_village_is_own_type_with_raw_name():
+    # Villages get their own type and keep the RAW value (' VILLAGE' suffix) so
+    # the slug matches the village bundle; they no longer resolve as cities.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'FARMERSVILLE', 'VILLAGE': 'FARMERSVILLE VILLAGE'},
+    ]))
+    assert p['FARMERSVILLE'] == {'type': 'village', 'name': 'FARMERSVILLE VILLAGE'}
+
+
+def test_place_township_by_column_keeps_name():
+    # A township precinct is its own place type carrying the TOWNSHIP name,
+    # where the city wrapper drops it entirely.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'WASHINGTON TWP F', 'CITY': '',
+         'TOWNSHIP': 'WASHINGTON TOWNSHIP', 'RESIDENTIAL_CITY': 'KETTERING'},
+    ]))
+    assert p['WASHINGTON TWP F'] == {'type': 'township', 'name': 'WASHINGTON TOWNSHIP'}
+
+
+def test_place_township_name_token_fallback():
+    # Wyandot 'ANTRIM TS' with a blank TOWNSHIP column falls back to the
+    # precinct-name token for the display name.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'ANTRIM TS', 'RESIDENTIAL_CITY': 'CAREY'},
+    ]))
+    assert p['ANTRIM TS'] == {'type': 'township', 'name': 'ANTRIM TS'}
+
+
+def test_place_township_outranks_minority_village():
+    # The Kirby-in-Jackson-Township pattern: township name token wins, the
+    # minority village cannot claim the precinct.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'JACKSON TS', 'VILLAGE': 'KIRBY VILLAGE'},
+        {'PRECINCT_NAME': 'JACKSON TS', 'VILLAGE': ''},
+        {'PRECINCT_NAME': 'JACKSON TS', 'VILLAGE': ''},
+    ]))
+    assert p['JACKSON TS']['type'] == 'township'
+
+
+def test_place_resolves_every_precinct():
+    # The 'no Other bucket' guarantee: every precinct gets exactly one place.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'KETTERING 1-A', 'CITY': 'KETTERING CITY'},
+        {'PRECINCT_NAME': 'WASHINGTON TWP F', 'TOWNSHIP': 'WASHINGTON TOWNSHIP'},
+        {'PRECINCT_NAME': 'FARMERSVILLE', 'VILLAGE': 'FARMERSVILLE VILLAGE'},
+        {'PRECINCT_NAME': 'CAREY B', 'RESIDENTIAL_CITY': 'CAREY'},
+    ]))
+    names = {'KETTERING 1-A', 'WASHINGTON TWP F', 'FARMERSVILLE', 'CAREY B'}
+    assert set(p) == names
+    assert all(v['type'] and v['name'] for v in p.values())
+
+
+def test_city_wrapper_derives_from_place():
+    # _dominant_city_per_precinct keeps only type=='city'; villages/townships
+    # are absent (the bugfix — villages no longer leak into the city layer).
+    rows = _df([
+        {'PRECINCT_NAME': 'KETTERING 1-A', 'CITY': 'KETTERING CITY'},
+        {'PRECINCT_NAME': 'FARMERSVILLE', 'VILLAGE': 'FARMERSVILLE VILLAGE'},
+        {'PRECINCT_NAME': 'WASHINGTON TWP F', 'TOWNSHIP': 'WASHINGTON TOWNSHIP'},
+    ])
+    cities = _dominant_city_per_precinct(rows)
+    assert cities == {'KETTERING 1-A': 'KETTERING'}
+
+
+# ── _place_slug (routing slug parity with the jurisdiction bundles) ───────
+def test_place_slug_city_is_bare_name():
+    # Cities use the bare name slug; the frontend appends '_city'.
+    assert _place_slug({'type': 'city', 'name': 'KETTERING'}, 'montgomery') == 'kettering'
+
+
+def test_place_slug_township_is_county_prefixed():
+    assert _place_slug({'type': 'township', 'name': 'WASHINGTON TOWNSHIP'},
+                       'montgomery') == 'montgomery_washington_township'
+
+
+def test_place_slug_village_keeps_suffix():
+    assert _place_slug({'type': 'village', 'name': 'NEW LEBANON VILLAGE'},
+                       'montgomery') == 'montgomery_new_lebanon_village'
+
+
+# == _ward_parent_slugs (route vs bundle slug parity) ======================
+def test_ward_parent_slugs_city_gets_city_suffix():
+    # route slug is bare (matches precinct place_slug); bundle carries '_city'
+    # (matches the data/city bundle filename the frontend appends, v2.js:262).
+    assert _ward_parent_slugs('city', 'KETTERING', 'montgomery') == ('kettering', 'kettering_city')
+
+
+def test_ward_parent_slugs_village_and_township_are_county_prefixed():
+    assert _ward_parent_slugs('village', 'WAVERLY VILLAGE', 'pike') == (
+        'pike_waverly_village', 'pike_waverly_village')
+    assert _ward_parent_slugs('township', 'CANTON', 'stark') == (
+        'stark_canton', 'stark_canton')
+
+
+# == _ward_map_per_county (the single ward resolver) =======================
+def test_ward_parent_from_resolved_city_not_string_parsed():
+    # KETTERING WARD 2 -> parent city KETTERING, slug kettering_city_kettering_ward_2.
+    wm = _ward_map_per_county(_df([
+        {'PRECINCT_NAME': 'KETTERING 2-A', 'CITY': 'KETTERING CITY', 'WARD': 'KETTERING WARD 2'},
+    ]), 'montgomery')
+    d = wm['KETTERING WARD 2']
+    assert d['parent_type'] == 'city' and d['parent_name'] == 'KETTERING'
+    assert d['slug'] == 'kettering_city_kettering_ward_2'
+    assert d['abuse'] is False
+
+
+def test_ward_parent_derived_from_city_column_for_unprefixed_ward():
+    # 'FIRST WARD' carries no city in its name; the parent comes from the CITY
+    # column via the place resolver -- never from parsing the ward string. Two
+    # different cities therefore yield two different entity slugs (the split that
+    # keeps the five statewide 'FIRST WARD's from merging).
+    marion = _ward_map_per_county(_df([
+        {'PRECINCT_NAME': 'MARION 1-A', 'CITY': 'MARION CITY', 'WARD': 'FIRST WARD'},
+    ]), 'marion')['FIRST WARD']
+    chillicothe = _ward_map_per_county(_df([
+        {'PRECINCT_NAME': 'CHILLICOTHE 1-A', 'CITY': 'CHILLICOTHE CITY', 'WARD': 'FIRST WARD'},
+    ]), 'ross')['FIRST WARD']
+    assert marion['slug'] == 'marion_city_first_ward'
+    assert chillicothe['slug'] == 'chillicothe_city_first_ward'
+    assert marion['slug'] != chillicothe['slug']
+
+
+def test_ward_parent_ignores_abbreviated_ward_string():
+    # 'CINTI WARD 3' must resolve its parent from CITY=CINCINNATI, not the 'CINTI'
+    # abbreviation baked into the ward value.
+    d = _ward_map_per_county(_df([
+        {'PRECINCT_NAME': 'CINCINNATI 3-A', 'CITY': 'CINCINNATI CITY', 'WARD': 'CINTI WARD 3'},
+    ]), 'hamilton')['CINTI WARD 3']
+    assert d['parent_name'] == 'CINCINNATI'
+    assert d['slug'] == 'cincinnati_city_cinti_ward_3'
+
+
+def test_ward_village_parent():
+    # Waverly's numeric wards (blank CITY) parent to the village.
+    d = _ward_map_per_county(_df([
+        {'PRECINCT_NAME': 'WARD 1', 'VILLAGE': 'WAVERLY VILLAGE', 'WARD': 'WARD 1'},
+    ]), 'pike')['WARD 1']
+    assert d['parent_type'] == 'village'
+    assert d['slug'] == 'pike_waverly_village_ward_1'
+
+
+def test_ward_abuse_township_name_value():
+    # Lucas stuffs a township name into WARD; the WARD-prefix fallback mints a
+    # bogus CITY parent, so the value-matches-township-regex guard is what flags it.
+    d = _ward_map_per_county(_df([
+        {'PRECINCT_NAME': 'PRECINCT WASHINGTON 2', 'WARD': 'WASHINGTON TOWNSHIP'},
+    ]), 'lucas')['WASHINGTON TOWNSHIP']
+    assert d['abuse'] is True
+
+
+def test_ward_abuse_township_parent():
+    # Stark stuffs the township name 'CANTON' into WARD; the precinct resolves to
+    # township CANTON, so the township-parent guard flags it (the value 'CANTON'
+    # carries no township token).
+    d = _ward_map_per_county(_df([
+        {'PRECINCT_NAME': 'CANTON TWP 1', 'TOWNSHIP': 'CANTON', 'WARD': 'CANTON'},
+    ]), 'stark')['CANTON']
+    assert d['parent_type'] == 'township'
+    assert d['abuse'] is True
+
+
+def test_ward_map_empty_when_no_wards():
+    assert _ward_map_per_county(_df([
+        {'PRECINCT_NAME': 'KETTERING 1-A', 'CITY': 'KETTERING CITY'},
+    ]), 'montgomery') == {}

@@ -217,13 +217,14 @@ JURISDICTIONS = {
         'column': 'COURT_OF_APPEALS',
         'display': 'Court of Appeals District',
     },
-    'wards': {
-        'column': 'WARD',
-        'display': 'Ward',
-        # WARD values are already city-qualified ("CLEVELAND WARD 8"), so they
-        # are globally unique without a composite key. Empty-string WARD rows
-        # (rural / unincorporated precincts) are dropped by the len>1 filter.
-    },
+    # 'wards' is intentionally NOT a generic config entry. WARD names are neither
+    # globally unique -- 16 values collide across counties (five different
+    # 'FIRST WARD's, etc., 2026-07-09 measurement) -- nor reliably city-prefixed
+    # ('FIRST WARD', 'WEST WARD'), so the (county, name) composite path cannot key
+    # them safely. Canonical ward entities are municipality-scoped (parent place +
+    # ward value), built by build_ward_entities() via the single ward resolver
+    # voter_data_cleaner._ward_map_per_county. See PLAN_SUBCOUNTY_JURISDICTIONS.md
+    # Part W1 and CLAUDE.md 4 (ward-uniqueness correction).
 }
 
 
@@ -605,6 +606,144 @@ def export_jurisdiction_index(results, jurisdiction_type_key, logger):
     logger.info(f'index.json written: {len(entries)} entries for {jurisdiction_type_key}')
 
 
+def build_ward_entities(df, election_cols, today, logger):
+    """Build municipality-scoped ward entities and export docs/data/ward/.
+
+    Replaces the falsified 'globally unique WARD' model. Each entity is keyed by
+    (parent place, WARD value): the five colliding 'FIRST WARD's split by their
+    real parent city, while a city-ward spanning counties (ALLIANCE WARD 2 in
+    Mahoning + Stark) merges into one entity with both counties' voters. Parent
+    derivation and slugging are delegated to
+    voter_data_cleaner._ward_map_per_county -- the single ward resolver
+    (CLAUDE.md 5) also used by the precinct-index ward stamp, so a precinct's
+    ward_slug and these entity slugs can never diverge. Wards carry the same
+    4-chart shape as township/village (no generation charts).
+    """
+    import voter_data_cleaner as _v2
+
+    type_dir = DATA_DIR / 'ward'
+
+    # Full-tree replacement. The old bare-slug files (first_ward, 1st_ward, ...)
+    # silently merged unrelated municipalities; clear them so git sees a clean
+    # swap. They are tracked in docs/data/ward/, hence recoverable via git
+    # checkout if this run is ever aborted mid-way.
+    if type_dir.exists():
+        removed = sum(1 for f in type_dir.glob('*.json') if (f.unlink() or True))
+        logger.info('Ward tree: cleared %d stale bare-slug files', removed)
+    type_dir.mkdir(parents=True, exist_ok=True)
+
+    if 'WARD' not in df.columns:
+        logger.warning('No WARD column present; skipping ward entities')
+        return
+
+    county_name_by_slug = {_slugify(nm): nm for nm in _v2.OHIO_COUNTIES.values()}
+
+    annotated = []
+    desc_by_slug: dict = {}
+    counties_by_slug: dict = {}   # slug -> {county_slug: voter_count}
+    excluded_abuse = 0
+
+    for cn_frame in df.partition_by('COUNTY_NUMBER', include_key=True):
+        cn = _cn_key(cn_frame['COUNTY_NUMBER'][0])
+        county_name = _v2.OHIO_COUNTIES.get(cn, 'Unknown')
+        county_slug = _slugify(county_name)
+
+        wm = _v2._ward_map_per_county(cn_frame, county_slug)
+        if not wm:
+            continue
+
+        rows = []
+        for ward_value, d in wm.items():
+            if d['abuse']:
+                excluded_abuse += 1
+                continue
+            rows.append((ward_value, d['slug']))
+            desc_by_slug.setdefault(d['slug'], {
+                'slug':              d['slug'],
+                'name':              d['ward_name'],
+                'parent_type':       d['parent_type'],
+                'parent_name':       d['parent_name'],
+                'parent_place_slug': d['parent_place_slug'],
+            })
+            counties_by_slug.setdefault(d['slug'], {})
+        if not rows:
+            continue
+
+        map_df = pl.DataFrame(
+            {'WARD': [r[0] for r in rows], '_ward_slug': [r[1] for r in rows]}
+        )
+        # inner join keeps only ward-holding, non-abuse rows; select the minimal
+        # columns the chart aggregation needs (cohort_family, Decade) to keep the
+        # statewide concat small.
+        sub = (
+            cn_frame.with_columns(pl.col('WARD').str.strip_chars().alias('WARD'))
+                    .join(map_df, on='WARD', how='inner')
+                    .select(['cohort_family', 'Decade', '_ward_slug'])
+        )
+        cc = sub.group_by('_ward_slug').agg(pl.len().alias('n'))
+        for s, n in zip(cc['_ward_slug'].to_list(), cc['n'].to_list()):
+            counties_by_slug[s][county_slug] = counties_by_slug[s].get(county_slug, 0) + int(n)
+        annotated.append(sub)
+
+    if not annotated:
+        logger.warning('No ward entities built')
+        return
+
+    big = pl.concat(annotated, how='diagonal_relaxed')
+    logger.info('Ward entities: %d rows -> %d entities (%d township-name abuse values excluded)',
+                big.height, len(desc_by_slug), excluded_abuse)
+
+    results = []
+    index_entries = []
+    for part in big.partition_by('_ward_slug', include_key=True):
+        slug = part['_ward_slug'][0]
+        desc = desc_by_slug[slug]
+        keyed = part.with_columns(pl.lit(slug).alias('_entity'))
+        r = aggregate_jurisdiction(keyed, '_entity', slug, 'Ward',
+                                   election_cols, today, logger, None)
+        if not r:
+            continue
+        # Wards mirror township/village: no generation charts (they 404 into the
+        # frontend's placeholder path).
+        r.pop('generation_distribution', None)
+        r.pop('party_by_generation', None)
+
+        ccounts = counties_by_slug.get(slug, {})
+        county_slugs = [c for c, _ in sorted(ccounts.items(), key=lambda kv: (-kv[1], kv[0]))]
+        primary_slug = county_slugs[0] if county_slugs else None
+        primary_name = county_name_by_slug.get(primary_slug)
+        display_name = f"{desc['name']} ({desc['parent_name']} {desc['parent_type'].title()})"
+
+        r['slug'] = slug
+        r['jurisdiction_type'] = 'Ward'
+        r['jurisdiction_name'] = display_name
+        r['county'] = primary_name
+        r['today'] = today
+        results.append(r)
+
+        charts = [ct for ct in ('party_affiliation', 'decade_distribution',
+                                'party_by_decade', 'unc_shadow') if ct in r]
+        index_entries.append({
+            'slug':              slug,
+            'name':              desc['name'],
+            'display_name':      display_name,
+            'parent_type':       desc['parent_type'],
+            'parent_name':       desc['parent_name'],
+            'parent_place_slug': desc['parent_place_slug'],
+            'county':            primary_name,
+            'county_slug':       primary_slug,
+            'county_slugs':      county_slugs,
+            'voter_count':       int(r.get('voter_count', 0)),
+            'charts':            charts,
+        })
+
+    export_jurisdiction_json(results, 'Ward', logger)
+    index_entries.sort(key=lambda e: (e['parent_name'] or '', e['name']))
+    _dump_json(index_entries, type_dir / 'index.json', logger)
+    logger.info('Ward entities: wrote %d entities + index.json', len(index_entries))
+
+
+
 def main(
     jurisdictions_to_process: list[str] | None = None,
     output_format: str = 'json',
@@ -627,9 +766,14 @@ def main(
     start_time = time.time()
     today = date_t.today().isoformat()
 
-    # Determine which jurisdictions to process
+    # Determine which jurisdictions to process. 'wards' is a pseudo-type routed to
+    # the municipality-scoped builder (build_ward_entities), never the generic loop.
     if jurisdictions_to_process is None:
+        process_wards = True
         jurisdictions_to_process = list(JURISDICTIONS.keys())
+    else:
+        process_wards = 'wards' in jurisdictions_to_process
+        jurisdictions_to_process = [j for j in jurisdictions_to_process if j != 'wards']
 
     logger.info(f'Processing {len(jurisdictions_to_process)} jurisdiction types: {jurisdictions_to_process}')
     logger.info(f'Output format: {output_format}')
@@ -834,6 +978,11 @@ def main(
             export_jurisdiction_index(results, jurisdiction_type_key, logger)
         logger.info('JSON export complete')
 
+    # Ward entities: municipality-scoped, cross-county-aware; own export + index.
+    if process_wards and output_format in ['json', 'both']:
+        logger.info('Building municipality-scoped ward entities...')
+        build_ward_entities(df, election_cols, today, logger)
+
     elapsed = time.time() - start_time
     logger.info(f'Done in {elapsed:.1f}s')
 
@@ -857,7 +1006,7 @@ if __name__ == '__main__':
              'Default: all. Options: cities, townships, villages, '
              'local_school_districts, city_school_districts, exempted_vill_school_districts, '
              'state_senate_districts, state_rep_districts, congressional_districts, '
-             'county_court_districts, municipal_court_districts, court_of_appeals'
+             'county_court_districts, municipal_court_districts, court_of_appeals, wards'
     )
     parser.add_argument(
         '--format',

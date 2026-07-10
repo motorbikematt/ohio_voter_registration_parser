@@ -43,12 +43,16 @@ def regen_county(county_num: str, county_name: str, slug: str) -> None:
         log.warning('  [skip] %s — no parquet', slug)
         return
 
-    # Load only the columns build_city_summary() needs. RESIDENTIAL_CITY is the
-    # fallback grouping key for the ~19 counties where CITY is blank (100%
-    # populated there — confirmed by parquet scan).
+    # Load the columns the single place resolver behind build_city_summary()
+    # needs. VILLAGE / WARD / TOWNSHIP are required so villages resolve to their
+    # own place type and drop out of the city summary; without them a village
+    # falls through to the RESIDENTIAL_CITY postal fallback and re-enters as a
+    # bogus "city". RESIDENTIAL_CITY is the last-resort grouping key for the ~19
+    # counties where CITY is blank (100% populated there — confirmed by scan).
     df = pl.read_parquet(
         par_path,
-        columns=['PRECINCT_NAME', 'VOTER_STATUS', 'CITY', 'RESIDENTIAL_CITY'],
+        columns=['PRECINCT_NAME', 'VOTER_STATUS', 'CITY', 'RESIDENTIAL_CITY',
+                 'VILLAGE', 'WARD', 'TOWNSHIP'],
     )
     # COUNTY_NUMBER is a Hive partition key — add it back as a literal
     df = df.with_columns(pl.lit(county_num).alias('COUNTY_NUMBER'))

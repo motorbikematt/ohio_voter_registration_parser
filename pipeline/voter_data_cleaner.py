@@ -2401,97 +2401,201 @@ def _dominant_per_precinct(df: pl.DataFrame, value_col: str) -> dict:
     return {row['PRECINCT_NAME']: row['_v'] for row in dominant.iter_rows(named=True)}
 
 
-def _dominant_city_per_precinct(df: pl.DataFrame) -> dict:
+def _place_per_precinct(df: pl.DataFrame) -> dict:
     """
-    Map PRECINCT_NAME -> dominant municipality for one county's df, resolved by
-    the SWVF jurisdiction hierarchy (NOT by postal address).
+    Map PRECINCT_NAME -> {'type': 'city'|'village'|'township', 'name': <str>}
+    for one county's df, resolving EVERY precinct to exactly one place (never
+    None). This is the single authoritative place resolver (CLAUDE.md 5); the
+    city resolver _dominant_city_per_precinct below is a thin derivation of it,
+    so villages and townships can never leak into the city summary /
+    city_county_map again (the historical postal-city and village-as-city bugs).
 
-    The Ohio SWVF (official layout: https://www6.ohiosos.gov/ords/f?p=111:2)
-    carries two unrelated location families:
-      * Authoritative jurisdiction: CITY, VILLAGE, WARD, TOWNSHIP, PRECINCT —
+    The Ohio SWVF carries two unrelated location families:
+      * Authoritative jurisdiction: CITY, VILLAGE, WARD, TOWNSHIP, PRECINCT --
         the Board of Elections' assignment of where a voter legally votes.
-      * Postal address: RESIDENTIAL_CITY — USPS mail delivery only. A voter in
-        an unincorporated township has CITY='' but receives mail from a nearby
-        city's post office, so RESIDENTIAL_CITY names that city. Using it as the
-        municipality mislabels township precincts (e.g. WASHINGTON TWP F ->
-        'KETTERING'). It is therefore the LAST resort, never a CITY override.
+      * Postal address: RESIDENTIAL_CITY -- USPS mail delivery only, the LAST
+        resort, never a jurisdiction override.
 
-    Resolution order per precinct (first match wins):
-      1. PRECINCT_NAME township token (TWP / TOWNSHIP / trailing ' TS') -> the
-         precinct is primarily unincorporated township, so it is NOT a city
-         (emit None) -- even if a MINORITY of rows carry a CITY/VILLAGE value
-         (e.g. Wyandot's 'JACKSON TS' contains the tiny Village of Kirby for ~35
-         voters; the precinct as a whole is Jackson Township). This runs first so
-         that minority value cannot claim the precinct. The name token also
-         covers counties that leave the TOWNSHIP column blank but name the
-         precinct as a township -- notably Wyandot ('ANTRIM TS'). Universal, not
-         a per-county exception.
-      2. CITY          -> that city (69 counties populate this).
-      3. VILLAGE       -> that village (incorporated-but-not-city residents).
-      4. WARD prefix   -> municipality embedded in WARD (e.g. Cuyahoga's
-                          'CLEVELAND WARD 7' -> 'CLEVELAND').
-      5. TOWNSHIP column -> the column-based counterpart to step 1, for counties
-                          that populate the TOWNSHIP column but use a
-                          non-township precinct name. Emits None.
-      6. RESIDENTIAL_CITY (postal) -> only when none of the above match (e.g.
-         Wyandot's incorporated precincts 'CAREY A', 'UPPER D', 'NEVADA' -- real
-         towns with no authoritative jurisdiction column). Flagged as a fallback
-         in provenance.
+    Resolution order per precinct (first match wins), mirroring the 4
+    hierarchy, but recording a TYPE + display name instead of collapsing
+    townships to None / villages to city:
+      1. PRECINCT_NAME township token (TWP / TOWNSHIP / trailing ' TS') ->
+         township. Name = dominant TOWNSHIP column value, falling back to the
+         precinct name token when TOWNSHIP is blank (e.g. Wyandot 'ANTRIM TS').
+         Runs first so a MINORITY city/village value in an unincorporated
+         precinct (e.g. Wyandot's Village of Kirby inside 'JACKSON TS') cannot
+         claim it.
+      2. CITY     -> city    (normalized via _normalize_city_name).
+      3. VILLAGE  -> village. Name = the RAW VILLAGE value, keeping the
+         ' VILLAGE' suffix so _place_slug matches the village bundle filename
+         (e.g. 'NEW LEBANON VILLAGE' -> montgomery_new_lebanon_village).
+      4. WARD prefix -> city (municipality before ' WARD'; e.g. Cuyahoga's
+         'CLEVELAND WARD 7' -> 'CLEVELAND'). Ward handling itself is out of
+         scope here.
+      5. TOWNSHIP column populated -> township (column-based counterpart to
+         step 1, for counties that populate TOWNSHIP but use a non-township
+         precinct name).
+      6. RESIDENTIAL_CITY postal last resort -> city.
 
-    A precinct that resolves to a township (steps 1/5) is intentionally ABSENT
-    from the returned map; the caller emits None ('not in a city'). Run
-    tools/admin/validate_jurisdiction_fields.py on every new SWVF drop to confirm
-    the per-county coverage this logic relies on.
+    Run tools/admin/validate_jurisdiction_fields.py on every new SWVF drop to
+    confirm the per-county coverage this logic relies on.
     """
     cols = df.columns
     if 'PRECINCT_NAME' not in cols:
         return {}
 
+    township_by_p = _dominant_per_precinct(df, 'TOWNSHIP') if 'TOWNSHIP' in cols else {}
     resolved: dict = {}
 
-    def fill(col: str, transform=None):
-        """Set resolved[p] from the dominant non-blank value of col, but only
-        for precincts not already resolved by a higher-priority column."""
+    def fill(col: str, place_type: str, transform=None):
+        """Record (place_type, name) from the dominant non-blank value of col,
+        but only for precincts not already claimed by a higher-priority rule."""
         if col not in cols:
             return
         for pname, val in _dominant_per_precinct(df, col).items():
             if pname in resolved:
                 continue
-            v = transform(val) if transform else val
-            if v:
-                resolved[pname] = v
+            name = transform(val) if transform else val
+            if name:
+                resolved[pname] = {'type': place_type, 'name': name}
 
-    # 1: A PRECINCT_NAME that declares a township (TWP / TOWNSHIP / trailing
-    #    ' TS') is primarily unincorporated township -> NOT a city, even if a
-    #    MINORITY of its rows carry a CITY/VILLAGE value (e.g. Wyandot's
-    #    'JACKSON TS' contains the tiny Village of Kirby for ~35 voters). Resolve
-    #    these to None first so that minority value cannot claim the precinct.
+    # 1: PRECINCT_NAME township token -> township (highest priority).
     for pname in df['PRECINCT_NAME'].drop_nulls().unique().to_list():
         if _TOWNSHIP_NAME_RE.search(pname.upper()):
-            resolved.setdefault(pname, None)
+            tname = township_by_p.get(pname) or pname.strip()
+            resolved.setdefault(pname, {'type': 'township', 'name': tname})
 
-    # 2-3: authoritative municipality columns (only for non-township precincts,
-    #      which are already pinned to None above).
-    fill('CITY', _normalize_city_name)
-    fill('VILLAGE', _normalize_city_name)
-    # 4: WARD carries 'CLEVELAND WARD 7' style values; take the municipality
-    #    prefix before ' WARD'. Only applies where WARD is populated (Cuyahoga).
-    fill('WARD', lambda v: _normalize_city_name(re.split(r'\s+WARD\b', v, maxsplit=1)[0]))
+    # 2: CITY (normalized).
+    fill('CITY', 'city', _normalize_city_name)
+    # 3: VILLAGE -> its own type, RAW value (keep suffix for slug parity).
+    fill('VILLAGE', 'village')
+    # 4: WARD municipality prefix -> city.
+    fill('WARD', 'city',
+         lambda v: _normalize_city_name(re.split(r'\s+WARD\b', v, maxsplit=1)[0]))
+    # 5: TOWNSHIP column populated -> township.
+    for pname, tname in township_by_p.items():
+        resolved.setdefault(pname, {'type': 'township', 'name': tname})
+    # 6: RESIDENTIAL_CITY postal last resort -> city.
+    fill('RESIDENTIAL_CITY', 'city', _normalize_city_name)
 
-    # 5: TOWNSHIP-column precincts are NOT cities (the column-based counterpart
-    #    to the name check in step 1; covers counties that populate the column
-    #    but use a non-township precinct name).
-    if 'TOWNSHIP' in cols:
-        for pname in _dominant_per_precinct(df, 'TOWNSHIP'):
-            resolved.setdefault(pname, None)
+    return resolved
 
-    # 6: postal last resort — only precincts still unresolved (no CITY/VILLAGE/
-    #    WARD/TOWNSHIP signal at all, e.g. Wyandot). Never overrides the above.
-    if 'RESIDENTIAL_CITY' in cols:
-        fill('RESIDENTIAL_CITY', _normalize_city_name)
 
-    # Drop the explicit-None (township) entries; caller treats "absent" as None.
-    return {k: v for k, v in resolved.items() if v}
+def _place_slug(place: dict, county_slug: str) -> str:
+    """Routing slug for a resolved place, matching the jurisdictional_groupings
+    bundle filenames. Cities use the bare name slug (the frontend appends
+    '_city', v2.js:262); villages and townships use the county-prefixed slug
+    (e.g. 'montgomery_washington_township'). county_slug is the pipeline's
+    county slug, identical to _slugify(county_name) for Ohio county names."""
+    name_slug = _precinct_safe_name(place['name'])
+    if place['type'] == 'city':
+        return name_slug
+    return f'{county_slug}_{name_slug}'
+
+
+def _ward_parent_slugs(parent_type: str, parent_name: str, county_slug: str) -> tuple:
+    """(route_slug, bundle_slug) for a ward's parent place. route_slug matches the
+    precinct-index place_slug (bare for cities); bundle_slug is the ward-entity
+    prefix and matches the data/{city,village,township} bundle filename -- cities
+    carry the '_city' suffix the frontend appends (v2.js:262), villages/townships
+    use the county-prefixed slug verbatim."""
+    name_slug = _precinct_safe_name(parent_name)
+    if parent_type == 'city':
+        return name_slug, f'{name_slug}_city'
+    return f'{county_slug}_{name_slug}', f'{county_slug}_{name_slug}'
+
+
+def _ward_map_per_county(df: pl.DataFrame, county_slug: str) -> dict:
+    """Map each non-blank WARD value in one county's df to its canonical ward
+    entity descriptor. The single ward resolver (CLAUDE.md 5): the precinct-index
+    ward stamp (export_precinct_charts) and the ward entity builder
+    (jurisdictional_groupings.build_ward_entities) both derive their slugs here,
+    so a precinct's stamped ward_slug can never point to a non-existent entity.
+
+    Parent municipality = the DOMINANT resolved place among the ward's voter rows,
+    via _place_per_precinct -- NEVER parsed from the ward string (which breaks on
+    'CINTI WARD 1', 'HUBER HTS ...', and the un-prefixed 'FIRST WARD'). Because the
+    parent is a real resolved place, the five cross-county 'FIRST WARD' collisions
+    split by their distinct parent cities while a city-ward spanning counties
+    (ALLIANCE WARD 2 in Mahoning + Stark) yields one slug in both.
+
+    Returns { ward_value: {
+        'ward_name', 'parent_type', 'parent_name', 'parent_place_slug',
+        'slug', 'abuse' } }.
+
+    'abuse' flags a WARD value that is itself a township name resolving to a
+    township parent (Lucas stuffs 'WASHINGTON TOWNSHIP' etc. into WARD); callers
+    exclude abuse entries -- they are the township restated, not a ward.
+    """
+    cols = df.columns
+    if 'WARD' not in cols or 'PRECINCT_NAME' not in cols:
+        return {}
+
+    place = _place_per_precinct(df)  # precinct -> {type, name}
+
+    ward_rows = (
+        df.select([
+            pl.col('PRECINCT_NAME'),
+            pl.col('WARD').str.strip_chars().alias('_ward'),
+        ])
+        .filter(pl.col('_ward') != '')
+    )
+    if ward_rows.height == 0:
+        return {}
+
+    prec_names = ward_rows['PRECINCT_NAME'].unique().to_list()
+    pmap = pl.DataFrame({
+        'PRECINCT_NAME': prec_names,
+        '_ptype': [place[p]['type'] if place.get(p) else None for p in prec_names],
+        '_pname': [place[p]['name'] if place.get(p) else None for p in prec_names],
+    })
+    counts = (
+        ward_rows.join(pmap, on='PRECINCT_NAME', how='left')
+                 .filter(pl.col('_ptype').is_not_null())
+                 # deterministic dominant: rows desc, then name/type asc for ties
+                 .group_by(['_ward', '_ptype', '_pname'])
+                 .agg(pl.len().alias('n'))
+                 .sort(['_ward', 'n', '_pname', '_ptype'],
+                       descending=[False, True, False, False])
+    )
+
+    out: dict = {}
+    for row in counts.group_by('_ward', maintain_order=True).first().iter_rows(named=True):
+        ward_value  = row['_ward']
+        parent_type = row['_ptype']
+        parent_name = row['_pname']
+        route_slug, bundle_slug = _ward_parent_slugs(parent_type, parent_name, county_slug)
+        slug = f'{bundle_slug}_{_precinct_safe_name(ward_value)}'
+        # Not a real ward (townships have no wards), excluded in two shapes:
+        #  * the WARD value is itself a township name -- guard on the value,
+        #    since Lucas's 'WASHINGTON TOWNSHIP' resolves to a BOGUS city via
+        #    the WARD-prefix fallback (rule 4), which a parent test would miss;
+        #  * the dominant resolved parent is a township -- Stark stuffs the
+        #    township name 'CANTON' into WARD (distinct from Canton CITY's real
+        #    CANTON WARD 1-9), and stray city-ward voters in a township-tokened
+        #    precinct (2 'BELLEVUE WARD 4' voters in GROTON TWP) resolve there.
+        abuse = bool(_TOWNSHIP_NAME_RE.search(ward_value.upper())) or parent_type == 'township'
+        out[ward_value] = {
+            'ward_name':         ward_value,
+            'parent_type':       parent_type,
+            'parent_name':       parent_name,
+            'parent_place_slug': route_slug,
+            'slug':              slug,
+            'abuse':             abuse,
+        }
+    return out
+
+
+def _dominant_city_per_precinct(df: pl.DataFrame) -> dict:
+    """Thin city-only derivation of _place_per_precinct (CLAUDE.md 5): keeps
+    only type=='city' places, returning PRECINCT_NAME -> normalized city name.
+    Townships AND villages resolve to their own place types and are therefore
+    ABSENT here; callers (build_city_summary, _build_city_county_map) treat an
+    absent precinct as 'not a city', so villages no longer leak into the city
+    layer. All resolution semantics live in _place_per_precinct."""
+    return {p: place['name']
+            for p, place in _place_per_precinct(df).items()
+            if place['type'] == 'city'}
 
 
 def export_precinct_charts(
@@ -2532,10 +2636,17 @@ def export_precinct_charts(
 
     index_entries = []
 
-    # Per-precinct municipality (CITY, RESIDENTIAL_CITY fallback). Drives the
-    # dashboard's city grouping and the cross-county city_county_map. Emitting
-    # it here makes a full rerun self-sufficient — no post-hoc index patch.
-    city_by_precinct = _dominant_city_per_precinct(df)
+    # Per-precinct authoritative place (city/village/township) via the single
+    # place resolver. Drives the dashboard's geo tree grouping, the city
+    # summary, and the cross-county city_county_map. Emitting it here makes a
+    # full rerun self-sufficient — no post-hoc index patch.
+    place_by_precinct = _place_per_precinct(df)
+    # Per-precinct dominant WARD + the county's canonical ward map (single ward
+    # resolver). ward_slug is the precinct's dominant ward's canonical entity
+    # slug, so the geo tree nests each precinct under the same ward entity that
+    # jurisdictional_groupings.build_ward_entities emits.
+    ward_map = _ward_map_per_county(df, slug)
+    dominant_ward = _dominant_per_precinct(df, 'WARD') if 'WARD' in df.columns else {}
 
     for precinct_name in precinct_names:
         safe_name = _precinct_safe_name(precinct_name)
@@ -2971,10 +3082,20 @@ def export_precinct_charts(
                 }, DATA_DIR / f'{slug}_precinct_{safe_name}_party_by_generation.json', logger)
                 party_generation_url = f'data/{slug}_precinct_{safe_name}_party_by_generation.json'
 
+        place = place_by_precinct.get(precinct_name)
+        place_city = place['name'] if place and place['type'] == 'city' else None
+        _dw = dominant_ward.get(precinct_name)
+        _wdesc = ward_map.get(_dw) if _dw else None
+        _ward_slug = _wdesc['slug'] if _wdesc and not _wdesc['abuse'] else None
         index_entries.append({
             'name':              precinct_name,
             'safe_name':         safe_name,
-            'city':              city_by_precinct.get(precinct_name) or None,
+            'city':              place_city,
+            'place_type':        place['type'] if place else None,
+            'place_name':        place['name'] if place else None,
+            'place_slug':        _place_slug(place, slug) if place else None,
+            'ward_slug':         _ward_slug,
+            'ward_name':         _dw if _ward_slug else None,
             'precinct_code':     (pdf['PRECINCT_CODE'][0]
                                   if 'PRECINCT_CODE' in pdf.columns and total
                                   else None),
