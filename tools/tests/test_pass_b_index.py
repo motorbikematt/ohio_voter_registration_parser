@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-DOCS_DATA = Path(__file__).parent.parent / "docs" / "data"
+DOCS_DATA = Path(__file__).resolve().parent.parent.parent / "docs" / "data"
 COUNTY_SCOPED = {"township", "village", "municipal_court_district"}
 REQUIRED_KEYS = {"slug", "name", "display_name", "county", "county_slug",
                  "voter_count", "charts"}
