@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 59 (16%)",
+      "UNC – Lapsed R — 52 (14%)",
+      "Mixed – Active — 31 (9%)",
+      "Mixed – Lapsed — 34 (9%)",
+      "UNC – No Primary — 152 (42%)",
+      "UNC – Lapsed D — 26 (7%)",
+      "Pure D — 7 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          59,
+          52,
+          31,
+          34,
+          152,
+          26,
+          7
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Village",
+  "jurisdiction_name": "MT. VICTORY VILLAGE (Hardin Co.)",
+  "updated": "2026-07-10"
+}
