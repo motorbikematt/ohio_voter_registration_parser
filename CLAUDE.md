@@ -79,13 +79,13 @@ The irreducible knowledge this file exists to hold — most of the project's wor
 * **Claude Code CLI host-scanner avoidance** (the `\n#` multi-line `-c` flag, `cd`+redirection) is CLI-host behavior and lives in the global `~/.claude/CLAUDE.md` under `## Command Execution`. It does not fire in the Cowork sandbox (verified), so it is intentionally not duplicated here. Utilities such as `awk`, `sed`, `xargs`, and `stat` are whitelisted in `.claude/settings.local.json` and do not require avoidance.
 
 ## 10. Specific Commands
-Manual git-push handoff (the sandbox cannot push — Windows Credential Manager prompts are unsupported, and FUSE mounts block git index writes):
+**Committing works from the agent's tool shell and needs no auth — the agent may branch + commit directly.** **Pushing does not:** `git push` from any non-interactive tool shell (Claude Code CLI Bash *and* the Cowork sandbox) fails with `Unable to persist credentials with the 'wincredman' credential store` / `could not read Username` (no TTY for Git Credential Manager; verified 2026-07-11). This is an environment limit, not a policy — it cannot be lifted by editing a rule. The push is handed to the user, two ways:
+* User runs it in a real terminal (PowerShell / VS Code):
 ```powershell
 cd "D:\vibe\election-data"
-git add <files>
-git commit -m "<message>"
-git push
+git push -u origin <branch>
 ```
+* Or the user types `! git push -u origin <branch>` in the prompt — the `!` prefix runs in their interactive session, where wincredman can authenticate.
 * **Safe git search** (repo has ~78k generated files): `git log -S "term" --no-renames | head -n 20`; scope `grep` / `git grep` to a subdirectory, never repo root. One-time: `git config diff.renameLimit 10000`.
 * **Stuck `.git/index.lock`** from a failed sandbox op: `Remove-Item ".git\index.lock" -Force`, then commit from PowerShell / VS Code.
 
