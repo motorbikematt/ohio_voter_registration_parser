@@ -38,8 +38,10 @@ What this checks, per county:
      postal RESIDENTIAL_CITY is a different municipality (the mislabel risk a
      postal fallback would reintroduce).
 
-Read-only. Bounded output. Exit code is non-zero under --strict if any
-HIGH-severity mislabel is found, so this can gate a pipeline run in CI.
+Read-only (except --ledger). Bounded output. Exit code is non-zero under
+--strict if any resolver-CONFIRMED postal mislabel exists (section [3b],
+B1 2026-07-10) or a MUST-be-zero structural check fails, so this can gate
+a pipeline run in CI.
 """
 from __future__ import annotations
 import argparse
@@ -70,6 +72,10 @@ PLACE_WARD_COLS = ['COUNTY_NUMBER', 'PRECINCT_NAME', 'CITY', 'VILLAGE', 'WARD', 
 # each is a per-drop measurement re-checked on every new SWVF partition.
 SPLIT_PRECINCT_BASELINE = 43
 WARD_ABUSE_BASELINE = 4
+# A5 (2026-07-04 snapshot, row-accurate CITY basis): counties where ANY city
+# has <100% WARD coverage, INCLUDING at-large-everywhere cities -- broader
+# than [6]'s DEFECT classification. Informational, not strict-gated.
+WARD_GAP_COUNTY_BASELINE = 29
 
 # Ohio's 88 counties are numbered 01-88 in alphabetical order (fixed by statute).
 OHIO_COUNTIES = [
@@ -142,6 +148,64 @@ def township_postal_conflicts(lf: pl.LazyFrame) -> pl.DataFrame:
            .sort(['COUNTY_NUMBER', 'voters'], descending=[False, True])
            .collect()
     )
+
+
+def classify_township_conflicts(lf: pl.LazyFrame, conflicts: pl.DataFrame,
+                                postal_set: set) -> dict:
+    """[3b] Resolve every [3] conflict precinct through the real place
+    resolver (_v._place_per_precinct) and split the benign majority from
+    resolver-CONFIRMED mislabels (B1, operator decision 2026-07-10).
+
+    A [3] row is postal-vs-jurisdiction NOISE when the resolver lands on an
+    authoritative column anyway: township (TOWNSHIP column / precinct-name
+    token), village (VILLAGE column), or a city carried by authoritative
+    CITY/WARD rows. The last bucket exists because Cuyahoga names its
+    municipalities inside WARD ('BAY VILLAGE WARD 2') and 'VILLAGE' there is
+    part of the municipality's legal name (Bay Village is a CITY), matching
+    the [3] name-token regex by accident -- RESIDENTIAL_CITY is never
+    consulted for those precincts.
+
+    A row is a CONFIRMED mislabel only when the precinct has NO
+    authoritative-column rows at all, so the resolver genuinely falls
+    through to RESIDENTIAL_CITY, in a county that HAS authoritative columns
+    (postal-last-resort counties are excluded: postal is correct-by-necessity
+    there). 2026-07-04 measurement: 1,778 conflicts -> 1,558 township +
+    204 village + 16 authoritative-WARD city, 0 confirmed. --strict gates on
+    the confirmed subset only; confirmed rows feed the POSTAL-MISLABEL
+    ledger IDs in build_ledger_rows."""
+    out: dict = {'township': 0, 'village': 0, 'city_auth': 0,
+                 'confirmed': [], 'unresolved': []}
+    high = conflicts.filter(~pl.col('COUNTY_NUMBER').is_in(sorted(postal_set)))
+    if high.height == 0:
+        return out
+    target = set(high['COUNTY_NUMBER'].to_list())
+    for num, cname, slug, sub in _per_county_frames(lf):
+        if num not in target:
+            continue
+        place = _v._place_per_precinct(sub)
+        auth_expr = pl.lit(False)
+        for c in ('CITY', 'VILLAGE', 'WARD', 'TOWNSHIP'):
+            if c in sub.columns:
+                auth_expr = auth_expr | _nonblank(c)
+        auth_by_p = dict(
+            sub.group_by('PRECINCT_NAME')
+               .agg(auth_expr.sum().alias('auth'))
+               .iter_rows())
+        for r in high.filter(pl.col('COUNTY_NUMBER') == num).iter_rows(named=True):
+            p = r['PRECINCT_NAME']
+            res = place.get(p)
+            entry = {'county_num': num, 'county_name': cname, 'precinct': p,
+                     'voters': r['voters'], 'postal_city': r['postal_city'],
+                     'resolved': res['name'] if res else None}
+            if res is None:
+                out['unresolved'].append(entry)
+            elif res['type'] in ('township', 'village'):
+                out[res['type']] += 1
+            elif int(auth_by_p.get(p, 0) or 0) > 0:
+                out['city_auth'] += 1
+            else:
+                out['confirmed'].append(entry)
+    return out
 
 
 def village_in_township_candidates(lf: pl.LazyFrame) -> pl.DataFrame:
@@ -261,33 +325,51 @@ def check_place_completeness(lf: pl.LazyFrame, show: int) -> int:
 
 def check_ward_coverage(lf: pl.LazyFrame) -> list[dict]:
     """[6] Ward coverage matrix: per (municipality, county), % of that city's
-    voters with a non-blank WARD. Classify per the locked policy: 0% in every
-    county the city appears in -> INFO 'at-large' (no code change); anything
-    else uneven (partial coverage in a county, or populated in one county and
-    blank in another -- the Kettering/Greene case) -> DEFECT. We never impute
-    the gap (ward boundaries aren't derivable from the voter file)."""
-    print(f'\n[6] Ward coverage matrix (per municipality, across counties)')
+    voters with a non-blank WARD, counted on the ROW-ACCURATE basis: literal
+    CITY == value row matches (normalized via _v._normalize_city_name), never
+    the dominant-place-per-precinct sweep (A4, 2026-07-10). The sweep counted
+    every voter in a precinct whose DOMINANT place is the city, pulling
+    blank-CITY and other-city rows from mixed precincts into the count --
+    Kettering/Greene read ~3,100 where the row-accurate figure is 540
+    (181 in BEAVERCREEK 090 + 359 in SUGARCREEK 151, 2026-07-04 snapshot).
+    Cities that appear only via WARD-prefix or postal resolution (blank-CITY
+    counties, e.g. Cuyahoga) carry no literal CITY rows and drop out of this
+    matrix -- their ward coverage is definitionally carried by WARD itself.
+
+    Classification (locked policy): 0% in every county the city appears in
+    -> INFO 'at-large' (no code change); anything else uneven (partial
+    coverage in a county, or populated in one county and blank in another --
+    the Kettering/Greene case) -> DEFECT. We never impute the gap (ward
+    boundaries aren't derivable from the voter file).
+
+    Also prints the A5 summary: count of counties where ANY city has <100%
+    WARD coverage, INCLUDING at-large-everywhere cities -- broader than the
+    DEFECT classification (baseline WARD_GAP_COUNTY_BASELINE, re-measured
+    per drop, informational)."""
+    print(f'\n[6] Ward coverage matrix (per municipality, across counties; '
+          f'row-accurate CITY-row basis)')
     # city_name -> county_slug -> (county_num, county_name, nonblank_ward_voters, total_voters)
     by_city: dict[str, dict[str, tuple[str, str, int, int]]] = {}
     for num, cname, slug, sub in _per_county_frames(lf):
-        place = _v._place_per_precinct(sub)
-        city_by_precinct = {p: v['name'] for p, v in place.items() if v['type'] == 'city'}
-        if not city_by_precinct:
-            continue
-        rows = sub.select(['PRECINCT_NAME', 'WARD']).with_columns(
-            pl.col('WARD').str.strip_chars().alias('_w')
-        )
-        rows = rows.with_columns(
-            pl.col('PRECINCT_NAME').replace_strict(city_by_precinct, default=None).alias('_city')
-        ).filter(pl.col('_city').is_not_null())
+        rows = sub.select(['CITY', 'WARD']).with_columns(
+            pl.col('CITY').str.strip_chars().alias('_c'),
+            pl.col('WARD').str.strip_chars().alias('_w'),
+        ).filter(pl.col('_c').is_not_null() & (pl.col('_c') != ''))
         if rows.height == 0:
             continue
-        agg = rows.group_by('_city').agg(
+        agg = rows.group_by('_c').agg(
             pl.len().alias('total'),
             (pl.col('_w').is_not_null() & (pl.col('_w') != '')).sum().alias('nb'),
         )
         for r in agg.iter_rows(named=True):
-            by_city.setdefault(r['_city'], {})[slug] = (num, cname, r['nb'], r['total'])
+            city = _v._normalize_city_name(r['_c'])
+            if not city:
+                continue
+            # two raw values can normalize to the same city ('KETTERING CITY'
+            # / 'KETTERING') -- accumulate, never overwrite.
+            _, _, nb0, tot0 = by_city.setdefault(city, {}).get(
+                slug, (num, cname, 0, 0))
+            by_city[city][slug] = (num, cname, nb0 + r['nb'], tot0 + r['total'])
 
     defects: list[dict] = []
     info_at_large = 0
@@ -317,6 +399,13 @@ def check_ward_coverage(lf: pl.LazyFrame) -> list[dict]:
         else:
             print(f"      {d['city']} / {d['county_slug']}: 0% WARD, populated in "
                   f"another county ({d['total']} voters under-counted)")
+
+    # A5: coverage-gap county summary, broader than DEFECT (includes at-large).
+    gap_counties = {c for counties in by_city.values()
+                    for c, (_, _, nb, tot) in counties.items() if nb < tot}
+    print(f'    counties where ANY city has <100% WARD coverage '
+          f'(incl. at-large cities): {len(gap_counties)}  '
+          f'(baseline: {WARD_GAP_COUNTY_BASELINE})')
     return defects
 
 
@@ -444,7 +533,8 @@ def _gap_slug(s: str) -> str:
 
 
 def build_ledger_rows(ward_defects: list[dict], abuse_rows: list[dict],
-                       splits: list) -> list[dict]:
+                       splits: list,
+                       postal_mislabels: list[dict] | None = None) -> list[dict]:
     """Part W7: turn this run's measured gaps into stable-ID ledger rows for
     DATA_QUALITY.md. One row per distinct state-data defect; IDs are stable
     across drops (county number + defect specifics) so the manual section can
@@ -470,6 +560,17 @@ def build_ledger_rows(ward_defects: list[dict], abuse_rows: list[dict],
             'defect_class': 'schema abuse (township name in WARD)',
             'affected_voters': r['voters'],
             'detail': f"resolves to {r['parent_type']} parent",
+        })
+    for m in (postal_mislabels or []):
+        gap_id = f"POSTAL-MISLABEL-{m['county_num']}-{_gap_slug(m['precinct'])}"
+        rows.append({
+            'gap_id': gap_id, 'county': m['county_name'],
+            'municipality': m['postal_city'],
+            'defect_class': ('postal fall-through (no authoritative '
+                             'jurisdiction column populated)'),
+            'affected_voters': m['voters'],
+            'detail': (f"precinct {m['precinct']}: CITY/VILLAGE/WARD/"
+                       f"TOWNSHIP blank; only RESIDENTIAL_CITY populated"),
         })
     if splits:
         total_voters = sum(v for *_, v in splits)
@@ -628,6 +729,30 @@ def main() -> int:
         print(f'      ... +{conflicts.height - args.show} more '
               f'(raise --show to see all)')
 
+    # B1 (operator decision 2026-07-10): --strict gates on the resolver-
+    # CONFIRMED subset from [3b], not the raw non-postal-county conflict
+    # count -- the raw count (1,778 on 2026-07-04 data) is dominated by
+    # precincts the resolver's TOWNSHIP/VILLAGE/WARD steps already handle,
+    # exactly as [3]'s own NOTE states.
+    postal_set = set(postal_only['COUNTY_NUMBER'].to_list())
+    cls = classify_township_conflicts(lf, conflicts, postal_set)
+    confirmed = cls['confirmed']
+    benign = cls['township'] + cls['village'] + cls['city_auth']
+    print(f'\n[3b] Resolver outcome for the [3] conflicts (B1 --strict basis)')
+    print(f'    benign -- resolver lands on an authoritative column (WARN,')
+    print(f'    tracks the postal-fallback risk surface only): {benign}')
+    print(f"      township: {cls['township']}   village: {cls['village']}   "
+          f"city via authoritative CITY/WARD rows: {cls['city_auth']}")
+    if cls['unresolved']:
+        print(f"    unresolved by the place resolver (see [5]): "
+              f"{len(cls['unresolved'])}")
+    print(f'    CONFIRMED postal mislabels -- resolver falls through to')
+    print(f'    RESIDENTIAL_CITY in a county WITH authoritative columns')
+    print(f'    (gates --strict): {len(confirmed)}')
+    for m in confirmed[:args.show]:
+        print(f"      {m['county_name']:<12} {m['precinct']:<26} "
+              f"postal={m['postal_city']:<16} ({m['voters']:,} voters)")
+
     vit = village_in_township_candidates(lf)
     print('\n' + '!' * 70)
     print(f'[4] KNOWN LIMITATION -- village-in-township (MANUAL REVIEW): '
@@ -643,13 +768,6 @@ def main() -> int:
         print(f"      {name(r['COUNTY_NUMBER']):<12} "
               f"{r['PRECINCT_NAME']:<22} township={r['township']!r:<22} "
               f"({r['voters']:,} voters)  -> currently None")
-
-    # Severity: a township/postal name conflict is HIGH unless the county is a
-    # true postal-last-resort county (no authoritative column at all). Everywhere
-    # else the resolver has TOWNSHIP/WARD/VILLAGE to do the right thing, so a
-    # postal label there would be a genuine mislabel.
-    postal_set = set(postal_only['COUNTY_NUMBER'].to_list())
-    high = conflicts.filter(~pl.col('COUNTY_NUMBER').is_in(postal_set))
 
     placeless_count = 0
     ward_defects: list[str] = []
@@ -668,14 +786,17 @@ def main() -> int:
             print('ERROR: --ledger requires sections [5]-[9] (drop --skip-ward)',
                   file=sys.stderr)
             return 2
-        ledger_rows = build_ledger_rows(ward_defects, abuse_rows, splits)
+        ledger_rows = build_ledger_rows(ward_defects, abuse_rows, splits,
+                                        confirmed)
         write_ledger(ledger_rows, date.today().isoformat())
 
     print(f'\n[SUMMARY]')
     print(f'  township/postal name conflicts total:                 '
           f'{conflicts.height}')
-    print(f'  HIGH-severity (county HAS authoritative columns):      '
-          f'{high.height}')
+    print(f'  resolver-benign (WARN; county has auth columns):       '
+          f'{benign}')
+    print(f'  CONFIRMED postal mislabels (gates --strict):           '
+          f'{len(confirmed)}')
     print(f'  true postal-last-resort counties (no auth col):        '
           f'{postal_only.height}  (expected: 1 = Wyandot)')
     print('  NOTE: the resolver maps these conflicts to None (= "not a city")')
@@ -695,8 +816,9 @@ def main() -> int:
 
     if args.strict:
         failures = []
-        if high.height:
-            failures.append('high-severity jurisdiction mislabels present')
+        if confirmed:
+            failures.append(f'{len(confirmed)} resolver-confirmed postal '
+                             f'mislabels (fall-through to RESIDENTIAL_CITY)')
         if placeless_count:
             failures.append(f'{placeless_count} place-less precincts (must be zero)')
         if not collision_ok:
