@@ -258,6 +258,45 @@ def _cn_key(county_number) -> str:
     return str(county_number).zfill(2)
 
 
+# Chart-type file family written per jurisdiction by export_jurisdiction_json(),
+# plus the narrative file written separately by tools/narrative/generate_narratives.py.
+# Single source of truth so the prune step below can never drift from what a
+# regen run actually owns.
+_CHART_TYPE_SUFFIXES = [
+    'party_affiliation', 'decade_distribution', 'party_by_decade',
+    'generation_distribution', 'party_by_generation', 'unc_shadow', 'narrative',
+]
+
+
+def _prune_ghost_family_files(type_dir: Path, valid_slugs: set, logger: logging.Logger) -> int:
+    """Delete stale-slug files whose slug matches no jurisdiction in the current data.
+
+    Guards against the class of bug behind A6 (2026-07-10): a _slugify() fix, or
+    a jurisdiction's underlying data changing (e.g. a resolved county), leaves old
+    slugged bundles orphaned forever, since export_jurisdiction_json only ever
+    writes new files. Scoped to the chart-type + narrative file family so it never
+    touches index.json or unrelated files. Resume-safe: valid_slugs is computed
+    from the CURRENT full jurisdiction list (not `results`), so a resumed/skipped
+    jurisdiction's still-current files are never removed.
+    """
+    if not type_dir.exists():
+        return 0
+    suffixes = sorted((f'_{ct}.json' for ct in _CHART_TYPE_SUFFIXES), key=len, reverse=True)
+    removed = 0
+    for fpath in type_dir.iterdir():
+        if fpath.name == 'index.json':
+            continue
+        matched_suffix = next((s for s in suffixes if fpath.name.endswith(s)), None)
+        if matched_suffix is None:
+            continue
+        slug = fpath.name[:-len(matched_suffix)]
+        if slug not in valid_slugs:
+            fpath.unlink()
+            removed += 1
+            logger.info(f'Pruned ghost file (stale slug not in current jurisdiction set): {fpath.name}')
+    return removed
+
+
 def _dump_json(data: dict, filepath: Path, logger: logging.Logger):
     """Write JSON with orjson if available, else stdlib json."""
     filepath.parent.mkdir(parents=True, exist_ok=True)
@@ -859,12 +898,25 @@ def main(
             # whole jurisdiction can safely be skipped on re-run.
             type_dir = DATA_DIR / display.lower().replace(' ', '_')
 
-            def _sentinel_for(jur_key) -> Path:
+            def _slug_for(jur_key) -> str:
                 if county_scoped:
                     cn, jn = jur_key
                     cname  = _v2.OHIO_COUNTIES.get(cn, 'unknown')
-                    return type_dir / f'{_slugify(cname)}_{_slugify(str(jn))}_party_affiliation.json'
-                return type_dir / f'{_slugify(str(jur_key))}_party_affiliation.json'
+                    return f'{_slugify(cname)}_{_slugify(str(jn))}'
+                return _slugify(str(jur_key))
+
+            def _sentinel_for(jur_key) -> Path:
+                return type_dir / f'{_slug_for(jur_key)}_party_affiliation.json'
+
+            # Clear-before-write: prune any file whose slug matches none of the
+            # jurisdictions currently present in the data. Must run against the
+            # full `jurisdictions` list (pre resume-skip) -- see module docstring
+            # on _prune_ghost_family_files for why.
+            _pruned = _prune_ghost_family_files(
+                type_dir, {_slug_for(j) for j in jurisdictions}, logger,
+            )
+            if _pruned:
+                logger.info(f'  {jurisdiction_type_key}: pruned {_pruned} ghost files before regen')
 
             if type_dir.exists():
                 already_done = {j for j in jurisdictions if _sentinel_for(j).exists()}
