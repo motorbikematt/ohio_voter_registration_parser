@@ -186,6 +186,41 @@ def test_place_resolves_every_precinct():
     assert all(v['type'] and v['name'] for v in p.values())
 
 
+# == A3: Cuyahoga sub-precinct suffix must not fragment a township =========
+def test_place_subprecinct_suffix_does_not_fragment_township():
+    # Cuyahoga appends '-00-A'..'-00-I' to a blank-TOWNSHIP township precinct.
+    # Without stripping, each suffix would become a distinct fake township;
+    # all nine must collapse to one 'OLMSTED TOWNSHIP'.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': f'OLMSTED TOWNSHIP-00-{s}'} for s in 'ABCDEFGHI'
+    ]))
+    assert len(p) == 9
+    assert {v['name'] for v in p.values()} == {'OLMSTED TOWNSHIP'}
+    assert all(v['type'] == 'township' for v in p.values())
+
+
+def test_place_subprecinct_suffix_populated_township_column_unaffected():
+    # When TOWNSHIP is populated the strip is irrelevant: the column value is
+    # used verbatim and still yields one township.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'OLMSTED TOWNSHIP-00-A', 'TOWNSHIP': 'OLMSTED TOWNSHIP'},
+        {'PRECINCT_NAME': 'OLMSTED TOWNSHIP-00-B', 'TOWNSHIP': 'OLMSTED TOWNSHIP'},
+    ]))
+    assert {v['name'] for v in p.values()} == {'OLMSTED TOWNSHIP'}
+
+
+def test_place_subprecinct_suffix_only_strips_the_suffix_shape():
+    # The strip removes only a trailing '-NN-X'; an ordinary township token
+    # like 'ANTRIM TS' (no suffix) is left intact, and 'CHAGRIN FALLS TWP-00-A'
+    # keeps its TWP token.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'ANTRIM TS'},
+        {'PRECINCT_NAME': 'CHAGRIN FALLS TWP-00-A'},
+    ]))
+    assert p['ANTRIM TS']['name'] == 'ANTRIM TS'
+    assert p['CHAGRIN FALLS TWP-00-A'] == {'type': 'township', 'name': 'CHAGRIN FALLS TWP'}
+
+
 def test_city_wrapper_derives_from_place():
     # _dominant_city_per_precinct keeps only type=='city'; villages/townships
     # are absent (the bugfix — villages no longer leak into the city layer).

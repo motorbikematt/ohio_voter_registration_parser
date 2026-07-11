@@ -2385,6 +2385,13 @@ _CITY_SUFFIX_RE = re.compile(r'\s+(?:CITY|VILLAGE|CITY CORP|CORP)$', re.IGNORECA
 # Wyandot-only trailing abbreviation (verified statewide: 13 precincts,
 # all trailing, no collisions). TWP/TOWNSHIP are the general markers.
 _TOWNSHIP_NAME_RE = re.compile(r'\bTWP\b|\bTOWNSHIP\b|\sTS$')
+# Cuyahoga (county 18) appends a sub-precinct suffix ('-00-A' ... '-00-I')
+# to PRECINCT_NAME. In rule 1's blank-TOWNSHIP fallback that would fragment
+# one township into N per-suffix fakes (Olmsted Township -> 9). Strip a
+# recognized suffix before using the precinct name as the township name.
+# Shape verified statewide 2026-07-11: matches only 10 Cuyahoga sub-precincts,
+# zero real township names (0 of 810 distinct TOWNSHIP values).
+_SUBPRECINCT_SUFFIX_RE = re.compile(r'-\d{2}-[A-Z]$')
 
 
 def _normalize_city_name(name: str) -> str:
@@ -2474,7 +2481,8 @@ def _place_per_precinct(df: pl.DataFrame) -> dict:
     # 1: PRECINCT_NAME township token -> township (highest priority).
     for pname in df['PRECINCT_NAME'].drop_nulls().unique().to_list():
         if _TOWNSHIP_NAME_RE.search(pname.upper()):
-            tname = township_by_p.get(pname) or pname.strip()
+            tname = (township_by_p.get(pname)
+                     or _SUBPRECINCT_SUFFIX_RE.sub('', pname.strip()).strip())
             resolved.setdefault(pname, {'type': 'township', 'name': tname})
 
     # 2: CITY (normalized).

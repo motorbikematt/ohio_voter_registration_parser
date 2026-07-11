@@ -169,6 +169,10 @@ JURISDICTIONS = {
     'cities': {
         'column': 'CITY',
         'display': 'City',
+        # A2: group on a resolved-city column (see _add_resolved_city_column)
+        # so zero-CITY counties (Cuyahoga: municipality via WARD/residential)
+        # get bundles; populated-CITY counties stay byte-identical.
+        'row_resolver': 'city',
     },
     'townships': {
         'column': 'TOWNSHIP',
@@ -307,6 +311,72 @@ def _dump_json(data: dict, filepath: Path, logger: logging.Logger):
         with open(filepath, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2)
     logger.debug(f'Wrote {filepath.name}')
+
+
+def _add_resolved_city_column(df: pl.DataFrame, logger: logging.Logger) -> pl.DataFrame:
+    """Add `_resolved_city`, the grouping key for the CITY stats bundles (A2).
+
+    Value = the raw CITY string verbatim when populated; else, ONLY for counties
+    that populate CITY for zero rows (Cuyahoga-style, where municipality is encoded
+    via WARD prefix / RESIDENTIAL_CITY and CITY is blank for every voter), the
+    single place resolver's dominant city for that precinct, re-suffixed ' CITY'
+    so its slug matches the raw-CITY bundle convention ('CLEVELAND CITY' ->
+    cleveland_city, mirroring the raw 'KETTERING CITY').
+
+    Counties that populate CITY for even one row are left untouched: their
+    _resolved_city equals CITY (populated rows) or null (blanks, dropped exactly
+    as before), so every such county's bundles are byte-identical. This preserves
+    the two-totals hero contract (CLAUDE.md 4) -- a blank-CITY row in a county that
+    DOES use CITY is never silently reassigned to a city hero. Within a fully
+    blank-CITY county precincts do not straddle municipalities, so the precinct-
+    dominant resolver is row-accurate there and matches the geo tree's city nodes
+    (this is why the parent handoff's 'do not use _dominant_city_per_precinct'
+    warning does not apply once the fallback is gated to zero-CITY counties).
+    """
+    import voter_data_cleaner as _v2
+    if 'CITY' not in df.columns or 'PRECINCT_NAME' not in df.columns \
+            or 'COUNTY_NUMBER' not in df.columns:
+        if 'CITY' in df.columns:
+            return df.with_columns(pl.col('CITY').alias('_resolved_city'))
+        return df
+
+    zero_city_counties = (
+        df.group_by('COUNTY_NUMBER')
+          .agg((pl.col('CITY').str.strip_chars() != '').any().alias('_has_city'))
+          .filter(~pl.col('_has_city'))['COUNTY_NUMBER']
+          .to_list()
+    )
+
+    fb_rows = []
+    for cn in zero_city_counties:
+        cdf = df.filter(pl.col('COUNTY_NUMBER') == cn)
+        for pname, city in _v2._dominant_city_per_precinct(cdf).items():
+            fb_rows.append((cn, pname, f'{city} CITY'))
+
+    if fb_rows:
+        fb = pl.DataFrame(
+            fb_rows,
+            schema=['COUNTY_NUMBER', 'PRECINCT_NAME', '_fallback_city'],
+            orient='row',
+        ).with_columns(pl.col('COUNTY_NUMBER').cast(df.schema['COUNTY_NUMBER']))
+        df = df.join(fb, on=['COUNTY_NUMBER', 'PRECINCT_NAME'], how='left')
+    else:
+        df = df.with_columns(pl.lit(None, dtype=pl.Utf8).alias('_fallback_city'))
+
+    df = df.with_columns(
+        pl.when(pl.col('CITY').str.strip_chars().fill_null('') != '')
+          .then(pl.col('CITY'))
+          .otherwise(pl.col('_fallback_city'))
+          .alias('_resolved_city')
+    ).drop('_fallback_city')
+
+    if fb_rows:
+        logger.info(
+            f'  cities (A2): resolved-city fallback active for '
+            f'{len(zero_city_counties)} zero-CITY counties, '
+            f'{len(fb_rows)} precinct->city mappings'
+        )
+    return df
 
 
 def aggregate_jurisdiction(
@@ -860,6 +930,15 @@ def main(
             if column not in df.columns:
                 logger.warning(f'Column {column} not in dataframe; skipping {jurisdiction_type_key}')
                 continue
+
+            # A2: cities group on the resolved-city column so Cuyahoga-style
+            # zero-CITY counties get bundles; populated-CITY counties stay
+            # byte-identical. Computed once, lazily, on first row_resolver type.
+            if config.get('row_resolver') == 'city':
+                if '_resolved_city' not in df.columns:
+                    df = _add_resolved_city_column(df, logger)
+                if '_resolved_city' in df.columns:
+                    column = '_resolved_city'
 
             # ── Collect valid jurisdiction keys ──────────────────────────────
             # Filters: nulls, floats, blank strings, and single-character
