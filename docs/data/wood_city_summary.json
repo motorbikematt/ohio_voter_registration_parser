@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,36 +18,36 @@
     [
       "87",
       "PERRYSBURG",
-      "16,256",
-      "2,395",
-      "18,651",
+      "16,491",
+      "2,302",
+      "18,793",
       "20",
       "N/A"
     ],
     [
       "87",
       "BOWLING GREEN",
-      "13,272",
-      "3,129",
-      "16,401",
+      "13,334",
+      "3,034",
+      "16,368",
       "19",
       "N/A"
     ],
     [
       "87",
       "ROSSFORD",
-      "3,860",
-      "656",
-      "4,516",
+      "3,882",
+      "632",
+      "4,514",
       "5",
       "N/A"
     ],
     [
       "87",
       "NORTHWOOD",
-      "2,817",
-      "589",
-      "3,406",
+      "2,864",
+      "562",
+      "3,426",
       "3",
       "N/A"
     ],
@@ -55,8 +55,8 @@
       "87",
       "FOSTORIA",
       "501",
-      "109",
-      "610",
+      "107",
+      "608",
       "1",
       "N/A"
     ]

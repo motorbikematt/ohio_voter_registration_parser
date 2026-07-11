@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,27 +18,27 @@
     [
       "72",
       "FREMONT",
-      "7,185",
-      "2,028",
-      "9,213",
-      "15",
+      "7,988",
+      "2,088",
+      "10,076",
+      "16",
       "N/A"
     ],
     [
       "72",
       "CLYDE",
-      "3,761",
-      "720",
-      "4,481",
+      "3,794",
+      "694",
+      "4,488",
       "6",
       "N/A"
     ],
     [
       "72",
       "BELLEVUE",
-      "2,876",
-      "476",
-      "3,352",
+      "2,880",
+      "455",
+      "3,335",
       "5",
       "N/A"
     ]

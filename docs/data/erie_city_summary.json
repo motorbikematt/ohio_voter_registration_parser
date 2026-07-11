@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,27 +18,27 @@
     [
       "22",
       "SANDUSKY",
-      "12,109",
-      "3,045",
-      "15,154",
+      "12,252",
+      "2,963",
+      "15,215",
       "16",
       "N/A"
     ],
     [
       "22",
       "HURON",
-      "4,366",
-      "560",
-      "4,926",
+      "4,398",
+      "537",
+      "4,935",
       "6",
       "N/A"
     ],
     [
       "22",
       "VERMILION",
-      "2,930",
-      "476",
-      "3,406",
+      "2,962",
+      "463",
+      "3,425",
       "5",
       "N/A"
     ]

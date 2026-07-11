@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,9 +18,9 @@
     [
       "42",
       "MOUNT VERNON",
-      "8,624",
-      "1,776",
-      "10,400",
+      "8,753",
+      "1,715",
+      "10,468",
       "12",
       "N/A"
     ]

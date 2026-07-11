@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,27 +18,27 @@
     [
       "79",
       "NEW PHILADELPHIA",
-      "8,824",
-      "1,434",
-      "10,258",
+      "8,899",
+      "1,390",
+      "10,289",
       "16",
       "N/A"
     ],
     [
       "79",
       "DOVER",
-      "6,925",
-      "1,002",
-      "7,927",
+      "6,992",
+      "955",
+      "7,947",
       "12",
       "N/A"
     ],
     [
       "79",
       "UHRICHSVILLE",
-      "2,150",
-      "600",
-      "2,750",
+      "2,160",
+      "587",
+      "2,747",
       "4",
       "N/A"
     ]

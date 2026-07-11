@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,63 +18,63 @@
     [
       "09",
       "HAMILTON",
-      "28,943",
-      "6,616",
-      "35,559",
+      "29,405",
+      "6,378",
+      "35,783",
       "42",
       "N/A"
     ],
     [
       "09",
       "FAIRFIELD",
-      "23,372",
-      "4,452",
-      "27,824",
+      "23,662",
+      "4,270",
+      "27,932",
       "38",
       "N/A"
     ],
     [
       "09",
       "MIDDLETOWN",
-      "21,268",
-      "5,545",
-      "26,813",
+      "21,616",
+      "5,346",
+      "26,962",
       "36",
       "N/A"
     ],
     [
       "09",
       "MONROE",
-      "9,031",
-      "1,231",
-      "10,262",
+      "9,136",
+      "1,175",
+      "10,311",
       "11",
       "N/A"
     ],
     [
       "09",
       "TRENTON",
-      "6,936",
-      "1,295",
-      "8,231",
+      "7,038",
+      "1,248",
+      "8,286",
       "8",
       "N/A"
     ],
     [
       "09",
       "OXFORD",
-      "5,464",
-      "1,973",
-      "7,437",
+      "5,525",
+      "1,933",
+      "7,458",
       "13",
       "N/A"
     ],
     [
       "09",
       "SHARONVILLE",
-      "1,096",
-      "193",
-      "1,289",
+      "1,121",
+      "186",
+      "1,307",
       "2",
       "N/A"
     ]

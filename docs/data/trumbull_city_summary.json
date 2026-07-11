@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,45 +18,45 @@
     [
       "78",
       "WARREN",
-      "17,300",
-      "4,626",
-      "21,926",
+      "17,547",
+      "4,490",
+      "22,037",
       "26",
       "N/A"
     ],
     [
       "78",
       "NILES",
-      "9,662",
-      "1,955",
-      "11,617",
+      "9,768",
+      "1,872",
+      "11,640",
       "13",
       "N/A"
     ],
     [
       "78",
       "GIRARD",
-      "4,994",
-      "1,050",
-      "6,044",
+      "5,092",
+      "996",
+      "6,088",
       "8",
       "N/A"
     ],
     [
       "78",
       "HUBBARD",
-      "4,697",
-      "710",
-      "5,407",
+      "4,757",
+      "676",
+      "5,433",
       "8",
       "N/A"
     ],
     [
       "78",
       "CORTLAND",
-      "4,700",
-      "517",
-      "5,217",
+      "4,731",
+      "496",
+      "5,227",
       "6",
       "N/A"
     ]

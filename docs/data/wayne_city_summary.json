@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,27 +18,27 @@
     [
       "85",
       "WOOSTER",
-      "14,100",
-      "2,796",
-      "16,896",
+      "14,186",
+      "2,736",
+      "16,922",
       "16",
       "N/A"
     ],
     [
       "85",
       "ORRVILLE",
-      "4,472",
-      "701",
-      "5,173",
+      "4,493",
+      "683",
+      "5,176",
       "5",
       "N/A"
     ],
     [
       "85",
       "RITTMAN",
-      "3,191",
-      "608",
-      "3,799",
+      "3,218",
+      "591",
+      "3,809",
       "4",
       "N/A"
     ]

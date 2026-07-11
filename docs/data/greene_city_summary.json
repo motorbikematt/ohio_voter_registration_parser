@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,54 +18,54 @@
     [
       "29",
       "BEAVERCREEK",
-      "30,443",
-      "4,496",
-      "34,939",
+      "30,715",
+      "4,333",
+      "35,048",
       "40",
       "N/A"
     ],
     [
       "29",
       "FAIRBORN",
-      "18,230",
-      "4,293",
-      "22,523",
+      "18,476",
+      "4,113",
+      "22,589",
       "28",
       "N/A"
     ],
     [
       "29",
       "XENIA",
-      "13,446",
-      "2,866",
-      "16,312",
+      "13,628",
+      "2,784",
+      "16,412",
       "24",
       "N/A"
     ],
     [
       "29",
       "BELLBROOK",
-      "4,867",
-      "633",
-      "5,500",
+      "4,905",
+      "613",
+      "5,518",
       "7",
       "N/A"
     ],
     [
       "29",
       "KETTERING",
-      "2,712",
-      "388",
-      "3,100",
+      "2,772",
+      "368",
+      "3,140",
       "2",
       "N/A"
     ],
     [
       "29",
       "CENTERVILLE",
-      "996",
-      "289",
-      "1,285",
+      "1,024",
+      "278",
+      "1,302",
       "1",
       "N/A"
     ]

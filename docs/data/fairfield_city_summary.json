@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,45 +18,45 @@
     [
       "23",
       "LANCASTER",
-      "21,283",
-      "4,029",
-      "25,312",
+      "21,555",
+      "3,859",
+      "25,414",
       "26",
       "N/A"
     ],
     [
       "23",
       "PICKERINGTON",
-      "14,925",
-      "2,505",
-      "17,430",
+      "15,201",
+      "2,386",
+      "17,587",
       "17",
       "N/A"
     ],
     [
       "23",
       "COLUMBUS",
-      "4,885",
-      "1,431",
-      "6,316",
+      "4,984",
+      "1,388",
+      "6,372",
       "6",
       "N/A"
     ],
     [
       "23",
       "CANAL WINCHESTER",
-      "3,606",
-      "503",
-      "4,109",
+      "3,675",
+      "485",
+      "4,160",
       "3",
       "N/A"
     ],
     [
       "23",
       "REYNOLDSBURG",
-      "766",
-      "189",
-      "955",
+      "775",
+      "179",
+      "954",
       "1",
       "N/A"
     ]

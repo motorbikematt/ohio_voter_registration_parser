@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,18 +18,18 @@
     [
       "07",
       "MARTINS FERRY",
-      "2,860",
-      "886",
-      "3,746",
+      "2,908",
+      "859",
+      "3,767",
       "5",
       "N/A"
     ],
     [
       "07",
       "ST. CLAIRSVILLE",
-      "3,182",
-      "535",
-      "3,717",
+      "3,191",
+      "521",
+      "3,712",
       "7",
       "N/A"
     ]

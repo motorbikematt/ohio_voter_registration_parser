@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,18 +18,18 @@
     [
       "05",
       "ATHENS",
-      "7,726",
-      "2,488",
-      "10,214",
+      "7,669",
+      "2,453",
+      "10,122",
       "17",
       "N/A"
     ],
     [
       "05",
       "NELSONVILLE",
-      "1,650",
-      "583",
-      "2,233",
+      "1,670",
+      "573",
+      "2,243",
       "4",
       "N/A"
     ]

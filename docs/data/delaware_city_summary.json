@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,54 +18,54 @@
     [
       "21",
       "DELAWARE",
-      "26,196",
-      "4,059",
-      "30,255",
+      "26,521",
+      "3,956",
+      "30,477",
       "35",
       "N/A"
     ],
     [
       "21",
       "POWELL",
-      "10,056",
-      "1,121",
-      "11,177",
+      "10,189",
+      "1,088",
+      "11,277",
       "12",
       "N/A"
     ],
     [
       "21",
       "COLUMBUS",
-      "6,013",
-      "1,560",
-      "7,573",
+      "6,145",
+      "1,512",
+      "7,657",
       "7",
       "N/A"
     ],
     [
       "21",
       "WESTERVILLE",
-      "6,586",
-      "767",
-      "7,353",
+      "6,617",
+      "742",
+      "7,359",
       "9",
       "N/A"
     ],
     [
       "21",
       "SUNBURY",
-      "4,683",
-      "551",
-      "5,234",
+      "4,798",
+      "524",
+      "5,322",
       "6",
       "N/A"
     ],
     [
       "21",
       "DUBLIN",
-      "3,081",
-      "295",
-      "3,376",
+      "3,100",
+      "286",
+      "3,386",
       "4",
       "N/A"
     ]

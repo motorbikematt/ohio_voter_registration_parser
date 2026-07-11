@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,45 +18,45 @@
     [
       "55",
       "TROY",
-      "15,837",
-      "2,785",
-      "18,622",
+      "16,029",
+      "2,696",
+      "18,725",
       "21",
       "N/A"
     ],
     [
       "55",
       "PIQUA",
-      "10,242",
-      "2,219",
-      "12,461",
+      "10,389",
+      "2,132",
+      "12,521",
       "16",
       "N/A"
     ],
     [
       "55",
       "TIPP",
-      "6,870",
-      "847",
-      "7,717",
+      "6,939",
+      "811",
+      "7,750",
       "8",
       "N/A"
     ],
     [
       "55",
       "HUBER HEIGHTS",
-      "4,169",
-      "835",
-      "5,004",
+      "4,228",
+      "806",
+      "5,034",
       "5",
       "N/A"
     ],
     [
       "55",
       "UNION",
-      "1,585",
-      "141",
-      "1,726",
+      "1,592",
+      "137",
+      "1,729",
       "2",
       "N/A"
     ]

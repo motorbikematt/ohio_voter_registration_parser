@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,54 +18,54 @@
     [
       "50",
       "YOUNGSTOWN",
-      "25,903",
-      "8,373",
-      "34,276",
+      "26,229",
+      "8,178",
+      "34,407",
       "45",
       "N/A"
     ],
     [
       "50",
       "STRUTHERS",
-      "5,238",
-      "1,085",
-      "6,323",
+      "5,266",
+      "1,058",
+      "6,324",
       "12",
       "N/A"
     ],
     [
       "50",
       "CANFIELD",
-      "5,307",
-      "547",
-      "5,854",
+      "5,337",
+      "535",
+      "5,872",
       "8",
       "N/A"
     ],
     [
       "50",
       "CAMPBELL",
-      "3,976",
-      "1,047",
-      "5,023",
+      "4,007",
+      "1,022",
+      "5,029",
       "9",
       "N/A"
     ],
     [
       "50",
       "COLUMBIANA",
-      "1,205",
-      "146",
-      "1,351",
+      "1,217",
+      "142",
+      "1,359",
       "1",
       "N/A"
     ],
     [
       "50",
       "ALLIANCE",
-      "189",
-      "41",
-      "230",
+      "187",
+      "40",
+      "227",
       "1",
       "N/A"
     ]

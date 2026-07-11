@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,18 +18,18 @@
     [
       "06",
       "WAPAKONETA",
-      "5,513",
-      "904",
-      "6,417",
+      "5,558",
+      "878",
+      "6,436",
       "8",
       "N/A"
     ],
     [
       "06",
       "ST. MARYS",
-      "4,523",
-      "811",
-      "5,334",
+      "4,584",
+      "779",
+      "5,363",
       "6",
       "N/A"
     ]

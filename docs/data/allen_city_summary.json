@@ -4,7 +4,7 @@
   "geography": "city",
   "type": "table",
   "updated": "2026-07-10",
-  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file. City derived from CITY column (registered-address municipality); falls back to RESIDENTIAL_CITY for counties where CITY is blank. Cross-county cities show separate rows per county.",
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — City extracted from precinct name. Cross-county cities show separate rows per county until Phase 3 statewide merge.",
   "headers": [
     "County #",
     "City / Township",
@@ -18,18 +18,18 @@
     [
       "02",
       "LIMA",
-      "13,605",
-      "4,662",
-      "18,267",
+      "13,774",
+      "4,543",
+      "18,317",
       "23",
       "N/A"
     ],
     [
       "02",
       "DELPHOS",
-      "2,037",
-      "346",
-      "2,383",
+      "2,052",
+      "332",
+      "2,384",
       "4",
       "N/A"
     ]
