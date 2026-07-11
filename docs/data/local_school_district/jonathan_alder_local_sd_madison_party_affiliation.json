@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,203 (22%)",
+      "UNC – Lapsed R — 1,534 (16%)",
+      "Mixed – Active — 708 (7%)",
+      "Mixed – Lapsed — 999 (10%)",
+      "UNC – No Primary — 3,159 (32%)",
+      "UNC – Lapsed D — 655 (7%)",
+      "Pure D — 559 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2203,
+          1534,
+          708,
+          999,
+          3159,
+          655,
+          559
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "JONATHAN ALDER LOCAL SD (MADISON)",
+  "updated": "2026-07-10"
+}

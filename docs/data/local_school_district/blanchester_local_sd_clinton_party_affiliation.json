@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,250 (22%)",
+      "UNC – Lapsed R — 905 (16%)",
+      "Mixed – Active — 388 (7%)",
+      "Mixed – Lapsed — 344 (6%)",
+      "UNC – No Primary — 2,313 (41%)",
+      "UNC – Lapsed D — 268 (5%)",
+      "Pure D — 157 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1250,
+          905,
+          388,
+          344,
+          2313,
+          268,
+          157
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "BLANCHESTER LOCAL SD (CLINTON)",
+  "updated": "2026-07-10"
+}

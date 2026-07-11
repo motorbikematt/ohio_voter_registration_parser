@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 579 (21%)",
+      "UNC – Lapsed R — 526 (19%)",
+      "Mixed – Active — 232 (9%)",
+      "Mixed – Lapsed — 163 (6%)",
+      "UNC – No Primary — 1,015 (38%)",
+      "UNC – Lapsed D — 118 (4%)",
+      "Pure D — 67 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          579,
+          526,
+          232,
+          163,
+          1015,
+          118,
+          67
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "TRI-VILLAGE LOCAL SD (DARKE)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,170 (22%)",
+      "UNC – Lapsed R — 585 (11%)",
+      "Mixed – Active — 688 (13%)",
+      "Mixed – Lapsed — 343 (6%)",
+      "UNC – No Primary — 1,850 (35%)",
+      "UNC – Lapsed D — 397 (8%)",
+      "Pure D — 255 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1170,
+          585,
+          688,
+          343,
+          1850,
+          397,
+          255
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "RIDGEWOOD LOCAL SD (COSHOCTON)",
+  "updated": "2026-07-10"
+}

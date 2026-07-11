@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 392 (22%)",
+      "UNC – Lapsed R — 289 (17%)",
+      "Mixed – Active — 180 (10%)",
+      "Mixed – Lapsed — 107 (6%)",
+      "UNC – No Primary — 650 (37%)",
+      "UNC – Lapsed D — 96 (5%)",
+      "Pure D — 37 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          392,
+          289,
+          180,
+          107,
+          650,
+          96,
+          37
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "JACKSON CENTER LOCAL SD (SHELBY)",
+  "updated": "2026-07-10"
+}

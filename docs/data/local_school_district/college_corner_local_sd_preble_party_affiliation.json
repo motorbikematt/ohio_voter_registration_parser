@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 70 (16%)",
+      "UNC – Lapsed R — 55 (13%)",
+      "Mixed – Active — 42 (10%)",
+      "Mixed – Lapsed — 34 (8%)",
+      "UNC – No Primary — 179 (41%)",
+      "UNC – Lapsed D — 38 (9%)",
+      "Pure D — 16 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          70,
+          55,
+          42,
+          34,
+          179,
+          38,
+          16
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "COLLEGE CORNER LOCAL SD (PREBLE)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 491 (18%)",
+      "UNC – Lapsed R — 338 (13%)",
+      "Mixed – Active — 207 (8%)",
+      "Mixed – Lapsed — 357 (13%)",
+      "UNC – No Primary — 872 (33%)",
+      "UNC – Lapsed D — 226 (8%)",
+      "Pure D — 175 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          491,
+          338,
+          207,
+          357,
+          872,
+          226,
+          175
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "MONROEVILLE LOCAL SD (HURON)",
+  "updated": "2026-07-10"
+}

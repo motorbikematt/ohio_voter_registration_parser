@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,366 (23%)",
+      "UNC – Lapsed R — 1,243 (12%)",
+      "Mixed – Active — 1,057 (10%)",
+      "Mixed – Lapsed — 802 (8%)",
+      "UNC – No Primary — 3,153 (31%)",
+      "UNC – Lapsed D — 821 (8%)",
+      "Pure D — 649 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2366,
+          1243,
+          1057,
+          802,
+          3153,
+          821,
+          649
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "MARLINGTON LOCAL SD (STARK)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,060 (18%)",
+      "UNC – Lapsed R — 1,006 (17%)",
+      "Mixed – Active — 284 (5%)",
+      "Mixed – Lapsed — 668 (11%)",
+      "UNC – No Primary — 2,598 (43%)",
+      "UNC – Lapsed D — 262 (4%)",
+      "Pure D — 163 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1060,
+          1006,
+          284,
+          668,
+          2598,
+          262,
+          163
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "WAYNEDALE LOCAL SD (WAYNE)",
+  "updated": "2026-07-10"
+}

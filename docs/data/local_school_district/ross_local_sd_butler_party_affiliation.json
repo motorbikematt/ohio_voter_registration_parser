@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,428 (22%)",
+      "UNC – Lapsed R — 2,255 (20%)",
+      "Mixed – Active — 592 (5%)",
+      "Mixed – Lapsed — 1,504 (13%)",
+      "UNC – No Primary — 3,437 (31%)",
+      "UNC – Lapsed D — 647 (6%)",
+      "Pure D — 316 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2428,
+          2255,
+          592,
+          1504,
+          3437,
+          647,
+          316
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "ROSS LOCAL SD (BUTLER)",
+  "updated": "2026-07-10"
+}

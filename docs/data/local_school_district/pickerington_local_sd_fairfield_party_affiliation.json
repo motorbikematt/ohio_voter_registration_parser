@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 5,856 (14%)",
+      "UNC – Lapsed R — 3,365 (8%)",
+      "Mixed – Active — 2,532 (6%)",
+      "Mixed – Lapsed — 3,004 (7%)",
+      "UNC – No Primary — 16,805 (41%)",
+      "UNC – Lapsed D — 4,213 (10%)",
+      "Pure D — 4,901 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5856,
+          3365,
+          2532,
+          3004,
+          16805,
+          4213,
+          4901
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "PICKERINGTON LOCAL SD (FAIRFIELD)",
+  "updated": "2026-07-10"
+}

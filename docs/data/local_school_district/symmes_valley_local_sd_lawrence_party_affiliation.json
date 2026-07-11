@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 495 (18%)",
+      "UNC – Lapsed R — 522 (19%)",
+      "Mixed – Active — 219 (8%)",
+      "Mixed – Lapsed — 176 (6%)",
+      "UNC – No Primary — 1,069 (38%)",
+      "UNC – Lapsed D — 239 (9%)",
+      "Pure D — 89 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          495,
+          522,
+          219,
+          176,
+          1069,
+          239,
+          89
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "SYMMES VALLEY LOCAL SD (LAWRENCE)",
+  "updated": "2026-07-10"
+}

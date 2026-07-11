@@ -1,0 +1,143 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          0,
+          1,
+          48,
+          325,
+          685,
+          615,
+          336,
+          221,
+          88,
+          92
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          1,
+          1,
+          58,
+          203,
+          396,
+          619,
+          560,
+          477,
+          315,
+          84
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          0,
+          1,
+          19,
+          195,
+          358,
+          234,
+          135,
+          103,
+          38,
+          11
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          0,
+          3,
+          25,
+          115,
+          225,
+          371,
+          363,
+          364,
+          152,
+          132
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          0,
+          0,
+          24,
+          87,
+          202,
+          318,
+          470,
+          759,
+          1225,
+          1278
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          0,
+          1,
+          15,
+          74,
+          153,
+          178,
+          214,
+          241,
+          159,
+          59
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          0,
+          0,
+          14,
+          91,
+          166,
+          134,
+          104,
+          132,
+          88,
+          79
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Local School District",
+  "jurisdiction_name": "BELLBROOK-SUGARCREEK LOCAL SD (GREENE)",
+  "updated": "2026-07-10"
+}

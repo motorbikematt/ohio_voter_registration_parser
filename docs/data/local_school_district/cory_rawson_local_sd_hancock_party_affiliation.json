@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 956 (36%)",
+      "UNC – Lapsed R — 414 (16%)",
+      "Mixed – Active — 173 (7%)",
+      "Mixed – Lapsed — 125 (5%)",
+      "UNC – No Primary — 798 (30%)",
+      "UNC – Lapsed D — 112 (4%)",
+      "Pure D — 78 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          956,
+          414,
+          173,
+          125,
+          798,
+          112,
+          78
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "CORY-RAWSON LOCAL SD (HANCOCK)",
+  "updated": "2026-07-10"
+}

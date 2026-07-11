@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,516 (19%)",
+      "UNC – Lapsed R — 1,572 (19%)",
+      "Mixed – Active — 663 (8%)",
+      "Mixed – Lapsed — 604 (7%)",
+      "UNC – No Primary — 3,009 (37%)",
+      "UNC – Lapsed D — 555 (7%)",
+      "Pure D — 217 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1516,
+          1572,
+          663,
+          604,
+          3009,
+          555,
+          217
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "INDIAN LAKE LOCAL SD (LOGAN)",
+  "updated": "2026-07-10"
+}

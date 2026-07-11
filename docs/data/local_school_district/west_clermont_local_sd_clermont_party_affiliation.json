@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 8,292 (16%)",
+      "UNC – Lapsed R — 6,298 (12%)",
+      "Mixed – Active — 2,885 (6%)",
+      "Mixed – Lapsed — 5,165 (10%)",
+      "UNC – No Primary — 21,444 (42%)",
+      "UNC – Lapsed D — 4,047 (8%)",
+      "Pure D — 2,676 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          8292,
+          6298,
+          2885,
+          5165,
+          21444,
+          4047,
+          2676
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "WEST CLERMONT LOCAL SD (CLERMONT)",
+  "updated": "2026-07-10"
+}

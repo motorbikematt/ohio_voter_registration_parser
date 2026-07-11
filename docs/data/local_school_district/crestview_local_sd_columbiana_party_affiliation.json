@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 850 (23%)",
+      "UNC – Lapsed R — 441 (12%)",
+      "Mixed – Active — 507 (14%)",
+      "Mixed – Lapsed — 324 (9%)",
+      "UNC – No Primary — 1,239 (33%)",
+      "UNC – Lapsed D — 232 (6%)",
+      "Pure D — 136 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          850,
+          441,
+          507,
+          324,
+          1239,
+          232,
+          136
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "CRESTVIEW LOCAL SD (COLUMBIANA)",
+  "updated": "2026-07-10"
+}

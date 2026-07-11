@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,055 (15%)",
+      "UNC – Lapsed R — 956 (13%)",
+      "Mixed – Active — 521 (7%)",
+      "Mixed – Lapsed — 952 (13%)",
+      "UNC – No Primary — 2,416 (33%)",
+      "UNC – Lapsed D — 835 (12%)",
+      "Pure D — 519 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1055,
+          956,
+          521,
+          952,
+          2416,
+          835,
+          519
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "BENTON CARROLL SALEM LOCAL SD (OTTAWA)",
+  "updated": "2026-07-10"
+}

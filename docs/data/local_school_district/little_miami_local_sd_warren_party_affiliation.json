@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 5,479 (19%)",
+      "UNC – Lapsed R — 5,254 (18%)",
+      "Mixed – Active — 1,790 (6%)",
+      "Mixed – Lapsed — 2,430 (8%)",
+      "UNC – No Primary — 10,731 (37%)",
+      "UNC – Lapsed D — 1,915 (7%)",
+      "Pure D — 1,361 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5479,
+          5254,
+          1790,
+          2430,
+          10731,
+          1915,
+          1361
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "LITTLE MIAMI LOCAL SD (WARREN)",
+  "updated": "2026-07-10"
+}

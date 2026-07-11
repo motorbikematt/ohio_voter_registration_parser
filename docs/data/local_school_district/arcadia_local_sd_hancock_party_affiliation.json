@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 616 (29%)",
+      "UNC – Lapsed R — 289 (13%)",
+      "Mixed – Active — 229 (11%)",
+      "Mixed – Lapsed — 125 (6%)",
+      "UNC – No Primary — 664 (31%)",
+      "UNC – Lapsed D — 136 (6%)",
+      "Pure D — 89 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          616,
+          289,
+          229,
+          125,
+          664,
+          136,
+          89
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "ARCADIA LOCAL SD (HANCOCK)",
+  "updated": "2026-07-10"
+}

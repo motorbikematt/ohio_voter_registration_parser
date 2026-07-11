@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 673 (18%)",
+      "UNC – Lapsed R — 449 (12%)",
+      "Mixed – Active — 274 (7%)",
+      "Mixed – Lapsed — 285 (8%)",
+      "UNC – No Primary — 1,581 (42%)",
+      "UNC – Lapsed D — 313 (8%)",
+      "Pure D — 185 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          673,
+          449,
+          274,
+          285,
+          1581,
+          313,
+          185
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "NEW LONDON LOCAL SD (HURON)",
+  "updated": "2026-07-10"
+}

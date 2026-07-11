@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 781 (16%)",
+      "UNC – Lapsed R — 541 (11%)",
+      "Mixed – Active — 490 (10%)",
+      "Mixed – Lapsed — 403 (8%)",
+      "UNC – No Primary — 1,865 (38%)",
+      "UNC – Lapsed D — 447 (9%)",
+      "Pure D — 319 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          781,
+          541,
+          490,
+          403,
+          1865,
+          447,
+          319
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "GRAND VALLEY LOCAL SD (ASHTABULA)",
+  "updated": "2026-07-10"
+}

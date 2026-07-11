@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,856 (20%)",
+      "UNC – Lapsed R — 1,371 (9%)",
+      "Mixed – Active — 1,203 (8%)",
+      "Mixed – Lapsed — 976 (7%)",
+      "UNC – No Primary — 5,888 (41%)",
+      "UNC – Lapsed D — 1,156 (8%)",
+      "Pure D — 1,015 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2856,
+          1371,
+          1203,
+          976,
+          5888,
+          1156,
+          1015
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "MADISON LOCAL SD (RICHLAND)",
+  "updated": "2026-07-10"
+}

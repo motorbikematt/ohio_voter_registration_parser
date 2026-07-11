@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,236 (18%)",
+      "UNC – Lapsed R — 1,290 (19%)",
+      "Mixed – Active — 618 (9%)",
+      "Mixed – Lapsed — 686 (10%)",
+      "UNC – No Primary — 2,332 (33%)",
+      "UNC – Lapsed D — 505 (7%)",
+      "Pure D — 300 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1236,
+          1290,
+          618,
+          686,
+          2332,
+          505,
+          300
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "BROOKVILLE LOCAL SD (MONTG)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 276 (12%)",
+      "UNC – Lapsed R — 388 (17%)",
+      "Mixed – Active — 147 (7%)",
+      "Mixed – Lapsed — 157 (7%)",
+      "UNC – No Primary — 1,075 (48%)",
+      "UNC – Lapsed D — 143 (6%)",
+      "Pure D — 57 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          276,
+          388,
+          147,
+          157,
+          1075,
+          143,
+          57
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "MISSISSINAWA VALLEY LOCAL SD (DARKE)",
+  "updated": "2026-07-10"
+}

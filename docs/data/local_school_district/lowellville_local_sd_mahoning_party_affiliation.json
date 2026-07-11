@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 106 (8%)",
+      "UNC – Lapsed R — 65 (5%)",
+      "Mixed – Active — 262 (19%)",
+      "Mixed – Lapsed — 113 (8%)",
+      "UNC – No Primary — 380 (27%)",
+      "UNC – Lapsed D — 251 (18%)",
+      "Pure D — 223 (16%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          106,
+          65,
+          262,
+          113,
+          380,
+          251,
+          223
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "LOWELLVILLE LOCAL SD (MAHONING)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,460 (22%)",
+      "UNC – Lapsed R — 1,259 (11%)",
+      "Mixed – Active — 684 (6%)",
+      "Mixed – Lapsed — 640 (6%)",
+      "UNC – No Primary — 4,903 (44%)",
+      "UNC – Lapsed D — 650 (6%)",
+      "Pure D — 457 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2460,
+          1259,
+          684,
+          640,
+          4903,
+          650,
+          457
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "GOSHEN LOCAL SD (CLERMONT)",
+  "updated": "2026-07-10"
+}

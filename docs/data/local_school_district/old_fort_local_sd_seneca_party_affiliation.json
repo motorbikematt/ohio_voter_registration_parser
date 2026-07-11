@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 505 (24%)",
+      "UNC – Lapsed R — 284 (13%)",
+      "Mixed – Active — 229 (11%)",
+      "Mixed – Lapsed — 147 (7%)",
+      "UNC – No Primary — 710 (34%)",
+      "UNC – Lapsed D — 159 (8%)",
+      "Pure D — 75 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          505,
+          284,
+          229,
+          147,
+          710,
+          159,
+          75
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "OLD FORT LOCAL SD (SENECA)",
+  "updated": "2026-07-10"
+}

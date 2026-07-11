@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 834 (22%)",
+      "UNC – Lapsed R — 566 (15%)",
+      "Mixed – Active — 302 (8%)",
+      "Mixed – Lapsed — 314 (8%)",
+      "UNC – No Primary — 1,266 (33%)",
+      "UNC – Lapsed D — 372 (10%)",
+      "Pure D — 171 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          834,
+          566,
+          302,
+          314,
+          1266,
+          372,
+          171
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "LIBERTY CENTER LOCAL SD (HENRY)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 870 (27%)",
+      "UNC – Lapsed R — 569 (18%)",
+      "Mixed – Active — 152 (5%)",
+      "Mixed – Lapsed — 132 (4%)",
+      "UNC – No Primary — 1,254 (39%)",
+      "UNC – Lapsed D — 132 (4%)",
+      "Pure D — 109 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          870,
+          569,
+          152,
+          132,
+          1254,
+          132,
+          109
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "CEDAR CLIFF LOCAL SD (GREENE)",
+  "updated": "2026-07-10"
+}

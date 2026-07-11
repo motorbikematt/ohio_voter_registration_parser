@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 592 (23%)",
+      "UNC – Lapsed R — 390 (15%)",
+      "Mixed – Active — 133 (5%)",
+      "Mixed – Lapsed — 215 (8%)",
+      "UNC – No Primary — 1,039 (40%)",
+      "UNC – Lapsed D — 156 (6%)",
+      "Pure D — 90 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          592,
+          390,
+          133,
+          215,
+          1039,
+          156,
+          90
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "SOUTH CENTRAL LOCAL SD (HURON)",
+  "updated": "2026-07-10"
+}

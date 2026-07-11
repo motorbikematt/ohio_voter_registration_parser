@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,303 (8%)",
+      "UNC – Lapsed R — 1,133 (7%)",
+      "Mixed – Active — 2,055 (13%)",
+      "Mixed – Lapsed — 1,154 (7%)",
+      "UNC – No Primary — 5,260 (33%)",
+      "UNC – Lapsed D — 2,818 (18%)",
+      "Pure D — 2,209 (14%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1303,
+          1133,
+          2055,
+          1154,
+          5260,
+          2818,
+          2209
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "HOWLAND LOCAL SD (TRUMBULL)",
+  "updated": "2026-07-10"
+}

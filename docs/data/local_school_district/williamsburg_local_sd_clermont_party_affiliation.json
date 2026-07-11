@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,030 (23%)",
+      "UNC – Lapsed R — 596 (14%)",
+      "Mixed – Active — 289 (7%)",
+      "Mixed – Lapsed — 304 (7%)",
+      "UNC – No Primary — 1,702 (39%)",
+      "UNC – Lapsed D — 263 (6%)",
+      "Pure D — 201 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1030,
+          596,
+          289,
+          304,
+          1702,
+          263,
+          201
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "WILLIAMSBURG LOCAL SD (CLERMONT)",
+  "updated": "2026-07-10"
+}

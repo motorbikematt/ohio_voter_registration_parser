@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,124 (14%)",
+      "UNC – Lapsed R — 1,339 (17%)",
+      "Mixed – Active — 566 (7%)",
+      "Mixed – Lapsed — 576 (7%)",
+      "UNC – No Primary — 3,333 (42%)",
+      "UNC – Lapsed D — 748 (9%)",
+      "Pure D — 247 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1124,
+          1339,
+          566,
+          576,
+          3333,
+          748,
+          247
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "FRANKLIN LOCAL SD (MUSK)",
+  "updated": "2026-07-10"
+}

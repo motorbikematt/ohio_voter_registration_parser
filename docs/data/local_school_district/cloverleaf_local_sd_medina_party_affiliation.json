@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,898 (20%)",
+      "UNC – Lapsed R — 2,048 (14%)",
+      "Mixed – Active — 1,377 (9%)",
+      "Mixed – Lapsed — 1,677 (11%)",
+      "UNC – No Primary — 4,548 (31%)",
+      "UNC – Lapsed D — 1,357 (9%)",
+      "Pure D — 886 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2898,
+          2048,
+          1377,
+          1677,
+          4548,
+          1357,
+          886
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "CLOVERLEAF LOCAL SD (MEDINA)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 642 (19%)",
+      "UNC – Lapsed R — 657 (19%)",
+      "Mixed – Active — 232 (7%)",
+      "Mixed – Lapsed — 212 (6%)",
+      "UNC – No Primary — 1,368 (40%)",
+      "UNC – Lapsed D — 235 (7%)",
+      "Pure D — 86 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          642,
+          657,
+          232,
+          212,
+          1368,
+          235,
+          86
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "WAYNE TRACE LOCAL SD (PAULDING)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 839 (14%)",
+      "UNC – Lapsed R — 759 (12%)",
+      "Mixed – Active — 707 (11%)",
+      "Mixed – Lapsed — 657 (11%)",
+      "UNC – No Primary — 1,919 (31%)",
+      "UNC – Lapsed D — 780 (13%)",
+      "Pure D — 524 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          839,
+          759,
+          707,
+          657,
+          1919,
+          780,
+          524
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "MANCHESTER LOCAL SD (SUMMIT)",
+  "updated": "2026-07-10"
+}

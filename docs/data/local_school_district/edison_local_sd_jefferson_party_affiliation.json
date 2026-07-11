@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,260 (13%)",
+      "UNC – Lapsed R — 1,083 (11%)",
+      "Mixed – Active — 1,358 (14%)",
+      "Mixed – Lapsed — 841 (9%)",
+      "UNC – No Primary — 3,133 (33%)",
+      "UNC – Lapsed D — 1,249 (13%)",
+      "Pure D — 553 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1260,
+          1083,
+          1358,
+          841,
+          3133,
+          1249,
+          553
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "EDISON LOCAL SD (JEFFERSON)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 786 (24%)",
+      "UNC – Lapsed R — 803 (25%)",
+      "Mixed – Active — 248 (8%)",
+      "Mixed – Lapsed — 275 (9%)",
+      "UNC – No Primary — 945 (29%)",
+      "UNC – Lapsed D — 106 (3%)",
+      "Pure D — 65 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          786,
+          803,
+          248,
+          275,
+          945,
+          106,
+          65
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "ST HENRY CONSOLIDATED LOCAL SD (MERCER)",
+  "updated": "2026-07-10"
+}

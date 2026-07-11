@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 260 (16%)",
+      "UNC – Lapsed R — 236 (15%)",
+      "Mixed – Active — 108 (7%)",
+      "Mixed – Lapsed — 107 (7%)",
+      "UNC – No Primary — 719 (45%)",
+      "UNC – Lapsed D — 110 (7%)",
+      "Pure D — 46 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          260,
+          236,
+          108,
+          107,
+          719,
+          110,
+          46
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "FAYETTE LOCAL SD (FULTON)",
+  "updated": "2026-07-10"
+}

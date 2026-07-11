@@ -1,0 +1,135 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          19,
+          285,
+          1624,
+          3065,
+          2993,
+          1544,
+          1075,
+          465,
+          388
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          15,
+          245,
+          772,
+          1580,
+          2668,
+          2347,
+          1754,
+          1050,
+          184
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          3,
+          81,
+          582,
+          1133,
+          1011,
+          666,
+          417,
+          123,
+          19
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          7,
+          113,
+          521,
+          941,
+          1287,
+          1137,
+          914,
+          367,
+          177
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          11,
+          152,
+          600,
+          1528,
+          2914,
+          4359,
+          6532,
+          7332,
+          7984
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          3,
+          105,
+          386,
+          787,
+          1120,
+          1328,
+          1321,
+          854,
+          184
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          7,
+          56,
+          347,
+          870,
+          869,
+          802,
+          915,
+          567,
+          565
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Local School District",
+  "jurisdiction_name": "LAKOTA LOCAL SD (BUTLER)",
+  "updated": "2026-07-10"
+}

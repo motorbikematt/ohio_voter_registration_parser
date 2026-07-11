@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 999 (14%)",
+      "UNC – Lapsed R — 910 (13%)",
+      "Mixed – Active — 630 (9%)",
+      "Mixed – Lapsed — 588 (8%)",
+      "UNC – No Primary — 2,867 (40%)",
+      "UNC – Lapsed D — 799 (11%)",
+      "Pure D — 343 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          999,
+          910,
+          630,
+          588,
+          2867,
+          799,
+          343
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "ROLLING HILLS LOCAL SD (GUERNSEY)",
+  "updated": "2026-07-10"
+}

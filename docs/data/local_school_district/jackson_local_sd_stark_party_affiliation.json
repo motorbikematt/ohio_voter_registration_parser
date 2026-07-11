@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,529 (15%)",
+      "UNC – Lapsed R — 4,127 (14%)",
+      "Mixed – Active — 2,831 (9%)",
+      "Mixed – Lapsed — 2,448 (8%)",
+      "UNC – No Primary — 10,420 (35%)",
+      "UNC – Lapsed D — 3,149 (10%)",
+      "Pure D — 2,499 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4529,
+          4127,
+          2831,
+          2448,
+          10420,
+          3149,
+          2499
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "JACKSON LOCAL SD (STARK)",
+  "updated": "2026-07-10"
+}

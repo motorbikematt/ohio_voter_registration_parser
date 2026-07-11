@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 446 (18%)",
+      "UNC – Lapsed R — 319 (13%)",
+      "Mixed – Active — 163 (7%)",
+      "Mixed – Lapsed — 209 (8%)",
+      "UNC – No Primary — 1,069 (43%)",
+      "UNC – Lapsed D — 171 (7%)",
+      "Pure D — 99 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          446,
+          319,
+          163,
+          209,
+          1069,
+          171,
+          99
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "PLYMOUTH-SHILOH LOCAL SD (RICHLAND)",
+  "updated": "2026-07-10"
+}

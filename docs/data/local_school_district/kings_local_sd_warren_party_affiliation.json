@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,482 (21%)",
+      "UNC – Lapsed R — 2,571 (12%)",
+      "Mixed – Active — 1,580 (7%)",
+      "Mixed – Lapsed — 1,804 (9%)",
+      "UNC – No Primary — 7,593 (36%)",
+      "UNC – Lapsed D — 1,520 (7%)",
+      "Pure D — 1,623 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4482,
+          2571,
+          1580,
+          1804,
+          7593,
+          1520,
+          1623
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "KINGS LOCAL SD (WARREN)",
+  "updated": "2026-07-10"
+}

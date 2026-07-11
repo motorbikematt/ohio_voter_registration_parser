@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,612 (18%)",
+      "UNC – Lapsed R — 974 (11%)",
+      "Mixed – Active — 1,021 (12%)",
+      "Mixed – Lapsed — 597 (7%)",
+      "UNC – No Primary — 3,287 (37%)",
+      "UNC – Lapsed D — 861 (10%)",
+      "Pure D — 431 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1612,
+          974,
+          1021,
+          597,
+          3287,
+          861,
+          431
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "BEAVER LOCAL SD (COLUMBIANA)",
+  "updated": "2026-07-10"
+}

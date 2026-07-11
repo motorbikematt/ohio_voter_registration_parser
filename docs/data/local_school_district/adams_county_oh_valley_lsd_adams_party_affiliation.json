@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,408 (30%)",
+      "UNC – Lapsed R — 1,536 (11%)",
+      "Mixed – Active — 1,311 (9%)",
+      "Mixed – Lapsed — 487 (3%)",
+      "UNC – No Primary — 5,510 (38%)",
+      "UNC – Lapsed D — 766 (5%)",
+      "Pure D — 536 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4408,
+          1536,
+          1311,
+          487,
+          5510,
+          766,
+          536
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "ADAMS COUNTY/OH VALLEY LSD (ADAMS)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,017 (26%)",
+      "UNC – Lapsed R — 970 (12%)",
+      "Mixed – Active — 817 (10%)",
+      "Mixed – Lapsed — 551 (7%)",
+      "UNC – No Primary — 2,582 (33%)",
+      "UNC – Lapsed D — 530 (7%)",
+      "Pure D — 411 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2017,
+          970,
+          817,
+          551,
+          2582,
+          530,
+          411
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "NORTH FORK LOCAL SD (LICKING)",
+  "updated": "2026-07-10"
+}

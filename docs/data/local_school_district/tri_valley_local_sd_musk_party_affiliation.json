@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,989 (18%)",
+      "UNC – Lapsed R — 1,888 (17%)",
+      "Mixed – Active — 767 (7%)",
+      "Mixed – Lapsed — 759 (7%)",
+      "UNC – No Primary — 4,543 (40%)",
+      "UNC – Lapsed D — 974 (9%)",
+      "Pure D — 388 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1989,
+          1888,
+          767,
+          759,
+          4543,
+          974,
+          388
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "TRI-VALLEY LOCAL SD (MUSK)",
+  "updated": "2026-07-10"
+}

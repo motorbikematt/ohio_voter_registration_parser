@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,000 (19%)",
+      "UNC – Lapsed R — 865 (16%)",
+      "Mixed – Active — 305 (6%)",
+      "Mixed – Lapsed — 393 (7%)",
+      "UNC – No Primary — 2,101 (40%)",
+      "UNC – Lapsed D — 387 (7%)",
+      "Pure D — 199 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1000,
+          865,
+          305,
+          393,
+          2101,
+          387,
+          199
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "NORWAYNE LOCAL SD (WAYNE)",
+  "updated": "2026-07-10"
+}

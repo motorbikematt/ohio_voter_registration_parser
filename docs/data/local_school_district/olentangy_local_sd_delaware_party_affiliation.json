@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 12,618 (16%)",
+      "UNC – Lapsed R — 9,542 (12%)",
+      "Mixed – Active — 6,555 (8%)",
+      "Mixed – Lapsed — 6,299 (8%)",
+      "UNC – No Primary — 29,180 (37%)",
+      "UNC – Lapsed D — 6,791 (9%)",
+      "Pure D — 7,469 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          12618,
+          9542,
+          6555,
+          6299,
+          29180,
+          6791,
+          7469
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "OLENTANGY LOCAL SD (DELAWARE)",
+  "updated": "2026-07-10"
+}

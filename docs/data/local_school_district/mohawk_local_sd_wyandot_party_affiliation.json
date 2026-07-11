@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 887 (23%)",
+      "UNC – Lapsed R — 642 (17%)",
+      "Mixed – Active — 391 (10%)",
+      "Mixed – Lapsed — 345 (9%)",
+      "UNC – No Primary — 1,137 (30%)",
+      "UNC – Lapsed D — 242 (6%)",
+      "Pure D — 144 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          887,
+          642,
+          391,
+          345,
+          1137,
+          242,
+          144
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "MOHAWK LOCAL SD (WYANDOT)",
+  "updated": "2026-07-10"
+}

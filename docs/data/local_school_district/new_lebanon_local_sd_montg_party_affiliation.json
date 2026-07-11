@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 635 (14%)",
+      "UNC – Lapsed R — 732 (17%)",
+      "Mixed – Active — 306 (7%)",
+      "Mixed – Lapsed — 413 (9%)",
+      "UNC – No Primary — 1,795 (41%)",
+      "UNC – Lapsed D — 368 (8%)",
+      "Pure D — 177 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          635,
+          732,
+          306,
+          413,
+          1795,
+          368,
+          177
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "NEW LEBANON LOCAL SD (MONTG)",
+  "updated": "2026-07-10"
+}

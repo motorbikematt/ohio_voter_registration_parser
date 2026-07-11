@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 490 (14%)",
+      "UNC – Lapsed R — 419 (12%)",
+      "Mixed – Active — 298 (9%)",
+      "Mixed – Lapsed — 230 (7%)",
+      "UNC – No Primary — 1,513 (43%)",
+      "UNC – Lapsed D — 393 (11%)",
+      "Pure D — 161 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          490,
+          419,
+          298,
+          230,
+          1513,
+          393,
+          161
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "PAINT VALLEY LOCAL SD (ROSS)",
+  "updated": "2026-07-10"
+}

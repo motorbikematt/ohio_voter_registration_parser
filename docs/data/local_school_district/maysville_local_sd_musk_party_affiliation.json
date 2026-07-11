@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 770 (12%)",
+      "UNC – Lapsed R — 913 (14%)",
+      "Mixed – Active — 393 (6%)",
+      "Mixed – Lapsed — 467 (7%)",
+      "UNC – No Primary — 2,929 (46%)",
+      "UNC – Lapsed D — 702 (11%)",
+      "Pure D — 209 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          770,
+          913,
+          393,
+          467,
+          2929,
+          702,
+          209
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "MAYSVILLE LOCAL SD (MUSK)",
+  "updated": "2026-07-10"
+}

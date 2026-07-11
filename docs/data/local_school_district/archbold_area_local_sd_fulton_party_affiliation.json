@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,275 (25%)",
+      "UNC – Lapsed R — 1,015 (20%)",
+      "Mixed – Active — 334 (6%)",
+      "Mixed – Lapsed — 438 (8%)",
+      "UNC – No Primary — 1,686 (33%)",
+      "UNC – Lapsed D — 279 (5%)",
+      "Pure D — 150 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1275,
+          1015,
+          334,
+          438,
+          1686,
+          279,
+          150
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "ARCHBOLD-AREA LOCAL SD (FULTON)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 847 (13%)",
+      "UNC – Lapsed R — 507 (8%)",
+      "Mixed – Active — 869 (14%)",
+      "Mixed – Lapsed — 543 (8%)",
+      "UNC – No Primary — 1,971 (31%)",
+      "UNC – Lapsed D — 911 (14%)",
+      "Pure D — 768 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          847,
+          507,
+          869,
+          543,
+          1971,
+          911,
+          768
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "CHAMPION LOCAL SD (TRUMBULL)",
+  "updated": "2026-07-10"
+}

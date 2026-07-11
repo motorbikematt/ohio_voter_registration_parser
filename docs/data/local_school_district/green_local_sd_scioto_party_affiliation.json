@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,657 (12%)",
+      "UNC – Lapsed R — 2,928 (13%)",
+      "Mixed – Active — 2,229 (10%)",
+      "Mixed – Lapsed — 2,439 (11%)",
+      "UNC – No Primary — 7,401 (33%)",
+      "UNC – Lapsed D — 2,782 (13%)",
+      "Pure D — 1,768 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2657,
+          2928,
+          2229,
+          2439,
+          7401,
+          2782,
+          1768
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "GREEN LOCAL SD (SCIOTO)",
+  "updated": "2026-07-10"
+}

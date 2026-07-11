@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 436 (16%)",
+      "UNC – Lapsed R — 233 (9%)",
+      "Mixed – Active — 259 (10%)",
+      "Mixed – Lapsed — 148 (6%)",
+      "UNC – No Primary — 1,102 (41%)",
+      "UNC – Lapsed D — 331 (12%)",
+      "Pure D — 156 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          436,
+          233,
+          259,
+          148,
+          1102,
+          331,
+          156
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "SOUTHERN LOCAL SD (PERRY)",
+  "updated": "2026-07-10"
+}

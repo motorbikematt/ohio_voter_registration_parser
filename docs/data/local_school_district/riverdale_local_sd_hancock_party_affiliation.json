@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,206 (34%)",
+      "UNC – Lapsed R — 400 (11%)",
+      "Mixed – Active — 278 (8%)",
+      "Mixed – Lapsed — 243 (7%)",
+      "UNC – No Primary — 1,196 (33%)",
+      "UNC – Lapsed D — 167 (5%)",
+      "Pure D — 106 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1206,
+          400,
+          278,
+          243,
+          1196,
+          167,
+          106
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "RIVERDALE LOCAL SD (HANCOCK)",
+  "updated": "2026-07-10"
+}

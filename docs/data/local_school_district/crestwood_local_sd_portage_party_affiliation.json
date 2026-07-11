@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,370 (15%)",
+      "UNC – Lapsed R — 954 (10%)",
+      "Mixed – Active — 1,042 (11%)",
+      "Mixed – Lapsed — 1,167 (13%)",
+      "UNC – No Primary — 3,108 (33%)",
+      "UNC – Lapsed D — 949 (10%)",
+      "Pure D — 691 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1370,
+          954,
+          1042,
+          1167,
+          3108,
+          949,
+          691
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "CRESTWOOD LOCAL SD (PORTAGE)",
+  "updated": "2026-07-10"
+}

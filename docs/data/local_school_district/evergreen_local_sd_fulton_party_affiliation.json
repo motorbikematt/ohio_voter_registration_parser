@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 958 (17%)",
+      "UNC – Lapsed R — 777 (14%)",
+      "Mixed – Active — 538 (10%)",
+      "Mixed – Lapsed — 509 (9%)",
+      "UNC – No Primary — 1,823 (33%)",
+      "UNC – Lapsed D — 561 (10%)",
+      "Pure D — 356 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          958,
+          777,
+          538,
+          509,
+          1823,
+          561,
+          356
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "EVERGREEN LOCAL SD (FULTON)",
+  "updated": "2026-07-10"
+}

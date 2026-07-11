@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,028 (23%)",
+      "UNC – Lapsed R — 1,386 (16%)",
+      "Mixed – Active — 538 (6%)",
+      "Mixed – Lapsed — 616 (7%)",
+      "UNC – No Primary — 3,338 (38%)",
+      "UNC – Lapsed D — 589 (7%)",
+      "Pure D — 347 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2028,
+          1386,
+          538,
+          616,
+          3338,
+          589,
+          347
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "CLERMONT NORTHEASTERN LOCAL SD (CLERMONT)",
+  "updated": "2026-07-10"
+}

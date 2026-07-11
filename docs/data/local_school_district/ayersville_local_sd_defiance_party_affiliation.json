@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 501 (18%)",
+      "UNC – Lapsed R — 535 (20%)",
+      "Mixed – Active — 239 (9%)",
+      "Mixed – Lapsed — 241 (9%)",
+      "UNC – No Primary — 853 (31%)",
+      "UNC – Lapsed D — 236 (9%)",
+      "Pure D — 134 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          501,
+          535,
+          239,
+          241,
+          853,
+          236,
+          134
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "AYERSVILLE LOCAL SD (DEFIANCE)",
+  "updated": "2026-07-10"
+}

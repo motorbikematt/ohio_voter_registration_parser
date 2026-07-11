@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 959 (23%)",
+      "UNC – Lapsed R — 607 (14%)",
+      "Mixed – Active — 281 (7%)",
+      "Mixed – Lapsed — 196 (5%)",
+      "UNC – No Primary — 1,867 (44%)",
+      "UNC – Lapsed D — 233 (5%)",
+      "Pure D — 109 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          959,
+          607,
+          281,
+          196,
+          1867,
+          233,
+          109
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "LYNCHBURG-CLAY LOCAL SD (HIGHLAND)",
+  "updated": "2026-07-10"
+}

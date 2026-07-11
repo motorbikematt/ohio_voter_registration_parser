@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,832 (16%)",
+      "UNC – Lapsed R — 1,594 (14%)",
+      "Mixed – Active — 969 (8%)",
+      "Mixed – Lapsed — 1,214 (10%)",
+      "UNC – No Primary — 4,512 (39%)",
+      "UNC – Lapsed D — 1,019 (9%)",
+      "Pure D — 520 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1832,
+          1594,
+          969,
+          1214,
+          4512,
+          1019,
+          520
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "TECUMSEH LOCAL SD (CLARK)",
+  "updated": "2026-07-10"
+}

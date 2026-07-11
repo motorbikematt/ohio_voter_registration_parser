@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,143 (28%)",
+      "UNC – Lapsed R — 759 (18%)",
+      "Mixed – Active — 344 (8%)",
+      "Mixed – Lapsed — 289 (7%)",
+      "UNC – No Primary — 1,305 (31%)",
+      "UNC – Lapsed D — 188 (5%)",
+      "Pure D — 127 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1143,
+          759,
+          344,
+          289,
+          1305,
+          188,
+          127
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "WEST LIBERTY-SALEM LOCAL SD (CHAMPAIGN)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,035 (19%)",
+      "UNC – Lapsed R — 2,702 (12%)",
+      "Mixed – Active — 1,712 (8%)",
+      "Mixed – Lapsed — 2,086 (10%)",
+      "UNC – No Primary — 8,041 (37%)",
+      "UNC – Lapsed D — 1,953 (9%)",
+      "Pure D — 1,142 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4035,
+          2702,
+          1712,
+          2086,
+          8041,
+          1953,
+          1142
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "SOUTHWEST LICKING LOCAL SD (LICKING)",
+  "updated": "2026-07-10"
+}

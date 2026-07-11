@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 495 (33%)",
+      "UNC – Lapsed R — 240 (16%)",
+      "Mixed – Active — 243 (16%)",
+      "Mixed – Lapsed — 69 (5%)",
+      "UNC – No Primary — 366 (24%)",
+      "UNC – Lapsed D — 65 (4%)",
+      "Pure D — 43 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          495,
+          240,
+          243,
+          69,
+          366,
+          65,
+          43
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "MILLER CITY-NEW CLEVELAND LSD (PUTNAM)",
+  "updated": "2026-07-10"
+}

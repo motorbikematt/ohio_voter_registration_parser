@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,503 (27%)",
+      "UNC – Lapsed R — 1,212 (13%)",
+      "Mixed – Active — 1,174 (13%)",
+      "Mixed – Lapsed — 566 (6%)",
+      "UNC – No Primary — 2,872 (31%)",
+      "UNC – Lapsed D — 594 (6%)",
+      "Pure D — 356 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2503,
+          1212,
+          1174,
+          566,
+          2872,
+          594,
+          356
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "RIVER VIEW LOCAL SD (COSHOCTON)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 870 (24%)",
+      "UNC – Lapsed R — 576 (16%)",
+      "Mixed – Active — 322 (9%)",
+      "Mixed – Lapsed — 278 (8%)",
+      "UNC – No Primary — 1,259 (35%)",
+      "UNC – Lapsed D — 231 (6%)",
+      "Pure D — 99 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          870,
+          576,
+          322,
+          278,
+          1259,
+          231,
+          99
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "TWIN VALLEY LOCAL SD (PREBLE)",
+  "updated": "2026-07-10"
+}

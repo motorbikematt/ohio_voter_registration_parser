@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,702 (18%)",
+      "UNC – Lapsed R — 2,999 (12%)",
+      "Mixed – Active — 2,465 (10%)",
+      "Mixed – Lapsed — 2,299 (9%)",
+      "UNC – No Primary — 8,133 (31%)",
+      "UNC – Lapsed D — 2,586 (10%)",
+      "Pure D — 2,642 (10%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4702,
+          2999,
+          2465,
+          2299,
+          8133,
+          2586,
+          2642
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "ANTHONY WAYNE LOCAL SD (LUCAS)",
+  "updated": "2026-07-10"
+}

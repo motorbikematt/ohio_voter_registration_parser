@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,352 (21%)",
+      "UNC – Lapsed R — 920 (15%)",
+      "Mixed – Active — 715 (11%)",
+      "Mixed – Lapsed — 519 (8%)",
+      "UNC – No Primary — 1,921 (30%)",
+      "UNC – Lapsed D — 503 (8%)",
+      "Pure D — 408 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1352,
+          920,
+          715,
+          519,
+          1921,
+          503,
+          408
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "PLEASANT LOCAL SD (MARION)",
+  "updated": "2026-07-10"
+}

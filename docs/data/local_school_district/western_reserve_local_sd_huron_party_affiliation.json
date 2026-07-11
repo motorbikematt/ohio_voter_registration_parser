@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 696 (16%)",
+      "UNC – Lapsed R — 482 (11%)",
+      "Mixed – Active — 294 (7%)",
+      "Mixed – Lapsed — 283 (7%)",
+      "UNC – No Primary — 1,827 (43%)",
+      "UNC – Lapsed D — 399 (9%)",
+      "Pure D — 257 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          696,
+          482,
+          294,
+          283,
+          1827,
+          399,
+          257
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "WESTERN RESERVE LOCAL SD (HURON)",
+  "updated": "2026-07-10"
+}

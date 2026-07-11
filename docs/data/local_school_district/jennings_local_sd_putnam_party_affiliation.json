@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 371 (27%)",
+      "UNC – Lapsed R — 252 (18%)",
+      "Mixed – Active — 124 (9%)",
+      "Mixed – Lapsed — 126 (9%)",
+      "UNC – No Primary — 414 (30%)",
+      "UNC – Lapsed D — 65 (5%)",
+      "Pure D — 38 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          371,
+          252,
+          124,
+          126,
+          414,
+          65,
+          38
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "JENNINGS LOCAL SD (PUTNAM)",
+  "updated": "2026-07-10"
+}

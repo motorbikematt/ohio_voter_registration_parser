@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,776 (10%)",
+      "UNC – Lapsed R — 2,522 (14%)",
+      "Mixed – Active — 1,639 (9%)",
+      "Mixed – Lapsed — 1,777 (10%)",
+      "UNC – No Primary — 6,653 (37%)",
+      "UNC – Lapsed D — 2,080 (12%)",
+      "Pure D — 1,532 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1776,
+          2522,
+          1639,
+          1777,
+          6653,
+          2080,
+          1532
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "AVON LOCAL SD (LORAIN)",
+  "updated": "2026-07-10"
+}

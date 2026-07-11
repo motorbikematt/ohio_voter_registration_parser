@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,059 (10%)",
+      "UNC – Lapsed R — 894 (8%)",
+      "Mixed – Active — 1,531 (14%)",
+      "Mixed – Lapsed — 1,021 (10%)",
+      "UNC – No Primary — 3,411 (32%)",
+      "UNC – Lapsed D — 1,854 (17%)",
+      "Pure D — 888 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1059,
+          894,
+          1531,
+          1021,
+          3411,
+          1854,
+          888
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "SWITZERLAND OF OHIO LOCAL SD (MONROE)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 467 (11%)",
+      "UNC – Lapsed R — 384 (9%)",
+      "Mixed – Active — 674 (15%)",
+      "Mixed – Lapsed — 400 (9%)",
+      "UNC – No Primary — 1,415 (33%)",
+      "UNC – Lapsed D — 624 (14%)",
+      "Pure D — 389 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          467,
+          384,
+          674,
+          400,
+          1415,
+          624,
+          389
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Local School District",
+  "jurisdiction_name": "JACKSON-MILTON LOCAL SD (MAHONING)",
+  "updated": "2026-07-10"
+}
