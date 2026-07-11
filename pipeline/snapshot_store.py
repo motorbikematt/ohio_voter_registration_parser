@@ -49,6 +49,56 @@ SNAPSHOTS_DIR = SOURCE_DIR / "snapshots"
 STAGING_DIR   = SOURCE_DIR / "State Voter Files"
 STAGED_FROM   = STAGING_DIR / "staged_from.json"
 
+# Downstream caches keyed off the staged snapshot, not owned by this module but
+# invalidated here because stage() is the only place that knows a *different*
+# snapshot just replaced the staged one. Paths must match voter_data_cleaner.py
+# / jurisdictional_groupings.py exactly (duplicated there per existing pattern
+# in this codebase, not re-centralized here to keep this patch scoped).
+PARQUET_DIR     = SOURCE_DIR / "parquet"
+ENRICHED_CACHE  = SOURCE_DIR / "parquet_enriched" / "enriched_voters.parquet"
+
+
+def _invalidate_downstream_caches(prev_snapshot_date: str | None, new_snapshot_date: str) -> None:
+    """
+    Delete the raw + enriched parquet caches when they were built from a
+    different (or unknown) snapshot than the one now being staged.
+
+    build_parquet_cache() is idempotent on partition EXISTENCE only, never on
+    which snapshot produced them -- without this, restaging a newer snapshot
+    silently leaves analysis reading the old one under the new date stamp.
+    Both caches are gitignored and fully reconstructable from snapshots/*.gz,
+    so deleting them is safe; the next pipeline run rebuilds from the newly
+    staged .txt files.
+    """
+    if prev_snapshot_date == new_snapshot_date:
+        return  # restaging the same snapshot; caches (if any) are still valid
+
+    reason = (
+        f"no prior snapshot marker (legacy state)" if prev_snapshot_date is None
+        else f"staged snapshot changed {prev_snapshot_date} -> {new_snapshot_date}"
+    )
+
+    removed_any = False
+    if PARQUET_DIR.exists():
+        partition_dirs = [p for p in PARQUET_DIR.iterdir() if p.is_dir()]
+        for p in partition_dirs:
+            shutil.rmtree(p)
+        if partition_dirs:
+            removed_any = True
+            print(f"  Invalidated {len(partition_dirs)} raw parquet partition(s) "
+                  f"under {PARQUET_DIR} ({reason}). Gitignored + reconstructable "
+                  f"from snapshots/*.gz.")
+
+    if ENRICHED_CACHE.exists():
+        ENRICHED_CACHE.unlink()
+        removed_any = True
+        print(f"  Invalidated enriched cache {ENRICHED_CACHE} ({reason}). "
+              f"Gitignored + reconstructable from snapshots/*.gz.")
+
+    if not removed_any:
+        print(f"  No existing parquet cache to invalidate ({reason}).")
+
+
 # The 4 canonical gz names that define a "complete" snapshot.
 SWVF_GZ_NAMES = [
     "SWVF_1_22.txt.gz",
@@ -236,6 +286,13 @@ def stage(snap: SnapshotInfo, force: bool = False) -> list[Path]:
             f"(needs all 4 of {', '.join(SWVF_GZ_NAMES)})."
         )
 
+    # Capture the snapshot the CURRENT parquet cache was (presumably) built
+    # from -- i.e. whatever staged_from.json said before this call overwrites
+    # it -- so a snapshot change can be detected even though staged_from.json
+    # itself is about to be replaced below.
+    _prev_info = staged_info()
+    _prev_snapshot_date = _prev_info.get("snapshot_date") if _prev_info else None
+
     if not force and _staging_matches(snap):
         print(f"  Snapshot {snap.date} already staged, skipping decompression.")
         return _staged_txt_paths()
@@ -257,6 +314,9 @@ def stage(snap: SnapshotInfo, force: bool = False) -> list[Path]:
     }
     _atomic_write_json(STAGED_FROM, payload)
     print(f"  OK staged_from.json written ({snap.date})")
+
+    _invalidate_downstream_caches(_prev_snapshot_date, snap.date)
+
     return txt_paths
 
 
