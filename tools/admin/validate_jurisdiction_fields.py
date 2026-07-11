@@ -56,7 +56,19 @@ import polars as pl
 _ROOT = Path(__file__).resolve().parent.parent.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
+if str(Path(__file__).resolve().parent) not in sys.path:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
 from pipeline import voter_data_cleaner as _v  # noqa: E402
+# Shared per-county profiling primitives (the "88-county assumption" toolkit,
+# CLAUDE.md 5). COUNTY_NAME is the single canonical roster, consumed here --
+# never re-declared. nonblank / coverage_by_county / iter_county_frames are the
+# lifted profiling verbs; profile_column is the "profile before you assume" call.
+from data_profile import (  # noqa: E402
+    OHIO_COUNTIES as COUNTY_NAME,
+    coverage_by_county,
+    iter_county_frames,
+    nonblank as _nonblank,
+)
 
 DEFAULT_PARQUET = Path('local/source/parquet_enriched/enriched_voters.parquet')
 DOCS_DATA = _ROOT / 'docs' / 'data'
@@ -77,23 +89,12 @@ WARD_ABUSE_BASELINE = 4
 # than [6]'s DEFECT classification. Informational, not strict-gated.
 WARD_GAP_COUNTY_BASELINE = 29
 
-# Ohio's 88 counties are numbered 01-88 in alphabetical order (fixed by statute).
-OHIO_COUNTIES = [
-    'Adams', 'Allen', 'Ashland', 'Ashtabula', 'Athens', 'Auglaize', 'Belmont',
-    'Brown', 'Butler', 'Carroll', 'Champaign', 'Clark', 'Clermont', 'Clinton',
-    'Columbiana', 'Coshocton', 'Crawford', 'Cuyahoga', 'Darke', 'Defiance',
-    'Delaware', 'Erie', 'Fairfield', 'Fayette', 'Franklin', 'Fulton', 'Gallia',
-    'Geauga', 'Greene', 'Guernsey', 'Hamilton', 'Hancock', 'Hardin', 'Harrison',
-    'Henry', 'Highland', 'Hocking', 'Holmes', 'Huron', 'Jackson', 'Jefferson',
-    'Knox', 'Lake', 'Lawrence', 'Licking', 'Logan', 'Lorain', 'Lucas',
-    'Madison', 'Mahoning', 'Marion', 'Medina', 'Meigs', 'Mercer', 'Miami',
-    'Monroe', 'Montgomery', 'Morgan', 'Morrow', 'Muskingum', 'Noble', 'Ottawa',
-    'Paulding', 'Perry', 'Pickaway', 'Pike', 'Portage', 'Preble', 'Putnam',
-    'Richland', 'Ross', 'Sandusky', 'Scioto', 'Seneca', 'Shelby', 'Stark',
-    'Summit', 'Trumbull', 'Tuscarawas', 'Union', 'Van Wert', 'Vinton',
-    'Warren', 'Washington', 'Wayne', 'Williams', 'Wood', 'Wyandot',
-]
-COUNTY_NAME = {f'{i + 1:02d}': n for i, n in enumerate(OHIO_COUNTIES)}
+# COUNTY_NAME (number->name, '01'->'Adams') is imported above from data_profile,
+# which sources it from voter_data_cleaner.OHIO_COUNTIES -- the single canonical
+# roster (CLAUDE.md 5, single-source rule). Ohio-specific facts baked into that
+# canonical table -- 88 counties, numbered 01-88 alphabetically by statute,
+# COUNTY_NUMBER a 2-char zero-padded string -- are the state seam to revisit when
+# a second state is added; do not re-declare the roster here.
 
 # A county is a true "postal last resort" only if NO authoritative jurisdiction
 # column (CITY/VILLAGE/WARD/TOWNSHIP) covers it -- i.e. any_auth_cov below this
@@ -102,32 +103,8 @@ COUNTY_NAME = {f'{i + 1:02d}': n for i, n in enumerate(OHIO_COUNTIES)}
 POSTAL_ONLY_CITY_COVERAGE = 0.10
 TWP_VILLAGE_RE = r'\bTWP\b|\bTOWNSHIP\b|\bVILLAGE\b|\bVILL\b'
 
-
-def _nonblank(col: str) -> pl.Expr:
-    return pl.col(col).is_not_null() & (pl.col(col).str.strip_chars() != '')
-
-
-def coverage_by_county(lf: pl.LazyFrame) -> pl.DataFrame:
-    """Per-county non-blank coverage of every jurisdiction-hierarchy column plus
-    the postal RESIDENTIAL_CITY. `any_auth_cov` is the fraction of voters covered
-    by ANY authoritative column (CITY/VILLAGE/WARD/TOWNSHIP) -- counties near 0
-    there are the true postal-last-resort set."""
-    cols = lf.collect_schema().names()
-    auth = [c for c in ('CITY', 'VILLAGE', 'WARD', 'TOWNSHIP') if c in cols]
-    agg = [pl.len().alias('voters')]
-    for c in auth + (['RESIDENTIAL_CITY'] if 'RESIDENTIAL_CITY' in cols else []):
-        agg.append(_nonblank(c).sum().alias(f'{c.lower()}_nb'))
-    # any_auth: voter covered if any authoritative column is non-blank.
-    any_expr = pl.lit(False)
-    for c in auth:
-        any_expr = any_expr | _nonblank(c)
-    agg.append(any_expr.sum().alias('any_auth_nb'))
-
-    out = lf.group_by('COUNTY_NUMBER').agg(agg)
-    ratios = [(pl.col(f'{c.lower()}_nb') / pl.col('voters')).alias(f'{c.lower()}_cov')
-              for c in auth + (['RESIDENTIAL_CITY'] if 'RESIDENTIAL_CITY' in cols else [])]
-    ratios.append((pl.col('any_auth_nb') / pl.col('voters')).alias('any_auth_cov'))
-    return out.with_columns(ratios).sort('COUNTY_NUMBER').collect()
+# _nonblank and coverage_by_county are imported from data_profile (the shared
+# profiling toolkit); see the import block above.
 
 
 def township_postal_conflicts(lf: pl.LazyFrame) -> pl.DataFrame:
@@ -179,7 +156,7 @@ def classify_township_conflicts(lf: pl.LazyFrame, conflicts: pl.DataFrame,
     if high.height == 0:
         return out
     target = set(high['COUNTY_NUMBER'].to_list())
-    for num, cname, slug, sub in _per_county_frames(lf):
+    for num, cname, slug, sub in iter_county_frames(lf, PLACE_WARD_COLS):
         if num not in target:
             continue
         place = _v._place_per_precinct(sub)
@@ -253,22 +230,10 @@ def village_in_township_candidates(lf: pl.LazyFrame) -> pl.DataFrame:
                 'township': pl.Utf8, 'voters': pl.Int64})
 
 
-def _county_slug(name: str) -> str:
-    return name.lower().replace(' ', '_')
-
-
-def _per_county_frames(lf: pl.LazyFrame):
-    """Yield (county_num, county_name, slug, df) for every county present,
-    reading only the raw jurisdiction columns the single resolvers need.
-    Bounded to 88 iterations; the underlying select/collect is one pass over
-    the enriched parquet, matching the pattern in
-    tools/admin/regen_precinct_index_places.py."""
-    cols = [c for c in PLACE_WARD_COLS if c in lf.collect_schema().names()]
-    full = lf.select(cols).collect()
-    for num, cname in sorted(COUNTY_NAME.items()):
-        sub = full.filter(pl.col('COUNTY_NUMBER') == num)
-        if sub.height:
-            yield num, cname, _county_slug(cname), sub
+# _per_county_frames was lifted to data_profile.iter_county_frames(lf, cols) --
+# now parameterized on the column list so any stream can reuse it. This module's
+# callers pass PLACE_WARD_COLS (the jurisdiction columns the place/ward resolvers
+# need). The county-slug is produced inline by iter_county_frames.
 
 
 def _bundle_missing_path(place: dict, county_slug: str) -> Path | None:
@@ -294,7 +259,7 @@ def check_place_completeness(lf: pl.LazyFrame, show: int) -> int:
     print(f'\n[5] Place resolution completeness')
     placeless: list[tuple[str, str]] = []
     missing_bundles: list[tuple[str, str, str]] = []
-    for num, cname, slug, sub in _per_county_frames(lf):
+    for num, cname, slug, sub in iter_county_frames(lf, PLACE_WARD_COLS):
         place = _v._place_per_precinct(sub)
         precincts = set(sub['PRECINCT_NAME'].drop_nulls().unique().to_list())
         for p in sorted(precincts - place.keys()):
@@ -350,7 +315,7 @@ def check_ward_coverage(lf: pl.LazyFrame) -> list[dict]:
           f'row-accurate CITY-row basis)')
     # city_name -> county_slug -> (county_num, county_name, nonblank_ward_voters, total_voters)
     by_city: dict[str, dict[str, tuple[str, str, int, int]]] = {}
-    for num, cname, slug, sub in _per_county_frames(lf):
+    for num, cname, slug, sub in iter_county_frames(lf, PLACE_WARD_COLS):
         rows = sub.select(['CITY', 'WARD']).with_columns(
             pl.col('CITY').str.strip_chars().alias('_c'),
             pl.col('WARD').str.strip_chars().alias('_w'),
@@ -418,7 +383,7 @@ def check_split_precincts(lf: pl.LazyFrame, show: int) -> list:
     committed precinct indexes against docs/data/ward/index.json."""
     print(f'\n[7] Split precincts + stamp-less ward entities')
     splits = []
-    for num, cname, slug, sub in _per_county_frames(lf):
+    for num, cname, slug, sub in iter_county_frames(lf, PLACE_WARD_COLS):
         if 'WARD' not in sub.columns:
             continue
         rows = sub.select(['PRECINCT_NAME', 'WARD']).with_columns(
@@ -503,7 +468,7 @@ def check_ward_schema_abuse(lf: pl.LazyFrame) -> list[dict]:
     Baseline: 4 distinct WARD values statewide."""
     print(f'\n[9] Ward schema abuse (excluded from ward entities)')
     abuse_rows: list[dict] = []
-    for num, cname, slug, sub in _per_county_frames(lf):
+    for num, cname, slug, sub in iter_county_frames(lf, PLACE_WARD_COLS):
         ward_map = _v._ward_map_per_county(sub, slug)
         if not ward_map:
             continue
