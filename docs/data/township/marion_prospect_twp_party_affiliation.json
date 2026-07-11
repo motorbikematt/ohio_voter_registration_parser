@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 254 (18%)",
+      "UNC – Lapsed R — 228 (16%)",
+      "Mixed – Active — 115 (8%)",
+      "Mixed – Lapsed — 110 (8%)",
+      "UNC – No Primary — 539 (38%)",
+      "UNC – Lapsed D — 125 (9%)",
+      "Pure D — 56 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          254,
+          228,
+          115,
+          110,
+          539,
+          125,
+          56
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PROSPECT TWP. (Marion Co.)",
+  "updated": "2026-07-10"
+}

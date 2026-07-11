@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 462 (22%)",
+      "UNC – Lapsed R — 430 (20%)",
+      "Mixed – Active — 179 (8%)",
+      "Mixed – Lapsed — 207 (10%)",
+      "UNC – No Primary — 614 (29%)",
+      "UNC – Lapsed D — 144 (7%)",
+      "Pure D — 73 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          462,
+          430,
+          179,
+          207,
+          614,
+          144,
+          73
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "LIBERTY  TWP (Licking Co.)",
+  "updated": "2026-07-10"
+}

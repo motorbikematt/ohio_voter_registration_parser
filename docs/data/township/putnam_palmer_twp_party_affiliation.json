@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 210 (26%)",
+      "UNC – Lapsed R — 130 (16%)",
+      "Mixed – Active — 114 (14%)",
+      "Mixed – Lapsed — 38 (5%)",
+      "UNC – No Primary — 241 (30%)",
+      "UNC – Lapsed D — 44 (6%)",
+      "Pure D — 18 (2%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          210,
+          130,
+          114,
+          38,
+          241,
+          44,
+          18
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PALMER TWP. (Putnam Co.)",
+  "updated": "2026-07-10"
+}

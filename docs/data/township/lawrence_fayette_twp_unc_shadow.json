@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 708",
+      "Mixed – Active — 436",
+      "Mixed – Lapsed — 276",
+      "UNC – No Primary — 2,661",
+      "UNC – Lapsed D — 427"
+    ],
+    "datasets": [
+      {
+        "data": [
+          708,
+          436,
+          276,
+          2661,
+          427
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "FAYETTE TWP. (Lawrence Co.)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 195",
+      "Mixed – Active — 148",
+      "Mixed – Lapsed — 62",
+      "UNC – No Primary — 345",
+      "UNC – Lapsed D — 51"
+    ],
+    "datasets": [
+      {
+        "data": [
+          195,
+          148,
+          62,
+          345,
+          51
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "LIBERTY TWP. (Putnam Co.)",
+  "updated": "2026-07-10"
+}

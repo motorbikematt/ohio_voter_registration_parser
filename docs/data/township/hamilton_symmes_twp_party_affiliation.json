@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,300 (11%)",
+      "UNC – Lapsed R — 1,752 (15%)",
+      "Mixed – Active — 801 (7%)",
+      "Mixed – Lapsed — 1,246 (11%)",
+      "UNC – No Primary — 4,255 (37%)",
+      "UNC – Lapsed D — 1,178 (10%)",
+      "Pure D — 947 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1300,
+          1752,
+          801,
+          1246,
+          4255,
+          1178,
+          947
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "SYMMES TWP. (Hamilton Co.)",
+  "updated": "2026-07-10"
+}

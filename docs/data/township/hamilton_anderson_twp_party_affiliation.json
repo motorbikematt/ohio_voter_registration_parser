@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 4,717 (13%)",
+      "UNC – Lapsed R — 6,083 (17%)",
+      "Mixed – Active — 2,508 (7%)",
+      "Mixed – Lapsed — 4,361 (12%)",
+      "UNC – No Primary — 11,369 (32%)",
+      "UNC – Lapsed D — 3,335 (10%)",
+      "Pure D — 2,684 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          4717,
+          6083,
+          2508,
+          4361,
+          11369,
+          3335,
+          2684
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "ANDERSON TWP. (Hamilton Co.)",
+  "updated": "2026-07-10"
+}

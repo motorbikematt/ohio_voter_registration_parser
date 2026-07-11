@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 76 (18%)",
+      "UNC – Lapsed R — 100 (24%)",
+      "Mixed – Active — 26 (6%)",
+      "Mixed – Lapsed — 34 (8%)",
+      "UNC – No Primary — 146 (35%)",
+      "UNC – Lapsed D — 29 (7%)",
+      "Pure D — 4 (1%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          76,
+          100,
+          26,
+          34,
+          146,
+          29,
+          4
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "DECATUR TWP. (Lawrence Co.)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,429 (19%)",
+      "UNC – Lapsed R — 2,486 (20%)",
+      "Mixed – Active — 709 (6%)",
+      "Mixed – Lapsed — 1,198 (10%)",
+      "UNC – No Primary — 4,599 (37%)",
+      "UNC – Lapsed D — 762 (6%)",
+      "Pure D — 378 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2429,
+          2486,
+          709,
+          1198,
+          4599,
+          762,
+          378
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "MIAMI TWP. (Hamilton Co.)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 1,752",
+      "Mixed – Active — 801",
+      "Mixed – Lapsed — 1,246",
+      "UNC – No Primary — 4,255",
+      "UNC – Lapsed D — 1,178"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1752,
+          801,
+          1246,
+          4255,
+          1178
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "SYMMES TWP. (Hamilton Co.)",
+  "updated": "2026-07-10"
+}

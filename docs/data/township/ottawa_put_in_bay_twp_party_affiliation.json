@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 106 (16%)",
+      "UNC – Lapsed R — 101 (15%)",
+      "Mixed – Active — 77 (11%)",
+      "Mixed – Lapsed — 93 (14%)",
+      "UNC – No Primary — 175 (26%)",
+      "UNC – Lapsed D — 67 (10%)",
+      "Pure D — 63 (9%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          106,
+          101,
+          77,
+          93,
+          175,
+          67,
+          63
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "PUT- IN- BAY TWP (Ottawa Co.)",
+  "updated": "2026-07-10"
+}

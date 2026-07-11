@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 2,973 (14%)",
+      "UNC – Lapsed R — 2,887 (14%)",
+      "Mixed – Active — 1,208 (6%)",
+      "Mixed – Lapsed — 1,873 (9%)",
+      "UNC – No Primary — 8,903 (43%)",
+      "UNC – Lapsed D — 1,676 (8%)",
+      "Pure D — 1,121 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          2973,
+          2887,
+          1208,
+          1873,
+          8903,
+          1676,
+          1121
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "DELHI TWP. (Hamilton Co.)",
+  "updated": "2026-07-10"
+}

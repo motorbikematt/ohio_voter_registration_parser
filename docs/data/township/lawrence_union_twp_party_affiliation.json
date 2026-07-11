@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 880 (15%)",
+      "UNC – Lapsed R — 760 (13%)",
+      "Mixed – Active — 354 (6%)",
+      "Mixed – Lapsed — 284 (5%)",
+      "UNC – No Primary — 2,770 (49%)",
+      "UNC – Lapsed D — 437 (8%)",
+      "Pure D — 215 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          880,
+          760,
+          354,
+          284,
+          2770,
+          437,
+          215
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "UNION TWP. (Lawrence Co.)",
+  "updated": "2026-07-10"
+}

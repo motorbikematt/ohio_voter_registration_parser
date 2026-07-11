@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 366",
+      "Mixed – Active — 124",
+      "Mixed – Lapsed — 133",
+      "UNC – No Primary — 621",
+      "UNC – Lapsed D — 176"
+    ],
+    "datasets": [
+      {
+        "data": [
+          366,
+          124,
+          133,
+          621,
+          176
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "ELIZABETH TWP. (Lawrence Co.)",
+  "updated": "2026-07-10"
+}

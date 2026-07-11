@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,300 (24%)",
+      "UNC – Lapsed R — 726 (13%)",
+      "Mixed – Active — 394 (7%)",
+      "Mixed – Lapsed — 500 (9%)",
+      "UNC – No Primary — 1,957 (36%)",
+      "UNC – Lapsed D — 307 (6%)",
+      "Pure D — 272 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1300,
+          726,
+          394,
+          500,
+          1957,
+          307,
+          272
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "CROSBY TWP. (Hamilton Co.)",
+  "updated": "2026-07-10"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 5,021 (12%)",
+      "UNC – Lapsed R — 4,586 (11%)",
+      "Mixed – Active — 2,122 (5%)",
+      "Mixed – Lapsed — 3,069 (7%)",
+      "UNC – No Primary — 18,763 (45%)",
+      "UNC – Lapsed D — 4,992 (12%)",
+      "Pure D — 3,338 (8%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          5021,
+          4586,
+          2122,
+          3069,
+          18763,
+          4992,
+          3338
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "COLERAIN TWP. (Hamilton Co.)",
+  "updated": "2026-07-10"
+}

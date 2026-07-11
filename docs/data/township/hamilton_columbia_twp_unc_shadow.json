@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 345",
+      "Mixed – Active — 171",
+      "Mixed – Lapsed — 219",
+      "UNC – No Primary — 1,489",
+      "UNC – Lapsed D — 524"
+    ],
+    "datasets": [
+      {
+        "data": [
+          345,
+          171,
+          219,
+          1489,
+          524
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Township",
+  "jurisdiction_name": "COLUMBIA TWP. (Hamilton Co.)",
+  "updated": "2026-07-10"
+}

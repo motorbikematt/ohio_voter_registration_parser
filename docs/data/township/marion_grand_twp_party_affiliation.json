@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 55 (21%)",
+      "UNC – Lapsed R — 43 (16%)",
+      "Mixed – Active — 20 (8%)",
+      "Mixed – Lapsed — 39 (15%)",
+      "UNC – No Primary — 75 (29%)",
+      "UNC – Lapsed D — 21 (8%)",
+      "Pure D — 9 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          55,
+          43,
+          20,
+          39,
+          75,
+          21,
+          9
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Township",
+  "jurisdiction_name": "GRAND TWP. (Marion Co.)",
+  "updated": "2026-07-10"
+}
