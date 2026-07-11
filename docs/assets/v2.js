@@ -169,6 +169,21 @@
   const html = document.documentElement;
   const $ = (id) => document.getElementById(id);
 
+  // ── XSS trust boundary ────────────────────────────────────────
+  // esc() is the single escape funnel: every data-derived string (names
+  // and narrative text from data/ JSON, URL params) passes through it
+  // before being interpolated into innerHTML. Attribute reads via
+  // getAttribute() see the decoded original, so round-tripped values
+  // (slugs, display names) are unchanged.
+  function esc(v) {
+    return String(v == null ? '' : v)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   // On mobile the left/right panes are fixed-position overlays (see @media
   // max-width:880px in v2.css). After a terminal selection the center pane
   // updates *underneath* the still-open drawer, so the user sees no change.
@@ -456,7 +471,7 @@
       const lean = leans ? leans[id] : null;
       const fill = leanColor(lean) || 'var(--surface-3)';
       const d = 'M' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L') + 'Z';
-      svg.push('<path class="' + cls.join(' ') + '" d="' + d + '" fill="' + fill + '" stroke="var(--rule)" stroke-width="0.7" data-district="' + id + '" data-dtype="' + dtype + '"><title>District ' + id + (lean !== null ? ' · ' + (lean > 0 ? '+' : '') + (lean * 100).toFixed(1) + '% D−R' : '') + '</title></path>');
+      svg.push('<path class="' + cls.join(' ') + '" d="' + d + '" fill="' + fill + '" stroke="var(--rule)" stroke-width="0.7" data-district="' + id + '" data-dtype="' + esc(dtype) + '"><title>District ' + id + (lean !== null ? ' · ' + (lean > 0 ? '+' : '') + (lean * 100).toFixed(1) + '% D−R' : '') + '</title></path>');
       if (count <= 33 || isSel || cmpIdx >= 0) {
         svg.push('<text class="hex-label" x="' + (x + cellW / 2).toFixed(1) + '" y="' + (y + cellH / 2).toFixed(1) + '" style="font-size:8px">' + id + '</text>');
       }
@@ -572,7 +587,7 @@
     }
     root.innerHTML =
       '<span class="eyebrow">Selection</span>' +
-      '<div class="mname">' + name + '</div>' +
+      '<div class="mname">' + esc(name) + '</div>' +
       '<div class="mstat">' + totalFmt + ' registered · ' + leanText + '</div>' +
       leanBars;
   }
@@ -604,8 +619,8 @@
             const isSel = S.level === 'city' && !S.county && S.id === slug;
             const nC = cmap[name].length;
             html.push('<div class="hier-row depth-0 ' + (isSel ? 'is-selected' : '') +
-              '" data-action="select-city" data-city-slug="' + slug + '" data-city-name="' + name + '">' +
-              '<span class="twirl"></span><span class="label">' + name + '</span>' +
+              '" data-action="select-city" data-city-slug="' + esc(slug) + '" data-city-name="' + esc(name) + '">' +
+              '<span class="twirl"></span><span class="label">' + esc(name) + '</span>' +
               '<span class="count">' + nC + ' co.</span></div>');
           });
           html.push('</div>');
@@ -619,9 +634,9 @@
         const isExpanded = isSel ||
           (SUBCOUNTY_LEVELS.includes(S.level) && countyToSlug(S.county || '') === slug) ||
           (S.level === 'precinct' && countyToSlug(S.county || '') === slug);
-        html.push('<div class="hier-row depth-0 ' + (isSel ? 'is-selected' : '') + '" data-action="select-county" data-county="' + slug + '" data-county-name="' + c + '"><span class="twirl">▸</span><span class="label">' + c + '</span><span class="count">—</span></div>');
+        html.push('<div class="hier-row depth-0 ' + (isSel ? 'is-selected' : '') + '" data-action="select-county" data-county="' + esc(slug) + '" data-county-name="' + esc(c) + '"><span class="twirl">▸</span><span class="label">' + esc(c) + '</span><span class="count">—</span></div>');
         if (isExpanded) {
-          html.push('<div class="hier-children is-open" data-county-children="' + slug + '"></div>');
+          html.push('<div class="hier-children is-open" data-county-children="' + esc(slug) + '"></div>');
         }
       });
       html.push('</div>');
@@ -688,9 +703,9 @@
 
     function precinctRow(p, depth) {
       const isSel = S.level === 'precinct' && S.id === p.safe_name;
-      return '<div class="hier-row depth-' + depth + ' ' + (isSel ? 'is-selected' : '') + '" data-action="select-precinct" data-county="' + countySlug + '" data-precinct="' + p.safe_name + '" data-precinct-name="' + p.name + '">' +
+      return '<div class="hier-row depth-' + depth + ' ' + (isSel ? 'is-selected' : '') + '" data-action="select-precinct" data-county="' + esc(countySlug) + '" data-precinct="' + esc(p.safe_name) + '" data-precinct-name="' + esc(p.name) + '">' +
         '<span class="twirl"></span>' +
-        '<span class="label">' + p.name + '</span>' +
+        '<span class="label">' + esc(p.name) + '</span>' +
         '<span class="count">' + (p.total ? p.total.toLocaleString() : '—') + '</span>' +
       '</div>';
     }
@@ -702,13 +717,13 @@
       // see PLAN_SUBCOUNTY_JURISDICTIONS.md Part 2). Never recomputed here.
       const isPlaceSel = S.level === place.type && S.id === place.slug;
       html.push(
-        '<div class="hier-row depth-1 ' + (isPlaceSel ? 'is-selected' : '') + '" data-action="toggle-place" data-place-slug="' + place.slug + '" data-place-type="' + place.type + '" data-place-name="' + place.name + '" data-county="' + countySlug + '">' +
+        '<div class="hier-row depth-1 ' + (isPlaceSel ? 'is-selected' : '') + '" data-action="toggle-place" data-place-slug="' + esc(place.slug) + '" data-place-type="' + esc(place.type) + '" data-place-name="' + esc(place.name) + '" data-county="' + esc(countySlug) + '">' +
           '<span class="twirl">▸</span>' +
-          '<span class="label">' + place.name + '</span>' +
-          '<span class="place-type-badge">' + (PLACE_TYPE_LABEL[place.type] || place.type) + '</span>' +
+          '<span class="label">' + esc(place.name) + '</span>' +
+          '<span class="place-type-badge">' + esc(PLACE_TYPE_LABEL[place.type] || place.type) + '</span>' +
           '<span class="count">' + place.precincts.length + '</span>' +
         '</div>',
-        '<div class="hier-children" data-place-children="' + place.slug + '">'
+        '<div class="hier-children" data-place-children="' + esc(place.slug) + '">'
       );
 
       // Nest precincts under wards when the place has any ward-holding
@@ -728,12 +743,12 @@
       Object.keys(wards).map(k => wards[k]).sort((a, b) => b.precincts.length - a.precincts.length).forEach(ward => {
         const isWardSel = S.level === 'ward' && S.id === ward.slug;
         html.push(
-          '<div class="hier-row depth-2 ' + (isWardSel ? 'is-selected' : '') + '" data-action="toggle-ward" data-ward-slug="' + ward.slug + '" data-ward-name="' + ward.name + '" data-county="' + countySlug + '">' +
+          '<div class="hier-row depth-2 ' + (isWardSel ? 'is-selected' : '') + '" data-action="toggle-ward" data-ward-slug="' + esc(ward.slug) + '" data-ward-name="' + esc(ward.name) + '" data-county="' + esc(countySlug) + '">' +
             '<span class="twirl">▸</span>' +
-            '<span class="label">' + ward.name + '</span>' +
+            '<span class="label">' + esc(ward.name) + '</span>' +
             '<span class="count">' + ward.precincts.length + '</span>' +
           '</div>',
-          '<div class="hier-children" data-ward-children="' + ward.slug + '">'
+          '<div class="hier-children" data-ward-children="' + esc(ward.slug) + '">'
         );
         ward.precincts.forEach(p => html.push(precinctRow(p, 3)));
         html.push('</div>');
@@ -868,7 +883,7 @@
       const html = list.map(d => {
         const isSel = S.level === 'district' && S.district_type === dtype && S.id === d.slug;
         const label = d.display_name || d.name || d.slug;
-        return '<div class="hier-row depth-1 ' + (isSel ? 'is-selected' : '') + '" data-action="select-district" data-dtype="' + dtype + '" data-id="' + d.slug + '" data-district-name="' + label + '"><span class="twirl"></span><span class="label">District ' + label + '</span><span class="count">' + (d.voter_count ? d.voter_count.toLocaleString() : '—') + '</span></div>';
+        return '<div class="hier-row depth-1 ' + (isSel ? 'is-selected' : '') + '" data-action="select-district" data-dtype="' + esc(dtype) + '" data-id="' + esc(d.slug) + '" data-district-name="' + esc(label) + '"><span class="twirl"></span><span class="label">District ' + esc(label) + '</span><span class="count">' + (d.voter_count ? d.voter_count.toLocaleString() : '—') + '</span></div>';
       });
       wrap.innerHTML = html.join('');
     } catch (e) {
@@ -1040,7 +1055,7 @@
         : (cityRow ? cityRow[5] : '?');
       if (bag.party && bag.party.chartConfig) {
         // Full hero with ribbon (same layout as county)
-        const labels = bag.party.chartConfig.labels.map(l => String(l).split(' \u2014 ')[0]);
+        const labels = bag.party.chartConfig.labels.map(l => esc(String(l).split(' \u2014 ')[0]));
         const data   = bag.party.chartConfig.datasets[0].data;
         const colors = bag.party.chartConfig.datasets[0].backgroundColor || COHORT_COLORS;
         const total  = data.reduce((a, b) => a + Number(b || 0), 0);
@@ -1052,7 +1067,7 @@
             '<div class="eyebrow">Total registered voters</div>' +
             '<div class="hero-number">' + total.toLocaleString() + '</div>' +
             '<div class="hero-subtitle">' +
-              bag.displayName + ' \u00b7 ' + precinctCount + ' precincts \u00b7 ' +
+              esc(bag.displayName) + ' \u00b7 ' + esc(precinctCount) + ' precincts \u00b7 ' +
               '<b>' + (r / total * 100).toFixed(1) + '%</b> Republican-leaning, ' +
               '<b>' + (unc / total * 100).toFixed(1) + '%</b> unaffiliated, ' +
               '<b>' + (dd / total * 100).toFixed(1) + '%</b> Democratic-leaning' +
@@ -1062,27 +1077,27 @@
             '<div class="hero-ribbon-label"><span>7-cohort partisan spectrum</span></div>' +
             '<div class="hero-ribbon">' + labels.map((l, i) => {
               const pct = (data[i] / total * 100).toFixed(2);
-              return '<div class="hero-ribbon-seg" style="width:' + pct + '%;background:' + colors[i] + '" title="' + l + ': ' + data[i].toLocaleString() + ' (' + pct + '%)"></div>';
+              return '<div class="hero-ribbon-seg" style="width:' + pct + '%;background:' + esc(colors[i]) + '" title="' + l + ': ' + data[i].toLocaleString() + ' (' + pct + '%)"></div>';
             }).join('') + '</div>' +
             '<div class="hero-legend">' + labels.map((l, i) => {
-              return '<div class="legend-item"><span class="sw" style="background:' + colors[i] + '"></span><span class="lbl">' + l + '</span><span class="val">' + (data[i] / total * 100).toFixed(1) + '%</span></div>';
+              return '<div class="legend-item"><span class="sw" style="background:' + esc(colors[i]) + '"></span><span class="lbl">' + l + '</span><span class="val">' + (data[i] / total * 100).toFixed(1) + '%</span></div>';
             }).join('') + '</div>' +
           '</div>';
       } else if (cityRow) {
         container.innerHTML =
           '<div class="hero-headline">' +
             '<div class="eyebrow">Total registered voters</div>' +
-            '<div class="hero-number">' + cityRow[4] + '</div>' +
-            '<div class="hero-subtitle">' + bag.displayName + ' \u00b7 ' +
-              precinctCount + ' precincts \u00b7 ' +
-              cityRow[2] + ' active, ' + cityRow[3] + ' confirmation' +
+            '<div class="hero-number">' + esc(cityRow[4]) + '</div>' +
+            '<div class="hero-subtitle">' + esc(bag.displayName) + ' \u00b7 ' +
+              esc(precinctCount) + ' precincts \u00b7 ' +
+              esc(cityRow[2]) + ' active, ' + esc(cityRow[3]) + ' confirmation' +
             '</div>' +
           '</div>' +
           '<div class="hero-ribbon-wrap">' +
             '<div class="hero-ribbon-label"><span>Aggregating precinct data\u2026</span></div>' +
           '</div>';
       } else {
-        container.innerHTML = '<div class="hero-headline"><div class="eyebrow">' + bag.displayName + '</div><div class="hero-number">\u2014</div><div class="hero-subtitle muted">No summary data found.</div></div><div></div>';
+        container.innerHTML = '<div class="hero-headline"><div class="eyebrow">' + esc(bag.displayName) + '</div><div class="hero-number">\u2014</div><div class="hero-subtitle muted">No summary data found.</div></div><div></div>';
       }
       return;
     }
@@ -1090,7 +1105,7 @@
       container.innerHTML = '<div class="hero-headline"><div class="eyebrow">Total registered voters</div><div class="hero-number">—</div><div class="hero-subtitle muted">Data has not yet been processed for this jurisdiction.</div></div><div></div>';
       return;
     }
-    const labels = bag.party.chartConfig.labels.map(l => String(l).split(' — ')[0]);
+    const labels = bag.party.chartConfig.labels.map(l => esc(String(l).split(' — ')[0]));
     const data = bag.party.chartConfig.datasets[0].data;
     const colors = bag.party.chartConfig.datasets[0].backgroundColor || COHORT_COLORS;
     const total = bag.total || data.reduce((a, b) => a + Number(b || 0), 0);
@@ -1103,20 +1118,20 @@
         '<div class="eyebrow">Total registered voters</div>' +
         '<div class="hero-number">' + total.toLocaleString() + '</div>' +
         '<div class="hero-subtitle">' +
-          bag.displayName + ' · ' +
+          esc(bag.displayName) + ' · ' +
           '<b>' + (r / total * 100).toFixed(1) + '%</b> Republican-leaning, ' +
           '<b>' + (unc / total * 100).toFixed(1) + '%</b> unaffiliated, ' +
           '<b>' + (dd / total * 100).toFixed(1) + '%</b> Democratic-leaning' +
         '</div>' +
       '</div>' +
       '<div class="hero-ribbon-wrap">' +
-        '<div class="hero-ribbon-label"><span>7-cohort partisan spectrum</span><span class="mono">' + (bag.party.updated || '') + '</span></div>' +
+        '<div class="hero-ribbon-label"><span>7-cohort partisan spectrum</span><span class="mono">' + esc(bag.party.updated || '') + '</span></div>' +
         '<div class="hero-ribbon">' + labels.map((l, i) => {
           const pct = (data[i] / total * 100).toFixed(2);
-          return '<div class="hero-ribbon-seg" style="width:' + pct + '%;background:' + colors[i] + '" title="' + l + ': ' + data[i].toLocaleString() + ' (' + pct + '%)"></div>';
+          return '<div class="hero-ribbon-seg" style="width:' + pct + '%;background:' + esc(colors[i]) + '" title="' + l + ': ' + data[i].toLocaleString() + ' (' + pct + '%)"></div>';
         }).join('') + '</div>' +
         '<div class="hero-legend">' + labels.map((l, i) => {
-          return '<div class="legend-item"><span class="sw" style="background:' + colors[i] + '"></span><span class="lbl">' + l + '</span><span class="val">' + (data[i] / total * 100).toFixed(1) + '%</span></div>';
+          return '<div class="legend-item"><span class="sw" style="background:' + esc(colors[i]) + '"></span><span class="lbl">' + l + '</span><span class="val">' + (data[i] / total * 100).toFixed(1) + '%</span></div>';
         }).join('') + '</div>' +
       '</div>';
   }
@@ -1127,12 +1142,12 @@
     // inline legend
     const lg = $('chart-party-legend');
     if (lg) {
-      const labels = bag.party.chartConfig.labels.map(l => String(l).split(' — ')[0]);
+      const labels = bag.party.chartConfig.labels.map(l => esc(String(l).split(' — ')[0]));
       const data = bag.party.chartConfig.datasets[0].data;
       const colors = bag.party.chartConfig.datasets[0].backgroundColor || COHORT_COLORS;
       const total = data.reduce((a, b) => a + Number(b || 0), 0);
       lg.innerHTML = labels.map((l, i) =>
-        '<div class="legend-item"><span class="sw" style="background:' + colors[i] + '"></span><span class="lbl">' + l + '</span><span class="val">' + data[i].toLocaleString() + '</span></div>'
+        '<div class="legend-item"><span class="sw" style="background:' + esc(colors[i]) + '"></span><span class="lbl">' + l + '</span><span class="val">' + data[i].toLocaleString() + '</span></div>'
       ).join('');
     }
   }
@@ -1207,10 +1222,10 @@
     const ths = headers.map((h, i) => {
       const isAct = tableState.sortKey === i;
       const ind = isAct ? (tableState.sortDir === 'asc' ? '▲' : '▼') : '↕';
-      return '<th data-col="' + i + '" class="' + (isAct ? 'sort-active' : '') + '">' + h + '<span class="sort-ind">' + ind + '</span></th>';
+      return '<th data-col="' + i + '" class="' + (isAct ? 'sort-active' : '') + '">' + esc(h) + '<span class="sort-ind">' + ind + '</span></th>';
     }).join('');
     const tbody = rows.map(r =>
-      '<tr>' + r.map((c, i) => '<td>' + c + '</td>').join('') + '</tr>'
+      '<tr>' + r.map((c, i) => '<td>' + esc(c) + '</td>').join('') + '</tr>'
     ).join('');
     wrap.innerHTML = '<table class="data-table"><thead><tr>' + ths + '</tr></thead><tbody>' + tbody + '</tbody></table>';
     wrap.querySelectorAll('th[data-col]').forEach(th => {
@@ -1238,9 +1253,9 @@
     el.style.display = '';
     el.innerHTML =
       '<div class="eyebrow" style="margin-bottom:6px">Jurisdiction overview</div>' +
-      '<p class="narrative-text">' + bag.narrative.narrative + '</p>' +
-      '<div class="narrative-meta">Data as of ' + (bag.narrative.updated || '') +
-      ' &middot; generated by ' + (bag.narrative.generated_by || 'AI') + '</div>';
+      '<p class="narrative-text">' + esc(bag.narrative.narrative) + '</p>' +
+      '<div class="narrative-meta">Data as of ' + esc(bag.narrative.updated || '') +
+      ' &middot; generated by ' + esc(bag.narrative.generated_by || 'AI') + '</div>';
   }
 
   // ── Breadcrumb ─────────────────────────────────────────────
@@ -1275,8 +1290,8 @@
     }
     root.innerHTML = parts.map((p, i) => {
       const sep = i > 0 ? '<span class="sep">›</span> ' : '';
-      if (p.here) return sep + '<span class="here">' + p.label + '</span>';
-      return sep + '<a data-bc="' + (p.action || '') + '" data-county="' + (p.county || '') + '" data-dtype="' + (p.dtype || '') + '" data-place-type="' + (p.placeType || '') + '" data-place-id="' + (p.placeId || '') + '">' + p.label + '</a>';
+      if (p.here) return sep + '<span class="here">' + esc(p.label) + '</span>';
+      return sep + '<a data-bc="' + (p.action || '') + '" data-county="' + esc(p.county || '') + '" data-dtype="' + esc(p.dtype || '') + '" data-place-type="' + esc(p.placeType || '') + '" data-place-id="' + esc(p.placeId || '') + '">' + esc(p.label) + '</a>';
     }).join(' ');
     root.querySelectorAll('a[data-bc]').forEach(a => {
       a.onclick = async () => {
@@ -1308,8 +1323,8 @@
     '<div class="chart-card" data-chart-id="' + id + '">' +
       '<header>' +
         '<div>' +
-          '<h3>' + title + '</h3>' +
-          (sub ? '<div class="card-sub">' + sub + '</div>' : '') +
+          '<h3>' + esc(title) + '</h3>' +
+          (sub ? '<div class="card-sub">' + esc(sub) + '</div>' : '') +
         '</div>' +
         '<div class="card-actions">' +
           '<button class="icon-btn" data-menu-trigger="' + id + '" title="Chart actions">⋯</button>' +
@@ -1361,11 +1376,11 @@
     cp.innerHTML = '' +
       '<div class="breadcrumb full" id="breadcrumb"></div>' +
       '<section class="compare-pane" data-slot="a">' +
-        '<div class="compare-pane-header"><span>Slot A</span><span class="name">' + a + '</span><button data-action="swap-slot" data-slot="a">change</button></div>' +
+        '<div class="compare-pane-header"><span>Slot A</span><span class="name">' + esc(a) + '</span><button data-action="swap-slot" data-slot="a">change</button></div>' +
         '<div class="hero" id="hero-a"></div>' +
       '</section>' +
       '<section class="compare-pane" data-slot="b">' +
-        '<div class="compare-pane-header"><span>Slot B</span><span class="name">' + b + '</span><button data-action="swap-slot" data-slot="b">change</button></div>' +
+        '<div class="compare-pane-header"><span>Slot B</span><span class="name">' + esc(b) + '</span><button data-action="swap-slot" data-slot="b">change</button></div>' +
         '<div class="hero" id="hero-b"></div>' +
       '</section>' +
       '<section class="compare-pane" data-slot="a">' +
@@ -1434,7 +1449,7 @@
     root.innerHTML =
       '<span class="here">Compare</span> <span class="sep">·</span> ' +
       '<a data-bc="state">' + ctx + '</a> <span class="sep">›</span> ' +
-      aBag.displayName + ' <b style="color:var(--accent);margin:0 4px">⇄</b> ' + bBag.displayName;
+      esc(aBag.displayName) + ' <b style="color:var(--accent);margin:0 4px">⇄</b> ' + esc(bBag.displayName);
     root.querySelectorAll('a[data-bc]').forEach(a => a.onclick = () => { S.compare = null; writeState({ compare: null }); refreshView(); });
 
     // Wire slot swap buttons — open a scrollable picker popover instead of a prompt.
@@ -1477,7 +1492,7 @@
       '<div class="spp-search"><input type="search" placeholder="Filter…" autofocus></div>' +
       '<div class="spp-hint">' + (dtype ? 'or click a district on the map' : 'or click a county on the map') + '</div>' +
       '<div class="spp-list">' +
-        choices.map(c => '<button class="spp-item" data-id="' + c.id + '"><span class="spp-name">' + c.label + '</span><span class="spp-sub">' + c.sub + '</span></button>').join('') +
+        choices.map(c => '<button class="spp-item" data-id="' + esc(c.id) + '"><span class="spp-name">' + esc(c.label) + '</span><span class="spp-sub">' + esc(c.sub) + '</span></button>').join('') +
       '</div>';
     document.body.appendChild(pop);
 
