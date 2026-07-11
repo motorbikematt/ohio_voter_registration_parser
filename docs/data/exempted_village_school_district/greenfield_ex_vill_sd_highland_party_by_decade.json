@@ -1,0 +1,143 @@
+{
+  "title": "Party Affiliation by Birth Decade",
+  "type": "bar",
+  "chartConfig": {
+    "labels": [
+      "1910s",
+      "1920s",
+      "1930s",
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "datasets": [
+      {
+        "label": "Pure R",
+        "data": [
+          1,
+          1,
+          25,
+          151,
+          287,
+          256,
+          160,
+          133,
+          64,
+          55
+        ],
+        "backgroundColor": "#ef4444",
+        "stack": "r_pure"
+      },
+      {
+        "label": "UNC – Lapsed R",
+        "data": [
+          0,
+          2,
+          25,
+          78,
+          167,
+          168,
+          152,
+          162,
+          84,
+          8
+        ],
+        "backgroundColor": "#fca5a5",
+        "stack": "unc_r"
+      },
+      {
+        "label": "Mixed – Active",
+        "data": [
+          0,
+          1,
+          12,
+          70,
+          150,
+          121,
+          81,
+          42,
+          13,
+          1
+        ],
+        "backgroundColor": "#f59e0b",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "Mixed – Lapsed",
+        "data": [
+          0,
+          1,
+          12,
+          44,
+          101,
+          83,
+          70,
+          49,
+          15,
+          6
+        ],
+        "backgroundColor": "#a78bfa",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – No Primary",
+        "data": [
+          0,
+          1,
+          14,
+          84,
+          204,
+          374,
+          492,
+          544,
+          667,
+          700
+        ],
+        "backgroundColor": "#9ca3af",
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Lapsed D",
+        "data": [
+          0,
+          1,
+          16,
+          63,
+          109,
+          133,
+          126,
+          100,
+          40,
+          5
+        ],
+        "backgroundColor": "#93c5fd",
+        "stack": "unc_d"
+      },
+      {
+        "label": "Pure D",
+        "data": [
+          0,
+          1,
+          13,
+          60,
+          106,
+          44,
+          25,
+          30,
+          12,
+          15
+        ],
+        "backgroundColor": "#3b82f6",
+        "stack": "d_pure"
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "GREENFIELD EX VILL SD (HIGHLAND)",
+  "updated": "2026-07-10"
+}

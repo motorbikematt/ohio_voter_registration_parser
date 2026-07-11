@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 834 (14%)",
+      "UNC – Lapsed R — 663 (11%)",
+      "Mixed – Active — 636 (11%)",
+      "Mixed – Lapsed — 559 (10%)",
+      "UNC – No Primary — 2,085 (36%)",
+      "UNC – Lapsed D — 576 (10%)",
+      "Pure D — 430 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          834,
+          663,
+          636,
+          559,
+          2085,
+          576,
+          430
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "WELLINGTON EX VILL SD (LORAIN)",
+  "updated": "2026-07-10"
+}

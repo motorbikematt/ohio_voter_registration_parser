@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,506 (13%)",
+      "UNC – Lapsed R — 2,123 (19%)",
+      "Mixed – Active — 770 (7%)",
+      "Mixed – Lapsed — 1,204 (11%)",
+      "UNC – No Primary — 4,003 (35%)",
+      "UNC – Lapsed D — 1,088 (10%)",
+      "Pure D — 712 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1506,
+          2123,
+          770,
+          1204,
+          4003,
+          1088,
+          712
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "INDIAN HILL EX VILL SD (HAMILTON)",
+  "updated": "2026-07-10"
+}

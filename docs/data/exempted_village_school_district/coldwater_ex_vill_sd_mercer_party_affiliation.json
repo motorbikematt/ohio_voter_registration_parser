@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,875 (40%)",
+      "UNC – Lapsed R — 420 (9%)",
+      "Mixed – Active — 583 (13%)",
+      "Mixed – Lapsed — 367 (8%)",
+      "UNC – No Primary — 1,083 (23%)",
+      "UNC – Lapsed D — 154 (3%)",
+      "Pure D — 163 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1875,
+          420,
+          583,
+          367,
+          1083,
+          154,
+          163
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "COLDWATER EX VILL SD (MERCER)",
+  "updated": "2026-07-10"
+}

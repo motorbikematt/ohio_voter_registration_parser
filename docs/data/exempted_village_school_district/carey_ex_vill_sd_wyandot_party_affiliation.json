@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 555 (16%)",
+      "UNC – Lapsed R — 515 (15%)",
+      "Mixed – Active — 189 (6%)",
+      "Mixed – Lapsed — 358 (11%)",
+      "UNC – No Primary — 1,387 (41%)",
+      "UNC – Lapsed D — 243 (7%)",
+      "Pure D — 137 (4%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          555,
+          515,
+          189,
+          358,
+          1387,
+          243,
+          137
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "CAREY EX VILL SD (WYANDOT)",
+  "updated": "2026-07-10"
+}

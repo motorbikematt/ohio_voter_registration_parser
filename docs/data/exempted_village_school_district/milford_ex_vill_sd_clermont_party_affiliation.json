@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 6,310 (20%)",
+      "UNC – Lapsed R — 4,645 (14%)",
+      "Mixed – Active — 2,188 (7%)",
+      "Mixed – Lapsed — 3,197 (10%)",
+      "UNC – No Primary — 10,964 (34%)",
+      "UNC – Lapsed D — 2,712 (8%)",
+      "Pure D — 2,194 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          6310,
+          4645,
+          2188,
+          3197,
+          10964,
+          2712,
+          2194
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "MILFORD EX VILL SD (CLERMONT)",
+  "updated": "2026-07-10"
+}

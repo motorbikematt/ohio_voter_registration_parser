@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 297 (15%)",
+      "UNC – Lapsed R — 337 (17%)",
+      "Mixed – Active — 127 (7%)",
+      "Mixed – Lapsed — 155 (8%)",
+      "UNC – No Primary — 820 (43%)",
+      "UNC – Lapsed D — 143 (7%)",
+      "Pure D — 49 (3%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          297,
+          337,
+          127,
+          155,
+          820,
+          143,
+          49
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "BRADFORD EX VILL SD (MIAMI)",
+  "updated": "2026-07-10"
+}

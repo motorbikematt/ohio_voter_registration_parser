@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,967 (19%)",
+      "UNC – Lapsed R — 1,462 (14%)",
+      "Mixed – Active — 1,011 (10%)",
+      "Mixed – Lapsed — 727 (7%)",
+      "UNC – No Primary — 3,671 (36%)",
+      "UNC – Lapsed D — 929 (9%)",
+      "Pure D — 504 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1967,
+          1462,
+          1011,
+          727,
+          3671,
+          929,
+          504
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "CARROLLTON EX VILL SD (CARROLL)",
+  "updated": "2026-07-10"
+}

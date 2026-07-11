@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 776 (24%)",
+      "UNC – Lapsed R — 424 (13%)",
+      "Mixed – Active — 290 (9%)",
+      "Mixed – Lapsed — 244 (8%)",
+      "UNC – No Primary — 1,068 (34%)",
+      "UNC – Lapsed D — 222 (7%)",
+      "Pure D — 150 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          776,
+          424,
+          290,
+          244,
+          1068,
+          222,
+          150
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "MECHANICSBURG EX VILL SD (CHAMPAIGN)",
+  "updated": "2026-07-10"
+}

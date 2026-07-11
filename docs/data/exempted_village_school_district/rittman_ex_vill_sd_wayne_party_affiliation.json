@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 683 (16%)",
+      "UNC – Lapsed R — 511 (12%)",
+      "Mixed – Active — 317 (7%)",
+      "Mixed – Lapsed — 360 (8%)",
+      "UNC – No Primary — 1,820 (42%)",
+      "UNC – Lapsed D — 374 (9%)",
+      "Pure D — 303 (7%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          683,
+          511,
+          317,
+          360,
+          1820,
+          374,
+          303
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-10 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Exempted Village School District",
+  "jurisdiction_name": "RITTMAN EX VILL SD (WAYNE)",
+  "updated": "2026-07-10"
+}
