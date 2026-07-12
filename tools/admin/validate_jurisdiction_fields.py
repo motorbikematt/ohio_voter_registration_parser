@@ -69,6 +69,10 @@ from data_profile import (  # noqa: E402
     iter_county_frames,
     nonblank as _nonblank,
 )
+# Section [10]: the per-county x per-rule encoding census (the systemic guard
+# from the 2026-07-11 root-cause session). Lives in its own module so it is
+# runnable standalone; the validator runs it on every drop.
+from encoding_census import run_census, summarize as census_summarize  # noqa: E402
 
 DEFAULT_PARQUET = Path('local/source/parquet_enriched/enriched_voters.parquet')
 DOCS_DATA = _ROOT / 'docs' / 'data'
@@ -83,7 +87,12 @@ PLACE_WARD_COLS = ['COUNTY_NUMBER', 'PRECINCT_NAME', 'CITY', 'VILLAGE', 'WARD', 
 # --strict fails if these GROW (regression), not on the baseline count itself --
 # each is a per-drop measurement re-checked on every new SWVF partition.
 SPLIT_PRECINCT_BASELINE = 43
-WARD_ABUSE_BASELINE = 4
+# 4 -> 18 on 2026-07-11: the rule-4 token gate (encoding_census.py) stopped
+# phantom-city parents, so Stark's 14 township-in-WARD values now resolve to
+# township parents and are correctly counted as abuse (WARD='JACKSON' et al.);
+# same fix turned Lucas WARD='WASHINGTON TOWNSHIP' township-parented. This is
+# the fix REVEALING existing schema abuse, not state-data growth.
+WARD_ABUSE_BASELINE = 18
 # A5 (2026-07-04 snapshot, row-accurate CITY basis): counties where ANY city
 # has <100% WARD coverage, INCLUDING at-large-everywhere cities -- broader
 # than [6]'s DEFECT classification. Informational, not strict-gated.
@@ -619,7 +628,7 @@ def main() -> int:
     ap.add_argument('--strict', action='store_true',
                     help='exit non-zero if any name conflict exists')
     ap.add_argument('--skip-ward', action='store_true',
-                    help='skip sections [5]-[9] (slower: per-county resolver passes)')
+                    help='skip sections [5]-[10] (slower: per-county resolver passes)')
     ap.add_argument('--ledger', action='store_true',
                     help='write/refresh the auto section of DATA_QUALITY.md (Part W7)')
     args = ap.parse_args()
@@ -739,12 +748,25 @@ def main() -> int:
     splits: list = []
     collision_ok = True
     abuse_rows: list = []
+    rule4_no_token = 0
     if not args.skip_ward:
         placeless_count = check_place_completeness(lf, args.show)
         ward_defects = check_ward_coverage(lf)
         splits = check_split_precincts(lf, args.show)
         collision_ok = check_ward_collision_safety(lf)
         abuse_rows = check_ward_schema_abuse(lf)
+
+        # [10] Encoding census: per-county resolver rule-precedence assertions
+        # (encoding_census.py). RULE4-NO-TOKEN is a structural invariant --
+        # the resolver's own token gate makes it impossible unless the
+        # resolver regresses (2026-07-11 fix; pre-fix baseline 166 precincts,
+        # 153,833 voters, 4 counties). The other checks are informational
+        # per-drop measurements of known approximations.
+        print('\n[10] ENCODING CENSUS (rule-precedence assertions, all 88)')
+        census = run_census(lf)
+        census_summarize(census, args.show)
+        rule4_no_token = sum(1 for v in census['violations']
+                             if v['check'] == 'RULE4-NO-TOKEN')
 
     if args.ledger:
         if args.skip_ward:
@@ -778,6 +800,8 @@ def main() -> int:
         distinct_abuse = len({(r['county_name'], r['ward_value']) for r in abuse_rows})
         print(f'  ward schema-abuse values:                              '
               f'{distinct_abuse}  (baseline {WARD_ABUSE_BASELINE})')
+        print(f'  census RULE4-NO-TOKEN precincts (MUST be zero):        '
+              f'{rule4_no_token}')
 
     if args.strict:
         failures = []
@@ -788,6 +812,9 @@ def main() -> int:
             failures.append(f'{placeless_count} place-less precincts (must be zero)')
         if not collision_ok:
             failures.append('ward slug collision/orphan check failed (must be zero)')
+        if rule4_no_token:
+            failures.append(f'{rule4_no_token} census RULE4-NO-TOKEN precincts '
+                             f'(resolver token-gate regression; must be zero)')
         if len(splits) > SPLIT_PRECINCT_BASELINE:
             failures.append(f'split precincts grew to {len(splits)} '
                              f'(baseline {SPLIT_PRECINCT_BASELINE})')

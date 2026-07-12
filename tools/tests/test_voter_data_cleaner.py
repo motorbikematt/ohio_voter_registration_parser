@@ -131,7 +131,7 @@ def test_place_city_type_and_normalized_name():
     p = _place_per_precinct(_df([
         {'PRECINCT_NAME': 'KETTERING 1-A', 'CITY': 'KETTERING CITY'},
     ]))
-    assert p['KETTERING 1-A'] == {'type': 'city', 'name': 'KETTERING'}
+    assert p['KETTERING 1-A'] == {'type': 'city', 'name': 'KETTERING', 'rule': 2}
 
 
 def test_place_village_is_own_type_with_raw_name():
@@ -140,7 +140,7 @@ def test_place_village_is_own_type_with_raw_name():
     p = _place_per_precinct(_df([
         {'PRECINCT_NAME': 'FARMERSVILLE', 'VILLAGE': 'FARMERSVILLE VILLAGE'},
     ]))
-    assert p['FARMERSVILLE'] == {'type': 'village', 'name': 'FARMERSVILLE VILLAGE'}
+    assert p['FARMERSVILLE'] == {'type': 'village', 'name': 'FARMERSVILLE VILLAGE', 'rule': 3}
 
 
 def test_place_township_by_column_keeps_name():
@@ -150,7 +150,7 @@ def test_place_township_by_column_keeps_name():
         {'PRECINCT_NAME': 'WASHINGTON TWP F', 'CITY': '',
          'TOWNSHIP': 'WASHINGTON TOWNSHIP', 'RESIDENTIAL_CITY': 'KETTERING'},
     ]))
-    assert p['WASHINGTON TWP F'] == {'type': 'township', 'name': 'WASHINGTON TOWNSHIP'}
+    assert p['WASHINGTON TWP F'] == {'type': 'township', 'name': 'WASHINGTON TOWNSHIP', 'rule': 1}
 
 
 def test_place_township_name_token_fallback():
@@ -159,7 +159,7 @@ def test_place_township_name_token_fallback():
     p = _place_per_precinct(_df([
         {'PRECINCT_NAME': 'ANTRIM TS', 'RESIDENTIAL_CITY': 'CAREY'},
     ]))
-    assert p['ANTRIM TS'] == {'type': 'township', 'name': 'ANTRIM TS'}
+    assert p['ANTRIM TS'] == {'type': 'township', 'name': 'ANTRIM TS', 'rule': 1}
 
 
 def test_place_township_outranks_minority_village():
@@ -218,7 +218,7 @@ def test_place_subprecinct_suffix_only_strips_the_suffix_shape():
         {'PRECINCT_NAME': 'CHAGRIN FALLS TWP-00-A'},
     ]))
     assert p['ANTRIM TS']['name'] == 'ANTRIM TS'
-    assert p['CHAGRIN FALLS TWP-00-A'] == {'type': 'township', 'name': 'CHAGRIN FALLS TWP'}
+    assert p['CHAGRIN FALLS TWP-00-A'] == {'type': 'township', 'name': 'CHAGRIN FALLS TWP', 'rule': 1}
 
 
 def test_city_wrapper_derives_from_place():
@@ -334,3 +334,81 @@ def test_ward_map_empty_when_no_wards():
     assert _ward_map_per_county(_df([
         {'PRECINCT_NAME': 'KETTERING 1-A', 'CITY': 'KETTERING CITY'},
     ]), 'montgomery') == {}
+
+
+# == 4D: rule-4 token gate (2026-07-11 encoding census) =====================
+def test_rule4_tokenless_township_in_ward_falls_to_township_column():
+    # Stark shape: WARD='JACKSON' (tokenless), TOWNSHIP='JACKSON' populated,
+    # precinct name tokenless too. Pre-fix rule 4 minted phantom city
+    # 'JACKSON'; now rule 5 types it township (131,756 Stark voters).
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'JACKSON 5', 'WARD': 'JACKSON',
+         'TOWNSHIP': 'JACKSON', 'RESIDENTIAL_CITY': 'CANTON'},
+    ]))
+    assert p['JACKSON 5'] == {'type': 'township', 'name': 'JACKSON', 'rule': 5}
+
+
+def test_rule4_township_token_in_ward_is_township_not_city():
+    # Lucas shape: WARD='WASHINGTON TOWNSHIP', TOWNSHIP blank, postal TOLEDO.
+    # The township token in the VALUE claims it as a township (4a); postal
+    # must not relabel these 1,974 township voters as Toledo.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'PRECINCT WASHINGTON 1',
+         'WARD': 'WASHINGTON TOWNSHIP', 'RESIDENTIAL_CITY': 'TOLEDO'},
+    ]))
+    assert p['PRECINCT WASHINGTON 1'] == {
+        'type': 'township', 'name': 'WASHINGTON TOWNSHIP', 'rule': 4}
+
+
+def test_rule4_ward_token_prefix_still_yields_city():
+    # The rule's original purpose is unchanged: Cuyahoga 'CLEVELAND WARD 7'.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'CLEVELAND -07-A', 'WARD': 'CLEVELAND WARD 7'},
+    ]))
+    assert p['CLEVELAND -07-A'] == {'type': 'city', 'name': 'CLEVELAND',
+                                    'rule': 4}
+
+
+def test_rule4_district_token_prefix_yields_one_city():
+    # Cuyahoga encodes Maple Heights with ' DISTRICT' instead of ' WARD'.
+    # Pre-fix each district minted its own phantom city ('MAPLE HEIGHTS
+    # DISTRICT 3'); the DISTRICT token now yields the one real city.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'MAPLE HEIGHTS-03-A',
+         'WARD': 'MAPLE HEIGHTS DISTRICT 3', 'RESIDENTIAL_CITY': 'MAPLE HTS'},
+    ]))
+    assert p['MAPLE HEIGHTS-03-A'] == {'type': 'city', 'name': 'MAPLE HEIGHTS',
+                                       'rule': 4}
+
+
+def test_rule4_council_district_swallows_council():
+    # Franklin's 'COLUMBUS COUNCIL DISTRICT 7': the optional ' COUNCIL' is
+    # part of the separator, not the municipality name. (Shielded by rule 2
+    # on real data -- CITY='COLUMBUS' is populated -- but the gate must not
+    # mint 'COLUMBUS COUNCIL' if the shield ever drops.)
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'COLUMBUS 55-B', 'WARD': 'COLUMBUS COUNCIL DISTRICT 7'},
+    ]))
+    assert p['COLUMBUS 55-B'] == {'type': 'city', 'name': 'COLUMBUS', 'rule': 4}
+
+
+def test_rule4_tokenless_city_value_falls_to_postal():
+    # Sandusky shape: WARD='CLYDE CITY' (no separator token) in a zero-CITY
+    # county. Not a rule-4 claim; the postal last resort names the same real
+    # city, so Clyde's display name is unchanged by the fix.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'CLYDE CITY E', 'WARD': 'CLYDE CITY',
+         'RESIDENTIAL_CITY': 'CLYDE'},
+    ]))
+    assert p['CLYDE CITY E'] == {'type': 'city', 'name': 'CLYDE', 'rule': 6}
+
+
+def test_rule4_bare_ward_number_carries_no_municipality():
+    # A bare 'WARD 1' has no prefix before the token -- there is no
+    # municipality in it to extract; the precinct falls through (here to
+    # postal, the county's designed last resort).
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'CAREY B', 'WARD': 'WARD 1',
+         'RESIDENTIAL_CITY': 'CAREY'},
+    ]))
+    assert p['CAREY B'] == {'type': 'city', 'name': 'CAREY', 'rule': 6}

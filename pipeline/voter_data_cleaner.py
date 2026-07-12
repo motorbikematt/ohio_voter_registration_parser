@@ -2393,6 +2393,16 @@ _TOWNSHIP_NAME_RE = re.compile(r'\bTWP\b|\bTOWNSHIP\b|\sTS$')
 # zero real township names (0 of 810 distinct TOWNSHIP values).
 _SUBPRECINCT_SUFFIX_RE = re.compile(r'-\d{2}-[A-Z]$')
 
+# Rule 4's city-prefix gate (2026-07-11 encoding census, encoding_census.py
+# RULE4-NO-TOKEN). A WARD value declares a municipality ONLY when a recognized
+# separator token follows the name: ' WARD' (the common shape), ' DISTRICT'
+# (Cuyahoga 'MAPLE HEIGHTS DISTRICT 3'), optionally preceded by ' COUNCIL'
+# (Franklin 'COLUMBUS COUNCIL DISTRICT 7'). A tokenless value (Stark 'JACKSON',
+# Sandusky 'CLYDE CITY') is NOT a city declaration -- pre-fix the split
+# returned the whole string and minted phantom cities for 153,833 voters
+# across 4 counties.
+_WARD_CITY_PREFIX_RE = re.compile(r'\s+(?:COUNCIL\s+)?(?:WARD|DISTRICT)\b')
+
 
 def _normalize_city_name(name: str) -> str:
     """Strip Ohio municipal-type suffixes so 'KETTERING CITY' -> 'KETTERING'."""
@@ -2448,9 +2458,15 @@ def _place_per_precinct(df: pl.DataFrame) -> dict:
       3. VILLAGE  -> village. Name = the RAW VILLAGE value, keeping the
          ' VILLAGE' suffix so _place_slug matches the village bundle filename
          (e.g. 'NEW LEBANON VILLAGE' -> montgomery_new_lebanon_village).
-      4. WARD prefix -> city (municipality before ' WARD'; e.g. Cuyahoga's
-         'CLEVELAND WARD 7' -> 'CLEVELAND'). Ward handling itself is out of
-         scope here.
+      4. WARD -> place, token-gated (2026-07-11 census fix): a value
+         carrying a township token is the township restated in WARD (Lucas
+         'WASHINGTON TOWNSHIP'); a municipality prefix before ' WARD' /
+         ' DISTRICT' (optional ' COUNCIL') is a city (Cuyahoga
+         'CLEVELAND WARD 7', 'MAPLE HEIGHTS DISTRICT 3'); a tokenless value
+         (Stark 'JACKSON', Sandusky 'CLYDE CITY') is NO claim -- it falls
+         through to rules 5/6. Pre-fix, tokenless values minted phantom
+         cities for 153,833 voters in 4 counties (encoding_census.py
+         RULE4-NO-TOKEN). Ward-entity handling itself is out of scope here.
       5. TOWNSHIP column populated -> township (column-based counterpart to
          step 1, for counties that populate TOWNSHIP but use a non-township
          precinct name).
@@ -2466,9 +2482,12 @@ def _place_per_precinct(df: pl.DataFrame) -> dict:
     township_by_p = _dominant_per_precinct(df, 'TOWNSHIP') if 'TOWNSHIP' in cols else {}
     resolved: dict = {}
 
-    def fill(col: str, place_type: str, transform=None):
-        """Record (place_type, name) from the dominant non-blank value of col,
-        but only for precincts not already claimed by a higher-priority rule."""
+    def fill(col: str, place_type: str, rule: int, transform=None):
+        """Record (place_type, name, rule) from the dominant non-blank value of
+        col, but only for precincts not already claimed by a higher-priority
+        rule. 'rule' is provenance for the encoding census (CLAUDE.md 5): it
+        names WHICH precedence rule claimed the precinct, so per-county
+        rule-precedence assertions never re-derive resolver logic."""
         if col not in cols:
             return
         for pname, val in _dominant_per_precinct(df, col).items():
@@ -2476,27 +2495,47 @@ def _place_per_precinct(df: pl.DataFrame) -> dict:
                 continue
             name = transform(val) if transform else val
             if name:
-                resolved[pname] = {'type': place_type, 'name': name}
+                resolved[pname] = {'type': place_type, 'name': name, 'rule': rule}
 
     # 1: PRECINCT_NAME township token -> township (highest priority).
     for pname in df['PRECINCT_NAME'].drop_nulls().unique().to_list():
         if _TOWNSHIP_NAME_RE.search(pname.upper()):
             tname = (township_by_p.get(pname)
                      or _SUBPRECINCT_SUFFIX_RE.sub('', pname.strip()).strip())
-            resolved.setdefault(pname, {'type': 'township', 'name': tname})
+            resolved.setdefault(pname,
+                                {'type': 'township', 'name': tname, 'rule': 1})
 
     # 2: CITY (normalized).
-    fill('CITY', 'city', _normalize_city_name)
+    fill('CITY', 'city', 2, _normalize_city_name)
     # 3: VILLAGE -> its own type, RAW value (keep suffix for slug parity).
-    fill('VILLAGE', 'village')
-    # 4: WARD municipality prefix -> city.
-    fill('WARD', 'city',
-         lambda v: _normalize_city_name(re.split(r'\s+WARD\b', v, maxsplit=1)[0]))
+    fill('VILLAGE', 'village', 3)
+    # 4: WARD -> place, token-gated (2026-07-11 census fix; see the
+    #    docstring's rule-4 bullet and encoding_census.py RULE4-NO-TOKEN).
+    if 'WARD' in cols:
+        for pname, val in _dominant_per_precinct(df, 'WARD').items():
+            if pname in resolved:
+                continue
+            if _TOWNSHIP_NAME_RE.search(val.upper()):
+                # 4a: the township restated in WARD (schema abuse; mirrors
+                # _ward_map_per_county's guard). Name from the TOWNSHIP
+                # column when populated, else the WARD value itself.
+                tname = township_by_p.get(pname) or val.strip()
+                resolved[pname] = {'type': 'township', 'name': tname,
+                                   'rule': 4}
+            elif _WARD_CITY_PREFIX_RE.search(val):
+                # 4b: municipality prefix before the separator token.
+                name = _normalize_city_name(
+                    _WARD_CITY_PREFIX_RE.split(val, maxsplit=1)[0])
+                if name:
+                    resolved[pname] = {'type': 'city', 'name': name,
+                                       'rule': 4}
+            # 4c: tokenless -> no claim; rules 5/6 decide.
     # 5: TOWNSHIP column populated -> township.
     for pname, tname in township_by_p.items():
-        resolved.setdefault(pname, {'type': 'township', 'name': tname})
+        resolved.setdefault(pname,
+                            {'type': 'township', 'name': tname, 'rule': 5})
     # 6: RESIDENTIAL_CITY postal last resort -> city.
-    fill('RESIDENTIAL_CITY', 'city', _normalize_city_name)
+    fill('RESIDENTIAL_CITY', 'city', 6, _normalize_city_name)
 
     return resolved
 

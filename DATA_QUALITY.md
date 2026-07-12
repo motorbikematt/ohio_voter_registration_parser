@@ -41,6 +41,8 @@ Never touched by the tool. Add one row per gap ID when a report is filed.
 
 | Gap ID | Report filed | SoS/BoE contact or ticket | Status | Resolved in drop |
 |---|---|---|---|---|
+| CITY-UNDERCOUNT-31-HAMILTON | no | — | **accepted gap** (04b decision 2026-07-11): 6,833 blank-CITY genuine city rows (3,056 ward-encoded 'CINTI…', 3,777 postal-only) excluded from city bundles by design — inclusion would need postal-as-jurisdiction or an unbuilt name normalizer ('CINTI'≠'CINCINNATI'); A2 bundles stay row-accurate. Measured live by `encoding_census.py` POSTAL-FALLTHROUGH. | — |
+| CITY-UNDERCOUNT-48-LUCAS | no | — | **accepted gap** (04b decision 2026-07-11): 2,033 blank-CITY postal-only genuine city rows, same rationale as Hamilton. | — |
 
 ## Other streams (manual deviations)
 
