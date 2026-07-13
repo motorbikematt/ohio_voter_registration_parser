@@ -59,7 +59,7 @@ import os
 import re
 import secrets
 import threading
-from datetime import date
+from datetime import date, datetime, timezone
 from functools import lru_cache
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -143,6 +143,54 @@ def _verify_password(password: str, stored: str) -> bool:
         "sha256", password.encode("utf-8"), bytes.fromhex(salt_hex), int(iters)
     )
     return secrets.compare_digest(dk.hex(), hash_hex)
+
+
+# ── Append-only PII access log (SOC 2 CC7; runbook Sec7 item 11 / F3) ────────
+# One line per request to a PII-bearing route: timestamp, token id, endpoint,
+# precinct/seat scope, result. Append mode only — never read-modify-write
+# (CLAUDE.md Sec8). Lives under local/ (gitignored), never near docs/.
+PII_LOG_DIR = BASE_DIR / "local" / "logs"
+PII_LOG_PATH = PII_LOG_DIR / "pii_access.log"
+
+
+def _token_id(token: str) -> str:
+    """Never log the raw bearer token — a stable short hash identifies which
+    token was used without the log itself becoming a credential leak."""
+    if not token:
+        return "none-localhost"
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()[:12]
+
+
+def _append_pii_log(entry: dict) -> None:
+    PII_LOG_DIR.mkdir(parents=True, exist_ok=True)
+    with open(PII_LOG_PATH, "a", encoding="utf-8") as fh:
+        fh.write(json.dumps(entry) + "\n")
+
+
+# ── Precinct display-name -> DISTNAME resolver (runbook Sec7 item 7) ────────
+# The manual /captain form collects a precinct DISPLAY name (e.g. "KETTERING
+# 1-A"), but captain_db.upsert_seat's seat_key is built from DISTNAME (the BoE
+# ballot code, e.g. "0010") — the same identity the seeder uses. Without this
+# resolution step, a manually-created captain gets a SECOND seat next to the
+# seeder's for the same precinct (D1 finding). Reuses officials_common.py's
+# crosswalk — no new resolver logic (CLAUDE.md Sec5, single-resolver hygiene).
+_crosswalk_cache: dict[str, object] = {}
+
+
+def _resolve_dist_name(county_number: str, precinct_name: str) -> str | None:
+    tools_admin = str((BASE_DIR / "tools" / "admin").resolve())
+    if tools_admin not in sys.path:
+        sys.path.insert(0, tools_admin)
+    from officials_common import COUNTY_SLUG, load_precinct_crosswalk  # local import
+
+    slug = COUNTY_SLUG.get(county_number)
+    if slug is None:
+        return None
+    xwalk = _crosswalk_cache.get(slug)
+    if xwalk is None:
+        xwalk = load_precinct_crosswalk(slug)
+        _crosswalk_cache[slug] = xwalk
+    return xwalk.resolve_dist_name(precinct_name)
 
 # The 7 cohort_family values that back the 7 chart slices. A roster request
 # carries the cohort the user clicked; we validate against this set so a typo'd
@@ -471,6 +519,19 @@ def export_xlsx(level: str, jid: str, cohort: str | None, county: str | None,
 
 
 class Handler(BaseHTTPRequestHandler):
+    # Routes that read or write voter/captain PII -- every response through
+    # these paths gets one append-only audit line (runbook Sec7 item 11/F3).
+    # /health is deliberately excluded (no PII). _send() is the single funnel
+    # every route returns through, so this is the one place logging has to
+    # hook in (mirrors the project's esc()-as-single-funnel convention).
+    _PII_ROUTE_PREFIXES = (
+        "/roster", "/export", "/precinct-summary", "/captain", "/touches",
+        "/walk-list", "/activate",
+    )
+
+    def _is_pii_route(self, path: str) -> bool:
+        return any(path == p or path.startswith(p + "/") for p in self._PII_ROUTE_PREFIXES)
+
     def _send(self, code: int, payload: dict):
         body = json.dumps(payload).encode("utf-8")
         self.send_response(code)
@@ -481,6 +542,17 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Headers", "Authorization")
         self.end_headers()
         self.wfile.write(body)
+        path = urlparse(self.path).path
+        if self._is_pii_route(path):
+            _append_pii_log({
+                "ts": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                "token_id": _token_id(TOKEN),
+                "endpoint": path,
+                "scope": getattr(self, "_pii_scope", None),
+                "status": code,
+                "result": "ok" if code < 400 else "error",
+            })
+            self._pii_scope = None
 
     def _authed(self) -> bool:
         if not TOKEN:
@@ -522,10 +594,26 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.end_headers()
         self.wfile.write(body)
+        # Exports bypass _send()'s JSON funnel but are the most PII-dense
+        # response this API returns (full named rosters) -- log them too.
+        path = urlparse(self.path).path
+        if self._is_pii_route(path):
+            _append_pii_log({
+                "ts": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                "token_id": _token_id(TOKEN),
+                "endpoint": path,
+                "scope": getattr(self, "_pii_scope", None),
+                "status": 200,
+                "result": "ok",
+            })
+            self._pii_scope = None
 
     # ── Captain-write endpoints (SQLite tier in captain_db) ──────────────
     # GET   /captain/me              — current captain or {"captain": null}
     # POST  /captain                 — create captain (name/email/phone/precinct)
+    # POST  /activate                — self-service activation (v_id + PIN)
+    # POST  /activate/override       — staff-assisted activation (v_id, no PIN;
+    #                                   for holders with no matchable voter record)
     # GET   /touches?sos_voterid=    — touch history for one voter
     # POST  /touches                 — log a new touch
     # POST  /walk-list               — find-or-create walk list for a filter
@@ -556,6 +644,7 @@ class Handler(BaseHTTPRequestHandler):
             sos = q.get("sos_voterid", [""])[0]
             if not sos:
                 return self._send(400, {"error": "sos_voterid required"})
+            self._pii_scope = f"sos:{sos}"
             return self._send(200, {"touches": captain_db.list_touches(sos)})
 
         if is_walk_list_get:
@@ -576,6 +665,7 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(400, {"error": f"unknown cohort '{cohort}'"})
             tag = cohort or generation or "roster"
             stem = f"{jid}_{tag}_{date.today().isoformat()}".replace(" ", "_").replace("/", "-")
+            self._pii_scope = f"{level}:{jid}"
             if fmt == "xlsx":
                 body = export_xlsx(level, jid, cohort, county, generation=generation)
                 return self._send_file(
@@ -591,6 +681,7 @@ class Handler(BaseHTTPRequestHandler):
             county = q.get("county", [""])[0]
             if not precinct or not county:
                 return self._send(400, {"error": "precinct and county required"})
+            self._pii_scope = f"precinct:{precinct}"
             return self._send(200, precinct_summary(precinct, county))
 
         level = (q.get("level", ["county"])[0])
@@ -604,6 +695,7 @@ class Handler(BaseHTTPRequestHandler):
         except ValueError:
             return self._send(400, {"error": "limit/offset must be integers"})
 
+        self._pii_scope = f"{level}:{jid}"
         result = query_roster(level, jid, cohort, county, limit, offset, generation=generation)
         code = 400 if "error" in result else 200
         self._send(code, result)
@@ -619,6 +711,7 @@ class Handler(BaseHTTPRequestHandler):
             wl_id = int(parts[1])
         except ValueError:
             return self._send(400, {"error": "walk_list_id must be integer"})
+        self._pii_scope = f"walk_list:{wl_id}"
         sub = parts[2]
         if sub == "progress":
             return self._send(200, captain_db.walk_list_progress(wl_id))
@@ -645,6 +738,7 @@ class Handler(BaseHTTPRequestHandler):
             password = body.get("new_password", "")
             if not v_id or not pin or not password:
                 return self._send(400, {"error": "v_id, pin, and new_password are required"})
+            self._pii_scope = f"v_id:{v_id}"
 
             seat = captain_db.get_seat_by_v_id(v_id)
             if seat is None:
@@ -676,6 +770,46 @@ class Handler(BaseHTTPRequestHandler):
                 "token": secrets.token_urlsafe(24),
             })
 
+        if parsed.path == "/activate/override":
+            # Staff-assisted activation: the captain calls the office, a human
+            # verifies them conversationally, staff issues the password
+            # directly. No `pin` field -- this is NOT the self-service path,
+            # so it does not depend on holder_term.sos_voterid being set (the
+            # gap the plan's Part 4 exists to close: newly-seated appointees /
+            # NCOA-mover captains with no matchable voter record still get an
+            # activation route). Same auth gate as every other do_POST route
+            # (self._authed() above); the "staff" trust boundary today is
+            # "whoever holds ROSTER_TOKEN" -- a real staff-role check is
+            # session-auth-tier work (runbook Sec7 item 4), out of scope here.
+            v_id = body.get("v_id", "")
+            password = body.get("new_password", "")
+            if not v_id or not password:
+                return self._send(400, {"error": "v_id and new_password are required"})
+            self._pii_scope = f"v_id:{v_id}"
+
+            seat = captain_db.get_seat_by_v_id(v_id)
+            if seat is None:
+                return self._send(404, {"error": "Seat not found"})
+            holder = captain_db.get_active_holder(seat["seat_id"])
+            if holder is None:
+                return self._send(404, {"error": "No holder on record for this seat"})
+
+            pw_hash = _hash_password(password)
+            try:
+                # attach_login's own "already activated" guard gives us
+                # first-activation-only, no-reset behavior for free (the
+                # scope the plan/runbook B3-ii/operator decisions settled on).
+                captain_db.attach_login(holder_term_id=holder["holder_term_id"], password_hash=pw_hash)
+            except ValueError as e:
+                return self._send(400, {"error": str(e)})
+            captain_db.set_seat_status(seat["seat_id"], "filled")
+
+            return self._send(201, {
+                "message": "Activated successfully (staff override)",
+                "captain": captain_db.get_captain_view(seat["seat_id"]),
+                "token": secrets.token_urlsafe(24),
+            })
+
         if parsed.path == "/captain":
             display_name = body.get("display_name", "")
             email = body.get("email", "")
@@ -687,8 +821,20 @@ class Handler(BaseHTTPRequestHandler):
                                ("precinct_name", precinct_name)]:
                 if not val or not str(val).strip():
                     return self._send(400, {"error": f"{label} required"})
+            self._pii_scope = f"{precinct_county.strip()}:{precinct_name.strip()}"
+            # Reduce the human-typed display name to the seeder's DISTNAME
+            # code before keying the seat -- upsert_seat's seat_key is
+            # (county, dist_name, party); passing the display name straight
+            # through here created a SECOND seat next to the seeder's for the
+            # same precinct (D1 finding, runbook Sec7 item 7).
+            dist_name = _resolve_dist_name(precinct_county.strip(), precinct_name.strip())
+            if dist_name is None:
+                return self._send(400, {
+                    "error": f"could not resolve precinct '{precinct_name}' in county "
+                             f"'{precinct_county}' to a DISTNAME code",
+                })
             seat = captain_db.upsert_seat(
-                county_number=precinct_county.strip(), dist_name=precinct_name.strip(),
+                county_number=precinct_county.strip(), dist_name=dist_name,
                 party="D", display_name=precinct_name.strip(), status="filled",
             )
             captain_db.start_holder_term(
@@ -706,6 +852,7 @@ class Handler(BaseHTTPRequestHandler):
             holder = captain_db.get_active_holder(seat_id)
             if holder is None:
                 return self._send(400, {"error": "no active holder for this seat"})
+            self._pii_scope = f"sos:{body.get('sos_voterid', '')}"
             try:
                 t = captain_db.log_touch(
                     sos_voterid=body.get("sos_voterid", ""),
@@ -737,6 +884,7 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(400, {"error": "precinct_name and precinct_county required"})
             if not cohort and not generation:
                 return self._send(400, {"error": "cohort or generation required"})
+            self._pii_scope = f"{county}:{precinct}"
             # Compose filter_kind/value/label so re-clicks are idempotent.
             if cohort and generation:
                 fk, fv = "cohort_generation", f"{cohort}|{generation}"
@@ -778,6 +926,7 @@ class Handler(BaseHTTPRequestHandler):
             sos = parts[3]
             body = self._read_body()
             status = body.get("status", "")
+            self._pii_scope = f"walk_list:{wl_id}:sos:{sos}"
             try:
                 captain_db.set_walk_status(walk_list_id=wl_id, sos_voterid=sos, status=status)
             except ValueError as e:

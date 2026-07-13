@@ -41,8 +41,9 @@ should import):
     * ``seed_holder_term(...)``           — idempotent wrapper for a re-runnable seeder:
                                              same person -> refresh in place; different
                                              person (or none yet) -> real rotation
-    * ``attach_login(...)``               — self-activation: set password_hash on an
-                                             existing active holder_term
+    * ``attach_login(...)``               — set password_hash on an existing active
+                                             holder_term (self-service /activate or
+                                             staff-assisted /activate/override)
     * ``get_captain_view(seat_id)``       — seat + active holder merged into the wire
                                              shape roster_api.py / captain-mode.js expect
     * ``get_current_captain()``           — device-demo mode: the one ACTIVATED
@@ -276,16 +277,24 @@ def derive_v_id(seat_key: str) -> str:
 
 def upsert_seat(
     *, county_number: str, dist_name: str, party: str, display_name: str,
-    unit_type: str = "precinct", status: str = "vacant",
+    unit_type: str = "precinct", status: str | None = None,
 ) -> dict:
     """Create or update a seat, keyed on (county_number, dist_name, party).
     v_id/seat_key are derived here — not passed in — so every caller (the
     seeder, manual captain entry) computes them identically.
+
+    ``status`` is a new-seat default only (falls back to 'vacant' when the
+    seat doesn't exist yet). On an EXISTING seat, passing None (the default)
+    leaves status untouched — only a caller that explicitly passes status=...
+    can change an existing seat's status. This is the fix for the footgun
+    where a future caller's default status='vacant' would silently vacate an
+    already-filled seat on every re-run (D1 finding, runbook Sec7 item 9).
     """
     if unit_type not in ("precinct", "ward", "political_subdivision"):
         raise ValueError(f"unknown unit_type '{unit_type}'")
-    if status not in SEAT_STATUSES:
+    if status is not None and status not in SEAT_STATUSES:
         raise ValueError(f"unknown seat status '{status}'")
+    insert_status = status or "vacant"
     seat_key = derive_seat_key(county_number, dist_name, party)
     v_id = derive_v_id(seat_key)
     with _lock:
@@ -298,9 +307,10 @@ def upsert_seat(
             ON CONFLICT(seat_key) DO UPDATE SET
                 display_name = excluded.display_name,
                 unit_type    = excluded.unit_type,
-                status       = excluded.status
+                status       = CASE WHEN ? IS NOT NULL THEN excluded.status ELSE seat.status END
             """,
-            (v_id, seat_key, county_number, dist_name, party, unit_type, display_name, status),
+            (v_id, seat_key, county_number, dist_name, party, unit_type, display_name,
+             insert_status, status),
         )
         return _row_to_dict(c.execute(
             "SELECT * FROM seat WHERE seat_key = ?", (seat_key,)
@@ -365,27 +375,36 @@ def start_holder_term(
     phone_digits = _normalize_phone(phone) if phone else None
     with _lock:
         c = connect()
-        c.execute(
-            "UPDATE holder_term SET term_end = datetime('now') "
-            "WHERE seat_id = ? AND term_end IS NULL",
-            (seat_id,),
-        )
-        cur = c.execute(
-            """
-            INSERT INTO holder_term (
-                seat_id, sos_voterid, person_key, binding_hash, display_name,
-                email, phone, phone_digits, password_hash, origin
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """,
-            (seat_id, sos_voterid, person_key, binding_hash, display_name,
-             email, phone, phone_digits, password_hash, origin),
-        )
-        hid = cur.lastrowid
-        if claimed:
+        # BEGIN IMMEDIATE around the two-write rotation (D1, runbook Sec7 item
+        # 10): end-old + insert-new must commit atomically, or a crash between
+        # the two writes could leave a seat with zero active holders.
+        c.execute("BEGIN IMMEDIATE")
+        try:
             c.execute(
-                "UPDATE holder_term SET claimed_at = datetime('now') WHERE holder_term_id = ?",
-                (hid,),
+                "UPDATE holder_term SET term_end = datetime('now') "
+                "WHERE seat_id = ? AND term_end IS NULL",
+                (seat_id,),
             )
+            cur = c.execute(
+                """
+                INSERT INTO holder_term (
+                    seat_id, sos_voterid, person_key, binding_hash, display_name,
+                    email, phone, phone_digits, password_hash, origin
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (seat_id, sos_voterid, person_key, binding_hash, display_name,
+                 email, phone, phone_digits, password_hash, origin),
+            )
+            hid = cur.lastrowid
+            if claimed:
+                c.execute(
+                    "UPDATE holder_term SET claimed_at = datetime('now') WHERE holder_term_id = ?",
+                    (hid,),
+                )
+            c.execute("COMMIT")
+        except BaseException:
+            c.execute("ROLLBACK")
+            raise
         return _row_to_dict(c.execute(
             "SELECT * FROM holder_term WHERE holder_term_id = ?", (hid,)
         ).fetchone())  # type: ignore[return-value]
@@ -425,9 +444,12 @@ def seed_holder_term(
 
 
 def attach_login(*, holder_term_id: int, password_hash: str) -> dict:
-    """Self-activation: set login credentials on an existing active
-    holder_term. Does not start a new term — the officeholder the seeder
-    already identified IS the account being activated."""
+    """Set login credentials on an existing active holder_term. Does not
+    start a new term — the officeholder the seeder already identified IS the
+    account being activated. Two call sites: roster_api.py's self-service
+    ``/activate`` (PIN-verified) and the staff-assisted ``/activate/override``
+    (no PIN, human-verified) — both first-activation-only, since the
+    "already activated" guard below fires for either caller."""
     with _lock:
         c = connect()
         row = c.execute(
@@ -459,6 +481,10 @@ def _captain_view(seat_id: int) -> dict | None:
     seat's active holder_term server-side for attribution, so the wire
     contract doesn't need to change even though the identity model underneath
     it did.
+
+    Never leaks `password_hash` (D1, runbook Sec7 item 8) — the raw hash is
+    read here (needed nowhere outside this function) and immediately
+    collapsed into a boolean `activated` before the dict is returned.
     """
     with _lock:
         row = connect().execute(
@@ -474,6 +500,7 @@ def _captain_view(seat_id: int) -> dict | None:
         if row is None:
             return None
         d = _row_to_dict(row)
+        d["activated"] = d.pop("password_hash") is not None
         d["id"] = d["seat_id"]
         d["precinct_county"] = d["county_number"]
         d["precinct_name"] = d["precinct_display_name"]

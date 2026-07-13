@@ -44,6 +44,7 @@ from officials_common import (  # noqa: E402
     ROOT,
     atomic_write_json,
     load_precinct_crosswalk,
+    name_from_parts,
     normalize_name,
 )
 
@@ -66,15 +67,20 @@ class CanonicalCaptain:
     first_name: str
     middle_name: str
     last_name: str
-    person_key: str          # "<DISTNAME>|<PARTY>|<LASTN>,<FIRSTN>,<MIDDLEN>"
+    person_key: str          # "<DISTNAME>|<PARTY>|<LASTN>,<FIRSTN>,<MIDDLEN>" -- suffix
+                              # deliberately excluded (see to_canonical's comment)
     raw_party: str            # the source PARTY cell, for audit (may be '' or miscoded)
     party_miscoded: bool
+    suffix_name: str = ""     # SUFFIXN, e.g. "Jr" -- display only, never in person_key
     origin: str = "elected"
 
     @property
     def person_display_name(self) -> str:
-        parts = [p for p in (self.first_name, self.middle_name, self.last_name) if p]
-        return normalize_name(" ".join(parts))
+        # Reuse captain_match_report.py's exact helper (CLAUDE.md S5,
+        # single-resolver hygiene) instead of a second hand-rolled join --
+        # this is what fixes the dropped-SUFFIXN bug (e.g. DISTNAME 1310
+        # "William Louis Smith" instead of "...Smith Jr").
+        return name_from_parts(self.first_name, self.middle_name, self.last_name, self.suffix_name)
 
 
 # ──────────────────────────────────────────────────────────────────────────
@@ -162,6 +168,7 @@ class MontgomeryAdapter(CountyAdapter):
         last = (row.get("LASTN") or "").strip()
         first = (row.get("FIRSTN") or "").strip()
         middle = (row.get("MIDDLEN") or "").strip()
+        suffix = (row.get("SUFFIXN") or "").strip()
         return CanonicalCaptain(
             county_number=self.county_number,
             dist_name=dist_name,
@@ -172,9 +179,15 @@ class MontgomeryAdapter(CountyAdapter):
             first_name=first,
             middle_name=middle,
             last_name=last,
+            # Suffix deliberately excluded from person_key: including it would
+            # make every already-seeded suffixed captain look like a "different
+            # person" on the next run purely from this format change, forcing a
+            # spurious two-write rotation (matches captain_match_report.py's own
+            # electedofficials_key, which excludes suffix for the same reason).
             person_key=f"{dist_name}|D|{last},{first},{middle}",
             raw_party=raw_party,
             party_miscoded=raw_party not in ("D", ""),
+            suffix_name=suffix,
             origin="elected",
         )
 
@@ -252,8 +265,11 @@ def run(*, county_number: str, write_db: bool, verbose: bool) -> dict:
     from match_to_voters import (  # noqa: E402 -- reuse the single resolver, do not duplicate
         binding_hash,
         derive_match_confidence,
+        load_ledger,
         load_voter_index,
         match_entity,
+        match_key,
+        verification_projection,
     )
 
     adapter = get_adapter(county_number)
@@ -272,21 +288,72 @@ def run(*, county_number: str, write_db: bool, verbose: bool) -> dict:
     n_voters = sum(len(v) for v in index.values())
     print(f"Loaded {n_voters:,} ACTIVE/CONFIRMATION voters for {county_slug}")
 
+    # C7: the durable, human-owned confirmation ledger. `by_id` resolves a
+    # ledger `corrected_sos_voterid` back to a voter row (mirrors
+    # match_to_voters.py's own construction).
+    ledger = load_ledger()
+    by_id = {r["SOS_VOTERID"]: r for rows_ in index.values() for r in rows_}
+
     registry: list[dict] = []
+    needs_review: list[dict] = []
     match_stats = {"high": 0, "medium": 0, "low": 0, "unmatched": 0}
+    verification_stats = {"unverified": 0, "confirmed": 0, "rejected": 0, "corrected": 0}
 
     for c in canon:
         row, method, score, location_check = match_entity(
             index, c.last_name, c.first_name, ("precinct", c.display_name), fuzz, process
         )
+
+        # Ledger check runs for EVERY captain, matched or not -- this is what
+        # lets a `corrected` entry promote a currently-unmatched captain (the
+        # J Hunter Johnson case) rather than only adjusting an already-matched one.
+        mk = match_key("captain_candidate", {"name": c.person_display_name,
+                                              "precinct_name": c.display_name})
+        entry = ledger.get(mk)
+        if entry and entry.get("state") == "corrected":
+            cid = entry.get("corrected_sos_voterid")
+            if cid in by_id:
+                row, method, score, location_check = by_id[cid], "human_corrected", 100, "confirmed"
+            elif verbose:
+                print(f"  NOTE [{c.dist_name}] ledger correction {cid!r} not found in "
+                      f"{county_slug} voter index")
+
+        # Recomputed AFTER the possible override so a correction is evaluated
+        # as "confirmed" location, which naturally yields "high" (not hardcoded).
         confidence = derive_match_confidence(method, location_check, None)
+        verification_stats[entry.get("state", "unverified") if entry else "unverified"] += 1
+
         sos_voterid = row["SOS_VOTERID"] if row else None
         bhash = binding_hash(row) if row else None
+        verification = verification_projection(
+            entry, {"sos_voterid": sos_voterid, "binding_hash": bhash})
+
+        # Write-gate (operator decision): trust the match only when confidence
+        # is high or the ledger currently confirms it. An explicit human
+        # rejection always wins over confidence -- stricter than
+        # match_to_voters.py's own posture for incumbent/general_candidate,
+        # deliberately scoped to this seeder only (captains get a self-service
+        # PIN; those other entity types don't).
+        trusted = confidence == "high" or verification["status"] == "current"
+        if entry and entry.get("state") == "rejected":
+            trusted = False
+
         zip_code = (row.get("RESIDENTIAL_ZIP") if row else None) or ""
+        if not trusted:
+            reason = f"ledger:{entry['state']}" if entry else f"confidence:{confidence or 'unmatched'}"
+            needs_review.append({
+                "dist_name": c.dist_name, "precinct": c.display_name,
+                "person_display_name": c.person_display_name, "reason": reason,
+            })
+            sos_voterid = None
+            bhash = None
+            zip_code = ""
+
         match_stats[confidence if row else "unmatched"] += 1
         if verbose:
             tag = f"{method}/{score}" if row else "NO MATCH"
-            print(f"  [{c.dist_name}] {c.person_display_name} -> {sos_voterid} ({tag})")
+            flag = "" if trusted else f" NEEDS_REVIEW[{verification['status']}]"
+            print(f"  [{c.dist_name}] {c.person_display_name} -> {sos_voterid} ({tag}){flag}")
 
         if write_db:
             seat = captain_db.upsert_seat(
@@ -326,9 +393,12 @@ def run(*, county_number: str, write_db: bool, verbose: bool) -> dict:
             "expected_captain_count": expected,
             "seeded": len(registry),
             "match_stats": match_stats,
+            "verification_stats": verification_stats,
+            "needs_review_total": len(needs_review),
             "wrote_db": write_db,
         },
         "captains": registry,
+        "needs_review": needs_review,
     }
 
 
@@ -350,6 +420,10 @@ def main() -> int:
     nbytes = atomic_write_json(out_path, result["captains"])
 
     print(f"match stats: {meta['match_stats']}")
+    print(f"verification stats (ledger): {meta['verification_stats']}")
+    print(f"needs_review: {meta['needs_review_total']}")
+    for r in result["needs_review"]:
+        print(f"  [{r['dist_name']}] {r['person_display_name']} ({r['precinct']}) -- {r['reason']}")
     print(f"Wrote {out_path.relative_to(ROOT)} ({nbytes:,} bytes)")
     if meta["wrote_db"]:
         print(f"Seeded seat/holder_term rows into {captain_db.DB_PATH}")

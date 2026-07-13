@@ -49,10 +49,24 @@ class PrecinctCrosswalk:
     county_slug: str
     ballot_to_name: dict[str, str]                 # "0010" -> "BROOKVILLE-A"
     names: set[str] = field(default_factory=set)   # all valid PRECINCT_NAME values
+    _name_to_ballot: dict[str, str] | None = field(default=None, repr=False, compare=False)
 
     def resolve(self, ballot_number: str) -> str | None:
         """Return the PRECINCT_NAME for a ballot number, or None if unknown."""
         return self.ballot_to_name.get(_pad_ballot(ballot_number))
+
+    def resolve_dist_name(self, precinct_name: str) -> str | None:
+        """Reverse lookup: PRECINCT_NAME -> BoE ballot number (DISTNAME).
+
+        Used wherever a human-typed display name needs to be reduced back to
+        the seat's identity code (captain_db.upsert_seat's dist_name), so a
+        manually-entered captain doesn't create a second seat next to the
+        seeder's DISTNAME-keyed one for the same precinct (D1 finding,
+        runbook Sec7 item 7). Built lazily from ballot_to_name.
+        """
+        if self._name_to_ballot is None:
+            self._name_to_ballot = {name: ballot for ballot, name in self.ballot_to_name.items()}
+        return self._name_to_ballot.get(precinct_name)
 
     @property
     def all_ballots(self) -> list[str]:

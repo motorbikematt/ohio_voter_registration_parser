@@ -68,9 +68,11 @@ from officials_common import (  # noqa: E402
 from match_to_voters import (  # noqa: E402  -- REUSED resolver, not re-implemented
     binding_hash,
     derive_match_confidence,
+    load_ledger,
     load_voter_index,
     match_entity,
     match_key,
+    verification_projection,
 )
 
 COUNTY_DIR = ROOT / "local" / "source" / "County Data Files" / "57_Montgomery"
@@ -210,6 +212,9 @@ def run(county_slug: str, verbose: bool) -> dict:
     else:
         print("DEM CC secondary zip roster: unavailable (zip cross-check skipped)")
 
+    ledger = load_ledger()                                    # C7: durable confirmations
+    by_id = {r["SOS_VOTERID"]: r for rows_ in index.values() for r in rows_}
+
     tiers = {"high": 0, "medium": 0, "low": 0}
     methods: dict[str, int] = {}
     # Party-coding audit: how each captain was coded in the raw PARTY column, given
@@ -220,6 +225,7 @@ def run(county_slug: str, verbose: bool) -> dict:
     unmatched: list[dict] = []
     unresolved_precinct: list[dict] = []
     zip_agree = zip_disagree = zip_no_signal = 0
+    verification_summary = {"unverified": 0, "confirmed": 0, "rejected": 0, "corrected": 0}
 
     for row in captains:
         eo_key = electedofficials_key(row)
@@ -245,6 +251,14 @@ def run(county_slug: str, verbose: bool) -> dict:
             "raw_party": raw_party,
             "party_miscoded": raw_party not in ("", "D"),
         }
+        # match_key computed for EVERY captain (moved out of the matched-only
+        # branch) so a ledger `corrected` entry can promote an otherwise
+        # unmatched captain into the matched list, not just adjust one already
+        # matched (same fix as seed_quorum_registry.py Part 2).
+        mk = match_key(ENTITY_TYPE, record)
+        record["match_key"] = mk
+        entry = ledger.get(mk)
+        verification_summary[entry.get("state", "unverified") if entry else "unverified"] += 1
 
         if precinct_name is None:
             # Crosswalk miss: loud, but the captain keeps a valid identity and we
@@ -258,6 +272,18 @@ def run(county_slug: str, verbose: bool) -> dict:
         # THE reused matcher -- no fuzzy logic is written here.
         vrow, method, score, location_check = match_entity(
             index, last, first, constraint, fuzz, process)
+
+        # C7: a human `corrected` entry overrides the auto-match with the right
+        # voter -- same override pattern as match_to_voters.py's _record(), so
+        # this can promote a captain the matcher itself couldn't find.
+        if entry and entry.get("state") == "corrected":
+            cid = entry.get("corrected_sos_voterid")
+            if cid in by_id:
+                vrow, method, score, location_check = by_id[cid], "human_corrected", 100, "confirmed"
+            elif verbose:
+                print(f"  NOTE  ledger correction {cid!r} not found in voter index "
+                      f"for {display_name}")
+
         methods[method] = methods.get(method, 0) + 1
 
         if vrow is None:
@@ -265,6 +291,8 @@ def run(county_slug: str, verbose: bool) -> dict:
             record["match_confidence"] = None
             record["sos_voterid"] = None
             record["sos_voterid_status"] = "pending"   # loud + graceful (section 3)
+            record["verification"] = verification_projection(
+                entry, {"sos_voterid": None, "binding_hash": None})
             unmatched.append(record)
             if verbose:
                 print(f"  MISS  {display_name:28s} [{precinct_name}] ({method})")
@@ -289,6 +317,7 @@ def run(county_slug: str, verbose: bool) -> dict:
             zip_check = "no_signal"
             zip_no_signal += 1
 
+        vbhash = binding_hash(vrow)
         record.update({
             "match_method": method,
             "match_score": score,
@@ -302,8 +331,9 @@ def run(county_slug: str, verbose: bool) -> dict:
             "voter_residential_zip": voter_zip or None,
             "dem_cc_zip": cc_z or None,
             "zip_cross_check": zip_check,
-            "match_key": match_key(ENTITY_TYPE, record),
-            "binding_hash": binding_hash(vrow),
+            "binding_hash": vbhash,
+            "verification": verification_projection(
+                entry, {"sos_voterid": vrow.get("SOS_VOTERID"), "binding_hash": vbhash}),
         })
         matched.append(record)
         if verbose:
@@ -325,9 +355,11 @@ def run(county_slug: str, verbose: bool) -> dict:
         "resolver_reused": {
             "module": "tools/admin/match_to_voters.py",
             "functions": ["load_voter_index", "match_entity",
-                          "derive_match_confidence", "match_key", "binding_hash"],
+                          "derive_match_confidence", "match_key", "binding_hash",
+                          "load_ledger", "verification_projection"],
             "note": "no matching logic re-implemented; single-resolver rule (CLAUDE.md 5)",
         },
+        "verification_summary": verification_summary,
         "totals": {
             "dem_captains": len(captains),
             "matched": len(matched),
@@ -414,6 +446,26 @@ def write_text_report(result: dict, path: Path) -> None:
         pc = r.get("raw_party") or "(blank)"
         lines.append(f"  {r['distname']:6s} {r['name']:30s} "
                      f"precinct={r['precinct_name']}  ({r['match_method']}, PARTY={pc})")
+    lines.append("")
+    vs = m.get("verification_summary", {})
+    lines.append(f"LEDGER VERIFICATION ({sum(vs.values())} captains checked)")
+    for state in ("unverified", "confirmed", "rejected", "corrected"):
+        lines.append(f"  {state:10s}: {vs.get(state, 0)}")
+    lines.append("")
+    ledger_flagged = [
+        r for r in (result["matched"] + result["unmatched"])
+        if r.get("verification", {}).get("status") in ("stale", "rejected")
+        or (r.get("verification", {}).get("status") == "unverified"
+            and r.get("match_confidence") in (None, "low"))
+    ]
+    lines.append(f"LEDGER-FLAGGED NEEDS REVIEW ({len(ledger_flagged)})")
+    if not ledger_flagged:
+        lines.append("  (none)")
+    for r in sorted(ledger_flagged, key=lambda r: r["distname"]):
+        vstatus = r.get("verification", {}).get("status", "unverified")
+        conf = r.get("match_confidence") or "unmatched"
+        lines.append(f"  {r['distname']:6s} {r['name']:30s} "
+                     f"verification={vstatus}  confidence={conf}")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
 
 
