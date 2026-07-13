@@ -55,18 +55,18 @@ except ImportError as e:
 # ── Paths ─────────────────────────────────────────────────────────────────────
 # BASE_DIR is the project root — script lives two levels deep in tools/admin/.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-OUT_DIR  = BASE_DIR / "local" / "source" / "precinct_keys"  # PATCH: Rerouted to local/ workspace
-LOG_DIR  = BASE_DIR / "local" / "working"  # PATCH: Rerouted to local/ workspace
-MASTER_XLSX = OUT_DIR / "precinct_keys_master.xlsx"  # §3b: keep beside precinct_keys CSVs, not project root
+COUNTY_DATA_DIR = BASE_DIR / "local" / "source" / "County Data Files"
+LOG_DIR  = BASE_DIR / "local" / "working"
+MASTER_XLSX = COUNTY_DATA_DIR / "precinct_keys_master.xlsx"
 
-OUT_DIR.mkdir(parents=True, exist_ok=True)
+COUNTY_DATA_DIR.mkdir(parents=True, exist_ok=True)
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s  %(levelname)-8s  %(message)s",
     handlers=[
-        logging.FileHandler(LOG_DIR / "vtrapp_scrape.log", encoding="utf-8"),
+        logging.FileHandler(COUNTY_DATA_DIR / "vtrapp_scrape.log", encoding="utf-8"),
         logging.StreamHandler(sys.stdout),
     ],
 )
@@ -130,6 +130,7 @@ def parse_label(text: str) -> tuple[str, str, str]:
 
 def fetch_county(session, county: str):
     url = BASE_URL.format(county=county)
+    retries = 0
     for attempt in range(MAX_RETRIES):
         try:
             resp = session.get(url, headers=HEADERS, timeout=20)
@@ -139,16 +140,17 @@ def fetch_county(session, county: str):
             break
         except HTTPError as exc:
             if exc.response.status_code == 403: raise BlockedError(county)
-            return None
+            return None, f"HTTP Error {exc.response.status_code}"
         except Exception:
+            retries += 1
             if attempt + 1 < MAX_RETRIES: time.sleep(4 * (2 ** attempt))
-            else: return None
+            else: return None, f"Failed/Timeout after {MAX_RETRIES} retries"
 
     soup = BeautifulSoup(resp.text, "html.parser")
-    if "does not subscribe" in soup.get_text().lower(): return _NOT_SUBSCRIBED
+    if "does not subscribe" in soup.get_text().lower(): return _NOT_SUBSCRIBED, "Not Subscribed to Enhanced Web Features"
 
     select = soup.find("select", {"id": "cmb_precfrom"}) or soup.find("select", {"name": "cmb_precfrom"})
-    if not select: return None
+    if not select: return None, "No Dropdown Found on Page"
 
     rows = []
     for opt in select.find_all("option"):
@@ -162,44 +164,190 @@ def fetch_county(session, county: str):
             "precinct_label": label
         })
     log.info(f"  {len(rows)} precincts")
-    return rows
+    status_msg = "Success" if retries == 0 else f"Success (after {retries} retries)"
+    return rows, status_msg
+
+def generate_from_parquet(county: str):
+    """Fallback generator for non-Triad counties: extract precinct keys directly from local Parquet data."""
+    import pandas as pd
+    OHIO_COUNTIES = [
+        "Adams", "Allen", "Ashland", "Ashtabula", "Athens", "Auglaize", "Belmont", "Brown", 
+        "Butler", "Carroll", "Champaign", "Clark", "Clermont", "Clinton", "Columbiana", "Coshocton", 
+        "Crawford", "Cuyahoga", "Darke", "Defiance", "Delaware", "Erie", "Fairfield", "Fayette", 
+        "Franklin", "Fulton", "Gallia", "Geauga", "Greene", "Guernsey", "Hamilton", "Hancock", 
+        "Hardin", "Harrison", "Henry", "Highland", "Hocking", "Holmes", "Huron", "Jackson", 
+        "Jefferson", "Knox", "Lake", "Lawrence", "Licking", "Logan", "Lorain", "Lucas", 
+        "Madison", "Mahoning", "Marion", "Medina", "Meigs", "Mercer", "Miami", "Monroe", 
+        "Montgomery", "Morgan", "Morrow", "Muskingum", "Noble", "Ottawa", "Paulding", "Perry", 
+        "Pickaway", "Pike", "Portage", "Preble", "Putnam", "Richland", "Ross", "Sandusky", 
+        "Scioto", "Seneca", "Shelby", "Stark", "Summit", "Trumbull", "Tuscarawas", "Union", 
+        "Van Wert", "Vinton", "Warren", "Washington", "Wayne", "Williams", "Wood", "Wyandot"
+    ]
+    county_map = {c.lower().replace(" ", ""): f"{i+1:02d}" for i, c in enumerate(OHIO_COUNTIES)}
+    
+    county_num = county_map.get(county)
+    if not county_num: return None
+    
+    parquet_path = BASE_DIR / "local" / "source" / "parquet" / f"COUNTY_NUMBER={county_num}" / "part-0.parquet"
+    if not parquet_path.exists(): return None
+    
+    try:
+        df = pd.read_parquet(parquet_path, columns=['PRECINCT_CODE', 'PRECINCT_NAME'])
+        df = df.drop_duplicates(subset=['PRECINCT_CODE']).dropna(subset=['PRECINCT_CODE'])
+        
+        rows = []
+        for _, row in df.iterrows():
+            rows.append({
+                "county": county,
+                "vtrapp_web_code": "",
+                "vtrapp_web_label": "",
+                "PRECINCT_CODE": str(row['PRECINCT_CODE']).strip(),
+                "PRECINCT_NAME": str(row['PRECINCT_NAME']).strip()
+            })
+        log.info(f"  {len(rows)} precincts extracted from parquet")
+        return rows
+    except Exception as e:
+        log.error(f"Failed to read parquet for {county}: {e}")
+        return None
+
+def normalize_scraped(s):
+    s = str(s).upper()
+    s = re.sub(r'^\d+\s+', '', s)
+    s = re.sub(r'[^A-Z0-9]', '', s)
+    return s
+
+def normalize_pq(s):
+    s = str(s).upper()
+    s = re.sub(r'[^A-Z0-9]', '', s)
+    return s
+
+def combine_web_and_parquet(county_str: str, web_rows: list):
+    import pandas as pd
+    web_df = pd.DataFrame(web_rows)
+    web_df = web_df.rename(columns={'precinct_code': 'vtrapp_web_code', 'precinct_label': 'vtrapp_web_label'})
+    web_df['norm_key'] = web_df['vtrapp_web_label'].apply(normalize_scraped)
+    
+    OHIO_COUNTIES = [
+        "Adams", "Allen", "Ashland", "Ashtabula", "Athens", "Auglaize", "Belmont", "Brown", 
+        "Butler", "Carroll", "Champaign", "Clark", "Clermont", "Clinton", "Columbiana", "Coshocton", 
+        "Crawford", "Cuyahoga", "Darke", "Defiance", "Delaware", "Erie", "Fairfield", "Fayette", 
+        "Franklin", "Fulton", "Gallia", "Geauga", "Greene", "Guernsey", "Hamilton", "Hancock", 
+        "Hardin", "Harrison", "Henry", "Highland", "Hocking", "Holmes", "Huron", "Jackson", 
+        "Jefferson", "Knox", "Lake", "Lawrence", "Licking", "Logan", "Lorain", "Lucas", 
+        "Madison", "Mahoning", "Marion", "Medina", "Meigs", "Mercer", "Miami", "Monroe", 
+        "Montgomery", "Morgan", "Morrow", "Muskingum", "Noble", "Ottawa", "Paulding", "Perry", 
+        "Pickaway", "Pike", "Portage", "Preble", "Putnam", "Richland", "Ross", "Sandusky", 
+        "Scioto", "Seneca", "Shelby", "Stark", "Summit", "Trumbull", "Tuscarawas", "Union", 
+        "Van Wert", "Vinton", "Warren", "Washington", "Wayne", "Williams", "Wood", "Wyandot"
+    ]
+    county_num = {c.lower().replace(" ", ""): f"{i+1:02d}" for i, c in enumerate(OHIO_COUNTIES)}.get(county_str)
+    parquet_path = BASE_DIR / "local" / "source" / "parquet" / f"COUNTY_NUMBER={county_num}" / "part-0.parquet"
+    
+    if not parquet_path.exists():
+        web_df['PRECINCT_CODE'] = ""
+        web_df['PRECINCT_NAME'] = ""
+        out_cols = ['county', 'vtrapp_web_code', 'vtrapp_web_label', 'PRECINCT_CODE', 'PRECINCT_NAME']
+        return web_df[out_cols].to_dict('records')
+        
+    pq_df = pd.read_parquet(parquet_path, columns=['PRECINCT_CODE', 'PRECINCT_NAME'])
+    pq_df = pq_df.drop_duplicates(subset=['PRECINCT_CODE']).dropna(subset=['PRECINCT_CODE'])
+    pq_df['PRECINCT_CODE'] = pq_df['PRECINCT_CODE'].astype(str).str.strip()
+    pq_df['PRECINCT_NAME'] = pq_df['PRECINCT_NAME'].astype(str).str.strip()
+    pq_df['norm_key'] = pq_df['PRECINCT_NAME'].apply(normalize_pq)
+    
+    joined = pd.merge(web_df, pq_df, on='norm_key', how='outer')
+    joined['county'] = county_str
+    joined = joined.fillna("")
+    
+    out_cols = ['county', 'vtrapp_web_code', 'vtrapp_web_label', 'PRECINCT_CODE', 'PRECINCT_NAME']
+    return joined[out_cols].to_dict('records')
 
 def run_scraper():
-    """Executes the CSV export logic (formerly scrape_vtrapp_precincts.py)"""
-    targets = [c for c in SUBSCRIBER_COUNTIES if not (OUT_DIR / f"{c}_precincts.csv").exists()]
+    """Executes the CSV export logic (formerly scrape_vtrapp_precincts.py) for all 88 counties."""
+    OHIO_COUNTIES = [
+        "Adams", "Allen", "Ashland", "Ashtabula", "Athens", "Auglaize", "Belmont", "Brown", 
+        "Butler", "Carroll", "Champaign", "Clark", "Clermont", "Clinton", "Columbiana", "Coshocton", 
+        "Crawford", "Cuyahoga", "Darke", "Defiance", "Delaware", "Erie", "Fairfield", "Fayette", 
+        "Franklin", "Fulton", "Gallia", "Geauga", "Greene", "Guernsey", "Hamilton", "Hancock", 
+        "Hardin", "Harrison", "Henry", "Highland", "Hocking", "Holmes", "Huron", "Jackson", 
+        "Jefferson", "Knox", "Lake", "Lawrence", "Licking", "Logan", "Lorain", "Lucas", 
+        "Madison", "Mahoning", "Marion", "Medina", "Meigs", "Mercer", "Miami", "Monroe", 
+        "Montgomery", "Morgan", "Morrow", "Muskingum", "Noble", "Ottawa", "Paulding", "Perry", 
+        "Pickaway", "Pike", "Portage", "Preble", "Putnam", "Richland", "Ross", "Sandusky", 
+        "Scioto", "Seneca", "Shelby", "Stark", "Summit", "Trumbull", "Tuscarawas", "Union", 
+        "Van Wert", "Vinton", "Warren", "Washington", "Wayne", "Williams", "Wood", "Wyandot"
+    ]
+    county_map = {c.lower().replace(" ", ""): (f"{i+1:02d}", c) for i, c in enumerate(OHIO_COUNTIES)}
+    ALL_COUNTIES = [c.lower().replace(" ", "") for c in OHIO_COUNTIES]
+    
+    triad_targets = [c for c in ALL_COUNTIES if c in SUBSCRIBER_COUNTIES]
+    parquet_targets = [c for c in ALL_COUNTIES if c not in SUBSCRIBER_COUNTIES]
+    
+    random.shuffle(triad_targets)
+    random.shuffle(parquet_targets)
+    
+    targets = parquet_targets + triad_targets
+
     if not targets:
-        log.info("All county CSVs already exist. Skipping scrape.")
         return True
 
-    log.info(f"Scraping {len(targets)} counties...")
-    random.shuffle(targets)
+    log.info(f"Extracting {len(targets)} counties...")
     session = requests.Session(impersonate="chrome131")
     
+    status_records = []
     success_count = 0
     try:
         for i, county in enumerate(targets, 1):
             log.info(f"[{i}/{len(targets)}] {county}")
-            rows = fetch_county(session, county)
+            status_msg = ""
+            
+            if county in SUBSCRIBER_COUNTIES:
+                raw_rows, status_msg = fetch_county(session, county)
+                # If cached/already fetched or currently fetching, we must merge
+                if raw_rows and raw_rows is not _NOT_SUBSCRIBED:
+                    rows = combine_web_and_parquet(county, raw_rows)
+                else:
+                    rows = raw_rows
+            else:
+                rows = generate_from_parquet(county)
+                status_msg = "Parquet Extraction (Non-Triad)"
+                
+            status_records.append({"county": county, "status": status_msg})
+                
             if rows and rows is not _NOT_SUBSCRIBED:
-                path = OUT_DIR / f"{county}_precincts.csv"
+                county_num, proper_name = county_map[county]
+                folder_name = f"{county_num}_{proper_name}"
+                file_name = f"{county_num}_{proper_name}_precinct_key.csv"
+                out_dir_path = COUNTY_DATA_DIR / folder_name
+                out_dir_path.mkdir(parents=True, exist_ok=True)
+                path = out_dir_path / file_name
+                
                 with path.open("w", newline="", encoding="utf-8") as f:
-                    writer = csv.DictWriter(f, fieldnames=["county", "precinct_code", "precinct_label"])
+                    writer = csv.DictWriter(f, fieldnames=["county", "vtrapp_web_code", "vtrapp_web_label", "PRECINCT_CODE", "PRECINCT_NAME"])
                     writer.writeheader()
                     writer.writerows(rows)
                 success_count += 1
-            if i < len(targets): human_delay()
+                
+            if i < len(targets) and county in SUBSCRIBER_COUNTIES: 
+                human_delay()
     except BlockedError:
         log.error("Scrape aborted due to 403 Forbidden.")
         return False
+        
+    status_path = COUNTY_DATA_DIR / "scrape_status.csv"
+    with status_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=["county", "status"])
+        writer.writeheader()
+        writer.writerows(status_records)
     
-    log.info(f"Scrape complete. {success_count} new files created.")
+    log.info(f"Extraction complete. {success_count} new files created/updated.")
     return True
 
 # ── Aggregation Logic ────────────────────────────────────────────────────────
 
 def run_aggregation():
     """Executes the Excel workbook logic (formerly aggregate_precinct_keys.py)"""
-    csv_files = sorted(list(OUT_DIR.glob("*_precincts.csv")))
+    csv_files = sorted(list(COUNTY_DATA_DIR.glob("*/*_precinct_key.csv")))
     if not csv_files:
         log.error("No CSV files found to aggregate.")
         return False
@@ -208,8 +356,22 @@ def run_aggregation():
     workbook = xlsxwriter.Workbook(str(MASTER_XLSX))
     header_fmt = workbook.add_format({'bold': True, 'bg_color': '#D7E4BC', 'border': 1})
     
+    status_path = COUNTY_DATA_DIR / "scrape_status.csv"
+    if status_path.exists():
+        ws = workbook.add_worksheet("Scrape Status")
+        try:
+            with status_path.open("r", encoding="utf-8") as f:
+                reader = csv.reader(f)
+                for r_idx, row in enumerate(reader):
+                    for c_idx, val in enumerate(row):
+                        ws.write(r_idx, c_idx, val, header_fmt if r_idx == 0 else None)
+            ws.set_column(0, 0, 15)
+            ws.set_column(1, 1, 60)
+        except Exception as e:
+            log.error(f"Error indexing {status_path.name}: {e}")
+    
     for csv_file in csv_files:
-        sheet_name = csv_file.name.replace("_precincts.csv", "")[:31]
+        sheet_name = csv_file.parent.name[:31]
         ws = workbook.add_worksheet(sheet_name)
         try:
             with csv_file.open("r", encoding="utf-8") as f:
