@@ -80,6 +80,13 @@ from .llm_enricher import (  # gracefully no-ops if ANTHROPIC_API_KEY absent
     write_captain_narrative as _write_captain_narrative,
     is_captain_fresh as _is_captain_fresh,
 )
+from .officeholders import (
+    # Deterministic; reads local/source/County Data Files/*/*_roster_officers.csv
+    # (written by scrape_ohio_roster.PY, sourced from ohioroster.ohiosos.gov).
+    # No LLM/API calls. To refresh officeholder data, re-run that scraper --
+    # not anything in this file. See officeholders.py module docstring.
+    build_officeholders_by_slug as _build_officeholders_by_slug,
+)
 
 # ---- Paths -------------------------------------------------------------------
 ROOT     = Path(__file__).resolve().parent.parent.parent  # project root
@@ -318,6 +325,7 @@ def _process_one(
     dry_run:       bool,
     llm:           bool = False,
     llm_force:     bool = False,
+    officeholders: dict | None = None,
 ) -> str:
     """
     Build and write (or print) the narrative JSON for one jurisdiction.
@@ -325,12 +333,20 @@ def _process_one(
 
     Steps:
       1. Build a level-aware metrics dict via build_metrics_for_level().
-      2. Compute metrics_hash.  Skip if it matches the existing file.
+      2. Compute metrics_hash (includes officeholders).  Skip if unchanged.
       3. Generate prose via build_narrative() (template registry; deterministic).
       4. Write output JSON (or print to stdout in --dry-run mode).
       5. If llm=True, call enrich_one() and append narrative_captain to the file.
 
-    Officeholders are not yet sourced; all office slots render placeholders.
+    officeholders is sourced only at the county level today, by
+    officeholders.py reading local/source/County Data Files/*/*_roster_officers.csv
+    (written by scrape_ohio_roster.PY, from ohioroster.ohiosos.gov). This
+    function never fetches or computes officeholder data itself -- the
+    caller (_run_county) passes it in already-built. If officeholder text
+    in the output looks stale, the fix is re-running scrape_ohio_roster.PY,
+    not editing anything in this file. Other levels pass None, which
+    renders the existing "data not yet available" placeholder for every
+    office slot -- there is no roster-site source for those levels.
     """
     # 1. Assemble level-aware metrics from raw chart JSON.
     metrics = build_metrics_for_level(
@@ -346,14 +362,17 @@ def _process_one(
         log.debug('No usable metrics for %s/%s -- skipping', level, slug)
         return 'failed'
 
-    # 2. Cache check: skip if metrics + template versions are unchanged.
-    mhash = _metrics_hash(metrics)
+    # 2. Cache check: skip if metrics + officeholders + template versions are
+    #    all unchanged. officeholders must be included here -- otherwise a
+    #    newly-available officeholder (or one who leaves office) would never
+    #    invalidate a previously-cached narrative.
+    mhash = _metrics_hash(metrics, officeholders)
     if not overwrite and not dry_run and _cache_hit(out_path, mhash):
         log.info('Skip %s (metrics_hash unchanged)', out_path.name)
         return 'skipped'
 
-    # 3. Generate prose.  officeholders=None -> all slots render placeholder text.
-    narrative = build_narrative(metrics, officeholders=None)
+    # 3. Generate prose. officeholders=None -> all slots render placeholder text.
+    narrative = build_narrative(metrics, officeholders=officeholders)
 
     # 4a. Dry-run: print to stdout without writing.
     if dry_run:
@@ -406,6 +425,15 @@ def _run_county(
     llm_force: bool = False,
 ) -> tuple[int, int, int]:
     """Generate narrative JSONs for all (or filtered) counties."""
+    # Loaded once for the whole run (~30ms for all 88 counties), not per
+    # jurisdiction -- mirrors load_county_list()'s single manifest.json read.
+    # Source of this data: local/source/County Data Files/*/*_roster_officers.csv,
+    # written by scrape_ohio_roster.PY from ohioroster.ohiosos.gov. Purely a
+    # local CSV read here -- deterministic, no LLM/API calls. To refresh
+    # (e.g. after a new election cycle), re-run that scraper; this call will
+    # pick up whatever is newest in the CSVs the next time this runs.
+    officeholders_by_slug = _build_officeholders_by_slug()
+
     ok = skipped = failed = 0
     for entry in enumerate_county(filter_names):
         slug = entry['slug']
@@ -421,6 +449,7 @@ def _run_county(
             out_path=out_path_for('county', slug),
             overwrite=overwrite, dry_run=dry_run,
             llm=llm, llm_force=llm_force,
+            officeholders=officeholders_by_slug.get(slug),
         )
         ok      += result == 'ok'
         skipped += result == 'skipped'
