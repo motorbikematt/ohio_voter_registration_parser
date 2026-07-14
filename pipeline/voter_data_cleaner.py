@@ -2524,11 +2524,14 @@ def _place_per_precinct(df: pl.DataFrame) -> dict:
                                    'rule': 4}
             elif _WARD_CITY_PREFIX_RE.search(val):
                 # 4b: municipality prefix before the separator token.
-                name = _normalize_city_name(
-                    _WARD_CITY_PREFIX_RE.split(val, maxsplit=1)[0])
-                if name:
-                    resolved[pname] = {'type': 'city', 'name': name,
-                                       'rule': 4}
+                raw_prefix = _WARD_CITY_PREFIX_RE.split(val, maxsplit=1)[0]
+                if 'VILLAGE' in raw_prefix.upper():
+                    resolved[pname] = {'type': 'village', 'name': raw_prefix.strip(), 'rule': 4}
+                else:
+                    name = _normalize_city_name(raw_prefix)
+                    if name:
+                        resolved[pname] = {'type': 'city', 'name': name,
+                                           'rule': 4}
             # 4c: tokenless -> no claim; rules 5/6 decide.
     # 5: TOWNSHIP column populated -> township.
     for pname, tname in township_by_p.items():
@@ -2706,6 +2709,10 @@ def export_precinct_charts(
     # jurisdictional_groupings.build_ward_entities emits.
     ward_map = _ward_map_per_county(df, slug)
     dominant_ward = _dominant_per_precinct(df, 'WARD') if 'WARD' in df.columns else {}
+    dominant_local_school = _dominant_per_precinct(df, 'LOCAL_SCHOOL_DISTRICT') if 'LOCAL_SCHOOL_DISTRICT' in df.columns else {}
+    dominant_ev_school = _dominant_per_precinct(df, 'EXEMPTED_VILL_SCHOOL_DISTRICT') if 'EXEMPTED_VILL_SCHOOL_DISTRICT' in df.columns else {}
+    dominant_city_school = _dominant_per_precinct(df, 'CITY_SCHOOL_DISTRICT') if 'CITY_SCHOOL_DISTRICT' in df.columns else {}
+    dominant_muni_court = _dominant_per_precinct(df, 'MUNICIPAL_COURT_DISTRICT') if 'MUNICIPAL_COURT_DISTRICT' in df.columns else {}
 
     for precinct_name in precinct_names:
         safe_name = _precinct_safe_name(precinct_name)
@@ -3155,6 +3162,10 @@ def export_precinct_charts(
             'place_slug':        _place_slug(place, slug) if place else None,
             'ward_slug':         _ward_slug,
             'ward_name':         _dw if _ward_slug else None,
+            'local_school_district':         dominant_local_school.get(precinct_name),
+            'exempted_vill_school_district': dominant_ev_school.get(precinct_name),
+            'city_school_district':          dominant_city_school.get(precinct_name),
+            'municipal_court_district':      dominant_muni_court.get(precinct_name),
             'precinct_code':     (pdf['PRECINCT_CODE'][0]
                                   if 'PRECINCT_CODE' in pdf.columns and total
                                   else None),

@@ -173,6 +173,24 @@ def test_place_township_outranks_minority_village():
     assert p['JACKSON TS']['type'] == 'township'
 
 
+def test_place_village_ward_preserves_village_class():
+    # Rule 4b village branch: 'OAKWOOD VILLAGE WARD 1' must resolve to a village
+    # named 'OAKWOOD VILLAGE', not a city named 'OAKWOOD'.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'OAKWOOD VIL 1', 'WARD': 'OAKWOOD VILLAGE WARD 1'},
+    ]))
+    assert p['OAKWOOD VIL 1'] == {'type': 'village', 'name': 'OAKWOOD VILLAGE', 'rule': 4}
+
+
+def test_place_city_ward_preserves_city_class():
+    # Rule 4b city branch: 'CLEVELAND WARD 1' normalizes to city 'CLEVELAND'.
+    p = _place_per_precinct(_df([
+        {'PRECINCT_NAME': 'CLEVELAND 1-A', 'WARD': 'CLEVELAND WARD 1'},
+    ]))
+    assert p['CLEVELAND 1-A'] == {'type': 'city', 'name': 'CLEVELAND', 'rule': 4}
+
+
+
 def test_place_resolves_every_precinct():
     # The 'no Other bucket' guarantee: every precinct gets exactly one place.
     p = _place_per_precinct(_df([
