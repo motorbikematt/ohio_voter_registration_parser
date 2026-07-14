@@ -103,7 +103,9 @@ def _build_city_county_map(logger=None):
                 idents = city_identities.setdefault(city, {}).setdefault(slug, set())
                 for f in ['local_school_district', 'exempted_vill_school_district', 'city_school_district', 'municipal_court_district']:
                     if prec.get(f):
-                        idents.add(f"{f}:{prec[f].strip().upper()}")
+                        import re
+                        val = re.sub(r'\s*\([^)]*\)$', '', prec[f].strip().upper())
+                        idents.add(f"{f}:{val}")
 
     out = {}
     flagged = []

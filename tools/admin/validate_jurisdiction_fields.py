@@ -532,7 +532,9 @@ def check_earned_uniformity(lf: pl.LazyFrame) -> list[dict]:
                                   ('MUNICIPAL_COURT_DISTRICT', dom_muni)]:
                 v = dom_dict.get(pr)
                 if v:
-                    idents.add(f"{field}:{v.strip().upper()}")
+                    import re
+                    val = re.sub(r'\s*\([^)]*\)$', '', v.strip().upper())
+                    idents.add(f"{field}:{val}")
                     
     violations = []
     
