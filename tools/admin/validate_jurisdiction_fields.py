@@ -506,7 +506,6 @@ def check_earned_uniformity(lf: pl.LazyFrame) -> list[dict]:
     """[11] Detect cross-county city merges that fail the earned-uniformity guard."""
     from pipeline.voter_data_cleaner import _dominant_per_precinct, _dominant_city_per_precinct
     from pipeline.ohio_voter_pipeline import EARNED_UNIFORMITY_ALLOWLIST
-    from tools.admin.data_profile import COUNTY_NAME
     df = lf.select(['COUNTY_NUMBER', 'PRECINCT_NAME', 'CITY', 'VILLAGE', 'WARD', 'TOWNSHIP', 'RESIDENTIAL_CITY', 
                     'LOCAL_SCHOOL_DISTRICT', 'EXEMPTED_VILL_SCHOOL_DISTRICT', 'CITY_SCHOOL_DISTRICT', 'MUNICIPAL_COURT_DISTRICT']).collect()
     
