@@ -2609,7 +2609,11 @@ def _ward_map_per_county(df: pl.DataFrame, county_slug: str) -> dict:
     ward_rows = (
         df.select([
             pl.col('PRECINCT_NAME'),
-            pl.col('WARD').str.strip_chars().alias('_ward'),
+            # Some counties enter WARD with irregular internal spacing (e.g.
+            # Erie's 'VERMILION  WARD 1', Licking's 'CITY OF NEWARK  WD2') --
+            # collapse runs of whitespace so the raw value is stable both as a
+            # ward_name display string and as this function's grouping key.
+            pl.col('WARD').str.strip_chars().str.replace_all(r'\s+', ' ').alias('_ward'),
         ])
         .filter(pl.col('_ward') != '')
     )
