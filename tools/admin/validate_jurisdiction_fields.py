@@ -549,14 +549,39 @@ def check_earned_uniformity(lf: pl.LazyFrame) -> list[dict]:
     return violations
 
 
+
+def check_school_district_collisions(lf: pl.LazyFrame) -> list[dict]:
+    """[12] Detect school districts spanning multiple counties without a disambiguating county suffix."""
+    df = lf.select(['COUNTY_NUMBER', 'LOCAL_SCHOOL_DISTRICT', 'EXEMPTED_VILL_SCHOOL_DISTRICT']).collect()
+    
+    violations = []
+    for col in ['LOCAL_SCHOOL_DISTRICT', 'EXEMPTED_VILL_SCHOOL_DISTRICT']:
+        if col not in df.columns: continue
+        
+        # Group by district name
+        for district, cdf in df.drop_nulls(subset=[col]).group_by([col]):
+            dist_name = str(district[0]).strip().upper()
+            if not dist_name: continue
+            
+            counties = sorted(cdf['COUNTY_NUMBER'].unique().to_list())
+            if len(counties) > 1 and '(' not in dist_name:
+                violations.append({
+                    'district_type': col,
+                    'district_name': dist_name,
+                    'counties': [COUNTY_NAME.get(c, c) for c in counties]
+                })
+                
+    return violations
+
+
 def _gap_slug(s: str) -> str:
     return re.sub(r'[^A-Z0-9]+', '-', s.upper()).strip('-')
-
 
 def build_ledger_rows(ward_defects: list[dict], abuse_rows: list[dict],
                        splits: list,
                        postal_mislabels: list[dict] | None = None,
-                       uniformity_violations: list[dict] | None = None) -> list[dict]:
+                       uniformity_violations: list[dict] | None = None,
+                       sd_violations: list[dict] | None = None) -> list[dict]:
     """Part W7: turn this run's measured gaps into stable-ID ledger rows for
     DATA_QUALITY.md. One row per distinct state-data defect; IDs are stable
     across drops (county number + defect specifics) so the manual section can
@@ -598,11 +623,19 @@ def build_ledger_rows(ward_defects: list[dict], abuse_rows: list[dict],
         gap_id = f"UNEARNED-MERGE-{_gap_slug(v['city'])}"
         counties_str = ', '.join(v['counties'])
         rows.append({
-            'gap_id': gap_id, 'county': 'statewide',
-            'municipality': v['city'],
-            'defect_class': 'unearned multi-county merge (no shared districts)',
+            'gap_id': gap_id, 'county': counties_str, 'municipality': v['city'],
+            'defect_class': 'unearned multi-county city merge',
             'affected_voters': 0,
-            'detail': f"spans {counties_str} with empty identity intersection",
+            'detail': f"spans {counties_str} but shares no school/court district identity",
+        })
+    for v in (sd_violations or []):
+        gap_id = f"SD-COLLISION-{_gap_slug(v['district_name'])}"
+        counties_str = ', '.join(v['counties'])
+        rows.append({
+            'gap_id': gap_id, 'county': counties_str, 'municipality': v['district_name'],
+            'defect_class': f"school district collision ({v['district_type']})",
+            'affected_voters': 0,
+            'detail': f"spans {counties_str} but lacks state (COUNTY) disambiguation suffix",
         })
     if splits:
         total_voters = sum(v for *_, v in splits)
@@ -808,6 +841,7 @@ def main() -> int:
     abuse_rows: list = []
     rule4_no_token = 0
     uniformity_violations = []
+    sd_violations = []
     if not args.skip_ward:
         placeless_count = check_place_completeness(lf, args.show)
         ward_defects = check_ward_coverage(lf)
@@ -829,20 +863,29 @@ def main() -> int:
 
         print('\n[11] EARNED-UNIFORMITY GUARD')
         uniformity_violations = check_earned_uniformity(lf)
-        if uniformity_violations:
-            print(f"  {len(uniformity_violations)} multi-county cities failed identity intersection:")
-            for v in uniformity_violations:
-                print(f"    {v['city']} spans {v['counties']}")
+        if not uniformity_violations:
+            print('  OK (all multi-county cities share district identity or are allowlisted)')
         else:
-            print(f"  OK (all multi-county cities share district identity or are allowlisted)")
+            for v in uniformity_violations:
+                print(f"  FAIL: {v['city']} spans {', '.join(v['counties'])} but has no shared district identity")
 
+        print('\n[12] SCHOOL DISTRICT GUARD')
+        sd_violations = check_school_district_collisions(lf)
+        if not sd_violations:
+            print('  OK (all multi-county local/exempted school districts have a disambiguating county suffix)')
+        else:
+            for v in sd_violations:
+                print(f"  FAIL: {v['district_name']} ({v['district_type']}) spans {', '.join(v['counties'])} without suffix")
+
+    print('\n[ledger] assembling defects for DATA_QUALITY.md...')
     if args.ledger:
         if args.skip_ward:
             print('ERROR: --ledger requires sections [5]-[9] (drop --skip-ward)',
                   file=sys.stderr)
             return 2
         ledger_rows = build_ledger_rows(ward_defects, abuse_rows, splits,
-                                        confirmed, uniformity_violations)
+                                        confirmed, uniformity_violations,
+                                        sd_violations)
         write_ledger(ledger_rows, date.today().isoformat())
 
     print(f'\n[SUMMARY]')
@@ -885,6 +928,8 @@ def main() -> int:
                              f'(resolver token-gate regression; must be zero)')
         if uniformity_violations:
             failures.append(f'{len(uniformity_violations)} unearned multi-county merges (must be zero or allowlisted)')
+        if sd_violations:
+            failures.append(f'{len(sd_violations)} school district collisions (must be zero)')
         if len(splits) > SPLIT_PRECINCT_BASELINE:
             failures.append(f'split precincts grew to {len(splits)} '
                              f'(baseline {SPLIT_PRECINCT_BASELINE})')
