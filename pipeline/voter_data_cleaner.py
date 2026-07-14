@@ -165,9 +165,20 @@ def _cache_is_fresh() -> bool:
 
 def _write_cache_atomic(df: pl.DataFrame, logger: logging.Logger) -> None:
     """Atomic tmp-then-replace write so a crash cannot corrupt the cache."""
+    import snapshot_store
+    import json
+    staged = snapshot_store.staged_info() or {}
+    iso_date = staged.get('snapshot_date', date_t.today().isoformat())
+
     tmp = ENRICHED_CACHE.with_suffix(".parquet.tmp")
-    df.write_parquet(tmp, compression="zstd")
+    df.write_parquet(tmp, compression="zstd", metadata={'provenance_snapshot_date': iso_date})
     tmp.replace(ENRICHED_CACHE)
+
+    sidecar = ENRICHED_CACHE.with_suffix(".provenance.json")
+    sidecar_tmp = sidecar.with_suffix(".json.tmp")
+    sidecar_tmp.write_text(json.dumps({'provenance_snapshot_date': iso_date}), encoding='utf-8')
+    sidecar_tmp.replace(sidecar)
+
     logger.info("Enriched cache written: %s", ENRICHED_CACHE)
 
 
@@ -3223,10 +3234,15 @@ def _update_manifest(
 
     # Always overwrite dataNote with a real-data message so the "Sample data"
     # banner in the web dashboard is cleared after the first analysis run.
+    import snapshot_store
+    staged = snapshot_store.staged_info() or {}
+    iso_date = staged.get('snapshot_date', today)
+
     manifest['dataNote'] = (
         f'Data sourced from Ohio Secretary of State statewide voter file. '
         f'Last updated {today}.'
     )
+    manifest['provenanceSnapshotDate'] = iso_date
 
     # Add county to both lists. `counties` is legacy (kept for back-compat with
     # any older code paths). `processedCounties` is what charts.js actually reads
@@ -3379,10 +3395,15 @@ def _write_manifest_bulk(
             'sections':          [],
         }
 
+    import snapshot_store
+    staged = snapshot_store.staged_info() or {}
+    iso_date = staged.get('snapshot_date', today)
+
     manifest['dataNote'] = (
         f'Data sourced from Ohio Secretary of State statewide voter file. '
         f'Last updated {today}.'
     )
+    manifest['provenanceSnapshotDate'] = iso_date
 
     # Merge: union the run's counties with anything already on disk, then sort.
     # This keeps prior runs' work intact if someone re-runs a partial set.
