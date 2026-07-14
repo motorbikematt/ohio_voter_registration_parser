@@ -61,6 +61,8 @@ def _load_generate_narratives():
 
 # ── Cross-county city map ───────────────────────────────────────────────────────
 
+EARNED_UNIFORMITY_ALLOWLIST = {'CANAL WINCHESTER', 'PICKERINGTON', 'WESTERVILLE'}
+
 def _build_city_county_map(logger=None):
     """
     Build docs/data/city_county_map.json: { "CITY NAME": ["county_slug", ...] }.
@@ -80,6 +82,8 @@ def _build_city_county_map(logger=None):
     import json
     data_dir = BASE_DIR / 'docs' / 'data'
     city_counties: dict[str, set[str]] = {}
+    city_identities: dict[str, dict[str, set[str]]] = {}
+    
     indexes = sorted(data_dir.glob('*_precinct_index.json'))
     for idx_path in indexes:
         slug = idx_path.name[:-len('_precinct_index.json')]
@@ -93,8 +97,28 @@ def _build_city_county_map(logger=None):
             city = (prec.get('city') or '').strip().upper()
             if city:
                 city_counties.setdefault(city, set()).add(slug)
+                idents = city_identities.setdefault(city, {}).setdefault(slug, set())
+                for f in ['local_school_district', 'exempted_vill_school_district', 'city_school_district', 'municipal_court_district']:
+                    if prec.get(f):
+                        idents.add(f"{f}:{prec[f].strip().upper()}")
 
-    out = {city: sorted(slugs) for city, slugs in sorted(city_counties.items())}
+    out = {}
+    flagged = []
+    
+    for city, slugs in sorted(city_counties.items()):
+        slugs_list = sorted(slugs)
+        if len(slugs_list) > 1 and city not in EARNED_UNIFORMITY_ALLOWLIST:
+            # Earned uniformity: intersection of identity sets across these counties must be non-empty
+            county_sets = [city_identities[city][s] for s in slugs_list]
+            shared = set.intersection(*county_sets) if county_sets else set()
+            if not shared:
+                msg = f"Earned-Uniformity Guard: City '{city}' spans counties {slugs_list} but shares no school/court district. Excluding from merge."
+                if logger:
+                    logger.warning(msg)
+                flagged.append(city)
+                continue
+        out[city] = slugs_list
+
     dest = data_dir / 'city_county_map.json'
     dest.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding='utf-8')
     if logger:

@@ -502,13 +502,62 @@ def check_ward_schema_abuse(lf: pl.LazyFrame) -> list[dict]:
     return abuse_rows
 
 
+def check_earned_uniformity(lf: pl.LazyFrame) -> list[dict]:
+    """[11] Detect cross-county city merges that fail the earned-uniformity guard."""
+    from pipeline.voter_data_cleaner import _dominant_per_precinct, _dominant_city_per_precinct
+    from pipeline.ohio_voter_pipeline import EARNED_UNIFORMITY_ALLOWLIST
+    from tools.admin.data_profile import COUNTY_NAME
+    df = lf.select(['COUNTY_NUMBER', 'PRECINCT_NAME', 'CITY', 'VILLAGE', 'WARD', 'TOWNSHIP', 'RESIDENTIAL_CITY', 
+                    'LOCAL_SCHOOL_DISTRICT', 'EXEMPTED_VILL_SCHOOL_DISTRICT', 'CITY_SCHOOL_DISTRICT', 'MUNICIPAL_COURT_DISTRICT']).collect()
+    
+    city_counties = {}
+    city_identities = {}
+    
+    for (county_number,), cdf in df.group_by(['COUNTY_NUMBER']):
+        county_slug = COUNTY_NAME[county_number].lower().replace(' ', '_')
+        cities = _dominant_city_per_precinct(cdf)
+        dom_local = _dominant_per_precinct(cdf, 'LOCAL_SCHOOL_DISTRICT')
+        dom_ev = _dominant_per_precinct(cdf, 'EXEMPTED_VILL_SCHOOL_DISTRICT')
+        dom_city = _dominant_per_precinct(cdf, 'CITY_SCHOOL_DISTRICT')
+        dom_muni = _dominant_per_precinct(cdf, 'MUNICIPAL_COURT_DISTRICT')
+        
+        for pr, city in cities.items():
+            if not city: continue
+            city = city.strip().upper()
+            city_counties.setdefault(city, set()).add(county_slug)
+            idents = city_identities.setdefault(city, {}).setdefault(county_slug, set())
+            
+            for field, dom_dict in [('LOCAL_SCHOOL_DISTRICT', dom_local), 
+                                  ('EXEMPTED_VILL_SCHOOL_DISTRICT', dom_ev), 
+                                  ('CITY_SCHOOL_DISTRICT', dom_city), 
+                                  ('MUNICIPAL_COURT_DISTRICT', dom_muni)]:
+                v = dom_dict.get(pr)
+                if v:
+                    idents.add(f"{field}:{v.strip().upper()}")
+                    
+    violations = []
+    
+    for city, slugs in sorted(city_counties.items()):
+        slugs_list = sorted(slugs)
+        if len(slugs_list) > 1 and city not in EARNED_UNIFORMITY_ALLOWLIST:
+            county_sets = [city_identities[city][s] for s in slugs_list]
+            shared = set.intersection(*county_sets) if county_sets else set()
+            if not shared:
+                violations.append({
+                    'city': city,
+                    'counties': slugs_list,
+                })
+    return violations
+
+
 def _gap_slug(s: str) -> str:
     return re.sub(r'[^A-Z0-9]+', '-', s.upper()).strip('-')
 
 
 def build_ledger_rows(ward_defects: list[dict], abuse_rows: list[dict],
                        splits: list,
-                       postal_mislabels: list[dict] | None = None) -> list[dict]:
+                       postal_mislabels: list[dict] | None = None,
+                       uniformity_violations: list[dict] | None = None) -> list[dict]:
     """Part W7: turn this run's measured gaps into stable-ID ledger rows for
     DATA_QUALITY.md. One row per distinct state-data defect; IDs are stable
     across drops (county number + defect specifics) so the manual section can
@@ -545,6 +594,16 @@ def build_ledger_rows(ward_defects: list[dict], abuse_rows: list[dict],
             'affected_voters': m['voters'],
             'detail': (f"precinct {m['precinct']}: CITY/VILLAGE/WARD/"
                        f"TOWNSHIP blank; only RESIDENTIAL_CITY populated"),
+        })
+    for v in (uniformity_violations or []):
+        gap_id = f"UNEARNED-MERGE-{_gap_slug(v['city'])}"
+        counties_str = ', '.join(v['counties'])
+        rows.append({
+            'gap_id': gap_id, 'county': 'statewide',
+            'municipality': v['city'],
+            'defect_class': 'unearned multi-county merge (no shared districts)',
+            'affected_voters': 0,
+            'detail': f"spans {counties_str} with empty identity intersection",
         })
     if splits:
         total_voters = sum(v for *_, v in splits)
@@ -749,6 +808,7 @@ def main() -> int:
     collision_ok = True
     abuse_rows: list = []
     rule4_no_token = 0
+    uniformity_violations = []
     if not args.skip_ward:
         placeless_count = check_place_completeness(lf, args.show)
         ward_defects = check_ward_coverage(lf)
@@ -768,13 +828,22 @@ def main() -> int:
         rule4_no_token = sum(1 for v in census['violations']
                              if v['check'] == 'RULE4-NO-TOKEN')
 
+        print('\n[11] EARNED-UNIFORMITY GUARD')
+        uniformity_violations = check_earned_uniformity(lf)
+        if uniformity_violations:
+            print(f"  {len(uniformity_violations)} multi-county cities failed identity intersection:")
+            for v in uniformity_violations:
+                print(f"    {v['city']} spans {v['counties']}")
+        else:
+            print(f"  OK (all multi-county cities share district identity or are allowlisted)")
+
     if args.ledger:
         if args.skip_ward:
             print('ERROR: --ledger requires sections [5]-[9] (drop --skip-ward)',
                   file=sys.stderr)
             return 2
         ledger_rows = build_ledger_rows(ward_defects, abuse_rows, splits,
-                                        confirmed)
+                                        confirmed, uniformity_violations)
         write_ledger(ledger_rows, date.today().isoformat())
 
     print(f'\n[SUMMARY]')
@@ -815,6 +884,8 @@ def main() -> int:
         if rule4_no_token:
             failures.append(f'{rule4_no_token} census RULE4-NO-TOKEN precincts '
                              f'(resolver token-gate regression; must be zero)')
+        if uniformity_violations:
+            failures.append(f'{len(uniformity_violations)} unearned multi-county merges (must be zero or allowlisted)')
         if len(splits) > SPLIT_PRECINCT_BASELINE:
             failures.append(f'split precincts grew to {len(splits)} '
                              f'(baseline {SPLIT_PRECINCT_BASELINE})')
