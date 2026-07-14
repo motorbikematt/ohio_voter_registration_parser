@@ -2421,7 +2421,21 @@ def _normalize_city_name(name: str) -> str:
 
 
 def _dominant_per_precinct(df: pl.DataFrame, value_col: str) -> dict:
-    """PRECINCT_NAME -> most-frequent non-blank value of value_col."""
+    """PRECINCT_NAME -> most-frequent non-blank value of value_col.
+    
+    TODO: This lossy "dominant" compression is a hacky workaround that must be revisited.
+    The problem stems from the fact that precincts often get consolidated or split at
+    separate cadences than other political subdivisions, such as Municipal court districts,
+    which are not districts intended for voter management. Congressional redistricting is
+    governed by Article XIX of the Ohio Constitution, while census and population shifts
+    trigger ORC 3501.18(A): "each precinct shall contain a number of electors, not to exceed
+    one thousand four hundred, that the board of elections determines to be a reasonable
+    number after taking into consideration the type and amount of available equipment...".
+    Because BOEs draw precinct lines around equipment capacity rather than strict civic
+    boundaries, single precincts routinely bisect multiple jurisdictions, leading to split
+    resolutions and exact mathematical ties (e.g., Milford A, Fultonham, Windham Twp B)
+    that are arbitrarily collapsed here.
+    """
     work = (
         df.select([
             pl.col('PRECINCT_NAME'),
