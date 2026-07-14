@@ -4,10 +4,9 @@
   "precinct": "PRECINCT AUS 20",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-06-22",
+  "updated": "2026-07-14",
   "chartConfig": {
     "labels": [
-      "1920s",
       "1930s",
       "1940s",
       "1950s",
@@ -22,14 +21,13 @@
         "label": "Pure R",
         "data": [
           0,
-          1,
+          4,
           5,
           6,
-          11,
-          1,
-          5,
-          10,
-          2
+          3,
+          7,
+          8,
+          3
         ],
         "backgroundColor": "#ef4444",
         "borderRadius": 3,
@@ -38,15 +36,14 @@
       {
         "label": "UNC – Lapsed R",
         "data": [
-          0,
-          0,
           1,
-          1,
-          12,
-          5,
-          5,
+          2,
+          2,
           14,
-          1
+          4,
+          5,
+          16,
+          2
         ],
         "backgroundColor": "#fca5a5",
         "borderRadius": 3,
@@ -55,13 +52,12 @@
       {
         "label": "Mixed – Active",
         "data": [
-          0,
           1,
+          10,
+          18,
+          15,
           13,
-          19,
-          13,
-          8,
-          5,
+          7,
           1,
           0
         ],
@@ -72,14 +68,13 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          0,
           1,
-          6,
+          9,
           12,
-          14,
           13,
-          6,
-          4,
+          12,
+          7,
+          5,
           0
         ],
         "backgroundColor": "#a78bfa",
@@ -89,15 +84,14 @@
       {
         "label": "UNC – No Primary",
         "data": [
-          0,
           4,
-          8,
+          7,
           20,
           27,
-          61,
-          77,
-          149,
-          103
+          57,
+          74,
+          143,
+          97
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,
@@ -106,15 +100,14 @@
       {
         "label": "UNC – Lapsed D",
         "data": [
-          0,
-          4,
-          15,
-          24,
-          34,
-          54,
-          44,
-          29,
-          2
+          5,
+          13,
+          23,
+          31,
+          45,
+          41,
+          23,
+          1
         ],
         "backgroundColor": "#93c5fd",
         "borderRadius": 3,
@@ -123,15 +116,14 @@
       {
         "label": "Pure D",
         "data": [
-          1,
-          4,
-          17,
-          29,
-          16,
-          5,
-          4,
-          5,
-          2
+          2,
+          20,
+          31,
+          18,
+          11,
+          6,
+          14,
+          6
         ],
         "backgroundColor": "#3b82f6",
         "borderRadius": 3,

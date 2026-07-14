@@ -4,7 +4,7 @@
   "precinct": "PRECINCT STR3 A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-06-22",
+  "updated": "2026-07-14",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -21,13 +21,13 @@
         "label": "Pure R",
         "data": [
           0,
-          2,
-          2,
-          2,
-          2,
+          1,
+          4,
+          1,
           2,
           1,
-          1
+          1,
+          0
         ],
         "backgroundColor": "#ef4444",
         "borderRadius": 3,
@@ -38,12 +38,12 @@
         "data": [
           0,
           0,
-          1,
-          2,
+          0,
           3,
-          4,
           3,
-          0
+          5,
+          3,
+          1
         ],
         "backgroundColor": "#fca5a5",
         "borderRadius": 3,
@@ -52,10 +52,10 @@
       {
         "label": "Mixed – Active",
         "data": [
-          1,
-          1,
+          0,
+          2,
+          13,
           14,
-          16,
           4,
           2,
           1,
@@ -68,13 +68,13 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          0,
           1,
-          6,
-          2,
+          1,
+          8,
+          5,
           5,
           2,
-          4,
+          3,
           0
         ],
         "backgroundColor": "#a78bfa",
@@ -86,12 +86,12 @@
         "data": [
           0,
           2,
-          16,
-          27,
-          39,
-          42,
-          69,
-          31
+          14,
+          26,
+          38,
+          40,
+          68,
+          30
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,
@@ -101,13 +101,13 @@
         "label": "UNC – Lapsed D",
         "data": [
           1,
-          12,
-          29,
-          28,
-          15,
-          19,
-          10,
-          0
+          11,
+          26,
+          33,
+          18,
+          18,
+          9,
+          1
         ],
         "backgroundColor": "#93c5fd",
         "borderRadius": 3,
@@ -118,11 +118,11 @@
         "data": [
           0,
           3,
-          18,
-          13,
-          13,
-          2,
-          2,
+          20,
+          8,
+          11,
+          4,
+          7,
           2
         ],
         "backgroundColor": "#3b82f6",

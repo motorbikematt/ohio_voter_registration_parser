@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,420 (9%)",
+      "UNC – Lapsed R — 1,792 (11%)",
+      "Mixed – Active — 2,013 (12%)",
+      "Mixed – Lapsed — 1,625 (10%)",
+      "UNC – No Primary — 5,149 (31%)",
+      "UNC – Lapsed D — 1,982 (12%)",
+      "Pure D — 2,454 (15%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1420,
+          1792,
+          2013,
+          1625,
+          5149,
+          1982,
+          2454
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-14 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "ROCKY RIVER CITY",
+  "updated": "2026-07-14"
+}

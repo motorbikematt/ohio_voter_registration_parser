@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 901 (22%)",
+      "UNC – Lapsed R — 590 (14%)",
+      "Mixed – Active — 296 (7%)",
+      "Mixed – Lapsed — 366 (9%)",
+      "UNC – No Primary — 1,517 (37%)",
+      "UNC – Lapsed D — 251 (6%)",
+      "Pure D — 186 (5%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          901,
+          590,
+          296,
+          366,
+          1517,
+          251,
+          186
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-14 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "UPPER SANDUSKY CITY",
+  "updated": "2026-07-14"
+}

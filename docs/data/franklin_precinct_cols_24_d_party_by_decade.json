@@ -4,7 +4,7 @@
   "precinct": "COLS 24-D",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-06-22",
+  "updated": "2026-07-14",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -20,13 +20,13 @@
       {
         "label": "Pure R",
         "data": [
-          1,
+          0,
           1,
           4,
-          2,
           1,
-          0,
           2,
+          0,
+          4,
           1
         ],
         "backgroundColor": "#ef4444",
@@ -36,13 +36,13 @@
       {
         "label": "UNC – Lapsed R",
         "data": [
-          0,
+          1,
           2,
           5,
-          4,
+          5,
+          2,
           3,
-          3,
-          3,
+          2,
           1
         ],
         "backgroundColor": "#fca5a5",
@@ -53,12 +53,12 @@
         "label": "Mixed – Active",
         "data": [
           0,
-          3,
-          1,
-          8,
-          3,
+          4,
+          2,
+          7,
           1,
           2,
+          1,
           0
         ],
         "backgroundColor": "#f59e0b",
@@ -69,13 +69,13 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          2,
-          5,
-          2,
-          12,
-          4,
           1,
-          2
+          5,
+          4,
+          11,
+          4,
+          3,
+          1
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 3,
@@ -85,13 +85,13 @@
         "label": "UNC – No Primary",
         "data": [
           2,
-          6,
-          42,
+          7,
+          40,
           59,
-          91,
-          135,
-          205,
-          122
+          92,
+          130,
+          198,
+          124
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,
@@ -101,12 +101,12 @@
         "label": "UNC – Lapsed D",
         "data": [
           5,
-          17,
-          32,
-          37,
-          43,
+          18,
+          28,
           33,
-          21,
+          36,
+          29,
+          17,
           2
         ],
         "backgroundColor": "#93c5fd",
@@ -117,13 +117,13 @@
         "label": "Pure D",
         "data": [
           2,
-          11,
-          25,
-          14,
-          15,
-          11,
-          7,
-          3
+          9,
+          30,
+          19,
+          23,
+          16,
+          16,
+          8
         ],
         "backgroundColor": "#3b82f6",
         "borderRadius": 3,

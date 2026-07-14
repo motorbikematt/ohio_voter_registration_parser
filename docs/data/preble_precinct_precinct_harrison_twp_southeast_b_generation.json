@@ -4,19 +4,21 @@
   "precinct": "PRECINCT HARRISON TWP SOUTHEAST-B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-06-22",
+  "updated": "2026-07-14",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Gen X",
-      "Millennials"
+      "Millennials",
+      "Gen Z"
     ],
     "datasets": [
       {
         "label": "Registered Voters",
         "data": [
+          4,
           3,
-          3
+          1
         ],
         "backgroundColor": "#3b82f6",
         "borderRadius": 4

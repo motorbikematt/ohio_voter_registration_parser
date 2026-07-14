@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,274 (7%)",
+      "UNC – Lapsed R — 1,310 (7%)",
+      "Mixed – Active — 1,954 (11%)",
+      "Mixed – Lapsed — 1,591 (9%)",
+      "UNC – No Primary — 6,057 (34%)",
+      "UNC – Lapsed D — 2,334 (13%)",
+      "Pure D — 3,226 (18%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1274,
+          1310,
+          1954,
+          1591,
+          6057,
+          2334,
+          3226
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-14 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "SOLON CITY",
+  "updated": "2026-07-14"
+}

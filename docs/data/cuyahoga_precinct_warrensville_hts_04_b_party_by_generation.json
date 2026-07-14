@@ -4,7 +4,7 @@
   "precinct": "WARRENSVILLE HTS-04-B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-06-22",
+  "updated": "2026-07-14",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -19,10 +19,10 @@
         "label": "Pure R",
         "data": [
           0,
+          1,
           0,
           0,
-          0,
-          0
+          1
         ],
         "backgroundColor": "#ef4444",
         "borderRadius": 2,
@@ -32,7 +32,7 @@
         "label": "UNC – Lapsed R",
         "data": [
           0,
-          1,
+          0,
           1,
           1,
           0
@@ -59,9 +59,9 @@
         "data": [
           0,
           5,
+          3,
           2,
-          2,
-          1
+          0
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 2,
@@ -71,10 +71,10 @@
         "label": "UNC – No Primary",
         "data": [
           3,
-          52,
+          46,
           64,
-          127,
-          78
+          125,
+          76
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 2,
@@ -83,11 +83,11 @@
       {
         "label": "UNC – Lapsed D",
         "data": [
-          22,
-          65,
-          40,
-          30,
-          4
+          25,
+          63,
+          36,
+          27,
+          5
         ],
         "backgroundColor": "#93c5fd",
         "borderRadius": 2,
@@ -96,11 +96,11 @@
       {
         "label": "Pure D",
         "data": [
-          35,
-          67,
-          8,
-          5,
-          1
+          31,
+          70,
+          9,
+          7,
+          4
         ],
         "backgroundColor": "#3b82f6",
         "borderRadius": 2,

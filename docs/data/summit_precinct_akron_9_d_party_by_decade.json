@@ -4,10 +4,9 @@
   "precinct": "AKRON 9-D",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-06-22",
+  "updated": "2026-07-14",
   "chartConfig": {
     "labels": [
-      "1920s",
       "1930s",
       "1940s",
       "1950s",
@@ -22,13 +21,12 @@
         "label": "Pure R",
         "data": [
           0,
-          0,
           3,
           7,
+          8,
           5,
-          5,
-          4,
           2,
+          3,
           2
         ],
         "backgroundColor": "#ef4444",
@@ -39,12 +37,11 @@
         "label": "UNC – Lapsed R",
         "data": [
           0,
-          0,
           3,
-          9,
-          16,
+          10,
           14,
-          3,
+          14,
+          5,
           5,
           0
         ],
@@ -56,13 +53,12 @@
         "label": "Mixed – Active",
         "data": [
           0,
-          1,
-          10,
-          14,
-          13,
-          4,
+          9,
+          12,
+          12,
           6,
           3,
+          1,
           0
         ],
         "backgroundColor": "#f59e0b",
@@ -72,13 +68,12 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          0,
-          1,
+          2,
           6,
-          4,
-          13,
-          8,
+          6,
+          16,
           7,
+          9,
           3,
           1
         ],
@@ -89,15 +84,14 @@
       {
         "label": "UNC – No Primary",
         "data": [
-          1,
           0,
           13,
-          34,
-          64,
-          80,
-          120,
-          183,
-          108
+          32,
+          63,
+          83,
+          122,
+          182,
+          110
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,
@@ -106,15 +100,14 @@
       {
         "label": "UNC – Lapsed D",
         "data": [
-          0,
           3,
           16,
-          20,
-          27,
           31,
-          51,
-          25,
-          1
+          36,
+          34,
+          50,
+          33,
+          2
         ],
         "backgroundColor": "#93c5fd",
         "borderRadius": 3,
@@ -123,15 +116,14 @@
       {
         "label": "Pure D",
         "data": [
-          0,
           2,
           8,
-          33,
-          27,
-          19,
-          11,
-          11,
-          3
+          23,
+          17,
+          15,
+          13,
+          10,
+          5
         ],
         "backgroundColor": "#3b82f6",
         "borderRadius": 3,

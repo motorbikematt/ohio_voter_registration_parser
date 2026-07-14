@@ -4,7 +4,7 @@
   "precinct": "PRECINCT KENT 4-B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-06-22",
+  "updated": "2026-07-14",
   "chartConfig": {
     "labels": [
       "1940s",
@@ -19,11 +19,11 @@
       {
         "label": "Pure R",
         "data": [
-          2,
-          3,
           1,
+          3,
           0,
-          2,
+          0,
+          1,
           2,
           2
         ],
@@ -34,11 +34,11 @@
       {
         "label": "UNC – Lapsed R",
         "data": [
-          0,
-          0,
-          0,
+          1,
           0,
           1,
+          0,
+          2,
           2,
           1
         ],
@@ -50,8 +50,8 @@
         "label": "Mixed – Active",
         "data": [
           1,
-          1,
-          4,
+          3,
+          5,
           0,
           0,
           0,
@@ -65,11 +65,11 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
+          0,
+          1,
+          1,
+          1,
           2,
-          1,
-          1,
-          1,
-          1,
           0
         ],
         "backgroundColor": "#a78bfa",
@@ -80,12 +80,12 @@
         "label": "UNC – No Primary",
         "data": [
           0,
-          4,
+          2,
           6,
           8,
-          13,
-          70,
-          187
+          12,
+          72,
+          188
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,
@@ -94,13 +94,13 @@
       {
         "label": "UNC – Lapsed D",
         "data": [
-          1,
-          4,
+          0,
           3,
+          2,
           3,
-          6,
-          9,
-          7
+          5,
+          8,
+          5
         ],
         "backgroundColor": "#93c5fd",
         "borderRadius": 3,
@@ -109,13 +109,13 @@
       {
         "label": "Pure D",
         "data": [
-          0,
-          0,
+          1,
+          4,
           1,
           2,
-          3,
-          3,
-          6
+          4,
+          4,
+          11
         ],
         "backgroundColor": "#3b82f6",
         "borderRadius": 3,

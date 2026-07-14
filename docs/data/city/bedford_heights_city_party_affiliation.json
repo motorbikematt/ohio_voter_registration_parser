@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 52 (1%)",
+      "UNC – Lapsed R — 81 (1%)",
+      "Mixed – Active — 163 (2%)",
+      "Mixed – Lapsed — 186 (3%)",
+      "UNC – No Primary — 3,101 (43%)",
+      "UNC – Lapsed D — 1,904 (26%)",
+      "Pure D — 1,759 (24%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          52,
+          81,
+          163,
+          186,
+          3101,
+          1904,
+          1759
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-14 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "BEDFORD HEIGHTS CITY",
+  "updated": "2026-07-14"
+}

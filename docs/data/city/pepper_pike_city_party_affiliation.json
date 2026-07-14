@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 307 (5%)",
+      "UNC – Lapsed R — 516 (9%)",
+      "Mixed – Active — 681 (12%)",
+      "Mixed – Lapsed — 719 (13%)",
+      "UNC – No Primary — 1,762 (31%)",
+      "UNC – Lapsed D — 839 (15%)",
+      "Pure D — 914 (16%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          307,
+          516,
+          681,
+          719,
+          1762,
+          839,
+          914
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-14 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "PEPPER PIKE CITY",
+  "updated": "2026-07-14"
+}

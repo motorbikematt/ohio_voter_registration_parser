@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 751 (11%)",
+      "UNC – Lapsed R — 824 (12%)",
+      "Mixed – Active — 813 (12%)",
+      "Mixed – Lapsed — 632 (9%)",
+      "UNC – No Primary — 2,183 (32%)",
+      "UNC – Lapsed D — 864 (13%)",
+      "Pure D — 808 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          751,
+          824,
+          813,
+          632,
+          2183,
+          864,
+          808
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-14 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "HIGHLAND HEIGHTS CITY",
+  "updated": "2026-07-14"
+}

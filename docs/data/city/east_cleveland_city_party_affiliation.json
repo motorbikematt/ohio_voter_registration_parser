@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 16 (0%)",
+      "UNC – Lapsed R — 47 (0%)",
+      "Mixed – Active — 104 (1%)",
+      "Mixed – Lapsed — 277 (3%)",
+      "UNC – No Primary — 5,528 (55%)",
+      "UNC – Lapsed D — 2,476 (24%)",
+      "Pure D — 1,692 (17%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          16,
+          47,
+          104,
+          277,
+          5528,
+          2476,
+          1692
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-14 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "EAST CLEVELAND CITY",
+  "updated": "2026-07-14"
+}

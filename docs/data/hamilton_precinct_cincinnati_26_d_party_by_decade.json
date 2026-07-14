@@ -4,10 +4,9 @@
   "precinct": "CINCINNATI 26-D",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-06-22",
+  "updated": "2026-07-14",
   "chartConfig": {
     "labels": [
-      "1920s",
       "1930s",
       "1940s",
       "1950s",
@@ -22,13 +21,12 @@
         "label": "Pure R",
         "data": [
           0,
+          1,
+          1,
+          1,
           0,
           2,
           1,
-          0,
-          1,
-          2,
-          2,
           0
         ],
         "backgroundColor": "#ef4444",
@@ -38,14 +36,13 @@
       {
         "label": "UNC – Lapsed R",
         "data": [
-          1,
           0,
           2,
           3,
-          5,
-          3,
           4,
-          0,
+          4,
+          4,
+          2,
           0
         ],
         "backgroundColor": "#fca5a5",
@@ -55,12 +52,11 @@
       {
         "label": "Mixed – Active",
         "data": [
+          1,
+          5,
+          7,
           0,
           1,
-          4,
-          5,
-          0,
-          0,
           0,
           0,
           0
@@ -73,13 +69,12 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          0,
-          2,
-          3,
-          4,
           1,
           2,
+          3,
+          1,
           2,
+          1,
           0
         ],
         "backgroundColor": "#a78bfa",
@@ -89,15 +84,14 @@
       {
         "label": "UNC – No Primary",
         "data": [
-          0,
           2,
           13,
-          61,
-          103,
-          118,
-          162,
-          182,
-          112
+          62,
+          102,
+          120,
+          171,
+          185,
+          118
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,
@@ -106,14 +100,13 @@
       {
         "label": "UNC – Lapsed D",
         "data": [
-          0,
           4,
-          25,
-          60,
-          64,
-          34,
+          24,
+          55,
+          58,
           33,
-          17,
+          34,
+          16,
           0
         ],
         "backgroundColor": "#93c5fd",
@@ -124,13 +117,12 @@
         "label": "Pure D",
         "data": [
           0,
-          0,
-          10,
-          23,
-          11,
+          12,
+          29,
+          18,
+          5,
           5,
           6,
-          5,
           0
         ],
         "backgroundColor": "#3b82f6",

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 734 (19%)",
+      "UNC – Lapsed R — 453 (12%)",
+      "Mixed – Active — 323 (8%)",
+      "Mixed – Lapsed — 351 (9%)",
+      "UNC – No Primary — 1,541 (39%)",
+      "UNC – Lapsed D — 266 (7%)",
+      "Pure D — 242 (6%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          734,
+          453,
+          323,
+          351,
+          1541,
+          266,
+          242
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-14 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "CLYDE CITY",
+  "updated": "2026-07-14"
+}

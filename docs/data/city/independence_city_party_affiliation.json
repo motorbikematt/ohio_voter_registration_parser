@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 1,102 (19%)",
+      "UNC – Lapsed R — 480 (8%)",
+      "Mixed – Active — 1,049 (18%)",
+      "Mixed – Lapsed — 710 (12%)",
+      "UNC – No Primary — 1,331 (23%)",
+      "UNC – Lapsed D — 496 (8%)",
+      "Pure D — 742 (13%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          1102,
+          480,
+          1049,
+          710,
+          1331,
+          496,
+          742
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-14 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "INDEPENDENCE CITY",
+  "updated": "2026-07-14"
+}

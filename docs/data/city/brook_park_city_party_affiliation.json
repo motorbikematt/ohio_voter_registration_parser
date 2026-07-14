@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 614 (5%)",
+      "UNC – Lapsed R — 794 (7%)",
+      "Mixed – Active — 1,097 (9%)",
+      "Mixed – Lapsed — 1,076 (9%)",
+      "UNC – No Primary — 5,086 (42%)",
+      "UNC – Lapsed D — 2,055 (17%)",
+      "Pure D — 1,480 (12%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          614,
+          794,
+          1097,
+          1076,
+          5086,
+          2055,
+          1480
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-14 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "City",
+  "jurisdiction_name": "BROOK PARK CITY",
+  "updated": "2026-07-14"
+}

@@ -4,18 +4,20 @@
   "precinct": "PRECINCT HARRISON TWP SOUTHEAST-B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-06-22",
+  "updated": "2026-07-14",
   "chartConfig": {
     "labels": [
       "1970s",
-      "1980s"
+      "1980s",
+      "2000s"
     ],
     "datasets": [
       {
         "label": "Pure R",
         "data": [
           2,
-          2
+          2,
+          0
         ],
         "backgroundColor": "#ef4444",
         "borderRadius": 3,
@@ -24,6 +26,7 @@
       {
         "label": "UNC – Lapsed R",
         "data": [
+          0,
           0,
           0
         ],
@@ -35,6 +38,7 @@
         "label": "Mixed – Active",
         "data": [
           0,
+          0,
           0
         ],
         "backgroundColor": "#f59e0b",
@@ -45,6 +49,7 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
+          0,
           0
         ],
         "backgroundColor": "#a78bfa",
@@ -54,6 +59,7 @@
       {
         "label": "UNC – No Primary",
         "data": [
+          2,
           1,
           1
         ],
@@ -65,6 +71,7 @@
         "label": "UNC – Lapsed D",
         "data": [
           0,
+          0,
           0
         ],
         "backgroundColor": "#93c5fd",
@@ -74,6 +81,7 @@
       {
         "label": "Pure D",
         "data": [
+          0,
           0,
           0
         ],

@@ -1,0 +1,41 @@
+{
+  "title": "Party Affiliation",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "Pure R — 279 (9%)",
+      "UNC – Lapsed R — 339 (11%)",
+      "Mixed – Active — 290 (10%)",
+      "Mixed – Lapsed — 274 (9%)",
+      "UNC – No Primary — 954 (32%)",
+      "UNC – Lapsed D — 392 (13%)",
+      "Pure D — 499 (16%)"
+    ],
+    "datasets": [
+      {
+        "data": [
+          279,
+          339,
+          290,
+          274,
+          954,
+          392,
+          499
+        ],
+        "backgroundColor": [
+          "#ef4444",
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd",
+          "#3b82f6"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-14 — Ohio Secretary of State SWVF voter file — partisan spectrum: affiliated + behavioral cohorts.",
+  "geography": "Ward",
+  "jurisdiction_name": "BAY VILLAGE WARD 1 (BAY VILLAGE Village)",
+  "updated": "2026-07-14"
+}

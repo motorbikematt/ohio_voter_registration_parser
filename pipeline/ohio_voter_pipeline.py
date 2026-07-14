@@ -61,7 +61,10 @@ def _load_generate_narratives():
 
 # ── Cross-county city map ───────────────────────────────────────────────────────
 
-EARNED_UNIFORMITY_ALLOWLIST = {'CANAL WINCHESTER', 'PICKERINGTON', 'WESTERVILLE'}
+EARNED_UNIFORMITY_ALLOWLIST = {
+    'CANAL WINCHESTER', 'CENTERVILLE', 'COLUMBUS', 'DUBLIN',
+    'HUBER HEIGHTS', 'MILFORD', 'PICKERINGTON', 'REYNOLDSBURG', 'WESTERVILLE'
+}
 
 def _build_city_county_map(logger=None):
     """
@@ -676,7 +679,6 @@ def _dispatch(
         #   cities, townships, villages, local/city/exempted school districts,
         #   state senate/rep/congressional districts, county/municipal court
         #   districts, and court of appeals.
-        #   jurisdictions_to_process=None means all 12 types run in sequence.
         import jurisdictional_groupings as jg
         jg_logger, _ = jg.setup_logger()
         jg_logger.info("Running jurisdictional groupings — all 12 types...")

@@ -1,0 +1,35 @@
+{
+  "title": "UNC Shadow Partisanship",
+  "type": "doughnut",
+  "chartConfig": {
+    "labels": [
+      "UNC – Lapsed R — 14",
+      "Mixed – Active — 28",
+      "Mixed – Lapsed — 68",
+      "UNC – No Primary — 1,174",
+      "UNC – Lapsed D — 533"
+    ],
+    "datasets": [
+      {
+        "data": [
+          14,
+          28,
+          68,
+          1174,
+          533
+        ],
+        "backgroundColor": [
+          "#fca5a5",
+          "#f59e0b",
+          "#a78bfa",
+          "#9ca3af",
+          "#93c5fd"
+        ]
+      }
+    ]
+  },
+  "note": "Analysis run 2026-07-14 — Ohio Secretary of State SWVF voter file",
+  "geography": "Ward",
+  "jurisdiction_name": "MAPLE HEIGHTS DISTRICT 6 (MAPLE HEIGHTS City)",
+  "updated": "2026-07-14"
+}

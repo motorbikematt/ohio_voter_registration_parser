@@ -4,9 +4,10 @@
   "precinct": "BATH H",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-06-22",
+  "updated": "2026-07-14",
   "chartConfig": {
     "labels": [
+      "1920s",
       "1930s",
       "1940s",
       "1950s",
@@ -20,14 +21,15 @@
       {
         "label": "Pure R",
         "data": [
+          0,
           10,
-          36,
-          44,
-          33,
-          26,
-          15,
-          11,
-          5
+          34,
+          46,
+          34,
+          29,
+          21,
+          16,
+          6
         ],
         "backgroundColor": "#ef4444",
         "borderRadius": 3,
@@ -36,14 +38,15 @@
       {
         "label": "UNC – Lapsed R",
         "data": [
+          1,
           3,
-          9,
-          14,
-          16,
-          23,
+          11,
+          11,
           15,
-          9,
-          0
+          20,
+          13,
+          10,
+          1
         ],
         "backgroundColor": "#fca5a5",
         "borderRadius": 3,
@@ -52,13 +55,14 @@
       {
         "label": "Mixed – Active",
         "data": [
-          2,
-          19,
-          10,
-          8,
-          3,
-          2,
           0,
+          1,
+          17,
+          12,
+          11,
+          4,
+          4,
+          2,
           0
         ],
         "backgroundColor": "#f59e0b",
@@ -68,14 +72,15 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          2,
-          7,
-          8,
-          17,
-          8,
-          7,
+          0,
           3,
-          3
+          8,
+          7,
+          15,
+          8,
+          6,
+          3,
+          4
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 3,
@@ -85,13 +90,14 @@
         "label": "UNC – No Primary",
         "data": [
           0,
+          0,
           11,
           19,
-          22,
-          42,
-          55,
-          76,
-          74
+          21,
+          44,
+          49,
+          67,
+          71
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,
@@ -100,13 +106,14 @@
       {
         "label": "UNC – Lapsed D",
         "data": [
+          0,
           1,
+          4,
+          9,
+          7,
+          13,
           6,
-          8,
-          6,
-          14,
-          6,
-          3,
+          1,
           0
         ],
         "backgroundColor": "#93c5fd",
@@ -117,13 +124,14 @@
         "label": "Pure D",
         "data": [
           0,
-          7,
-          17,
-          7,
+          0,
           9,
+          17,
+          6,
+          11,
           3,
-          1,
-          2
+          2,
+          5
         ],
         "backgroundColor": "#3b82f6",
         "borderRadius": 3,
