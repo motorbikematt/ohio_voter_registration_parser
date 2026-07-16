@@ -410,6 +410,14 @@ def aggregate_jurisdiction(
     else:
         slug         = _slugify(jurisdiction_name)
         display_name = str(jurisdiction_name)
+        
+        if jurisdiction_type in ('Local School District', 'City School District', 'Exempted Village School District'):
+            import re
+            m = re.search(r'\s*\([^)]*\)$', display_name)
+            if m:
+                extracted_county = m.group(0).strip(' ()')
+                base_name = re.sub(r'\s*\([^)]*\)$', '', display_name)
+                display_name = f'{base_name.title()} ({extracted_county.title()} Co.)'
 
     note = f'Analysis run {today} — Ohio Secretary of State SWVF voter file'
 
