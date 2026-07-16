@@ -791,9 +791,16 @@ def build_ward_entities(df, election_cols, today, logger):
         )
         # inner join keeps only ward-holding, non-abuse rows; select the minimal
         # columns the chart aggregation needs (cohort_family, Decade) to keep the
-        # statewide concat small.
+        # statewide concat small. Must collapse internal whitespace the same way
+        # _ward_map_per_county does (map_df's WARD keys are already collapsed) --
+        # strip_chars() alone only trims leading/trailing space, so a raw value
+        # like Licking's 'CITY OF NEWARK  WD2' (irregular internal spacing) would
+        # never match map_df's collapsed 'CITY OF NEWARK WD2' key, silently
+        # dropping the entire ward from the join.
         sub = (
-            cn_frame.with_columns(pl.col('WARD').str.strip_chars().alias('WARD'))
+            cn_frame.with_columns(
+                pl.col('WARD').str.strip_chars().str.replace_all(r'\s+', ' ').alias('WARD')
+            )
                     .join(map_df, on='WARD', how='inner')
                     .select(['cohort_family', 'Decade', '_ward_slug'])
         )
