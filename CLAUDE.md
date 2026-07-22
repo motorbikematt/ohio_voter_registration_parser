@@ -10,7 +10,7 @@ Ohio Statewide Voter File (SWVF) parser and precinct-captain dashboard. Ingests 
 * Prefer Polars/DuckDB over Pandas for all pipeline code (out-of-core, vectorized, all 88 counties). Pandas is **not** banned outright: it is still a required dependency in `pipeline/jurisdictional_groupings.py`, `pipeline/ohio_voter_pipeline_wrapper.py`, and `tools/scoring/unc_lifetime_d_predictor.py`. Do not remove it without migrating those files first — dropping it breaks the runtime.
 
 ## 3. Architecture (repo layout)
-* `docs/` — public web root (GitHub Pages): `index.htm`, `assets/`, `charts.js`, `data/` (compiled JSON), `captain/`, `manifest.json`, `CNAME`. Frontend/UI conventions: see §11 (kept out of `docs/` so they are never published).
+* `docs/` — public web root (GitHub Pages): `index.htm` (landing page — redirects any dashboard-state URL to `app.htm`), `app.htm` (the V2 dashboard), `assets/`, `charts.js`, `data/` (compiled JSON), `captain/`, `manifest.json`, `CNAME`. Frontend/UI conventions: see §11 (kept out of `docs/` so they are never published).
 * `pipeline/` — core cleaning/generation: `voter_data_cleaner.py`, `ohio_voter_pipeline.py`, `jurisdictional_groupings.py`, `ohio_voter_pipeline_wrapper.py`.
 * `tools/` — segmented by function: `export/`, `lookup/`, `admin/`, `narrative/`, `scoring/`, `tests/`.
 * `serve/` — local PII backend (`roster_api.py`, `captain_db.py`); the *code* is committable and PII-free, reading PII only at runtime from `local/`.
