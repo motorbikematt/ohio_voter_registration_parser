@@ -278,6 +278,47 @@
     applyTransform();
   }
 
+  // ── Click-to-fit ─────────────────────────────────────────
+  // When zoomed in, a shape can be mostly off-screen; clicking it used to
+  // navigate away before you could see it. visibleFraction() measures how much
+  // of a shape currently falls inside the viewBox, and fitToShape() frames it.
+  // getBBox() is in untransformed viewport units -- the same space view.tx/ty/k
+  // operate in -- so no inverse-transform is needed.
+  var FIT_THRESHOLD = 0.6;   // below this visible fraction, frame before navigating
+  var FIT_PADDING   = 1.25;  // leave ~25% margin around the framed shape
+
+  function shapeBox(el) {
+    try { return el.getBBox(); } catch (err) { return null; }
+  }
+
+  function visibleFraction(box) {
+    // Shape bounds projected into viewBox coordinates under the current view.
+    var w = projection ? projection.width : 1000;
+    var h = projection ? projection.height : 1090;
+    var x0 = box.x * view.k + view.tx, x1 = (box.x + box.width) * view.k + view.tx;
+    var y0 = box.y * view.k + view.ty, y1 = (box.y + box.height) * view.k + view.ty;
+    var area = (x1 - x0) * (y1 - y0);
+    if (area <= 0) return 1;
+    var ix = Math.max(0, Math.min(x1, w) - Math.max(x0, 0));
+    var iy = Math.max(0, Math.min(y1, h) - Math.max(y0, 0));
+    return (ix * iy) / area;
+  }
+
+  function fitToShape(box) {
+    var w = projection ? projection.width : 1000;
+    var h = projection ? projection.height : 1090;
+    // Scale so the padded shape fits both axes, never below the current zoom
+    // (framing should not zoom the user back out) and never past MAX_K.
+    var k1 = Math.min(w / (box.width * FIT_PADDING), h / (box.height * FIT_PADDING));
+    k1 = clamp(k1, view.k, MAX_K);
+    var cx = box.x + box.width / 2, cy = box.y + box.height / 2;
+    view.k = k1;
+    view.tx = w / 2 - cx * k1;
+    view.ty = h / 2 - cy * k1;
+    clampPan();
+    applyTransform();
+  }
+
   // Wheel zoom, anchored at the cursor.
   svg.addEventListener('wheel', function (e) {
     e.preventDefault();
@@ -365,12 +406,37 @@
   svg.addEventListener('pointerleave', function () { hideTooltip(); });
 
   // Suppress the click that follows a drag so a pan never navigates.
+  // DRAG_SLOP is Manhattan (|dx|+|dy|, see pointermove), so diagonal drift
+  // scores ~1.4x the distance actually travelled. It was 4, which no hand can
+  // hold: a 3px diagonal wobble scored ~4.2 and the click was discarded, so
+  // shapes focused (yellow outline) but never navigated. 10 matches the slop
+  // common in map libraries.
+  // preventDefault() alone suppresses navigation -- do NOT add stopPropagation
+  // here; it hides the event from every other listener and is what made this
+  // bug invisible to debugging.
+  // moved resets on EVERY click, not just suppressed ones, so an interrupted
+  // gesture cannot swallow the next legitimate click.
+  var DRAG_SLOP = 10;
   svg.addEventListener('click', function (e) {
-    if (moved > 4) {
-      e.preventDefault();
-      e.stopPropagation();
-      moved = 0;
-    }
+    var wasDrag = moved > DRAG_SLOP;
+    moved = 0;
+    if (wasDrag) { e.preventDefault(); return; }
+
+    // Click-to-fit: if the clicked shape is mostly outside the viewport, the
+    // first click FRAMES it instead of navigating away from a shape the user
+    // cannot see; a second click then opens it. Shapes already in view navigate
+    // immediately, so the common case is unchanged. Modifier/middle clicks are
+    // explicit "open elsewhere" intents and always navigate.
+    if (view.k <= 1 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    var a = e.target.closest ? e.target.closest('a') : null;
+    if (!a) return;
+    var path = a.querySelector('path');
+    var box = path ? shapeBox(path) : null;
+    if (!box || !box.width || !box.height) return;
+    if (visibleFraction(box) >= FIT_THRESHOLD) return;   // visible enough -- navigate
+    e.preventDefault();
+    fitToShape(box);
+    hideTooltip();
   }, true);
 
   // ── Tooltip ──────────────────────────────────────────────
