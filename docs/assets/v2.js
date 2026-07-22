@@ -589,10 +589,15 @@
     GeoMap.loadGeoJSON(file).then(gj => {
       // The view may have changed while the fetch was in flight.
       if ((gen !== undefined && gen !== _mapGen) || ($('map')) !== root) return;
+      // With nothing selected there is nothing to contrast against, so
+      // 'selected' mode would dim every shape and the map would read as
+      // uniformly dark -- which is exactly what switching to Districts used
+      // to show. Fall back to 'all' until the user picks something.
+      const anySel = !!(selectedId || (compareIds && compareIds.some(Boolean)));
       GeoMap.render({
         container: root,
         geojson: gj,
-        mode: 'selected',
+        mode: anySel ? 'selected' : 'all',
         keyProp: 'id',
         selectedKey: selectedId || null,
         compareKeys: compareIds || null,
@@ -653,10 +658,13 @@
     const cmpSlugs = compareNames ? compareNames.filter(Boolean).map(countyToSlug) : null;
     GeoMap.loadGeoJSON(COUNTY_GEO_FILE).then(gj => {
       if ((gen !== undefined && gen !== _mapGen) || ($('map')) !== root) return;
+      // See renderDistrictMap: with no selection, 'selected' mode dims all 88
+      // and the statewide overview reads as a dark blank.
+      const anySel = !!(selSlug || (cmpSlugs && cmpSlugs.length));
       GeoMap.render({
         container: root,
         geojson: gj,
-        mode: 'selected',
+        mode: anySel ? 'selected' : 'all',
         keyProp: 'slug',
         selectedKey: selSlug,
         compareKeys: cmpSlugs,
@@ -1112,9 +1120,24 @@
           writeState({ level: 'precinct', id: precinct, county: county });
           emit('select_jurisdiction', { level: 'precinct', id: precinct, county, name });
         } else if (action === 'toggle-dtype') {
+          // Expanding a district type is also a MAP change: the map shows one
+          // district type at a time, so picking "State Senate" must repaint it
+          // with all 33. This used to renderHierarchy() and return early,
+          // skipping refreshView() below -- the tree expanded but the map
+          // stayed on whatever type was previously shown.
           const dtype = el.getAttribute('data-dtype');
-          S.district_type = S.district_type === dtype ? null : dtype;
+          const collapsing = S.district_type === dtype;
+          S.district_type = collapsing ? null : dtype;
+          // Leaving S.id pointing at a district of the type we just navigated
+          // away from would highlight an unrelated shape (ids are per-type).
+          const clearedId = (S.level === 'district' && !collapsing);
+          if (clearedId) S.id = null;
+          // writeState deletes a key whose value is null/undefined/'' -- so
+          // only pass `id` when we actually intend to drop it from the URL.
+          writeState(clearedId ? { type: S.district_type, id: null }
+                               : { type: S.district_type });
           await renderHierarchy();
+          await refreshView();
           return;
         } else if (action === 'select-district') {
           const dtype = el.getAttribute('data-dtype');
@@ -1839,16 +1862,26 @@
       const bName = (b && b.kind === 'county') ? slugToCountyName(b.id) : null;
       renderHexMap(window._leans, null, [aName, bName].filter(Boolean), gen);
     } else {
+      // Statewide overview: the URL carries no explicit ?id=, so nothing is
+      // selected and the map draws all 88 undimmed. S.level/S.id still read
+      // county/hamilton for the CENTER pane's benefit (no statewide data file
+      // exists), so the map scope is derived from the URL rather than from
+      // S.id -- otherwise switching back to Geography arrives with 87 counties
+      // greyed around one arbitrary highlight.
+      const explicitId = new URLSearchParams(location.search).get('id');
+
       // For a city, S.id is a CITY slug (not a county) and the view is always
       // the unified all-county report, so there's no single county to highlight.
-      const name = S.level === 'county' ? slugToCountyName(S.id) :
+      const name = !explicitId ? null :
+                   S.level === 'county' ? slugToCountyName(S.id) :
                    S.level === 'precinct' ? slugToCountyName(S.county || '') : null;
 
       // Which county's precinct geometry could serve this view? A county view
       // uses S.id; every sub-county level carries S.county. A bare city slug
       // spans counties by design (the unified report), so it has no single
       // county and stays on the statewide map.
-      const geoCounty = S.level === 'county' ? S.id :
+      const geoCounty = !explicitId ? null :
+                        S.level === 'county' ? S.id :
                         (S.level === 'precinct' || SUBCOUNTY_LEVELS.includes(S.level))
                           ? (S.county || null) : null;
 
@@ -2082,6 +2115,60 @@
       emit('compare_toggle', { on: !!S.compare });
       refreshView();
     };
+    // Geography / Districts toggle.
+    //
+    // These buttons previously carried data-tweak="view" plus an inline onclick
+    // firing a `view-set` CustomEvent that NOTHING listened for. The only
+    // [data-tweak] handler is bound inside buildTweaksPanel() and reaches just
+    // the buttons in that panel, so the toolbar pair was inert: the "click"
+    // was really the inline handler reloading the page with ?view=..., which
+    // left the map showing an all-dimmed layer (nothing selected yet) and the
+    // .active class stuck on Geography.
+    //
+    // Switching view is a real view change, so it goes through refreshView()
+    // -> renderMapForState(), the single map dispatch. Active styling is NOT
+    // set here: applyChrome() already publishes S.view to html[data-view], and
+    // v2.css styles the buttons off that -- one source of truth, no class to
+    // drift.
+    document.querySelectorAll('[data-view-btn]').forEach(b => {
+      b.onclick = async () => {
+        const val = b.getAttribute('data-view-btn');
+        if (S.view === val) return;
+        S.view = val;
+        // A selection made in one view cannot be shown by the other, so reset
+        // to that view's own overview rather than stranding S.level/S.id.
+        //
+        // There is no S.level === 'state': the hierarchy's own "Ohio" row
+        // (select-state, :1089) falls back to county/hamilton because no
+        // state-wide data file exists for all 88. Follow that same convention
+        // here -- inventing a 'state' level would leave refreshView() with no
+        // matching loadJurisdiction branch and an empty center pane.
+        S.county = null; S.city = null; S.compare = null;
+        if (val === 'district') {
+          // The hierarchy lists Congressional first; match it rather than
+          // inheriting whatever district type was last viewed.
+          S.district_type = 'congressional_district';
+          S.level = 'district'; S.id = null;
+          writeState({ view: val, level: null, id: null, county: null, city: null,
+                       type: 'congressional_district', compare: null });
+        } else {
+          // Geography's overview is the whole state. The center pane still
+          // needs a jurisdiction to report on (no statewide data file exists
+          // for all 88 -- see select-state, :1089), so S.level/S.id fall back
+          // to county/hamilton exactly as that row does. The MAP, though, must
+          // show all 88 undimmed: that is driven by the absence of ?id= in the
+          // URL, which renderMapForState() reads back -- not by a flag here.
+          S.district_type = null;
+          S.level = 'county'; S.id = 'hamilton';
+          writeState({ view: val, level: null, id: null, county: null,
+                       city: null, type: null, compare: null });
+        }
+        emit('view_change', { view: val });
+        applyChrome();
+        await refreshView();
+      };
+    });
+
     // Drawer toggles
     document.querySelectorAll('[data-drawer]').forEach(b => {
       b.onclick = () => {

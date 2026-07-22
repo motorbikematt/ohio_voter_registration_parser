@@ -23,7 +23,7 @@
 
   <header class="topbar">
     <div class="brand">
-      <div class="wordmark"><span class="dot"></span>Precincts<small>info</small></div>
+      <a class="wordmark" href="index.htm" aria-label="Precincts.info home"><span class="dot"></span>Precincts<small>info</small></a>
     </div>
     <div class="topbar-search">
       <input type="search" id="global-search" placeholder="Search counties, precincts, districts…" aria-label="Search" />
@@ -48,8 +48,8 @@
 
     <aside class="left-pane" id="left-pane" aria-label="Jurisdictional hierarchy">
       <div class="view-toggle">
-        <button class="active" data-tweak="view" data-val="geo" onclick="this.click=null;document.documentElement.dispatchEvent(new CustomEvent('view-set',{detail:'geo'}))">Geography</button>
-        <button data-tweak="view" data-val="district" onclick="document.documentElement.dispatchEvent(new CustomEvent('view-set',{detail:'district'}))">Districts</button>
+        <button type="button" data-view-btn="geo">Geography</button>
+        <button type="button" data-view-btn="district">Districts</button>
       </div>
       <div class="hierarchy scroll-y" id="hierarchy"></div>
     </aside>

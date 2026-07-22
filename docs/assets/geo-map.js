@@ -271,26 +271,56 @@
       if (isSel && cmpIdx < 0) cls.push('is-selected');
       if (cmpIdx === 0) cls.push('is-compare-a');
       if (cmpIdx === 1) cls.push('is-compare-b');
-      // 'selected' mode: only the highlighted shapes carry lean color;
+      // 'selected' mode: highlighted shapes carry the full lean color;
       // everything else is dimmed -- but keeps its stroke, so every
       // outline stays visible (the operator's actual request).
       var dimmed = (mode === 'selected' && !highlighted);
       if (dimmed) cls.push('is-dimmed');
 
+      // A dimmed shape keeps its lean HUE, mixed down toward the surface,
+      // rather than being flattened to one grey. Previously every unselected
+      // shape painted var(--surface-3), which discarded information the
+      // tooltip was still reporting ("Hancock County - -29.2% D-R") and, in
+      // dark mode, left the rest of the state a barely-visible flat mass.
+      // Mixing (not a blanket opacity) keeps red-vs-blue legible at a glance
+      // while the selection still clearly dominates; :hover in v2.css raises
+      // the same colour toward full strength.
+      var full = leanColor(lean);
+      var fill;
+      if (!dimmed) {
+        fill = full || 'var(--surface-3)';
+      } else if (full) {
+        fill = 'color-mix(in srgb, ' + full + ' 42%, var(--surface-3))';
+      } else {
+        fill = 'var(--surface-3)';   // genuinely no data: stays neutral
+      }
+
       var path = document.createElementNS(SVG_NS, 'path');
       path.setAttribute('d', geometryToPath(f.geometry, proj));
       path.setAttribute('fill-rule', 'evenodd');
-      path.setAttribute('fill', dimmed ? 'var(--surface-3)' : (leanColor(lean) || 'var(--surface-3)'));
+      path.setAttribute('fill', fill);
       path.setAttribute('stroke', 'var(--rule)');
       path.setAttribute('stroke-width', '0.6');
       path.setAttribute('vector-effect', 'non-scaling-stroke');
       path.setAttribute('class', cls.join(' '));
       if (key !== undefined && key !== null) path.setAttribute('data-key', String(key));
 
+      // Default tooltip carries name, the lean bucket in words, the signed
+      // margin, and registered voters where we have them -- the same facts the
+      // landing map already put in its aria-label. Hovering an unselected
+      // shape should answer "what is this and how does it lean?" without
+      // requiring a click. Native <title> keeps the browser's own hover
+      // timing, which the operator asked to preserve.
       var title = document.createElementNS(SVG_NS, 'title');
       title.textContent = opts.titleFor
         ? opts.titleFor(p)
-        : (name + (lean === null ? ' - data pending' : ' - ' + formatLean(lean)));
+        : (name +
+           (lean === null
+             ? ' - data pending'
+             : ' - ' + leanLabel(lean) + ' (' + formatLean(lean) + ')') +
+           (p.total_voters
+             ? ' - ' + Number(p.total_voters).toLocaleString() + ' registered'
+             : ''));
       path.appendChild(title);
 
       if (opts.hrefFor) {

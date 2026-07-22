@@ -18,38 +18,47 @@
   top: 0;
   z-index: 40;
 }
+/* Wordmark. These values are deliberately identical to `.landing .wordmark`
+   in landing.css -- the two pages previously drew the same .brand/.wordmark/
+   .dot markup with different type, size and dot alignment, so the header
+   visibly changed when moving between the landing page and the dashboard.
+   The landing treatment is canonical; if you change one, change both.
+   (landing.css cannot simply import this file: index.htm loads only
+   v2-tokens.css + landing.css by design.) */
 .brand .wordmark {
   display: inline-flex;
   align-items: baseline;
-  gap: 6px;
+  gap: 2px;
   font-family: var(--ff-serif);
-  font-weight: 500;
-  font-size: 19px;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: var(--display-tracking);
   color: var(--ink);
   white-space: nowrap;
-}
-[data-style="current"] .brand .wordmark {
-  font-family: var(--ff-sans);
-  font-weight: 700;
-  font-size: 17px;
+  text-decoration: none;
 }
 .brand .dot {
-  width: 7px; height: 7px;
-  background: var(--accent);
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
   border-radius: 50%;
+  background: var(--accent);
+  align-self: center;
   display: inline-block;
-  transform: translateY(-2px);
 }
 .brand small {
-  font-family: var(--ff-mono);
-  font-size: 9.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--muted);
-  margin-left: 2px;
+  font-size: 0.6em;
   font-weight: 500;
+  color: var(--muted);
+  /* transform is ignored on a non-replaced INLINE box, so the superscript
+     lift silently did nothing until this display change. */
+  display: inline-block;
+  transform: translateY(-0.4em);
 }
+/* The wordmark links home; keep it feeling like a control without
+   underlining the logotype. */
+a.wordmark:hover { color: var(--accent); }
+a.wordmark:hover .dot { background: var(--ink); }
 .topbar-search {
   flex: 1;
   max-width: 480px;
@@ -187,7 +196,12 @@
   letter-spacing: 0.01em;
 }
 .view-toggle button:hover { color: var(--ink-2); }
-.view-toggle button.active {
+/* Active state is driven by html[data-view], which applyChrome() keeps in sync
+   with S.view -- not by a class the click handler has to remember to move. The
+   markup previously hardcoded class="active" on Geography, so the highlight
+   never followed the actual view in either theme. One source of truth. */
+:root[data-view="geo"]      .view-toggle button[data-view-btn="geo"],
+:root[data-view="district"] .view-toggle button[data-view-btn="district"] {
   background: var(--surface);
   color: var(--ink);
   box-shadow: var(--shadow-1);
@@ -590,26 +604,32 @@ table.data-table tbody td:first-child { color: var(--ink); }
 }
 .map-container svg { width: 100%; height: 100%; display: block; }
 
-/* Wrapper so the inset can overlay #map without living inside it
-   (GeoMap.render clears its container's children). */
-.map-frame { position: relative; }
+/* Wrapper holding the map and, beneath it, the selection inset. The inset is
+   a sibling of #map rather than a child because GeoMap.render() clears its
+   container's children. */
+.map-frame { position: relative; display: flex; flex-direction: column; gap: 8px; }
 
-/* Zoomed detail of the current selection. The statewide map is unchanged
-   underneath -- at statewide extent the median house district is 0.52% of
-   the panel and the smallest is 0.05%, so the inset carries the shape while
-   the main map keeps the "where". */
+/* Zoomed detail of the current selection. The statewide map above is
+   unchanged -- at statewide extent the median house district is 0.52% of the
+   panel and the smallest is 0.05%, so the inset carries the shape while the
+   main map keeps the "where".
+
+   This sits BELOW the map rather than floating over its bottom-right corner:
+   as an overlay it hid part of the state (which is why it needed a dismiss
+   button at all) and, at precinct zoom, covered the very neighbours that give
+   the selected shape context. In flow it costs vertical space but occludes
+   nothing. Height is capped in vh so a short window cannot push the map's
+   own aspect off-screen. */
 .map-inset {
-  position: absolute;
-  right: 8px;
-  bottom: 8px;
-  width: 42%;
-  aspect-ratio: 1 / 1;
+  position: relative;
+  width: 100%;
+  height: clamp(120px, 22vh, 230px);
   background: var(--surface-1);
   border: 1px solid var(--rule);
   border-radius: var(--r);
-  box-shadow: 0 2px 10px rgb(0 0 0 / .28);
   padding: 5px;
   overflow: hidden;
+  flex: none;
 }
 .map-inset[hidden] { display: none; }
 .map-inset svg { width: 100%; height: 100%; display: block; }
@@ -660,9 +680,11 @@ table.data-table tbody td:first-child { color: var(--ink); }
 }
 .inset-restore:hover { color: var(--ink); }
 .inset-restore[hidden] { display: none; }
-/* The inset would swallow too much of an already-short panel on phones. */
+/* The inset would swallow too much of an already-short panel on phones.
+   Now that it sits in flow below the map (not overlaid), the constraint is
+   height, not width -- 38% width would just make it a narrow column. */
 @media (max-width: 880px) {
-  .map-inset { width: 38%; }
+  .map-inset { height: clamp(100px, 16vh, 160px); }
 }
 
 /* Real county/district geometry (assets/geo-map.js). Mirrors the .hex states
@@ -676,8 +698,18 @@ table.data-table tbody td:first-child { color: var(--ink); }
 .geo-shape.is-selected { stroke: var(--ink); stroke-width: 1.8; }
 .geo-shape.is-compare-a { stroke: var(--accent); stroke-width: 1.6; }
 .geo-shape.is-compare-b { stroke: var(--c-mixed-active); stroke-width: 1.6; }
-.geo-shape.is-dimmed { opacity: .55; }
-.geo-shape.is-dimmed:hover { opacity: .8; filter: brightness(1.1); }
+/* Dimmed shapes now carry a muted version of their own lean colour (mixed
+   toward the surface in geo-map.js), so the old blanket opacity:.55 would
+   wash that back out -- it was what made an unselected county "a very faint
+   dark grey" in dark mode. Keep them fully opaque and let the mix carry the
+   dimming; hover then lifts saturation and brightness so the shape under the
+   cursor is unmistakable without changing its hue or the tooltip timing. */
+.geo-shape.is-dimmed { opacity: 1; }
+.geo-shape.is-dimmed:hover {
+  filter: saturate(1.9) brightness(1.32);
+  stroke: var(--ink-2);
+  stroke-width: 1.1;
+}
 
 /* Editorial dark sets --rule to the same value as --surface-3, so a dimmed
    shape's stroke matches its own fill and the outline vanishes -- breaking
