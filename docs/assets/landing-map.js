@@ -338,6 +338,9 @@
   var dragging = false;
   var moved = 0;                  // total px moved in the current gesture
   var pinchDist = 0;
+  // Manhattan (|dx|+|dy|) slop before a gesture counts as a drag rather than a
+  // click. Also the point at which we take pointer capture -- see pointerdown.
+  var DRAG_SLOP = 10;
 
   function pointerDist() {
     var pts = Array.from(pointers.values());
@@ -355,7 +358,13 @@
       dragging = true;
       moved = 0;
       svg.classList.add('dragging');
-      try { svg.setPointerCapture(e.pointerId); } catch (err) {}
+      // NOTE: do NOT setPointerCapture here. Capturing on every press retargets
+      // the subsequent pointerup/click to the <svg> root, so the click never
+      // reaches the <a> under the cursor and nothing navigates (the shape only
+      // takes focus -- the yellow outline). Capture is acquired lazily in
+      // pointermove, once the gesture is actually a drag. Verified by tracing
+      // real mouse input: pointerdown targets <path>, but with capture held
+      // pointerup/click both target <svg> and closest('a') is null.
     } else if (pointers.size === 2) {
       dragging = false;           // hand off to pinch
       pinchDist = pointerDist();
@@ -385,6 +394,11 @@
     if (dragging) {
       var dx = e.clientX - prev.x, dy = e.clientY - prev.y;
       moved += Math.abs(dx) + Math.abs(dy);
+      // Acquire capture only once this is unambiguously a drag, so panning still
+      // tracks the cursor outside the SVG while a plain click keeps its target.
+      if (moved > DRAG_SLOP && !svg.hasPointerCapture(e.pointerId)) {
+        try { svg.setPointerCapture(e.pointerId); } catch (err) {}
+      }
       var scale = toUser(e.clientX, e.clientY).scale || 1;
       view.tx += dx / scale;
       view.ty += dy / scale;
@@ -396,6 +410,10 @@
   function endPointer(e) {
     if (pointers.has(e.pointerId)) pointers.delete(e.pointerId);
     if (pointers.size < 2) pinchDist = 0;
+    // Release capture explicitly so it can never leak into the next gesture.
+    if (svg.hasPointerCapture(e.pointerId)) {
+      try { svg.releasePointerCapture(e.pointerId); } catch (err) {}
+    }
     if (pointers.size === 0) {
       dragging = false;
       svg.classList.remove('dragging');
@@ -406,17 +424,11 @@
   svg.addEventListener('pointerleave', function () { hideTooltip(); });
 
   // Suppress the click that follows a drag so a pan never navigates.
-  // DRAG_SLOP is Manhattan (|dx|+|dy|, see pointermove), so diagonal drift
-  // scores ~1.4x the distance actually travelled. It was 4, which no hand can
-  // hold: a 3px diagonal wobble scored ~4.2 and the click was discarded, so
-  // shapes focused (yellow outline) but never navigated. 10 matches the slop
-  // common in map libraries.
   // preventDefault() alone suppresses navigation -- do NOT add stopPropagation
-  // here; it hides the event from every other listener and is what made this
-  // bug invisible to debugging.
+  // here; it hides the event from every other listener, which made an earlier
+  // bug here invisible to debugging.
   // moved resets on EVERY click, not just suppressed ones, so an interrupted
   // gesture cannot swallow the next legitimate click.
-  var DRAG_SLOP = 10;
   svg.addEventListener('click', function (e) {
     var wasDrag = moved > DRAG_SLOP;
     moved = 0;
