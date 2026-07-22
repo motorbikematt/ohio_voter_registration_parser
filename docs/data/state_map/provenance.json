@@ -1,0 +1,35 @@
+{
+  "generated": "2026-07-22T03:11:36Z",
+  "party_data_join": "docs/data/<county_slug>_party_affiliation.json (counties); docs/data/<dtype>/<id>_party_affiliation.json (districts); manifest snapshot 2026-07-14 per current docs/manifest.json",
+  "layers": {
+    "counties": {
+      "source": "local/source/Geo/ohio_census_consolidated.gpkg",
+      "layer": "counties",
+      "note": "full-resolution TIGER/Line county geometry (not generalized cb_*_500k)",
+      "feature_count": 88,
+      "simplify_tolerance": 0.003,
+      "output_size_kb": 42.8
+    },
+    "house": {
+      "source": "local/source/Geo/SOS District Maps/2024-2032-hd-shapefile.zip",
+      "plan_vintage": "2024-2032 adopted plan",
+      "feature_count": 99,
+      "simplify_tolerance": 0.002,
+      "output_size_kb": 159.2
+    },
+    "senate": {
+      "source": "local/source/Geo/SOS District Maps/2024-2032-sd-shapefile.zip",
+      "plan_vintage": "2024-2032 adopted plan",
+      "feature_count": 33,
+      "simplify_tolerance": 0.002,
+      "output_size_kb": 73.3
+    },
+    "congress": {
+      "source": "local/source/Geo/SOS District Maps/uscongressionaldistricts-2026-2032-adopted-2025-10-31-shapefiles.zip",
+      "plan_vintage": "2026-2032 adopted plan",
+      "feature_count": 15,
+      "simplify_tolerance": 0.002,
+      "output_size_kb": 50.6
+    }
+  }
+}
