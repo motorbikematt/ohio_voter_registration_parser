@@ -590,6 +590,81 @@ table.data-table tbody td:first-child { color: var(--ink); }
 }
 .map-container svg { width: 100%; height: 100%; display: block; }
 
+/* Wrapper so the inset can overlay #map without living inside it
+   (GeoMap.render clears its container's children). */
+.map-frame { position: relative; }
+
+/* Zoomed detail of the current selection. The statewide map is unchanged
+   underneath -- at statewide extent the median house district is 0.52% of
+   the panel and the smallest is 0.05%, so the inset carries the shape while
+   the main map keeps the "where". */
+.map-inset {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 42%;
+  aspect-ratio: 1 / 1;
+  background: var(--surface-1);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  box-shadow: 0 2px 10px rgb(0 0 0 / .28);
+  padding: 5px;
+  overflow: hidden;
+}
+.map-inset[hidden] { display: none; }
+.map-inset svg { width: 100%; height: 100%; display: block; }
+.map-inset .inset-cap {
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: .02em;
+  color: var(--muted);
+  pointer-events: none;
+  max-width: calc(100% - 30px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Dismiss affordance -- the inset is an overlay, so it must be closable
+   when it covers part of the state the user wants to see. */
+.inset-close {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  width: 16px; height: 16px;
+  line-height: 14px;
+  padding: 0;
+  font-size: 12px;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.inset-close:hover { color: var(--ink); border-color: var(--rule); }
+/* Restore control, shown in place of the inset once dismissed. */
+.inset-restore {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  padding: 3px 7px;
+  color: var(--muted);
+  background: var(--surface-1);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  cursor: pointer;
+}
+.inset-restore:hover { color: var(--ink); }
+.inset-restore[hidden] { display: none; }
+/* The inset would swallow too much of an already-short panel on phones. */
+@media (max-width: 880px) {
+  .map-inset { width: 38%; }
+}
+
 /* Real county/district geometry (assets/geo-map.js). Mirrors the .hex states
    below so compare mode keeps one vocabulary. .is-dimmed is the unselected
    state: fill drops back to the surface but the stroke stays, so every

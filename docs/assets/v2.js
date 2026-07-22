@@ -445,6 +445,108 @@
     return leans;
   }
 
+  // ── Selection inset ────────────────────────────────────────
+  // At statewide extent most jurisdictions are too small to read: the median
+  // house district is 0.52% of the panel area and the smallest (HD-03) is
+  // 0.05%. The statewide map answers "where"; this inset answers "what shape".
+  //
+  // Zoom here is not a transform -- it is a second projection fitted to the
+  // selected feature's own bbox (GeoMap.featureBounds -> computeProjection).
+  // Neighbours inside that frame are drawn dimmed for context; clipBounds
+  // skips everything outside it so we build ~3 paths, not 99.
+  //
+  // INSET_MAX_FRAC: selections already occupying more than this fraction of
+  // the panel are legible on their own, so the inset would be redundant --
+  // large counties and CD-scale districts suppress it automatically. This is
+  // a geometry test, never a hardcoded jurisdiction list, so every level
+  // (and every future precinct layer) gets the same treatment.
+  const INSET_MAX_FRAC = 0.04;
+  let _insetDismissed = false;
+
+  function hideInset() {
+    const box = $('map-inset');
+    if (box) { box.hidden = true; while (box.firstChild) box.removeChild(box.firstChild); }
+    const btn = $('inset-restore');
+    if (btn) btn.hidden = true;
+  }
+
+  function ensureRestoreBtn(onRestore) {
+    let btn = $('inset-restore');
+    if (!btn) {
+      const frame = document.querySelector('.map-frame');
+      if (!frame) return null;
+      btn = document.createElement('button');
+      btn.id = 'inset-restore';
+      btn.className = 'inset-restore';
+      btn.type = 'button';
+      btn.textContent = 'Detail';
+      btn.title = 'Show zoomed detail of the selection';
+      frame.appendChild(btn);
+    }
+    btn.onclick = () => { _insetDismissed = false; onRestore(); };
+    return btn;
+  }
+
+  // gj/key identify the selected feature; label captions it.
+  function renderInset(gj, keyProp, key, label) {
+    const box = $('map-inset');
+    if (!box) return;
+    if (!key) { hideInset(); return; }
+    const feat = gj.features.find(f => (f.properties || {})[keyProp] === key);
+    if (!feat) { hideInset(); return; }
+
+    // Suppress when the selection is already big enough to read statewide.
+    const full = gj.bounds;
+    const own = GeoMap.featureBounds(feat.geometry, 0);
+    if (!own) { hideInset(); return; }
+    const frac = ((own[2] - own[0]) * (own[3] - own[1])) /
+                 (((full[2] - full[0]) * (full[3] - full[1])) || 1);
+    if (frac > INSET_MAX_FRAC) { hideInset(); return; }
+
+    if (_insetDismissed) {
+      hideInset();
+      const rb = ensureRestoreBtn(() => renderInset(gj, keyProp, key, label));
+      if (rb) rb.hidden = false;
+      return;
+    }
+    const rb0 = $('inset-restore');
+    if (rb0) rb0.hidden = true;
+
+    const bounds = GeoMap.featureBounds(feat.geometry, 0.18);
+    box.hidden = false;
+    GeoMap.render({
+      container: box,
+      geojson: gj,
+      proj: GeoMap.computeProjection(bounds),
+      clipBounds: bounds,
+      mode: 'selected',
+      keyProp: keyProp,
+      selectedKey: key,
+      className: 'geo-shape',
+      ariaLabel: 'Zoomed detail of ' + label,
+      nameFor: p => p.name || String(p[keyProp])
+    });
+
+    const cap = document.createElement('span');
+    cap.className = 'inset-cap';
+    cap.textContent = label;
+    box.appendChild(cap);
+
+    const close = document.createElement('button');
+    close.className = 'inset-close';
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Hide zoomed detail');
+    close.title = 'Hide zoomed detail';
+    close.textContent = '\u00d7';
+    close.onclick = () => {
+      _insetDismissed = true;
+      hideInset();
+      const rb = ensureRestoreBtn(() => renderInset(gj, keyProp, key, label));
+      if (rb) rb.hidden = false;
+    };
+    box.appendChild(close);
+  }
+
   // Signature unchanged -- both call sites (refreshView, and the lean-preload
   // callback) pass the same four arguments.
   //
@@ -474,6 +576,8 @@
         nameFor: p => 'District ' + p.id,
         onClick: (id) => { selectDistrict(dtype, id); }
       });
+      renderInset(gj, 'id', selectedId || null,
+        layout.label.replace(/s$/, '').replace(/\b\w/g, c => c.toUpperCase()) + ' ' + (selectedId || ''));
     }).catch(e => console.warn('[map] district geometry load failed', e));
   }
 
@@ -536,6 +640,10 @@
         nameFor: p => p.name + ' County',
         onClick: (slug, p) => { selectCounty(p.name); }
       });
+      // Compare mode highlights two counties; an inset can only frame one,
+      // so it is suppressed rather than arbitrarily picking slot A.
+      const insetKey = (cmpSlugs && cmpSlugs.length) ? null : selSlug;
+      renderInset(gj, 'slug', insetKey, (selectedName || '') + ' County');
     }).catch(e => console.warn('[map] county geometry load failed', e));
   }
 

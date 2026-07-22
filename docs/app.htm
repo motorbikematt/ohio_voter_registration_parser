@@ -61,7 +61,14 @@
     <aside class="right-pane" id="right-pane" aria-label="Map and selection summary">
       <div class="map-section">
         <span class="eyebrow">Ohio · 88 counties · party lean</span>
-        <div class="map-container" id="map"></div>
+        <!-- #map is the statewide render target (GeoMap clears its children,
+             so the inset must NOT live inside it). #map-inset overlays the
+             same box and is populated only when a selection is small enough
+             to be illegible statewide -- see renderInset() in assets/v2.js. -->
+        <div class="map-frame">
+          <div class="map-container" id="map"></div>
+          <div class="map-inset" id="map-inset" hidden></div>
+        </div>
         <div class="map-legend">
           <span><span class="swatch" style="background:#ef4444"></span>Strong R</span>
           <span><span class="swatch" style="background:#f87171"></span>Lean R</span>

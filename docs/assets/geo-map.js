@@ -106,6 +106,48 @@
     return d;
   }
 
+  // ── Feature bounds ───────────────────────────────────────
+  // Lon/lat bbox of one geometry, in the same [W,S,E,N] shape the
+  // geojson files carry -- so it can be handed straight to
+  // computeProjection() to "zoom": projecting a smaller box into the
+  // same 1000-unit width IS the zoom. No transform math involved.
+  //
+  // `padFrac` insets the box by a fraction of its larger side (0.15 =
+  // ~15% breathing room). Padding the larger side on both axes keeps
+  // the shape's true aspect: padding each axis by its own extent would
+  // distort a long thin district differently than a compact one.
+  //
+  // A degenerate box (single point, or a geometry we could not walk)
+  // returns null rather than a zero-size projection that would divide
+  // by zero downstream.
+  function featureBounds(geom, padFrac) {
+    if (!geom) return null;
+    var minLon = Infinity, minLat = Infinity, maxLon = -Infinity, maxLat = -Infinity;
+    function walkRing(ring) {
+      for (var i = 0; i < ring.length; i++) {
+        var lon = ring[i][0], lat = ring[i][1];
+        if (lon < minLon) minLon = lon;
+        if (lon > maxLon) maxLon = lon;
+        if (lat < minLat) minLat = lat;
+        if (lat > maxLat) maxLat = lat;
+      }
+    }
+    if (geom.type === 'Polygon') {
+      for (var i = 0; i < geom.coordinates.length; i++) walkRing(geom.coordinates[i]);
+    } else if (geom.type === 'MultiPolygon') {
+      for (var j = 0; j < geom.coordinates.length; j++) {
+        for (var k = 0; k < geom.coordinates[j].length; k++) walkRing(geom.coordinates[j][k]);
+      }
+    } else {
+      return null;
+    }
+    if (!isFinite(minLon) || !isFinite(minLat)) return null;
+    var dLon = maxLon - minLon, dLat = maxLat - minLat;
+    if (dLon <= 0 && dLat <= 0) return null;
+    var pad = (padFrac === undefined ? 0.15 : padFrac) * Math.max(dLon, dLat);
+    return [minLon - pad, minLat - pad, maxLon + pad, maxLat + pad];
+  }
+
   // ── Fetch + cache ────────────────────────────────────────
   // Keyed by url, shared process-wide. The dashboard renderers run
   // on every view refresh; re-fetching 163 KB each time would be a
@@ -192,9 +234,18 @@
     var feats = gj.features;
     var n = 0;
 
+    // When zoomed (the inset), skip features whose own bbox does not
+    // intersect the frame at all. Without this a house-district inset
+    // builds 99 full-detail paths to show two or three.
+    var clip = opts.clipBounds || null;
+
     for (var i = 0; i < feats.length; i++) {
       var f = feats[i], p = f.properties || {};
       var key = p[keyProp];
+      if (clip) {
+        var fb = featureBounds(f.geometry, 0);
+        if (!fb || fb[2] < clip[0] || fb[0] > clip[2] || fb[3] < clip[1] || fb[1] > clip[3]) continue;
+      }
       var name = opts.nameFor ? opts.nameFor(p) : (p.name || String(key));
       var lean = (p.lean === undefined ? null : p.lean);
 
@@ -263,6 +314,7 @@
     leanLabel: leanLabel,
     formatLean: formatLean,
     computeProjection: computeProjection,
+    featureBounds: featureBounds,
     ringToPath: ringToPath,
     geometryToPath: geometryToPath,
     loadGeoJSON: loadGeoJSON,
