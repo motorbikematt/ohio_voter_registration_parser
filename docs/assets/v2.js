@@ -401,7 +401,7 @@
   // Districts use stylized polygons (slight per-tile jitter so they read as
   // distinct shapes, not uniform cells). Real GeoJSON/KML can swap in later.
   const DISTRICT_LAYOUTS = {
-    congressional_district:        { count: 16, cols: 4,  rows: 4,  label: 'congressional districts' },
+    congressional_district:        { count: 15, cols: 4,  rows: 4,  label: 'congressional districts' },
     state_senate_district:         { count: 33, cols: 6,  rows: 6,  label: 'state senate districts' },
     state_representative_district: { count: 99, cols: 10, rows: 10, label: 'state house districts' }
   };
