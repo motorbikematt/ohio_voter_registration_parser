@@ -16,13 +16,11 @@
   // ── Canonical cohort colors (must match data files) ────────
   const COHORT_COLORS = ['#ef4444', '#fca5a5', '#f59e0b', '#a78bfa', '#9ca3af', '#93c5fd', '#3b82f6'];
   const COHORT_LABELS = ['Pure R', 'UNC – Lapsed R', 'Mixed – Active', 'Mixed – Lapsed', 'UNC – No Primary', 'UNC – Lapsed D', 'Pure D'];
-  const PARTY_LEAN_BUCKETS = [
-    { max: -0.15, color: '#ef4444', label: 'Strong R' },
-    { max: -0.05, color: '#f87171', label: 'Lean R' },
-    { max:  0.05, color: '#9ca3af', label: 'Mixed / UNC' },
-    { max:  0.15, color: '#60a5fa', label: 'Lean D' },
-    { max:  1.0,  color: '#2563eb', label: 'Strong D' }
-  ];
+  // Party-lean buckets and the shape/projection helpers live in
+  // assets/geo-map.js (window.GeoMap), shared with the landing map.
+  // This file previously carried a second copy that had to be hand-synced.
+  const GeoMap = window.GeoMap;
+  const PARTY_LEAN_BUCKETS = GeoMap.PARTY_LEAN_BUCKETS;
   // Levels that live inside a single county's tree (as opposed to 'county'
   // itself or cross-county/statewide levels like unified 'city' + 'district').
   // 'city' is included because a single-county city is still reached by
@@ -397,14 +395,30 @@
     return bag;
   }
 
-  // ── Hex/District map ───────────────────────────────────────
-  // Districts use stylized polygons (slight per-tile jitter so they read as
-  // distinct shapes, not uniform cells). Real GeoJSON/KML can swap in later.
+  // ── County / district map ──────────────────────────────────
+  // Real geometry from data/state_map/*.geojson, rendered through
+  // window.GeoMap. The old stylized hex grid and jittered district cells
+  // are gone -- they carried no geographic information.
+  //
+  // `count` is still read by preloadDistrictLean (iterates 1..count to fetch
+  // lean JSON) and `label` by the map eyebrow, so the table stays. The old
+  // `cols`/`rows` grid geometry is gone with the renderer that used it.
   const DISTRICT_LAYOUTS = {
-    congressional_district:        { count: 15, cols: 4,  rows: 4,  label: 'congressional districts' },
-    state_senate_district:         { count: 33, cols: 6,  rows: 6,  label: 'state senate districts' },
-    state_representative_district: { count: 99, cols: 10, rows: 10, label: 'state house districts' }
+    congressional_district:        { count: 15, label: 'congressional districts' },
+    state_senate_district:         { count: 33, label: 'state senate districts' },
+    state_representative_district: { count: 99, label: 'state house districts' }
   };
+
+  // dtype -> geojson layer file. The `properties.id` join is direct: each
+  // file's ids are zero-padded 2-char and contiguous (house '01'-'99',
+  // senate '01'-'33', congress '01'-'15'), byte-identical to the ids the
+  // callers pass. Do not strip or re-pad -- that would break the join.
+  const DISTRICT_GEO_FILES = {
+    congressional_district:        'data/state_map/congress.geojson',
+    state_senate_district:         'data/state_map/senate.geojson',
+    state_representative_district: 'data/state_map/house.geojson'
+  };
+  const COUNTY_GEO_FILE = 'data/state_map/counties.geojson';
 
   function partyLean(partyData) {
     if (!partyData || !partyData.chartConfig) return null;
@@ -415,11 +429,7 @@
     const total = d.reduce((a, b) => a + Number(b || 0), 0) || 1;
     return (dd - r) / total;
   }
-  function leanColor(lean) {
-    if (lean === null || lean === undefined) return null;
-    for (const b of PARTY_LEAN_BUCKETS) if (lean <= b.max) return b.color;
-    return PARTY_LEAN_BUCKETS[PARTY_LEAN_BUCKETS.length - 1].color;
-  }
+  const leanColor = GeoMap.leanColor;
 
   async function preloadCountyLean() {
     // Only loads counties whose data files exist (others stay neutral)
@@ -435,54 +445,36 @@
     return leans;
   }
 
+  // Signature unchanged -- both call sites (refreshView, and the lean-preload
+  // callback) pass the same four arguments.
+  //
+  // `leans` is kept because callers still populate and pass it, but coloring
+  // reads properties.lean straight out of the geojson we are already
+  // fetching: measured 2026-07-22 across all 88 counties, the two agree to
+  // within 5e-05 (pure 4dp rounding in build_state_map.py), because
+  // partyLean() here and party_lean() there implement the identical 7-cohort
+  // formula. Using the embedded value avoids a second network round trip.
   function renderDistrictMap(dtype, selectedId, compareIds, leans) {
     const root = $('map');
     if (!root) return;
     const layout = DISTRICT_LAYOUTS[dtype] || DISTRICT_LAYOUTS.state_senate_district;
-    const { count, cols, rows } = layout;
-    const cellW = 36, cellH = 30, gap = 4;
-    const W = cols * (cellW + gap) + 6;
-    const H = rows * (cellH + gap) + 6;
-    // Deterministic jitter so each district is a visibly distinct shape.
-    // Real GeoJSON/KML drops in later (per user note).
-    function jit(i, k) {
-      const v = Math.sin(i * 33.7 + k * 91.3) * 10000;
-      return ((v - Math.floor(v)) - 0.5) * 6;
-    }
-    const svg = ['<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet" aria-label="' + layout.label + ' map">'];
-    for (let i = 1; i <= count; i++) {
-      const id = String(i).padStart(2, '0');
-      const r = Math.floor((i - 1) / cols);
-      const c = (i - 1) % cols;
-      const x = c * (cellW + gap) + 3;
-      const y = r * (cellH + gap) + 3;
-      const pts = [
-        [x + jit(i, 1),                 y + jit(i, 2)],
-        [x + cellW + jit(i, 3),         y + jit(i, 4)],
-        [x + cellW + jit(i, 5),         y + cellH + jit(i, 6)],
-        [x + jit(i, 7),                 y + cellH + jit(i, 8)]
-      ];
-      const isSel = id === selectedId;
-      const cmpIdx = compareIds ? compareIds.indexOf(id) : -1;
-      const cls = ['hex'];
-      if (isSel && cmpIdx < 0) cls.push('is-selected');
-      if (cmpIdx === 0) cls.push('is-compare-a');
-      if (cmpIdx === 1) cls.push('is-compare-b');
-      const lean = leans ? leans[id] : null;
-      const fill = leanColor(lean) || 'var(--surface-3)';
-      const d = 'M' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L') + 'Z';
-      svg.push('<path class="' + cls.join(' ') + '" d="' + d + '" fill="' + fill + '" stroke="var(--rule)" stroke-width="0.7" data-district="' + id + '" data-dtype="' + esc(dtype) + '"><title>District ' + id + (lean !== null ? ' · ' + (lean > 0 ? '+' : '') + (lean * 100).toFixed(1) + '% D−R' : '') + '</title></path>');
-      if (count <= 33 || isSel || cmpIdx >= 0) {
-        svg.push('<text class="hex-label" x="' + (x + cellW / 2).toFixed(1) + '" y="' + (y + cellH / 2).toFixed(1) + '" style="font-size:8px">' + id + '</text>');
-      }
-    }
-    svg.push('</svg>');
-    root.innerHTML = svg.join('');
-    root.querySelectorAll('[data-district]').forEach(el => {
-      el.addEventListener('click', () => {
-        selectDistrict(el.getAttribute('data-dtype'), el.getAttribute('data-district'));
+    const file = DISTRICT_GEO_FILES[dtype] || DISTRICT_GEO_FILES.state_senate_district;
+    GeoMap.loadGeoJSON(file).then(gj => {
+      // The view may have changed while the fetch was in flight.
+      if (($('map')) !== root) return;
+      GeoMap.render({
+        container: root,
+        geojson: gj,
+        mode: 'selected',
+        keyProp: 'id',
+        selectedKey: selectedId || null,
+        compareKeys: compareIds || null,
+        className: 'geo-shape',
+        ariaLabel: 'Ohio ' + layout.label + ' map',
+        nameFor: p => 'District ' + p.id,
+        onClick: (id) => { selectDistrict(dtype, id); }
       });
-    });
+    }).catch(e => console.warn('[map] district geometry load failed', e));
   }
 
   async function preloadDistrictLean(dtype) {
@@ -515,52 +507,36 @@
     await refreshView();
   }
 
+  // Signature unchanged -- all 5 call sites keep passing display names.
+  // selectedName/compareNames arrive as display names ("Montgomery"); the
+  // geojson keys on properties.slug, so names are mapped through the
+  // existing countyToSlug() (build_state_map.py's county_slug() is
+  // byte-identical to it, so the keys join).
+  //
+  // City and precinct views fall back to highlighting the CONTAINING county:
+  // sub-county polygons exist for Montgomery only so far. The caller decides
+  // which county to pass, so each county upgrades automatically as its own
+  // shapes land -- nothing here branches on a county name.
   function renderHexMap(leans, selectedName, compareNames) {
     const root = $('map');
     if (!root) return;
-    const hexW = 32, hexH = 28;          // flat-top hex spacing
-    const cols = 12, rows = 12;
-    const W = cols * hexW + hexW;
-    const H = rows * hexH + hexH;
-    const hexPath = (cx, cy, r) => {
-      const pts = [];
-      for (let i = 0; i < 6; i++) {
-        const a = Math.PI / 3 * i - Math.PI / 6;
-        pts.push((cx + r * Math.cos(a)).toFixed(1) + ',' + (cy + r * Math.sin(a)).toFixed(1));
-      }
-      return 'M' + pts.join('L') + 'Z';
-    };
-    const svg = ['<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet" aria-label="Ohio counties hex map">'];
-    window.OHIO_HEX.forEach(([name, col, row]) => {
-      const cx = col * hexW + (row % 2 === 0 ? hexW / 2 : 0) + hexW / 2;
-      const cy = row * hexH + hexH / 2 + 4;
-      const lean = leans ? leans[name] : null;
-      const color = leanColor(lean);
-      const fill = color || 'var(--surface-3)';
-      const isSel = name === selectedName;
-      const compareIdx = compareNames ? compareNames.indexOf(name) : -1;
-      const cls = ['hex'];
-      if (isSel && compareIdx < 0) cls.push('is-selected');
-      if (compareIdx === 0) cls.push('is-compare-a');
-      if (compareIdx === 1) cls.push('is-compare-b');
-      svg.push(
-        '<path class="' + cls.join(' ') + '" d="' + hexPath(cx, cy, hexW * 0.52) + '" fill="' + fill + '" ' +
-        'stroke="var(--rule)" stroke-width="0.6" data-county="' + name + '"><title>' + name + (lean !== null ? ' · ' + (lean > 0 ? '+' : '') + (lean * 100).toFixed(1) + '% D−R' : ' · data pending') + '</title></path>'
-      );
-      // Label only for big counties or selected
-      const isMajor = name === 'Hamilton' || name === 'Franklin' || name === 'Cuyahoga' || isSel;
-      if (isMajor) {
-        svg.push('<text class="hex-label" x="' + cx + '" y="' + cy + '">' + name.slice(0, 3).toUpperCase() + '</text>');
-      }
-    });
-    svg.push('</svg>');
-    root.innerHTML = svg.join('');
-    root.querySelectorAll('.hex').forEach(el => {
-      el.addEventListener('click', () => {
-        const cname = el.getAttribute('data-county');
-        selectCounty(cname);
+    const selSlug = selectedName ? countyToSlug(selectedName) : null;
+    const cmpSlugs = compareNames ? compareNames.filter(Boolean).map(countyToSlug) : null;
+    GeoMap.loadGeoJSON(COUNTY_GEO_FILE).then(gj => {
+      if (($('map')) !== root) return;
+      GeoMap.render({
+        container: root,
+        geojson: gj,
+        mode: 'selected',
+        keyProp: 'slug',
+        selectedKey: selSlug,
+        compareKeys: cmpSlugs,
+        className: 'geo-shape',
+        ariaLabel: 'Ohio counties map',
+        nameFor: p => p.name + ' County',
+        onClick: (slug, p) => { selectCounty(p.name); }
       });
-    });
+    }).catch(e => console.warn('[map] county geometry load failed', e));
   }
 
   function renderMapSelection(bag) {

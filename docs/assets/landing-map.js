@@ -8,48 +8,36 @@
    each carrying a `bounds: [W,S,E,N]` and per-feature
    `properties.lean` precomputed by the map-data build. We only
    COLOR by lean here; we never recompute it.
+
+   Projection, path building, the party-lean table, and shape
+   rendering all live in docs/assets/geo-map.js (window.GeoMap),
+   shared with the dashboard map in v2.js. This file owns only what
+   is specific to the landing page: the layer registry, pan / zoom /
+   pinch, the tooltip, and the hero stat. Do NOT re-add local copies
+   of the shared helpers -- that duplication is exactly what the
+   shared module removed.
    ============================================================ */
 (function () {
   'use strict';
 
-  var SVG_NS = 'http://www.w3.org/2000/svg';
+  var GeoMap = window.GeoMap;
+  if (!GeoMap) { console.error('[landing-map] geo-map.js must load first'); return; }
 
-  // MUST match PARTY_LEAN_BUCKETS in docs/assets/v2.js -- verify
-  // against that file before changing either copy.
-  var PARTY_LEAN_BUCKETS = [
-    { max: -0.15, color: '#ef4444', label: 'Strong R' },
-    { max: -0.05, color: '#f87171', label: 'Lean R' },
-    { max:  0.05, color: '#9ca3af', label: 'Mixed / UNC' },
-    { max:  0.15, color: '#60a5fa', label: 'Lean D' },
-    { max:  1.0,  color: '#2563eb', label: 'Strong D' }
-  ];
-  function leanColor(lean) {
-    if (lean === null || lean === undefined) return null;
-    for (var i = 0; i < PARTY_LEAN_BUCKETS.length; i++) {
-      if (lean <= PARTY_LEAN_BUCKETS[i].max) return PARTY_LEAN_BUCKETS[i].color;
-    }
-    return PARTY_LEAN_BUCKETS[PARTY_LEAN_BUCKETS.length - 1].color;
-  }
-  function leanLabel(lean) {
-    if (lean === null || lean === undefined) return 'No data';
-    for (var i = 0; i < PARTY_LEAN_BUCKETS.length; i++) {
-      if (lean <= PARTY_LEAN_BUCKETS[i].max) return PARTY_LEAN_BUCKETS[i].label;
-    }
-    return PARTY_LEAN_BUCKETS[PARTY_LEAN_BUCKETS.length - 1].label;
-  }
-  function formatLean(lean) {
-    if (lean === null || lean === undefined) return 'n/a';
-    var pct = lean * 100;
-    return (pct >= 0 ? '+' : '') + pct.toFixed(1) + '% D-R';
-  }
+  var SVG_NS            = GeoMap.SVG_NS;
+  var computeProjection = GeoMap.computeProjection;
+  var leanLabel         = GeoMap.leanLabel;
+  var formatLean        = GeoMap.formatLean;
 
   // Layer registry: source file, toolbar label, count-eyebrow text,
-  // per-feature display name, and click destination on app.htm.
+  // the properties key each feature is identified by (`keyProp`, passed
+  // through to GeoMap.render), per-feature display name, and click
+  // destination on app.htm.
   var LAYERS = {
     counties: {
       file: 'data/state_map/counties.geojson',
       label: 'Counties',
       eyebrow: '88 counties',
+      keyProp: 'slug',
       nameFor: function (p) { return p.name + ' County'; },
       hrefFor: function (p) { return 'app.htm?level=county&id=' + p.slug; }
     },
@@ -57,6 +45,7 @@
       file: 'data/state_map/house.geojson',
       label: 'State House',
       eyebrow: '99 house districts',
+      keyProp: 'id',
       nameFor: function (p) { return 'State House ' + p.name; },
       hrefFor: function (p) {
         return 'app.htm?level=district&type=state_representative_district&id=' + p.id;
@@ -66,6 +55,7 @@
       file: 'data/state_map/senate.geojson',
       label: 'State Senate',
       eyebrow: '33 senate districts',
+      keyProp: 'id',
       nameFor: function (p) { return 'State Senate ' + p.name; },
       hrefFor: function (p) {
         return 'app.htm?level=district&type=state_senate_district&id=' + p.id;
@@ -75,6 +65,7 @@
       file: 'data/state_map/congress.geojson',
       label: 'US Congress',
       eyebrow: '15 congressional districts',
+      keyProp: 'id',
       nameFor: function (p) { return 'US Congress ' + p.name; },
       hrefFor: function (p) {
         return 'app.htm?level=district&type=congressional_district&id=' + p.id;
@@ -106,43 +97,8 @@
     else statusEl.removeAttribute('data-state');
   }
 
-  // ── Projection (equirectangular, corrected for latitude) ──
-  function computeProjection(bounds) {
-    var W = bounds[0], S = bounds[1], E = bounds[2], N = bounds[3];
-    var midLat = (S + N) / 2;
-    var kx = Math.cos(midLat * Math.PI / 180);
-    var s = 1000 / ((E - W) * kx);
-    return {
-      W: W, S: S, E: E, N: N,
-      width: 1000,
-      height: (N - S) * s,
-      x: function (lon) { return (lon - W) * kx * s; },
-      y: function (lat) { return (N - lat) * s; }
-    };
-  }
-
-  function ringToPath(ring, proj) {
-    var d = '';
-    for (var i = 0; i < ring.length; i++) {
-      var x = proj.x(ring[i][0]).toFixed(2);
-      var y = proj.y(ring[i][1]).toFixed(2);
-      d += (i === 0 ? 'M' : 'L') + x + ' ' + y;
-    }
-    return d + 'Z';
-  }
-  function geometryToPath(geom, proj) {
-    var d = '', i, j;
-    if (geom.type === 'Polygon') {
-      for (i = 0; i < geom.coordinates.length; i++) d += ringToPath(geom.coordinates[i], proj);
-    } else if (geom.type === 'MultiPolygon') {
-      for (i = 0; i < geom.coordinates.length; i++) {
-        for (j = 0; j < geom.coordinates[i].length; j++) d += ringToPath(geom.coordinates[i][j], proj);
-      }
-    }
-    return d;
-  }
-
   // ── Rendering ────────────────────────────────────────────
+  // Projection + path building + shape rendering: GeoMap (geo-map.js).
   function clearViewport() {
     while (viewport.firstChild) viewport.removeChild(viewport.firstChild);
   }
@@ -162,36 +118,21 @@
     var cfg = LAYERS[key];
     var gj = cache[key];
     if (!gj || !projection) return;
-    clearViewport();
-    var frag = document.createDocumentFragment();
-    var feats = gj.features;
-    for (var i = 0; i < feats.length; i++) {
-      var f = feats[i], p = f.properties;
-      var name = cfg.nameFor(p);
-      var total = Number(p.total_voters || 0);
-      var totalStr = total.toLocaleString();
-      var leanStr = formatLean(p.lean);
-      var label = leanLabel(p.lean);
-
-      var a = document.createElementNS(SVG_NS, 'a');
-      a.setAttributeNS(null, 'href', cfg.hrefFor(p));
-      a.setAttribute('aria-label', name + ' — ' + label + ' (' + leanStr + ') — ' + totalStr + ' registered voters');
-      a.dataset.name = name;
-      a.dataset.lean = leanStr;
-      a.dataset.label = label;
-      a.dataset.total = totalStr;
-
-      var path = document.createElementNS(SVG_NS, 'path');
-      path.setAttribute('d', geometryToPath(f.geometry, projection));
-      path.setAttribute('fill', leanColor(p.lean) || 'var(--surface-3)');
-      path.setAttribute('fill-rule', 'evenodd');
-      path.setAttribute('stroke', 'var(--rule)');
-      path.setAttribute('stroke-width', '0.6');
-      path.setAttribute('vector-effect', 'non-scaling-stroke');
-      a.appendChild(path);
-      frag.appendChild(a);
-    }
-    viewport.appendChild(frag);
+    // setViewBox:false -- the <svg> viewBox is set once in loadLayer from the
+    // first layer's bounds and must not be re-set here, or a layer switch
+    // would reset the user's pan/zoom. Pass the shared projection for the
+    // same reason: all four layers register against one coordinate space.
+    GeoMap.render({
+      container: viewport,
+      geojson: gj,
+      proj: projection,
+      setViewBox: false,
+      mode: 'all',
+      keyProp: cfg.keyProp,
+      className: 'geo-shape',
+      nameFor: cfg.nameFor,
+      hrefFor: cfg.hrefFor
+    });
   }
 
   // ── Data loading (counties eager, others lazy + cached) ──

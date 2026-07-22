@@ -577,13 +577,33 @@ table.data-table tbody td:first-child { color: var(--ink); }
 .map-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.05 / 1;
+  /* Ohio's real projected extent is 1000 x 1197 (aspect ~0.835) -- PORTRAIT.
+     The old 1.05/1 was sized for the stylized hex grid; against real geometry
+     it fits to height and leaves ~21% dead space split left/right. Fix the
+     box, never the geometry: preserveAspectRatio stays "xMidYMid meet" (a
+     stretched Ohio is worse than letterboxing). */
+  aspect-ratio: 5 / 6;
   background: var(--surface-2);
   border: 1px solid var(--rule);
   border-radius: var(--r);
   padding: 8px;
 }
 .map-container svg { width: 100%; height: 100%; display: block; }
+
+/* Real county/district geometry (assets/geo-map.js). Mirrors the .hex states
+   below so compare mode keeps one vocabulary. .is-dimmed is the unselected
+   state: fill drops back to the surface but the stroke stays, so every
+   outline remains visible -- "dimmed", not "missing", in both themes. */
+.geo-shape {
+  transition: filter .12s, opacity .12s;
+}
+.geo-shape:hover { filter: brightness(1.18); }
+.geo-shape.is-selected { stroke: var(--ink); stroke-width: 1.8; }
+.geo-shape.is-compare-a { stroke: var(--accent); stroke-width: 1.6; }
+.geo-shape.is-compare-b { stroke: var(--c-mixed-active); stroke-width: 1.6; }
+.geo-shape.is-dimmed { opacity: .55; }
+.geo-shape.is-dimmed:hover { opacity: .8; filter: brightness(1.1); }
+
 .hex {
   cursor: pointer;
   transition: filter .12s, transform .12s, stroke-width .12s;
