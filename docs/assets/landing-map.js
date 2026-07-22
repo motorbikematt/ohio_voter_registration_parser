@@ -1,0 +1,453 @@
+/* ============================================================
+   Precincts.info landing map
+   Inline-SVG choropleth of Ohio with pan / zoom / pinch and a
+   4-layer switcher (counties / state house / state senate / US
+   congress). Zero dependencies: no Leaflet, no tile CDN.
+
+   Data: docs/data/state_map/*.geojson, plain EPSG:4326 lon/lat,
+   each carrying a `bounds: [W,S,E,N]` and per-feature
+   `properties.lean` precomputed by the map-data build. We only
+   COLOR by lean here; we never recompute it.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+
+  // MUST match PARTY_LEAN_BUCKETS in docs/assets/v2.js -- verify
+  // against that file before changing either copy.
+  var PARTY_LEAN_BUCKETS = [
+    { max: -0.15, color: '#ef4444', label: 'Strong R' },
+    { max: -0.05, color: '#f87171', label: 'Lean R' },
+    { max:  0.05, color: '#9ca3af', label: 'Mixed / UNC' },
+    { max:  0.15, color: '#60a5fa', label: 'Lean D' },
+    { max:  1.0,  color: '#2563eb', label: 'Strong D' }
+  ];
+  function leanColor(lean) {
+    if (lean === null || lean === undefined) return null;
+    for (var i = 0; i < PARTY_LEAN_BUCKETS.length; i++) {
+      if (lean <= PARTY_LEAN_BUCKETS[i].max) return PARTY_LEAN_BUCKETS[i].color;
+    }
+    return PARTY_LEAN_BUCKETS[PARTY_LEAN_BUCKETS.length - 1].color;
+  }
+  function leanLabel(lean) {
+    if (lean === null || lean === undefined) return 'No data';
+    for (var i = 0; i < PARTY_LEAN_BUCKETS.length; i++) {
+      if (lean <= PARTY_LEAN_BUCKETS[i].max) return PARTY_LEAN_BUCKETS[i].label;
+    }
+    return PARTY_LEAN_BUCKETS[PARTY_LEAN_BUCKETS.length - 1].label;
+  }
+  function formatLean(lean) {
+    if (lean === null || lean === undefined) return 'n/a';
+    var pct = lean * 100;
+    return (pct >= 0 ? '+' : '') + pct.toFixed(1) + '% D-R';
+  }
+
+  // Layer registry: source file, toolbar label, count-eyebrow text,
+  // per-feature display name, and click destination on app.htm.
+  var LAYERS = {
+    counties: {
+      file: 'data/state_map/counties.geojson',
+      label: 'Counties',
+      eyebrow: '88 counties',
+      nameFor: function (p) { return p.name + ' County'; },
+      hrefFor: function (p) { return 'app.htm?level=county&id=' + p.slug; }
+    },
+    house: {
+      file: 'data/state_map/house.geojson',
+      label: 'State House',
+      eyebrow: '99 house districts',
+      nameFor: function (p) { return 'State House ' + p.name; },
+      hrefFor: function (p) {
+        return 'app.htm?level=district&type=state_representative_district&id=' + p.id;
+      }
+    },
+    senate: {
+      file: 'data/state_map/senate.geojson',
+      label: 'State Senate',
+      eyebrow: '33 senate districts',
+      nameFor: function (p) { return 'State Senate ' + p.name; },
+      hrefFor: function (p) {
+        return 'app.htm?level=district&type=state_senate_district&id=' + p.id;
+      }
+    },
+    congress: {
+      file: 'data/state_map/congress.geojson',
+      label: 'US Congress',
+      eyebrow: '15 congressional districts',
+      nameFor: function (p) { return 'US Congress ' + p.name; },
+      hrefFor: function (p) {
+        return 'app.htm?level=district&type=congressional_district&id=' + p.id;
+      }
+    }
+  };
+  var LAYER_ORDER = ['counties', 'house', 'senate', 'congress'];
+
+  // ── DOM handles ──────────────────────────────────────────
+  var svg      = document.getElementById('ohio-map');
+  var viewport = document.getElementById('viewport');
+  var figure   = svg ? svg.closest('figure') : null;
+  var tooltip  = document.querySelector('.map-tooltip');
+  var statusEl = document.getElementById('map-status');
+  var eyebrowEl = document.getElementById('layer-eyebrow');
+  if (!svg || !viewport) return;
+
+  // ── State ────────────────────────────────────────────────
+  var cache = {};              // layer key -> parsed geojson
+  var projection = null;       // set once from the first loaded layer
+  var activeLayer = 'counties';
+  var view = { k: 1, tx: 0, ty: 0 };   // #viewport transform
+  var MIN_K = 1, MAX_K = 40;
+
+  function setStatus(text, isError) {
+    if (!statusEl) return;
+    statusEl.textContent = text || '';
+    if (isError) statusEl.setAttribute('data-state', 'error');
+    else statusEl.removeAttribute('data-state');
+  }
+
+  // ── Projection (equirectangular, corrected for latitude) ──
+  function computeProjection(bounds) {
+    var W = bounds[0], S = bounds[1], E = bounds[2], N = bounds[3];
+    var midLat = (S + N) / 2;
+    var kx = Math.cos(midLat * Math.PI / 180);
+    var s = 1000 / ((E - W) * kx);
+    return {
+      W: W, S: S, E: E, N: N,
+      width: 1000,
+      height: (N - S) * s,
+      x: function (lon) { return (lon - W) * kx * s; },
+      y: function (lat) { return (N - lat) * s; }
+    };
+  }
+
+  function ringToPath(ring, proj) {
+    var d = '';
+    for (var i = 0; i < ring.length; i++) {
+      var x = proj.x(ring[i][0]).toFixed(2);
+      var y = proj.y(ring[i][1]).toFixed(2);
+      d += (i === 0 ? 'M' : 'L') + x + ' ' + y;
+    }
+    return d + 'Z';
+  }
+  function geometryToPath(geom, proj) {
+    var d = '', i, j;
+    if (geom.type === 'Polygon') {
+      for (i = 0; i < geom.coordinates.length; i++) d += ringToPath(geom.coordinates[i], proj);
+    } else if (geom.type === 'MultiPolygon') {
+      for (i = 0; i < geom.coordinates.length; i++) {
+        for (j = 0; j < geom.coordinates[i].length; j++) d += ringToPath(geom.coordinates[i][j], proj);
+      }
+    }
+    return d;
+  }
+
+  // ── Rendering ────────────────────────────────────────────
+  function clearViewport() {
+    while (viewport.firstChild) viewport.removeChild(viewport.firstChild);
+  }
+
+  function renderError(msg) {
+    clearViewport();
+    var t = document.createElementNS(SVG_NS, 'text');
+    t.setAttribute('x', String(projection ? projection.width / 2 : 500));
+    t.setAttribute('y', String(projection ? projection.height / 2 : 545));
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('class', 'map-empty');
+    t.textContent = msg;
+    viewport.appendChild(t);
+  }
+
+  function renderLayer(key) {
+    var cfg = LAYERS[key];
+    var gj = cache[key];
+    if (!gj || !projection) return;
+    clearViewport();
+    var frag = document.createDocumentFragment();
+    var feats = gj.features;
+    for (var i = 0; i < feats.length; i++) {
+      var f = feats[i], p = f.properties;
+      var name = cfg.nameFor(p);
+      var total = Number(p.total_voters || 0);
+      var totalStr = total.toLocaleString();
+      var leanStr = formatLean(p.lean);
+      var label = leanLabel(p.lean);
+
+      var a = document.createElementNS(SVG_NS, 'a');
+      a.setAttributeNS(null, 'href', cfg.hrefFor(p));
+      a.setAttribute('aria-label', name + ' — ' + label + ' (' + leanStr + ') — ' + totalStr + ' registered voters');
+      a.dataset.name = name;
+      a.dataset.lean = leanStr;
+      a.dataset.label = label;
+      a.dataset.total = totalStr;
+
+      var path = document.createElementNS(SVG_NS, 'path');
+      path.setAttribute('d', geometryToPath(f.geometry, projection));
+      path.setAttribute('fill', leanColor(p.lean) || 'var(--surface-3)');
+      path.setAttribute('fill-rule', 'evenodd');
+      path.setAttribute('stroke', 'var(--rule)');
+      path.setAttribute('stroke-width', '0.6');
+      path.setAttribute('vector-effect', 'non-scaling-stroke');
+      a.appendChild(path);
+      frag.appendChild(a);
+    }
+    viewport.appendChild(frag);
+  }
+
+  // ── Data loading (counties eager, others lazy + cached) ──
+  function loadLayer(key) {
+    if (cache[key]) return Promise.resolve(cache[key]);
+    setStatus('Loading ' + LAYERS[key].label + '…', false);
+    return fetch(LAYERS[key].file)
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (gj) {
+        cache[key] = gj;
+        if (!projection && Array.isArray(gj.bounds)) {
+          projection = computeProjection(gj.bounds);
+          svg.setAttribute('viewBox', '0 0 ' + projection.width + ' ' + projection.height.toFixed(1));
+        } else if (Array.isArray(gj.bounds) && projection) {
+          // All four files are expected to share identical bounds; warn
+          // (do not re-fit) if the map-data build ever diverges.
+          if (Math.abs(gj.bounds[0] - projection.W) > 1e-6 ||
+              Math.abs(gj.bounds[3] - projection.N) > 1e-6) {
+            console.warn('[landing-map] bounds mismatch on layer ' + key + '; using counties projection.');
+          }
+        }
+        setStatus('', false);
+        return gj;
+      });
+  }
+
+  function switchLayer(key) {
+    if (key === activeLayer && cache[key]) return;
+    activeLayer = key;
+    LAYER_ORDER.forEach(function (k) {
+      var btn = document.querySelector('.layer-btn[data-layer="' + k + '"]');
+      if (btn) btn.setAttribute('aria-pressed', k === key ? 'true' : 'false');
+    });
+    if (eyebrowEl) eyebrowEl.textContent = LAYERS[key].eyebrow;
+    loadLayer(key)
+      .then(function () { renderLayer(key); })    // transform preserved (view unchanged)
+      .catch(function (e) {
+        console.error('[landing-map] layer load failed:', e);
+        setStatus('Could not load ' + LAYERS[key].label, true);
+        renderError('Map data failed to load. Please refresh.');
+      });
+  }
+
+  // ── Pan / zoom transform ─────────────────────────────────
+  function clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
+
+  function clampPan() {
+    // Keep the scaled content covering the viewBox (no empty gutters).
+    var w = projection ? projection.width : 1000;
+    var h = projection ? projection.height : 1090;
+    view.tx = clamp(view.tx, w * (1 - view.k), 0);
+    view.ty = clamp(view.ty, h * (1 - view.k), 0);
+  }
+  function applyTransform() {
+    viewport.setAttribute('transform',
+      'translate(' + view.tx.toFixed(2) + ' ' + view.ty.toFixed(2) + ') scale(' + view.k.toFixed(4) + ')');
+  }
+  function resetView() {
+    view.k = 1; view.tx = 0; view.ty = 0;
+    applyTransform();
+  }
+
+  // Convert a client point to svg-root user (viewBox) coordinates,
+  // correct under preserveAspectRatio letterboxing.
+  function toUser(clientX, clientY) {
+    var ctm = svg.getScreenCTM();
+    if (!ctm) return { x: 0, y: 0, scale: 1 };
+    var pt = svg.createSVGPoint();
+    pt.x = clientX; pt.y = clientY;
+    var u = pt.matrixTransform(ctm.inverse());
+    return { x: u.x, y: u.y, scale: ctm.a };  // ctm.a = screen px per user unit
+  }
+
+  function zoomAt(userX, userY, k1) {
+    k1 = clamp(k1, MIN_K, MAX_K);
+    var ratio = k1 / view.k;
+    view.tx = userX - (userX - view.tx) * ratio;
+    view.ty = userY - (userY - view.ty) * ratio;
+    view.k = k1;
+    clampPan();
+    applyTransform();
+  }
+
+  // Wheel zoom, anchored at the cursor.
+  svg.addEventListener('wheel', function (e) {
+    e.preventDefault();
+    var u = toUser(e.clientX, e.clientY);
+    zoomAt(u.x, u.y, view.k * Math.exp(-e.deltaY * 0.0015));
+  }, { passive: false });
+
+  // Double-click: 2x zoom at the click point.
+  svg.addEventListener('dblclick', function (e) {
+    e.preventDefault();
+    var u = toUser(e.clientX, e.clientY);
+    zoomAt(u.x, u.y, view.k * 2);
+  });
+
+  // ── Pointer drag + pinch ─────────────────────────────────
+  var pointers = new Map();       // pointerId -> {x, y}
+  var dragging = false;
+  var moved = 0;                  // total px moved in the current gesture
+  var pinchDist = 0;
+
+  function pointerDist() {
+    var pts = Array.from(pointers.values());
+    var dx = pts[0].x - pts[1].x, dy = pts[0].y - pts[1].y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+  function pointerMid() {
+    var pts = Array.from(pointers.values());
+    return { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 };
+  }
+
+  svg.addEventListener('pointerdown', function (e) {
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 1) {
+      dragging = true;
+      moved = 0;
+      svg.classList.add('dragging');
+      try { svg.setPointerCapture(e.pointerId); } catch (err) {}
+    } else if (pointers.size === 2) {
+      dragging = false;           // hand off to pinch
+      pinchDist = pointerDist();
+    }
+    hideTooltip();
+  });
+
+  svg.addEventListener('pointermove', function (e) {
+    if (!pointers.has(e.pointerId)) {
+      // Hover (no button): tooltip only, for fine pointers.
+      if (e.pointerType !== 'touch') showTooltip(e);
+      return;
+    }
+    var prev = pointers.get(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (pointers.size === 2) {
+      var dist = pointerDist();
+      if (pinchDist > 0) {
+        var mid = pointerMid();
+        var u = toUser(mid.x, mid.y);
+        zoomAt(u.x, u.y, view.k * (dist / pinchDist));
+      }
+      pinchDist = dist;
+      return;
+    }
+    if (dragging) {
+      var dx = e.clientX - prev.x, dy = e.clientY - prev.y;
+      moved += Math.abs(dx) + Math.abs(dy);
+      var scale = toUser(e.clientX, e.clientY).scale || 1;
+      view.tx += dx / scale;
+      view.ty += dy / scale;
+      clampPan();
+      applyTransform();
+    }
+  });
+
+  function endPointer(e) {
+    if (pointers.has(e.pointerId)) pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinchDist = 0;
+    if (pointers.size === 0) {
+      dragging = false;
+      svg.classList.remove('dragging');
+    }
+  }
+  svg.addEventListener('pointerup', endPointer);
+  svg.addEventListener('pointercancel', endPointer);
+  svg.addEventListener('pointerleave', function () { hideTooltip(); });
+
+  // Suppress the click that follows a drag so a pan never navigates.
+  svg.addEventListener('click', function (e) {
+    if (moved > 4) {
+      e.preventDefault();
+      e.stopPropagation();
+      moved = 0;
+    }
+  }, true);
+
+  // ── Tooltip ──────────────────────────────────────────────
+  // Build the inner nodes ONCE with the DOM API (no innerHTML) so
+  // untrusted feature text only ever reaches the page via textContent
+  // -- consistent with the frontend rule that innerHTML is not a path.
+  var ttName = null, ttLean = null, ttTotal = null;
+  function initTooltip() {
+    if (!tooltip || ttName) return;
+    ttName = document.createElement('span'); ttName.className = 'tt-name';
+    ttLean = document.createElement('span'); ttLean.className = 'tt-lean';
+    ttTotal = document.createElement('span'); ttTotal.className = 'tt-total';
+    tooltip.appendChild(ttName);
+    tooltip.appendChild(document.createElement('br'));
+    tooltip.appendChild(ttLean);
+    tooltip.appendChild(document.createTextNode(' · '));
+    tooltip.appendChild(ttTotal);
+  }
+  function showTooltip(e) {
+    if (!tooltip || !figure) return;
+    var a = e.target.closest ? e.target.closest('a') : null;
+    if (!a || !a.dataset.name) { hideTooltip(); return; }
+    ttName.textContent = a.dataset.name;
+    ttLean.textContent = a.dataset.label + ' (' + a.dataset.lean + ')';
+    ttTotal.textContent = a.dataset.total + ' voters';
+    var rect = figure.getBoundingClientRect();
+    var x = e.clientX - rect.left + 14;
+    var y = e.clientY - rect.top + 14;
+    // Keep inside the figure.
+    x = Math.min(x, rect.width - tooltip.offsetWidth - 6);
+    tooltip.style.left = Math.max(4, x) + 'px';
+    tooltip.style.top = y + 'px';
+    tooltip.classList.add('show');
+  }
+  function hideTooltip() {
+    if (tooltip) tooltip.classList.remove('show');
+  }
+
+  // ── Toolbar wiring ───────────────────────────────────────
+  LAYER_ORDER.forEach(function (k) {
+    var btn = document.querySelector('.layer-btn[data-layer="' + k + '"]');
+    if (btn) btn.addEventListener('click', function () { switchLayer(k); });
+  });
+  var resetBtn = document.getElementById('reset-view');
+  if (resetBtn) resetBtn.addEventListener('click', resetView);
+
+  // ── Hero stat: total registered voters ───────────────────
+  // Statewide file is a doughnut chartConfig; sum whatever cohort
+  // array it carries (3 today: UNC/REP/DEM) so this stays correct
+  // if the cohort count changes.
+  function loadHeroStat() {
+    var el = document.getElementById('hero-stat');
+    if (!el) return;
+    fetch('data/ohio_(statewide)_party_affiliation.json')
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (j) {
+        var arr = j.chartConfig.datasets[0].data;
+        var sum = arr.reduce(function (a, b) { return a + Number(b || 0); }, 0);
+        if (sum > 0) el.textContent = sum.toLocaleString();
+      })
+      .catch(function (e) {
+        // Leave the static fallback baked into the HTML in place.
+        console.warn('[landing-map] hero stat fetch failed:', e);
+      });
+  }
+
+  // ── Boot ─────────────────────────────────────────────────
+  initTooltip();
+  loadHeroStat();
+  loadLayer('counties')
+    .then(function () {
+      renderLayer('counties');
+      applyTransform();
+    })
+    .catch(function (e) {
+      console.error('[landing-map] initial load failed:', e);
+      setStatus('Could not load the map', true);
+      renderError('Map data failed to load. Please refresh.');
+    });
+})();

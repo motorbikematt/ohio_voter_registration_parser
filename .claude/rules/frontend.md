@@ -1,6 +1,6 @@
 # CLAUDE.md — docs/ (Public Web Frontend)
 
-Scope: the GitHub Pages dashboard served from this folder (`index.htm`, `assets/`, `charts.js`, `captain/`, `data/`). Auto-loaded by Claude Code CLI when editing files under `docs/`. For pipeline, schema, git, and file-editing rules see the project-root `CLAUDE.md`. This file is itself served by GitHub Pages — keep it free of secrets and PII (it contains only frontend conventions).
+Scope: the GitHub Pages dashboard served from this folder (`app.htm`, `assets/`, `charts.js`, `captain/`, `data/`). The root `index.htm` is the landing page (`assets/landing-map.js` + `assets/landing.css`, tokens-only — it does **not** load `v2.css`); any URL carrying a dashboard state param redirects from `index.htm` to `app.htm`. Auto-loaded by Claude Code CLI when editing files under `docs/`. For pipeline, schema, git, and file-editing rules see the project-root `CLAUDE.md`. This file is itself served by GitHub Pages — keep it free of secrets and PII (it contains only frontend conventions).
 
 ## UI & Design
 * Conform to existing breakpoints — the 880px mobile-drawer breakpoint in `assets/v2.css` is the canonical switch; the captain layer's CSS matches it deliberately. Don't introduce a competing breakpoint.

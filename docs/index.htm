@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en" data-style="editorial" data-theme="dark" data-density="comfortable">
+<head>
+  <meta charset="utf-8" />
+  <!-- [A] Deep-link redirect — MUST be the first thing in <head>, before any
+       CSS or analytics. If the URL carries any dashboard STATE param, bounce
+       straight to app.htm with the query + hash intact so old deep links keep
+       working. Pure display params (style/theme/layout/density) do NOT appear
+       in this list, so a bare /?theme=light renders the landing page. The
+       dashboard's own legacyShim() (assets/v2.js) translates the old
+       county/geo/precinct/jurType/jurName scheme once it loads on app.htm. -->
+  <script>
+  (function () {
+    var p = new URLSearchParams(location.search);
+    var keys = ['level', 'id', 'county', 'type', 'city', 'compare', 'view',
+                'geo', 'precinct', 'jurType', 'jurName'];
+    for (var i = 0; i < keys.length; i++) {
+      if (p.has(keys[i])) {
+        location.replace('app.htm' + location.search + location.hash);
+        return;
+      }
+    }
+  })();
+  </script>
+
+  <title>Precincts.info — Ohio voter data, precinct by precinct</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Explore party lean, registration, and turnout for every county and legislative district in Ohio, built from the Secretary of State's statewide voter file." />
+  <link rel="canonical" href="https://precincts.info/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Precincts.info — Ohio voter data, precinct by precinct" />
+  <meta property="og:description" content="Party lean, registration, and turnout for every county and legislative district in Ohio." />
+  <meta property="og:url" content="https://precincts.info/" />
+
+  <link rel="stylesheet" href="assets/v2-tokens.css" />
+  <link rel="stylesheet" href="assets/landing.css" />
+
+  <!-- [B] Google Analytics — placed AFTER the redirect script so a redirected
+       hit navigates away before a landing pageview can fire. Same property as
+       the dashboard. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRWS05T21T"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JRWS05T21T');
+  </script>
+</head>
+<body class="landing">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="wordmark"><span class="dot"></span>Precincts<small>info</small></div>
+    </div>
+    <div class="topbar-actions">
+      <a class="topbar-link" href="app.htm">Open<span class="long"> the dashboard</span></a>
+      <button class="icon-btn" id="theme-toggle" type="button" title="Toggle light / dark" aria-label="Toggle light or dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 109 9 7 7 0 01-9-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow"><span class="hero-stat" id="hero-stat">7,892,553</span> registered Ohio voters</p>
+        <h1>Every precinct in Ohio, on one map.</h1>
+        <p class="subhead">
+          A precinct-level view of party lean, registration, and turnout across
+          all 88 counties and every legislative district — built directly from
+          the Ohio Secretary of State's statewide voter file. Pick a shape to
+          open its full profile.
+        </p>
+      </div>
+    </section>
+
+    <section class="map-stage" aria-label="Interactive map of Ohio">
+      <p class="eyebrow" id="layer-eyebrow">88 counties</p>
+
+      <div class="map-toolbar">
+        <div class="layer-group" role="group" aria-label="Map layer">
+          <button class="layer-btn" type="button" data-layer="counties" aria-pressed="true">Counties</button>
+          <button class="layer-btn" type="button" data-layer="house" aria-pressed="false">State House</button>
+          <button class="layer-btn" type="button" data-layer="senate" aria-pressed="false">State Senate</button>
+          <button class="layer-btn" type="button" data-layer="congress" aria-pressed="false">US Congress</button>
+        </div>
+        <span class="toolbar-spacer"></span>
+        <button class="reset-btn" type="button" id="reset-view">Reset view</button>
+        <span class="map-status" id="map-status" role="status" aria-live="polite"></span>
+      </div>
+
+      <a class="skip-map" href="#about-precincts">Skip the map</a>
+
+      <figure class="map-figure">
+        <svg id="ohio-map" viewBox="0 0 1000 1090" role="group"
+             aria-label="Map of Ohio: party lean by jurisdiction"
+             preserveAspectRatio="xMidYMid meet">
+          <g id="viewport"></g>
+        </svg>
+        <div class="map-tooltip" role="status" aria-live="off"></div>
+      </figure>
+
+      <div class="map-legend">
+        <span class="legend-title">Party lean</span>
+        <span class="item"><span class="swatch" style="background:#ef4444"></span>Strong R</span>
+        <span class="item"><span class="swatch" style="background:#f87171"></span>Lean R</span>
+        <span class="item"><span class="swatch" style="background:#9ca3af"></span>Mixed / UNC</span>
+        <span class="item"><span class="swatch" style="background:#60a5fa"></span>Lean D</span>
+        <span class="item"><span class="swatch" style="background:#2563eb"></span>Strong D</span>
+      </div>
+
+      <p class="map-hint">Scroll or pinch to zoom · drag to pan · click any shape for its full profile</p>
+    </section>
+
+    <div class="scroll-cue" aria-hidden="true"></div>
+
+    <section id="about-precincts" class="section">
+      <div class="wrap measure">
+        <h2>What Precincts.info is</h2>
+        <p>
+          Ohio's statewide voter file is public, but it arrives as millions of
+          raw rows split across four flat files — unreadable without heavy
+          tooling. Precincts.info turns it into a navigable map: every county,
+          city, township, ward, and legislative district, each with its own
+          profile of party lean, registration trends, and turnout history.
+        </p>
+        <p>
+          Nothing here is modeled or purchased. Every number traces back to the
+          Secretary of State's own records, aggregated with a single consistent
+          method so a precinct in Cuyahoga and a precinct in Adams are counted
+          the same way.
+        </p>
+        <a class="cta" href="app.htm">Explore the dashboard</a>
+      </div>
+    </section>
+
+    <section id="about-doorstep" class="section">
+      <div class="wrap measure">
+        <h2>Doorstep Democracy</h2>
+        <p>
+          Doorstep Democracy is the canvassing and precinct-captain layer built
+          on the same data — a way for organizers to work a precinct list, track
+          conversations at the door, and keep a party committee's roster current
+          without spreadsheets.
+        </p>
+        <p>
+          It runs on top of the public map but keeps voter contact details
+          private to the organizer, never in the public deploy. More on this
+          soon.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap foot-inner">
+      <div class="foot-links">
+        <a href="app.htm">Open the dashboard</a>
+        <a href="#about-doorstep">Doorstep Democracy</a>
+      </div>
+      <div class="foot-note">Data: Ohio Secretary of State statewide voter file.</div>
+    </div>
+  </footer>
+
+  <script src="assets/landing-map.js"></script>
+  <script>
+    // Landing-only theme toggle. No persistence needed; honor ?theme= / ?style=
+    // on load so links from the dashboard keep the same look.
+    (function () {
+      var root = document.documentElement;
+      var p = new URLSearchParams(location.search);
+      var t = p.get('theme'); if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      var s = p.get('style'); if (s === 'current' || s === 'editorial') root.dataset.style = s;
+      var btn = document.getElementById('theme-toggle');
+      if (btn) btn.addEventListener('click', function () {
+        root.dataset.theme = (root.dataset.theme === 'light') ? 'dark' : 'light';
+      });
+    })();
+  </script>
+
+</body>
+</html>
