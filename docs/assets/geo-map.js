@@ -188,6 +188,12 @@
   //   keyProp     properties key to join on ('slug' | 'id').
   //   selectedKey string | null
   //   compareKeys [aKey, bKey] | null
+  //   activeKeys  Set|Array of keys that keep lean color in 'selected'
+  //               mode without the selected/compare stroke treatment.
+  //               compareKeys is POSITIONAL (indexOf -> is-compare-a/b)
+  //               and so holds exactly two; this carries a whole set --
+  //               e.g. every precinct of one city, coloured while the
+  //               rest of the county greys out.
   //   hrefFor     fn(props) -> url; wraps each shape in <a>.
   //   onClick     fn(key, props, event); used when hrefFor is absent.
   //   nameFor     fn(props) -> display name (title / aria-label).
@@ -230,6 +236,13 @@
     var baseClass = opts.className || 'geo-shape';
     var selected  = opts.selectedKey || null;
     var compare   = opts.compareKeys || null;
+    // Normalized to a Set so membership is O(1) across 381 precincts.
+    var active    = null;
+    if (opts.activeKeys) {
+      active = (typeof Set === 'function' && opts.activeKeys instanceof Set)
+        ? opts.activeKeys
+        : new Set(opts.activeKeys);
+    }
     var frag = document.createDocumentFragment();
     var feats = gj.features;
     var n = 0;
@@ -251,7 +264,8 @@
 
       var isSel = (selected !== null && key === selected);
       var cmpIdx = compare ? compare.indexOf(key) : -1;
-      var highlighted = isSel || cmpIdx >= 0;
+      var isActive = (active !== null && key !== undefined && key !== null && active.has(key));
+      var highlighted = isSel || cmpIdx >= 0 || isActive;
 
       var cls = [baseClass];
       if (isSel && cmpIdx < 0) cls.push('is-selected');

@@ -420,6 +420,31 @@
   };
   const COUNTY_GEO_FILE = 'data/state_map/counties.geojson';
 
+  // ── Map render generation ──────────────────────────────────
+  // Every map renderer is async (geojson fetch) and they all write into the
+  // SAME #map node, so the existing `$('map') !== root` guard cannot separate
+  // them -- it only detects the container being replaced, not a second
+  // renderer landing in it. Without a generation token the slowest fetch
+  // wins: selecting Montgomery painted the precinct layer, then a still
+  // in-flight county render overwrote it with the 88-county map.
+  //
+  // The token identifies the VIEW, not the call. Several dispatches can
+  // legitimately target one view (first paint, refreshView, then the lean
+  // preload landing); those must share a token or they cancel each other.
+  // It advances only when the view signature actually changes, so a genuine
+  // navigation invalidates in-flight renders from the previous view.
+  let _mapGen = 0;
+  let _mapGenKey = null;
+  function mapViewKey() {
+    return [S.view, S.level, S.id, S.county, S.district_type,
+            S.compare ? S.compare.join('|') : ''].join('');
+  }
+  function nextMapGen() {
+    const k = mapViewKey();
+    if (k !== _mapGenKey) { _mapGenKey = k; _mapGen++; }
+    return _mapGen;
+  }
+
   function partyLean(partyData) {
     if (!partyData || !partyData.chartConfig) return null;
     const d = partyData.chartConfig.datasets[0].data;
@@ -556,14 +581,14 @@
   // within 5e-05 (pure 4dp rounding in build_state_map.py), because
   // partyLean() here and party_lean() there implement the identical 7-cohort
   // formula. Using the embedded value avoids a second network round trip.
-  function renderDistrictMap(dtype, selectedId, compareIds, leans) {
+  function renderDistrictMap(dtype, selectedId, compareIds, leans, gen) {
     const root = $('map');
     if (!root) return;
     const layout = DISTRICT_LAYOUTS[dtype] || DISTRICT_LAYOUTS.state_senate_district;
     const file = DISTRICT_GEO_FILES[dtype] || DISTRICT_GEO_FILES.state_senate_district;
     GeoMap.loadGeoJSON(file).then(gj => {
       // The view may have changed while the fetch was in flight.
-      if (($('map')) !== root) return;
+      if ((gen !== undefined && gen !== _mapGen) || ($('map')) !== root) return;
       GeoMap.render({
         container: root,
         geojson: gj,
@@ -621,13 +646,13 @@
   // sub-county polygons exist for Montgomery only so far. The caller decides
   // which county to pass, so each county upgrades automatically as its own
   // shapes land -- nothing here branches on a county name.
-  function renderHexMap(leans, selectedName, compareNames) {
+  function renderHexMap(leans, selectedName, compareNames, gen) {
     const root = $('map');
     if (!root) return;
     const selSlug = selectedName ? countyToSlug(selectedName) : null;
     const cmpSlugs = compareNames ? compareNames.filter(Boolean).map(countyToSlug) : null;
     GeoMap.loadGeoJSON(COUNTY_GEO_FILE).then(gj => {
-      if (($('map')) !== root) return;
+      if ((gen !== undefined && gen !== _mapGen) || ($('map')) !== root) return;
       GeoMap.render({
         container: root,
         geojson: gj,
@@ -645,6 +670,80 @@
       const insetKey = (cmpSlugs && cmpSlugs.length) ? null : selSlug;
       renderInset(gj, 'slug', insetKey, (selectedName || '') + ' County');
     }).catch(e => console.warn('[map] county geometry load failed', e));
+  }
+
+  // ── Precinct choropleth (county drill-down) ────────────────
+  // Montgomery is the only county whose BoE precinct polygons we have so
+  // far (1 of 88 -- see DATA_QUALITY.md `precinct_geometry`). Nothing here
+  // names it: we probe for the file and fall back to the county map on a
+  // 404, so each county upgrades the moment its shapes land. Branching on
+  // observed availability rather than a county list is CLAUDE.md section 5.
+  const PRECINCT_GEO_DIR = 'data/state_map/precincts_';
+  const _precinctGeoMiss = {};   // countySlug -> true once probed and absent
+
+  function precinctGeoFile(countySlug) { return PRECINCT_GEO_DIR + countySlug + '.geojson'; }
+
+  // Which precincts should stay coloured for the current selection.
+  // Membership comes from the pipeline-stamped place_slug / ward_slug in the
+  // precinct index -- never by re-aggregating precinct files at runtime,
+  // which is what caused the Kettering over-count (frontend rule).
+  // Returns null for "colour everything" (whole-county view).
+  function precinctActiveKeys(index) {
+    const rows = (index && index.precincts) || [];
+    if (S.level === 'precinct') return new Set([S.id]);
+    if (S.level === 'ward') return new Set(rows.filter(p => p.ward_slug === S.id).map(p => p.safe_name));
+    if (SUBCOUNTY_LEVELS.includes(S.level) || S.level === 'city') {
+      return new Set(rows.filter(p => p.place_slug === S.id).map(p => p.safe_name));
+    }
+    return null;
+  }
+
+  // countySlug: which county's geometry to draw. Resolves through the same
+  // index the hierarchy uses, so names never have to be un-slugged.
+  function renderPrecinctMap(countySlug, gen) {
+    const root = $('map');
+    if (!root) return Promise.resolve(false);
+    const file = precinctGeoFile(countySlug);
+    return Promise.all([
+      GeoMap.loadGeoJSON(file),
+      fetchJSON('data/' + countySlug + '_precinct_index.json')
+    ]).then(([gj, index]) => {
+      // Superseded by a newer view: report success so the caller does NOT
+      // fall back and repaint over whatever is now current.
+      if (gen !== _mapGen || ($('map')) !== root) return true;
+      const active = precinctActiveKeys(index);
+      GeoMap.render({
+        container: root,
+        geojson: gj,
+        mode: active ? 'selected' : 'all',
+        keyProp: 'safe_name',
+        activeKeys: active,
+        selectedKey: S.level === 'precinct' ? S.id : null,
+        className: 'geo-shape',
+        ariaLabel: slugToCountyName(countySlug) + ' County precinct map',
+        nameFor: p => p.name,
+        // Mirrors the [data-action="select-precinct"] hierarchy handler's
+        // state transition; there is no shared selectPrecinct() to call.
+        onClick: async (safeName, props) => {
+          S.level = 'precinct'; S.id = safeName; S.county = countySlug; S.city = null;
+          writeState({ level: 'precinct', id: safeName, county: countySlug, city: null, type: null });
+          emit('select_jurisdiction', { level: 'precinct', id: safeName, county: countySlug, name: props.name });
+          await refreshView();
+        }
+      });
+      // One precinct is far below INSET_MAX_FRAC, so the inset carries the
+      // actual shape reading here; a whole-county view has no single feature.
+      if (S.level === 'precinct') {
+        const row = (index.precincts || []).find(p => p.safe_name === S.id);
+        renderInset(gj, 'safe_name', S.id, (row && row.name) || S.id);
+      } else {
+        hideInset();
+      }
+      return true;
+    }).catch(() => {
+      _precinctGeoMiss[countySlug] = true;    // absent (404) or malformed
+      return false;
+    });
   }
 
   function renderMapSelection(bag) {
@@ -1685,9 +1784,30 @@
       wireMenus();
     }
 
-    // Hex / District map: route by current view
+    renderMapForState();
+
+    // GA pageview
+    emit('page_view', { page_path: location.search, level: S.level, id: S.id, compare: S.compare ? S.compare.join(',') : null });
+
+    // Compact tag in topbar
+    const tag = $('compare-tag');
+    if (tag) tag.style.display = S.compare ? '' : 'none';
+    const cBtn = $('compare-toggle');
+    if (cBtn) cBtn.classList.toggle('is-on', !!S.compare);
+  }
+
+  // ── Map dispatch ───────────────────────────────────────────
+  // The single "which map does this view get?" resolver. Called by
+  // refreshView() and by the background lean preload, so a late-arriving
+  // preload repaints the map the CURRENT view wants rather than assuming
+  // the county layer (which silently clobbered the precinct layer).
+  function renderMapForState() {
     const mapEyebrow = document.querySelector('.right-pane .map-section > .eyebrow');
+    // One token per dispatch; every async render below is tagged with it and
+    // discards itself if a newer view has since been requested.
+    const gen = nextMapGen();
     const inDistrictMode = S.view === 'district' || S.level === 'district';
+
     if (inDistrictMode) {
       const dtype = S.district_type || 'state_senate_district';
       const layout = DISTRICT_LAYOUTS[dtype] || DISTRICT_LAYOUTS.state_senate_district;
@@ -1702,13 +1822,13 @@
           (b && b.kind === 'district' && b.dtype === dtype) ? b.id : null
         ];
       }
-      renderDistrictMap(dtype, selectedId, compareIds, window._districtLeans && window._districtLeans[dtype]);
+      renderDistrictMap(dtype, selectedId, compareIds, window._districtLeans && window._districtLeans[dtype], gen);
       // Background preload of leans for this district type
       if (!(window._districtLeans && window._districtLeans[dtype])) {
         preloadDistrictLean(dtype).then(leans => {
           window._districtLeans = window._districtLeans || {};
           window._districtLeans[dtype] = leans;
-          renderDistrictMap(dtype, selectedId, compareIds, leans);
+          renderDistrictMap(dtype, selectedId, compareIds, leans, gen);
         });
       }
     } else if (S.compare) {
@@ -1717,25 +1837,43 @@
       const b = parseSlot(S.compare[1]);
       const aName = (a && a.kind === 'county') ? slugToCountyName(a.id) : null;
       const bName = (b && b.kind === 'county') ? slugToCountyName(b.id) : null;
-      renderHexMap(window._leans, null, [aName, bName].filter(Boolean));
+      renderHexMap(window._leans, null, [aName, bName].filter(Boolean), gen);
     } else {
-      if (mapEyebrow) mapEyebrow.textContent = 'Ohio · 88 counties · party lean';
       // For a city, S.id is a CITY slug (not a county) and the view is always
       // the unified all-county report, so there's no single county to highlight.
-      // NOTE: the hex map is a placeholder pending real jurisdictional maps.
       const name = S.level === 'county' ? slugToCountyName(S.id) :
                    S.level === 'precinct' ? slugToCountyName(S.county || '') : null;
-      renderHexMap(window._leans, name, null);
+
+      // Which county's precinct geometry could serve this view? A county view
+      // uses S.id; every sub-county level carries S.county. A bare city slug
+      // spans counties by design (the unified report), so it has no single
+      // county and stays on the statewide map.
+      const geoCounty = S.level === 'county' ? S.id :
+                        (S.level === 'precinct' || SUBCOUNTY_LEVELS.includes(S.level))
+                          ? (S.county || null) : null;
+
+      const drawCounties = () => {
+        if (mapEyebrow) mapEyebrow.textContent = 'Ohio · 88 counties · party lean';
+        renderHexMap(window._leans, name, null, gen);
+      };
+
+      if (geoCounty && !_precinctGeoMiss[geoCounty]) {
+        // Falls back only on a genuine miss; the probe caches the 404 so a
+        // county without shapes costs one request per session, not per view.
+        renderPrecinctMap(geoCounty, gen).then(ok => {
+          if (gen !== _mapGen) return;              // superseded meanwhile
+          if (ok) {
+            if (mapEyebrow) {
+              mapEyebrow.textContent = slugToCountyName(geoCounty) + ' County · precincts · party lean';
+            }
+          } else {
+            drawCounties();
+          }
+        });
+      } else {
+        drawCounties();
+      }
     }
-
-    // GA pageview
-    emit('page_view', { page_path: location.search, level: S.level, id: S.id, compare: S.compare ? S.compare.join(',') : null });
-
-    // Compact tag in topbar
-    const tag = $('compare-tag');
-    if (tag) tag.style.display = S.compare ? '' : 'none';
-    const cBtn = $('compare-toggle');
-    if (cBtn) cBtn.classList.toggle('is-on', !!S.compare);
   }
 
   // ── Menus + exports ────────────────────────────────────────
@@ -1966,8 +2104,9 @@
     // Initial skeleton
     buildCenterPaneSingle();
 
-    // Map first paint (no leans yet)
-    renderHexMap({}, S.level === 'county' ? slugToCountyName(S.id) : null);
+    // Map first paint (no leans yet). Tagged with the current generation so
+    // refreshView()'s own render supersedes it rather than racing it.
+    renderHexMap({}, S.level === 'county' ? slugToCountyName(S.id) : null, null, nextMapGen());
 
     await refreshView();
 
@@ -1978,18 +2117,13 @@
         window._leans = leans;
         // Re-check state at fire time — user may have switched to district view
         if (S.view === 'district' || S.level === 'district') return;
-        if (S.compare) {
-          const a = parseSlot(S.compare[0]);
-          const b = parseSlot(S.compare[1]);
-          const aN = (a && a.kind === 'county') ? slugToCountyName(a.id) : null;
-          const bN = (b && b.kind === 'county') ? slugToCountyName(b.id) : null;
-          renderHexMap(leans, null, [aN, bN].filter(Boolean));
-        } else {
-          const name = S.level === 'county' ? slugToCountyName(S.id) :
-                       S.level === 'city' ? slugToCountyName(S.id) :
-                       S.level === 'precinct' ? slugToCountyName(S.county || '') : null;
-          renderHexMap(leans, name, null);
-        }
+        // 88 party-JSON fetches land well after the first paint, so this used
+        // to repaint the COUNTY map unconditionally -- overwriting a precinct
+        // layer that had already rendered for the current view. Re-dispatch
+        // through refreshView()'s own map branch instead of deciding here;
+        // that keeps one map-choice resolver rather than a second copy that
+        // silently drifts (CLAUDE.md section 5).
+        renderMapForState();
       }).catch(e => console.warn('lean preload error', e));
     }
 
