@@ -1,0 +1,394 @@
+/* ============================================================
+   Precincts.info — Landing page styles
+   Layers on top of v2-tokens.css ONLY. Deliberately does NOT load
+   v2.css (that stylesheet is the dashboard's 3-pane app shell and
+   assumes html,body{height:100%} with internal scroll panes, which
+   would fight this normally-scrolling document).
+   All colors/radii/fonts come from the token layer; the only
+   hard-coded hexes are the 5 party-lean bucket swatches, which MUST
+   match PARTY_LEAN_BUCKETS in v2.js / landing-map.js.
+   Single responsive breakpoint at 880px (matches the dashboard's
+   mobile-drawer breakpoint — do not introduce a competing value).
+   ============================================================ */
+
+/* v2-tokens.css sets html,body{height:100%}; the landing document
+   grows with its content and scrolls the page normally, so release
+   that constraint. */
+body.landing {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+/* ── Top bar ───────────────────────────────────────────────
+   The dashboard's topbar/wordmark styles live in v2.css, which we
+   don't load, so restate a landing-appropriate version here reusing
+   the same markup (.brand/.wordmark/.dot). */
+.landing .topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px clamp(16px, 4vw, 40px);
+  border-bottom: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: saturate(1.2) blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.landing .wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  font-family: var(--ff-serif);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: var(--display-tracking);
+  color: var(--ink);
+}
+.landing .wordmark .dot {
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  align-self: center;
+}
+.landing .wordmark small {
+  font-size: 0.6em;
+  font-weight: 500;
+  color: var(--muted);
+  transform: translateY(-0.4em);
+}
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topbar-link {
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 8px 14px;
+  border: 1px solid var(--rule-2);
+  border-radius: var(--r);
+  background: var(--surface);
+  color: var(--ink);
+}
+.topbar-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--rule-2);
+  border-radius: var(--r);
+  background: var(--surface);
+  color: var(--ink-2);
+}
+.icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+.icon-btn svg { width: 18px; height: 18px; }
+
+/* ── Layout shell ──────────────────────────────────────────*/
+.landing main { display: block; }
+.wrap {
+  width: 100%;
+  max-width: 920px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 28px);
+}
+
+/* ── Hero ──────────────────────────────────────────────────*/
+.hero {
+  text-align: center;
+  padding: clamp(40px, 8vw, 88px) 0 clamp(20px, 4vw, 36px);
+}
+.hero .eyebrow { display: block; margin-bottom: 18px; }
+.hero-stat { color: var(--accent-2); font-weight: 600; }
+.hero h1 {
+  font-family: var(--ff-serif);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  font-optical-sizing: auto;
+  font-size: clamp(2.1rem, 6vw, 4.1rem);
+  line-height: 1.04;
+  color: var(--ink);
+  margin: 0 auto;
+  max-width: 16ch;
+}
+.hero .subhead {
+  margin: clamp(18px, 3vw, 26px) auto 0;
+  max-width: 54ch;
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+/* ── Map stage ─────────────────────────────────────────────*/
+.map-stage {
+  max-width: 900px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 28px);
+}
+.map-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.layer-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+}
+.layer-btn {
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 7px 13px;
+  border-radius: var(--r);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.layer-btn:hover { color: var(--ink); background: var(--surface-3); }
+.layer-btn[aria-pressed="true"] {
+  color: var(--selected-ink);
+  background: var(--selected-bg);
+  box-shadow: var(--shadow-1);
+}
+.toolbar-spacer { flex: 1 1 auto; }
+.reset-btn {
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  padding: 7px 13px;
+  border: 1px solid var(--rule-2);
+  border-radius: var(--r);
+  color: var(--ink-2);
+  background: var(--surface);
+}
+.reset-btn:hover { border-color: var(--accent); color: var(--accent); }
+.map-status {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  color: var(--muted);
+  min-width: 8ch;
+}
+.map-status[data-state="error"] { color: var(--c-rep); }
+
+/* Skip-the-map link: visually hidden until focused. */
+.skip-map {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-map:focus {
+  position: static;
+  left: auto;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 8px 14px;
+  border-radius: var(--r);
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-family: var(--ff-mono);
+  font-size: 12px;
+}
+
+figure.map-figure {
+  position: relative;
+  margin: 0;
+}
+#ohio-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 78vh;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-1);
+  touch-action: none;        /* pinch/drag handled in JS */
+  cursor: grab;
+}
+#ohio-map.dragging { cursor: grabbing; }
+#ohio-map .map-empty {
+  font-family: var(--ff-mono);
+  font-size: 13px;
+  fill: var(--muted);
+}
+
+/* Each shape is <a><path/></a>; hover/focus states are CSS-only. */
+#ohio-map a { cursor: pointer; outline: none; }
+#ohio-map a path {
+  transition: filter .12s ease, stroke-width .12s ease;
+}
+#ohio-map a:hover path {
+  filter: brightness(1.18) saturate(1.08);
+  stroke: var(--ink);
+  stroke-width: 1.4;
+}
+#ohio-map a:focus-visible path {
+  filter: brightness(1.15);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+/* Tooltip: one absolutely-positioned element moved by JS. */
+.map-tooltip {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  max-width: 240px;
+  padding: 8px 11px;
+  border: 1px solid var(--rule-2);
+  border-radius: var(--r);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity .1s ease;
+}
+.map-tooltip.show { opacity: 1; }
+.map-tooltip .tt-name { font-weight: 600; }
+.map-tooltip .tt-lean { font-family: var(--ff-mono); font-size: 11px; }
+.map-tooltip .tt-total { color: var(--muted); font-size: 11px; }
+
+/* Legend — 5 swatches, hexes MUST match PARTY_LEAN_BUCKETS. */
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 16px;
+  margin-top: 14px;
+}
+.map-legend .legend-title {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-right: 4px;
+}
+.map-legend span.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.map-legend .swatch {
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.map-hint {
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ── Scroll cue (CSS-only chevron) ─────────────────────────*/
+.scroll-cue {
+  display: block;
+  width: 22px;
+  height: 22px;
+  margin: clamp(24px, 5vw, 44px) auto clamp(8px, 2vw, 16px);
+  border-right: 2px solid var(--muted-2);
+  border-bottom: 2px solid var(--muted-2);
+  transform: rotate(45deg);
+  animation: cue-bounce 1.8s ease-in-out infinite;
+  opacity: .8;
+}
+@keyframes cue-bounce {
+  0%, 100% { transform: translateY(0) rotate(45deg); }
+  50%      { transform: translateY(6px) rotate(45deg); }
+}
+
+/* ── About sections ────────────────────────────────────────*/
+.section {
+  padding: clamp(48px, 8vw, 96px) 0;
+  border-top: 1px solid var(--rule);
+}
+.section:first-of-type { border-top: 0; }
+.section .measure { max-width: 64ch; margin-inline: auto; }
+.section h2 {
+  font-family: var(--ff-serif);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  line-height: 1.12;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+.section p {
+  font-size: clamp(1rem, 1.4vw, 1.1rem);
+  line-height: 1.68;
+  color: var(--ink-2);
+  margin-bottom: 16px;
+}
+.cta {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 12px 22px;
+  border-radius: var(--r);
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+  font-size: 15px;
+}
+.cta:hover { background: var(--accent-2); color: var(--bg); }
+
+/* ── Footer ────────────────────────────────────────────────*/
+.landing footer {
+  border-top: 1px solid var(--rule);
+  padding: clamp(28px, 5vw, 44px) 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.landing footer .foot-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  align-items: center;
+  justify-content: space-between;
+}
+.landing footer .foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
+.landing footer a { color: var(--ink-2); }
+.landing footer a:hover { color: var(--accent); }
+
+/* ── Single breakpoint: 880px ──────────────────────────────*/
+@media (max-width: 880px) {
+  .topbar-link span.long { display: none; }
+  .map-toolbar { gap: 6px; }
+  .layer-group { width: 100%; justify-content: space-between; }
+  .toolbar-spacer { display: none; }
+  .hero h1 { max-width: 100%; }
+  .landing footer .foot-inner { flex-direction: column; align-items: flex-start; }
+}
+
+/* ── Reduced motion ────────────────────────────────────────*/
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue { animation: none; }
+  #ohio-map a path { transition: none; }
+  .map-tooltip { transition: none; }
+}

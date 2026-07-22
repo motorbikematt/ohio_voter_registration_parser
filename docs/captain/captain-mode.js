@@ -1,5 +1,5 @@
 /*
- * captain-mode.js — localhost decoration layer for docs/index.htm.
+ * captain-mode.js — localhost decoration layer for docs/app.htm.
  *
  * The public deploy of this script is structurally inert: it tries to reach
  * http://127.0.0.1:8000/health on load. If the local roster_api.py is not
@@ -312,7 +312,7 @@
   }
 
   // ─── URL → scope ─────────────────────────────────────────────────────────
-  // v2.js URL shape (see docs/index.htm + v2.js parseSlot): ?level=precinct&id=
+  // v2.js URL shape (see docs/app.htm + v2.js parseSlot): ?level=precinct&id=
   // The precinct id is the slugified precinct name. We need (a) county number
   // and (b) the un-slugified precinct name to query the roster API.
   // The displayed precinct name appears in the page's breadcrumb after render.

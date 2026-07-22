@@ -135,7 +135,7 @@ Precinct drill-down shows per-precinct cohort composition for every precinct in 
 [https://precincts.info](https://precincts.info) — fully rendered, no setup.
 
 **Run it locally** if you want to develop against it or unlock captain mode (see step 6).
-You cannot just double-click `docs/index.htm` — modern browsers block `fetch()` over
+You cannot just double-click `docs/app.htm` — modern browsers block `fetch()` over
 `file://` URLs, so the dashboard JSON won't load. You need a tiny static server. Python's
 built-in one is enough:
 
@@ -144,7 +144,7 @@ cd docs
 python -m http.server 8001
 ```
 
-Open [http://localhost:8001](http://localhost:8001). Leave the terminal running; stop with `Ctrl+C`.
+Open [http://localhost:8001](http://localhost:8001) — this is the new landing page (`docs/index.htm`) with the interactive statewide map. The dashboard itself now lives at [http://localhost:8001/app.htm](http://localhost:8001/app.htm) (`docs/app.htm`); any old deep link that carries dashboard params (e.g. `?level=county&id=hamilton`) redirects there automatically. Leave the terminal running; stop with `Ctrl+C`.
 
 ### 6. Captain mode (optional — real voter rosters)
 
@@ -197,7 +197,7 @@ enriched parquet is read-only.
 
 ## Output
 
-- **Web dashboard** — `docs/index.html` with Chart.js charts; data in `docs/data/` and `docs/manifest.json`
+- **Web dashboard** — `docs/app.htm` with Chart.js charts; data in `docs/data/` and `docs/manifest.json` (the root `docs/index.htm` is the landing page)
 - **Excel workbook** — `ohio_analysis_YYYY-MM-DD.xlsx` (county summary) or `county_NN_analysis_YYYY-MM-DD.xlsx`
   - Sheets: Decade Summary, Participation, District Breakdown, Party Cross-tabs
   - Ohio-wide builds use a County Summary sheet (raw 7.9M rows exceeds Excel's row limit)
