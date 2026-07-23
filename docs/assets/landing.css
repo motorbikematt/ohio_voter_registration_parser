@@ -227,15 +227,24 @@ figure.map-figure {
   border: 1px solid var(--rule);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-1);
-  /* The browser owns vertical scroll and pinch-zoom; JS keeps horizontal drag
-     and tap. This was `none`, a total opt-out of native touch gestures, which
+  /* The browser owns VERTICAL SCROLL ONLY; JS keeps pinch, horizontal drag and
+     tap. This was `none`, a total opt-out of native touch gestures, which
      turned the map into an invisible scroll trap: at first load it covered
      100% of the natural thumb zone (bottom third of the screen), so a swipe-up
      started on the map did nothing at all and the page read as frozen.
      One-finger VERTICAL panning of the map is deliberately traded away on
-     touch -- page scroll must always win. Desktop is unaffected: touch-action
-     governs touch input only, so wheel zoom and mouse drag still work. */
-  touch-action: pan-y pinch-zoom;
+     touch -- page scroll must always win.
+
+     Do NOT add `pinch-zoom` here. In touch-action that keyword permits the
+     BROWSER's page zoom, not element zoom: with it set, a two-finger pinch
+     scaled the whole document -- header, body text and all -- instead of
+     zooming the map, because the browser claimed the gesture before the JS
+     pinch handler (landing-map.js, pointers.size === 2) ever saw it. `pan-y`
+     alone leaves every non-vertical-scroll gesture to that handler.
+
+     Desktop is unaffected either way: touch-action governs touch input only,
+     so wheel zoom and mouse drag still work. */
+  touch-action: pan-y;
   cursor: grab;
 }
 #ohio-map.dragging { cursor: grabbing; }
