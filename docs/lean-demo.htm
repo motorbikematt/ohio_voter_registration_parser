@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" data-style="editorial" data-theme="dark" data-density="comfortable">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Party-lean formula comparison (internal demo) - precincts.info</title>
+<link rel="stylesheet" href="assets/v2-tokens.css">
+<style>
+/* ============================================================
+   lean-demo.htm -- INTERNAL comparison page. Not linked from
+   index.htm or app.htm; shared by URL only.
+
+   Recomputes party lean CLIENT-SIDE from already-published cohort
+   JSON. Touches no pipeline artifact and no production code: it
+   deep-copies the geojson before writing `lean`, and computes its
+   own bucket colours rather than mutating GeoMap.PARTY_LEAN_BUCKETS
+   (a module-level array shared with any consumer on the page).
+
+   Styles are local rather than v2.css because this page shares no
+   layout with the dashboard; it borrows only the design tokens.
+   ============================================================ */
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--ff-sans); line-height: 1.5;
+}
+.wrap { max-width: 1180px; margin: 0 auto; padding: 24px 20px 64px; }
+
+.banner {
+  border: 1px solid var(--accent); border-left-width: 4px;
+  background: var(--accent-soft); color: var(--ink);
+  padding: 12px 16px; border-radius: var(--r-sm); margin-bottom: 20px;
+  font-size: 14px;
+}
+.banner strong { font-family: var(--ff-sans); }
+
+h1 {
+  font-family: var(--ff-serif); font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  font-size: clamp(24px, 4vw, 34px); margin: 0 0 6px;
+}
+.sub { color: var(--muted); margin: 0 0 24px; max-width: 68ch; }
+
+.panel {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: var(--r); padding: var(--pad-card); margin-bottom: 20px;
+}
+.panel h2 {
+  font-family: var(--ff-serif); font-size: 15px; margin: 0 0 12px;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+}
+
+.controls { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+.control-group { display: flex; flex-direction: column; gap: 8px; min-width: 200px; }
+.control-group > .lbl {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--muted-2);
+}
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button {
+  font: inherit; font-size: 13px; cursor: pointer;
+  padding: 7px 12px; border-radius: var(--r-sm);
+  border: 1px solid var(--rule); background: var(--surface-2); color: var(--ink-2);
+}
+.seg button:hover { border-color: var(--accent); color: var(--ink); }
+.seg button[aria-pressed="true"] {
+  background: var(--selected-bg); color: var(--selected-ink);
+  border-color: var(--accent); font-weight: 600;
+}
+input[type="range"] { width: 220px; accent-color: var(--accent); }
+.band-val { font-family: var(--ff-mono); font-size: 13px; color: var(--ink); }
+
+.mapwrap { position: relative; }
+#demo-map { width: 100%; }
+#demo-map svg { width: 100%; height: auto; display: block; }
+.geo-shape { transition: fill .18s ease; }
+.geo-shape:hover { stroke: var(--ink); stroke-width: 1.6; }
+
+.loading {
+  position: absolute; inset: 0; display: none;
+  align-items: center; justify-content: center; flex-direction: column; gap: 10px;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  font-size: 14px; color: var(--ink);
+}
+.loading.on { display: flex; }
+.bar { width: min(280px, 60vw); height: 6px; border-radius: 3px; background: var(--surface-3); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .15s linear; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--rule); }
+
+.stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.stat {
+  background: var(--surface-2); border: 1px solid var(--rule);
+  border-radius: var(--r-sm); padding: 8px 12px; min-width: 92px;
+}
+.stat b { display: block; font-family: var(--ff-mono); font-size: 18px; }
+.stat span { font-size: 11px; color: var(--muted-2); text-transform: uppercase; letter-spacing: .06em; }
+
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--rule); }
+th { color: var(--muted-2); font-size: 11px; text-transform: uppercase; letter-spacing: .07em; font-weight: 600; }
+td.num { font-family: var(--ff-mono); text-align: right; }
+.movers-note { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
+.pill { font-size: 11px; padding: 2px 7px; border-radius: 999px; border: 1px solid var(--rule); white-space: nowrap; }
+.tblscroll { overflow-x: auto; max-height: 340px; overflow-y: auto; }
+
+.themebtn {
+  position: absolute; top: 24px; right: 20px;
+  font: inherit; font-size: 12px; cursor: pointer; padding: 6px 10px;
+  border-radius: var(--r-sm); border: 1px solid var(--rule);
+  background: var(--surface-2); color: var(--ink-2);
+}
+@media (max-width: 880px) {
+  .wrap { padding: 16px 12px 48px; }
+  .controls { gap: 14px; }
+  .control-group { min-width: 100%; }
+  .themebtn { position: static; margin-bottom: 12px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <button class="themebtn" id="theme-toggle" type="button">Light / dark</button>
+
+  <div class="banner">
+    <strong>Internal comparison page.</strong> This is not the live precincts.info map.
+    It recomputes party lean in the browser to compare formula choices side by side.
+    The published map always uses "Margin over total registration".
+  </div>
+
+  <h1>Party-lean formula comparison</h1>
+  <p class="sub">
+    The choropleth is not winner-take-all. Lean is a signed margin normalised by a
+    denominator, and colour only appears past a threshold. Both the denominator and
+    the threshold are judgement calls -- this page makes them switchable so the
+    difference is visible rather than argued.
+  </p>
+
+  <div class="panel">
+    <h2>Controls</h2>
+    <div class="controls">
+      <div class="control-group">
+        <div class="lbl">Layer</div>
+        <div class="seg" id="layer-seg">
+          <button type="button" data-layer="counties" aria-pressed="true">Ohio counties (88)</button>
+          <button type="button" data-layer="precincts" aria-pressed="false">Montgomery precincts (381)</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="lbl">Formula</div>
+        <div class="seg" id="formula-seg">
+          <button type="button" data-formula="total" aria-pressed="true">Margin / total registration (current)</button>
+          <button type="button" data-formula="partisan" aria-pressed="false">Margin / partisans only</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="lbl">Grey band (Mixed / UNC) &plusmn;<span class="band-val" id="band-val">5.0</span>%</div>
+        <input type="range" id="band" min="0" max="20" step="0.5" value="5">
+        <div class="lbl" id="band-note">Strong bucket at 3&times; the band</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2 id="map-heading">Ohio counties &mdash; margin over total registration</h2>
+    <div class="mapwrap">
+      <div id="demo-map" role="img" aria-label="Choropleth of party lean"></div>
+      <div class="loading" id="loading">
+        <div id="loading-text">Loading precinct data&hellip;</div>
+        <div class="bar"><i id="loading-bar"></i></div>
+      </div>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Which jurisdictions change bucket</h2>
+    <p class="movers-note" id="movers-note"></p>
+    <div class="tblscroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th><th>Current bucket</th><th>Under this formula</th>
+            <th class="num">R</th><th class="num">D</th><th class="num">UNC %</th>
+            <th class="num">Margin</th><th class="num">Lean</th>
+          </tr>
+        </thead>
+        <tbody id="movers"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="sub" style="font-size:13px">
+    Source: the same published aggregates the live site uses &mdash;
+    <code>data/state_map/*.geojson</code> and per-jurisdiction cohort JSON.
+    No individual-level data is loaded by this page.
+  </p>
+</div>
+
+<script src="assets/geo-map.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  // ---- escaping ------------------------------------------------
+  // Single trust boundary for anything that reaches innerHTML
+  // (.claude/rules/frontend.md). The map itself is built by
+  // geo-map.js with createElementNS + textContent and has no
+  // injection surface; only the movers table below uses innerHTML.
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  // ---- cohort arithmetic --------------------------------------
+  // chartConfig.datasets[0].data is a 7-element array whose label
+  // order is identical across all 88 county files and all 381
+  // precinct files (full census, 2026-07-23 -- not a sample):
+  //   [0] Pure R  [1] UNC-Lapsed R  [2] Mixed-Active  [3] Mixed-Lapsed
+  //   [4] UNC-No Primary  [5] UNC-Lapsed D  [6] Pure D
+  // The 89th county-shaped file, ohio_(statewide)_*, is a 3-cohort
+  // rollup with a DIFFERENT order -- it is never fetched here
+  // because the county list comes from the geojson's 88 features,
+  // not from a glob. Length is asserted anyway.
+  var IDX = { PURE_R: 0, LAPSED_R: 1, MIX_A: 2, MIX_L: 3, NO_PRIM: 4, LAPSED_D: 5, PURE_D: 6 };
+
+  function cohorts(json) {
+    var ds = json && json.chartConfig && json.chartConfig.datasets;
+    var d = ds && ds[0] && ds[0].data;
+    if (!d || d.length !== 7) return null;      // wrong shape -> no data, never NaN
+    var R = d[IDX.PURE_R] + d[IDX.LAPSED_R];
+    var D = d[IDX.LAPSED_D] + d[IDX.PURE_D];
+    var U = d[IDX.MIX_A] + d[IDX.MIX_L] + d[IDX.NO_PRIM];
+    return { R: R, D: D, U: U, total: R + D + U, margin: D - R };
+  }
+
+  // Formula 1 is production behaviour: UNC sits in the denominator.
+  // Formula 2 divides by identified partisans only. Both return null
+  // -- geo-map's documented "no data" contract -- rather than NaN or
+  // Infinity when their denominator is zero.
+  var FORMULAS = {
+    total: {
+      label: 'Margin over total registration',
+      short: 'total',
+      fn: function (c) { return c.total > 0 ? c.margin / c.total : null; }
+    },
+    partisan: {
+      label: 'Margin over identified partisans',
+      short: 'partisans',
+      fn: function (c) { return (c.R + c.D) > 0 ? c.margin / (c.R + c.D) : null; }
+    }
+  };
+
+  // ---- local buckets ------------------------------------------
+  // Deliberately NOT GeoMap.leanColor / PARTY_LEAN_BUCKETS: the band
+  // slider needs thresholds this page owns, and PARTY_LEAN_BUCKETS is
+  // a module-level array shared with every consumer -- mutating it
+  // would change any other map on the page. The default band (0.05)
+  // and strong boundary (0.15) reproduce the shipped colours exactly.
+  var STRONG_MULTIPLE = 3;
+  function buckets(band) {
+    var strong = band * STRONG_MULTIPLE;
+    return [
+      { max: -strong, color: '#ef4444', label: 'Strong R' },
+      { max: -band,   color: '#f87171', label: 'Lean R' },
+      { max:  band,   color: '#9ca3af', label: 'Mixed / UNC' },
+      { max:  strong, color: '#60a5fa', label: 'Lean D' },
+      { max:  Infinity, color: '#2563eb', label: 'Strong D' }
+    ];
+  }
+  function bucketOf(lean, band) {
+    if (lean === null || lean === undefined) return null;
+    var b = buckets(band);
+    for (var i = 0; i < b.length; i++) if (lean <= b[i].max) return b[i];
+    return b[b.length - 1];
+  }
+  function fmtLean(l) {
+    if (l === null || l === undefined) return 'n/a';
+    return (l >= 0 ? '+' : '') + (l * 100).toFixed(1) + '%';
+  }
+  function fmtInt(n) { return Number(n || 0).toLocaleString(); }
+
+  // ---- state ---------------------------------------------------
+  var state = { layer: 'counties', formula: 'total', band: 0.05 };
+
+  // Per-layer cache: geojson (pristine, never written to) + a
+  // key -> cohorts map. Fetched at most once per session, so a
+  // formula switch is pure recomputation with no network at all.
+  var cache = { counties: null, precincts: null };
+
+  var el = {
+    map: document.getElementById('demo-map'),
+    heading: document.getElementById('map-heading'),
+    legend: document.getElementById('legend'),
+    stats: document.getElementById('stats'),
+    movers: document.getElementById('movers'),
+    moversNote: document.getElementById('movers-note'),
+    loading: document.getElementById('loading'),
+    loadingText: document.getElementById('loading-text'),
+    loadingBar: document.getElementById('loading-bar'),
+    band: document.getElementById('band'),
+    bandVal: document.getElementById('band-val'),
+    bandNote: document.getElementById('band-note')
+  };
+
+  function showLoading(on, text) {
+    el.loading.classList.toggle('on', !!on);
+    if (text) el.loadingText.textContent = text;
+    if (!on) el.loadingBar.style.width = '0';
+  }
+  function progress(done, total) {
+    el.loadingBar.style.width = (total ? (done / total) * 100 : 0) + '%';
+    el.loadingText.textContent = 'Loading precinct data... ' + done + ' / ' + total;
+  }
+
+  function getJSON(url) {
+    return fetch(url).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' for ' + url);
+      return r.json();
+    });
+  }
+
+  // Bounded concurrency. 381 parallel fetches get queued by the
+  // browser's per-host connection limit and read as a hung page;
+  // a fixed pool of workers keeps the progress bar moving.
+  //
+  // A failing item is COUNTED, not thrown: one missing precinct file
+  // should grey one shape (cohorts() absent -> lean null -> the
+  // documented "no data" neutral), not blank all 381. This is a
+  // presentation layer over already-validated published aggregates;
+  // the loud-failure rule governs the pipeline, not this view. The
+  // failure count is surfaced to the viewer rather than swallowed.
+  function fetchPool(items, worker, limit, onProgress) {
+    limit = Math.min(limit, items.length);
+    var next = 0, done = 0, failures = 0;
+    return new Promise(function (resolve) {
+      if (!items.length) return resolve(0);
+      function settle() {
+        done++;
+        if (onProgress) onProgress(done, items.length);
+        if (done >= items.length) resolve(failures); else pump();
+      }
+      function pump() {
+        if (next >= items.length) return;
+        worker(items[next++]).then(settle, function () { failures++; settle(); });
+      }
+      for (var i = 0; i < limit; i++) pump();
+    });
+  }
+
+  // ---- layer loading -------------------------------------------
+  // NOTE: plain fetch(), never GeoMap.loadGeoJSON(). That helper
+  // caches promises by URL and hands every caller the SAME object;
+  // this page writes `lean` onto features, so it must own its copy.
+  function loadCounties() {
+    if (cache.counties) return Promise.resolve(cache.counties);
+    return getJSON('data/state_map/counties.geojson').then(function (gj) {
+      var slugs = gj.features.map(function (f) { return f.properties.slug; });
+      var data = {};
+      return fetchPool(slugs, function (slug) {
+        return getJSON('data/' + slug + '_party_affiliation.json').then(function (j) {
+          data[slug] = cohorts(j);
+        });
+      }, 24).then(function (failures) {
+        cache.counties = { gj: gj, data: data, keyProp: 'slug', noun: 'counties', failures: failures };
+        return cache.counties;
+      });
+    });
+  }
+
+  function loadPrecincts() {
+    if (cache.precincts) return Promise.resolve(cache.precincts);
+    showLoading(true, 'Loading precinct data...');
+    return Promise.all([
+      getJSON('data/state_map/precincts_montgomery.geojson'),
+      getJSON('data/montgomery_precinct_index.json')
+    ]).then(function (res) {
+      var gj = res[0], idx = res[1];
+      var rows = (idx && idx.precincts) || [];
+      var data = {};
+      // partyUrl is carried by the index; do not rebuild it from
+      // safe_name (string-building a path is how a rename becomes a
+      // silent 404 across 381 files).
+      return fetchPool(rows, function (row) {
+        return getJSON(row.partyUrl).then(function (j) {
+          data[row.safe_name] = cohorts(j);
+        });
+      }, 24, progress).then(function (failures) {
+        cache.precincts = { gj: gj, data: data, keyProp: 'safe_name', noun: 'precincts', failures: failures };
+        return cache.precincts;
+      });
+    }).then(function (r) { showLoading(false); return r; },
+             function (e) { showLoading(false); throw e; });
+  }
+
+  function loadLayer(name) {
+    return name === 'precincts' ? loadPrecincts() : loadCounties();
+  }
+
+  // ---- render --------------------------------------------------
+  function draw(layer) {
+    var f = FORMULAS[state.formula];
+    var band = state.band;
+
+    // Deep copy before writing lean. The pristine geojson in cache
+    // stays untouched so a later formula switch recomputes from
+    // source rather than from an already-overwritten value.
+    var copy = (typeof structuredClone === 'function')
+      ? structuredClone(layer.gj)
+      : JSON.parse(JSON.stringify(layer.gj));
+
+    var rows = [], changed = 0, counts = {};
+    for (var i = 0; i < copy.features.length; i++) {
+      var p = copy.features[i].properties;
+      var c = layer.data[p[layer.keyProp]] || null;
+
+      var cur = c ? FORMULAS.total.fn(c) : null;     // production formula
+      var now = c ? f.fn(c) : null;                  // selected formula
+      p.lean = now;                                  // read fresh by render()
+      p._cur = cur;
+      p._c = c;
+
+      var bNow = bucketOf(now, band);
+      // "Current bucket" is the shipped map: production formula at
+      // the shipped 0.05 band. It is the fixed reference the movers
+      // table compares against, so it must not follow the slider.
+      var bCur = bucketOf(cur, 0.05);
+      var lblNow = bNow ? bNow.label : 'No data';
+      counts[lblNow] = (counts[lblNow] || 0) + 1;
+
+      if ((bCur ? bCur.label : 'No data') !== lblNow) {
+        changed++;
+        rows.push({ name: p.name, from: bCur ? bCur.label : 'No data', to: lblNow, c: c, lean: now });
+      }
+    }
+
+    var res = GeoMap.render({
+      container: el.map,
+      geojson: copy,
+      mode: 'all',
+      keyProp: layer.keyProp,
+      ariaLabel: 'Party lean choropleth, ' + f.label,
+      nameFor: function (p) { return p.name; },
+      titleFor: function (p) {
+        var c = p._c;
+        if (!c) return p.name + ' - no data';
+        return p.name +
+          ' | R ' + fmtInt(c.R) + ' - D ' + fmtInt(c.D) + ' - UNC ' + fmtInt(c.U) +
+          ' (' + (c.total ? (c.U / c.total * 100).toFixed(1) : '0') + '%)' +
+          ' | margin ' + (c.margin >= 0 ? '+' : '') + fmtInt(c.margin) +
+          ' | vs total ' + fmtLean(p._cur) +
+          ' | vs partisans ' + fmtLean(FORMULAS.partisan.fn(c)) +
+          ' | bucket ' + (bucketOf(p.lean, band) ? bucketOf(p.lean, band).label : 'No data');
+      }
+    });
+
+    // Repaint from this page's own thresholds. geo-map.js colours
+    // from its module-level PARTY_LEAN_BUCKETS, which §5 forbids
+    // mutating; render() stamps data-key on every path, so the fill
+    // can be corrected here without touching the shared module.
+    if (res && res.svg) {
+      var paths = res.svg.querySelectorAll('path[data-key]');
+      for (var k = 0; k < paths.length; k++) {
+        var key = paths[k].getAttribute('data-key');
+        var c2 = layer.data[key] || null;
+        var lean = c2 ? f.fn(c2) : null;
+        var b = bucketOf(lean, band);
+        paths[k].setAttribute('fill', b ? b.color : 'var(--surface-3)');
+      }
+    }
+
+    renderLegend(band);
+    renderStats(counts, layer);
+    renderMovers(rows, changed, layer, f);
+
+    el.heading.textContent =
+      (layer.noun === 'precincts' ? 'Montgomery precincts' : 'Ohio counties') +
+      ' — ' + f.label.toLowerCase() +
+      ' — grey band ±' + (band * 100).toFixed(1) + '%' +
+      (layer.failures ? ' — ' + layer.failures + ' file(s) failed to load' : '');
+  }
+
+  function renderLegend(band) {
+    var b = buckets(band), out = '';
+    for (var i = 0; i < b.length; i++) {
+      var lo = (i === 0) ? null : b[i - 1].max;
+      var hi = isFinite(b[i].max) ? b[i].max : null;
+      var range = (lo === null ? '<= ' + fmtLean(hi)
+                 : hi === null ? '> ' + fmtLean(lo)
+                 : fmtLean(lo) + ' to ' + fmtLean(hi));
+      out += '<span><i style="background:' + esc(b[i].color) + '"></i>' +
+             esc(b[i].label) + ' <span class="pill">' + esc(range) + '</span></span>';
+    }
+    el.legend.innerHTML = out;
+  }
+
+  function renderStats(counts, layer) {
+    var order = ['Strong R', 'Lean R', 'Mixed / UNC', 'Lean D', 'Strong D', 'No data'];
+    var out = '';
+    for (var i = 0; i < order.length; i++) {
+      var n = counts[order[i]] || 0;
+      if (!n && order[i] === 'No data') continue;
+      out += '<div class="stat"><b>' + esc(String(n)) + '</b><span>' + esc(order[i]) + '</span></div>';
+    }
+    el.stats.innerHTML = out;
+  }
+
+  function renderMovers(rows, changed, layer, f) {
+    var noun = layer.noun;
+    if (state.formula === 'total' && Math.abs(state.band - 0.05) < 1e-9) {
+      el.moversNote.textContent =
+        'These are the shipped settings, so nothing has moved. Switch formula or drag the band to see which ' +
+        noun + ' change colour.';
+    } else {
+      el.moversNote.textContent =
+        changed + ' of ' + layer.gj.features.length + ' ' + noun +
+        ' change bucket versus the live map (' + f.label.toLowerCase() +
+        ', band ±' + (state.band * 100).toFixed(1) + '%).';
+    }
+    rows.sort(function (a, b) { return Math.abs(b.lean || 0) - Math.abs(a.lean || 0); });
+    var out = '';
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i], c = r.c;
+      out += '<tr><td>' + esc(r.name) + '</td>' +
+             '<td>' + esc(r.from) + '</td><td>' + esc(r.to) + '</td>' +
+             '<td class="num">' + esc(fmtInt(c ? c.R : 0)) + '</td>' +
+             '<td class="num">' + esc(fmtInt(c ? c.D : 0)) + '</td>' +
+             '<td class="num">' + esc(c && c.total ? (c.U / c.total * 100).toFixed(1) : '0') + '</td>' +
+             '<td class="num">' + esc((c && c.margin >= 0 ? '+' : '') + fmtInt(c ? c.margin : 0)) + '</td>' +
+             '<td class="num">' + esc(fmtLean(r.lean)) + '</td></tr>';
+    }
+    el.movers.innerHTML = out ||
+      '<tr><td colspan="8" style="color:var(--muted)">No ' + esc(noun) + ' change bucket.</td></tr>';
+  }
+
+  function refresh() {
+    loadLayer(state.layer).then(draw).catch(function (e) {
+      showLoading(false);
+      el.map.textContent = 'Could not load map data: ' + e.message;
+    });
+  }
+
+  // ---- wiring --------------------------------------------------
+  function segment(id, attr, onPick) {
+    var root = document.getElementById(id);
+    root.addEventListener('click', function (ev) {
+      var btn = ev.target.closest('button[' + attr + ']');
+      if (!btn) return;
+      var all = root.querySelectorAll('button');
+      for (var i = 0; i < all.length; i++) all[i].setAttribute('aria-pressed', String(all[i] === btn));
+      onPick(btn.getAttribute(attr));
+    });
+  }
+  segment('layer-seg', 'data-layer', function (v) { state.layer = v; refresh(); });
+  segment('formula-seg', 'data-formula', function (v) { state.formula = v; refresh(); });
+
+  el.band.addEventListener('input', function () {
+    state.band = Number(el.band.value) / 100;
+    el.bandVal.textContent = Number(el.band.value).toFixed(1);
+    el.bandNote.textContent = 'Strong bucket at ±' +
+      (Number(el.band.value) * STRONG_MULTIPLE).toFixed(1) + '%';
+    // Band changes never touch the network; redraw straight from cache.
+    var layer = cache[state.layer];
+    if (layer) draw(layer); else refresh();
+  });
+
+  document.getElementById('theme-toggle').addEventListener('click', function () {
+    var r = document.documentElement;
+    r.setAttribute('data-theme', r.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  el.bandNote.textContent = 'Strong bucket at ±' + (5 * STRONG_MULTIPLE).toFixed(1) + '%';
+  refresh();
+})();
+</script>
+</body>
+</html>
