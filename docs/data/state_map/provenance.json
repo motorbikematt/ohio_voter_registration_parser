@@ -36,7 +36,7 @@
       "source_layer": "precinct_2022_polygon",
       "plan_vintage": "2022 precinct plan (Montgomery County BoE)",
       "vintage_note": "precinct geometry is 2022 vintage -- it differs from the voter file's snapshot vintage",
-      "generated": "2026-07-22T12:11:48Z",
+      "generated": "2026-07-23T03:46:11Z",
       "raw_rows": 494,
       "dissolve_by": "VNAME",
       "feature_count": 381,
@@ -68,6 +68,45 @@
       "simplify_tolerance": 0.001,
       "output_size_kb": 183.7,
       "county_coverage": "1/88 (Montgomery only)"
+    },
+    "precincts_montgomery_detail": {
+      "source": "local/source/Geo/57_Montgomery/GeoDataBase Files/MC_ELECTIONS.gdb",
+      "source_layer": "precinct_2022_polygon",
+      "plan_vintage": "2022 precinct plan (Montgomery County BoE)",
+      "vintage_note": "precinct geometry is 2022 vintage -- it differs from the voter file's snapshot vintage",
+      "generated": "2026-07-23T03:46:11Z",
+      "raw_rows": 494,
+      "dissolve_by": "VNAME",
+      "feature_count": 381,
+      "matched_count": "381/381",
+      "party_data_join": "docs/data/montgomery_precinct_<safe_name>_party.json; the source GDB's TOTAL_VOTERS/DEM_VOTERS/REP_VOTERS columns are an independent tally and are deliberately unused",
+      "name_overrides": {
+        "PERRY TOWNSHIP_NEW LEBANON": "PER/NEW LEBANON",
+        "JACKSON TOWNSHIP_NEW LEBANON A": "JACK/NEW LEBANON-A",
+        "JACKSON TOWNSHIP_NEW LEBANON B": "JACK/NEW LEBANON-B"
+      },
+      "name_abbreviations": [
+        [
+          "\\bJACKSON\\b",
+          "JACK"
+        ],
+        [
+          "\\bPERRY\\b",
+          "PER"
+        ],
+        [
+          "\\bWEST\\b",
+          "W"
+        ],
+        [
+          "\\bTOWNSHIP\\b",
+          "TWP"
+        ]
+      ],
+      "simplify_tolerance": 0.0001,
+      "output_size_kb": 337.5,
+      "county_coverage": "1/88 (Montgomery only)",
+      "usage": "fetched lazily by the dashboard only when the zoomed selection inset opens for a precinct-level selection; not loaded on initial page load and not subject to the overview's 300KB statewide budget"
     }
   }
 }

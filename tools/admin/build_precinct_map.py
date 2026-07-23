@@ -1,11 +1,18 @@
 """
-Build the Montgomery County precinct choropleth layer.
+Build the Montgomery County precinct choropleth layers: an overview (used for
+the full county choropleth) and a finer-tolerance detail layer (used only by
+the dashboard's zoomed selection inset).
 
 Dissolves the Montgomery County BoE's 2022 precinct polygons (497 multipart
 rows -> 381 precincts), joins them to the voter-file precinct index through an
 explicit name normalizer, and writes a simplified GeoJSON to
 docs/data/state_map/precincts_montgomery.geojson for the precinct-level
-choropleth.
+choropleth, then a second time at finer tolerance to
+docs/data/state_map/precincts_montgomery_detail.geojson for the inset -- the
+85m overview simplification reads as faceted rectangles when one precinct
+fills the inset panel. Both runs share one pipeline (dissolve -> crosswalk ->
+hard-fail gate -> party-lean join -> simplify -> write -> provenance);
+see run_pass() and HANDOFF_6_PRECINCT_INSET_DETAIL.md for full spec.
 
 Scope is deliberately Montgomery-only: precinct boundaries are published by 88
 sovereign county Boards of Elections in whatever format each chooses
@@ -16,7 +23,7 @@ Lean and total_voters come from the pipeline's own party-affiliation JSON --
 never from the source GDB's TOTAL_VOTERS / DEM_VOTERS / REP_VOTERS columns,
 which are an independent tally that would silently contradict pipeline numbers.
 
-See local/context/handoffs/HANDOFF_5_PRECINCT_PILOT.md for full spec.
+See local/context/handoffs/HANDOFF_5_PRECINCT_PILOT.md for the overview spec.
 
 Usage:
     uv run python tools/admin/build_precinct_map.py
@@ -51,6 +58,15 @@ TOLERANCE = 0.001
 
 MAX_TARGET_KB = 300
 HARD_FAIL_KB = 600
+
+# Detail pass: fetched lazily, one precinct at a time, for the zoomed
+# selection inset -- never on initial page load, so the 300 KB statewide
+# budget does not apply. It still needs a sane ceiling since a caller could
+# in principle pull the whole county at once.
+DETAIL_LAYER_NAME = "precincts_montgomery_detail"
+DETAIL_OUT_PATH = OUT_DIR / "precincts_montgomery_detail.geojson"
+DETAIL_TOLERANCE = 0.0001
+DETAIL_HARD_FAIL_KB = 2500
 
 # Village-in-township exception list. New Lebanon straddles Jackson and Perry
 # townships, so the BoE keeps both tokens where the voter data keeps only an
@@ -177,8 +193,54 @@ def build_crosswalk(gdf, precincts):
     return {vname: idx_keys[norm(str(vname))] for vname in gdf["VNAME"]}
 
 
-def run_build():
+def run_pass(gdf, raw_rows, crosswalk, rows, tolerance, out_path, layer_name,
+             max_target_kb, hard_fail_kb):
+    """Simplify at `tolerance` and write one GeoJSON + provenance entry.
+
+    `gdf`/`raw_rows`/`crosswalk`/`rows` are shared across passes -- the
+    dissolve, crosswalk, and party-lean join do not depend on simplify
+    tolerance, so re-deriving them per pass would risk the two outputs
+    silently drifting (e.g. a crosswalk edge case resolving differently on a
+    second GDB read) instead of sharing one join.
+    """
     generated = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    bounds = [float(round(x, 5)) for x in gdf.total_bounds]  # [W,S,E,N]
+
+    simplified = [(geom.simplify(tolerance, preserve_topology=True), props) for geom, props in rows]
+    fc = {
+        "type": "FeatureCollection",
+        "layer": layer_name,
+        "generated": generated,
+        "bounds": bounds,
+        "features": [make_feature(geom, props) for geom, props in simplified],
+    }
+    text = json.dumps(fc, separators=(",", ":"))
+
+    size_kb = len(text.encode("utf-8")) / 1024
+    if size_kb <= max_target_kb:
+        status = "OK"
+    elif size_kb <= hard_fail_kb:
+        status = f"WARN (over {max_target_kb}KB target)"
+    else:
+        status = "HARD-FAIL"
+    print(f"{out_path.name} size = {size_kb:.1f} KB [{status}] tolerance={tolerance}")
+    if size_kb > hard_fail_kb:
+        fail(f"{out_path.name} exceeds {hard_fail_kb}KB hard ceiling: {size_kb:.1f} KB. "
+             "Increase simplify tolerance and rerun.")
+
+    feature_count = len(fc["features"])
+    if feature_count != EXPECTED_PRECINCTS:
+        fail(f"{out_path.name}: wrote {feature_count} features, expected {EXPECTED_PRECINCTS}")
+
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    with open(out_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(text)
+    print(f"Wrote {out_path} ({size_kb:.1f} KB, {feature_count} features)")
+
+    write_provenance(layer_name, generated, raw_rows, feature_count, size_kb, tolerance)
+
+
+def run_build():
     precincts = load_precinct_index()
     gdf, raw_rows = read_geometry()
     crosswalk = build_crosswalk(gdf, precincts)
@@ -197,45 +259,19 @@ def run_build():
             "total_voters": total,
         }))
 
-    bounds = [float(round(x, 5)) for x in gdf.total_bounds]  # [W,S,E,N]
-
-    simplified = [(geom.simplify(TOLERANCE, preserve_topology=True), props) for geom, props in rows]
-    fc = {
-        "type": "FeatureCollection",
-        "layer": LAYER_NAME,
-        "generated": generated,
-        "bounds": bounds,
-        "features": [make_feature(geom, props) for geom, props in simplified],
-    }
-    text = json.dumps(fc, separators=(",", ":"))
-
-    size_kb = len(text.encode("utf-8")) / 1024
-    if size_kb <= MAX_TARGET_KB:
-        status = "OK"
-    elif size_kb <= HARD_FAIL_KB:
-        status = "WARN (over 300KB target)"
-    else:
-        status = "HARD-FAIL"
-    print(f"{OUT_PATH.name} size = {size_kb:.1f} KB [{status}] tolerance={TOLERANCE}")
-    if size_kb > HARD_FAIL_KB:
-        fail(f"output exceeds {HARD_FAIL_KB}KB hard ceiling: {size_kb:.1f} KB. "
-             "Increase simplify tolerance and rerun.")
-
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    with open(OUT_PATH, "w", encoding="utf-8", newline="\n") as f:
-        f.write(text)
-    print(f"Wrote {OUT_PATH} ({size_kb:.1f} KB, {len(fc['features'])} features)")
-
-    write_provenance(generated, raw_rows, len(rows), size_kb)
+    run_pass(gdf, raw_rows, crosswalk, rows, TOLERANCE, OUT_PATH, LAYER_NAME,
+              MAX_TARGET_KB, HARD_FAIL_KB)
+    run_pass(gdf, raw_rows, crosswalk, rows, DETAIL_TOLERANCE, DETAIL_OUT_PATH,
+              DETAIL_LAYER_NAME, DETAIL_HARD_FAIL_KB, DETAIL_HARD_FAIL_KB)
 
 
-def write_provenance(generated, raw_rows, feature_count, size_kb):
+def write_provenance(layer_name, generated, raw_rows, feature_count, size_kb, tolerance):
     if not PROV_PATH.exists():
         fail(f"missing provenance file: {PROV_PATH} (run build_state_map.py first)")
     with open(PROV_PATH, encoding="utf-8") as f:
         provenance = json.load(f)
 
-    provenance.setdefault("layers", {})[LAYER_NAME] = {
+    provenance.setdefault("layers", {})[layer_name] = {
         "source": str(GDB_PATH.relative_to(REPO_ROOT)).replace("\\", "/"),
         "source_layer": GDB_LAYER,
         "plan_vintage": GDB_VINTAGE,
@@ -255,10 +291,17 @@ def write_provenance(generated, raw_rows, feature_count, size_kb):
         ),
         "name_overrides": dict(OVERRIDE),
         "name_abbreviations": [[a, b] for a, b in ABBR],
-        "simplify_tolerance": TOLERANCE,
+        "simplify_tolerance": tolerance,
         "output_size_kb": round(size_kb, 1),
         "county_coverage": "1/88 (Montgomery only)",
     }
+    if layer_name == DETAIL_LAYER_NAME:
+        provenance["layers"][layer_name]["usage"] = (
+            "fetched lazily by the dashboard only when the zoomed selection "
+            "inset opens for a precinct-level selection; not loaded on "
+            "initial page load and not subject to the overview's 300KB "
+            "statewide budget"
+        )
 
     with open(PROV_PATH, "w", encoding="utf-8", newline="\n") as f:
         json.dump(provenance, f, indent=2)

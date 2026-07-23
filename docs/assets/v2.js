@@ -718,6 +718,14 @@
 
   function precinctGeoFile(countySlug) { return PRECINCT_GEO_DIR + countySlug + '.geojson'; }
 
+  // Finer-tolerance geometry for the zoomed selection inset only (Handoff 6).
+  // The overview file above simplifies at ~85m to hold the statewide 184 KB
+  // payload, which reads as faceted rectangles once one precinct fills the
+  // inset panel. Probed the same way as precinctGeoFile: a 404 just falls
+  // back to the overview gj already in hand, so nothing here hardcodes which
+  // county has a detail layer.
+  function precinctDetailGeoFile(countySlug) { return PRECINCT_GEO_DIR + countySlug + '_detail.geojson'; }
+
   // Which precincts should stay coloured for the current selection.
   // Membership comes from the pipeline-stamped place_slug / ward_slug in the
   // precinct index -- never by re-aggregating precinct files at runtime,
@@ -770,7 +778,13 @@
       // actual shape reading here; a whole-county view has no single feature.
       if (S.level === 'precinct') {
         const row = (index.precincts || []).find(p => p.safe_name === S.id);
-        renderInset(gj, 'safe_name', S.id, (row && row.name) || S.id);
+        const label = (row && row.name) || S.id;
+        // Prefer the finer-tolerance detail layer; fall back to the overview
+        // gj already loaded above on any failure (404 or otherwise) so the
+        // inset never goes blank waiting on a file that may not exist yet.
+        GeoMap.loadGeoJSON(precinctDetailGeoFile(countySlug))
+          .then(detailGj => renderInset(detailGj, 'safe_name', S.id, label))
+          .catch(() => renderInset(gj, 'safe_name', S.id, label));
       } else {
         hideInset();
       }
