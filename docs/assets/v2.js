@@ -27,6 +27,19 @@
   // drilling into its county tree, even though its data view is unified.
   const SUBCOUNTY_LEVELS = ['city', 'township', 'village', 'ward'];
 
+  // The county shown when a URL names no jurisdiction, and the fallback any
+  // code path uses when it needs *some* county to report on (there is no
+  // statewide aggregate data file for all 88 -- see the select-state handler).
+  //
+  // This was 'hamilton', which arrived as an arbitrary placeholder in the
+  // original V2 prototype import (5b2d4a89fd) and was never a data decision:
+  // Hamilton is not the first county (Adams is), not the largest (Franklin
+  // is), and carries nothing the others do not. Montgomery is the one county
+  // with real BoE precinct geometry, so defaulting here opens on the deepest
+  // view the site can render. Declared once so the default is a single edit,
+  // not 13 scattered string literals.
+  const DEFAULT_COUNTY = 'montgomery';
+
   // ── In-memory caches ───────────────────────────────────────
   const cache = { manifest: null, byUrl: {} };
   async function fetchJSON(url) {
@@ -83,7 +96,7 @@
       next.set('id', String(jurName || '01').padStart(2, '0'));
     } else if (oldGeo === 'precinct-detail' || (oldGeo === 'precinct' && oldPrecinct)) {
       next.set('level', 'precinct');
-      next.set('county', slugify(oldCounty || 'hamilton'));
+      next.set('county', slugify(oldCounty || DEFAULT_COUNTY));
       next.set('id', slugify(oldPrecinct || ''));
     } else if (oldCounty) {
       next.set('level', 'county');
@@ -104,7 +117,7 @@
       density: p.get('density') || 'comfortable',
       view:    p.get('view')    || 'geo',
       level:   p.get('level')   || 'county',
-      id:      p.get('id')      || 'hamilton',
+      id:      p.get('id')      || DEFAULT_COUNTY,
       county:  p.get('county')  || null,
       district_type: p.get('type') || null,
       city:    p.get('city')    || null,
@@ -1144,8 +1157,8 @@
       el.onclick = async () => {
         if (action === 'select-state') {
           // No state-level data file exists for all 88; just zoom out the breadcrumb
-          S.level = 'county'; S.id = 'hamilton'; S.county = null;
-          writeState({ level: 'county', id: 'hamilton', compare: null, county: null });
+          S.level = 'county'; S.id = DEFAULT_COUNTY; S.county = null;
+          writeState({ level: 'county', id: DEFAULT_COUNTY, compare: null, county: null });
           emit('select_jurisdiction', { level: 'state', id: 'ohio' });
         } else if (action === 'select-county') {
           const slug = el.getAttribute('data-county');
@@ -1553,15 +1566,15 @@
       a.onclick = async () => {
         const action = a.getAttribute('data-bc');
         if (action === 'state') {
-          S.level = 'county'; S.id = 'hamilton';
-          writeState({ level: 'county', id: 'hamilton' });
+          S.level = 'county'; S.id = DEFAULT_COUNTY;
+          writeState({ level: 'county', id: DEFAULT_COUNTY });
         } else if (action === 'county') {
           const slug = a.getAttribute('data-county');
           S.level = 'county'; S.id = countyToSlug(slug);
           writeState({ level: 'county', id: S.id });
         } else if (action === 'dtype') {
-          S.level = 'county'; S.id = 'hamilton'; S.district_type = null;
-          writeState({ level: 'county', id: 'hamilton', type: null });
+          S.level = 'county'; S.id = DEFAULT_COUNTY; S.district_type = null;
+          writeState({ level: 'county', id: DEFAULT_COUNTY, type: null });
         } else if (action === 'place') {
           const ptype = a.getAttribute('data-place-type');
           const pid = a.getAttribute('data-place-id');
@@ -1668,7 +1681,7 @@
   // ── Compare rendering ──────────────────────────────────────
   async function refreshCompareView() {
     if (!S.compare || S.compare.length === 0) return;
-    const slotA = parseSlot(S.compare[0]) || { kind: 'county', id: 'hamilton' };
+    const slotA = parseSlot(S.compare[0]) || { kind: 'county', id: DEFAULT_COUNTY };
     const slotB = parseSlot(S.compare[1]) || { kind: 'county', id: 'franklin' };
     buildCenterPaneCompare(slotA, slotB);
 
@@ -1843,7 +1856,7 @@
         bag.displayName = (bag.party && bag.party.jurisdiction_name) || S.id.replace(/_/g, ' ').toUpperCase();
         bag.county = S.county || null;
       } else if (S.level === 'precinct') {
-        bag = await loadJurisdiction('precinct', S.id, S.county || 'hamilton');
+        bag = await loadJurisdiction('precinct', S.id, S.county || DEFAULT_COUNTY);
         bag.displayName = (bag.party && bag.party.precinct) || S.id.replace(/_/g, ' ').toUpperCase();
       } else if (S.level === 'district') {
         bag = await loadJurisdiction('district', S.id, null);
@@ -1914,7 +1927,7 @@
     } else {
       // Statewide overview: the URL carries no explicit ?id=, so nothing is
       // selected and the map draws all 88 undimmed. S.level/S.id still read
-      // county/hamilton for the CENTER pane's benefit (no statewide data file
+      // the default county for the CENTER pane's benefit (no statewide data file
       // exists), so the map scope is derived from the URL rather than from
       // S.id -- otherwise switching back to Geography arrives with 87 counties
       // greyed around one arbitrary highlight.
@@ -1922,9 +1935,18 @@
 
       // For a city, S.id is a CITY slug (not a county) and the view is always
       // the unified all-county report, so there's no single county to highlight.
+      // A precinct URL may arrive with no ?county= (shared link, old history
+      // entry). loadJurisdiction already falls back to DEFAULT_COUNTY for the
+      // center pane, so the map must use the SAME fallback or the two panes
+      // disagree -- the hero would read a Montgomery precinct while the map
+      // showed the undimmed 88-county layer.
+      const precinctCounty = S.county || DEFAULT_COUNTY;
+
+      // For a city, S.id is a CITY slug (not a county) and the view is always
+      // the unified all-county report, so there's no single county to highlight.
       const name = !explicitId ? null :
                    S.level === 'county' ? slugToCountyName(S.id) :
-                   S.level === 'precinct' ? slugToCountyName(S.county || '') : null;
+                   S.level === 'precinct' ? slugToCountyName(precinctCounty) : null;
 
       // Which county's precinct geometry could serve this view? A county view
       // uses S.id; every sub-county level carries S.county. A bare city slug
@@ -1932,8 +1954,8 @@
       // county and stays on the statewide map.
       const geoCounty = !explicitId ? null :
                         S.level === 'county' ? S.id :
-                        (S.level === 'precinct' || SUBCOUNTY_LEVELS.includes(S.level))
-                          ? (S.county || null) : null;
+                        S.level === 'precinct' ? precinctCounty :
+                        SUBCOUNTY_LEVELS.includes(S.level) ? (S.county || null) : null;
 
       // A multi-county city (the unified view, S.county === null) has no single
       // county to highlight, so the map used to sit unchanged on the statewide
@@ -2016,7 +2038,7 @@
       toast('PNG exported');
     } else if (fmt === 'json') {
       // Re-derive source URL based on current state + chart id
-      const slug = S.level === 'county' ? S.id : (S.county || 'hamilton');
+      const slug = S.level === 'county' ? S.id : (S.county || DEFAULT_COUNTY);
       const map = {
         'chart-party':        `data/${slug}_party_affiliation.json`,
         'chart-decade':       `data/${slug}_decade_distribution.json`,
@@ -2176,7 +2198,7 @@
         writeState({ compare: arr });
       } else {
         // County-vs-county default pair
-        const a = S.level === 'county' ? S.id : 'hamilton';
+        const a = S.level === 'county' ? S.id : DEFAULT_COUNTY;
         const b = a === 'franklin' ? 'cuyahoga' : 'franklin';
         S.compare = [a, b];
         writeState({ compare: [a, b] });
@@ -2208,7 +2230,7 @@
         // to that view's own overview rather than stranding S.level/S.id.
         //
         // There is no S.level === 'state': the hierarchy's own "Ohio" row
-        // (select-state, :1089) falls back to county/hamilton because no
+        // (select-state, :1089) falls back to the default county because no
         // state-wide data file exists for all 88. Follow that same convention
         // here -- inventing a 'state' level would leave refreshView() with no
         // matching loadJurisdiction branch and an empty center pane.
@@ -2228,11 +2250,11 @@
           // Geography's overview is the whole state. The center pane still
           // needs a jurisdiction to report on (no statewide data file exists
           // for all 88 -- see select-state, :1089), so S.level/S.id fall back
-          // to county/hamilton exactly as that row does. The MAP, though, must
+          // to the default county exactly as that row does. The MAP, though, must
           // show all 88 undimmed: that is driven by the absence of ?id= in the
           // URL, which renderMapForState() reads back -- not by a flag here.
           S.district_type = null;
-          S.level = 'county'; S.id = 'hamilton';
+          S.level = 'county'; S.id = DEFAULT_COUNTY;
           writeState({ view: val, level: null, id: null, county: null,
                        city: null, type: null, compare: null });
         }

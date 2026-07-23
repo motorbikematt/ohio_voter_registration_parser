@@ -366,11 +366,22 @@ figure.map-figure {
 /* A one-line colophon does not need the full section rhythm -- clamp(48,96)
    of padding above and below a single sentence reads as a layout bug. */
 .section-slim { padding: clamp(24px, 4vw, 40px) 0; }
+/* The statewide voter count, moved out of the hero to sit just above the
+   colophon. Larger than the colophon lines so it still reads as a headline
+   figure rather than fine print, with clear space below it. */
+.colophon-stat {
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 14px;
+}
 .colophon {
   text-align: center;
   color: var(--muted);
   font-size: 13.5px;
 }
+/* Two stacked lines (the credit, then Questions + email) -- tighten the gap
+   so they read as one block rather than two paragraphs. */
+.colophon + .colophon { margin-top: 4px; }
 .colophon a {
   color: var(--ink-2);
   border-bottom: 1px solid var(--rule-2);

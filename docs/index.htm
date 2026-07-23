@@ -65,7 +65,6 @@
 
     <section class="hero">
       <div class="wrap">
-        <p class="eyebrow"><span class="hero-stat" id="hero-stat">7,892,553</span> registered Ohio voters</p>
         <h1>Every precinct in Ohio.</h1>
         <p class="subhead">
           A precinct level view of all 88 counties and every legislative
@@ -141,9 +140,14 @@
          referrer, so dropping it would silently break that link. -->
     <section id="about-doorstep" class="section section-slim">
       <div class="wrap measure">
+        <!-- Moved down from the hero. Populated by loadHeroStat() in
+             landing-map.js, which finds it by id, so position is free. -->
+        <p class="eyebrow colophon-stat">
+          <span class="hero-stat" id="hero-stat">7,892,553</span> registered Ohio voters
+        </p>
+        <p class="colophon">Brought to you by Doorstep Democracy.</p>
         <p class="colophon">
-          Brought to you by Doorstep Democracy. Questions? Email
-          <a href="mailto:motorbikematt@precincts.info">motorbikematt@precincts.info</a>
+          Questions? <a href="mailto:motorbikematt@precincts.info">motorbikematt@precincts.info</a>
         </p>
       </div>
     </section>
