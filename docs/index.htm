@@ -53,6 +53,7 @@
       <div class="wordmark"><span class="dot"></span>Precincts<small>info</small></div>
     </div>
     <div class="topbar-actions">
+      <button class="reset-btn" type="button" id="reset-view" hidden>Reset<span class="long"> Map</span></button>
       <a class="topbar-link" href="app.htm">Open<span class="long"> the dashboard</span></a>
       <button class="icon-btn" id="theme-toggle" type="button" title="Toggle light / dark" aria-label="Toggle light or dark theme">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 109 9 7 7 0 01-9-9z"/></svg>
@@ -65,12 +66,11 @@
     <section class="hero">
       <div class="wrap">
         <p class="eyebrow"><span class="hero-stat" id="hero-stat">7,892,553</span> registered Ohio voters</p>
-        <h1>Every precinct in Ohio, on one map.</h1>
+        <h1>Every precinct in Ohio.</h1>
         <p class="subhead">
-          A precinct-level view of party lean, registration, and turnout across
-          all 88 counties and every legislative district — built directly from
-          the Ohio Secretary of State's statewide voter file. Pick a shape to
-          open its full profile.
+          A precinct level view of all 88 counties and every legislative
+          district from the Ohio Secretary of State Voter Files and enriched
+          with open source data. Tap on your county to read more.
         </p>
       </div>
     </section>
@@ -80,13 +80,12 @@
 
       <div class="map-toolbar">
         <div class="layer-group" role="group" aria-label="Map layer">
-          <button class="layer-btn" type="button" data-layer="counties" aria-pressed="true">Counties</button>
-          <button class="layer-btn" type="button" data-layer="house" aria-pressed="false">State House</button>
-          <button class="layer-btn" type="button" data-layer="senate" aria-pressed="false">State Senate</button>
-          <button class="layer-btn" type="button" data-layer="congress" aria-pressed="false">US Congress</button>
+          <button class="layer-btn" type="button" data-layer="counties" aria-pressed="true" aria-label="Counties">Counties</button>
+          <button class="layer-btn" type="button" data-layer="house" aria-pressed="false" aria-label="Ohio State House districts">House</button>
+          <button class="layer-btn" type="button" data-layer="senate" aria-pressed="false" aria-label="Ohio State Senate districts">Senate</button>
+          <button class="layer-btn" type="button" data-layer="congress" aria-pressed="false" aria-label="US Congressional districts">Congress</button>
         </div>
         <span class="toolbar-spacer"></span>
-        <button class="reset-btn" type="button" id="reset-view">Reset view</button>
         <span class="map-status" id="map-status" role="status" aria-live="polite"></span>
       </div>
 
@@ -110,7 +109,10 @@
         <span class="item"><span class="swatch" style="background:#2563eb"></span>Strong D</span>
       </div>
 
-      <p class="map-hint">Scroll or pinch to zoom · drag to pan · click any shape for its full profile</p>
+      <p class="map-hint">
+        <span class="hint-pointer">Scroll or pinch to zoom · drag to pan · click any shape for its full profile</span>
+        <span class="hint-touch">Pinch to zoom · tap any shape for its full profile</span>
+      </p>
     </section>
 
     <div class="scroll-cue" aria-hidden="true"></div>
@@ -135,19 +137,13 @@
       </div>
     </section>
 
-    <section id="about-doorstep" class="section">
+    <!-- id retained: the footer links to #about-doorstep and is its only
+         referrer, so dropping it would silently break that link. -->
+    <section id="about-doorstep" class="section section-slim">
       <div class="wrap measure">
-        <h2>Doorstep Democracy</h2>
-        <p>
-          Doorstep Democracy is the canvassing and precinct-captain layer built
-          on the same data — a way for organizers to work a precinct list, track
-          conversations at the door, and keep a party committee's roster current
-          without spreadsheets.
-        </p>
-        <p>
-          It runs on top of the public map but keeps voter contact details
-          private to the organizer, never in the public deploy. More on this
-          soon.
+        <p class="colophon">
+          Brought to you by Doorstep Democracy. Questions? Email
+          <a href="mailto:motorbikematt@precincts.info">motorbikematt@precincts.info</a>
         </p>
       </div>
     </section>

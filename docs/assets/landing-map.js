@@ -192,6 +192,18 @@
   function applyTransform() {
     viewport.setAttribute('transform',
       'translate(' + view.tx.toFixed(2) + ' ' + view.ty.toFixed(2) + ') scale(' + view.k.toFixed(4) + ')');
+    syncResetBtn();
+  }
+
+  // The reset control now lives in the topbar, where it is on screen at all
+  // times -- so it is hidden until the view is actually dirty, rather than
+  // sitting there permanently offering to undo nothing. applyTransform() is
+  // the single chokepoint every pan, zoom and reset flows through, so this
+  // cannot drift out of sync with the real view state.
+  function syncResetBtn() {
+    var btn = document.getElementById('reset-view');
+    if (!btn) return;
+    btn.hidden = (view.k === 1 && view.tx === 0 && view.ty === 0);
   }
   function resetView() {
     view.k = 1; view.tx = 0; view.ty = 0;

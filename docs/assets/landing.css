@@ -178,6 +178,10 @@ body.landing {
   background: var(--surface);
 }
 .reset-btn:hover { border-color: var(--accent); color: var(--accent); }
+/* The button lives in the topbar and is toggled via the `hidden` attribute
+   (syncResetBtn in landing-map.js). Stated explicitly so that adding any
+   `display` to .reset-btn later cannot silently override [hidden]. */
+.reset-btn[hidden] { display: none; }
 .map-status {
   font-family: var(--ff-mono);
   font-size: 11px;
@@ -223,7 +227,15 @@ figure.map-figure {
   border: 1px solid var(--rule);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-1);
-  touch-action: none;        /* pinch/drag handled in JS */
+  /* The browser owns vertical scroll and pinch-zoom; JS keeps horizontal drag
+     and tap. This was `none`, a total opt-out of native touch gestures, which
+     turned the map into an invisible scroll trap: at first load it covered
+     100% of the natural thumb zone (bottom third of the screen), so a swipe-up
+     started on the map did nothing at all and the page read as frozen.
+     One-finger VERTICAL panning of the map is deliberately traded away on
+     touch -- page scroll must always win. Desktop is unaffected: touch-action
+     governs touch input only, so wheel zoom and mouse drag still work. */
+  touch-action: pan-y pinch-zoom;
   cursor: grab;
 }
 #ohio-map.dragging { cursor: grabbing; }
@@ -306,6 +318,17 @@ figure.map-figure {
   color: var(--muted);
   text-align: center;
 }
+/* Input-aware hint. Keyed on (hover: none) -- i.e. the primary input cannot
+   hover -- rather than a width breakpoint, because this describes the INPUT
+   device, not the viewport: a narrow desktop window still has a mouse, and a
+   large tablet still does not. The touch copy drops "drag to pan", which stopped
+   being true once #ohio-map moved to touch-action: pan-y (vertical drag now
+   scrolls the page). */
+.hint-touch { display: none; }
+@media (hover: none) {
+  .hint-pointer { display: none; }
+  .hint-touch { display: inline; }
+}
 
 /* ── Scroll cue (CSS-only chevron) ─────────────────────────*/
 .scroll-cue {
@@ -331,6 +354,19 @@ figure.map-figure {
 }
 .section:first-of-type { border-top: 0; }
 .section .measure { max-width: 64ch; margin-inline: auto; }
+/* A one-line colophon does not need the full section rhythm -- clamp(48,96)
+   of padding above and below a single sentence reads as a layout bug. */
+.section-slim { padding: clamp(24px, 4vw, 40px) 0; }
+.colophon {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13.5px;
+}
+.colophon a {
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--rule-2);
+}
+.colophon a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 .section h2 {
   font-family: var(--ff-serif);
   font-weight: var(--display-weight);
@@ -378,9 +414,28 @@ figure.map-figure {
 
 /* ── Single breakpoint: 880px ──────────────────────────────*/
 @media (max-width: 880px) {
-  .topbar-link span.long { display: none; }
+  .topbar-link span.long,
+  .reset-btn span.long { display: none; }
+  /* Adding Reset to the topbar pushes .topbar-actions past the right edge on a
+     320px phone (measured: 330px of content in a 320px bar) once the button is
+     visible. The collapsed labels are already as short as they go, so recover
+     the space from chrome instead: tighter outer padding and gaps. */
+  .landing .topbar { gap: 8px; padding-inline: 12px; }
+  .topbar-actions { gap: 6px; }
+  .topbar-link, .reset-btn { padding-inline: 10px; }
   .map-toolbar { gap: 6px; }
-  .layer-group { width: 100%; justify-content: space-between; }
+  /* Explicit 2x2 grid rather than a wrapping flex row. The four labels need
+     ~314px even when shortened, so on a 375px phone (343px track) and
+     especially a 320px one (288px) a flex row wraps and orphans the last
+     button onto a line of its own -- which pushed the map further down the
+     page. A grid is width-independent: two even rows at any phone size, no
+     orphan, and the cells stay equal so the control reads as one block. */
+  .layer-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .layer-btn { padding-inline: 8px; }
   .toolbar-spacer { display: none; }
   .hero h1 { max-width: 100%; }
   .landing footer .foot-inner { flex-direction: column; align-items: flex-start; }
