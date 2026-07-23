@@ -299,6 +299,11 @@
       // pattern, same as districts.
       bag.cityName = await cityNameFromSlug(id);
       bag.spanCounties = await citySpanCounties(bag.cityName);
+      // Cache by URL slug so renderMapForState() can light this city's
+      // counties without re-deriving the span (it has no access to `bag`).
+      // One derivation -- citySpanCounties() -- two consumers.
+      window._citySpan = window._citySpan || {};
+      window._citySpan[id] = bag.spanCounties;
       // Pipeline writes city files with the jurisdiction-type suffix baked in
       // (CITY value "KETTERING CITY" -> slug "kettering_city"), matching the
       // township/village/district trees. The URL id is the bare city slug
@@ -413,6 +418,11 @@
   // file's ids are zero-padded 2-char and contiguous (house '01'-'99',
   // senate '01'-'33', congress '01'-'15'), byte-identical to the ids the
   // callers pass. Do not strip or re-pad -- that would break the join.
+  // Districts have no statewide aggregate file, so a district view must always
+  // name one. Ids are zero-padded 2-char in both the geojson and the data
+  // filenames ('01'-'99'), and every type starts at 01.
+  const DEFAULT_DISTRICT_ID = '01';
+
   const DISTRICT_GEO_FILES = {
     congressional_district:        'data/state_map/congress.geojson',
     state_senate_district:         'data/state_map/senate.geojson',
@@ -651,7 +661,9 @@
   // sub-county polygons exist for Montgomery only so far. The caller decides
   // which county to pass, so each county upgrades automatically as its own
   // shapes land -- nothing here branches on a county name.
-  function renderHexMap(leans, selectedName, compareNames, gen) {
+  // activeSlugs: county slugs to keep lit without the selected/compare stroke
+  // -- used for a multi-county city, which highlights every county it spans.
+  function renderHexMap(leans, selectedName, compareNames, gen, activeSlugs) {
     const root = $('map');
     if (!root) return;
     const selSlug = selectedName ? countyToSlug(selectedName) : null;
@@ -660,7 +672,8 @@
       if ((gen !== undefined && gen !== _mapGen) || ($('map')) !== root) return;
       // See renderDistrictMap: with no selection, 'selected' mode dims all 88
       // and the statewide overview reads as a dark blank.
-      const anySel = !!(selSlug || (cmpSlugs && cmpSlugs.length));
+      const anySel = !!(selSlug || (cmpSlugs && cmpSlugs.length) ||
+                        (activeSlugs && activeSlugs.length));
       GeoMap.render({
         container: root,
         geojson: gj,
@@ -668,6 +681,7 @@
         keyProp: 'slug',
         selectedKey: selSlug,
         compareKeys: cmpSlugs,
+        activeKeys: (activeSlugs && activeSlugs.length) ? activeSlugs : null,
         className: 'geo-shape',
         ariaLabel: 'Ohio counties map',
         nameFor: p => p.name + ' County',
@@ -1062,6 +1076,37 @@
         }
       }
     }
+
+    scrollSelectedIntoView();
+  }
+
+  // Bring the selected hierarchy row into view inside the left pane.
+  //
+  // The tree is 88 counties deep, so arriving at a county page (from the
+  // landing map, a shared link, or search) left the selection scrolled far
+  // below the fold with no indication where it was. Scrolls only the
+  // hierarchy's own scroll container -- scrollIntoView() would also scroll
+  // the page/right pane, moving the map out from under the user.
+  //
+  // 'auto' rather than 'smooth': this fires on every render, and an animated
+  // scroll on each refresh reads as jitter.
+  function scrollSelectedIntoView() {
+    const pane = document.querySelector('.left-pane .hierarchy') || $('hierarchy');
+    if (!pane) return;
+    const row = pane.querySelector('.hier-row.is-selected');
+    if (!row) { pane.scrollTop = 0; return; }
+    const pr = pane.getBoundingClientRect();
+    const rr = row.getBoundingClientRect();
+    if (rr.top >= pr.top && rr.bottom <= pr.bottom) return;   // already visible
+    // Park it ~1/4 down the pane so following rows (a county's places, a
+    // district's siblings) stay on screen instead of sitting at the edge.
+    //
+    // Computed from live rects rather than offsetTop: the pane is
+    // position:static, so row.offsetParent is BODY and offsetTop is measured
+    // against the document, not this scroll container. Clamped so the target
+    // cannot land outside the scrollable range.
+    const target = pane.scrollTop + (rr.top - pr.top) - pane.clientHeight / 4;
+    pane.scrollTop = Math.max(0, Math.min(target, pane.scrollHeight - pane.clientHeight));
   }
 
   async function populateDistrictChildren(dtype) {
@@ -1077,6 +1122,9 @@
         return '<div class="hier-row depth-1 ' + (isSel ? 'is-selected' : '') + '" data-action="select-district" data-dtype="' + esc(dtype) + '" data-id="' + esc(d.slug) + '" data-district-name="' + esc(label) + '"><span class="twirl"></span><span class="label">District ' + esc(label) + '</span><span class="count">' + (d.voter_count ? d.voter_count.toLocaleString() : '—') + '</span></div>';
       });
       wrap.innerHTML = html.join('');
+      // These rows arrive after renderHierarchy() has already run, so the
+      // selected district would otherwise stay below the fold (99 house rows).
+      scrollSelectedIntoView();
     } catch (e) {
       wrap.innerHTML = '<div class="hier-row depth-1 muted"><span class="label">Not yet processed</span></div>';
     }
@@ -1128,14 +1176,16 @@
           const dtype = el.getAttribute('data-dtype');
           const collapsing = S.district_type === dtype;
           S.district_type = collapsing ? null : dtype;
-          // Leaving S.id pointing at a district of the type we just navigated
-          // away from would highlight an unrelated shape (ids are per-type).
-          const clearedId = (S.level === 'district' && !collapsing);
-          if (clearedId) S.id = null;
-          // writeState deletes a key whose value is null/undefined/'' -- so
-          // only pass `id` when we actually intend to drop it from the URL.
-          writeState(clearedId ? { type: S.district_type, id: null }
-                               : { type: S.district_type });
+          // District ids are per-type, so an id carried over from the previous
+          // type would point at an unrelated district. Land on District 1 of
+          // the newly-opened type rather than clearing to null: there is no
+          // all-districts aggregate file, so a null id renders an empty pane.
+          if (!collapsing) {
+            S.level = 'district'; S.id = DEFAULT_DISTRICT_ID;
+            writeState({ level: 'district', id: DEFAULT_DISTRICT_ID, type: dtype });
+          } else {
+            writeState({ type: null });
+          }
           await renderHierarchy();
           await refreshView();
           return;
@@ -1885,9 +1935,28 @@
                         (S.level === 'precinct' || SUBCOUNTY_LEVELS.includes(S.level))
                           ? (S.county || null) : null;
 
+      // A multi-county city (the unified view, S.county === null) has no single
+      // county to highlight, so the map used to sit unchanged on the statewide
+      // layer -- clicking any of the 21 spanning cities appeared to do nothing.
+      // We have no city boundary polygons outside Montgomery, so we cannot draw
+      // the city itself; but city_county_map.json already tells us exactly
+      // which counties it touches, so light those and grey the rest. Uses the
+      // same activeKeys set the precinct layer uses -- no new geodata needed.
+      const spanSlugs = (!explicitId || S.level !== 'city') ? null
+                        : (window._citySpan && window._citySpan[S.id]) || null;
+
       const drawCounties = () => {
-        if (mapEyebrow) mapEyebrow.textContent = 'Ohio · 88 counties · party lean';
-        renderHexMap(window._leans, name, null, gen);
+        if (mapEyebrow) {
+          // S.city is only set when the city was picked from the tree; a deep
+          // link carries just the slug, so fall back to un-slugging rather
+          // than printing a bare "City".
+          const cityLabel = S.city ||
+            (S.id || '').replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+          mapEyebrow.textContent = spanSlugs && spanSlugs.length
+            ? cityLabel + ' · spans ' + spanSlugs.length + ' counties · party lean'
+            : 'Ohio · 88 counties · party lean';
+        }
+        renderHexMap(window._leans, name, null, gen, spanSlugs);
       };
 
       if (geoCounty && !_precinctGeoMiss[geoCounty]) {
@@ -2146,10 +2215,14 @@
         S.county = null; S.city = null; S.compare = null;
         if (val === 'district') {
           // The hierarchy lists Congressional first; match it rather than
-          // inheriting whatever district type was last viewed.
+          // inheriting whatever district type was last viewed. Open on
+          // District 1 -- there is no all-districts aggregate file, so a null
+          // id would send loadJurisdiction('district', null) looking for a
+          // file that cannot exist and render an empty, broken-looking pane.
           S.district_type = 'congressional_district';
-          S.level = 'district'; S.id = null;
-          writeState({ view: val, level: null, id: null, county: null, city: null,
+          S.level = 'district'; S.id = DEFAULT_DISTRICT_ID;
+          writeState({ view: val, level: 'district', id: DEFAULT_DISTRICT_ID,
+                       county: null, city: null,
                        type: 'congressional_district', compare: null });
         } else {
           // Geography's overview is the whole state. The center pane still

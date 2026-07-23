@@ -694,7 +694,10 @@ table.data-table tbody td:first-child { color: var(--ink); }
 .geo-shape {
   transition: filter .12s, opacity .12s;
 }
-.geo-shape:hover { filter: brightness(1.18); }
+/* Selected/compare shapes already carry full-strength lean colour, so this
+   stays a modest lift; the dimmed-shape hover below pushes much harder
+   because it has to overcome the mix-down. */
+.geo-shape:hover { filter: brightness(1.28) saturate(1.15); }
 .geo-shape.is-selected { stroke: var(--ink); stroke-width: 1.8; }
 .geo-shape.is-compare-a { stroke: var(--accent); stroke-width: 1.6; }
 .geo-shape.is-compare-b { stroke: var(--c-mixed-active); stroke-width: 1.6; }
@@ -705,10 +708,13 @@ table.data-table tbody td:first-child { color: var(--ink); }
    dimming; hover then lifts saturation and brightness so the shape under the
    cursor is unmistakable without changing its hue or the tooltip timing. */
 .geo-shape.is-dimmed { opacity: 1; }
+/* Hover has to read instantly against 87 neighbours that are themselves
+   tinted, so it pushes well past a subtle lift: the mixed-down fill is
+   driven back to roughly full lean strength and outlined in --ink. */
 .geo-shape.is-dimmed:hover {
-  filter: saturate(1.9) brightness(1.32);
-  stroke: var(--ink-2);
-  stroke-width: 1.1;
+  filter: saturate(3.2) brightness(1.6);
+  stroke: var(--ink);
+  stroke-width: 1.8;
 }
 
 /* Editorial dark sets --rule to the same value as --surface-3, so a dimmed
