@@ -88,6 +88,12 @@
 
   // ─── boot ────────────────────────────────────────────────────────────────
   async function boot() {
+    // Only attempt localhost connection if we are on localhost, file://, or explicitly requested.
+    // This prevents Android Chrome from showing a "wants to access local devices" prompt.
+    const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'file:';
+    const isExplicit = new URLSearchParams(location.search).has('captainApi');
+    if (!isLocal && !isExplicit) return;
+
     let alive = false;
     let cacheReady = false;
     try {
