@@ -59,6 +59,7 @@ Participation values: non-empty str  →  'X' (in-person) | 'R' (absentee) | 'D'
 
 import concurrent.futures
 import json
+from dataclasses import dataclass
 try:
     import orjson as _orjson
 except ImportError:
@@ -372,7 +373,9 @@ def identify_election_cols(df: pl.DataFrame) -> list[str]:
     metrics accumulate in the correct order.
     """
     cols = [c for c in df.columns if ELEC_RE.match(c)]
-    cols.sort(key=lambda c: datetime.strptime(ELEC_RE.match(c).group(2), '%m/%d/%Y'))
+    # Sort key routes through the resolver: parse_election_meta is the only place
+    # an election column name is decomposed into a date (single-resolver law).
+    cols.sort(key=lambda c: parse_election_meta(c)[0])
     return cols
 
 
@@ -394,6 +397,176 @@ def parse_election_meta(col: str) -> tuple[date_t | None, str | None, str | None
     except ValueError:
         return None, None, None
     return elec_date, type_code, ELECTION_TYPE_LABELS.get(type_code, type_code)
+
+
+@dataclass(frozen=True)
+class ColMeta:
+    """Fully resolved metadata for one election column.
+
+    The two semantic axes (is_regular, partisan_capable) are the whole point of
+    the A0 collapse: neither can be read from the column NAME (the SoS labels
+    both the Aug-2022 partisan primary and a Sept-2011 municipal issue election
+    'PRIMARY'). They come from date-position + a bounded profile of the column's
+    observed ballot codes, computed once by build_col_meta().
+
+    Fields:
+      col              raw column name (e.g. 'PRIMARY-08/02/2022')
+      date             parsed election date
+      type_code        'PRIMARY' | 'GENERAL' | 'SPECIAL'
+      is_regular       on every precinct's ballot on a fixed cycle: the first
+                       Mar-May primary of its year, or a November general.
+                       Drives the participation-eligibility denominator.
+      partisan_capable the election offered party ballots (>=1 D or R cast).
+                       Drives the cohort partisan signal. Aug-2022 is
+                       partisan_capable=True, is_regular=False; a Sept-2011
+                       issue-only primary is partisan_capable=False.
+      rule             human-readable tag naming the rule that classified this
+                       column, committed to the reference table as work-shown.
+    """
+    col:              str
+    date:             date_t
+    type_code:        str
+    is_regular:       bool
+    partisan_capable: bool
+    rule:             str
+
+
+def build_col_meta(
+    df:            pl.DataFrame,
+    election_cols: list[str],
+    logger:        'logging.Logger | None' = None,
+) -> list[ColMeta]:
+    """THE single election-column resolver (CLAUDE.md sec 5 single-resolver law).
+
+    Given the voter DataFrame and its election columns, returns one ColMeta per
+    column, chronologically ordered, carrying date + type (from the name, via
+    parse_election_meta) AND is_regular + partisan_capable (from date-position +
+    a bounded per-column ballot-code profile). Every downstream consumer — the
+    cohort classifier, the participation engine, the Excel summaries — obtains
+    date/type/regular/partisan facts ONLY from here. There is no second parser.
+
+    partisan_capable: profiled, not named. For each column we count D and R
+    ballots in a single vectorised pass; partisan_capable == (n_D + n_R >= 1).
+
+    is_regular: date-position over the resolved type. The regular spine is one
+    primary per calendar year (the earliest PRIMARY in Mar-May of that year)
+    plus the November general. Off-cycle primaries, non-November generals, and
+    every SPECIAL are excluded. On the current Ohio snapshot this yields
+    25 regular primaries + 27 November generals = 52 regular columns.
+    """
+    parsed: list[tuple[str, date_t, str]] = []
+    for c in election_cols:
+        elec_date, type_code, _ = parse_election_meta(c)
+        if elec_date is None:
+            if logger:
+                logger.warning('build_col_meta: unparseable election column "%s" '
+                               '- excluded from metadata', c)
+            continue
+        parsed.append((c, elec_date, type_code))
+    parsed.sort(key=lambda t: t[1])
+
+    # -- partisan_capable: bounded ballot-code profile, one columnar pass ------
+    # Count D and R per column across all rows; a column with >=1 partisan
+    # ballot offered party primaries. This is the ONLY place ballot codes are
+    # read to determine election meaning.
+    partisan_capable: dict[str, bool] = {}
+    if parsed:
+        cols = [c for c, _, _ in parsed]
+        counts = df.select([
+            ((pl.col(c).str.strip_chars() == 'D') |
+             (pl.col(c).str.strip_chars() == 'R')).sum().alias(c)
+            for c in cols
+        ]).row(0)
+        for (c, _, _), n_partisan in zip(parsed, counts):
+            partisan_capable[c] = (n_partisan or 0) >= 1
+
+    # -- is_regular: date-position over the resolved type ---------------------
+    # First PRIMARY (by date) held in each calendar year, if it falls Mar-May,
+    # is that year's regular primary. November generals are regular. All else
+    # (off-cycle primaries, non-Nov generals, SPECIALs) is not.
+    first_primary_of_year: dict[int, date_t] = {}
+    for c, d, type_code in parsed:
+        if type_code == 'PRIMARY':
+            cur = first_primary_of_year.get(d.year)
+            if cur is None or d < cur:
+                first_primary_of_year[d.year] = d
+
+    out: list[ColMeta] = []
+    for c, d, type_code in parsed:
+        pc = partisan_capable.get(c, False)
+        if type_code == 'SPECIAL':
+            is_regular = False
+            rule = 'SPECIAL -> not regular'
+        elif type_code == 'GENERAL':
+            is_regular = (d.month == 11)
+            rule = ('GENERAL in November -> regular' if is_regular
+                    else 'GENERAL off-November -> special')
+        elif type_code == 'PRIMARY':
+            is_first = (first_primary_of_year.get(d.year) == d)
+            is_regular = is_first and d.month in (3, 4, 5)
+            if is_regular:
+                rule = 'PRIMARY, first Mar-May of year -> regular'
+            elif not is_first:
+                rule = 'PRIMARY, not first of year -> off-cycle special'
+            else:
+                rule = 'PRIMARY outside Mar-May -> off-cycle special'
+        else:
+            is_regular = False
+            rule = f'{type_code} -> not regular'
+        out.append(ColMeta(
+            col=c, date=d, type_code=type_code,
+            is_regular=is_regular, partisan_capable=pc, rule=rule,
+        ))
+
+    if logger:
+        n_reg = sum(1 for m in out if m.is_regular)
+        n_partisan = sum(1 for m in out if m.partisan_capable)
+        logger.info('build_col_meta: %d election columns resolved '
+                    '(%d regular, %d partisan-capable)',
+                    len(out), n_reg, n_partisan)
+    return out
+
+
+def write_col_meta_reference(
+    col_meta: list[ColMeta],
+    out_path: 'Path',
+) -> None:
+    """Commit the resolver's classification table as human-readable work-shown.
+
+    One row per election column: col, date, type, is_regular, partisan_capable,
+    and the rule that tagged it. This is the free-tier audit artifact — every
+    column's classification is verifiable by eye against the committed table.
+    """
+    lines = [
+        '# Election-column classification table (A0 resolver output)',
+        '#',
+        '# Generated by pipeline/voter_data_cleaner.py:build_col_meta / '
+        'write_col_meta_reference.',
+        '# Each row is one election column tagged on two axes by the SINGLE '
+        'election-metadata',
+        '# resolver. is_regular / partisan_capable are NOT read from the column '
+        'name: they come',
+        '# from date-position + a bounded per-column ballot-code profile '
+        '(CLAUDE.md sec 5).',
+        '#',
+        f'# Columns: {len(col_meta)}  |  '
+        f'regular: {sum(1 for m in col_meta if m.is_regular)}  |  '
+        f'partisan_capable: {sum(1 for m in col_meta if m.partisan_capable)}',
+        '',
+    ]
+    header = ('| ' + f'{"column":<22}' + ' | ' + f'{"date":<10}' + ' | '
+              + f'{"type":<8}' + ' | ' + f'{"is_regular":<10}' + ' | '
+              + f'{"partisan_capable":<16}' + ' | rule |')
+    sep = ('|' + '-' * 24 + '|' + '-' * 12 + '|' + '-' * 10 + '|'
+           + '-' * 12 + '|' + '-' * 18 + '|' + '-' * 6 + '|')
+    lines.append(header)
+    lines.append(sep)
+    for m in col_meta:
+        lines.append(
+            f'| {m.col:<22} | {m.date.isoformat():<10} | {m.type_code:<8} | '
+            f'{str(m.is_regular):<10} | {str(m.partisan_capable):<16} | {m.rule} |'
+        )
+    out_path.write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
 
@@ -756,36 +929,31 @@ def add_voter_participation(
     voted_exprs: list[pl.Expr] = []
     gen_elig_exprs:  list[pl.Expr] = []
     gen_voted_exprs: list[pl.Expr] = []
-    skipped = 0
 
-    for col in election_cols:
-        elec_date, type_code, _ = parse_election_meta(col)
-        if elec_date is None:
-            logger.warning('Could not parse election date from column "%s" — skipping', col)
-            skipped += 1
-            continue
+    # Single resolver: date/type/regular facts come ONLY from build_col_meta,
+    # never from the column name here. The "generals" set below is the resolved
+    # type_code == 'GENERAL', not a startswith test.
+    col_meta = build_col_meta(df, election_cols, logger)
 
+    for m in col_meta:
         # Polars stores Python date objects directly in comparisons with Date columns
         elig = (
             pl.col('REGDATE_DT').is_not_null() &
-            (pl.col('REGDATE_DT') <= pl.lit(elec_date))
+            (pl.col('REGDATE_DT') <= pl.lit(m.date))
         ).cast(pl.Int32)
 
         voted = (
             elig.cast(pl.Boolean) &                     # must be eligible
-            pl.col(col).is_not_null() &                 # participation value must exist
-            (pl.col(col).str.strip_chars() != '')        # and be non-empty (X / R / D)
+            pl.col(m.col).is_not_null() &               # participation value must exist
+            (pl.col(m.col).str.strip_chars() != '')      # and be non-empty (X / R / D)
         ).cast(pl.Int32)
 
         elig_exprs.append(elig)
         voted_exprs.append(voted)
 
-        if col.startswith('GENERAL-'):
+        if m.type_code == 'GENERAL':
             gen_elig_exprs.append(elig)
             gen_voted_exprs.append(voted)
-
-    if skipped:
-        logger.warning('Skipped %d election columns with unparseable dates', skipped)
 
     logger.info('  %d total election expressions, %d generals-only',
                 len(elig_exprs), len(gen_elig_exprs))
@@ -1085,8 +1253,10 @@ def build_district_breakdown(
 
     # Identify the most recent General election column for turnout calculation.
     # General elections are the most comparable across districts.
-    g_cols        = [c for c in election_cols if c.startswith('GENERAL-')]
-    most_recent_g = g_cols[-1] if g_cols else None
+    # Single resolver: 'general' is resolved type_code, not a name startswith.
+    _gen_meta     = [m for m in build_col_meta(df, election_cols, logger)
+                     if m.type_code == 'GENERAL']
+    most_recent_g = _gen_meta[-1].col if _gen_meta else None
 
     # Pre-compute eligibility and voted columns for the most recent General election
     # so we don't recompute for every district field.
@@ -1407,8 +1577,14 @@ def identify_primary_cols(election_cols: list[str]) -> list[str]:
     itself needs no changes.
 
     Ohio SWVF format: 'PRIMARY-MM/DD/YYYY'
+
+    Thin filter over the resolver's name-tag: a column is a primary iff
+    parse_election_meta resolves its type_code to 'PRIMARY'. No name parsing
+    happens here — the ELEC_RE / date decomposition lives only in the resolver.
+    The data-dependent axes (is_regular, partisan_capable) are consumed inside
+    the classifier via build_col_meta, not here.
     """
-    return [c for c in election_cols if c.startswith('PRIMARY-')]
+    return [c for c in election_cols if parse_election_meta(c)[1] == 'PRIMARY']
 
 
 def classify_all_voters_primary_history(
@@ -1509,18 +1685,12 @@ def classify_all_voters_primary_history(
     logger.info('  classify_all_voters_primary_history: %s voters x %d primary columns',
                 f'{len(df):,}', len(primary_cols))
 
-    # -- Parse election date for each primary column ------------------------
-    col_meta: list[tuple[str, date_t]] = []
-    for c in primary_cols:
-        m = ELEC_RE.match(c)
-        if not m:
-            continue
-        try:
-            mm, dd, yyyy = m.group(2).split('/')
-            d = date_t(int(yyyy), int(mm), int(dd))
-        except ValueError:
-            continue
-        col_meta.append((c, d))
+    # -- Resolve primary-column metadata via the SINGLE resolver ------------
+    # No inline parse loop: build_col_meta is the sole decomposer of election
+    # column names into (date, type, is_regular, partisan_capable). We keep the
+    # (col, date) pairs the downstream expression builders expect.
+    _resolved = build_col_meta(df, primary_cols, logger)
+    col_meta: list[tuple[str, date_t]] = [(m.col, m.date) for m in _resolved]
 
     col_meta_newest_first = sorted(col_meta, key=lambda x: x[1], reverse=True)
     col_meta_chrono       = sorted(col_meta, key=lambda x: x[1])
