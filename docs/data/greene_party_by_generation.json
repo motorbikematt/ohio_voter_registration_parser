@@ -3,8 +3,8 @@
   "county": "Greene",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,13 +56,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          717,
-          3024,
-          3323,
-          2723,
-          1005
+          597,
+          2139,
+          1595,
+          777,
+          37
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          120,
+          885,
+          1728,
+          1945,
+          968
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -72,7 +85,7 @@
           582,
           4398,
           7159,
-          14979,
+          14980,
           15937
         ],
         "backgroundColor": "#9ca3af",

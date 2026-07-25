@@ -4,7 +4,7 @@
   "precinct": "PERRYSBURG N",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,13 +57,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          12,
-          29,
-          21,
-          23,
-          10
+          8,
+          18,
+          9,
+          5,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          4,
+          10,
+          11,
+          16,
+          10
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -71,9 +84,9 @@
         "label": "UNC – No Primary",
         "data": [
           11,
-          57,
-          47,
-          91,
+          58,
+          48,
+          93,
           93
         ],
         "backgroundColor": "#9ca3af",

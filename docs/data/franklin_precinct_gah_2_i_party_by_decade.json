@@ -4,7 +4,7 @@
   "precinct": "GAH 2-I",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -69,15 +69,31 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          4,
-          5,
-          11,
-          16,
-          19,
+          2,
+          2,
           7,
-          1
+          6,
+          12,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          2,
+          3,
+          4,
+          10,
+          6,
+          6,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -89,7 +105,7 @@
           13,
           35,
           42,
-          93,
+          94,
           113,
           84
         ],

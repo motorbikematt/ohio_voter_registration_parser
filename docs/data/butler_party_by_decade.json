@@ -3,8 +3,8 @@
   "county": "Butler",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -77,17 +77,35 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          39,
-          545,
-          1735,
-          3303,
-          4006,
-          3531,
-          3034,
-          1203,
-          701
+          24,
+          369,
+          1028,
+          1593,
+          1747,
+          1432,
+          952,
+          263,
+          11
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          15,
+          176,
+          707,
+          1708,
+          2259,
+          2099,
+          2082,
+          940,
+          690
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -98,7 +116,7 @@
           36,
           494,
           2217,
-          6096,
+          6098,
           10797,
           14955,
           21026,

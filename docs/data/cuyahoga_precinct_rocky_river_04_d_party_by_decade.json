@@ -4,7 +4,7 @@
   "precinct": "ROCKY RIVER-04-D",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          2,
-          15,
-          21,
-          31,
-          25,
+          1,
           14,
-          12,
-          8,
-          6
+          17,
+          23,
+          21,
+          7,
+          5,
+          2,
+          2
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          1,
+          4,
+          8,
+          4,
+          7,
+          7,
+          6,
+          4
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

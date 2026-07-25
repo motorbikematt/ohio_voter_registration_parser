@@ -3,8 +3,8 @@
   "county": "Franklin",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -77,17 +77,35 @@
         "label": "Mixed – Lapsed",
         "data": [
           1,
-          111,
-          1219,
-          4444,
-          8205,
-          11114,
-          11379,
-          9945,
-          5769,
-          1581
+          81,
+          923,
+          3168,
+          5173,
+          6425,
+          5621,
+          4278,
+          1622,
+          63
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          30,
+          296,
+          1276,
+          3031,
+          4686,
+          5755,
+          5661,
+          4146,
+          1517
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -98,12 +116,12 @@
           105,
           1404,
           6250,
-          17953,
-          34201,
-          52045,
-          85759,
-          136325,
-          93172
+          17954,
+          34204,
+          52048,
+          85765,
+          136326,
+          93173
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,

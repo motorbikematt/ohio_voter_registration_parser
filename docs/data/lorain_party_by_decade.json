@@ -3,8 +3,8 @@
   "county": "Lorain",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -77,17 +77,35 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          41,
-          627,
-          1816,
-          3001,
-          3771,
-          3555,
-          2926,
-          1218,
-          602
+          36,
+          527,
+          1406,
+          2103,
+          2414,
+          1862,
+          1055,
+          238,
+          8
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          5,
+          100,
+          410,
+          898,
+          1356,
+          1692,
+          1871,
+          978,
+          594
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -99,10 +117,10 @@
           393,
           1893,
           4997,
-          8176,
-          11121,
+          8177,
+          11122,
           14697,
-          20781,
+          20783,
           19610
         ],
         "backgroundColor": "#9ca3af",

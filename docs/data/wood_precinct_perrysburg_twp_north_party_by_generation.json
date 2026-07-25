@@ -4,7 +4,7 @@
   "precinct": "PERRYSBURG TWP NORTH",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,13 +57,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          12,
-          35,
-          25,
-          25,
-          8
+          10,
+          26,
+          8,
+          5,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          2,
+          9,
+          16,
+          20,
+          8
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -72,7 +85,7 @@
         "data": [
           9,
           47,
-          66,
+          67,
           85,
           69
         ],

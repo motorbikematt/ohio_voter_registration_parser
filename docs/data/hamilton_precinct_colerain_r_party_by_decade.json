@@ -4,7 +4,7 @@
   "precinct": "COLERAIN R",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          4,
-          12,
-          19,
-          22,
+          3,
           8,
-          12,
-          10,
-          8
+          8,
+          17,
+          0,
+          6,
+          1,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          4,
+          11,
+          5,
+          8,
+          6,
+          9,
+          7
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

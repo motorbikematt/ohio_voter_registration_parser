@@ -4,7 +4,7 @@
   "precinct": "LAKE TWP WALBRIDGE VILL A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,13 +57,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          12,
-          33,
+          10,
           20,
-          8,
-          1
+          11,
+          3,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          2,
+          12,
+          7,
+          5,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -71,8 +84,8 @@
         "label": "UNC – No Primary",
         "data": [
           13,
-          62,
-          53,
+          63,
+          55,
           84,
           72
         ],

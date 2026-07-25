@@ -4,7 +4,7 @@
   "precinct": "PRECINCT POWELL CITY H",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          3,
-          17,
-          17,
-          20,
-          34,
-          20,
+          2,
+          12,
+          10,
+          11,
+          15,
           4,
-          4
+          3,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          5,
+          7,
+          9,
+          19,
+          16,
+          1,
+          4
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

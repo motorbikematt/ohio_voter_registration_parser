@@ -4,7 +4,7 @@
   "precinct": "PRECINCT SYLVANIA CITY 11",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,23 +57,36 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          12,
-          44,
-          25,
-          19,
-          6
+          5,
+          28,
+          10,
+          6,
+          0
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
       {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          5,
+          16,
+          15,
+          12,
+          6
+        ],
+        "backgroundColor": "#c4b5cd",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
         "label": "UNC – No Primary",
         "data": [
-          15,
+          17,
           33,
           40,
-          79,
+          80,
           114
         ],
         "backgroundColor": "#9ca3af",

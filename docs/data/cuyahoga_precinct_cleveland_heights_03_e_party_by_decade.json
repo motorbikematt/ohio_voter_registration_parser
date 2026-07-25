@@ -4,7 +4,7 @@
   "precinct": "CLEVELAND HEIGHTS-03-E",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -75,14 +75,31 @@
           0,
           0,
           5,
-          10,
           7,
-          6,
-          12,
-          9,
-          3
+          5,
+          2,
+          2,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          0,
+          1,
+          0,
+          2,
+          5,
+          4,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -92,11 +109,11 @@
           0,
           0,
           4,
-          10,
-          11,
-          22,
-          55,
-          132,
+          12,
+          13,
+          24,
+          60,
+          136,
           46
         ],
         "backgroundColor": "#9ca3af",

@@ -4,7 +4,7 @@
   "precinct": "PRECINCT SYLVANIA TOWNSHIP N",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -68,16 +68,32 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          5,
-          16,
-          21,
-          24,
-          13,
-          15,
+          2,
           11,
-          5
+          9,
+          9,
+          5,
+          4,
+          4,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          3,
+          5,
+          11,
+          15,
+          8,
+          11,
+          7,
+          5
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -86,7 +102,7 @@
         "data": [
           2,
           18,
-          37,
+          38,
           55,
           50,
           88,

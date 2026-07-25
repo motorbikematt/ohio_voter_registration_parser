@@ -4,7 +4,7 @@
   "precinct": "PRECINCT WILLOWICK CITY 3A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -68,16 +68,32 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          6,
-          9,
-          20,
-          32,
+          5,
+          7,
+          14,
           24,
-          20,
-          6,
-          9
+          14,
+          8,
+          2,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          2,
+          6,
+          8,
+          10,
+          12,
+          4,
+          9
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

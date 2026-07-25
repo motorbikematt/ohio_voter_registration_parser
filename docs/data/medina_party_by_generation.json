@@ -3,8 +3,8 @@
   "county": "Medina",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,13 +56,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          1037,
-          4766,
-          5678,
-          3833,
-          1036
+          667,
+          2097,
+          1657,
+          619,
+          34
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          370,
+          2668,
+          4021,
+          3214,
+          1002
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -70,7 +83,7 @@
         "label": "UNC – No Primary",
         "data": [
           618,
-          4540,
+          4541,
           7988,
           13505,
           14633

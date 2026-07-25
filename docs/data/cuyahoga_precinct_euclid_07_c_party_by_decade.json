@@ -4,7 +4,7 @@
   "precinct": "EUCLID-07-C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           0,
+          3,
+          1,
           4,
-          2,
-          5,
-          9,
-          5,
-          2,
-          1
+          4,
+          1,
+          0,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          5,
+          4,
+          1,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -96,7 +113,7 @@
           58,
           76,
           121,
-          253,
+          254,
           95
         ],
         "backgroundColor": "#9ca3af",

@@ -3,8 +3,8 @@
   "county": "Greene",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -77,17 +77,35 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          26,
-          269,
-          944,
-          1536,
-          1953,
-          2103,
-          2134,
-          1110,
-          717
+          20,
+          237,
+          754,
+          1098,
+          1210,
+          914,
+          709,
+          196,
+          7
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          6,
+          32,
+          190,
+          438,
+          743,
+          1189,
+          1425,
+          913,
+          710
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -102,7 +120,7 @@
           3567,
           4737,
           7512,
-          12460,
+          12461,
           11532
         ],
         "backgroundColor": "#9ca3af",

@@ -4,7 +4,7 @@
   "precinct": "PRECINCT TOLEDO 6D",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -69,15 +69,31 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
+          1,
+          15,
           8,
-          25,
-          14,
-          9,
-          7,
-          11,
-          1
+          5,
+          3,
+          2,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          6,
+          9,
+          3,
+          3,
+          4,
+          8,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -85,12 +101,12 @@
         "label": "UNC – No Primary",
         "data": [
           0,
-          2,
-          32,
-          56,
-          63,
+          3,
+          33,
+          59,
+          64,
           112,
-          187,
+          188,
           128
         ],
         "backgroundColor": "#9ca3af",

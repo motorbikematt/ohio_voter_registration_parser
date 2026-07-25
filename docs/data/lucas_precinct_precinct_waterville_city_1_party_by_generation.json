@@ -4,7 +4,7 @@
   "precinct": "PRECINCT WATERVILLE CITY 1",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,13 +57,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          15,
-          50,
-          26,
-          12,
+          13,
+          32,
+          9,
+          2,
           1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          2,
+          18,
+          17,
+          9,
+          0
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -73,7 +86,7 @@
           9,
           38,
           57,
-          111,
+          112,
           98
         ],
         "backgroundColor": "#9ca3af",

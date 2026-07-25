@@ -4,7 +4,7 @@
   "precinct": "HARRISON TOWNSHIP E",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           3,
-          17,
-          30,
-          38,
-          43,
-          46,
-          26,
-          12
+          13,
+          21,
+          19,
+          19,
+          10,
+          3,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          4,
+          9,
+          19,
+          24,
+          36,
+          23,
+          12
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

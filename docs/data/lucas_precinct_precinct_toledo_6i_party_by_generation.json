@@ -4,7 +4,7 @@
   "precinct": "PRECINCT TOLEDO 6I",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,22 +57,35 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
+          5,
           8,
-          19,
-          13,
-          16,
-          8
+          2,
+          3,
+          1
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
       {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          2,
+          8,
+          8,
+          13,
+          7
+        ],
+        "backgroundColor": "#c4b5cd",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
         "label": "UNC – No Primary",
         "data": [
-          10,
-          61,
-          80,
+          11,
+          64,
+          83,
           275,
           250
         ],

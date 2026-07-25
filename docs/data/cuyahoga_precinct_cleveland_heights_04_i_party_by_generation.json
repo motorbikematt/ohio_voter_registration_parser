@@ -4,7 +4,7 @@
   "precinct": "CLEVELAND HEIGHTS-04-I",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,24 +57,37 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          7,
-          17,
-          9,
-          18,
-          4
+          5,
+          12,
+          2,
+          3,
+          0
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
       {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          2,
+          5,
+          11,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
         "label": "UNC – No Primary",
         "data": [
-          5,
-          45,
-          42,
-          105,
-          85
+          6,
+          48,
+          44,
+          109,
+          88
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 2,

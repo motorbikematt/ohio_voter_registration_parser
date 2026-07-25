@@ -3,8 +3,8 @@
   "county": "Cuyahoga",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -76,18 +76,36 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          3,
-          233,
-          2110,
-          5817,
-          10732,
-          13162,
-          11257,
-          10134,
-          5900,
-          1813
+          1,
+          206,
+          1755,
+          4253,
+          7167,
+          8094,
+          5350,
+          3660,
+          1316,
+          61
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          2,
+          27,
+          347,
+          1550,
+          3485,
+          4957,
+          5809,
+          6313,
+          4354,
+          1621
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -96,14 +114,14 @@
         "data": [
           6,
           138,
-          1536,
-          6852,
-          20116,
-          34635,
-          45994,
-          72148,
-          112442,
-          77519
+          1544,
+          6866,
+          20196,
+          34746,
+          46092,
+          72309,
+          112672,
+          77650
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,

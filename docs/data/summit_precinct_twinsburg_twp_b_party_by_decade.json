@@ -4,7 +4,7 @@
   "precinct": "TWINSBURG TWP B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           0,
-          3,
-          18,
-          15,
-          18,
-          11,
-          11,
-          6
+          1,
+          16,
+          6,
+          6,
+          4,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          2,
+          2,
+          9,
+          12,
+          6,
+          10,
+          6
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -95,7 +112,7 @@
           16,
           23,
           43,
-          31,
+          32,
           59,
           100
         ],

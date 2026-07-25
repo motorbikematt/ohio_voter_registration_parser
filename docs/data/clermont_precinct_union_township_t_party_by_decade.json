@@ -4,7 +4,7 @@
   "precinct": "UNION TOWNSHIP T",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
+          0,
+          0,
+          7,
+          11,
+          7,
+          2,
+          7,
           1,
-          1,
-          20,
-          19,
-          27,
-          18,
-          25,
-          13,
-          9
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          1,
+          13,
+          8,
+          20,
+          16,
+          18,
+          12,
+          9
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

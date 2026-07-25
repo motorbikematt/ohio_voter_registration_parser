@@ -4,7 +4,7 @@
   "precinct": "HUBER HEIGHTS 1-C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           3,
-          11,
-          12,
-          15,
-          14,
-          15,
           10,
-          3
+          10,
+          11,
+          3,
+          4,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          1,
+          2,
+          4,
+          10,
+          11,
+          9,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -94,7 +111,7 @@
           17,
           30,
           66,
-          78,
+          79,
           136,
           199,
           155

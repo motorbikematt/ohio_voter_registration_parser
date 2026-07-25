@@ -4,7 +4,7 @@
   "precinct": "PRECINCT ORANGE H",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -70,14 +70,30 @@
         "data": [
           0,
           4,
-          3,
-          20,
-          47,
-          22,
-          9,
-          9
+          2,
+          12,
+          17,
+          5,
+          1,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          1,
+          8,
+          30,
+          17,
+          8,
+          8
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

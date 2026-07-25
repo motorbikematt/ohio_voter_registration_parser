@@ -3,8 +3,8 @@
   "county": "Henry",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          5,
-          39,
-          141,
-          221,
-          244,
-          265,
-          219,
-          131,
-          54
+          4,
+          24,
+          93,
+          137,
+          138,
+          133,
+          87,
+          20,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          15,
+          48,
+          84,
+          105,
+          132,
+          131,
+          111,
+          54
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -93,9 +110,9 @@
           29,
           139,
           347,
-          560,
+          561,
           835,
-          1066,
+          1067,
           1530,
           1894
         ],

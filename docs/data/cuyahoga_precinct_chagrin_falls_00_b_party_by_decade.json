@@ -4,7 +4,7 @@
   "precinct": "CHAGRIN FALLS-00-B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
+          2,
           3,
-          3,
-          11,
-          21,
-          31,
-          18,
-          14,
-          7,
-          2
+          9,
+          17,
+          23,
+          4,
+          9,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          0,
+          2,
+          4,
+          8,
+          14,
+          5,
+          6,
+          2
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

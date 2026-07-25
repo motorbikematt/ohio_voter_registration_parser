@@ -4,7 +4,7 @@
   "precinct": "PRECINCT 0003 SIDNEY 1ST WARD C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -68,16 +68,32 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          1,
-          17,
-          26,
-          19,
-          32,
-          21,
-          11,
-          10
+          0,
+          16,
+          22,
+          14,
+          18,
+          9,
+          2,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          1,
+          4,
+          5,
+          14,
+          12,
+          9,
+          10
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

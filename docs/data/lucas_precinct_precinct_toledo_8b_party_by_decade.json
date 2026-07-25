@@ -4,7 +4,7 @@
   "precinct": "PRECINCT TOLEDO 8B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           1,
+          1,
+          2,
           3,
-          8,
-          10,
-          9,
-          8,
-          5,
+          1,
+          1,
+          1,
           0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          2,
+          5,
+          6,
+          7,
+          5,
+          3,
+          0
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -92,11 +109,11 @@
           0,
           2,
           8,
-          26,
-          80,
-          96,
-          136,
-          158,
+          27,
+          81,
+          97,
+          138,
+          159,
           155
         ],
         "backgroundColor": "#9ca3af",

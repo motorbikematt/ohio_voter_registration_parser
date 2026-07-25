@@ -3,8 +3,8 @@
   "county": "Sandusky",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,23 +56,36 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          279,
-          1193,
-          1203,
-          788,
-          108
+          200,
+          556,
+          373,
+          141,
+          6
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
       {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          77,
+          637,
+          828,
+          646,
+          102
+        ],
+        "backgroundColor": "#c4b5cd",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
         "label": "UNC – No Primary",
         "data": [
-          198,
+          200,
           1733,
-          2896,
-          4713,
+          2898,
+          4714,
           4478
         ],
         "backgroundColor": "#9ca3af",

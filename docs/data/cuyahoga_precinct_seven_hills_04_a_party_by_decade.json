@@ -4,7 +4,7 @@
   "precinct": "SEVEN HILLS-04-A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           8,
-          25,
-          28,
-          29,
-          23,
-          14,
-          13,
-          7
+          16,
+          18,
+          16,
+          12,
+          6,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          9,
+          10,
+          13,
+          11,
+          8,
+          12,
+          7
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

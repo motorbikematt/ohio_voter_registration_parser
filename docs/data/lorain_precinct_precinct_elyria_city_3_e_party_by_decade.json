@@ -4,7 +4,7 @@
   "precinct": "PRECINCT ELYRIA CITY 3-E",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          3,
-          15,
-          20,
-          40,
-          38,
-          29,
-          8,
-          6
+          2,
+          11,
+          13,
+          34,
+          25,
+          11,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          4,
+          7,
+          6,
+          13,
+          18,
+          7,
+          6
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

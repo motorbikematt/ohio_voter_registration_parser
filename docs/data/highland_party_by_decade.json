@@ -3,8 +3,8 @@
   "county": "Highland",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -78,16 +78,34 @@
         "data": [
           0,
           5,
-          44,
-          168,
-          275,
-          287,
-          282,
-          185,
-          60,
-          30
+          39,
+          133,
+          212,
+          221,
+          196,
+          120,
+          25,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          5,
+          35,
+          63,
+          66,
+          86,
+          65,
+          35,
+          30
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

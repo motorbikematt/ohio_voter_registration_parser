@@ -3,8 +3,8 @@
   "county": "Ottawa",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          6,
-          108,
-          381,
-          674,
-          845,
-          641,
-          523,
-          205,
-          117
+          2,
+          64,
+          191,
+          318,
+          361,
+          226,
+          125,
+          19,
+          2
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          4,
+          44,
+          190,
+          356,
+          481,
+          412,
+          395,
+          186,
+          115
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -93,9 +110,9 @@
           67,
           358,
           752,
-          1073,
-          1277,
-          1504,
+          1076,
+          1280,
+          1507,
           2067,
           2171
         ],

@@ -4,7 +4,7 @@
   "precinct": "PRECINCT MAUMEE 4",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          6,
+          3,
+          2,
           7,
-          19,
-          29,
-          20,
-          16,
+          11,
           8,
-          3
+          6,
+          3,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          3,
+          5,
+          11,
+          16,
+          11,
+          9,
+          5,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -92,10 +109,10 @@
           1,
           2,
           10,
-          25,
-          48,
-          54,
-          112,
+          26,
+          50,
+          55,
+          113,
           165,
           103
         ],

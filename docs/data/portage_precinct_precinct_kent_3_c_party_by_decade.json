@@ -4,7 +4,7 @@
   "precinct": "PRECINCT KENT 3-C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           1,
           1,
-          10,
-          9,
+          5,
+          8,
           4,
-          6,
-          6,
-          1,
-          2
+          3,
+          0,
+          0,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          5,
+          1,
+          0,
+          3,
+          6,
+          1,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

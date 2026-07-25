@@ -3,8 +3,8 @@
   "county": "Hancock",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           3,
-          100,
-          322,
-          474,
-          579,
-          654,
-          732,
-          384,
-          223
+          84,
+          240,
+          313,
+          340,
+          286,
+          245,
+          84,
+          3
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          16,
+          81,
+          161,
+          238,
+          367,
+          484,
+          300,
+          220
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -91,11 +108,11 @@
         "data": [
           6,
           111,
-          396,
+          397,
           1011,
-          1789,
-          2372,
-          3207,
+          1790,
+          2373,
+          3210,
           4599,
           4223
         ],

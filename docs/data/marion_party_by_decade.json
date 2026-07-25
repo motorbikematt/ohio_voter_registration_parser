@@ -3,8 +3,8 @@
   "county": "Marion",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          5,
-          86,
-          339,
-          479,
-          572,
-          637,
-          422,
-          178,
-          68
+          3,
+          64,
+          268,
+          332,
+          358,
+          358,
+          202,
+          50,
+          2
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          2,
+          22,
+          71,
+          147,
+          214,
+          278,
+          220,
+          128,
+          66
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -94,7 +111,7 @@
           331,
           941,
           1796,
-          2304,
+          2305,
           3202,
           4280,
           3289

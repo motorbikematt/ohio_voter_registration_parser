@@ -3,8 +3,8 @@
   "county": "Fairfield",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -77,17 +77,35 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          13,
-          221,
-          784,
-          1318,
-          1877,
-          2144,
-          1718,
-          722,
-          325
+          7,
+          166,
+          517,
+          788,
+          947,
+          883,
+          554,
+          123,
+          9
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          6,
+          55,
+          267,
+          530,
+          930,
+          1261,
+          1164,
+          598,
+          316
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -102,7 +120,7 @@
           3760,
           5605,
           8494,
-          11173,
+          11174,
           10590
         ],
         "backgroundColor": "#9ca3af",

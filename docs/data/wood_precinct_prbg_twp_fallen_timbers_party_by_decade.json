@@ -4,7 +4,7 @@
   "precinct": "PRBG TWP FALLEN TIMBERS",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -69,15 +69,31 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          3,
-          6,
-          12,
-          14,
+          2,
+          4,
           8,
-          3,
+          6,
+          2,
+          0,
           0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          2,
+          4,
+          7,
+          5,
+          3,
+          0
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -88,8 +104,8 @@
           15,
           38,
           65,
-          81,
-          83,
+          82,
+          84,
           159,
           124
         ],

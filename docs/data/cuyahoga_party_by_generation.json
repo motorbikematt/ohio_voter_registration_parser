@@ -3,8 +3,8 @@
   "county": "Cuyahoga",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,24 +56,37 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          5149,
-          20445,
-          18837,
-          13461,
-          3269
+          4093,
+          13554,
+          9619,
+          4304,
+          293
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
       {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1044,
+          6743,
+          9054,
+          8836,
+          2788
+        ],
+        "backgroundColor": "#c4b5cd",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
         "label": "UNC – No Primary",
         "data": [
-          4463,
-          40411,
-          70286,
-          143671,
-          112555
+          4475,
+          40559,
+          70450,
+          143992,
+          112743
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 2,

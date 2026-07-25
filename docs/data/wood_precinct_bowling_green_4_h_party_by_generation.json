@@ -4,7 +4,7 @@
   "precinct": "BOWLING GREEN 4-H",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,13 +57,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          11,
-          28,
-          33,
-          41,
-          18
+          7,
+          19,
+          19,
+          10,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          4,
+          9,
+          14,
+          29,
+          18
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -73,7 +86,7 @@
           3,
           24,
           30,
-          61,
+          63,
           56
         ],
         "backgroundColor": "#9ca3af",

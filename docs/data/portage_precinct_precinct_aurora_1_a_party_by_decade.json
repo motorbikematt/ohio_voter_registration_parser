@@ -4,7 +4,7 @@
   "precinct": "PRECINCT AURORA 1-A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          2,
+          1,
+          8,
+          12,
+          11,
+          13,
           9,
-          17,
-          18,
-          19,
-          26,
-          16,
-          4,
-          3
+          7,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          1,
+          5,
+          7,
+          6,
+          17,
+          9,
+          3,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

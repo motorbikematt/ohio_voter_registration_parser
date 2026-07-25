@@ -4,7 +4,7 @@
   "precinct": "PRECINCT LIBERTY I",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -79,15 +79,33 @@
           0,
           1,
           0,
-          7,
-          7,
-          26,
-          36,
-          12,
+          5,
+          5,
+          15,
+          14,
+          3,
+          0,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          0,
+          2,
+          2,
+          11,
+          22,
+          9,
           5,
           8
         ],
-        "backgroundColor": "#a78bfa",
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

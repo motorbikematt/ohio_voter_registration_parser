@@ -3,8 +3,8 @@
   "county": "Lucas",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,24 +56,37 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          1626,
-          7022,
-          6295,
-          3873,
-          937
+          1017,
+          3733,
+          2604,
+          1048,
+          56
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
       {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          556,
+          2933,
+          3207,
+          2346,
+          865
+        ],
+        "backgroundColor": "#c4b5cd",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
         "label": "UNC – No Primary",
         "data": [
-          1605,
-          14689,
-          27100,
-          49741,
-          42598
+          1658,
+          15045,
+          27584,
+          50220,
+          42614
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 2,

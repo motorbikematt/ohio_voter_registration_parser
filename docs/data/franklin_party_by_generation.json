@@ -3,8 +3,8 @@
   "county": "Franklin",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,13 +56,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          3374,
-          16160,
-          18072,
-          13308,
-          2854
+          2518,
+          10118,
+          9272,
+          5140,
+          307
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          856,
+          6039,
+          8796,
+          8161,
+          2546
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -70,10 +83,10 @@
         "label": "UNC – No Primary",
         "data": [
           4226,
-          36628,
-          78294,
-          170571,
-          137499
+          36631,
+          78298,
+          170578,
+          137500
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 2,

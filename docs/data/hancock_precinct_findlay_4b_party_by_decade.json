@@ -4,7 +4,7 @@
   "precinct": "FINDLAY 4B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -70,14 +70,30 @@
         "data": [
           0,
           4,
-          3,
-          7,
-          8,
-          4,
-          6,
-          3
+          2,
+          5,
+          2,
+          2,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          1,
+          2,
+          5,
+          2,
+          5,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -88,7 +104,7 @@
           9,
           22,
           44,
-          64,
+          65,
           83,
           109,
           86

@@ -4,7 +4,7 @@
   "precinct": "EAST CLEVELAND-04-D",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,13 +73,13 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          4,
-          5,
-          5,
           2,
-          6,
-          4,
+          3,
+          0,
           1,
+          4,
+          0,
+          0,
           0
         ],
         "backgroundColor": "#a78bfa",
@@ -87,15 +87,32 @@
         "stack": "unc_mid"
       },
       {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          1,
+          4,
+          0,
+          0,
+          2,
+          1,
+          0
+        ],
+        "backgroundColor": "#c4b5cd",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
         "label": "UNC – No Primary",
         "data": [
           0,
-          9,
-          25,
-          39,
-          35,
-          29,
+          10,
+          26,
           40,
+          36,
+          31,
+          42,
           51,
           48
         ],

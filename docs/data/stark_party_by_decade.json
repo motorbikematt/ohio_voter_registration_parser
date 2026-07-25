@@ -3,8 +3,8 @@
   "county": "Stark",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -77,17 +77,35 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          51,
-          638,
-          1972,
-          2992,
-          3797,
-          3593,
-          3095,
-          1718,
-          691
+          46,
+          550,
+          1527,
+          2073,
+          2347,
+          1798,
+          1221,
+          343,
+          15
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          5,
+          88,
+          445,
+          919,
+          1450,
+          1795,
+          1874,
+          1375,
+          676
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

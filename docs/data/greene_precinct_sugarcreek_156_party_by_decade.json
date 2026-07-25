@@ -4,7 +4,7 @@
   "precinct": "SUGARCREEK 156",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           1,
-          2,
-          6,
-          25,
-          73,
-          60,
-          70,
+          1,
+          4,
+          19,
+          37,
           21,
-          27
+          24,
+          2,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          2,
+          6,
+          36,
+          39,
+          46,
+          19,
+          26
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

@@ -3,8 +3,8 @@
   "county": "Pickaway",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          5,
-          78,
-          235,
-          348,
-          529,
-          567,
-          552,
-          332,
-          177
+          4,
+          67,
+          171,
+          219,
+          292,
+          264,
+          166,
+          35,
+          3
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          11,
+          64,
+          129,
+          237,
+          303,
+          385,
+          296,
+          174
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -95,8 +112,8 @@
           685,
           1224,
           1782,
-          2613,
-          3802,
+          2614,
+          3803,
           3308
         ],
         "backgroundColor": "#9ca3af",

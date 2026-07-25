@@ -3,8 +3,8 @@
   "county": "Summit",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -77,17 +77,35 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          95,
-          1061,
-          3069,
-          5124,
-          6357,
-          5524,
-          4599,
-          2608,
-          1252
+          87,
+          927,
+          2480,
+          3781,
+          4035,
+          2742,
+          1811,
+          564,
+          37
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          8,
+          134,
+          589,
+          1343,
+          2322,
+          2781,
+          2787,
+          2044,
+          1213
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -100,10 +118,10 @@
           3066,
           8322,
           14180,
-          18938,
-          26932,
+          18939,
+          26933,
           40756,
-          33086
+          33088
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,

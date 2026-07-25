@@ -4,7 +4,7 @@
   "precinct": "STOW 4-F",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           8,
-          17,
-          28,
-          28,
-          15,
-          20,
-          7,
-          10
+          10,
+          22,
+          22,
+          9,
+          8,
+          1,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          7,
+          6,
+          6,
+          6,
+          12,
+          6,
+          9
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

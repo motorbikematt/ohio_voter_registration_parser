@@ -4,7 +4,7 @@
   "precinct": "PRECINCT WADSWORTH TP C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
+          0,
           1,
-          2,
-          8,
-          19,
-          19,
-          19,
-          13,
+          7,
+          11,
           10,
-          5
+          7,
+          2,
+          2,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          1,
+          1,
+          8,
+          9,
+          12,
+          11,
+          8,
+          4
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

@@ -3,8 +3,8 @@
   "county": "Portage",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          25,
-          253,
-          889,
-          1630,
-          2081,
-          1958,
-          1653,
-          870,
-          483
+          16,
+          214,
+          672,
+          1075,
+          1280,
+          866,
+          496,
+          156,
+          6
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          9,
+          39,
+          217,
+          554,
+          801,
+          1092,
+          1157,
+          714,
+          475
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -92,12 +109,12 @@
           17,
           155,
           845,
-          2171,
+          2172,
           3630,
           4488,
           6326,
           10064,
-          11109
+          11111
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,

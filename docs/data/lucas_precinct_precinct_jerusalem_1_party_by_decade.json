@@ -4,7 +4,7 @@
   "precinct": "PRECINCT JERUSALEM 1",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           1,
-          13,
-          26,
           9,
-          19,
-          17,
+          12,
+          6,
+          11,
+          6,
+          0,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          4,
+          13,
+          2,
+          7,
+          10,
           2,
           3
         ],
-        "backgroundColor": "#a78bfa",
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -92,10 +109,10 @@
           1,
           2,
           12,
-          23,
-          39,
-          49,
-          72,
+          24,
+          40,
+          50,
+          73,
           92,
           88
         ],

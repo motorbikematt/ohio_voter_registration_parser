@@ -3,8 +3,8 @@
   "county": "Hamilton",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,13 +56,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          3211,
-          12909,
-          12525,
-          10259,
-          3070
+          2333,
+          8264,
+          6721,
+          3444,
+          189
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          878,
+          4644,
+          5803,
+          6811,
+          2881
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -70,9 +83,9 @@
         "label": "UNC – No Primary",
         "data": [
           2770,
-          26731,
-          49993,
-          110531,
+          26732,
+          49994,
+          110535,
           88496
         ],
         "backgroundColor": "#9ca3af",

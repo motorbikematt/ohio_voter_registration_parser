@@ -3,8 +3,8 @@
   "county": "Huron",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          7,
-          107,
-          310,
-          564,
-          653,
-          591,
-          491,
-          181,
-          77
+          3,
+          43,
+          172,
+          244,
+          270,
+          234,
+          147,
+          28,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          4,
+          64,
+          138,
+          320,
+          383,
+          356,
+          343,
+          153,
+          76
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -94,8 +111,8 @@
           377,
           966,
           1645,
-          2195,
-          2593,
+          2196,
+          2594,
           3532,
           3460
         ],
