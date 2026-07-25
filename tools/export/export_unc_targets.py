@@ -300,7 +300,10 @@ def export_cohort_targets(df: pl.DataFrame, primary_cols: list[str],
         _sys.path.insert(0, str(_root))
     from pipeline import voter_data_cleaner as v2
 
-    classified = v2.classify_all_voters_primary_history(df, primary_cols, logger)
+    classified = v2.classify_all_voters_primary_history(
+        df, primary_cols, logger,
+        reference_date=v2.get_snapshot_date(logger),
+    )
 
     # Join cohort fields onto df
     enriched = df.join(
