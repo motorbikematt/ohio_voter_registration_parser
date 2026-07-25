@@ -2816,6 +2816,59 @@ def export_json(
         },
     }, DATA_DIR / f'{slug}_party_by_generation.json', logger)
 
+    # ── Primary participation rate by generation (bar chart) ─────────────────
+    # Aggregates the A2 classifier's per-voter regular-primary fields
+    # (regular_primaries_eligible / primary_participation_rate) — computed
+    # once in classify_all_voters_primary_history() and joined onto df in
+    # clean_voter_data(). Do NOT recompute a denominator here; a second
+    # denominator over a different column set is exactly the §5 violation
+    # this repair exists to fix. primary_participation_rate is NULL (not 0.0)
+    # for voters with regular_primaries_eligible == 0 — Polars mean() already
+    # skips nulls, so no fill_null(0) before aggregating.
+    if 'primary_participation_rate' in df.columns:
+        part_gen = (
+            df.filter(pl.col('Generation').is_not_null())
+              .group_by('Generation')
+              .agg(
+                  pl.col('primary_participation_rate').mean().alias('rate'),
+                  pl.col('primary_participation_rate').is_not_null().sum().alias('n_eligible'),
+              )
+        )
+        order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                                 '_sort': list(range(len(_GEN_ORDER)))})
+        part_gen = (
+            part_gen.join(order_df, on='Generation', how='left')
+                    .sort('_sort')
+                    .drop('_sort')
+        )
+        part_labels = part_gen['Generation'].to_list()
+        # Chart payload is 0-100 (percentY render option expects a percent
+        # scale); the underlying primary_participation_rate field stays 0-1
+        # per its documented convention (§4) — this rescale is display-only.
+        part_rates  = [round(r * 100, 2) if r is not None else None
+                       for r in part_gen['rate'].to_list()]
+        _dump_json({
+            'title':     'Primary Participation Rate by Generation',
+            'county':    county_name,
+            'geography': 'county',
+            'type':      'bar',
+            'updated':   today,
+            'note':      (note + ' — share of the regular elections (primary and '
+                          "general, specials excluded) you've been eligible for "
+                          'since registering. Pew Research Center generational '
+                          'boundaries. Generations with no eligible voters show as '
+                          'a gap, not zero.'),
+            'chartConfig': {
+                'labels': part_labels,
+                'datasets': [{
+                    'label':           'Primary Participation Rate',
+                    'data':            part_rates,
+                    'backgroundColor': CHART_COLORS['bar'],
+                    'borderRadius':    4,
+                }],
+            },
+        }, DATA_DIR / f'{slug}_participation_by_generation.json', logger)
+
     # ── Precinct summary (table) ──────────────────────────────────────────────
     precinct_df = build_precinct_summary(df)
     rows = []

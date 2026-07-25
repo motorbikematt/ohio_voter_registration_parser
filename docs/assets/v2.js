@@ -275,7 +275,7 @@
   }
 
   // ── Data: load all chartConfigs for a jurisdiction ─────────
-  // Returns: { total, party, decade, partyDecade, gen, partyGen, uncShadow, citySummary, precinctIndex, missing[] }
+  // Returns: { total, party, decade, partyDecade, gen, partyGen, participationGen, uncShadow, citySummary, precinctIndex, missing[] }
   async function loadJurisdiction(level, id, county) {
     const bag = { level, id, county, missing: [] };
     const tries = [];
@@ -288,6 +288,7 @@
       add('gen',         `data/${s}_generation_distribution.json`);
       add('partyDecade', `data/${s}_party_by_decade.json`);
       add('partyGen',    `data/${s}_party_by_generation.json`);
+      add('participationGen', `data/${s}_participation_by_generation.json`);
       add('uncShadow',   `data/${s}_unc_shadow.json`);
       add('citySummary', `data/${s}_city_summary.json`);
       add('precinctIndex',`data/${s}_precinct_index.json`);
@@ -1471,6 +1472,11 @@
       renderChart('chart-party-gen', 'bar', bag.partyGen.chartConfig, { stacked: true });
     } else { setPlaceholder('chart-party-gen-wrap', 'Party × generation not yet processed for this scope'); }
 
+    if (bag.participationGen && bag.participationGen.chartConfig) {
+      ensureCanvas('chart-participation-gen-wrap', 'chart-participation-gen');
+      renderChart('chart-participation-gen', 'bar', bag.participationGen.chartConfig, { percentY: true });
+    } else { setPlaceholder('chart-participation-gen-wrap', 'Participation data not yet processed for this scope'); }
+
     if (bag.uncShadow && bag.uncShadow.chartConfig) {
       ensureCanvas('chart-unc-wrap', 'chart-unc');
       renderChart('chart-unc', 'bar', bag.uncShadow.chartConfig, { stacked: true });
@@ -1634,6 +1640,7 @@
         chartCardHTML('chart-party-decade',  'Party × Birth Decade') +
         chartCardHTML('chart-gen',           'Generation Distribution') +
         chartCardHTML('chart-party-gen',     'Party × Generation') +
+        chartCardHTML('chart-participation-gen', 'Primary Participation Rate by Generation', 'Regular primaries + generals since registering; specials excluded') +
         chartCardHTML('chart-unc',           'UNC Voter Behavior', 'Inferred from primary ballot history') +
         '<div class="chart-card chart-card--wide" data-chart-id="city-table">' +
           '<header><div><h3>Registration by City / Township</h3><div class="card-sub">Sortable; rows are precincts grouped by name prefix</div></div>' +
@@ -2059,6 +2066,7 @@
         'chart-party-decade': `data/${slug}_party_by_decade.json`,
         'chart-gen':          `data/${slug}_generation_distribution.json`,
         'chart-party-gen':    `data/${slug}_party_by_generation.json`,
+        'chart-participation-gen': `data/${slug}_participation_by_generation.json`,
         'chart-unc':          `data/${slug}_unc_shadow.json`,
         'city-table':         `data/${slug}_city_summary.json`
       };
