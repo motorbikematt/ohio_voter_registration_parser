@@ -27,6 +27,18 @@ compare      Pairwise fingerprint comparison of two snapshot extracts:
 timeline     For the union of anomalous voter IDs across all pair results,
              dump each voter's value in the affected election columns across
              every extracted snapshot (classifies transient vs. persistent).
+rewrite-guard
+             Roll up every pair_*.json + anomalies_*.parquet result on disk
+             into a (county, election column) allow/deny table: any
+             combination showing a value-changed volume that cannot be
+             explained by ordinary per-voter correction (Handoff 10 section
+             5b's Cuyahoga finding -- history columns are county-mutable
+             post-certification) is flagged UNDER_REWRITE. Written for 8B:
+             any Axis B trend built on ballot-history columns must consult
+             this table first and exclude or flag rows in a flagged
+             (county, column) pair, or a BoE remediation batch reads as
+             voter behavior. Consumes existing results only -- it does not
+             re-run extract/compare.
 
 Identity-key semantics: see local/context/scope/sos_voterid_identity_semantics.md
 (Rules 1-3). SOS_VOTERID is a best-effort point-in-time identifier, not an
@@ -505,6 +517,109 @@ def cmd_timeline(snapshots: list[str]) -> None:
 
 
 # --------------------------------------------------------------------------
+# rewrite-guard
+# --------------------------------------------------------------------------
+
+# Ordinary per-voter correction runs at DOB-mismatch scale (Handoff 10 sec 4:
+# 228 unique voters statewide across all 15 pairs, no county >= 40, diffuse).
+# A (county, column) combination whose value-changed count clears this bar in
+# a single pair is not routine data-entry correction at that scale -- it is
+# either a batched county-side rewrite (the Cuyahoga case) or worth a human
+# look before any Axis B trend touches that column for that county.
+REWRITE_FLAG_THRESHOLD = 40
+
+
+def cmd_rewrite_guard() -> None:
+    """Build the (county, column) under-rewrite table from existing results.
+
+    Reads every anomalies_*.parquet already on disk (produced by `compare`)
+    and aggregates value-changed counts by (COUNTY_NUMBER, affected column).
+    Does not re-run extract or compare -- if no results exist yet, run
+    `compare` for the pairs you need first.
+    """
+    paths = sorted(RESULT_DIR.glob('anomalies_*.parquet'))
+    if not paths:
+        print('[rewrite-guard] no anomalies_*.parquet found; run `compare` first')
+        return
+
+    rows = []
+    for p in paths:
+        pair = p.stem.removeprefix('anomalies_')
+        d = pl.read_parquet(p)
+        if 'affected_cols' not in d.columns:
+            # No lost/changed rows in this pair at all (compare only adds this
+            # column when such rows exist) -- nothing to roll up, not an error.
+            continue
+        d = d.filter(pl.col('any_changed') & pl.col('affected_cols').is_not_null())
+        if not d.height:
+            continue
+        exploded = (
+            d.select(['SOS_VOTERID', 'COUNTY_NUMBER', 'affected_cols'])
+             .with_columns(pl.col('affected_cols').str.split(';').alias('col'))
+             .explode('col')
+        )
+        agg = (exploded.group_by(['COUNTY_NUMBER', 'col']).len()
+               .rename({'len': 'changed_count'})
+               .with_columns(pl.lit(pair).alias('pair')))
+        rows.append(agg)
+
+    if not rows:
+        print('[rewrite-guard] no value-changed anomalies in any result on disk')
+        return
+
+    all_rows = pl.concat(rows)
+    # Roll up to (county, column): worst single-pair count is the flag basis
+    # -- a rewrite in flight shows up at full magnitude in whichever pair
+    # spans its batch, diluted in pairs spanning more weeks either side.
+    rollup = (all_rows.group_by(['COUNTY_NUMBER', 'col'])
+              .agg(pl.col('changed_count').max().alias('max_pair_changed_count'),
+                   pl.col('changed_count').sum().alias('sum_across_pairs'),
+                   pl.col('pair').sort().alias('pairs_observed_in'))
+              .sort('max_pair_changed_count', descending=True))
+    rollup = rollup.with_columns(
+        (pl.col('max_pair_changed_count') >= REWRITE_FLAG_THRESHOLD)
+        .alias('under_rewrite')
+    )
+
+    flagged = rollup.filter(pl.col('under_rewrite'))
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    _atomic_parquet(rollup, OUT_DIR / 'rewrite_guard_table.parquet')
+    summary = {
+        'generated_utc': _utc_now(),
+        'threshold': REWRITE_FLAG_THRESHOLD,
+        'threshold_basis': ('Handoff 10 sec 4 DOB-mismatch scale: 228 unique '
+                             'voters statewide across 15 pairs, no county >= 40, '
+                             'diffuse -- used as the ordinary-correction ceiling'),
+        'flagged_county_column_pairs': flagged.height,
+        'flagged': flagged.select(
+            ['COUNTY_NUMBER', 'col', 'max_pair_changed_count', 'sum_across_pairs']
+        ).to_dicts(),
+    }
+    _atomic_json(summary, OUT_DIR / 'rewrite_guard_summary.json')
+    print(f'[rewrite-guard] {rollup.height} (county, column) pairs with any '
+          f'value-changed activity; {flagged.height} flagged UNDER_REWRITE '
+          f'(threshold={REWRITE_FLAG_THRESHOLD}) -> rewrite_guard_table.parquet')
+    for r in flagged.select(['COUNTY_NUMBER', 'col', 'max_pair_changed_count']).iter_rows():
+        print(f'  UNDER_REWRITE county={r[0]} col={r[1]} max_changed={r[2]}')
+
+
+def check_column_clean(county_number: str, column: str) -> bool:
+    """Import-time helper for any future Axis B code: True if (county, column)
+    is NOT flagged as under active rewrite in the last rewrite-guard run.
+    Raises if the guard table hasn't been built yet -- fail loud, not silent,
+    per CLAUDE.md's no-try/except-as-control-flow rule for pipeline code."""
+    table = OUT_DIR / 'rewrite_guard_table.parquet'
+    if not table.exists():
+        raise FileNotFoundError(
+            'rewrite_guard_table.parquet missing -- run '
+            '`fingerprint_audit.py rewrite-guard` first')
+    df = pl.read_parquet(table)
+    hit = df.filter((pl.col('COUNTY_NUMBER') == county_number) &
+                    (pl.col('col') == column) & pl.col('under_rewrite'))
+    return hit.height == 0
+
+
+# --------------------------------------------------------------------------
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -524,6 +639,9 @@ def main() -> None:
     p_tl = sub.add_parser('timeline', help='trace anomalous voters across snapshots')
     p_tl.add_argument('snapshots', nargs='*', default=[])
 
+    sub.add_parser('rewrite-guard',
+                    help='build (county, column) under-rewrite table from existing results')
+
     args = ap.parse_args()
     if args.cmd == 'extract':
         snaps = args.snapshots or list(DEFAULT_SNAPSHOTS)
@@ -535,6 +653,8 @@ def main() -> None:
         cmd_compare(args.snap_a, args.snap_b)
     elif args.cmd == 'timeline':
         cmd_timeline(args.snapshots or list(FINGERPRINT_SNAPSHOTS))
+    elif args.cmd == 'rewrite-guard':
+        cmd_rewrite_guard()
 
 
 if __name__ == '__main__':
