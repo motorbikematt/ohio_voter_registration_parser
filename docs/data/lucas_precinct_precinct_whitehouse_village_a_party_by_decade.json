@@ -4,7 +4,7 @@
   "precinct": "PRECINCT WHITEHOUSE VILLAGE A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -68,16 +68,32 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          4,
+          0,
+          2,
           8,
-          24,
-          20,
-          22,
-          20,
-          10,
-          9
+          7,
+          7,
+          1,
+          0,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          4,
+          5,
+          15,
+          10,
+          11,
+          14,
+          4,
+          5
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -85,13 +101,13 @@
         "label": "UNC – No Primary",
         "data": [
           2,
-          10,
-          34,
-          41,
-          43,
-          92,
-          104,
-          102
+          11,
+          35,
+          44,
+          47,
+          97,
+          110,
+          105
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,

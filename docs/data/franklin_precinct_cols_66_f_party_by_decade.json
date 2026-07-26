@@ -4,7 +4,7 @@
   "precinct": "COLS 66-F",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
+          0,
           1,
+          8,
+          6,
+          4,
+          6,
+          4,
+          0,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
           1,
-          10,
-          13,
-          10,
-          9,
-          13,
+          0,
+          2,
+          7,
+          6,
+          3,
+          8,
           3,
           2
         ],
-        "backgroundColor": "#a78bfa",
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -95,7 +112,7 @@
           18,
           61,
           73,
-          114,
+          115,
           176,
           136
         ],

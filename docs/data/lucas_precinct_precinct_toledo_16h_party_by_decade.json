@@ -4,7 +4,7 @@
   "precinct": "PRECINCT TOLEDO 16H",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           0,
-          9,
-          15,
-          15,
-          16,
-          16,
-          12,
-          4
+          7,
+          6,
+          10,
+          7,
+          4,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          1,
+          9,
+          3,
+          7,
+          8,
+          11,
+          4
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -91,11 +108,11 @@
         "data": [
           1,
           1,
-          8,
+          9,
           21,
-          25,
-          60,
-          87,
+          27,
+          62,
+          91,
           150,
           105
         ],

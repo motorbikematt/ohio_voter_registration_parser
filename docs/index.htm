@@ -177,6 +177,9 @@
       var btn = document.getElementById('theme-toggle');
       if (btn) btn.addEventListener('click', function () {
         root.dataset.theme = (root.dataset.theme === 'light') ? 'dark' : 'light';
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'select_content', { content_type: 'theme_toggle', item_id: root.dataset.theme });
+        }
       });
     })();
   </script>

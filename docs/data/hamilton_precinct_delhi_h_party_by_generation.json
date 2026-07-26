@@ -4,7 +4,7 @@
   "precinct": "DELHI H",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,13 +57,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          11,
-          45,
-          58,
-          25,
-          4
+          2,
+          19,
+          21,
+          10,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          9,
+          26,
+          37,
+          15,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },

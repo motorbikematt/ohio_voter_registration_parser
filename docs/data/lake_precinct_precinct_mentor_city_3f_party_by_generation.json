@@ -4,7 +4,7 @@
   "precinct": "PRECINCT MENTOR CITY 3F",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,13 +57,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          15,
-          53,
-          30,
-          14,
-          2
+          13,
+          44,
+          19,
+          7,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          2,
+          9,
+          11,
+          7,
+          2
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },

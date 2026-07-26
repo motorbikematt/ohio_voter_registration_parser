@@ -4,7 +4,7 @@
   "precinct": "PRECINCT BRUNSWICK CITY 4-C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,13 +57,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          20,
-          63,
-          61,
-          46,
-          6
+          9,
+          25,
+          10,
+          5,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          11,
+          38,
+          51,
+          41,
+          5
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },

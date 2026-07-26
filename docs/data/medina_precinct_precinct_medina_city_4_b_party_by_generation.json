@@ -4,7 +4,7 @@
   "precinct": "PRECINCT MEDINA CITY 4-B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,13 +57,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          14,
-          44,
-          34,
-          23,
-          4
+          11,
+          28,
+          16,
+          10,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          3,
+          16,
+          18,
+          13,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },

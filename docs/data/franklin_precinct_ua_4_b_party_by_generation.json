@@ -4,7 +4,7 @@
   "precinct": "UA 4-B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,13 +57,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          10,
-          27,
-          35,
-          37,
-          3
+          9,
+          16,
+          15,
+          17,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          11,
+          20,
+          20,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },

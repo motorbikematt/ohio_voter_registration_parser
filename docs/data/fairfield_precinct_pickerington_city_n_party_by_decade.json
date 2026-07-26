@@ -4,7 +4,7 @@
   "precinct": "PICKERINGTON CITY N",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -69,15 +69,31 @@
         "label": "Mixed – Lapsed",
         "data": [
           2,
+          0,
           2,
-          8,
-          16,
-          28,
-          33,
-          13,
-          7
+          7,
+          9,
+          5,
+          2,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          2,
+          6,
+          9,
+          19,
+          28,
+          11,
+          7
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

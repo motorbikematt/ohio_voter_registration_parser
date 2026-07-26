@@ -4,7 +4,7 @@
   "precinct": "BENTON 2",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           1,
           1,
-          8,
-          21,
-          22,
-          20,
-          25,
+          2,
+          6,
+          7,
+          7,
+          5,
+          0,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          6,
+          15,
+          14,
+          13,
+          19,
           3,
           4
         ],
-        "backgroundColor": "#a78bfa",
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -93,9 +110,9 @@
           0,
           7,
           12,
-          25,
+          26,
           32,
-          43,
+          44,
           69,
           84
         ],

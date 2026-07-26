@@ -4,7 +4,7 @@
   "precinct": "PRECINCT ROOTSTOWN E",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -68,16 +68,32 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          6,
-          9,
-          12,
-          15,
-          20,
-          19,
           4,
-          1
+          9,
+          7,
+          10,
+          8,
+          10,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          2,
+          0,
+          5,
+          5,
+          12,
+          9,
+          3,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

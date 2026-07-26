@@ -4,7 +4,7 @@
   "precinct": "SOUTHINGTON TWP B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -75,14 +75,31 @@
           0,
           2,
           6,
-          12,
-          15,
-          19,
-          10,
           5,
-          3
+          10,
+          11,
+          7,
+          2,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          0,
+          7,
+          5,
+          8,
+          3,
+          3,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

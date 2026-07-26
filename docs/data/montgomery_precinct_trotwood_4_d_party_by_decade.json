@@ -4,7 +4,7 @@
   "precinct": "TROTWOOD 4-D",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -75,14 +75,31 @@
           0,
           0,
           3,
-          7,
-          5,
+          3,
           2,
-          5,
+          0,
+          4,
           0,
           0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          0,
+          4,
+          3,
+          2,
+          1,
+          0,
+          0
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

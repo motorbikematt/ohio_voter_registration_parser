@@ -107,7 +107,15 @@ D_COHORTS = ('PURE_D', 'UNC_LAPSED_D')
 # Everyone with no usable one-sided partisan signal. CROSSOVER_* are affiliated
 # voters with opposing history -- genuinely cross-pressured, so they belong with
 # the unexpressed rather than counted for a side.
-U_COHORTS = ('CROSSOVER_R', 'CROSSOVER_D', 'UNC_MIXED', 'UNC_NO_PRIMARY')
+U_COHORTS = ('CROSSOVER_R', 'CROSSOVER_D', 'UNC_MIXED',
+             # Turned out, but only ever for the non-partisan ballot. Split
+             # out of UNC_MIXED when the behaviour taxonomy was un-stapled
+             # from the time taxonomy; they have no partisan signal at all,
+             # so they are unexpressed by definition. Omitting them here
+             # would silently drop 11,248 Montgomery voters from the
+             # denominator rather than raising.
+             'UNC_NONPARTISAN',
+             'UNC_NO_PRIMARY')
 
 # The classifier's .otherwise() fallthrough: non-blank, non-R, non-D
 # affiliation. 795 voters in Montgomery (0.22%). The published chart export

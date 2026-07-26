@@ -4,7 +4,7 @@
   "precinct": "SWANCREEK EAST TWO",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -58,12 +58,25 @@
         "label": "Mixed – Lapsed",
         "data": [
           2,
-          55,
-          51,
-          14,
-          2
+          35,
+          20,
+          5,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          19,
+          31,
+          9,
+          2
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -71,7 +84,7 @@
         "label": "UNC – No Primary",
         "data": [
           8,
-          54,
+          55,
           63,
           90,
           101

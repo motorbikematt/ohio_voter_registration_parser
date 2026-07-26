@@ -3,8 +3,8 @@
   "county": "Hamilton",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -77,17 +77,35 @@
         "label": "Mixed – Lapsed",
         "data": [
           1,
-          128,
-          1271,
-          3812,
-          6882,
-          7987,
-          7752,
-          7430,
-          4828,
-          1883
+          98,
+          935,
+          2659,
+          4403,
+          4865,
+          3988,
+          2930,
+          1041,
+          31
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          30,
+          336,
+          1153,
+          2478,
+          3121,
+          3764,
+          4498,
+          3785,
+          1852
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -98,11 +116,11 @@
           106,
           992,
           4109,
-          13093,
-          23833,
+          13094,
+          23834,
           32901,
-          55698,
-          86909,
+          55700,
+          86911,
           60880
         ],
         "backgroundColor": "#9ca3af",

@@ -3,8 +3,8 @@
   "county": "Columbiana",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           13,
-          186,
-          564,
-          858,
-          962,
-          901,
-          621,
-          251,
-          61
+          164,
+          484,
+          659,
+          711,
+          592,
+          364,
+          79,
+          2
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          22,
+          80,
+          199,
+          251,
+          309,
+          257,
+          172,
+          59
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

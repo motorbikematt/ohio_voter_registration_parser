@@ -4,7 +4,7 @@
   "precinct": "DELPHOS 2A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          6,
-          10,
-          11,
+          4,
           5,
-          8,
-          10,
+          6,
+          2,
+          4,
+          5,
+          0,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          2,
+          5,
+          5,
+          3,
+          4,
+          5,
           2,
           6
         ],
-        "backgroundColor": "#a78bfa",
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

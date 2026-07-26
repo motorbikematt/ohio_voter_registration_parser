@@ -4,7 +4,7 @@
   "precinct": "PRECINCT MONCLOVA 2",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          1,
-          15,
-          47,
-          39,
-          20,
-          11,
-          4,
+          0,
+          9,
+          26,
+          21,
           7,
-          1
+          6,
+          3,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          6,
+          20,
+          18,
+          13,
+          5,
+          1,
+          6,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -91,7 +108,7 @@
         "data": [
           0,
           9,
-          23,
+          24,
           33,
           36,
           30,

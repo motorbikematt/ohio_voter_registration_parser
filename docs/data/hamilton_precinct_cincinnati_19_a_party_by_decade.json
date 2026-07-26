@@ -4,7 +4,7 @@
   "precinct": "CINCINNATI 19-A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -69,15 +69,31 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
+          6,
           8,
-          14,
-          17,
-          16,
-          13,
-          9,
-          4
+          11,
+          11,
+          5,
+          2,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          2,
+          6,
+          6,
+          5,
+          8,
+          7,
+          4
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

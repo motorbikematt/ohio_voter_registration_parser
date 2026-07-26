@@ -3,8 +3,8 @@
   "county": "Medina",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          22,
-          392,
-          1319,
-          2360,
-          3462,
-          3553,
-          3299,
-          1155,
-          788
+          14,
+          265,
+          763,
+          1048,
+          1272,
+          990,
+          564,
+          150,
+          8
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          8,
+          127,
+          556,
+          1312,
+          2189,
+          2563,
+          2735,
+          1005,
+          780
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -93,7 +110,7 @@
           199,
           951,
           2153,
-          4011,
+          4012,
           5188,
           7198,
           10439,

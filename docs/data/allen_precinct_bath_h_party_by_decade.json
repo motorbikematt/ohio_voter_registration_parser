@@ -4,7 +4,7 @@
   "precinct": "BATH H",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          3,
-          8,
-          7,
-          15,
-          8,
+          2,
           6,
+          4,
+          5,
+          2,
+          2,
+          0,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          2,
+          3,
+          10,
+          6,
+          4,
           3,
           4
         ],
-        "backgroundColor": "#a78bfa",
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

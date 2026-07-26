@@ -3,8 +3,8 @@
   "county": "Clark",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -77,17 +77,35 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          18,
-          267,
-          744,
-          1046,
-          1256,
-          1258,
-          1019,
-          545,
-          254
+          17,
+          235,
+          600,
+          773,
+          823,
+          676,
+          355,
+          87,
+          4
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          32,
+          144,
+          273,
+          433,
+          582,
+          664,
+          458,
+          250
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

@@ -4,7 +4,7 @@
   "precinct": "CLEVELAND -09-Q",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           1,
-          4,
-          7,
-          3,
-          10,
-          8,
+          1,
+          1,
+          1,
           0,
-          2
+          1,
+          0,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          3,
+          5,
+          2,
+          10,
+          6,
+          0,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -92,12 +109,12 @@
           1,
           1,
           5,
-          37,
+          38,
           67,
           93,
-          117,
+          118,
           166,
-          115
+          116
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,

@@ -4,7 +4,7 @@
   "precinct": "HILL 3-E",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -68,16 +68,32 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          3,
+          2,
           5,
-          14,
-          28,
-          18,
-          14,
-          16,
-          6
+          8,
+          20,
+          13,
+          5,
+          5,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          0,
+          6,
+          8,
+          5,
+          9,
+          11,
+          6
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

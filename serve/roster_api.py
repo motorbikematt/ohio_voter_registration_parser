@@ -192,12 +192,14 @@ def _resolve_dist_name(county_number: str, precinct_name: str) -> str | None:
         _crosswalk_cache[slug] = xwalk
     return xwalk.resolve_dist_name(precinct_name)
 
-# The 7 cohort_family values that back the 7 chart slices. A roster request
+# The 8 cohort_family values that back the 8 chart slices. A roster request
 # carries the cohort the user clicked; we validate against this set so a typo'd
-# cohort yields an empty roster, not an unfiltered name dump.
+# cohort yields an empty roster, not an unfiltered name dump. A slice missing
+# here is not a cosmetic gap: the captain taps its bar and gets an empty
+# roster back, so this set must track COHORT_SLICES exactly.
 VALID_COHORTS = {
     "PURE_R", "UNC_LAPSED_R", "MIXED_ACTIVE", "MIXED_LAPSED",
-    "UNC_NO_PRIMARY", "UNC_LAPSED_D", "PURE_D",
+    "UNC_NONPARTISAN", "UNC_NO_PRIMARY", "UNC_LAPSED_D", "PURE_D",
 }
 
 # Ordered cohort spec: (slug, human label, chart color). Order is the
@@ -206,13 +208,17 @@ VALID_COHORTS = {
 # COHORT_SLICES in pipeline/voter_data_cleaner.py so the bar a captain taps is the
 # same color as the roster header they get back.
 COHORT_SPEC = [
-    ("PURE_R",         "Solid Republican",       "#ef4444"),
-    ("UNC_LAPSED_R",   "Lapsed Republican",      "#fca5a5"),
-    ("MIXED_ACTIVE",   "Mixed – Active",    "#f59e0b"),
-    ("MIXED_LAPSED",   "Mixed – Lapsed",    "#a78bfa"),
-    ("UNC_NO_PRIMARY", "No Primary History",     "#9ca3af"),
-    ("UNC_LAPSED_D",   "Lapsed Democrat",        "#93c5fd"),
-    ("PURE_D",         "Solid Democrat",         "#3b82f6"),
+    ("PURE_R",          "Solid Republican",       "#ef4444"),
+    ("UNC_LAPSED_R",    "Lapsed Republican",      "#fca5a5"),
+    ("MIXED_ACTIVE",    "Mixed – Active",         "#f59e0b"),
+    ("MIXED_LAPSED",    "Mixed – Lapsed",         "#a78bfa"),
+    # Turned out, but only ever for the non-partisan ballot (issues, levies,
+    # judicial). Plain-language label: a captain needs "what did they do",
+    # not the taxonomy slug.
+    ("UNC_NONPARTISAN", "Issues Only (No Party Ballot)", "#c4b5cd"),
+    ("UNC_NO_PRIMARY",  "No Primary History",     "#9ca3af"),
+    ("UNC_LAPSED_D",    "Lapsed Democrat",        "#93c5fd"),
+    ("PURE_D",          "Solid Democrat",         "#3b82f6"),
 ]
 COHORT_LABELS = {slug: label for slug, label, _ in COHORT_SPEC}
 

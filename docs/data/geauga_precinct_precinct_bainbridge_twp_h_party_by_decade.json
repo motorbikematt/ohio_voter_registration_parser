@@ -4,7 +4,7 @@
   "precinct": "PRECINCT BAINBRIDGE TWP H",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -79,15 +79,33 @@
           0,
           0,
           1,
-          14,
-          14,
-          33,
-          19,
-          21,
-          11,
-          4
+          9,
+          10,
+          20,
+          5,
+          5,
+          7,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          0,
+          5,
+          4,
+          13,
+          14,
+          16,
+          4,
+          4
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

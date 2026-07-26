@@ -4,7 +4,7 @@
   "precinct": "PRECINCT SPRINGFIELD 16",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -58,12 +58,25 @@
         "label": "Mixed – Lapsed",
         "data": [
           5,
-          16,
-          13,
-          10,
-          1
+          7,
+          2,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          9,
+          11,
+          5,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -73,7 +86,7 @@
           4,
           50,
           74,
-          146,
+          150,
           156
         ],
         "backgroundColor": "#9ca3af",

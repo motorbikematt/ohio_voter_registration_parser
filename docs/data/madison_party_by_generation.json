@@ -3,8 +3,8 @@
   "county": "Madison",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,13 +56,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          135,
-          677,
-          743,
-          577,
-          155
+          105,
+          418,
+          356,
+          132,
+          5
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          30,
+          259,
+          387,
+          445,
+          150
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },

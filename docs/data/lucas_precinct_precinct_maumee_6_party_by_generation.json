@@ -4,7 +4,7 @@
   "precinct": "PRECINCT MAUMEE 6",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,23 +57,36 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          7,
-          62,
-          61,
-          23,
-          8
+          4,
+          27,
+          22,
+          4,
+          1
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
       {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          2,
+          34,
+          39,
+          18,
+          7
+        ],
+        "backgroundColor": "#c4b5cd",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
         "label": "UNC – No Primary",
         "data": [
-          4,
-          57,
+          5,
+          58,
           82,
-          198,
+          199,
           149
         ],
         "backgroundColor": "#9ca3af",

@@ -4,7 +4,7 @@
   "precinct": "PRECINCT WILLOUGHBY CITY 6C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -78,16 +78,34 @@
         "data": [
           0,
           3,
-          32,
-          31,
-          10,
-          12,
+          27,
+          25,
+          4,
+          8,
           2,
-          3,
-          5,
-          1
+          0,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          5,
+          6,
+          6,
+          4,
+          0,
+          3,
+          4,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

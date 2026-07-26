@@ -4,7 +4,7 @@
   "precinct": "GRANVILLE VILLAGE B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -69,15 +69,31 @@
         "label": "Mixed – Lapsed",
         "data": [
           1,
+          12,
           18,
-          23,
-          35,
-          49,
-          26,
-          7,
-          10
+          21,
+          22,
+          10,
+          1,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          6,
+          5,
+          14,
+          27,
+          16,
+          6,
+          9
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

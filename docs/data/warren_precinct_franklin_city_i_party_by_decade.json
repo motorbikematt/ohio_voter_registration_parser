@@ -4,7 +4,7 @@
   "precinct": "FRANKLIN CITY I",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -68,16 +68,32 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          1,
-          7,
-          9,
-          19,
-          28,
-          14,
+          0,
+          6,
+          4,
+          11,
           8,
-          16
+          4,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          1,
+          5,
+          8,
+          20,
+          10,
+          7,
+          16
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

@@ -3,8 +3,8 @@
   "county": "Fairfield",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,13 +56,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          598,
-          2627,
-          3324,
-          2064,
-          509
+          424,
+          1531,
+          1416,
+          602,
+          21
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          174,
+          1096,
+          1908,
+          1461,
+          488
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -72,7 +85,7 @@
           513,
           4189,
           8365,
-          15356,
+          15357,
           14167
         ],
         "backgroundColor": "#9ca3af",

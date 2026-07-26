@@ -4,7 +4,7 @@
   "precinct": "DUB 4-A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -75,14 +75,31 @@
           1,
           7,
           10,
-          14,
-          20,
-          20,
-          8,
           7,
-          1
+          17,
+          17,
+          5,
+          4,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          0,
+          7,
+          3,
+          3,
+          3,
+          3,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

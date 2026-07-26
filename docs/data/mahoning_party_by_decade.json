@@ -3,8 +3,8 @@
   "county": "Mahoning",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1900s",
@@ -82,17 +82,36 @@
         "data": [
           0,
           1,
-          44,
-          478,
-          1285,
-          2020,
-          2229,
-          1978,
-          1450,
-          672,
-          156
+          41,
+          451,
+          1172,
+          1765,
+          1892,
+          1493,
+          1010,
+          329,
+          12
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          3,
+          27,
+          113,
+          255,
+          336,
+          485,
+          440,
+          343,
+          143
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -105,11 +124,11 @@
           259,
           1311,
           3687,
-          5594,
+          5595,
           7682,
           10361,
           15497,
-          13019
+          13020
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 3,

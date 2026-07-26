@@ -59,6 +59,7 @@ Participation values: non-empty str  →  'X' (in-person) | 'R' (absentee) | 'D'
 
 import concurrent.futures
 import json
+from dataclasses import dataclass
 try:
     import orjson as _orjson
 except ImportError:
@@ -165,21 +166,104 @@ def _cache_is_fresh() -> bool:
 
 def _write_cache_atomic(df: pl.DataFrame, logger: logging.Logger) -> None:
     """Atomic tmp-then-replace write so a crash cannot corrupt the cache."""
-    import snapshot_store
     import json
-    staged = snapshot_store.staged_info() or {}
-    iso_date = staged.get('snapshot_date', date_t.today().isoformat())
+
+    # Strict: the cache carries the affiliation window, so it must carry the
+    # true snapshot date. get_snapshot_date() raises rather than substituting
+    # today, which would stamp a historical rebuild with a window it never had.
+    snap = get_snapshot_date(logger)
+    iso_date = snap.isoformat()
+    window = affiliation_window_years(snap)
+
+    # PARTY_AFFILIATION is only comparable between two files whose windows
+    # match (R.C. 3513.19). Recording the window makes that testable instead
+    # of something a reader has to remember; see CLAUDE.md sec 4.
+    provenance = {
+        'provenance_snapshot_date': iso_date,
+        'affiliation_window_years': window,
+        'affiliation_rule': (
+            'R.C. 3513.19: most recent partisan primary ballot within the '
+            'current calendar year plus the previous two. Steps at calendar-'
+            'year boundaries; boards refresh after each primary. Two '
+            'snapshots with different windows are NOT directly comparable '
+            'on PARTY_AFFILIATION.'
+        ),
+    }
 
     tmp = ENRICHED_CACHE.with_suffix(".parquet.tmp")
-    df.write_parquet(tmp, compression="zstd", metadata={'provenance_snapshot_date': iso_date})
+    df.write_parquet(tmp, compression="zstd",
+                     metadata={k: json.dumps(v) if not isinstance(v, str) else v
+                               for k, v in provenance.items()})
     tmp.replace(ENRICHED_CACHE)
 
     sidecar = ENRICHED_CACHE.with_suffix(".provenance.json")
     sidecar_tmp = sidecar.with_suffix(".json.tmp")
-    sidecar_tmp.write_text(json.dumps({'provenance_snapshot_date': iso_date}), encoding='utf-8')
+    sidecar_tmp.write_text(json.dumps(provenance, indent=2), encoding='utf-8')
     sidecar_tmp.replace(sidecar)
 
     logger.info("Enriched cache written: %s", ENRICHED_CACHE)
+
+
+def get_snapshot_date(logger: 'logging.Logger | None' = None) -> date_t:
+    """
+    The staged snapshot's own date, as a ``date``. STRICT: raises if nothing
+    is staged.
+
+    This is the classifier's time origin (``reference_date``) — the "as of"
+    point for decay weights and ``years_since_last_partisan``. Unlike
+    get_source_date(), it has NO fallback to today: a silent fallback would
+    make a re-run of an OLD snapshot compute as if it were current, which
+    turns the snapshot-over-time series into an artifact (every snapshot
+    would share one decay origin and real movement would vanish). Loud
+    failure over silent degradation (CLAUDE.md sec 5).
+
+    Source of truth is the snapshot FOLDER's ISO name, resolved by
+    snapshot_store (the single snapshot resolver) — not file mtimes (gzip
+    mtimes are zeroed) and not the election columns (those give the last
+    ELECTION date, weeks before the file's release).
+    """
+    import snapshot_store
+    staged = snapshot_store.staged_info()
+    if not staged or not staged.get('snapshot_date'):
+        raise RuntimeError(
+            'No staged snapshot: cannot determine the classifier reference '
+            'date. Stage one first (python pipeline/ohio_voter_pipeline.py '
+            '--snapshot YYYY-MM-DD). Refusing to fall back to today\'s date, '
+            'which would silently mis-date a historical snapshot.'
+        )
+    iso = staged['snapshot_date']
+    try:
+        snap = date_t.fromisoformat(iso)
+    except ValueError as exc:
+        raise RuntimeError(
+            f'Staged snapshot_date {iso!r} is not an ISO date (YYYY-MM-DD); '
+            'the snapshot folder name is the authoritative source.'
+        ) from exc
+    if logger:
+        logger.info('Classifier reference date (staged snapshot): %s', snap)
+    return snap
+
+
+def affiliation_window_years(snapshot_date: date_t) -> list[int]:
+    """
+    The calendar years whose primaries can set PARTY_AFFILIATION in a file
+    captured on ``snapshot_date``.
+
+    Ohio R.C. 3513.19 (Election Official Manual, "PARTY AFFILIATION"):
+    affiliation is the MOST RECENT partisan primary ballot within the
+    CURRENT calendar year plus the previous two. The window is bounded by
+    calendar years, not a rolling 24 months — it steps on January 1 (a whole
+    year drops out at once) and boards refresh affiliation after each
+    primary.
+
+    This matters for snapshot-over-snapshot comparison: two files whose
+    windows differ are NOT directly comparable on PARTY_AFFILIATION, because
+    voters can change affiliation with no behaviour change at all (their
+    qualifying ballot simply aged out). Stamped into provenance so the
+    incomparability is visible rather than inferred.
+    """
+    y = snapshot_date.year
+    return [y - 2, y - 1, y]
 
 
 def get_source_date(logger: logging.Logger) -> str:
@@ -372,7 +456,9 @@ def identify_election_cols(df: pl.DataFrame) -> list[str]:
     metrics accumulate in the correct order.
     """
     cols = [c for c in df.columns if ELEC_RE.match(c)]
-    cols.sort(key=lambda c: datetime.strptime(ELEC_RE.match(c).group(2), '%m/%d/%Y'))
+    # Sort key routes through the resolver: parse_election_meta is the only place
+    # an election column name is decomposed into a date (single-resolver law).
+    cols.sort(key=lambda c: parse_election_meta(c)[0])
     return cols
 
 
@@ -394,6 +480,176 @@ def parse_election_meta(col: str) -> tuple[date_t | None, str | None, str | None
     except ValueError:
         return None, None, None
     return elec_date, type_code, ELECTION_TYPE_LABELS.get(type_code, type_code)
+
+
+@dataclass(frozen=True)
+class ColMeta:
+    """Fully resolved metadata for one election column.
+
+    The two semantic axes (is_regular, partisan_capable) are the whole point of
+    the A0 collapse: neither can be read from the column NAME (the SoS labels
+    both the Aug-2022 partisan primary and a Sept-2011 municipal issue election
+    'PRIMARY'). They come from date-position + a bounded profile of the column's
+    observed ballot codes, computed once by build_col_meta().
+
+    Fields:
+      col              raw column name (e.g. 'PRIMARY-08/02/2022')
+      date             parsed election date
+      type_code        'PRIMARY' | 'GENERAL' | 'SPECIAL'
+      is_regular       on every precinct's ballot on a fixed cycle: the first
+                       Mar-May primary of its year, or a November general.
+                       Drives the participation-eligibility denominator.
+      partisan_capable the election offered party ballots (>=1 D or R cast).
+                       Drives the cohort partisan signal. Aug-2022 is
+                       partisan_capable=True, is_regular=False; a Sept-2011
+                       issue-only primary is partisan_capable=False.
+      rule             human-readable tag naming the rule that classified this
+                       column, committed to the reference table as work-shown.
+    """
+    col:              str
+    date:             date_t
+    type_code:        str
+    is_regular:       bool
+    partisan_capable: bool
+    rule:             str
+
+
+def build_col_meta(
+    df:            pl.DataFrame,
+    election_cols: list[str],
+    logger:        'logging.Logger | None' = None,
+) -> list[ColMeta]:
+    """THE single election-column resolver (CLAUDE.md sec 5 single-resolver law).
+
+    Given the voter DataFrame and its election columns, returns one ColMeta per
+    column, chronologically ordered, carrying date + type (from the name, via
+    parse_election_meta) AND is_regular + partisan_capable (from date-position +
+    a bounded per-column ballot-code profile). Every downstream consumer — the
+    cohort classifier, the participation engine, the Excel summaries — obtains
+    date/type/regular/partisan facts ONLY from here. There is no second parser.
+
+    partisan_capable: profiled, not named. For each column we count D and R
+    ballots in a single vectorised pass; partisan_capable == (n_D + n_R >= 1).
+
+    is_regular: date-position over the resolved type. The regular spine is one
+    primary per calendar year (the earliest PRIMARY in Mar-May of that year)
+    plus the November general. Off-cycle primaries, non-November generals, and
+    every SPECIAL are excluded. On the current Ohio snapshot this yields
+    25 regular primaries + 27 November generals = 52 regular columns.
+    """
+    parsed: list[tuple[str, date_t, str]] = []
+    for c in election_cols:
+        elec_date, type_code, _ = parse_election_meta(c)
+        if elec_date is None:
+            if logger:
+                logger.warning('build_col_meta: unparseable election column "%s" '
+                               '- excluded from metadata', c)
+            continue
+        parsed.append((c, elec_date, type_code))
+    parsed.sort(key=lambda t: t[1])
+
+    # -- partisan_capable: bounded ballot-code profile, one columnar pass ------
+    # Count D and R per column across all rows; a column with >=1 partisan
+    # ballot offered party primaries. This is the ONLY place ballot codes are
+    # read to determine election meaning.
+    partisan_capable: dict[str, bool] = {}
+    if parsed:
+        cols = [c for c, _, _ in parsed]
+        counts = df.select([
+            ((pl.col(c).str.strip_chars() == 'D') |
+             (pl.col(c).str.strip_chars() == 'R')).sum().alias(c)
+            for c in cols
+        ]).row(0)
+        for (c, _, _), n_partisan in zip(parsed, counts):
+            partisan_capable[c] = (n_partisan or 0) >= 1
+
+    # -- is_regular: date-position over the resolved type ---------------------
+    # First PRIMARY (by date) held in each calendar year, if it falls Mar-May,
+    # is that year's regular primary. November generals are regular. All else
+    # (off-cycle primaries, non-Nov generals, SPECIALs) is not.
+    first_primary_of_year: dict[int, date_t] = {}
+    for c, d, type_code in parsed:
+        if type_code == 'PRIMARY':
+            cur = first_primary_of_year.get(d.year)
+            if cur is None or d < cur:
+                first_primary_of_year[d.year] = d
+
+    out: list[ColMeta] = []
+    for c, d, type_code in parsed:
+        pc = partisan_capable.get(c, False)
+        if type_code == 'SPECIAL':
+            is_regular = False
+            rule = 'SPECIAL -> not regular'
+        elif type_code == 'GENERAL':
+            is_regular = (d.month == 11)
+            rule = ('GENERAL in November -> regular' if is_regular
+                    else 'GENERAL off-November -> special')
+        elif type_code == 'PRIMARY':
+            is_first = (first_primary_of_year.get(d.year) == d)
+            is_regular = is_first and d.month in (3, 4, 5)
+            if is_regular:
+                rule = 'PRIMARY, first Mar-May of year -> regular'
+            elif not is_first:
+                rule = 'PRIMARY, not first of year -> off-cycle special'
+            else:
+                rule = 'PRIMARY outside Mar-May -> off-cycle special'
+        else:
+            is_regular = False
+            rule = f'{type_code} -> not regular'
+        out.append(ColMeta(
+            col=c, date=d, type_code=type_code,
+            is_regular=is_regular, partisan_capable=pc, rule=rule,
+        ))
+
+    if logger:
+        n_reg = sum(1 for m in out if m.is_regular)
+        n_partisan = sum(1 for m in out if m.partisan_capable)
+        logger.info('build_col_meta: %d election columns resolved '
+                    '(%d regular, %d partisan-capable)',
+                    len(out), n_reg, n_partisan)
+    return out
+
+
+def write_col_meta_reference(
+    col_meta: list[ColMeta],
+    out_path: 'Path',
+) -> None:
+    """Commit the resolver's classification table as human-readable work-shown.
+
+    One row per election column: col, date, type, is_regular, partisan_capable,
+    and the rule that tagged it. This is the free-tier audit artifact — every
+    column's classification is verifiable by eye against the committed table.
+    """
+    lines = [
+        '# Election-column classification table (A0 resolver output)',
+        '#',
+        '# Generated by pipeline/voter_data_cleaner.py:build_col_meta / '
+        'write_col_meta_reference.',
+        '# Each row is one election column tagged on two axes by the SINGLE '
+        'election-metadata',
+        '# resolver. is_regular / partisan_capable are NOT read from the column '
+        'name: they come',
+        '# from date-position + a bounded per-column ballot-code profile '
+        '(CLAUDE.md sec 5).',
+        '#',
+        f'# Columns: {len(col_meta)}  |  '
+        f'regular: {sum(1 for m in col_meta if m.is_regular)}  |  '
+        f'partisan_capable: {sum(1 for m in col_meta if m.partisan_capable)}',
+        '',
+    ]
+    header = ('| ' + f'{"column":<22}' + ' | ' + f'{"date":<10}' + ' | '
+              + f'{"type":<8}' + ' | ' + f'{"is_regular":<10}' + ' | '
+              + f'{"partisan_capable":<16}' + ' | rule |')
+    sep = ('|' + '-' * 24 + '|' + '-' * 12 + '|' + '-' * 10 + '|'
+           + '-' * 12 + '|' + '-' * 18 + '|' + '-' * 6 + '|')
+    lines.append(header)
+    lines.append(sep)
+    for m in col_meta:
+        lines.append(
+            f'| {m.col:<22} | {m.date.isoformat():<10} | {m.type_code:<8} | '
+            f'{str(m.is_regular):<10} | {str(m.partisan_capable):<16} | {m.rule} |'
+        )
+    out_path.write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
 
@@ -689,7 +945,10 @@ def clean_voter_data(df: pl.DataFrame, logger: logging.Logger) -> pl.DataFrame:
     # downstream code can filter or group on cohort_family without re-running.
     primary_cols_local = identify_primary_cols(identify_election_cols(df))
     if primary_cols_local:
-        classified = classify_all_voters_primary_history(df, primary_cols_local, logger)
+        classified = classify_all_voters_primary_history(
+            df, primary_cols_local, logger,
+            reference_date=get_snapshot_date(logger),
+        )
         join_cols  = [c for c in classified.columns if c != 'SOS_VOTERID']
         df = df.join(
             classified.select(['SOS_VOTERID'] + join_cols),
@@ -756,36 +1015,31 @@ def add_voter_participation(
     voted_exprs: list[pl.Expr] = []
     gen_elig_exprs:  list[pl.Expr] = []
     gen_voted_exprs: list[pl.Expr] = []
-    skipped = 0
 
-    for col in election_cols:
-        elec_date, type_code, _ = parse_election_meta(col)
-        if elec_date is None:
-            logger.warning('Could not parse election date from column "%s" — skipping', col)
-            skipped += 1
-            continue
+    # Single resolver: date/type/regular facts come ONLY from build_col_meta,
+    # never from the column name here. The "generals" set below is the resolved
+    # type_code == 'GENERAL', not a startswith test.
+    col_meta = build_col_meta(df, election_cols, logger)
 
+    for m in col_meta:
         # Polars stores Python date objects directly in comparisons with Date columns
         elig = (
             pl.col('REGDATE_DT').is_not_null() &
-            (pl.col('REGDATE_DT') <= pl.lit(elec_date))
+            (pl.col('REGDATE_DT') <= pl.lit(m.date))
         ).cast(pl.Int32)
 
         voted = (
             elig.cast(pl.Boolean) &                     # must be eligible
-            pl.col(col).is_not_null() &                 # participation value must exist
-            (pl.col(col).str.strip_chars() != '')        # and be non-empty (X / R / D)
+            pl.col(m.col).is_not_null() &               # participation value must exist
+            (pl.col(m.col).str.strip_chars() != '')      # and be non-empty (X / R / D)
         ).cast(pl.Int32)
 
         elig_exprs.append(elig)
         voted_exprs.append(voted)
 
-        if col.startswith('GENERAL-'):
+        if m.type_code == 'GENERAL':
             gen_elig_exprs.append(elig)
             gen_voted_exprs.append(voted)
-
-    if skipped:
-        logger.warning('Skipped %d election columns with unparseable dates', skipped)
 
     logger.info('  %d total election expressions, %d generals-only',
                 len(elig_exprs), len(gen_elig_exprs))
@@ -1085,8 +1339,10 @@ def build_district_breakdown(
 
     # Identify the most recent General election column for turnout calculation.
     # General elections are the most comparable across districts.
-    g_cols        = [c for c in election_cols if c.startswith('GENERAL-')]
-    most_recent_g = g_cols[-1] if g_cols else None
+    # Single resolver: 'general' is resolved type_code, not a name startswith.
+    _gen_meta     = [m for m in build_col_meta(df, election_cols, logger)
+                     if m.type_code == 'GENERAL']
+    most_recent_g = _gen_meta[-1].col if _gen_meta else None
 
     # Pre-compute eligibility and voted columns for the most recent General election
     # so we don't recompute for every district field.
@@ -1369,24 +1625,37 @@ UNC_SHADOW_LABELS = {
 }
 
 # 8-cohort partisan-spectrum taxonomy — single source of truth for chart exports.
+# ORDER IS THE SPECTRUM: charts render this list left-to-right, R -> D, so a
+# slice's position asserts where that behaviour sits partisan-wise.
+# UNC_NONPARTISAN sits in the neutral centre beside UNC_NO_PRIMARY: both are
+# zero-partisan-signal populations. It must NOT sit next to the Mixed slices,
+# which would repeat the very conflation this taxonomy was split to fix.
+#
+# NOTE (known duplication, CLAUDE.md sec 5): this list is mirrored in
+# jurisdictional_groupings.py, serve/roster_api.py and
+# tools/export/precinct_party_export.py — each with its own labels/colours for
+# its surface. All four must change together. Collapsing them to one source of
+# truth is a queued follow-up handoff.
 COHORT_SLICES = [
-    ('PURE_R',         'Pure R',           '#ef4444'),
-    ('UNC_LAPSED_R',   'UNC – Lapsed R',  '#fca5a5'),
-    ('MIXED_ACTIVE',   'Mixed – Active',   '#f59e0b'),
-    ('MIXED_LAPSED',   'Mixed – Lapsed',   '#a78bfa'),
-    ('UNC_NO_PRIMARY', 'UNC – No Primary', '#9ca3af'),
-    ('UNC_LAPSED_D',   'UNC – Lapsed D',  '#93c5fd'),
-    ('PURE_D',         'Pure D',           '#3b82f6'),
+    ('PURE_R',          'Pure R',                   '#ef4444'),
+    ('UNC_LAPSED_R',    'UNC – Lapsed R',           '#fca5a5'),
+    ('MIXED_ACTIVE',    'Mixed – Active',           '#f59e0b'),
+    ('MIXED_LAPSED',    'Mixed – Lapsed',           '#a78bfa'),
+    ('UNC_NONPARTISAN', 'UNC – Non-partisan Ballot', '#c4b5cd'),
+    ('UNC_NO_PRIMARY',  'UNC – No Primary',         '#9ca3af'),
+    ('UNC_LAPSED_D',    'UNC – Lapsed D',           '#93c5fd'),
+    ('PURE_D',          'Pure D',                   '#3b82f6'),
 ]
 
 COHORT_STACK_MAP = {
-    'PURE_R':         'r_pure',
-    'UNC_LAPSED_R':   'unc_r',
-    'MIXED_ACTIVE':   'unc_mid',
-    'MIXED_LAPSED':   'unc_mid',
-    'UNC_NO_PRIMARY': 'unc_mid',
-    'UNC_LAPSED_D':   'unc_d',
-    'PURE_D':         'd_pure',
+    'PURE_R':          'r_pure',
+    'UNC_LAPSED_R':    'unc_r',
+    'MIXED_ACTIVE':    'unc_mid',
+    'MIXED_LAPSED':    'unc_mid',
+    'UNC_NONPARTISAN': 'unc_mid',
+    'UNC_NO_PRIMARY':  'unc_mid',
+    'UNC_LAPSED_D':    'unc_d',
+    'PURE_D':          'd_pure',
 }
 
 UNC_SHADOW_NOTE = (
@@ -1407,15 +1676,21 @@ def identify_primary_cols(election_cols: list[str]) -> list[str]:
     itself needs no changes.
 
     Ohio SWVF format: 'PRIMARY-MM/DD/YYYY'
+
+    Thin filter over the resolver's name-tag: a column is a primary iff
+    parse_election_meta resolves its type_code to 'PRIMARY'. No name parsing
+    happens here — the ELEC_RE / date decomposition lives only in the resolver.
+    The data-dependent axes (is_regular, partisan_capable) are consumed inside
+    the classifier via build_col_meta, not here.
     """
-    return [c for c in election_cols if c.startswith('PRIMARY-')]
+    return [c for c in election_cols if parse_election_meta(c)[1] == 'PRIMARY']
 
 
 def classify_all_voters_primary_history(
     df:             pl.DataFrame,
     primary_cols:   list[str],
     logger:         logging.Logger,
-    reference_date: 'date_t | None' = None,
+    reference_date: date_t,
 ) -> pl.DataFrame:
     """
     Universal voter classifier — applies cohort taxonomy + decay-weighted
@@ -1424,6 +1699,18 @@ def classify_all_voters_primary_history(
     Cohorts are evaluated top-down with first-match-wins semantics.  See
     CLAUDE.md / refactor doc for the full taxonomy table.  Output is one row
     per voter keyed on SOS_VOTERID, joinable back onto the source df.
+
+    ``reference_date`` is REQUIRED (no default): it is the snapshot's own
+    date and sets the decay origin. A default would silently let a re-run of
+    an old snapshot compute as if it were today, collapsing every snapshot
+    onto one time origin. Callers pass ``get_snapshot_date(logger)``.
+
+    Ballot counts run over the PARTISAN-CAPABLE primary spine from
+    build_col_meta() — the columns where at least one D or R ballot was
+    actually cast — not over every column named "PRIMARY". Off-cycle
+    issue-only primaries offer no party ballot, so they can neither add to
+    d/r_primaries nor create a crossing. The cohort ladder and
+    ever_crossed therefore read one identical column set.
 
     Returns a DataFrame with columns:
         SOS_VOTERID                  Utf8
@@ -1437,15 +1724,23 @@ def classify_all_voters_primary_history(
         last_three_party             Utf8     DDD/DD/D/RRR/RR/R/MIX/NONE
         years_since_last_partisan    Float64 nullable
         switch_count                 Int32   adjacent D->R or R->D transitions
-        cohort                       Utf8    PURE_R/PURE_D/CROSSOVER_R/CROSSOVER_D/UNC_LAPSED_R/UNC_LAPSED_D/UNC_MIXED/UNC_NO_PRIMARY
+                                             (LEGACY - undercounts ~11x; use
+                                             ever_crossed. Kept for callers.)
+        ever_crossed                 Boolean voted BOTH parties' primaries at
+                                             any point (compacted subsequence)
+        partisan_ballot_sequence     Utf8    e.g. 'DDRD' - partisan ballots
+                                             oldest-first; auditable by eye
+        cohort                       Utf8    PURE_R/PURE_D/CROSSOVER_R/CROSSOVER_D/
+                                             UNC_LAPSED_R/UNC_LAPSED_D/UNC_MIXED/
+                                             UNC_NONPARTISAN/UNC_NO_PRIMARY
         cohort_family                Utf8    rolled-up family
         crossover_class              Utf8 nullable  LOCKED_D/LEAN_D/TRUE_MIXED/...
+        regular_primaries_eligible   Int32   regular primaries since registering
+        primary_participation_rate   Float64 nullable  partisan / eligible
+        primaries_skipped            Int32   eligible - partisan (floored at 0)
         is_new_registrant            Boolean  REGISTRATION_DATE >= 2024-01-01
     """
     from math import exp
-
-    if reference_date is None:
-        reference_date = date_t(2026, 5, 7)
 
     party_col = 'PARTY_AFFILIATION' if 'PARTY_AFFILIATION' in df.columns else 'PARTYAFFIL'
 
@@ -1466,6 +1761,15 @@ def classify_all_voters_primary_history(
             pl.lit('NONE').alias('last_three_party'),
             pl.lit(None).cast(pl.Float64).alias('years_since_last_partisan'),
             pl.lit(0).cast(pl.Int32).alias('switch_count'),
+            # Schema parity with the main path: this frame is joined onto
+            # voter rows exactly like the full one, so a missing column here
+            # surfaces as a ColumnNotFoundError while processing some OTHER
+            # county. Dtypes must match, not just names.
+            pl.lit(False).alias('ever_crossed'),
+            pl.lit('').alias('partisan_ballot_sequence'),
+            pl.lit(0).cast(pl.Int32).alias('regular_primaries_eligible'),
+            pl.lit(None).cast(pl.Float64).alias('primary_participation_rate'),
+            pl.lit(0).cast(pl.Int32).alias('primaries_skipped'),
         ])
         party = pl.col(party_col).str.strip_chars() if party_col in df.columns else pl.lit('')
         out = out.with_columns(party.alias('_party'))
@@ -1477,11 +1781,12 @@ def classify_all_voters_primary_history(
         )
         out = out.with_columns(cohort_expr).drop('_party')
         family_map = {
-            'PURE_R':         'PURE_R',
-            'PURE_D':         'PURE_D',
-            'UNC_NO_PRIMARY': 'UNC_NO_PRIMARY',
-            'MIXED_ACTIVE':   'MIXED_ACTIVE',
-            'MIXED_LAPSED':   'MIXED_LAPSED',
+            'PURE_R':          'PURE_R',
+            'PURE_D':          'PURE_D',
+            'UNC_NO_PRIMARY':  'UNC_NO_PRIMARY',
+            'UNC_NONPARTISAN': 'UNC_NONPARTISAN',
+            'MIXED_ACTIVE':    'MIXED_ACTIVE',
+            'MIXED_LAPSED':    'MIXED_LAPSED',
         }
         out = out.with_columns(
             pl.col('cohort').replace(family_map).alias('cohort_family')
@@ -1509,18 +1814,33 @@ def classify_all_voters_primary_history(
     logger.info('  classify_all_voters_primary_history: %s voters x %d primary columns',
                 f'{len(df):,}', len(primary_cols))
 
-    # -- Parse election date for each primary column ------------------------
-    col_meta: list[tuple[str, date_t]] = []
-    for c in primary_cols:
-        m = ELEC_RE.match(c)
-        if not m:
-            continue
-        try:
-            mm, dd, yyyy = m.group(2).split('/')
-            d = date_t(int(yyyy), int(mm), int(dd))
-        except ValueError:
-            continue
-        col_meta.append((c, d))
+    # -- Resolve primary-column metadata via the SINGLE resolver ------------
+    # No inline parse loop: build_col_meta is the sole decomposer of election
+    # column names into (date, type, is_regular, partisan_capable). We keep the
+    # (col, date) pairs the downstream expression builders expect.
+    _resolved = build_col_meta(df, primary_cols, logger)
+
+    # THE COUNT SPINE: partisan-capable columns only. A primary where no D or
+    # R ballot was cast (an off-cycle issue-only primary) offered no party
+    # ballot, so it cannot contribute a partisan count and cannot constitute a
+    # party crossing. Filtering here means the cohort ladder, switch/crossing
+    # detection and lean scoring all read ONE identical column set — the
+    # alternative (counts over every "PRIMARY"-named column) lets a voter be
+    # d>=1 AND r>=1 while ever_crossed is False.
+    col_meta: list[tuple[str, date_t]] = [
+        (m.col, m.date) for m in _resolved if m.partisan_capable
+    ]
+
+    # The REGULAR spine is a different question: which elections was a voter
+    # expected at, on a fixed cycle (A0's is_regular). Used only as the
+    # participation denominator below, never for ballot counts.
+    regular_primary_meta: list[tuple[str, date_t]] = [
+        (m.col, m.date) for m in _resolved if m.is_regular
+    ]
+
+    logger.info('  spine: %d partisan-capable of %d primary cols '
+                '(%d regular primaries for the participation denominator)',
+                len(col_meta), len(_resolved), len(regular_primary_meta))
 
     col_meta_newest_first = sorted(col_meta, key=lambda x: x[1], reverse=True)
     col_meta_chrono       = sorted(col_meta, key=lambda x: x[1])
@@ -1572,7 +1892,14 @@ def classify_all_voters_primary_history(
             recent_num_exprs.append(ballot_val)
             recent_den_exprs.append(partisan_w)
 
-    # -- switch_count: adjacent partisan flips in chronological order -------
+    # -- switch_count (LEGACY): adjacent partisan flips ----------------------
+    # Compares column N to column N+1 directly, so it only sees a crossing
+    # when the two partisan ballots land in CONSECUTIVE primary columns. A
+    # voter who went D in 2016, skipped 2018, then R in 2020 has an empty
+    # cell between them and is missed. Since most voters skip primaries this
+    # undercounts crossers ~11x (Montgomery: 3,342 vs 37,809 real). Retained
+    # only because existing callers read the column; ever_crossed below is
+    # the correct measure — prefer it.
     switch_exprs: list[pl.Expr] = []
     chrono_cols = [c for c, _ in col_meta_chrono]
     for prev_col, next_col in zip(chrono_cols, chrono_cols[1:]):
@@ -1582,6 +1909,21 @@ def classify_all_voters_primary_history(
             ((v1 == 'D') & (v2 == 'R')) | ((v1 == 'R') & (v2 == 'D'))
         ).cast(pl.Int32)
         switch_exprs.append(diff_partisan)
+
+    # -- partisan_ballot_sequence: the COMPACTED subsequence (A4) -----------
+    # Concatenate partisan letters oldest-first, emitting '' for a skipped or
+    # non-partisan ballot. Skips vanish, so 'D__R' compacts to 'DR' and a
+    # crossing becomes a plain substring test. The column is deliberately
+    # human-readable: a reviewer can compare 'DDRD' against a voter's raw
+    # ballots by eye without rerunning anything.
+    seq_letter_exprs: list[pl.Expr] = []
+    for c, _ in col_meta_chrono:
+        v = pl.col(c).str.strip_chars()
+        seq_letter_exprs.append(
+            pl.when(v == 'D').then(pl.lit('D'))
+              .when(v == 'R').then(pl.lit('R'))
+              .otherwise(pl.lit(''))
+        )
 
     # -- years_since_last_partisan ------------------------------------------
     yslp_exprs: list[pl.Expr] = []
@@ -1594,12 +1936,79 @@ def classify_all_voters_primary_history(
         )
         yslp_exprs.append(ex)
 
+    # -- regular_primaries_eligible: the A2 participation denominator -------
+    # NOT a constant. "How many regular primaries has THIS voter had the
+    # chance to vote in" — so a 2024 registrant is not accountable for 2004.
+    # Counting per voter is what makes primary_participation_rate mean "of
+    # the ones you could have voted in" rather than "of all history".
+    #
+    # The anchor is min(REGISTRATION_DATE, first observed ballot), NOT
+    # REGISTRATION_DATE alone. Ohio keeps a voter's registration date through
+    # name and address changes, but a cancellation followed by reactivation
+    # assigns a NEW one while the ballot history is retained (EOM ch.4,
+    # "Registration Date"). Measured on Montgomery: 39,234 voters (10.9%)
+    # have ballots predating their registration date, median 9.5 years
+    # earlier. Anchoring on the registration date alone would credit those
+    # voters with fewer eligible primaries than they demonstrably voted in,
+    # producing participation rates above 1.0 (4,335 voters). A cast ballot
+    # is proof of eligibility at that date, so it is the safer bound.
+    #
+    # The 1900-01-01 sentinel (2 rows in Montgomery) is a placeholder, not a
+    # registration; it would otherwise make those voters eligible for every
+    # primary ever held. Voters with neither a valid date nor any ballot get
+    # 0 eligible and a NULL rate — undefined, not 0%.
+    eligible_exprs: list[pl.Expr] = []
+    if regular_primary_meta:
+        _anchor: pl.Expr | None = None
+        if 'REGISTRATION_DATE' in df.columns:
+            _regcol = pl.col('REGISTRATION_DATE')
+            _regdate = (
+                _regcol if df.schema.get('REGISTRATION_DATE') == pl.Date
+                else _regcol.str.to_date(format='%Y-%m-%d', strict=False)
+            )
+            _anchor = (
+                pl.when(_regdate <= pl.lit(date_t(1900, 1, 2)))
+                  .then(pl.lit(None, dtype=pl.Date))
+                  .otherwise(_regdate)
+            )
+
+        # Earliest election (any type, any ballot) this voter shows up in.
+        # Uses the full resolved set, not just regular primaries: turning out
+        # for ANY election proves registration was already active.
+        _first_ballot_exprs = [
+            pl.when(pl.col(m.col).str.strip_chars() != '')
+              .then(pl.lit(m.date))
+              .otherwise(pl.lit(None, dtype=pl.Date))
+            for m in _resolved
+        ]
+        if _first_ballot_exprs:
+            _first_ballot = pl.min_horizontal(_first_ballot_exprs)
+            _anchor = (_first_ballot if _anchor is None
+                       else pl.min_horizontal([_anchor, _first_ballot]))
+
+        if _anchor is not None:
+            for _c, _d in regular_primary_meta:
+                eligible_exprs.append(
+                    (_anchor <= pl.lit(_d)).fill_null(False).cast(pl.Int32)
+                )
+
     # -- Project to working frame ------------------------------------------
+    # Carries the partisan-capable spine (the count/lean columns) PLUS any
+    # remaining resolved primary column, because the first-ballot anchor above
+    # reads every election: turning out for an issue-only primary still proves
+    # the registration was active then. A column referenced by an expression
+    # but absent from this projection raises ColumnNotFoundError at collect
+    # time — it exists in the source parquet but never reaches the frame
+    # (CLAUDE.md sec 7).
+    _spine_cols = [c for c, _ in col_meta]
+    _extra_cols = [m.col for m in _resolved if m.col not in set(_spine_cols)]
     base_select = [pl.col('SOS_VOTERID'),
                    pl.col(party_col).str.strip_chars().alias('_party')]
     if 'REGISTRATION_DATE' in df.columns:
         base_select.append(pl.col('REGISTRATION_DATE'))
-    work = df.select(base_select + [pl.col(c) for c, _ in col_meta])
+    work = df.select(base_select
+                     + [pl.col(c) for c in _spine_cols]
+                     + [pl.col(c) for c in _extra_cols])
 
     work = work.with_columns([
         pl.sum_horizontal(d_exprs).alias('d_primaries'),
@@ -1618,7 +2027,20 @@ def classify_all_voters_primary_history(
             else pl.lit(0).cast(pl.Int32)).alias('switch_count'),
         (pl.min_horizontal(yslp_exprs) if yslp_exprs
             else pl.lit(None).cast(pl.Float64)).alias('years_since_last_partisan'),
+        (pl.concat_str(seq_letter_exprs) if seq_letter_exprs
+            else pl.lit('')).alias('partisan_ballot_sequence'),
+        (pl.sum_horizontal(eligible_exprs) if eligible_exprs
+            else pl.lit(0).cast(pl.Int32)).alias('regular_primaries_eligible'),
     ])
+
+    # ever_crossed: both parties appear anywhere in the compacted sequence.
+    # Substring tests on the compacted string, so skipped primaries between
+    # the two ballots are irrelevant (that is the whole switch_count bug).
+    work = work.with_columns(
+        (pl.col('partisan_ballot_sequence').str.contains('D')
+         & pl.col('partisan_ballot_sequence').str.contains('R'))
+        .alias('ever_crossed')
+    )
 
     work = work.with_columns([
         (pl.col('d_primaries') + pl.col('r_primaries')).alias('partisan_primaries'),
@@ -1630,6 +2052,36 @@ def classify_all_voters_primary_history(
           .then(pl.col('_recent_num') / pl.col('_recent_den'))
           .otherwise(None)
           .alias('recent_5yr_lean'),
+    ])
+
+    # -- A2 participation: rate + skipped over the regular spine ------------
+    # Numerator and denominator MUST span the same column set. Counting
+    # partisan ballots over all 35 partisan-capable columns while the
+    # denominator covers only the 25 regular ones lets off-cycle turnout push
+    # the ratio above 1.0 (4,377 Montgomery voters did exactly that). So the
+    # numerator here counts partisan ballots cast IN REGULAR PRIMARIES only —
+    # deliberately NOT the `partisan_primaries` column, which spans the wider
+    # spine and stays the right measure for cohort assignment.
+    #
+    # Null (not 0.0) when a voter was eligible for nothing: a voter who
+    # registered after the last regular primary has an UNDEFINED rate, not a
+    # 0% one, and averaging a fabricated zero would drag every aggregate down.
+    regular_partisan_exprs = [
+        pl.col(m.col).str.strip_chars().is_in(['D', 'R']).cast(pl.Int32)
+        for m in _resolved if m.is_regular
+    ]
+    work = work.with_columns(
+        (pl.sum_horizontal(regular_partisan_exprs) if regular_partisan_exprs
+         else pl.lit(0).cast(pl.Int32)).alias('_regular_partisan')
+    )
+    work = work.with_columns([
+        pl.when(pl.col('regular_primaries_eligible') > 0)
+          .then(pl.col('_regular_partisan').cast(pl.Float64)
+                / pl.col('regular_primaries_eligible').cast(pl.Float64))
+          .otherwise(None)
+          .alias('primary_participation_rate'),
+        (pl.col('regular_primaries_eligible') - pl.col('_regular_partisan'))
+          .cast(pl.Int32).alias('primaries_skipped'),
     ])
     work = work.with_columns([
         pl.when(pl.col('partisan_primaries') > 0)
@@ -1686,10 +2138,17 @@ def classify_all_voters_primary_history(
           .then(pl.lit('UNC_LAPSED_R'))
         .when((pl.col('_party') == '') & (pl.col('r_primaries') == 0) & (pl.col('d_primaries') >= 1))
           .then(pl.lit('UNC_LAPSED_D'))
-        .when((pl.col('_party') == '') & (pl.col('d_primaries') >= 1) & (pl.col('r_primaries') >= 1))
-          .then(pl.lit('UNC_MIXED'))
+        # Never cast a partisan ballot, but DID turn out for non-partisan
+        # ones (issues, levies, judicial). Evaluated BEFORE the mixed branch:
+        # first-match-wins means order is the control flow here. Previously
+        # these voters were labelled UNC_MIXED alongside genuine crossers,
+        # which put ~11.2k Montgomery voters who have never expressed ANY
+        # party preference into a slice that means "crossed party lines".
         .when((pl.col('_party') == '') & (pl.col('x_primaries') >= 1) &
               (pl.col('d_primaries') == 0) & (pl.col('r_primaries') == 0))
+          .then(pl.lit('UNC_NONPARTISAN'))
+        # Genuine mixers only: ballots in BOTH parties' primaries.
+        .when((pl.col('_party') == '') & (pl.col('d_primaries') >= 1) & (pl.col('r_primaries') >= 1))
           .then(pl.lit('UNC_MIXED'))
         .when((pl.col('_party') == '') & (pl.col('total_primaries') == 0))
           .then(pl.lit('UNC_NO_PRIMARY'))
@@ -1698,16 +2157,22 @@ def classify_all_voters_primary_history(
     )
     work = work.with_columns(cohort_expr)
 
+    # The public family axis is BEHAVIOUR (did you cross party lines?), and
+    # Active/Lapsed is a TIME qualifier on that behaviour (are you currently
+    # affiliated?). Both MIXED_* families now contain only voters who really
+    # did vote both parties; voters with no partisan ballot at all get their
+    # own family rather than being folded into "Mixed".
     family_map = {
-        'PURE_R':         'PURE_R',
-        'PURE_D':         'PURE_D',
-        'CROSSOVER_R':    'MIXED_ACTIVE',  # currently affiliated, opposing history
-        'CROSSOVER_D':    'MIXED_ACTIVE',
-        'UNC_LAPSED_R':   'UNC_LAPSED_R',
-        'UNC_LAPSED_D':   'UNC_LAPSED_D',
-        'UNC_MIXED':      'MIXED_LAPSED',  # UNC with mixed/X primary history
-        'UNC_NO_PRIMARY': 'UNC_NO_PRIMARY',
-        'OTHER':          'OTHER',
+        'PURE_R':          'PURE_R',
+        'PURE_D':          'PURE_D',
+        'CROSSOVER_R':     'MIXED_ACTIVE',  # currently affiliated, opposing history
+        'CROSSOVER_D':     'MIXED_ACTIVE',
+        'UNC_LAPSED_R':    'UNC_LAPSED_R',
+        'UNC_LAPSED_D':    'UNC_LAPSED_D',
+        'UNC_MIXED':       'MIXED_LAPSED',  # UNC who voted BOTH parties
+        'UNC_NONPARTISAN': 'UNC_NONPARTISAN',  # turned out, never a party ballot
+        'UNC_NO_PRIMARY':  'UNC_NO_PRIMARY',
+        'OTHER':           'OTHER',
     }
     work = work.with_columns(
         pl.col('cohort').replace(family_map).alias('cohort_family')
@@ -1776,7 +2241,9 @@ def classify_all_voters_primary_history(
         'total_primaries', 'partisan_primaries',
         'lean_score', 'confidence', 'recent_5yr_lean',
         'last_three_party', 'years_since_last_partisan',
-        'switch_count',
+        'switch_count', 'ever_crossed', 'partisan_ballot_sequence',
+        'regular_primaries_eligible', 'primary_participation_rate',
+        'primaries_skipped',
         'cohort', 'cohort_family', 'crossover_class',
         'is_new_registrant',
     ])
@@ -1797,12 +2264,18 @@ def _unc_classified_from_enriched_df(df: pl.DataFrame) -> 'pl.DataFrame | None':
     if 'cohort_family' not in df.columns:
         return None
 
-    unc_families = ['UNC_LAPSED_D', 'UNC_LAPSED_R', 'MIXED_ACTIVE', 'MIXED_LAPSED', 'UNC_NO_PRIMARY']
+    unc_families = ['UNC_LAPSED_D', 'UNC_LAPSED_R', 'MIXED_ACTIVE', 'MIXED_LAPSED',
+                    'UNC_NONPARTISAN', 'UNC_NO_PRIMARY']
     unc_class_map = {
         'UNC_LAPSED_D':  'LIFETIME_D',
         'UNC_LAPSED_R':  'LIFETIME_R',
         'MIXED_ACTIVE':  'MIXED',
         'MIXED_LAPSED':  'MIXED',
+        # Legacy 4-value schema has no non-partisan slot; NO_HISTORY here
+        # means "no PARTISAN history", which is exactly this cohort. The
+        # distinction (turned out for issues vs never turned out) survives
+        # in cohort_family for consumers that read the 8-slice taxonomy.
+        'UNC_NONPARTISAN': 'NO_HISTORY',
         'UNC_NO_PRIMARY': 'NO_HISTORY',
     }
     unc = (
@@ -1821,18 +2294,29 @@ def classify_unc_primary_history(
     df:           pl.DataFrame,
     primary_cols: list[str],
     logger:       logging.Logger,
+    reference_date: 'date_t | None' = None,
 ) -> pl.DataFrame:
     """
     Backward-compat wrapper - delegates to classify_all_voters_primary_history,
     filters to UNC families, and remaps cohort names to the legacy schema
     (LIFETIME_D / LIFETIME_R / MIXED / NO_HISTORY).
 
+    ``reference_date`` defaults to the staged snapshot's date via
+    get_snapshot_date() — which RAISES if nothing is staged rather than
+    silently substituting today. The parameter exists so a caller already
+    holding the date can avoid re-reading staged_from.json, not to allow an
+    arbitrary one.
+
     Returns columns: SOS_VOTERID, COUNTY_NUMBER, PRECINCT_NAME,
                      d_primaries, r_primaries, total_primaries, unc_class
     """
-    all_classified = classify_all_voters_primary_history(df, primary_cols, logger)
+    if reference_date is None:
+        reference_date = get_snapshot_date(logger)
+    all_classified = classify_all_voters_primary_history(
+        df, primary_cols, logger, reference_date=reference_date)
 
-    unc_families = ['UNC_LAPSED_D', 'UNC_LAPSED_R', 'MIXED_ACTIVE', 'MIXED_LAPSED', 'UNC_NO_PRIMARY']
+    unc_families = ['UNC_LAPSED_D', 'UNC_LAPSED_R', 'MIXED_ACTIVE', 'MIXED_LAPSED',
+                    'UNC_NONPARTISAN', 'UNC_NO_PRIMARY']
     unc = all_classified.filter(pl.col('cohort_family').is_in(unc_families))
 
     unc_class_map = {
@@ -1840,6 +2324,11 @@ def classify_unc_primary_history(
         'UNC_LAPSED_R':  'LIFETIME_R',
         'MIXED_ACTIVE':  'MIXED',
         'MIXED_LAPSED':  'MIXED',
+        # Legacy 4-value schema has no non-partisan slot; NO_HISTORY here
+        # means "no PARTISAN history", which is exactly this cohort. The
+        # distinction (turned out for issues vs never turned out) survives
+        # in cohort_family for consumers that read the 8-slice taxonomy.
+        'UNC_NONPARTISAN': 'NO_HISTORY',
         'UNC_NO_PRIMARY': 'NO_HISTORY',
     }
     unc = unc.with_columns(
@@ -2029,6 +2518,7 @@ def export_json(
                        + int(nm.get('UNC_LAPSED_D', 0))
                        + int(nm.get('MIXED_ACTIVE', 0))
                        + int(nm.get('MIXED_LAPSED', 0))
+                       + int(nm.get('UNC_NONPARTISAN', 0))
                        + int(nm.get('UNC_NO_PRIMARY', 0)))
             meta_block = {
                 'new_registrants_r':   new_r,
@@ -2325,6 +2815,59 @@ def export_json(
             'datasets': gen_datasets,
         },
     }, DATA_DIR / f'{slug}_party_by_generation.json', logger)
+
+    # ── Primary participation rate by generation (bar chart) ─────────────────
+    # Aggregates the A2 classifier's per-voter regular-primary fields
+    # (regular_primaries_eligible / primary_participation_rate) — computed
+    # once in classify_all_voters_primary_history() and joined onto df in
+    # clean_voter_data(). Do NOT recompute a denominator here; a second
+    # denominator over a different column set is exactly the §5 violation
+    # this repair exists to fix. primary_participation_rate is NULL (not 0.0)
+    # for voters with regular_primaries_eligible == 0 — Polars mean() already
+    # skips nulls, so no fill_null(0) before aggregating.
+    if 'primary_participation_rate' in df.columns:
+        part_gen = (
+            df.filter(pl.col('Generation').is_not_null())
+              .group_by('Generation')
+              .agg(
+                  pl.col('primary_participation_rate').mean().alias('rate'),
+                  pl.col('primary_participation_rate').is_not_null().sum().alias('n_eligible'),
+              )
+        )
+        order_df = pl.DataFrame({'Generation': _GEN_ORDER,
+                                 '_sort': list(range(len(_GEN_ORDER)))})
+        part_gen = (
+            part_gen.join(order_df, on='Generation', how='left')
+                    .sort('_sort')
+                    .drop('_sort')
+        )
+        part_labels = part_gen['Generation'].to_list()
+        # Chart payload is 0-100 (percentY render option expects a percent
+        # scale); the underlying primary_participation_rate field stays 0-1
+        # per its documented convention (§4) — this rescale is display-only.
+        part_rates  = [round(r * 100, 2) if r is not None else None
+                       for r in part_gen['rate'].to_list()]
+        _dump_json({
+            'title':     'Primary Participation Rate by Generation',
+            'county':    county_name,
+            'geography': 'county',
+            'type':      'bar',
+            'updated':   today,
+            'note':      (note + ' — share of the regular elections (primary and '
+                          "general, specials excluded) you've been eligible for "
+                          'since registering. Pew Research Center generational '
+                          'boundaries. Generations with no eligible voters show as '
+                          'a gap, not zero.'),
+            'chartConfig': {
+                'labels': part_labels,
+                'datasets': [{
+                    'label':           'Primary Participation Rate',
+                    'data':            part_rates,
+                    'backgroundColor': CHART_COLORS['bar'],
+                    'borderRadius':    4,
+                }],
+            },
+        }, DATA_DIR / f'{slug}_participation_by_generation.json', logger)
 
     # ── Precinct summary (table) ──────────────────────────────────────────────
     precinct_df = build_precinct_summary(df)

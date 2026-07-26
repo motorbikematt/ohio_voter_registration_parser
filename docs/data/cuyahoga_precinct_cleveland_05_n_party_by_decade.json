@@ -4,7 +4,7 @@
   "precinct": "CLEVELAND -05-N",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1940s",
@@ -64,15 +64,30 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          1,
-          6,
-          10,
-          10,
-          14,
-          21,
-          1
+          0,
+          4,
+          5,
+          3,
+          2,
+          8,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          1,
+          4,
+          5,
+          10,
+          13,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -80,10 +95,10 @@
         "label": "UNC – No Primary",
         "data": [
           6,
-          31,
-          72,
-          59,
-          118,
+          32,
+          73,
+          61,
+          120,
           311,
           91
         ],

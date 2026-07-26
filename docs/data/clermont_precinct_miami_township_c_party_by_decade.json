@@ -4,7 +4,7 @@
   "precinct": "MIAMI TOWNSHIP C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -69,15 +69,31 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
+          1,
+          5,
+          7,
+          7,
+          4,
           2,
-          12,
-          21,
-          16,
-          20,
-          25,
-          20
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          7,
+          14,
+          9,
+          16,
+          23,
+          19
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

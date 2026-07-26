@@ -4,7 +4,7 @@
   "precinct": "PRECINCT AVON CITY 4-A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          1,
+          0,
           6,
-          13,
-          23,
-          31,
-          33,
-          16,
-          10,
-          2
+          12,
+          17,
+          19,
+          22,
+          8,
+          4,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          0,
+          1,
+          6,
+          12,
+          11,
+          8,
+          6,
+          2
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

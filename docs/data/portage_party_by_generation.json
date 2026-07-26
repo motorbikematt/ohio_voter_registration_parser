@@ -3,8 +3,8 @@
   "county": "Portage",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,13 +56,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          719,
-          3120,
-          3186,
-          2076,
-          741
+          579,
+          2074,
+          1541,
+          549,
+          38
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          140,
+          1045,
+          1645,
+          1527,
+          701
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -70,10 +83,10 @@
         "label": "UNC – No Primary",
         "data": [
           550,
-          4361,
+          4362,
           6938,
           12244,
-          14712
+          14714
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 2,

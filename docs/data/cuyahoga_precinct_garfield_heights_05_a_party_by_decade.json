@@ -4,7 +4,7 @@
   "precinct": "GARFIELD HEIGHTS-05-A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -69,15 +69,31 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          5,
-          11,
-          16,
-          6,
-          11,
           4,
-          3
+          9,
+          11,
+          1,
+          1,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          2,
+          3,
+          5,
+          8,
+          2,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -87,10 +103,10 @@
           0,
           2,
           25,
-          34,
+          36,
           64,
-          95,
-          148,
+          97,
+          149,
           110
         ],
         "backgroundColor": "#9ca3af",

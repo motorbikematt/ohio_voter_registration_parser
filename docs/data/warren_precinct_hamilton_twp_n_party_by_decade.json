@@ -4,7 +4,7 @@
   "precinct": "HAMILTON TWP N",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           0,
-          11,
-          18,
-          17,
-          19,
-          9,
+          8,
+          14,
+          12,
+          8,
           5,
+          2,
           0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          3,
+          4,
+          5,
+          11,
+          4,
+          3,
+          0
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

@@ -3,8 +3,8 @@
   "county": "Sandusky",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -78,16 +78,34 @@
         "data": [
           0,
           11,
-          114,
-          345,
-          640,
-          724,
-          776,
-          652,
-          239,
-          70
+          81,
+          210,
+          308,
+          278,
+          224,
+          128,
+          32,
+          4
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          32,
+          134,
+          332,
+          446,
+          550,
+          523,
+          207,
+          66
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -96,12 +114,12 @@
         "data": [
           0,
           3,
-          79,
-          307,
+          80,
+          308,
           846,
           1435,
-          1931,
-          2632,
+          1933,
+          2633,
           3483,
           3302
         ],

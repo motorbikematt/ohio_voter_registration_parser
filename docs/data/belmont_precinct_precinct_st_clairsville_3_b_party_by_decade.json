@@ -4,7 +4,7 @@
   "precinct": "PRECINCT ST CLAIRSVILLE 3-B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -80,14 +80,32 @@
           0,
           8,
           4,
-          8,
           7,
-          7,
-          6,
           3,
+          5,
+          1,
+          1,
           0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          4,
+          2,
+          5,
+          2,
+          0
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

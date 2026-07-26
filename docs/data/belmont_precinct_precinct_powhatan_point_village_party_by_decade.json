@@ -4,7 +4,7 @@
   "precinct": "PRECINCT POWHATAN POINT VILLAGE",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -68,16 +68,32 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          2,
-          5,
-          14,
-          12,
-          16,
-          12,
+          1,
+          1,
           7,
+          7,
+          9,
+          4,
+          2,
           0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          4,
+          7,
+          5,
+          7,
+          8,
+          5,
+          0
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

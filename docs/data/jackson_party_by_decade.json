@@ -3,8 +3,8 @@
   "county": "Jackson",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           2,
-          53,
-          148,
-          292,
-          335,
-          292,
-          231,
-          88,
-          67
+          50,
+          134,
+          267,
+          287,
+          245,
+          157,
+          28,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          3,
+          14,
+          25,
+          48,
+          47,
+          74,
+          60,
+          66
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

@@ -4,7 +4,7 @@
   "precinct": "PRECINCT BETH 1",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          10,
-          8,
-          18,
-          32,
-          30,
-          28,
+          9,
+          4,
+          11,
+          25,
+          11,
+          6,
+          0,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          4,
+          7,
+          7,
+          19,
+          22,
           15,
           3
         ],
-        "backgroundColor": "#a78bfa",
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

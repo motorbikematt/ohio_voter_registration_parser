@@ -4,7 +4,7 @@
   "precinct": "PRECINCT SYLVANIA TOWNSHIP U",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,13 +57,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
+          7,
+          11,
+          10,
           9,
-          25,
-          21,
-          21,
-          4
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          2,
+          12,
+          10,
+          10,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -71,9 +84,9 @@
         "label": "UNC – No Primary",
         "data": [
           9,
-          52,
-          80,
-          214,
+          54,
+          81,
+          216,
           170
         ],
         "backgroundColor": "#9ca3af",

@@ -4,7 +4,7 @@
   "precinct": "WESTLAKE-03-C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -76,18 +76,36 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          1,
           0,
           0,
-          11,
-          15,
-          19,
-          21,
-          15,
+          0,
+          6,
+          10,
+          14,
           9,
+          9,
+          1,
           0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          0,
+          0,
+          5,
+          5,
+          5,
+          12,
+          6,
+          8,
+          0
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

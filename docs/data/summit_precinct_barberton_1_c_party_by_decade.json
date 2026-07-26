@@ -4,7 +4,7 @@
   "precinct": "BARBERTON 1-C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          1,
-          5,
-          8,
-          15,
-          8,
-          11,
+          0,
           4,
-          3,
+          6,
+          13,
+          7,
+          5,
+          0,
+          2,
           1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          1,
+          2,
+          2,
+          1,
+          6,
+          4,
+          1,
+          0
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

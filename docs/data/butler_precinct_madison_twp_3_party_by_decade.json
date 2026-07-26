@@ -4,7 +4,7 @@
   "precinct": "MADISON TWP 3",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           2,
-          13,
-          26,
-          29,
-          26,
-          29,
-          13,
-          6
+          12,
+          11,
+          17,
+          7,
+          9,
+          2,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          1,
+          15,
+          12,
+          19,
+          20,
+          11,
+          5
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

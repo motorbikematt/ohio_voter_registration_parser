@@ -4,7 +4,7 @@
   "precinct": "PRECINCT BRUNSWICK CITY 2-B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
+          0,
+          0,
+          7,
+          7,
+          20,
+          16,
+          4,
           1,
-          2,
-          17,
-          23,
-          65,
-          58,
-          42,
-          22,
-          13
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          2,
+          10,
+          16,
+          45,
+          42,
+          38,
+          21,
+          13
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

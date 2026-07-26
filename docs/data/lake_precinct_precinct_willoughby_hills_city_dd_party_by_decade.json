@@ -4,7 +4,7 @@
   "precinct": "PRECINCT WILLOUGHBY HILLS CITY DD",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          1,
+          0,
           2,
-          4,
-          13,
-          20,
-          8,
-          5,
+          2,
           10,
+          11,
+          3,
+          1,
+          1,
           0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          0,
+          2,
+          3,
+          9,
+          5,
+          4,
+          9,
+          0
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

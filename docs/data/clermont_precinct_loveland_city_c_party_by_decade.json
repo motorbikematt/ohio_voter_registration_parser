@@ -4,7 +4,7 @@
   "precinct": "LOVELAND CITY C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           0,
-          12,
-          17,
-          18,
-          25,
-          26,
-          10,
-          18
+          3,
+          14,
+          8,
+          11,
+          4,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          9,
+          3,
+          10,
+          14,
+          22,
+          9,
+          18
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

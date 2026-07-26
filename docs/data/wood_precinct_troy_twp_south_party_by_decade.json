@@ -4,7 +4,7 @@
   "precinct": "TROY TWP SOUTH",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          3,
-          8,
-          15,
-          23,
-          13,
+          1,
+          7,
+          9,
           16,
-          19,
-          4,
-          1
+          11,
+          9,
+          6,
+          2,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          2,
+          1,
+          6,
+          7,
+          2,
+          7,
+          12,
+          2,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -95,7 +112,7 @@
           28,
           33,
           60,
-          58,
+          59,
           91,
           100
         ],

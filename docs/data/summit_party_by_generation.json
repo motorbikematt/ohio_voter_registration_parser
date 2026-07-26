@@ -3,8 +3,8 @@
   "county": "Summit",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,13 +56,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          2579,
-          9915,
-          9243,
-          6079,
-          1873
+          2216,
+          7138,
+          4920,
+          2072,
+          118
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          363,
+          2777,
+          4322,
+          4006,
+          1753
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -71,9 +84,9 @@
         "data": [
           2029,
           16708,
-          28842,
-          51857,
-          46579
+          28843,
+          51858,
+          46581
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 2,

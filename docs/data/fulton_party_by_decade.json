@@ -3,8 +3,8 @@
   "county": "Fulton",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           5,
-          73,
-          252,
-          427,
-          597,
-          577,
-          494,
-          229,
-          158
+          65,
+          188,
+          292,
+          341,
+          305,
+          198,
+          33,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          8,
+          64,
+          132,
+          252,
+          269,
+          290,
+          196,
+          157
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -92,10 +109,10 @@
           2,
           74,
           235,
-          576,
-          909,
-          1270,
-          1635,
+          579,
+          913,
+          1273,
+          1641,
           2516,
           2743
         ],

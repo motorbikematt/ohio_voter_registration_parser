@@ -4,7 +4,7 @@
   "precinct": "ANDERSON I",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -68,16 +68,32 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
+          3,
           4,
-          6,
-          23,
-          29,
-          48,
-          46,
-          15,
-          10
+          20,
+          20,
+          27,
+          19,
+          5,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          2,
+          3,
+          9,
+          21,
+          27,
+          10,
+          10
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

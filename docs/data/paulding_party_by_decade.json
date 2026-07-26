@@ -3,8 +3,8 @@
   "county": "Paulding",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           25,
-          98,
-          155,
-          178,
-          144,
-          104,
-          27,
-          17
+          76,
+          123,
+          132,
+          99,
+          62,
+          8,
+          1
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          22,
+          32,
+          46,
+          45,
+          42,
+          18,
+          16
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -96,7 +113,7 @@
           511,
           653,
           809,
-          1193,
+          1194,
           1176
         ],
         "backgroundColor": "#9ca3af",

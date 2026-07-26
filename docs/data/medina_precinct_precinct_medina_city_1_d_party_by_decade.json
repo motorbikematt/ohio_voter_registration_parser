@@ -4,7 +4,7 @@
   "precinct": "PRECINCT MEDINA CITY 1-D",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           0,
-          3,
+          2,
+          5,
           9,
-          28,
-          49,
-          53,
-          19,
-          13
+          16,
+          4,
+          4,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          1,
+          4,
+          19,
+          33,
+          49,
+          15,
+          13
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

@@ -3,8 +3,8 @@
   "county": "Hancock",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,23 +56,36 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          256,
-          940,
-          1009,
-          950,
-          316
+          205,
+          622,
+          467,
+          287,
+          17
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
       {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          50,
+          318,
+          540,
+          660,
+          299
+        ],
+        "backgroundColor": "#c4b5cd",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
         "label": "UNC – No Primary",
         "data": [
-          282,
+          283,
           2077,
-          3624,
-          5951,
+          3626,
+          5954,
           5780
         ],
         "backgroundColor": "#9ca3af",

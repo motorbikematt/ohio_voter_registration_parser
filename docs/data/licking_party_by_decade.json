@@ -3,8 +3,8 @@
   "county": "Licking",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          15,
-          261,
-          924,
-          1548,
-          2109,
-          2141,
-          1896,
-          790,
-          317
+          14,
+          223,
+          737,
+          1110,
+          1294,
+          1012,
+          685,
+          141,
+          8
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          38,
+          187,
+          438,
+          815,
+          1129,
+          1210,
+          649,
+          309
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -95,7 +112,7 @@
           2582,
           4856,
           6254,
-          9569,
+          9570,
           12293,
           12237
         ],

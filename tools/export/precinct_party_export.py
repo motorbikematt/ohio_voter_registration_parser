@@ -52,14 +52,15 @@ classify_all   = v2.classify_all_voters_primary_history
 # 7-tab partisan-spectrum layout based on cohort_family (universal classifier).
 # Mirrors the public dashboard taxonomy exactly — no decay scoring surfaced.
 TABS = [
-    # (tab_name,         tab_colour,  filter_col,      cohort_family value)
-    ("Pure_R",         "#ef4444",   "cohort_family", "PURE_R"),
-    ("UNC_Lapsed_R",   "#fca5a5",   "cohort_family", "UNC_LAPSED_R"),
-    ("Mixed_Active",   "#f59e0b",   "cohort_family", "MIXED_ACTIVE"),
-    ("Mixed_Lapsed",   "#a78bfa",   "cohort_family", "MIXED_LAPSED"),
-    ("UNC_No_Primary", "#9ca3af",   "cohort_family", "UNC_NO_PRIMARY"),
-    ("UNC_Lapsed_D",   "#93c5fd",   "cohort_family", "UNC_LAPSED_D"),
-    ("Pure_D",         "#3b82f6",   "cohort_family", "PURE_D"),
+    # (tab_name,           tab_colour,  filter_col,      cohort_family value)
+    ("Pure_R",           "#ef4444",   "cohort_family", "PURE_R"),
+    ("UNC_Lapsed_R",     "#fca5a5",   "cohort_family", "UNC_LAPSED_R"),
+    ("Mixed_Active",     "#f59e0b",   "cohort_family", "MIXED_ACTIVE"),
+    ("Mixed_Lapsed",     "#a78bfa",   "cohort_family", "MIXED_LAPSED"),
+    ("UNC_Nonpartisan",  "#c4b5cd",   "cohort_family", "UNC_NONPARTISAN"),
+    ("UNC_No_Primary",   "#9ca3af",   "cohort_family", "UNC_NO_PRIMARY"),
+    ("UNC_Lapsed_D",     "#93c5fd",   "cohort_family", "UNC_LAPSED_D"),
+    ("Pure_D",           "#3b82f6",   "cohort_family", "PURE_D"),
 ]
 
 # ── Logging ───────────────────────────────────────────────────────────────────

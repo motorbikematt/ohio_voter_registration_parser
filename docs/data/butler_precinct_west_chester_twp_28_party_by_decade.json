@@ -4,7 +4,7 @@
   "precinct": "WEST CHESTER TWP 28",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
+          0,
+          0,
+          6,
+          10,
+          11,
+          8,
+          5,
+          0,
+          0
+        ],
+        "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
           1,
           0,
-          12,
-          18,
-          20,
-          11,
-          7,
+          6,
+          8,
+          9,
+          3,
+          2,
           1,
           2
         ],
-        "backgroundColor": "#a78bfa",
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

@@ -4,7 +4,7 @@
   "precinct": "PRECINCT KIRTLAND 4A",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -68,16 +68,32 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          5,
+          2,
           17,
+          17,
+          26,
           25,
-          38,
-          46,
-          33,
-          11,
-          15
+          17,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          3,
+          0,
+          8,
+          12,
+          21,
+          16,
+          10,
+          15
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

@@ -90,6 +90,12 @@
   var view = { k: 1, tx: 0, ty: 0 };   // #viewport transform
   var MIN_K = 1, MAX_K = 40;
 
+  function emitGaEvent(name, params) {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', name, params || {});
+    }
+  }
+
   function setStatus(text, isError) {
     if (!statusEl) return;
     statusEl.textContent = text || '';
@@ -165,6 +171,7 @@
   function switchLayer(key) {
     if (key === activeLayer && cache[key]) return;
     activeLayer = key;
+    emitGaEvent('select_content', { content_type: 'map_layer', item_id: key });
     LAYER_ORDER.forEach(function (k) {
       var btn = document.querySelector('.layer-btn[data-layer="' + k + '"]');
       if (btn) btn.setAttribute('aria-pressed', k === key ? 'true' : 'false');
@@ -208,6 +215,7 @@
   function resetView() {
     view.k = 1; view.tx = 0; view.ty = 0;
     applyTransform();
+    emitGaEvent('map_reset');
   }
 
   // Convert a client point to svg-root user (viewBox) coordinates,
@@ -400,6 +408,7 @@
     if (!box || !box.width || !box.height) return;
     if (visibleFraction(box) >= FIT_THRESHOLD) return;   // visible enough -- navigate
     e.preventDefault();
+    emitGaEvent('map_fit_shape', { item_id: a.dataset.name });
     fitToShape(box);
     hideTooltip();
   }, true);

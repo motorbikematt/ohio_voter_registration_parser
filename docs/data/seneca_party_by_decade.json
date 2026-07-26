@@ -3,8 +3,8 @@
   "county": "Seneca",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           10,
-          99,
-          327,
-          511,
-          579,
-          531,
-          392,
-          138,
-          36
+          90,
+          278,
+          409,
+          441,
+          384,
+          236,
+          57,
+          2
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          9,
+          49,
+          102,
+          138,
+          146,
+          155,
+          81,
+          34
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -94,8 +111,8 @@
           240,
           691,
           1235,
-          1775,
-          2364,
+          1776,
+          2365,
           3352,
           3066
         ],

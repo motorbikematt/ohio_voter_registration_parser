@@ -3,8 +3,8 @@
   "county": "Clermont",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          18,
-          250,
-          1027,
-          1985,
-          2633,
-          3078,
-          2659,
-          1334,
-          765
+          11,
+          162,
+          619,
+          970,
+          1038,
+          924,
+          576,
+          165,
+          6
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          7,
+          88,
+          408,
+          1015,
+          1595,
+          2154,
+          2083,
+          1169,
+          759
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

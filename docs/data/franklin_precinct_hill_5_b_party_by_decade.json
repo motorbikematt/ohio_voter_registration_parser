@@ -4,7 +4,7 @@
   "precinct": "HILL 5-B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -77,17 +77,35 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          2,
-          10,
-          19,
-          24,
-          19,
-          13,
-          10,
+          1,
+          9,
+          17,
+          14,
+          12,
           5,
-          2
+          2,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          1,
+          2,
+          10,
+          7,
+          8,
+          7,
+          4,
+          2
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -101,7 +119,7 @@
           56,
           40,
           55,
-          81,
+          82,
           158,
           108
         ],

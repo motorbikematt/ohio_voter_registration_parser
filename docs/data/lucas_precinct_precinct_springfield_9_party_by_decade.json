@@ -4,7 +4,7 @@
   "precinct": "PRECINCT SPRINGFIELD 9",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           2,
-          13,
-          28,
-          25,
-          16,
-          22,
+          9,
+          12,
           8,
-          9
+          3,
+          8,
+          2,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          4,
+          16,
+          17,
+          12,
+          12,
+          6,
+          9
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -94,8 +111,8 @@
           4,
           18,
           24,
-          38,
-          66,
+          39,
+          68,
           85,
           91
         ],

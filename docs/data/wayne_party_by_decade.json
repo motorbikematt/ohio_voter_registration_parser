@@ -3,8 +3,8 @@
   "county": "Wayne",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          14,
-          165,
-          617,
-          1104,
-          1305,
-          1219,
-          1036,
-          389,
-          172
+          9,
+          111,
+          415,
+          594,
+          663,
+          555,
+          362,
+          78,
+          9
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          5,
+          54,
+          202,
+          510,
+          641,
+          664,
+          673,
+          311,
+          163
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -93,9 +110,9 @@
           134,
           603,
           1586,
-          2541,
+          2542,
           3144,
-          4549,
+          4550,
           6505,
           6145
         ],

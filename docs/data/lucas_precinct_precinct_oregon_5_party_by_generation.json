@@ -4,7 +4,7 @@
   "precinct": "PRECINCT OREGON 5",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -57,23 +57,36 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          19,
-          42,
-          31,
-          28,
-          4
+          6,
+          24,
+          7,
+          17,
+          1
         ],
         "backgroundColor": "#a78bfa",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
       {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          10,
+          16,
+          21,
+          10,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
         "label": "UNC – No Primary",
         "data": [
-          6,
-          47,
-          83,
-          131,
+          9,
+          49,
+          86,
+          132,
           134
         ],
         "backgroundColor": "#9ca3af",

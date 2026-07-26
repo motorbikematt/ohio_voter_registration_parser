@@ -4,7 +4,7 @@
   "precinct": "LAKEWOOD-02-B",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -75,14 +75,31 @@
           0,
           2,
           0,
+          7,
           9,
-          12,
-          2,
-          19,
-          17,
-          3
+          0,
+          6,
+          5,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          0,
+          2,
+          3,
+          2,
+          12,
+          12,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -95,7 +112,7 @@
           16,
           25,
           35,
-          89,
+          90,
           248,
           91
         ],

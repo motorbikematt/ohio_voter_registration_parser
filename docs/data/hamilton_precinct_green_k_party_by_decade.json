@@ -4,7 +4,7 @@
   "precinct": "GREEN K",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          4,
-          10,
-          25,
-          28,
-          17,
+          2,
+          9,
           14,
-          14,
-          10,
-          2
+          18,
+          3,
+          6,
+          2,
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          2,
+          1,
+          11,
+          10,
+          14,
+          8,
+          12,
+          9,
+          2
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

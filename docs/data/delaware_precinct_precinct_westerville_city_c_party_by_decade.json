@@ -4,7 +4,7 @@
   "precinct": "PRECINCT WESTERVILLE CITY C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           1,
-          9,
-          13,
-          12,
-          17,
-          19,
           8,
-          5,
-          1
+          11,
+          8,
+          13,
+          11,
+          3,
+          2,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          2,
+          4,
+          4,
+          8,
+          5,
+          3,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

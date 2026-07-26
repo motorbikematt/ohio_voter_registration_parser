@@ -4,7 +4,7 @@
   "precinct": "HILL 2-D",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           5,
-          13,
-          23,
-          24,
-          25,
-          22,
-          16,
-          5
+          12,
+          15,
+          18,
+          7,
+          10,
+          8,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          1,
+          8,
+          6,
+          18,
+          12,
+          8,
+          5
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

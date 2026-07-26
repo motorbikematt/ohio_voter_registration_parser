@@ -4,7 +4,7 @@
   "precinct": "PRECINCT PAINESVILLE TWP L",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           0,
           5,
-          18,
-          26,
-          33,
-          63,
-          14,
+          16,
+          19,
+          20,
+          34,
           8,
-          4
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          2,
+          7,
+          13,
+          29,
+          6,
+          7,
+          4
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

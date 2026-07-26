@@ -4,7 +4,7 @@
   "precinct": "PRECINCT GENOA L",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -75,14 +75,31 @@
           0,
           0,
           4,
-          10,
-          30,
-          48,
-          22,
           7,
-          7
+          19,
+          35,
+          8,
+          3,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          0,
+          3,
+          11,
+          13,
+          14,
+          4,
+          7
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

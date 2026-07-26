@@ -3,8 +3,8 @@
   "county": "Miami",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -72,17 +72,34 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          16,
-          201,
-          653,
-          864,
-          1079,
-          1041,
-          858,
-          421,
-          224
+          15,
+          171,
+          508,
+          645,
+          742,
+          598,
+          418,
+          77,
+          6
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          1,
+          30,
+          145,
+          219,
+          337,
+          443,
+          440,
+          344,
+          218
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

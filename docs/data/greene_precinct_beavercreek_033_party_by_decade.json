@@ -4,7 +4,7 @@
   "precinct": "BEAVERCREEK 033",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           1,
           2,
-          14,
-          15,
-          25,
-          13,
-          21,
+          12,
+          9,
+          10,
+          6,
           8,
-          5
+          2,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          2,
+          6,
+          15,
+          7,
+          13,
+          6,
+          5
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

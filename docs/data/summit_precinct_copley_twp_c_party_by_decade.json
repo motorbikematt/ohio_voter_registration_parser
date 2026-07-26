@@ -4,7 +4,7 @@
   "precinct": "COPLEY TWP C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -78,16 +78,34 @@
         "data": [
           0,
           1,
-          29,
-          28,
-          16,
+          26,
+          26,
           10,
+          8,
+          0,
           2,
-          4,
-          3,
-          3
+          1,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          3,
+          2,
+          6,
+          2,
+          2,
+          2,
+          2,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

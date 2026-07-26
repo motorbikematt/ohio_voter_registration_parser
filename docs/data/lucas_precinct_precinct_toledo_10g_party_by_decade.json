@@ -4,7 +4,7 @@
   "precinct": "PRECINCT TOLEDO 10G",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -73,16 +73,33 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          7,
-          10,
-          22,
-          13,
-          14,
-          14,
-          3,
+          6,
+          8,
+          8,
+          9,
+          6,
+          8,
+          1,
           0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          0,
+          13,
+          2,
+          5,
+          5,
+          1,
+          0
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -91,12 +108,12 @@
         "data": [
           1,
           5,
-          8,
-          17,
-          40,
-          45,
-          83,
-          115,
+          10,
+          18,
+          42,
+          48,
+          84,
+          116,
           90
         ],
         "backgroundColor": "#9ca3af",

@@ -4,7 +4,7 @@
   "precinct": "PRECINCT COLUMBIA TWP #2",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -68,16 +68,32 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
+          2,
           5,
+          17,
+          20,
           5,
-          29,
-          29,
-          15,
-          29,
-          14,
-          2
+          12,
+          6,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          3,
+          0,
+          12,
+          9,
+          10,
+          17,
+          8,
+          2
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

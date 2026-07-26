@@ -4,7 +4,7 @@
   "precinct": "GARFIELD HEIGHTS-07-C",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "note": "Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
@@ -58,12 +58,25 @@
         "label": "Mixed – Lapsed",
         "data": [
           11,
-          18,
-          21,
           10,
-          4
+          9,
+          3,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          6,
+          9,
+          6,
+          3
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -71,10 +84,10 @@
         "label": "UNC – No Primary",
         "data": [
           4,
-          27,
-          88,
-          159,
-          119
+          29,
+          91,
+          160,
+          120
         ],
         "backgroundColor": "#9ca3af",
         "borderRadius": 2,

@@ -3,8 +3,8 @@
   "county": "Warren",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file — Pew Research Center generational boundaries",
   "chartConfig": {
     "labels": [
       "Silent/Greatest",
@@ -56,13 +56,26 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          905,
-          4270,
-          5878,
-          3058,
-          904
+          670,
+          2728,
+          2631,
+          911,
+          53
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 2,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          235,
+          1542,
+          3247,
+          2146,
+          851
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 2,
         "stack": "unc_mid"
       },
@@ -72,7 +85,7 @@
           1023,
           6891,
           13543,
-          22036,
+          22037,
           23003
         ],
         "backgroundColor": "#9ca3af",

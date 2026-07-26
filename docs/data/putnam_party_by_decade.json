@@ -3,8 +3,8 @@
   "county": "Putnam",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -77,17 +77,35 @@
         "label": "Mixed – Lapsed",
         "data": [
           0,
-          5,
-          46,
-          136,
-          276,
-          314,
-          278,
-          195,
-          60,
-          19
+          4,
+          41,
+          108,
+          219,
+          234,
+          210,
+          135,
+          43,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          1,
+          5,
+          28,
+          57,
+          80,
+          68,
+          60,
+          17,
+          19
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

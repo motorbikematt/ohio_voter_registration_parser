@@ -3,8 +3,8 @@
   "county": "Gallia",
   "geography": "county",
   "type": "bar",
-  "updated": "2026-07-15",
-  "note": "Analysis run 2026-07-15 — Ohio Secretary of State SWVF voter file",
+  "updated": "2026-07-25",
+  "note": "Analysis run 2026-07-25 — Ohio Secretary of State SWVF voter file",
   "chartConfig": {
     "labels": [
       "1910s",
@@ -78,16 +78,34 @@
         "data": [
           0,
           3,
-          39,
-          135,
-          175,
-          185,
-          152,
-          98,
-          31,
-          12
+          38,
+          126,
+          169,
+          170,
+          136,
+          83,
+          20,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          1,
+          9,
+          6,
+          15,
+          16,
+          15,
+          11,
+          12
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

@@ -115,29 +115,32 @@ def setup_logger(name='groupings', log_dir=LOGS_DIR):
 # ─────────────────────────────────────────────────────────────────────────────
 
 COHORT_SLICES = [
-    ('PURE_R',         'Pure R',           '#ef4444'),
-    ('UNC_LAPSED_R',   'UNC – Lapsed R',  '#fca5a5'),
-    ('MIXED_ACTIVE',   'Mixed – Active',   '#f59e0b'),
-    ('MIXED_LAPSED',   'Mixed – Lapsed',   '#a78bfa'),
-    ('UNC_NO_PRIMARY', 'UNC – No Primary', '#9ca3af'),
-    ('UNC_LAPSED_D',   'UNC – Lapsed D',  '#93c5fd'),
-    ('PURE_D',         'Pure D',           '#3b82f6'),
+    ('PURE_R',          'Pure R',                   '#ef4444'),
+    ('UNC_LAPSED_R',    'UNC – Lapsed R',           '#fca5a5'),
+    ('MIXED_ACTIVE',    'Mixed – Active',           '#f59e0b'),
+    ('MIXED_LAPSED',    'Mixed – Lapsed',           '#a78bfa'),
+    ('UNC_NONPARTISAN', 'UNC – Non-partisan Ballot', '#c4b5cd'),
+    ('UNC_NO_PRIMARY',  'UNC – No Primary',         '#9ca3af'),
+    ('UNC_LAPSED_D',    'UNC – Lapsed D',           '#93c5fd'),
+    ('PURE_D',          'Pure D',                   '#3b82f6'),
 ]
 
 COHORT_STACK_MAP = {
-    'PURE_R':         'r_pure',
-    'UNC_LAPSED_R':   'unc_r',
-    'MIXED_ACTIVE':   'unc_mid',
-    'MIXED_LAPSED':   'unc_mid',
-    'UNC_NO_PRIMARY': 'unc_mid',
-    'UNC_LAPSED_D':   'unc_d',
-    'PURE_D':         'd_pure',
+    'PURE_R':          'r_pure',
+    'UNC_LAPSED_R':    'unc_r',
+    'MIXED_ACTIVE':    'unc_mid',
+    'MIXED_LAPSED':    'unc_mid',
+    'UNC_NONPARTISAN': 'unc_mid',
+    'UNC_NO_PRIMARY':  'unc_mid',
+    'UNC_LAPSED_D':    'unc_d',
+    'PURE_D':          'd_pure',
 }
 
 UNC_SHADOW_COLORS = {
     'UNC_LAPSED_R': '#fca5a5',
     'MIXED_ACTIVE': '#f59e0b',
     'MIXED_LAPSED': '#a78bfa',
+    'UNC_NONPARTISAN': '#c4b5cd',
     'UNC_NO_PRIMARY': '#9ca3af',
     'UNC_LAPSED_D': '#93c5fd',
 }
@@ -588,7 +591,8 @@ def aggregate_jurisdiction(
 
     # ── UNC Shadow (stacked bar) ──────────────────────────────────────────────
     if 'cohort_family' in subset.columns:
-        unc_families = ['UNC_LAPSED_R', 'MIXED_ACTIVE', 'MIXED_LAPSED', 'UNC_NO_PRIMARY', 'UNC_LAPSED_D']
+        unc_families = ['UNC_LAPSED_R', 'MIXED_ACTIVE', 'MIXED_LAPSED',
+                        'UNC_NONPARTISAN', 'UNC_NO_PRIMARY', 'UNC_LAPSED_D']
         unc_labels = [lbl for fam, lbl, _ in COHORT_SLICES if fam in unc_families]
         unc_colors = [color for fam, _, color in COHORT_SLICES if fam in unc_families]
 

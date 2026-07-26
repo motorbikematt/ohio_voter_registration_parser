@@ -4,7 +4,7 @@
   "precinct": "PRECINCT OREGON 4",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1920s",
@@ -74,15 +74,32 @@
         "data": [
           1,
           2,
-          16,
           11,
-          15,
-          20,
-          8,
-          1,
-          2
+          7,
+          11,
+          10,
+          3,
+          0,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          0,
+          5,
+          4,
+          4,
+          8,
+          5,
+          0,
+          2
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -94,9 +111,9 @@
           9,
           21,
           25,
-          30,
+          32,
           29,
-          54,
+          55,
           62
         ],
         "backgroundColor": "#9ca3af",

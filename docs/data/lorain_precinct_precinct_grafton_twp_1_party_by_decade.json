@@ -4,7 +4,7 @@
   "precinct": "PRECINCT GRAFTON TWP #1",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -69,15 +69,31 @@
         "label": "Mixed – Lapsed",
         "data": [
           5,
-          11,
-          24,
-          31,
-          35,
+          4,
+          17,
           19,
-          13,
-          10
+          21,
+          7,
+          4,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          0,
+          7,
+          7,
+          12,
+          14,
+          12,
+          9,
+          10
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },

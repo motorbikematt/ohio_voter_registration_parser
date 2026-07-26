@@ -4,7 +4,7 @@
   "precinct": "PRECINCT SYLVANIA CITY 10",
   "geography": "precinct-detail",
   "type": "bar",
-  "updated": "2026-07-15",
+  "updated": "2026-07-25",
   "chartConfig": {
     "labels": [
       "1930s",
@@ -68,16 +68,32 @@
       {
         "label": "Mixed – Lapsed",
         "data": [
-          3,
-          7,
-          13,
-          13,
-          15,
-          11,
+          0,
           4,
-          1
+          9,
+          6,
+          4,
+          1,
+          0,
+          0
         ],
         "backgroundColor": "#a78bfa",
+        "borderRadius": 3,
+        "stack": "unc_mid"
+      },
+      {
+        "label": "UNC – Non-partisan Ballot",
+        "data": [
+          3,
+          3,
+          4,
+          7,
+          11,
+          9,
+          2,
+          1
+        ],
+        "backgroundColor": "#c4b5cd",
         "borderRadius": 3,
         "stack": "unc_mid"
       },
@@ -89,8 +105,8 @@
           28,
           31,
           46,
-          89,
-          120,
+          90,
+          122,
           85
         ],
         "backgroundColor": "#9ca3af",
