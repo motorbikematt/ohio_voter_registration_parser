@@ -428,6 +428,7 @@ a.wordmark:hover .dot { background: var(--ink); }
   gap: 12px;
   box-shadow: var(--shadow-1);
   min-height: 0;
+  min-width: 0;
 }
 .chart-card--wide { grid-column: span 2; }
 [data-layout="single"] .chart-card--wide { grid-column: span 1; }
