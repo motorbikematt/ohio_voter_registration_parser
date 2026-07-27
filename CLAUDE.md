@@ -1,7 +1,15 @@
 # CLAUDE.md — Ohio Voter Registration Parser
 
 ## 1. Project Overview
-Ohio Statewide Voter File (SWVF) parser and precinct-captain dashboard. Ingests raw county data to generate deterministic, cohort-segmented voter rosters and jurisdictional narratives. Project state, phase status, and dashboard history live in the agent memory systems (auto-loaded via `MEMORY.md`), not here and not in the repo. Those stores are external and environment-specific: Claude Code CLI reads `~/.claude/projects/D--vibe-election-data/memory/`; Cowork reads its own space memory. This file holds only universally applicable rules and irreducible domain semantics.
+Ohio Statewide Voter File (SWVF) parser and precinct-captain dashboard. Ingests raw county data to generate deterministic, cohort-segmented voter rosters and jurisdictional narratives. **Task status lives in Linear** (§1a); **domain decisions and rationale** live in the agent memory systems (auto-loaded via `MEMORY.md`), not here and not in the repo. Those memory stores are external and environment-specific: Claude Code CLI reads `~/.claude/projects/D--vibe-election-data/memory/`; Cowork reads its own space memory. This file holds only universally applicable rules and irreducible domain semantics.
+
+## 1a. Task tracking (Linear)
+Task/work state is tracked in **Linear**, workspace team **Doorstep Democracy** (issue key `DOO`), via the `linear-server` MCP. Two-layer convention (adopted 2026-07-27):
+* **Linear = status.** Each unit of work is an issue (`DOO-N`) in a subsystem **project** (e.g. `Trajectory / Axis A — subscriber tier`, `Captain / Quorum App`, `Weekly Change Engine`, `Precincts`). Status/priority/blocking-relations live in Linear fields, never duplicated in prose.
+* **Handoff files = spec.** Each issue links a self-contained `local/context/handoffs/HANDOFF_*.md` — the thing a fresh session actually executes. A long spec never goes in an issue description.
+* **Runbook files = index.** `RUNBOOK_*.md` point at the Linear project and hold rationale/consistency-checks/scope, not live status.
+
+**Fresh-session entry point:** the user names a `DOO-N`; `get_issue` it, follow its `Handoff:` path, execute the handoff, and move the issue In Progress → In Review. If the handoff is marked "TO BE WRITTEN," write it (modeled on an existing handoff) and stop for review before executing — writing and executing a handoff are separate sessions. Detail: memory `project-linear-migration`.
 
 ## 2. Tech Stack
 * Core data engine: Polars, DuckDB, `orjson`.
