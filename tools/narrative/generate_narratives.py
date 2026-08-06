@@ -669,6 +669,11 @@ def run_for_levels(
 # ---- CLI ---------------------------------------------------------------------
 
 def main() -> None:
+    # --dry-run prints narrative prose straight to stdout, which can contain
+    # non-ASCII characters (e.g. U+2212 minus sign in percentage deltas).
+    # The Windows console's cp1252 default can't encode those and raises
+    # UnicodeEncodeError, so force UTF-8 stdout regardless of host console.
+    sys.stdout.reconfigure(encoding='utf-8')
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
 
     parser = argparse.ArgumentParser(
