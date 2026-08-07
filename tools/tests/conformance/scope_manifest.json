@@ -1,0 +1,386 @@
+{
+  "$schema_note": "Machine-readable scope for the path-consolidation work. Generated 2026-08-01 from tools/tests/conformance detectors; see README section Manifest.",
+  "generated": "2026-08-01",
+  "generator": "collect_path_constants + collect_partition_strings",
+  "files": [
+    {
+      "path": "pipeline/jurisdictional_groupings.py",
+      "families": [
+        "docs_data",
+        "parquet",
+        "parquet_enriched"
+      ],
+      "sites": 10,
+      "partition_sites": 1,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "pipeline/ohio_voter_pipeline.py",
+      "families": [
+        "txt_source",
+        "docs_data",
+        "parquet"
+      ],
+      "sites": 4,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "pipeline/snapshot_store.py",
+      "families": [
+        "txt_source",
+        "parquet",
+        "parquet_enriched"
+      ],
+      "sites": 4,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "pipeline/voter_data_cleaner.py",
+      "families": [
+        "docs_data",
+        "parquet",
+        "parquet_enriched"
+      ],
+      "sites": 7,
+      "partition_sites": 4,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "serve/roster_api.py",
+      "families": [
+        "parquet_enriched"
+      ],
+      "sites": 1,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/build_montgomery_demo.py",
+      "families": [
+        "parquet_enriched",
+        "parquet",
+        "docs_data"
+      ],
+      "sites": 3,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/build_precinct_map.py",
+      "families": [
+        "docs_data"
+      ],
+      "sites": 7,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/build_state_map.py",
+      "families": [
+        "docs_data",
+        "parquet_enriched",
+        "parquet"
+      ],
+      "sites": 9,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/captain_match_report.py",
+      "families": [
+        "parquet_enriched"
+      ],
+      "sites": 1,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/emit_county_fingerprint.py",
+      "families": [
+        "parquet",
+        "txt_source"
+      ],
+      "sites": 3,
+      "partition_sites": 1,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/encoding_census.py",
+      "families": [
+        "parquet_enriched"
+      ],
+      "sites": 1,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/fingerprint_audit.py",
+      "families": [
+        "parquet"
+      ],
+      "sites": 4,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/ingest_elected_officials.py",
+      "families": [
+        "docs_data"
+      ],
+      "sites": 1,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/officials_common.py",
+      "families": [
+        "parquet_enriched"
+      ],
+      "sites": 1,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/patch_choropleth.py",
+      "families": [
+        "docs_data"
+      ],
+      "sites": 1,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/patch_html.py",
+      "families": [
+        "docs_data"
+      ],
+      "sites": 2,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/precinct_key_manager.py",
+      "families": [
+        "parquet"
+      ],
+      "sites": 2,
+      "partition_sites": 2,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/regen_city_summary.py",
+      "families": [
+        "docs_data",
+        "parquet"
+      ],
+      "sites": 4,
+      "partition_sites": 1,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/regen_precinct_index_places.py",
+      "families": [
+        "docs_data",
+        "parquet"
+      ],
+      "sites": 4,
+      "partition_sites": 1,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/admin/validate_jurisdiction_fields.py",
+      "families": [
+        "parquet_enriched",
+        "docs_data"
+      ],
+      "sites": 5,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/export/precinct_party_export.py",
+      "families": [
+        "parquet"
+      ],
+      "sites": 2,
+      "partition_sites": 1,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/export/precinct_unc_export.py",
+      "families": [
+        "txt_source",
+        "parquet"
+      ],
+      "sites": 2,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/lookup/match_officials_to_voters.py",
+      "families": [
+        "parquet_enriched"
+      ],
+      "sites": 1,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/lookup/voter_lookup_parquet.py",
+      "families": [
+        "parquet"
+      ],
+      "sites": 1,
+      "partition_sites": 1,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/lookup/voter_lookup_source.py",
+      "families": [
+        "txt_source"
+      ],
+      "sites": 1,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/narrative/generate_narratives.py",
+      "families": [
+        "docs_data"
+      ],
+      "sites": 3,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/narrative/llm_enricher.py",
+      "families": [
+        "docs_data"
+      ],
+      "sites": 5,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/scoring/persuadability_score.py",
+      "families": [
+        "parquet_enriched",
+        "docs_data"
+      ],
+      "sites": 2,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/tests/test_data_slug_naming.py",
+      "families": [
+        "docs_data"
+      ],
+      "sites": 1,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/tests/test_jurisdiction_collisions.py",
+      "families": [
+        "parquet"
+      ],
+      "sites": 2,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/tests/test_pass_b_index.py",
+      "families": [
+        "docs_data"
+      ],
+      "sites": 3,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/tests/test_pass_b_manifest_frontend.py",
+      "families": [
+        "docs_data"
+      ],
+      "sites": 3,
+      "partition_sites": 0,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "path": "tools/tests/test_pass_b_cache.py",
+      "families": [],
+      "sites": 0,
+      "partition_sites": 1,
+      "bucket": "",
+      "status": "pending",
+      "notes": ""
+    }
+  ]
+}
